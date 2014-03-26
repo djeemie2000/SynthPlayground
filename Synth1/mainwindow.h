@@ -63,6 +63,12 @@ private slots:
 
     void on_pushButton_ScopeGrab_clicked();
 
+    void on_doubleSpinBox_Frequency_valueChanged(double arg1);
+
+    void on_comboBox_WaveForm_activated(const QString &arg1);
+
+    void on_doubleSpinBox_Feedback_valueChanged(double arg1);
+
 private:
     void CreateAudioOutput();
 

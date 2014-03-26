@@ -8,7 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets multimedia
 
-TARGET = GranularSampler
+TARGET = Synth1
 TEMPLATE = app
 
 CONFIG   += c++11 (Qt5)
@@ -28,6 +28,15 @@ HEADERS  += mainwindow.h \
     PhaseStep.h \
     View.h \
     QView.h \
-    SampleGrabber.h
+    SampleGrabber.h \
+    PseudoSin.h \
+    FullPseudoSin.h \
+    NoOp.h \
+    RampUp.h \
+    RampDown.h \
+    Square.h \
+    InvSquare.h \
+    PhaseGenerator.h \
+    FeedbackOperator.h
 
 FORMS    += mainwindow.ui

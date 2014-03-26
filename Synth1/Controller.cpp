@@ -2,6 +2,12 @@
 #include "Controller.h"
 #include "ReadWavFile.h"
 #include "View.h"
+#include "RampDown.h"
+#include "RampUp.h"
+#include "InvSquare.h"
+#include "PseudoSin.h"
+#include "FullPseudoSin.h"
+#include "Square.h"
 
 CController::CController(IView &View, int SamplingFrequency)
     : m_View(View)
@@ -10,8 +16,11 @@ CController::CController(IView &View, int SamplingFrequency)
     , m_SamplePlayer()
     , m_GrabSample(false)
     , m_SampleGrabber()
+    , m_PhaseStep(SamplingFrequency)
+    , m_PhaseGen()
 {
     m_SampleStep.Set(1.0f);
+    m_PhaseStep.SetFrequency(440.0);
 }
 
 CController::~CController()
@@ -75,6 +84,21 @@ void CController::OnInterval(int Begin, int End)
     m_SamplePlayer.SetInterval(Begin, End);
 }
 
+void CController::OnFrequency(float Frequency)
+{
+    m_PhaseStep.SetFrequency(Frequency);
+}
+
+void CController::OnWaveForm(const std::string &WaveForm)
+{
+    m_WaveForm = WaveForm;
+}
+
+void CController::OnFeedback(float Feedback)
+{
+    m_FeedbackOperator.SetFeedback(Feedback);
+}
+
 void CController::OnGrab(int GrabSize)
 {
     m_GrabSample = true;
@@ -86,17 +110,97 @@ std::int64_t CController::OnRead(char *Dst, std::int64_t MaxSize)
     int MaxReadSize = 1<<11;
     std::size_t Size = MaxSize<MaxReadSize ? MaxSize : MaxReadSize;
 
-    char* pDst = Dst;
-    char* pDstEnd = Dst + Size;
-    while(pDst<pDstEnd)
+//    char* pDst = Dst;
+//    char* pDstEnd = Dst + Size;
+//    while(pDst<pDstEnd)
+//    {
+//        *pDst = m_SamplePlayer(m_SampleStep());
+//        ++pDst;
+//    }
+
+    if(m_WaveForm=="RampUp")
     {
-        *pDst = m_SamplePlayer(m_SampleStep());
-        ++pDst;
+        CRampUp<float> Op;
+        char* pDst = Dst;
+        char* pDstEnd = Dst + Size;
+        while(pDst<pDstEnd)
+        {
+            *pDst = 255*m_FeedbackOperator(m_PhaseGen(m_PhaseStep()), Op);
+            ++pDst;
+        }
+    }
+    else if(m_WaveForm=="RampDown")
+    {
+        CRampDown<float> Op;
+        char* pDst = Dst;
+        char* pDstEnd = Dst + Size;
+        while(pDst<pDstEnd)
+        {
+            *pDst = 255*m_FeedbackOperator(m_PhaseGen(m_PhaseStep()), Op);
+            ++pDst;
+        }
+    }
+    else if(m_WaveForm=="FullPseudoSin")
+    {
+        CFullPseudoSin<float> Op;
+        char* pDst = Dst;
+        char* pDstEnd = Dst + Size;
+        while(pDst<pDstEnd)
+        {
+            *pDst = 255*m_FeedbackOperator(m_PhaseGen(m_PhaseStep()), Op);
+            ++pDst;
+        }
+    }
+    else if(m_WaveForm=="PseudoSin")
+    {
+        CPseudoSin<float> Op;
+        char* pDst = Dst;
+        char* pDstEnd = Dst + Size;
+        while(pDst<pDstEnd)
+        {
+            *pDst = 255*m_FeedbackOperator(m_PhaseGen(m_PhaseStep()), Op);
+            ++pDst;
+        }
+    }
+    else if(m_WaveForm=="InvSquare")
+    {
+        CInvSquare<float> Op;
+        char* pDst = Dst;
+        char* pDstEnd = Dst + Size;
+        while(pDst<pDstEnd)
+        {
+//            *pDst = 255*Op(m_PhaseGen(m_PhaseStep()));
+            *pDst = 255*m_FeedbackOperator(m_PhaseGen(m_PhaseStep()), Op);
+            ++pDst;
+        }
+    }
+    else if(m_WaveForm=="Square")
+    {
+        CSquare<float> Op;
+        char* pDst = Dst;
+        char* pDstEnd = Dst + Size;
+        while(pDst<pDstEnd)
+        {
+            *pDst = 255*m_FeedbackOperator(m_PhaseGen(m_PhaseStep()), Op);
+            ++pDst;
+        }
+    }
+    else if(m_WaveForm=="NoOp")
+    {
+        char* pDst = Dst;
+        char* pDstEnd = Dst + Size;
+        while(pDst<pDstEnd)
+        {
+            float Tmp = m_PhaseGen(m_PhaseStep());
+            std::uint8_t Tmp2 = 255*Tmp;
+            *pDst = Tmp2;//255*m_PhaseGen(m_PhaseStep());
+            ++pDst;
+        }
     }
 
     if(m_GrabSample)
     {
-        m_SampleGrabber.OnRead((std::uint8_t*)Dst, MaxSize);
+        m_SampleGrabber.OnRead((std::uint8_t*)Dst, Size);
 
         if(m_SampleGrabber.IsSampled())
         {

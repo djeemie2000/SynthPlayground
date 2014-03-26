@@ -24,6 +24,15 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    ui->comboBox_WaveForm->addItem("RampUp");
+    ui->comboBox_WaveForm->addItem("RampDown");
+    ui->comboBox_WaveForm->addItem("FullPseudoSin");
+    ui->comboBox_WaveForm->addItem("PseudoSin");
+    ui->comboBox_WaveForm->addItem("Square");
+    ui->comboBox_WaveForm->addItem("InvSquare");
+    ui->comboBox_WaveForm->addItem("NoOp");
+
+
     QGraphicsScene* Scene = new QGraphicsScene(this);
     ui->graphicsView_WaveForm->setScene(Scene);
 
@@ -41,6 +50,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(View, SIGNAL(SignalSample(QVector<std::uint8_t>)), this, SLOT(OnSample(QVector<std::uint8_t>)));
 
     m_Controller.reset(new CController(*View, SamplingFrequency));
+
+    m_Controller->OnFrequency(ui->doubleSpinBox_Frequency->value());
+    m_Controller->OnWaveForm(ui->comboBox_WaveForm->currentText().toStdString());
 
     m_AudioIODevice = new QAudioIODevice(m_Controller.get(), this);
 
@@ -227,11 +239,13 @@ void MainWindow::OnSample(QVector<std::uint8_t> Sample)
 
             // show sample as path
             QPainterPath Path;
-            Path.moveTo(Offset, Sample[0]);
+            Path.moveTo(Offset, 255-Sample[0]);
             int DeltaX = 1;
             for(int x = 0; x<Sample.size(); x+=DeltaX)
             {
-                Path.lineTo(QPointF(Offset+x, Sample.at(x)));
+                // value increases ~ y decreases!
+                QPointF Pt(Offset+x, 255-Sample.at(x));
+                Path.lineTo(Pt);
             }
             Scene->addPath(Path, QPen(Qt::green));
 
@@ -257,4 +271,19 @@ void MainWindow::on_pushButton_ScopeGrab_clicked()
 {
     int GrabSize = ui->spinBox_ScopeGrabSize->value();
     m_Controller->OnGrab(GrabSize);
+}
+
+void MainWindow::on_doubleSpinBox_Frequency_valueChanged(double arg1)
+{
+    m_Controller->OnFrequency(arg1);
+}
+
+void MainWindow::on_comboBox_WaveForm_activated(const QString &arg1)
+{
+    m_Controller->OnWaveForm(arg1.toStdString());
+}
+
+void MainWindow::on_doubleSpinBox_Feedback_valueChanged(double arg1)
+{
+    m_Controller->OnFeedback(arg1);
 }

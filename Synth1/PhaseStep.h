@@ -11,7 +11,7 @@ public:
 
     void SetFrequency(const T& Frequency)
     {
-        m_PhaseStep = m_SamplingFrequency/Frequency;
+        m_PhaseStep = Frequency/m_SamplingFrequency;
     }
 
     T operator()()
