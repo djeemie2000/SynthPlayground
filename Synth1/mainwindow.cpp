@@ -287,3 +287,17 @@ void MainWindow::on_doubleSpinBox_Feedback_valueChanged(double arg1)
 {
     m_Controller->OnFeedback(arg1);
 }
+
+void MainWindow::on_doubleSpinBox_HardKneePhaseShapingX_valueChanged(double )
+{
+    float X = ui->doubleSpinBox_HardKneePhaseShapingX->value();
+    float Y = ui->doubleSpinBox_HardKneePhaseShapingY->value();
+    m_Controller->OnHardKneePhaseShaping(X,Y);
+}
+
+void MainWindow::on_doubleSpinBox_HardKneePhaseShapingY_valueChanged(double )
+{
+    float X = ui->doubleSpinBox_HardKneePhaseShapingX->value();
+    float Y = ui->doubleSpinBox_HardKneePhaseShapingY->value();
+    m_Controller->OnHardKneePhaseShaping(X,Y);
+}

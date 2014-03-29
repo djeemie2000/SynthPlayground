@@ -18,6 +18,9 @@ CController::CController(IView &View, int SamplingFrequency)
     , m_SampleGrabber()
     , m_PhaseStep(SamplingFrequency)
     , m_PhaseGen()
+    , m_WaveForm("NoOp")
+    , m_FeedbackOperator()
+    , m_HardKneeShaper()
 {
     m_SampleStep.Set(1.0f);
     m_PhaseStep.SetFrequency(440.0);
@@ -28,7 +31,7 @@ CController::~CController()
 
 }
 
-void CController::OnOpen(const std::string &Path)
+void CController::OnOpen(const std::string &)
 {
     // for now, create some dummy sample
     // and pass it to the view
@@ -74,7 +77,7 @@ void CController::OnSpeed(float Speed)
     m_SampleStep.Set(Speed);
 }
 
-void CController::OnLoopingMode(CController::ELoopingMode Mode)
+void CController::OnLoopingMode(CController::ELoopingMode )
 {
 
 }
@@ -97,6 +100,11 @@ void CController::OnWaveForm(const std::string &WaveForm)
 void CController::OnFeedback(float Feedback)
 {
     m_FeedbackOperator.SetFeedback(Feedback);
+}
+
+void CController::OnHardKneePhaseShaping(float X, float Y)
+{
+    m_HardKneeShaper.SetKnee(X,Y);
 }
 
 void CController::OnGrab(int GrabSize)
@@ -125,7 +133,7 @@ std::int64_t CController::OnRead(char *Dst, std::int64_t MaxSize)
         char* pDstEnd = Dst + Size;
         while(pDst<pDstEnd)
         {
-            *pDst = 255*m_FeedbackOperator(m_PhaseGen(m_PhaseStep()), Op);
+            *pDst = 255*m_FeedbackOperator(m_HardKneeShaper(m_PhaseGen(m_PhaseStep())), Op);
             ++pDst;
         }
     }
@@ -136,7 +144,7 @@ std::int64_t CController::OnRead(char *Dst, std::int64_t MaxSize)
         char* pDstEnd = Dst + Size;
         while(pDst<pDstEnd)
         {
-            *pDst = 255*m_FeedbackOperator(m_PhaseGen(m_PhaseStep()), Op);
+            *pDst = 255*m_FeedbackOperator(m_HardKneeShaper(m_PhaseGen(m_PhaseStep())), Op);
             ++pDst;
         }
     }
@@ -147,7 +155,7 @@ std::int64_t CController::OnRead(char *Dst, std::int64_t MaxSize)
         char* pDstEnd = Dst + Size;
         while(pDst<pDstEnd)
         {
-            *pDst = 255*m_FeedbackOperator(m_PhaseGen(m_PhaseStep()), Op);
+            *pDst = 255*m_FeedbackOperator(m_HardKneeShaper(m_PhaseGen(m_PhaseStep())), Op);
             ++pDst;
         }
     }
@@ -158,7 +166,7 @@ std::int64_t CController::OnRead(char *Dst, std::int64_t MaxSize)
         char* pDstEnd = Dst + Size;
         while(pDst<pDstEnd)
         {
-            *pDst = 255*m_FeedbackOperator(m_PhaseGen(m_PhaseStep()), Op);
+            *pDst = 255*m_FeedbackOperator(m_HardKneeShaper(m_PhaseGen(m_PhaseStep())), Op);
             ++pDst;
         }
     }
@@ -170,7 +178,7 @@ std::int64_t CController::OnRead(char *Dst, std::int64_t MaxSize)
         while(pDst<pDstEnd)
         {
 //            *pDst = 255*Op(m_PhaseGen(m_PhaseStep()));
-            *pDst = 255*m_FeedbackOperator(m_PhaseGen(m_PhaseStep()), Op);
+            *pDst = 255*m_FeedbackOperator(m_HardKneeShaper(m_PhaseGen(m_PhaseStep())), Op);
             ++pDst;
         }
     }
@@ -181,7 +189,7 @@ std::int64_t CController::OnRead(char *Dst, std::int64_t MaxSize)
         char* pDstEnd = Dst + Size;
         while(pDst<pDstEnd)
         {
-            *pDst = 255*m_FeedbackOperator(m_PhaseGen(m_PhaseStep()), Op);
+            *pDst = 255*m_FeedbackOperator(m_HardKneeShaper(m_PhaseGen(m_PhaseStep())), Op);
             ++pDst;
         }
     }

@@ -69,6 +69,10 @@ private slots:
 
     void on_doubleSpinBox_Feedback_valueChanged(double arg1);
 
+    void on_doubleSpinBox_HardKneePhaseShapingX_valueChanged(double);
+
+    void on_doubleSpinBox_HardKneePhaseShapingY_valueChanged(double );
+
 private:
     void CreateAudioOutput();
 

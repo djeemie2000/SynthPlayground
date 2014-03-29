@@ -10,6 +10,7 @@
 #include "PhaseStep.h"
 #include "PhaseGenerator.h"
 #include "FeedbackOperator.h"
+#include "HardKneeShaper.h"
 
 class IView;
 
@@ -30,14 +31,15 @@ public:
     void OnGrab(int GrabSize);
     std::int64_t OnRead(char *Dst, std::int64_t MaxSize);//this should be some different interface?
 
-    void OnOpen(const std::string& Path);
+    void OnOpen(const std::string&);
     void OnSpeed(float Speed);
-    void OnLoopingMode(ELoopingMode Mode);
+    void OnLoopingMode(ELoopingMode);
     void OnInterval(int Begin, int End);
 
     void OnFrequency(float Frequency);
     void OnWaveForm(const std::string& WaveForm);
     void OnFeedback(float Feedback);
+    void OnHardKneePhaseShaping(float X, float Y);
 
 private:
     IView& m_View;
@@ -53,6 +55,7 @@ private:
     CPhaseGenerator<float> m_PhaseGen;
     std::string m_WaveForm;
     CFeedbackOperator<float> m_FeedbackOperator;
+    CHardKneeShaper<float> m_HardKneeShaper;
 };
 
 #endif // GRANULARSAMPLERCONTROLLER_H

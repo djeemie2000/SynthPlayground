@@ -37,6 +37,9 @@ HEADERS  += mainwindow.h \
     Square.h \
     InvSquare.h \
     PhaseGenerator.h \
-    FeedbackOperator.h
+    FeedbackOperator.h \
+    FlipOperator.h \
+    MirrorOperator.h \
+    HardKneeShaper.h
 
 FORMS    += mainwindow.ui
