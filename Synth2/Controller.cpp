@@ -17,9 +17,11 @@ CController::CController(IView &View, int SamplingFrequency)
     , m_SamplePlayer()
     , m_GrabSample(false)
     , m_SampleGrabber()
+    , m_Frequency(440.0f)
     , m_PhaseStep(SamplingFrequency)
     , m_PhaseGen()
     , m_WaveForm("NoOp")
+    , m_ModifierFrequencyMultiplier(1.0f)
     , m_ModifierPhaseStep(SamplingFrequency)
     , m_ModifierPhaseGen()
     , m_Modifier("NoOp")
@@ -27,7 +29,7 @@ CController::CController(IView &View, int SamplingFrequency)
 {
     m_SampleStep.Set(1.0f);
     m_PhaseStep.SetFrequency(440.0);
-    m_ModifierPhaseStep.SetFrequency(440.0);
+    m_ModifierPhaseStep.SetFrequency(440.0*m_ModifierFrequencyMultiplier);
 }
 
 CController::~CController()
@@ -93,7 +95,8 @@ void CController::OnInterval(int Begin, int End)
 
 void CController::OnFrequency(float Frequency)
 {
-    m_PhaseStep.SetFrequency(Frequency);
+    m_Frequency = Frequency;
+    UpdateFrequency();
 }
 
 void CController::OnWaveForm(const std::string &WaveForm)
@@ -126,6 +129,18 @@ void CController::OnSync(float PhaseShift)
 {
     m_PhaseGen.Set(0);
     m_ModifierPhaseGen.Set(PhaseShift);
+}
+
+void CController::OnModifierFrequencyMultiplier(float Multiplier)
+{
+    m_ModifierFrequencyMultiplier = Multiplier;
+    UpdateFrequency();
+}
+
+void CController::UpdateFrequency()
+{
+    m_PhaseStep.SetFrequency(m_Frequency);
+    m_ModifierPhaseStep.SetFrequency(m_Frequency*m_ModifierFrequencyMultiplier);
 }
 
 void CController::OnGrab(int GrabSize)

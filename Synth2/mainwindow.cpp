@@ -334,7 +334,7 @@ void MainWindow::on_checkBox_ScopeGrabRepeated_clicked(bool checked)
 
 void MainWindow::on_doubleSpinBox_ModifierFrequency_valueChanged(double arg1)
 {
-    m_Controller->OnModifierFrequency(arg1);
+    m_Controller->OnModifierFrequencyMultiplier(arg1);
 }
 
 void MainWindow::on_pushButton_Sync_clicked()

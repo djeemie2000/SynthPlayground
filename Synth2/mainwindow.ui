@@ -129,23 +129,23 @@
           <item>
            <widget class="QLabel" name="label_13">
             <property name="text">
-             <string>Frequency</string>
+             <string>FreqMultiplier</string>
             </property>
            </widget>
           </item>
           <item>
            <widget class="QDoubleSpinBox" name="doubleSpinBox_ModifierFrequency">
             <property name="decimals">
-             <number>2</number>
+             <number>3</number>
             </property>
             <property name="maximum">
              <double>22050.000000000000000</double>
             </property>
             <property name="singleStep">
-             <double>0.010000000000000</double>
+             <double>0.001000000000000</double>
             </property>
             <property name="value">
-             <double>220.000000000000000</double>
+             <double>1.000000000000000</double>
             </property>
            </widget>
           </item>

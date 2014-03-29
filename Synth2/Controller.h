@@ -46,8 +46,11 @@ public:
     void OnModifierFrequency(float Frequency);
     void OnModifier(const std::string& Modifier);
     void OnSync(float PhaseShift);
+    void OnModifierFrequencyMultiplier(float Multiplier);
 
 private:
+    void UpdateFrequency();
+
     IView& m_View;
 
     CConstGenerator<float> m_SampleStep;
@@ -57,10 +60,12 @@ private:
     bool m_GrabSample;
     CSampleGrabber<std::uint8_t> m_SampleGrabber;
 
+    float m_Frequency;
     CPhaseStep<float> m_PhaseStep;
     CPhaseGenerator<float> m_PhaseGen;
     std::string m_WaveForm;
 
+    float m_ModifierFrequencyMultiplier;
     CPhaseStep<float> m_ModifierPhaseStep;
     CPhaseGenerator<float> m_ModifierPhaseGen;
     std::string m_Modifier;
