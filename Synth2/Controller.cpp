@@ -122,10 +122,10 @@ void CController::OnModifierFrequency(float Frequency)
     m_ModifierPhaseStep.SetFrequency(Frequency);
 }
 
-void CController::OnSync()
+void CController::OnSync(float PhaseShift)
 {
     m_PhaseGen.Set(0);
-    m_ModifierPhaseGen.Set(0);
+    m_ModifierPhaseGen.Set(PhaseShift);
 }
 
 void CController::OnGrab(int GrabSize)

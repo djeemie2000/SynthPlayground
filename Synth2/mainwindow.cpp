@@ -339,5 +339,6 @@ void MainWindow::on_doubleSpinBox_ModifierFrequency_valueChanged(double arg1)
 
 void MainWindow::on_pushButton_Sync_clicked()
 {
-    m_Controller->OnSync();
+    float PhaseShift = ui->doubleSpinBox_SyncPhaseShift->value();
+    m_Controller->OnSync(PhaseShift);
 }

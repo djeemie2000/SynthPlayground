@@ -45,7 +45,7 @@ public:
 
     void OnModifierFrequency(float Frequency);
     void OnModifier(const std::string& Modifier);
-    void OnSync();
+    void OnSync(float PhaseShift);
 
 private:
     IView& m_View;
