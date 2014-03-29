@@ -4,6 +4,7 @@
 #include <QAudioOutput>
 #include <QDebug>
 #include <QFileDialog>
+#include <QTimer>
 #include "QAudioIoDevice.h"
 #include "Controller.h"
 #include "QView.h"
@@ -18,8 +19,9 @@ namespace
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
-  //, m_Scene(0)
   , m_AudioOutput(0)
+  , m_AudioIODevice(0)
+  , m_ScopeAutoGrab(false)
   , m_Controller()
 {
     ui->setupUi(this);
@@ -44,6 +46,10 @@ MainWindow::MainWindow(QWidget *parent) :
     {
         ui->comboBox_AudioDevice->addItem(deviceInfo.deviceName(), qVariantFromValue(deviceInfo));
     }
+
+    QTimer *timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(OnTimer()));
+    timer->start(1000);
 
     QView* View = new QView(this);
     connect(View, SIGNAL(SignalSampleRange(int,int)), this, SLOT(OnSampleRange(int,int)));
@@ -143,6 +149,15 @@ void MainWindow::notified()
 void MainWindow::handleStateChanged(QAudio::State state)
 {
     qWarning() << "state = " << state;
+}
+
+void MainWindow::OnTimer()
+{
+    if(m_ScopeAutoGrab)
+    {
+        int GrabSize = ui->spinBox_ScopeGrabSize->value();
+        m_Controller->OnGrab(GrabSize);
+    }
 }
 
 void MainWindow::CreateAudioOutput()
@@ -328,4 +343,9 @@ void MainWindow::on_doubleSpinBox_CenteredWaveshapingCenter_valueChanged(double)
     float Slope = ui->doubleSpinBox_CenteredWaveshapingSlope->value();
     float Center = ui->doubleSpinBox_CenteredWaveshapingCenter->value();
     m_Controller->OnCenteredWaveShaping(Slope, Center);
+}
+
+void MainWindow::on_checkBox_ScopeGrabRepeated_clicked(bool checked)
+{
+    m_ScopeAutoGrab = checked;
 }

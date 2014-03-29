@@ -44,6 +44,7 @@ private slots:
 
     void notified();
     void handleStateChanged(QAudio::State state);
+    void OnTimer();
 
 
     void on_comboBox_AudioDevice_activated(int);
@@ -81,15 +82,17 @@ private slots:
 
     void on_doubleSpinBox_CenteredWaveshapingCenter_valueChanged(double );
 
+    void on_checkBox_ScopeGrabRepeated_clicked(bool checked);
+
 private:
     void CreateAudioOutput();
 
 
     Ui::MainWindow *ui;
 
-    //QGraphicsScene* m_Scene;
     QAudioOutput* m_AudioOutput;
     QAudioIODevice* m_AudioIODevice;
+    bool        m_ScopeAutoGrab;
 
     std::unique_ptr<CController> m_Controller;
 };

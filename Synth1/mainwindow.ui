@@ -697,7 +697,14 @@
           <number>4096</number>
          </property>
          <property name="value">
-          <number>512</number>
+          <number>1024</number>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="checkBox_ScopeGrabRepeated">
+         <property name="text">
+          <string>Repeated</string>
          </property>
         </widget>
        </item>
