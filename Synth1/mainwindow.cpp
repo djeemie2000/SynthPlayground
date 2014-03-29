@@ -301,3 +301,31 @@ void MainWindow::on_doubleSpinBox_HardKneePhaseShapingY_valueChanged(double )
     float Y = ui->doubleSpinBox_HardKneePhaseShapingY->value();
     m_Controller->OnHardKneePhaseShaping(X,Y);
 }
+
+void MainWindow::on_doubleSpinBox_HardKneeWaveShapingX_valueChanged(double )
+{
+    float X = ui->doubleSpinBox_HardKneeWaveShapingX->value();
+    float Y = ui->doubleSpinBox_HardKneeWaveShapingY->value();
+    m_Controller->OnHardKneeWaveShaping(X,Y);
+}
+
+void MainWindow::on_doubleSpinBox_HardKneeWaveShapingY_valueChanged(double)
+{
+    float X = ui->doubleSpinBox_HardKneeWaveShapingX->value();
+    float Y = ui->doubleSpinBox_HardKneeWaveShapingY->value();
+    m_Controller->OnHardKneeWaveShaping(X,Y);
+}
+
+void MainWindow::on_doubleSpinBox_CenteredWaveshapingSlope_valueChanged(double )
+{
+    float Slope = ui->doubleSpinBox_CenteredWaveshapingSlope->value();
+    float Center = ui->doubleSpinBox_CenteredWaveshapingCenter->value();
+    m_Controller->OnCenteredWaveShaping(Slope, Center);
+}
+
+void MainWindow::on_doubleSpinBox_CenteredWaveshapingCenter_valueChanged(double)
+{
+    float Slope = ui->doubleSpinBox_CenteredWaveshapingSlope->value();
+    float Center = ui->doubleSpinBox_CenteredWaveshapingCenter->value();
+    m_Controller->OnCenteredWaveShaping(Slope, Center);
+}

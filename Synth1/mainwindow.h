@@ -73,6 +73,14 @@ private slots:
 
     void on_doubleSpinBox_HardKneePhaseShapingY_valueChanged(double );
 
+    void on_doubleSpinBox_HardKneeWaveShapingX_valueChanged(double);
+
+    void on_doubleSpinBox_HardKneeWaveShapingY_valueChanged(double );
+
+    void on_doubleSpinBox_CenteredWaveshapingSlope_valueChanged(double);
+
+    void on_doubleSpinBox_CenteredWaveshapingCenter_valueChanged(double );
+
 private:
     void CreateAudioOutput();
 

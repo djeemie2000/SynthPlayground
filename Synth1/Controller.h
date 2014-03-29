@@ -11,6 +11,7 @@
 #include "PhaseGenerator.h"
 #include "FeedbackOperator.h"
 #include "HardKneeShaper.h"
+#include "CenteredShaper.h"
 
 class IView;
 
@@ -40,6 +41,8 @@ public:
     void OnWaveForm(const std::string& WaveForm);
     void OnFeedback(float Feedback);
     void OnHardKneePhaseShaping(float X, float Y);
+    void OnHardKneeWaveShaping(float X, float Y);
+    void OnCenteredWaveShaping(float Slope, float Center);
 
 private:
     IView& m_View;
@@ -55,7 +58,9 @@ private:
     CPhaseGenerator<float> m_PhaseGen;
     std::string m_WaveForm;
     CFeedbackOperator<float> m_FeedbackOperator;
-    CHardKneeShaper<float> m_HardKneeShaper;
+    CHardKneeShaper<float> m_HardKneePhaseShaper;
+    CHardKneeShaper<float> m_HardKneeWaveShaper;
+    CCenteredShaper<float> m_CenteredWaveShaper;
 };
 
 #endif // GRANULARSAMPLERCONTROLLER_H

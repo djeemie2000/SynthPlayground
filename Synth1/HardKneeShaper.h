@@ -14,7 +14,7 @@ public:
     void SetKnee(T X, T Y)
     {
         // X and Y should be in ]0,1[
-        if(0<X && X<1 && 0<Y && Y<1)
+        if(0<=X && X<=1 && 0<=Y && Y<=1)
         {
             m_X = X;
             m_Y = Y;

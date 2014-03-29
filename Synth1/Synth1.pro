@@ -40,6 +40,7 @@ HEADERS  += mainwindow.h \
     FeedbackOperator.h \
     FlipOperator.h \
     MirrorOperator.h \
-    HardKneeShaper.h
+    HardKneeShaper.h \
+    CenteredShaper.h
 
 FORMS    += mainwindow.ui
