@@ -146,7 +146,7 @@ std::int64_t CController::OnRead(char *Dst, std::int64_t MaxSize)
         char* pDstEnd = Dst + Size;
         while(pDst<pDstEnd)
         {
-            *pDst = 255*m_CenteredWaveShaper(m_HardKneeWaveShaper(m_FeedbackOperator(m_HardKneePhaseShaper(m_PhaseGen(m_PhaseStep())), Op)));
+            *pDst = 255*m_HardKneeWaveShaper(m_FeedbackOperator(m_HardKneePhaseShaper(m_CenteredWaveShaper(m_PhaseGen(m_PhaseStep()))), Op));
             ++pDst;
         }
     }
@@ -157,7 +157,7 @@ std::int64_t CController::OnRead(char *Dst, std::int64_t MaxSize)
         char* pDstEnd = Dst + Size;
         while(pDst<pDstEnd)
         {
-            *pDst = 255*m_CenteredWaveShaper(m_HardKneeWaveShaper(m_FeedbackOperator(m_HardKneePhaseShaper(m_PhaseGen(m_PhaseStep())), Op)));
+            *pDst = 255*m_HardKneeWaveShaper(m_FeedbackOperator(m_HardKneePhaseShaper(m_CenteredWaveShaper(m_PhaseGen(m_PhaseStep()))), Op));
             ++pDst;
         }
     }
@@ -168,7 +168,7 @@ std::int64_t CController::OnRead(char *Dst, std::int64_t MaxSize)
         char* pDstEnd = Dst + Size;
         while(pDst<pDstEnd)
         {
-            *pDst = 255*m_CenteredWaveShaper(m_HardKneeWaveShaper(m_FeedbackOperator(m_HardKneePhaseShaper(m_PhaseGen(m_PhaseStep())), Op)));
+            *pDst = 255*m_HardKneeWaveShaper(m_FeedbackOperator(m_HardKneePhaseShaper(m_CenteredWaveShaper(m_PhaseGen(m_PhaseStep()))), Op));
             ++pDst;
         }
     }
@@ -179,7 +179,7 @@ std::int64_t CController::OnRead(char *Dst, std::int64_t MaxSize)
         char* pDstEnd = Dst + Size;
         while(pDst<pDstEnd)
         {
-            *pDst = 255*m_CenteredWaveShaper(m_HardKneeWaveShaper(m_FeedbackOperator(m_HardKneePhaseShaper(m_PhaseGen(m_PhaseStep())), Op)));
+            *pDst = 255*m_HardKneeWaveShaper(m_FeedbackOperator(m_HardKneePhaseShaper(m_CenteredWaveShaper(m_PhaseGen(m_PhaseStep()))), Op));
             ++pDst;
         }
     }
@@ -191,7 +191,7 @@ std::int64_t CController::OnRead(char *Dst, std::int64_t MaxSize)
         while(pDst<pDstEnd)
         {
 //            *pDst = 255*Op(m_PhaseGen(m_PhaseStep()));
-            *pDst = 255*m_CenteredWaveShaper(m_HardKneeWaveShaper(m_FeedbackOperator(m_HardKneePhaseShaper(m_PhaseGen(m_PhaseStep())), Op)));
+            *pDst = 255*m_HardKneeWaveShaper(m_FeedbackOperator(m_HardKneePhaseShaper(m_CenteredWaveShaper(m_PhaseGen(m_PhaseStep()))), Op));
             ++pDst;
         }
     }
@@ -202,7 +202,7 @@ std::int64_t CController::OnRead(char *Dst, std::int64_t MaxSize)
         char* pDstEnd = Dst + Size;
         while(pDst<pDstEnd)
         {
-            *pDst = 255*m_CenteredWaveShaper(m_HardKneeWaveShaper(m_FeedbackOperator(m_HardKneePhaseShaper(m_PhaseGen(m_PhaseStep())), Op)));
+            *pDst = 255*m_HardKneeWaveShaper(m_FeedbackOperator(m_HardKneePhaseShaper(m_CenteredWaveShaper(m_PhaseGen(m_PhaseStep()))), Op));
             ++pDst;
         }
     }
