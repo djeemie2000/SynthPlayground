@@ -88,6 +88,8 @@ private slots:
 
     void on_pushButton_Sync_clicked();
 
+    void on_doubleSpinBox_SmootherFactor_valueChanged(double arg1);
+
 private:
     void CreateAudioOutput();
 

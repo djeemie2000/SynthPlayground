@@ -9,6 +9,7 @@
 #include "FullPseudoSin.h"
 #include "Square.h"
 #include "FlipOperator.h"
+#include "MirrorOperator.h"
 
 CController::CController(IView &View, int SamplingFrequency)
     : m_View(View)
@@ -26,6 +27,7 @@ CController::CController(IView &View, int SamplingFrequency)
     , m_ModifierPhaseGen()
     , m_Modifier("NoOp")
     , m_ModifierCondition()
+    , m_Smoother()
 {
     m_SampleStep.Set(1.0f);
     m_PhaseStep.SetFrequency(440.0);
@@ -137,6 +139,11 @@ void CController::OnModifierFrequencyMultiplier(float Multiplier)
     UpdateFrequency();
 }
 
+void CController::OnSmootherFactor(float Factor)
+{
+    m_Smoother.SetFactor(Factor);
+}
+
 void CController::UpdateFrequency()
 {
     m_PhaseStep.SetFrequency(m_Frequency);
@@ -154,7 +161,9 @@ std::int64_t CController::OnRead(char *Dst, std::int64_t MaxSize)
     int MaxReadSize = 1<<11;
     std::size_t Size = MaxSize<MaxReadSize ? MaxSize : MaxReadSize;
 
-    CFlipOperator<float> Modifier;
+//    CFlipOperator<float> Modifier;
+    CMirrorOperator<float> Modifier;
+    //CSquare<float> Modifier;
     if(m_WaveForm=="RampUp")
     {
         CRampUp<float> Op;
@@ -162,7 +171,7 @@ std::int64_t CController::OnRead(char *Dst, std::int64_t MaxSize)
         char* pDstEnd = Dst + Size;
         while(pDst<pDstEnd)
         {
-            *pDst = 255*(Modifier(m_PhaseGen(m_PhaseStep()), Op, m_ModifierCondition(m_ModifierPhaseGen(m_ModifierPhaseStep()))));
+            *pDst = 255*m_Smoother(Modifier(m_PhaseGen(m_PhaseStep()), Op, m_ModifierCondition(m_ModifierPhaseGen(m_ModifierPhaseStep()))));
             ++pDst;
         }
     }
@@ -173,7 +182,7 @@ std::int64_t CController::OnRead(char *Dst, std::int64_t MaxSize)
         char* pDstEnd = Dst + Size;
         while(pDst<pDstEnd)
         {
-            *pDst = 255*(Modifier(m_PhaseGen(m_PhaseStep()), Op, m_ModifierCondition(m_ModifierPhaseGen(m_ModifierPhaseStep()))));
+            *pDst = 255*m_Smoother(Modifier(m_PhaseGen(m_PhaseStep()), Op, m_ModifierCondition(m_ModifierPhaseGen(m_ModifierPhaseStep()))));
             ++pDst;
         }
     }
@@ -184,7 +193,7 @@ std::int64_t CController::OnRead(char *Dst, std::int64_t MaxSize)
         char* pDstEnd = Dst + Size;
         while(pDst<pDstEnd)
         {
-            *pDst = 255*(Modifier(m_PhaseGen(m_PhaseStep()), Op, m_ModifierCondition(m_ModifierPhaseGen(m_ModifierPhaseStep()))));
+            *pDst = 255*m_Smoother(Modifier(m_PhaseGen(m_PhaseStep()), Op, m_ModifierCondition(m_ModifierPhaseGen(m_ModifierPhaseStep()))));
             ++pDst;
         }
     }
@@ -195,7 +204,7 @@ std::int64_t CController::OnRead(char *Dst, std::int64_t MaxSize)
         char* pDstEnd = Dst + Size;
         while(pDst<pDstEnd)
         {
-            *pDst = 255*(Modifier(m_PhaseGen(m_PhaseStep()), Op, m_ModifierCondition(m_ModifierPhaseGen(m_ModifierPhaseStep()))));
+            *pDst = 255*m_Smoother(Modifier(m_PhaseGen(m_PhaseStep()), Op, m_ModifierCondition(m_ModifierPhaseGen(m_ModifierPhaseStep()))));
             ++pDst;
         }
     }
@@ -207,7 +216,7 @@ std::int64_t CController::OnRead(char *Dst, std::int64_t MaxSize)
         while(pDst<pDstEnd)
         {
 //            *pDst = 255*Op(m_PhaseGen(m_PhaseStep()));
-            *pDst = 255*(Modifier(m_PhaseGen(m_PhaseStep()), Op, m_ModifierCondition(m_ModifierPhaseGen(m_ModifierPhaseStep()))));
+            *pDst = 255*m_Smoother(Modifier(m_PhaseGen(m_PhaseStep()), Op, m_ModifierCondition(m_ModifierPhaseGen(m_ModifierPhaseStep()))));
             ++pDst;
         }
     }
@@ -218,7 +227,7 @@ std::int64_t CController::OnRead(char *Dst, std::int64_t MaxSize)
         char* pDstEnd = Dst + Size;
         while(pDst<pDstEnd)
         {
-            *pDst = 255*(Modifier(m_PhaseGen(m_PhaseStep()), Op, m_ModifierCondition(m_ModifierPhaseGen(m_ModifierPhaseStep()))));
+            *pDst = 255*m_Smoother(Modifier(m_PhaseGen(m_PhaseStep()), Op, m_ModifierCondition(m_ModifierPhaseGen(m_ModifierPhaseStep()))));
             ++pDst;
         }
     }

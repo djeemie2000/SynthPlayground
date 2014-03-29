@@ -37,6 +37,7 @@ HEADERS  += mainwindow.h \
     MirrorOperator.h \
     HardKneeShaper.h \
     CenteredShaper.h \
-    PhaseDecreaseCondition.h
+    PhaseDecreaseCondition.h \
+    Smoother.h
 
 FORMS    += mainwindow.ui

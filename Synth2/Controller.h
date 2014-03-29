@@ -10,6 +10,7 @@
 #include "PhaseStep.h"
 #include "PhaseGenerator.h"
 #include "PhaseDecreaseCondition.h"
+#include "Smoother.h"
 
 class IView;
 
@@ -47,6 +48,7 @@ public:
     void OnModifier(const std::string& Modifier);
     void OnSync(float PhaseShift);
     void OnModifierFrequencyMultiplier(float Multiplier);
+    void OnSmootherFactor(float Factor);
 
 private:
     void UpdateFrequency();
@@ -70,6 +72,8 @@ private:
     CPhaseGenerator<float> m_ModifierPhaseGen;
     std::string m_Modifier;
     CPhaseDecreaseCondition<float> m_ModifierCondition;
+
+    CSmoother<float> m_Smoother;
 };
 
 #endif // GRANULARSAMPLERCONTROLLER_H

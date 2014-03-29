@@ -14,6 +14,12 @@ public:
     {
         return  Operator(1-Phase);
     }
+
+    template<class OperatorType>
+    T operator()(const T& Phase, OperatorType& Operator, bool Apply)
+    {
+        return  Apply ? Operator(1-Phase) : Operator(Phase);
+    }
 };
 
 #endif // MIRROROPERATOR_H

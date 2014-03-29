@@ -342,3 +342,8 @@ void MainWindow::on_pushButton_Sync_clicked()
     float PhaseShift = ui->doubleSpinBox_SyncPhaseShift->value();
     m_Controller->OnSync(PhaseShift);
 }
+
+void MainWindow::on_doubleSpinBox_SmootherFactor_valueChanged(double arg1)
+{
+    m_Controller->OnSmootherFactor(arg1);
+}
