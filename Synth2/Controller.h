@@ -46,8 +46,9 @@ public:
 
     void OnModifierFrequency(float Frequency);
     void OnModifier(const std::string& Modifier);
-    void OnSync(float PhaseShift);
+    void OnSync();
     void OnModifierFrequencyMultiplier(float Multiplier);
+    void OnModifierPhaseShift(float PhaseShift);
     void OnSmootherFactor(float Factor);
 
 private:
@@ -68,6 +69,7 @@ private:
     std::string m_WaveForm;
 
     float m_ModifierFrequencyMultiplier;
+    float m_ModifierPhaseShift;
     CPhaseStep<float> m_ModifierPhaseStep;
     CPhaseGenerator<float> m_ModifierPhaseGen;
     std::string m_Modifier;

@@ -30,4 +30,17 @@ private:
     T m_Phase;
 };
 
+template<class T>
+class CPhaseAdder
+{
+public:
+    CPhaseAdder(){}
+
+    T operator()(const T& Phase, const T& AddedPhase)
+    {
+        T Ph = Phase + AddedPhase;
+        return Ph<1 ? Ph : Ph-1;
+    }
+};
+
 #endif // PHASEGENERATOR_H
