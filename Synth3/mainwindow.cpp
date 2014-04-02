@@ -71,21 +71,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_pushButton_Open_clicked()
-{
-    if(m_AudioOutput)
-    {
-        m_AudioOutput->suspend();
-    }
-    //TODO open file dialog -> path in lineedit, pass path to controller
-    QString Path = "GeneratedWaveForm";
-    if(!Path.isEmpty())
-    {
-        ui->lineEdit_Path->setText(Path);
-        m_Controller->OnOpen(Path.toStdString());
-    }
-}
-
 void MainWindow::on_pushButton_Play_clicked()
 {
     m_Controller->OnPlay();
@@ -102,33 +87,6 @@ void MainWindow::on_pushButton_Stop_clicked()
     {
         m_AudioOutput->suspend();
     }
-}
-
-void MainWindow::on_comboBox_LoopMode_activated(int index)
-{
-    m_Controller->OnLoopingMode(CController::ELoopingMode(index));
-}
-
-void MainWindow::on_doubleSpinBox_Speed_valueChanged(double arg1)
-{
-    m_Controller->OnSpeed(arg1);
-}
-
-void MainWindow::on_horizontalSlider_BeginPosition_valueChanged(int value)
-{
-    int Begin = value;
-    int End = Begin + ui->spinBox_Duration->value();
-    ui->horizontalSlider_EndPosition->setValue(End);
-
-    m_Controller->OnInterval(Begin, End);
-}
-
-void MainWindow::on_horizontalSlider_EndPosition_valueChanged(int value)
-{
-    int End = value;
-    int Begin = End - ui->spinBox_Duration->value();
-
-    m_Controller->OnInterval(Begin, End);
 }
 
 void MainWindow::on_horizontalSlider_AudioOutputVolume_valueChanged(int value)
@@ -199,25 +157,6 @@ void MainWindow::on_comboBox_AudioDevice_activated(int /*index*/)
 {
     // changed audio device => (re)create audio output
     CreateAudioOutput();
-}
-
-void MainWindow::on_spinBox_Duration_valueChanged(int arg1)
-{
-    int Begin = ui->horizontalSlider_BeginPosition->value();
-    int End = Begin + arg1;
-    ui->horizontalSlider_EndPosition->setValue(End);
-
-    m_Controller->OnInterval(Begin, End);
-}
-
-void MainWindow::OnSampleRange(int Begin, int End)
-{
-    ui->horizontalSlider_BeginPosition->setRange(Begin, End);
-    ui->horizontalSlider_EndPosition->setRange(Begin, End);
-    ui->horizontalSlider_BeginPosition->setValue(Begin);
-    ui->horizontalSlider_EndPosition->setValue(End);
-    ui->spinBox_Duration->setRange(0, End-Begin);
-    ui->spinBox_Duration->setValue(End-Begin);
 }
 
 void MainWindow::OnSampleSize(int /*Size*/)
@@ -298,35 +237,6 @@ void MainWindow::on_comboBox_WaveForm_activated(const QString &arg1)
     m_Controller->OnWaveForm(arg1.toStdString());
 }
 
-void MainWindow::on_doubleSpinBox_Feedback_valueChanged(double arg1)
-{
-    m_Controller->OnFeedback(arg1);
-}
-
-void MainWindow::on_doubleSpinBox_HardKneePhaseShapingX_valueChanged(double )
-{
-}
-
-void MainWindow::on_doubleSpinBox_HardKneePhaseShapingY_valueChanged(double )
-{
-}
-
-void MainWindow::on_doubleSpinBox_HardKneeWaveShapingX_valueChanged(double )
-{
-}
-
-void MainWindow::on_doubleSpinBox_HardKneeWaveShapingY_valueChanged(double)
-{
-}
-
-void MainWindow::on_doubleSpinBox_CenteredWaveshapingSlope_valueChanged(double )
-{
-}
-
-void MainWindow::on_doubleSpinBox_CenteredWaveshapingCenter_valueChanged(double)
-{
-}
-
 void MainWindow::on_checkBox_ScopeGrabRepeated_clicked(bool checked)
 {
     m_ScopeAutoGrab = checked;
@@ -339,7 +249,6 @@ void MainWindow::on_doubleSpinBox_ModifierFrequency_valueChanged(double arg1)
 
 void MainWindow::on_pushButton_Sync_clicked()
 {
-    //float PhaseShift = ui->doubleSpinBox_SyncPhaseShift->value();
     m_Controller->OnSync();
 }
 
