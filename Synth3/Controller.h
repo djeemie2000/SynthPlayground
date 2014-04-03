@@ -17,12 +17,6 @@ class IView;
 class CController
 {
 public:
-    enum class ELoopingMode
-    {
-        UniDirectional,
-        BiDirectional
-    };
-
     CController(IView& View, int SamplingFrequency);
     ~CController();
 
@@ -34,15 +28,27 @@ public:
     void OnFrequency(float Frequency);
     void OnWaveForm(const std::string& WaveForm);
 
-    void OnModifierFrequency(float Frequency);
-    void OnModifier(const std::string& Modifier);
-    void OnSync();
-    void OnModifierFrequencyMultiplier(float Multiplier);
-    void OnModifierPhaseShift(float PhaseShift);
     void OnSmootherFactor(float Factor);
+
+    void OnWaveShaper(const std::string& WaveShaper);
+    void OnWaveShaperStrength(float Strength);
 
 private:
     void UpdateFrequency();
+
+    template<class OscillatorType, class ShaperType>
+    void FillBuffer(char* Dst, int Size)
+    {
+        OscillatorType Osc;
+        ShaperType Shaper;
+        char* pDst = Dst;
+        char* pDstEnd = Dst + Size;
+        while(pDst<pDstEnd)
+        {
+            *pDst = 255*m_Smoother(Shaper(Osc(m_PhaseGen(m_PhaseStep()))));
+            ++pDst;
+        }
+    }
 
     IView& m_View;
 
@@ -54,12 +60,8 @@ private:
     CPhaseGenerator<float> m_PhaseGen;
     std::string m_WaveForm;
 
-    float m_ModifierFrequencyMultiplier;
-    float m_ModifierPhaseShift;
-    CPhaseStep<float> m_ModifierPhaseStep;
-    CPhaseGenerator<float> m_ModifierPhaseGen;
-    std::string m_Modifier;
-    CPhaseDecreaseCondition<float> m_ModifierCondition;
+    std::string m_WaveShaper;
+    float m_WaveShaperStrength;
 
     CSmoother<float> m_Smoother;
 };

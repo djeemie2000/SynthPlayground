@@ -117,62 +117,29 @@
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="label_11">
+           <widget class="QLabel" name="label">
             <property name="text">
-             <string>Modifier</string>
+             <string>WaveShaper</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QComboBox" name="comboBox_Modifier"/>
+           <widget class="QComboBox" name="comboBox_WaveShaper"/>
           </item>
           <item>
-           <widget class="QLabel" name="label_13">
+           <widget class="QLabel" name="label_2">
             <property name="text">
-             <string>FreqMultiplier</string>
+             <string>Strength</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QDoubleSpinBox" name="doubleSpinBox_ModifierFrequency">
-            <property name="decimals">
-             <number>3</number>
-            </property>
-            <property name="maximum">
-             <double>22050.000000000000000</double>
-            </property>
-            <property name="singleStep">
-             <double>0.001000000000000</double>
-            </property>
-            <property name="value">
-             <double>1.000000000000000</double>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="pushButton_Sync">
-            <property name="text">
-             <string>Sync!</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_14">
-            <property name="text">
-             <string>SyncPhaseShift</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QDoubleSpinBox" name="doubleSpinBox_SyncPhaseShift">
-            <property name="decimals">
-             <number>3</number>
-            </property>
+           <widget class="QDoubleSpinBox" name="doubleSpinBox_WaveShaperStrength">
             <property name="maximum">
              <double>1.000000000000000</double>
             </property>
             <property name="singleStep">
-             <double>0.001000000000000</double>
+             <double>0.010000000000000</double>
             </property>
            </widget>
           </item>

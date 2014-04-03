@@ -34,6 +34,13 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->comboBox_WaveForm->addItem("InvSquare");
     ui->comboBox_WaveForm->addItem("NoOp");
 
+    ui->comboBox_WaveShaper->addItem("RampUp");
+    ui->comboBox_WaveShaper->addItem("RampDown");
+    ui->comboBox_WaveShaper->addItem("FullPseudoSin");
+    ui->comboBox_WaveShaper->addItem("PseudoSin");
+    ui->comboBox_WaveShaper->addItem("Square");
+    ui->comboBox_WaveShaper->addItem("InvSquare");
+    ui->comboBox_WaveShaper->addItem("NoOp");
 
     QGraphicsScene* Scene = new QGraphicsScene(this);
     ui->graphicsView_WaveForm->setScene(Scene);
@@ -244,12 +251,10 @@ void MainWindow::on_checkBox_ScopeGrabRepeated_clicked(bool checked)
 
 void MainWindow::on_doubleSpinBox_ModifierFrequency_valueChanged(double arg1)
 {
-    m_Controller->OnModifierFrequencyMultiplier(arg1);
 }
 
 void MainWindow::on_pushButton_Sync_clicked()
 {
-    m_Controller->OnSync();
 }
 
 void MainWindow::on_doubleSpinBox_SmootherFactor_valueChanged(double arg1)
@@ -259,5 +264,14 @@ void MainWindow::on_doubleSpinBox_SmootherFactor_valueChanged(double arg1)
 
 void MainWindow::on_doubleSpinBox_SyncPhaseShift_valueChanged(double arg1)
 {
-    m_Controller->OnModifierPhaseShift(arg1);
+}
+
+void MainWindow::on_doubleSpinBox_WaveShaperStrength_valueChanged(double arg1)
+{
+    m_Controller->OnWaveShaperStrength(arg1);
+}
+
+void MainWindow::on_comboBox_WaveShaper_activated(const QString &arg1)
+{
+    m_Controller->OnWaveShaper(arg1.toStdString());
 }

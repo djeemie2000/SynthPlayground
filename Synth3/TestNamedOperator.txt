@@ -1,0 +1,56 @@
+
+#include "NoOp.h"
+
+template<class T>
+class CBaseOperator
+{
+public:
+    virtual ~CBaseOperator(){}
+
+    virtual T operator ()(const T& Phase) =0;
+};
+
+
+template<class T, int N>
+class CNamedOperator : public CBaseOperator<T>
+{
+public:
+    CNamedOperator()
+    {}
+
+    T operator()(const T& Phase)
+    {
+        return CNoOp<T>()(Phase);
+    }
+};
+
+template<class T>
+class CNamedOperator<T, 2>
+{
+public:
+    CNamedOperator(){}
+
+    T operator()(const T& Phase)
+    {
+        return 2;
+    }
+};
+
+template<class T>
+class CNamedOperator<T, 3>
+{
+public:
+    CNamedOperator(){}
+
+    T operator()(const T& Phase)
+    {
+        return 3;
+    }
+};
+
+float TestSel(int N, float Phase)
+{
+    if(N==1){ return CNamedOperator<float, 1>()(Phase); }
+    if(N==2){ return CNamedOperator<float, 2>()(Phase); }
+    return CNamedOperator<float, 0>()(Phase);
+}

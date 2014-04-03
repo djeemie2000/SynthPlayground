@@ -10,6 +10,7 @@
 #include "Square.h"
 #include "FlipOperator.h"
 #include "MirrorOperator.h"
+#include "NoOp.h"
 
 CController::CController(IView &View, int SamplingFrequency)
     : m_View(View)
@@ -19,16 +20,10 @@ CController::CController(IView &View, int SamplingFrequency)
     , m_PhaseStep(SamplingFrequency)
     , m_PhaseGen()
     , m_WaveForm("NoOp")
-    , m_ModifierFrequencyMultiplier(1.0f)
-    , m_ModifierPhaseShift(0.0f)
-    , m_ModifierPhaseStep(SamplingFrequency)
-    , m_ModifierPhaseGen()
-    , m_Modifier("NoOp")
-    , m_ModifierCondition()
+    , m_WaveShaper("NoOp")
     , m_Smoother()
 {
     m_PhaseStep.SetFrequency(440.0);
-    m_ModifierPhaseStep.SetFrequency(440.0*m_ModifierFrequencyMultiplier);
 }
 
 CController::~CController()
@@ -55,37 +50,24 @@ void CController::OnWaveForm(const std::string &WaveForm)
     m_WaveForm = WaveForm;
 }
 
-void CController::OnModifierFrequency(float Frequency)
-{
-    m_ModifierPhaseStep.SetFrequency(Frequency);
-}
-
-void CController::OnSync()
-{
-    m_PhaseGen.Set(0);
-    m_ModifierPhaseGen.Set(0);
-}
-
-void CController::OnModifierFrequencyMultiplier(float Multiplier)
-{
-    m_ModifierFrequencyMultiplier = Multiplier;
-    UpdateFrequency();
-}
-
-void CController::OnModifierPhaseShift(float PhaseShift)
-{
-    m_ModifierPhaseShift = PhaseShift;
-}
-
 void CController::OnSmootherFactor(float Factor)
 {
     m_Smoother.SetFactor(Factor);
 }
 
+void CController::OnWaveShaper(const std::string &WaveShaper)
+{
+    m_WaveShaper = WaveShaper;
+}
+
+void CController::OnWaveShaperStrength(float Strength)
+{
+    m_WaveShaperStrength = Strength;
+}
+
 void CController::UpdateFrequency()
 {
     m_PhaseStep.SetFrequency(m_Frequency);
-    m_ModifierPhaseStep.SetFrequency(m_Frequency*m_ModifierFrequencyMultiplier);
 }
 
 void CController::OnGrab(int GrabSize)
@@ -99,75 +81,190 @@ std::int64_t CController::OnRead(char *Dst, std::int64_t MaxSize)
     int MaxReadSize = 1<<11;
     std::size_t Size = MaxSize<MaxReadSize ? MaxSize : MaxReadSize;
 
-//    CFlipOperator<float> Modifier;
-    CMirrorOperator<float> Modifier;
-    //CSquare<float> Modifier;
-    CPhaseAdder<float> ModifierPhaseShift;
     if(m_WaveForm=="RampUp")
     {
-        CRampUp<float> Op;
-        char* pDst = Dst;
-        char* pDstEnd = Dst + Size;
-        while(pDst<pDstEnd)
+        if(m_WaveShaper=="RampUp")
         {
-            *pDst = 255*m_Smoother(Modifier(m_PhaseGen(m_PhaseStep()), Op, m_ModifierCondition(ModifierPhaseShift(m_ModifierPhaseGen(m_ModifierPhaseStep()), m_ModifierPhaseShift))));
-            ++pDst;
+            FillBuffer<CRampUp<float>, CRampUp<float> >(Dst, Size);
+        }
+        else if(m_WaveShaper=="RampDown")
+        {
+            FillBuffer<CRampUp<float>, CRampDown<float> >(Dst, Size);
+        }
+        else if(m_WaveShaper=="FullPseudoSin")
+        {
+            FillBuffer<CRampUp<float>, CFullPseudoSin<float> >(Dst, Size);
+        }
+        else if(m_WaveShaper=="PseudoSin")
+        {
+            FillBuffer<CRampUp<float>, CPseudoSin<float> >(Dst, Size);
+        }
+        else if(m_WaveShaper=="InvSquare")
+        {
+            FillBuffer<CRampUp<float>, CInvSquare<float> >(Dst, Size);
+        }
+        else if(m_WaveShaper=="Square")
+        {
+            FillBuffer<CRampUp<float>, CSquare<float> >(Dst, Size);
+        }
+        else
+        {
+            FillBuffer<CRampUp<float>, CNoOp<float> >(Dst, Size);
         }
     }
     else if(m_WaveForm=="RampDown")
     {
-        CRampDown<float> Op;
-        char* pDst = Dst;
-        char* pDstEnd = Dst + Size;
-        while(pDst<pDstEnd)
+        if(m_WaveShaper=="RampUp")
         {
-            *pDst = 255*m_Smoother(Modifier(m_PhaseGen(m_PhaseStep()), Op, m_ModifierCondition(ModifierPhaseShift(m_ModifierPhaseGen(m_ModifierPhaseStep()), m_ModifierPhaseShift))));
-            ++pDst;
+            FillBuffer<CRampDown<float>, CRampUp<float> >(Dst, Size);
+        }
+        else if(m_WaveShaper=="RampDown")
+        {
+            FillBuffer<CRampDown<float>, CRampDown<float> >(Dst, Size);
+        }
+        else if(m_WaveShaper=="FullPseudoSin")
+        {
+            FillBuffer<CRampDown<float>, CFullPseudoSin<float> >(Dst, Size);
+        }
+        else if(m_WaveShaper=="PseudoSin")
+        {
+            FillBuffer<CRampDown<float>, CPseudoSin<float> >(Dst, Size);
+        }
+        else if(m_WaveShaper=="InvSquare")
+        {
+            FillBuffer<CRampDown<float>, CInvSquare<float> >(Dst, Size);
+        }
+        else if(m_WaveShaper=="Square")
+        {
+            FillBuffer<CRampDown<float>, CSquare<float> >(Dst, Size);
+        }
+        else
+        {
+            FillBuffer<CRampDown<float>, CNoOp<float> >(Dst, Size);
         }
     }
     else if(m_WaveForm=="FullPseudoSin")
     {
-        CFullPseudoSin<float> Op;
-        char* pDst = Dst;
-        char* pDstEnd = Dst + Size;
-        while(pDst<pDstEnd)
+        if(m_WaveShaper=="RampUp")
         {
-            *pDst = 255*m_Smoother(Modifier(m_PhaseGen(m_PhaseStep()), Op, m_ModifierCondition(ModifierPhaseShift(m_ModifierPhaseGen(m_ModifierPhaseStep()), m_ModifierPhaseShift))));
-            ++pDst;
+            FillBuffer<CFullPseudoSin<float>, CRampUp<float> >(Dst, Size);
+        }
+        else if(m_WaveShaper=="RampDown")
+        {
+            FillBuffer<CFullPseudoSin<float>, CRampDown<float> >(Dst, Size);
+        }
+        else if(m_WaveShaper=="FullPseudoSin")
+        {
+            FillBuffer<CFullPseudoSin<float>, CFullPseudoSin<float> >(Dst, Size);
+        }
+        else if(m_WaveShaper=="PseudoSin")
+        {
+            FillBuffer<CFullPseudoSin<float>, CPseudoSin<float> >(Dst, Size);
+        }
+        else if(m_WaveShaper=="InvSquare")
+        {
+            FillBuffer<CFullPseudoSin<float>, CInvSquare<float> >(Dst, Size);
+        }
+        else if(m_WaveShaper=="Square")
+        {
+            FillBuffer<CFullPseudoSin<float>, CSquare<float> >(Dst, Size);
+        }
+        else
+        {
+            FillBuffer<CFullPseudoSin<float>, CNoOp<float> >(Dst, Size);
         }
     }
     else if(m_WaveForm=="PseudoSin")
     {
-        CPseudoSin<float> Op;
-        char* pDst = Dst;
-        char* pDstEnd = Dst + Size;
-        while(pDst<pDstEnd)
+        if(m_WaveShaper=="RampUp")
         {
-            *pDst = 255*m_Smoother(Modifier(m_PhaseGen(m_PhaseStep()), Op, m_ModifierCondition(ModifierPhaseShift(m_ModifierPhaseGen(m_ModifierPhaseStep()), m_ModifierPhaseShift))));
-            ++pDst;
+            FillBuffer<CPseudoSin<float>, CRampUp<float> >(Dst, Size);
+        }
+        else if(m_WaveShaper=="RampDown")
+        {
+            FillBuffer<CPseudoSin<float>, CRampDown<float> >(Dst, Size);
+        }
+        else if(m_WaveShaper=="FullPseudoSin")
+        {
+            FillBuffer<CPseudoSin<float>, CFullPseudoSin<float> >(Dst, Size);
+        }
+        else if(m_WaveShaper=="PseudoSin")
+        {
+            FillBuffer<CPseudoSin<float>, CPseudoSin<float> >(Dst, Size);
+        }
+        else if(m_WaveShaper=="InvSquare")
+        {
+            FillBuffer<CPseudoSin<float>, CInvSquare<float> >(Dst, Size);
+        }
+        else if(m_WaveShaper=="Square")
+        {
+            FillBuffer<CPseudoSin<float>, CSquare<float> >(Dst, Size);
+        }
+        else
+        {
+            FillBuffer<CPseudoSin<float>, CNoOp<float> >(Dst, Size);
         }
     }
     else if(m_WaveForm=="InvSquare")
     {
-        CInvSquare<float> Op;
-        char* pDst = Dst;
-        char* pDstEnd = Dst + Size;
-        while(pDst<pDstEnd)
+        if(m_WaveShaper=="RampUp")
         {
-//            *pDst = 255*Op(m_PhaseGen(m_PhaseStep()));
-            *pDst = 255*m_Smoother(Modifier(m_PhaseGen(m_PhaseStep()), Op, m_ModifierCondition(ModifierPhaseShift(m_ModifierPhaseGen(m_ModifierPhaseStep()), m_ModifierPhaseShift))));
-            ++pDst;
+            FillBuffer<CInvSquare<float>, CRampUp<float> >(Dst, Size);
+        }
+        else if(m_WaveShaper=="RampDown")
+        {
+            FillBuffer<CInvSquare<float>, CRampDown<float> >(Dst, Size);
+        }
+        else if(m_WaveShaper=="FullPseudoSin")
+        {
+            FillBuffer<CInvSquare<float>, CFullPseudoSin<float> >(Dst, Size);
+        }
+        else if(m_WaveShaper=="PseudoSin")
+        {
+            FillBuffer<CInvSquare<float>, CPseudoSin<float> >(Dst, Size);
+        }
+        else if(m_WaveShaper=="InvSquare")
+        {
+            FillBuffer<CInvSquare<float>, CInvSquare<float> >(Dst, Size);
+        }
+        else if(m_WaveShaper=="Square")
+        {
+            FillBuffer<CInvSquare<float>, CSquare<float> >(Dst, Size);
+        }
+        else
+        {
+            FillBuffer<CInvSquare<float>, CNoOp<float> >(Dst, Size);
         }
     }
     else if(m_WaveForm=="Square")
     {
-        CSquare<float> Op;
-        char* pDst = Dst;
-        char* pDstEnd = Dst + Size;
-        while(pDst<pDstEnd)
+        if(m_WaveShaper=="RampUp")
         {
-            *pDst = 255*m_Smoother(Modifier(m_PhaseGen(m_PhaseStep()), Op, m_ModifierCondition(ModifierPhaseShift(m_ModifierPhaseGen(m_ModifierPhaseStep()), m_ModifierPhaseShift))));
-            ++pDst;
+            FillBuffer<CSquare<float>, CRampUp<float> >(Dst, Size);
+        }
+        else if(m_WaveShaper=="RampDown")
+        {
+            FillBuffer<CSquare<float>, CRampDown<float> >(Dst, Size);
+        }
+        else if(m_WaveShaper=="FullPseudoSin")
+        {
+            FillBuffer<CSquare<float>, CFullPseudoSin<float> >(Dst, Size);
+        }
+        else if(m_WaveShaper=="PseudoSin")
+        {
+            FillBuffer<CSquare<float>, CPseudoSin<float> >(Dst, Size);
+        }
+        else if(m_WaveShaper=="InvSquare")
+        {
+            FillBuffer<CSquare<float>, CInvSquare<float> >(Dst, Size);
+        }
+        else if(m_WaveShaper=="Square")
+        {
+            FillBuffer<CSquare<float>, CSquare<float> >(Dst, Size);
+        }
+        else
+        {
+            FillBuffer<CSquare<float>, CNoOp<float> >(Dst, Size);
         }
     }
     else if(m_WaveForm=="NoOp")

@@ -51,6 +51,10 @@ private slots:
     void on_doubleSpinBox_SmootherFactor_valueChanged(double arg1);
     void on_doubleSpinBox_SyncPhaseShift_valueChanged(double arg1);
 
+    void on_doubleSpinBox_WaveShaperStrength_valueChanged(double arg1);
+
+    void on_comboBox_WaveShaper_activated(const QString &arg1);
+
 private:
     void CreateAudioOutput();
 
