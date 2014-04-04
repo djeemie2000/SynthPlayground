@@ -280,3 +280,8 @@ void MainWindow::on_doubleSpinBox_WaveShaperPhaseShift_valueChanged(double arg1)
 {
     m_Controller->OnWaveShaperPhaseShift(arg1);
 }
+
+void MainWindow::on_doubleSpinBox_WaveShaperMultiplier_valueChanged(double arg1)
+{
+    m_Controller->OnWaveShaperPhaseMultiplier(arg1);
+}

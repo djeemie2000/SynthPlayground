@@ -76,6 +76,7 @@ CController::CController(IView &View, int SamplingFrequency)
     , m_Oscillator(CreateSelectableOperator())
     , m_Shaper(CreateSelectableOperator())
     , m_WaveShaperPhaseShift(0.0f)
+    , m_WaveShaperPhaseMultiplier(1.0f)
     , m_WaveShaperStrength(0.0f)
     , m_Smoother()
 {
@@ -128,6 +129,11 @@ void CController::OnWaveShaperPhaseShift(float PhaseDifference)
     m_WaveShaperPhaseShift = PhaseDifference;
 }
 
+void CController::OnWaveShaperPhaseMultiplier(float Multiplier)
+{
+    m_WaveShaperPhaseMultiplier = Multiplier;
+}
+
 void CController::UpdateFrequency()
 {
     m_PhaseStep.SetFrequency(m_Frequency);
@@ -145,11 +151,12 @@ std::int64_t CController::OnRead(char *Dst, std::int64_t MaxSize)
     std::size_t Size = MaxSize<MaxReadSize ? MaxSize : MaxReadSize;
 
     CPhaseSubtractor<float> Sub;
+    CPhaseMultiplier<float> Mult;
     char* pDst = Dst;
     char* pDstEnd = Dst + Size;
     while(pDst<pDstEnd)
     {
-        *pDst = 255*m_Smoother(m_Shaper(Sub(m_Oscillator(m_PhaseGen(m_PhaseStep())), m_WaveShaperPhaseShift)));
+        *pDst = 255*m_Smoother(m_Shaper(Mult(Sub(m_Oscillator(m_PhaseGen(m_PhaseStep())), m_WaveShaperPhaseShift), m_WaveShaperPhaseMultiplier)));
         ++pDst;
     }
 

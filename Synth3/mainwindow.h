@@ -57,6 +57,8 @@ private slots:
 
     void on_doubleSpinBox_WaveShaperPhaseShift_valueChanged(double arg1);
 
+    void on_doubleSpinBox_WaveShaperMultiplier_valueChanged(double arg1);
+
 private:
     void CreateAudioOutput();
 

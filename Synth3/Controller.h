@@ -34,6 +34,7 @@ public:
     void OnWaveShaper(const std::string& WaveShaper);
     void OnWaveShaperStrength(float Strength);
     void OnWaveShaperPhaseShift(float PhaseDifference);
+    void OnWaveShaperPhaseMultiplier(float Multiplier);
 
 private:
     void UpdateFrequency();
@@ -50,6 +51,7 @@ private:
 
     CSelectableOperator<float> m_Shaper;
     float m_WaveShaperPhaseShift;
+    float m_WaveShaperPhaseMultiplier;
     float m_WaveShaperStrength;
 
     CSmoother<float> m_Smoother;

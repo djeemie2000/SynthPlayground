@@ -57,4 +57,21 @@ public:
     }
 };
 
+template<class T>
+class CPhaseMultiplier
+{
+public:
+    CPhaseMultiplier(){}
+
+    T operator()(const T& Phase, const T& Multiplier)
+    {
+        T Ph = Phase*Multiplier;
+        while(1<Ph)
+        {
+            Ph -= 1;
+        }
+        return Ph;
+    }
+};
+
 #endif // PHASEGENERATOR_H
