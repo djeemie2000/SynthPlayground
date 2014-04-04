@@ -7,7 +7,8 @@ template<class T>
 class CFullPseudoSin
 {
 public:
-    T operator()(const T& Phase)
+    CFullPseudoSin(){}
+    T operator()(const T& Phase) const
     {
         // Phase<0.5 => 0.5 + 0.5 * PseudoSin(2*Phase)      = 0.5 * ( 1 + PseudoSin(2*Phase) )
         // Phase>0.5 => 0.5 - 0.5 * PseudoSin(2*(Phase-0.5)) = 0.5 * (1 - PseudoSin(2*Phase-1) )

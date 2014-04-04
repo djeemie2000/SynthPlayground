@@ -275,3 +275,8 @@ void MainWindow::on_comboBox_WaveShaper_activated(const QString &arg1)
 {
     m_Controller->OnWaveShaper(arg1.toStdString());
 }
+
+void MainWindow::on_doubleSpinBox_WaveShaperPhaseShift_valueChanged(double arg1)
+{
+    m_Controller->OnWaveShaperPhaseShift(arg1);
+}

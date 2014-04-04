@@ -55,6 +55,8 @@ private slots:
 
     void on_comboBox_WaveShaper_activated(const QString &arg1);
 
+    void on_doubleSpinBox_WaveShaperPhaseShift_valueChanged(double arg1);
+
 private:
     void CreateAudioOutput();
 

@@ -43,4 +43,18 @@ public:
     }
 };
 
+
+template<class T>
+class CPhaseSubtractor
+{
+public:
+    CPhaseSubtractor(){}
+
+    T operator()(const T& Phase, const T& SubtractedPhase)
+    {
+        T Ph = Phase - SubtractedPhase;
+        return 0<Ph ? Ph : Ph+1;
+    }
+};
+
 #endif // PHASEGENERATOR_H

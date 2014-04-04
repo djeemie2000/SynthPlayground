@@ -11,6 +11,7 @@
 #include "PhaseGenerator.h"
 #include "PhaseDecreaseCondition.h"
 #include "Smoother.h"
+#include "SelectableOperator.h"
 
 class IView;
 
@@ -32,23 +33,10 @@ public:
 
     void OnWaveShaper(const std::string& WaveShaper);
     void OnWaveShaperStrength(float Strength);
+    void OnWaveShaperPhaseShift(float PhaseDifference);
 
 private:
     void UpdateFrequency();
-
-    template<class OscillatorType, class ShaperType>
-    void FillBuffer(char* Dst, int Size)
-    {
-        OscillatorType Osc;
-        ShaperType Shaper;
-        char* pDst = Dst;
-        char* pDstEnd = Dst + Size;
-        while(pDst<pDstEnd)
-        {
-            *pDst = 255*m_Smoother(Shaper(Osc(m_PhaseGen(m_PhaseStep()))));
-            ++pDst;
-        }
-    }
 
     IView& m_View;
 
@@ -58,9 +46,10 @@ private:
     float m_Frequency;
     CPhaseStep<float> m_PhaseStep;
     CPhaseGenerator<float> m_PhaseGen;
-    std::string m_WaveForm;
+    CSelectableOperator<float> m_Oscillator;
 
-    std::string m_WaveShaper;
+    CSelectableOperator<float> m_Shaper;
+    float m_WaveShaperPhaseShift;
     float m_WaveShaperStrength;
 
     CSmoother<float> m_Smoother;

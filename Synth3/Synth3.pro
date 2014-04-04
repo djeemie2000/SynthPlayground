@@ -38,6 +38,7 @@ HEADERS  += mainwindow.h \
     HardKneeShaper.h \
     CenteredShaper.h \
     PhaseDecreaseCondition.h \
-    Smoother.h
+    Smoother.h \
+    SelectableOperator.h
 
 FORMS    += mainwindow.ui
