@@ -39,6 +39,7 @@ HEADERS  += mainwindow.h \
     CenteredShaper.h \
     PhaseDecreaseCondition.h \
     Smoother.h \
-    SelectableOperator.h
+    SelectableOperator.h \
+    Triangle.h
 
 FORMS    += mainwindow.ui

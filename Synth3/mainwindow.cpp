@@ -28,6 +28,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->comboBox_WaveForm->addItem("RampUp");
     ui->comboBox_WaveForm->addItem("RampDown");
+    ui->comboBox_WaveForm->addItem("Triangle");
     ui->comboBox_WaveForm->addItem("FullPseudoSin");
     ui->comboBox_WaveForm->addItem("PseudoSin");
     ui->comboBox_WaveForm->addItem("Square");
@@ -36,6 +37,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->comboBox_WaveShaper->addItem("RampUp");
     ui->comboBox_WaveShaper->addItem("RampDown");
+    ui->comboBox_WaveShaper->addItem("Triangle");
     ui->comboBox_WaveShaper->addItem("FullPseudoSin");
     ui->comboBox_WaveShaper->addItem("PseudoSin");
     ui->comboBox_WaveShaper->addItem("Square");

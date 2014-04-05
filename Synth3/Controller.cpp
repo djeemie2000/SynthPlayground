@@ -11,6 +11,7 @@
 #include "FlipOperator.h"
 #include "MirrorOperator.h"
 #include "NoOp.h"
+#include "Triangle.h"
 
 namespace
 {
@@ -20,6 +21,7 @@ CSelectableOperator<float> CreateSelectableOperator()
     CSelectableOperator<float> Op;
     Op.Add(CRampUp<float>());
     Op.Add(CRampDown<float>());
+    Op.Add(CTriangle<float>());
     Op.Add(CFullPseudoSin<float>());
     Op.Add(CPseudoSin<float>());
     Op.Add(CSquare<float>());
@@ -41,27 +43,32 @@ int GetSelection(const std::string& Description)
         return 1;
     }
 
-    if(Description=="FullPseudoSin")
+    if(Description=="Triangle")
     {
         return 2;
     }
 
-    if(Description=="PseudoSin")
+    if(Description=="FullPseudoSin")
     {
         return 3;
     }
 
-    if(Description=="Square")
+    if(Description=="PseudoSin")
     {
         return 4;
     }
 
-    if(Description=="InvSquare")
+    if(Description=="Square")
     {
         return 5;
     }
 
-    return 6;
+    if(Description=="InvSquare")
+    {
+        return 6;
+    }
+
+    return 7;
 }
 
 }
