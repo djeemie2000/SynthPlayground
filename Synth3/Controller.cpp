@@ -12,6 +12,7 @@
 #include "MirrorOperator.h"
 #include "NoOp.h"
 #include "Triangle.h"
+#include "SymmetricalOperator.h"
 
 namespace
 {
@@ -159,11 +160,13 @@ std::int64_t CController::OnRead(char *Dst, std::int64_t MaxSize)
 
     CPhaseSubtractor<float> Sub;
     CPhaseMultiplier<float> Mult;
+    CSymmetricalOperator<float> Symm;
     char* pDst = Dst;
     char* pDstEnd = Dst + Size;
     while(pDst<pDstEnd)
     {
-        *pDst = 255*m_Smoother(m_Shaper(Sub(Mult(m_Oscillator(m_PhaseGen(m_PhaseStep())), m_WaveShaperPhaseMultiplier), m_WaveShaperPhaseShift)));
+        //*pDst = 255*m_Smoother(m_Shaper(Sub(Mult(m_Oscillator(m_PhaseGen(m_PhaseStep())), m_WaveShaperPhaseMultiplier), m_WaveShaperPhaseShift)));
+        *pDst = 255*m_Smoother(Symm(m_Oscillator(m_PhaseGen(m_PhaseStep())), m_Shaper));
         ++pDst;
     }
 

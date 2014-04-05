@@ -30,12 +30,6 @@ public:
         }
     }
 
-//    template<class OperatorType>
-//    void Set(const OperatorType& Op)
-//    {
-//        m_Current = [Op](const T& Phase){ return Op(Phase);} ;
-//    }
-
     float operator()(const T& Phase)
     {
         return m_Current(Phase);
