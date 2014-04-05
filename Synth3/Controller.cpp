@@ -163,7 +163,7 @@ std::int64_t CController::OnRead(char *Dst, std::int64_t MaxSize)
     char* pDstEnd = Dst + Size;
     while(pDst<pDstEnd)
     {
-        *pDst = 255*m_Smoother(m_Shaper(Mult(Sub(m_Oscillator(m_PhaseGen(m_PhaseStep())), m_WaveShaperPhaseShift), m_WaveShaperPhaseMultiplier)));
+        *pDst = 255*m_Smoother(m_Shaper(Sub(Mult(m_Oscillator(m_PhaseGen(m_PhaseStep())), m_WaveShaperPhaseMultiplier), m_WaveShaperPhaseShift)));
         ++pDst;
     }
 
