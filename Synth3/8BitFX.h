@@ -69,15 +69,6 @@ public:
     T operator()(T In)
     {
         return std::max(m_MinTh, std::min(m_MaxTh, In));
-//        if(In<m_MinTh)
-//        {
-//            return m_MinTh;
-//        }
-//        if(m_MaxTh<In)
-//        {
-//            return m_MaxTh;
-//        }
-//        return In;
     }
 
 private:
@@ -117,16 +108,8 @@ public:
     T operator()(T In)
     {
         m_Ripple = 0<m_Ripple ? m_Ripple-1 : m_Strength;
-        if(m_MaxTh<In)
-        {
-            return In - 2;//m_Ripple;
-        }
-        if(In<m_MinTh)
-        {
-            return In + 2;//m_Ripple;
-        }
-        return In;
-//        return m_MaxTh<In ? In - m_Ripple : (In<m_MinTh ? In + m_Ripple : In);
+
+        return In<(m_Max+m_Min)/2 ? In + m_Ripple : In - m_Ripple;
     }
 
 private:
@@ -167,7 +150,7 @@ public:
 
     void SetRipplerStrength(int Strength)
     {
-        //m_Rippler.SetStrength(Strength);
+        m_Rippler.SetStrength(Strength);
     }
 
     std::uint8_t operator()(std::uint8_t In)
@@ -178,8 +161,8 @@ private:
     CBitCrusher<std::uint8_t>   m_Crusher;
     int                         m_BitCrusherDepth;
     CSampleAndHold<std::uint8_t> m_SnH;
-    //CRippler<int>      m_Rippler;
-    CLimiter<std::uint8_t>  m_Rippler;
+    CRippler<std::uint8_t>      m_Rippler;
+    //CLimiter<std::uint8_t>  m_Rippler;
 };
 
 #endif // _8BITFX_H
