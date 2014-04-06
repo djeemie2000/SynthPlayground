@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
   , m_AudioOutput(0)
   , m_AudioIODevice(0)
-  , m_ScopeAutoGrab(false)
+  , m_ScopeAutoGrab(true)
   , m_Controller()
 {
     ui->setupUi(this);
@@ -286,4 +286,14 @@ void MainWindow::on_doubleSpinBox_WaveShaperPhaseShift_valueChanged(double arg1)
 void MainWindow::on_doubleSpinBox_WaveShaperMultiplier_valueChanged(double arg1)
 {
     m_Controller->OnWaveShaperPhaseMultiplier(arg1);
+}
+
+void MainWindow::on_spinBox_BitCrushserDepth_valueChanged(int arg1)
+{
+    m_Controller->OnBitCrusherDepth(arg1);
+}
+
+void MainWindow::on_spinBox_SnHPeriod_valueChanged(int arg1)
+{
+    m_Controller->OnSampleAndHoldPeriod(arg1);
 }

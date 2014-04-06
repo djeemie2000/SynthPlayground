@@ -12,6 +12,7 @@
 #include "PhaseDecreaseCondition.h"
 #include "Smoother.h"
 #include "SelectableOperator.h"
+#include "8BitFX.h"
 
 class IView;
 
@@ -36,6 +37,9 @@ public:
     void OnWaveShaperPhaseShift(float PhaseDifference);
     void OnWaveShaperPhaseMultiplier(float Multiplier);
 
+    void OnBitCrusherDepth(int Depth);
+    void OnSampleAndHoldPeriod(int Period);
+
 private:
     void UpdateFrequency();
 
@@ -55,6 +59,8 @@ private:
     float m_WaveShaperStrength;
 
     CSmoother<float> m_Smoother;
+
+    C8BitFX m_Fx;
 };
 
 #endif // GRANULARSAMPLERCONTROLLER_H

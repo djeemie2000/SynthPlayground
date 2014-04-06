@@ -41,6 +41,7 @@ HEADERS  += mainwindow.h \
     Smoother.h \
     SelectableOperator.h \
     Triangle.h \
-    SymmetricalOperator.h
+    SymmetricalOperator.h \
+    8BitFX.h
 
 FORMS    += mainwindow.ui

@@ -59,6 +59,10 @@ private slots:
 
     void on_doubleSpinBox_WaveShaperMultiplier_valueChanged(double arg1);
 
+    void on_spinBox_BitCrushserDepth_valueChanged(int arg1);
+
+    void on_spinBox_SnHPeriod_valueChanged(int arg1);
+
 private:
     void CreateAudioOutput();
 

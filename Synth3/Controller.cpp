@@ -142,6 +142,16 @@ void CController::OnWaveShaperPhaseMultiplier(float Multiplier)
     m_WaveShaperPhaseMultiplier = Multiplier;
 }
 
+void CController::OnBitCrusherDepth(int Depth)
+{
+    m_Fx.SetBitCrusherDepth(Depth);
+}
+
+void CController::OnSampleAndHoldPeriod(int Period)
+{
+    m_Fx.SetSampleAndHoldPeriod(Period);
+}
+
 void CController::UpdateFrequency()
 {
     m_PhaseStep.SetFrequency(m_Frequency);
@@ -166,7 +176,7 @@ std::int64_t CController::OnRead(char *Dst, std::int64_t MaxSize)
     while(pDst<pDstEnd)
     {
         //*pDst = 255*m_Smoother(m_Shaper(Sub(Mult(m_Oscillator(m_PhaseGen(m_PhaseStep())), m_WaveShaperPhaseMultiplier), m_WaveShaperPhaseShift)));
-        *pDst = 255*m_Smoother(Symm(Sub(Mult(m_Oscillator(m_PhaseGen(m_PhaseStep())), m_WaveShaperPhaseMultiplier), m_WaveShaperPhaseShift), m_Shaper));
+        *pDst = m_Fx(255*m_Smoother(Symm(Sub(Mult(m_Oscillator(m_PhaseGen(m_PhaseStep())), m_WaveShaperPhaseMultiplier), m_WaveShaperPhaseShift), m_Shaper)));
         ++pDst;
     }
 
