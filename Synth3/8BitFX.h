@@ -49,6 +49,46 @@ private:
 };
 
 template<class T>
+class CLimiter
+{
+public:
+    CLimiter(T Min, T Max)
+        : m_Min(Min)
+        , m_Max(Max)
+        , m_MinTh(Min)
+        , m_MaxTh(Max)
+    {
+    }
+
+    void SetThreshold(T Threshold)
+    {
+        m_MinTh = m_Min + Threshold;
+        m_MaxTh = m_Max - Threshold;
+    }
+
+    T operator()(T In)
+    {
+        return std::max(m_MinTh, std::min(m_MaxTh, In));
+//        if(In<m_MinTh)
+//        {
+//            return m_MinTh;
+//        }
+//        if(m_MaxTh<In)
+//        {
+//            return m_MaxTh;
+//        }
+//        return In;
+    }
+
+private:
+    T m_Min;
+    T m_Max;
+    T m_MinTh;
+    T m_MaxTh;
+    T m_Strength;
+};
+
+template<class T>
 class CRippler
 {
 public:
@@ -76,8 +116,17 @@ public:
 
     T operator()(T In)
     {
-        m_Ripple = m_Ripple ? m_Ripple-1 : m_Strength;
-        return m_MaxTh<In ? In - m_Ripple : (In<m_MinTh ? In + m_Ripple : In);
+        m_Ripple = 0<m_Ripple ? m_Ripple-1 : m_Strength;
+        if(m_MaxTh<In)
+        {
+            return In - 2;//m_Ripple;
+        }
+        if(In<m_MinTh)
+        {
+            return In + 2;//m_Ripple;
+        }
+        return In;
+//        return m_MaxTh<In ? In - m_Ripple : (In<m_MinTh ? In + m_Ripple : In);
     }
 
 private:
@@ -111,15 +160,26 @@ public:
         m_SnH.SetPeriod(Period);
     }
 
+    void SetRipplerThreshold(int Threshold)
+    {
+        m_Rippler.SetThreshold(Threshold);
+    }
+
+    void SetRipplerStrength(int Strength)
+    {
+        //m_Rippler.SetStrength(Strength);
+    }
+
     std::uint8_t operator()(std::uint8_t In)
     {
-        return m_Crusher(m_SnH(In), m_BitCrusherDepth);//TODO
+        return m_Crusher(m_SnH(m_Rippler(In)), m_BitCrusherDepth);//TODO
     }
 private:
     CBitCrusher<std::uint8_t>   m_Crusher;
     int                         m_BitCrusherDepth;
     CSampleAndHold<std::uint8_t> m_SnH;
-    CRippler<std::uint8_t>      m_Rippler;
+    //CRippler<int>      m_Rippler;
+    CLimiter<std::uint8_t>  m_Rippler;
 };
 
 #endif // _8BITFX_H

@@ -39,6 +39,8 @@ public:
 
     void OnBitCrusherDepth(int Depth);
     void OnSampleAndHoldPeriod(int Period);
+    void OnRipplerStrength(int Strength);
+    void OnRipplerThreshold(int Threshold);
 
 private:
     void UpdateFrequency();

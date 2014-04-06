@@ -46,22 +46,17 @@ private slots:
     void on_doubleSpinBox_Frequency_valueChanged(double arg1);
     void on_comboBox_WaveForm_activated(const QString &arg1);
 
-    void on_doubleSpinBox_ModifierFrequency_valueChanged(double arg1);
-    void on_pushButton_Sync_clicked();
     void on_doubleSpinBox_SmootherFactor_valueChanged(double arg1);
-    void on_doubleSpinBox_SyncPhaseShift_valueChanged(double arg1);
 
     void on_doubleSpinBox_WaveShaperStrength_valueChanged(double arg1);
-
     void on_comboBox_WaveShaper_activated(const QString &arg1);
-
     void on_doubleSpinBox_WaveShaperPhaseShift_valueChanged(double arg1);
-
     void on_doubleSpinBox_WaveShaperMultiplier_valueChanged(double arg1);
 
     void on_spinBox_BitCrushserDepth_valueChanged(int arg1);
-
     void on_spinBox_SnHPeriod_valueChanged(int arg1);
+    void on_spinBox_RipplerThreshold_valueChanged(int arg1);
+    void on_spinBox_RipplerStrength_valueChanged(int arg1);
 
 private:
     void CreateAudioOutput();

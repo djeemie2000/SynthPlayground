@@ -152,6 +152,16 @@ void CController::OnSampleAndHoldPeriod(int Period)
     m_Fx.SetSampleAndHoldPeriod(Period);
 }
 
+void CController::OnRipplerStrength(int Strength)
+{
+    m_Fx.SetRipplerStrength(Strength);
+}
+
+void CController::OnRipplerThreshold(int Threshold)
+{
+    m_Fx.SetRipplerThreshold(Threshold);
+}
+
 void CController::UpdateFrequency()
 {
     m_PhaseStep.SetFrequency(m_Frequency);

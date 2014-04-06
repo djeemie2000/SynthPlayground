@@ -251,21 +251,9 @@ void MainWindow::on_checkBox_ScopeGrabRepeated_clicked(bool checked)
     m_ScopeAutoGrab = checked;
 }
 
-void MainWindow::on_doubleSpinBox_ModifierFrequency_valueChanged(double arg1)
-{
-}
-
-void MainWindow::on_pushButton_Sync_clicked()
-{
-}
-
 void MainWindow::on_doubleSpinBox_SmootherFactor_valueChanged(double arg1)
 {
     m_Controller->OnSmootherFactor(arg1);
-}
-
-void MainWindow::on_doubleSpinBox_SyncPhaseShift_valueChanged(double arg1)
-{
 }
 
 void MainWindow::on_doubleSpinBox_WaveShaperStrength_valueChanged(double arg1)
@@ -296,4 +284,14 @@ void MainWindow::on_spinBox_BitCrushserDepth_valueChanged(int arg1)
 void MainWindow::on_spinBox_SnHPeriod_valueChanged(int arg1)
 {
     m_Controller->OnSampleAndHoldPeriod(arg1);
+}
+
+void MainWindow::on_spinBox_RipplerThreshold_valueChanged(int arg1)
+{
+    m_Controller->OnRipplerThreshold(arg1);
+}
+
+void MainWindow::on_spinBox_RipplerStrength_valueChanged(int arg1)
+{
+    m_Controller->OnRipplerStrength(arg1);
 }
