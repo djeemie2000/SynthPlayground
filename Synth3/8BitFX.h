@@ -90,6 +90,8 @@ public:
      , m_MaxTh(Max)
      , m_Strength(0)
      , m_Ripple(0)
+     , m_CurrentStrength(0)
+     , m_StrengthJump(0)
     {
     }
 
@@ -99,15 +101,30 @@ public:
         m_MinTh = m_Min + Threshold;
     }
 
+    void SetStrengthJump(T Jump)
+    {
+        m_StrengthJump = Jump;
+    }
+
     void SetStrength(T Strength)
     {
         m_Strength = Strength;
         m_Ripple = Strength;
+        m_CurrentStrength = Strength;
     }
 
     T operator()(T In)
     {
-        m_Ripple = 0<m_Ripple ? m_Ripple-1 : m_Strength;
+        //m_Ripple = 0<m_Ripple ? m_Ripple-1 : m_Strength;
+        if(m_Ripple)
+        {
+            --m_Ripple;
+        }
+        else
+        {
+            m_CurrentStrength = (m_CurrentStrength+m_StrengthJump)%(m_Strength+1);
+            m_Ripple = m_CurrentStrength;
+        }
 
         return In<(m_Max+m_Min)/2 ? In + m_Ripple : In - m_Ripple;
     }
@@ -119,6 +136,8 @@ private:
     T m_MaxTh;
     T m_Strength;
     T m_Ripple;
+    T m_CurrentStrength;
+    T m_StrengthJump;
 };
 
 
@@ -143,9 +162,9 @@ public:
         m_SnH.SetPeriod(Period);
     }
 
-    void SetRipplerThreshold(int Threshold)
+    void SetRipplerStrengthJump(int Jump)
     {
-        m_Rippler.SetThreshold(Threshold);
+        m_Rippler.SetStrengthJump(Jump);
     }
 
     void SetRipplerStrength(int Strength)

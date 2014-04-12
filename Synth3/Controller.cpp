@@ -159,7 +159,7 @@ void CController::OnRipplerStrength(int Strength)
 
 void CController::OnRipplerThreshold(int Threshold)
 {
-    m_Fx.SetRipplerThreshold(Threshold);
+    m_Fx.SetRipplerStrengthJump(Threshold);
 }
 
 void CController::UpdateFrequency()
