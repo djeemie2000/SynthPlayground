@@ -13,6 +13,7 @@
 #include "Smoother.h"
 #include "SelectableOperator.h"
 #include "8BitFX.h"
+#include "TriangularLFO.h"
 
 class IView;
 
@@ -30,12 +31,10 @@ public:
     void OnFrequency(float Frequency);
     void OnWaveForm(const std::string& WaveForm);
 
-    void OnSmootherFactor(float Factor);
+    void OnWaveForm2(const std::string& WaveForm);
+    void OnMorpherFrequencyMultiplier(float Multiplier);
 
-    void OnWaveShaper(const std::string& WaveShaper);
-    void OnWaveShaperStrength(float Strength);
-    void OnWaveShaperPhaseShift(float PhaseDifference);
-    void OnWaveShaperPhaseMultiplier(float Multiplier);
+    void OnSmootherFactor(float Factor);
 
     void OnBitCrusherDepth(int Depth);
     void OnSampleAndHoldPeriod(int Period);
@@ -54,14 +53,11 @@ private:
     CPhaseStep<float> m_PhaseStep;
     CPhaseGenerator<float> m_PhaseGen;
     CSelectableOperator<float> m_Oscillator;
+    CSelectableOperator<float> m_Oscillator2;
 
-    CSelectableOperator<float> m_Shaper;
-    float m_WaveShaperPhaseShift;
-    float m_WaveShaperPhaseMultiplier;
-    float m_WaveShaperStrength;
+    CTriangularLFO<float> m_MorphLFO;
 
     CSmoother<float> m_Smoother;
-
     C8BitFX m_Fx;
 };
 

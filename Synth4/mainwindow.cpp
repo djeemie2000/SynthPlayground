@@ -35,14 +35,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->comboBox_WaveForm->addItem("InvSquare");
     ui->comboBox_WaveForm->addItem("NoOp");
 
-    ui->comboBox_WaveShaper->addItem("RampUp");
-    ui->comboBox_WaveShaper->addItem("RampDown");
-    ui->comboBox_WaveShaper->addItem("Triangle");
-    ui->comboBox_WaveShaper->addItem("FullPseudoSin");
-    ui->comboBox_WaveShaper->addItem("PseudoSin");
-    ui->comboBox_WaveShaper->addItem("Square");
-    ui->comboBox_WaveShaper->addItem("InvSquare");
-    ui->comboBox_WaveShaper->addItem("NoOp");
+    ui->comboBox_WaveForm2->addItem("RampUp");
+    ui->comboBox_WaveForm2->addItem("RampDown");
+    ui->comboBox_WaveForm2->addItem("Triangle");
+    ui->comboBox_WaveForm2->addItem("FullPseudoSin");
+    ui->comboBox_WaveForm2->addItem("PseudoSin");
+    ui->comboBox_WaveForm2->addItem("Square");
+    ui->comboBox_WaveForm2->addItem("InvSquare");
+    ui->comboBox_WaveForm2->addItem("NoOp");
 
     QGraphicsScene* Scene = new QGraphicsScene(this);
     ui->graphicsView_WaveForm->setScene(Scene);
@@ -68,6 +68,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     m_Controller->OnFrequency(ui->doubleSpinBox_Frequency->value());
     m_Controller->OnWaveForm(ui->comboBox_WaveForm->currentText().toStdString());
+    m_Controller->OnWaveForm2(ui->comboBox_WaveForm2->currentText().toStdString());
+
 
     m_AudioIODevice = new QAudioIODevice(m_Controller.get(), this);
 
@@ -256,26 +258,6 @@ void MainWindow::on_doubleSpinBox_SmootherFactor_valueChanged(double arg1)
     m_Controller->OnSmootherFactor(arg1);
 }
 
-void MainWindow::on_doubleSpinBox_WaveShaperStrength_valueChanged(double arg1)
-{
-    m_Controller->OnWaveShaperStrength(arg1);
-}
-
-void MainWindow::on_comboBox_WaveShaper_activated(const QString &arg1)
-{
-    m_Controller->OnWaveShaper(arg1.toStdString());
-}
-
-void MainWindow::on_doubleSpinBox_WaveShaperPhaseShift_valueChanged(double arg1)
-{
-    m_Controller->OnWaveShaperPhaseShift(arg1);
-}
-
-void MainWindow::on_doubleSpinBox_WaveShaperMultiplier_valueChanged(double arg1)
-{
-    m_Controller->OnWaveShaperPhaseMultiplier(arg1);
-}
-
 void MainWindow::on_spinBox_BitCrushserDepth_valueChanged(int arg1)
 {
     m_Controller->OnBitCrusherDepth(arg1);
@@ -294,4 +276,14 @@ void MainWindow::on_spinBox_RipplerThreshold_valueChanged(int arg1)
 void MainWindow::on_spinBox_RipplerStrength_valueChanged(int arg1)
 {
     m_Controller->OnRipplerStrength(arg1);
+}
+
+void MainWindow::on_doubleSpinBox_MorphFrequencyMultiplier_valueChanged(double arg1)
+{
+    m_Controller->OnMorpherFrequencyMultiplier(arg1);
+}
+
+void MainWindow::on_comboBox_WaveForm2_activated(const QString &arg1)
+{
+    m_Controller->OnWaveForm2(arg1.toStdString());
 }

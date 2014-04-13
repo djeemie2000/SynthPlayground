@@ -8,11 +8,12 @@
 #include "PseudoSin.h"
 #include "FullPseudoSin.h"
 #include "Square.h"
-#include "FlipOperator.h"
-#include "MirrorOperator.h"
+//#include "FlipOperator.h"
+//#include "MirrorOperator.h"
 #include "NoOp.h"
 #include "Triangle.h"
-#include "SymmetricalOperator.h"
+//#include "SymmetricalOperator.h"
+#include "CrossFader.h"
 
 namespace
 {
@@ -82,15 +83,13 @@ CController::CController(IView &View, int SamplingFrequency)
     , m_PhaseStep(SamplingFrequency)
     , m_PhaseGen()
     , m_Oscillator(CreateSelectableOperator())
-    , m_Shaper(CreateSelectableOperator())
-    , m_WaveShaperPhaseShift(0.0f)
-    , m_WaveShaperPhaseMultiplier(1.0f)
-    , m_WaveShaperStrength(0.0f)
+    , m_Oscillator2(CreateSelectableOperator())
+    , m_MorphLFO()
     , m_Smoother()
 {
     m_PhaseStep.SetFrequency(440.0);
     m_Oscillator.Select(0);
-    m_Shaper.Select(0);
+    m_Oscillator2.Select(0);
 }
 
 CController::~CController()
@@ -117,29 +116,19 @@ void CController::OnWaveForm(const std::string &WaveForm)
     m_Oscillator.Select(GetSelection(WaveForm));
 }
 
+void CController::OnWaveForm2(const std::string &WaveForm)
+{
+    m_Oscillator2.Select(GetSelection(WaveForm));
+}
+
+void CController::OnMorpherFrequencyMultiplier(float Multiplier)
+{
+    m_MorphLFO.SetMultiplier(Multiplier);
+}
+
 void CController::OnSmootherFactor(float Factor)
 {
     m_Smoother.SetFactor(Factor);
-}
-
-void CController::OnWaveShaper(const std::string &WaveShaper)
-{
-    m_Shaper.Select(GetSelection(WaveShaper));
-}
-
-void CController::OnWaveShaperStrength(float Strength)
-{
-    m_WaveShaperStrength = Strength;
-}
-
-void CController::OnWaveShaperPhaseShift(float PhaseDifference)
-{
-    m_WaveShaperPhaseShift = PhaseDifference;
-}
-
-void CController::OnWaveShaperPhaseMultiplier(float Multiplier)
-{
-    m_WaveShaperPhaseMultiplier = Multiplier;
 }
 
 void CController::OnBitCrusherDepth(int Depth)
@@ -178,15 +167,16 @@ std::int64_t CController::OnRead(char *Dst, std::int64_t MaxSize)
     int MaxReadSize = 1<<11;
     std::size_t Size = MaxSize<MaxReadSize ? MaxSize : MaxReadSize;
 
-    CPhaseSubtractor<float> Sub;
-    CPhaseMultiplier<float> Mult;
-    CSymmetricalOperator<float> Symm;
+    CCrossFader<float> Morpher;
     char* pDst = Dst;
     char* pDstEnd = Dst + Size;
     while(pDst<pDstEnd)
     {
-        //*pDst = 255*m_Smoother(m_Shaper(Sub(Mult(m_Oscillator(m_PhaseGen(m_PhaseStep())), m_WaveShaperPhaseMultiplier), m_WaveShaperPhaseShift)));
-        *pDst = m_Fx(255*m_Smoother(Symm(Sub(Mult(m_Oscillator(m_PhaseGen(m_PhaseStep())), m_WaveShaperPhaseMultiplier), m_WaveShaperPhaseShift), m_Shaper)));
+        //*pDst = 255*m_MorphLFO(m_PhaseStep());
+        *pDst = m_Fx(255*Morpher(m_Oscillator,
+                                 m_Oscillator2,
+                                 m_PhaseGen(m_PhaseStep()),
+                                 m_MorphLFO(m_PhaseStep())));
         ++pDst;
     }
 

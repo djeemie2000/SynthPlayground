@@ -42,6 +42,8 @@ HEADERS  += mainwindow.h \
     SelectableOperator.h \
     Triangle.h \
     SymmetricalOperator.h \
-    8BitFX.h
+    8BitFX.h \
+    TriangularLFO.h \
+    CrossFader.h
 
 FORMS    += mainwindow.ui
