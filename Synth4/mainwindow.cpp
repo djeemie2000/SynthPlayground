@@ -278,12 +278,27 @@ void MainWindow::on_spinBox_RipplerStrength_valueChanged(int arg1)
     m_Controller->OnRipplerStrength(arg1);
 }
 
-void MainWindow::on_doubleSpinBox_MorphFrequencyMultiplier_valueChanged(double arg1)
-{
-    m_Controller->OnMorpherFrequencyMultiplier(arg1);
-}
-
 void MainWindow::on_comboBox_WaveForm2_activated(const QString &arg1)
 {
     m_Controller->OnWaveForm2(arg1.toStdString());
+}
+
+void MainWindow::on_doubleSpinBox_MorpherMin_valueChanged(double arg1)
+{
+    m_Controller->OnMorpherMin(arg1);
+}
+
+void MainWindow::on_doubleSpinBox_MorpherMax_valueChanged(double arg1)
+{
+    m_Controller->OnMorpherMax(arg1);
+}
+
+void MainWindow::on_doubleSpinBox_MorphFrequency_valueChanged(double arg1)
+{
+    m_Controller->OnMorpherFrequency(arg1);
+}
+
+void MainWindow::on_pushButton_MorpherSync_clicked()
+{
+    m_Controller->OnMorpherSync();
 }

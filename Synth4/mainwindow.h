@@ -53,13 +53,14 @@ private slots:
     void on_spinBox_RipplerThreshold_valueChanged(int arg1);
     void on_spinBox_RipplerStrength_valueChanged(int arg1);
 
-    void on_doubleSpinBox_MorphFrequencyMultiplier_valueChanged(double arg1);
-
     void on_comboBox_WaveForm2_activated(const QString &arg1);
+    void on_doubleSpinBox_MorpherMin_valueChanged(double arg1);
+    void on_doubleSpinBox_MorpherMax_valueChanged(double arg1);
+    void on_doubleSpinBox_MorphFrequency_valueChanged(double arg1);
+    void on_pushButton_MorpherSync_clicked();
 
 private:
     void CreateAudioOutput();
-
 
     Ui::MainWindow *ui;
 

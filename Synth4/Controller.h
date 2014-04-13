@@ -32,7 +32,10 @@ public:
     void OnWaveForm(const std::string& WaveForm);
 
     void OnWaveForm2(const std::string& WaveForm);
-    void OnMorpherFrequencyMultiplier(float Multiplier);
+    void OnMorpherFrequency(float Frequency);
+    void OnMorpherMin(float Min);
+    void OnMorpherMax(float Max);
+    void OnMorpherSync();
 
     void OnSmootherFactor(float Factor);
 
@@ -55,7 +58,10 @@ private:
     CSelectableOperator<float> m_Oscillator;
     CSelectableOperator<float> m_Oscillator2;
 
-    CTriangularLFO<float> m_MorphLFO;
+    CPhaseStep<float> m_MorphPhaseStep;
+    CPhaseGenerator<float> m_MorphPhaseGen;
+    CSelectableOperator<float> m_MorphLFO;
+//    CTriangularLFO<float> m_MorphLFO;
 
     CSmoother<float> m_Smoother;
     C8BitFX m_Fx;

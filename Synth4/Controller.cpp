@@ -84,12 +84,17 @@ CController::CController(IView &View, int SamplingFrequency)
     , m_PhaseGen()
     , m_Oscillator(CreateSelectableOperator())
     , m_Oscillator2(CreateSelectableOperator())
-    , m_MorphLFO()
+    , m_MorphPhaseStep(SamplingFrequency)
+    , m_MorphPhaseGen()
+    , m_MorphLFO(CreateSelectableOperator())
     , m_Smoother()
+    , m_Fx()
 {
     m_PhaseStep.SetFrequency(440.0);
+    m_MorphPhaseStep.SetFrequency(1.0f);
     m_Oscillator.Select(0);
     m_Oscillator2.Select(0);
+    m_MorphLFO.Select(2);
 }
 
 CController::~CController()
@@ -121,9 +126,25 @@ void CController::OnWaveForm2(const std::string &WaveForm)
     m_Oscillator2.Select(GetSelection(WaveForm));
 }
 
-void CController::OnMorpherFrequencyMultiplier(float Multiplier)
+void CController::OnMorpherFrequency(float Frequency)
 {
-    m_MorphLFO.SetMultiplier(Multiplier);
+    m_MorphPhaseStep.SetFrequency(Frequency);
+}
+
+void CController::OnMorpherMin(float Min)
+{
+    //m_MorphLFO.SetMin(Min);
+}
+
+void CController::OnMorpherMax(float Max)
+{
+    //m_MorphLFO.SetMax(Max);
+}
+
+void CController::OnMorpherSync()
+{
+    m_MorphPhaseGen.Set(0);
+    m_PhaseGen.Set(0);
 }
 
 void CController::OnSmootherFactor(float Factor)
@@ -176,7 +197,7 @@ std::int64_t CController::OnRead(char *Dst, std::int64_t MaxSize)
         *pDst = m_Fx(255*Morpher(m_Oscillator,
                                  m_Oscillator2,
                                  m_PhaseGen(m_PhaseStep()),
-                                 m_MorphLFO(m_PhaseStep())));
+                                 m_MorphLFO(m_MorphPhaseGen(m_MorphPhaseStep()))));
         ++pDst;
     }
 

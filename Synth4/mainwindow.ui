@@ -134,22 +134,66 @@
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="label_11">
+           <widget class="QPushButton" name="pushButton_MorpherSync">
             <property name="text">
-             <string>Multiplier</string>
+             <string>Sync</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QDoubleSpinBox" name="doubleSpinBox_MorphFrequencyMultiplier">
+           <widget class="QLabel" name="label_11">
+            <property name="text">
+             <string>Frequency</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="doubleSpinBox_MorphFrequency">
             <property name="decimals">
              <number>4</number>
+            </property>
+            <property name="maximum">
+             <double>20000.000000000000000</double>
             </property>
             <property name="singleStep">
              <double>0.001000000000000</double>
             </property>
             <property name="value">
              <double>1.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>Min</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="doubleSpinBox_MorpherMin">
+            <property name="maximum">
+             <double>1.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.010000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_18">
+            <property name="text">
+             <string>Max</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="doubleSpinBox_MorpherMax">
+            <property name="maximum">
+             <double>1.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.010000000000000</double>
             </property>
            </widget>
           </item>
