@@ -57,11 +57,11 @@ public:
     void Detune(const T& Detune)
     {
         //TODO!!!
-        T Mult = -N/2;
+        T Mult = 1;
         for(auto& Osc : m_Oscillator)
         {
-            Osc.s_FrequencyMultiplier = 1+Mult*Detune;
-            Mult += 1;
+            Osc.s_FrequencyMultiplier = Mult;
+            Mult *= Detune;
         }
 
         SetFrequency(m_Frequency);
