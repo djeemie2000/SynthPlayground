@@ -34,6 +34,7 @@ public:
 
     void OnDetune(float Detune);
     void OnDetuneSync();
+    void OnDephase(float Dephase);
 
     void OnSmootherFactor(float Factor);
 
@@ -49,7 +50,7 @@ private:
     CSampleGrabber<std::uint8_t> m_SampleGrabber;
 
     float m_Frequency;
-    CDetunedSelectableOscillator<float, 2> m_Oscillator;
+    CDetunedSelectableOscillator<float, 4> m_Oscillator;
 
     CSmoother<float> m_Smoother;
     C8BitFX m_Fx;

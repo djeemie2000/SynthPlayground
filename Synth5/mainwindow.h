@@ -57,6 +57,8 @@ private slots:
 
     void on_doubleSpinBox_Detune_valueChanged(double arg1);
 
+    void on_doubleSpinBox_Dephase_valueChanged(double arg1);
+
 private:
     void CreateAudioOutput();
 

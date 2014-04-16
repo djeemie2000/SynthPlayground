@@ -122,6 +122,11 @@ void CController::OnDetuneSync()
     m_Oscillator.Sync();
 }
 
+void CController::OnDephase(float Dephase)
+{
+    m_Oscillator.DePhase(Dephase);
+}
+
 void CController::OnSmootherFactor(float Factor)
 {
     m_Smoother.SetFactor(Factor);

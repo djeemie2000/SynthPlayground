@@ -131,6 +131,26 @@
            </widget>
           </item>
           <item>
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>Dephase</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="doubleSpinBox_Dephase">
+            <property name="decimals">
+             <number>4</number>
+            </property>
+            <property name="maximum">
+             <double>1.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.000100000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QLabel" name="label_11">
             <property name="text">
              <string>Detune</string>

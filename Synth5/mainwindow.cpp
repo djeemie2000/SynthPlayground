@@ -276,3 +276,8 @@ void MainWindow::on_doubleSpinBox_Detune_valueChanged(double arg1)
 {
     m_Controller->OnDetune(arg1);
 }
+
+void MainWindow::on_doubleSpinBox_Dephase_valueChanged(double arg1)
+{
+    m_Controller->OnDephase(arg1);
+}

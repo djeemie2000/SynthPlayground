@@ -14,7 +14,7 @@ public:
      : m_Frequency(440)
      , m_Oscillator()
     {
-        m_Oscillator.fill({1, CPhaseStep<T>(SamplingFrequency), CPhaseGenerator<T>(), Oscillator});
+        m_Oscillator.fill({0, 1, CPhaseStep<T>(SamplingFrequency), CPhaseGenerator<T>(), Oscillator});
         SetFrequency(m_Frequency);
     }
 
@@ -33,7 +33,7 @@ public:
     {
         for(auto& Osc : m_Oscillator)
         {
-            Osc.s_PhaseGenerator.Set(0);
+            Osc.s_PhaseGenerator.Set(Osc.s_PhaseShift);
         }
     }
 
@@ -67,9 +67,23 @@ public:
         SetFrequency(m_Frequency);
     }
 
+    void DePhase(const T& Dephase)
+    {
+        T PhaseShift = 0;
+        T PhaseShiftIncrease = Dephase/static_cast<T>(N);
+        for(auto& Osc : m_Oscillator)
+        {
+            Osc.s_PhaseShift = PhaseShift;
+            PhaseShift += PhaseShiftIncrease;
+        }
+
+        Sync();//?
+    }
+
 private:
     struct SOsc
     {
+        T s_PhaseShift;
         T s_FrequencyMultiplier;
         CPhaseStep<T> s_PhaseStep;
         CPhaseGenerator<T> s_PhaseGenerator;
