@@ -54,10 +54,9 @@ private slots:
     void on_spinBox_RipplerStrength_valueChanged(int arg1);
 
     void on_pushButton_DetuneSync_clicked();
-
     void on_doubleSpinBox_Detune_valueChanged(double arg1);
-
     void on_doubleSpinBox_Dephase_valueChanged(double arg1);
+    void on_spinBox_DetuneDepth_valueChanged(int arg1);
 
 private:
     void CreateAudioOutput();

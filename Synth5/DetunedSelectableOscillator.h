@@ -12,21 +12,24 @@ class CDetunedSelectableOscillator
 public:
     CDetunedSelectableOscillator(int SamplingFrequency, const CSelectableOperator<T>& Oscillator)
      : m_Frequency(440)
+     , m_Depth(N)
+     , m_Dephase(0)
      , m_Oscillator()
     {
-        m_Oscillator.fill({0, 1, CPhaseStep<T>(SamplingFrequency), CPhaseGenerator<T>(), Oscillator});
+        m_Oscillator.fill({1/static_cast<T>(N), 0, 1, CPhaseStep<T>(SamplingFrequency), CPhaseGenerator<T>(), Oscillator});
         SetFrequency(m_Frequency);
+        Select(0);// necessary?
+        DePhase(m_Dephase);
     }
 
     T operator()()
     {
-        T Temp = 0;
+        T Out = 0;
         for(auto& Osc : m_Oscillator)
         {
-            Temp += Osc();
+            Out += Osc();
         }
-        return Temp/static_cast<T>(N);
-        //return m_Oscillator(m_PhaseGenerator(m_PhaseStep()));
+        return Out;
     }
 
     void Sync()
@@ -56,7 +59,6 @@ public:
 
     void Detune(const T& Detune)
     {
-        //TODO!!!
         T Mult = 1;
         for(auto& Osc : m_Oscillator)
         {
@@ -69,8 +71,10 @@ public:
 
     void DePhase(const T& Dephase)
     {
+        m_Dephase = Dephase;
+
         T PhaseShift = 0;
-        T PhaseShiftIncrease = Dephase/static_cast<T>(N);
+        T PhaseShiftIncrease = Dephase/static_cast<T>(m_Depth);
         for(auto& Osc : m_Oscillator)
         {
             Osc.s_PhaseShift = PhaseShift;
@@ -80,9 +84,26 @@ public:
         Sync();//?
     }
 
+    void SetDepth(int Depth)
+    {
+        m_Depth = Depth;
+
+        T Amplitude = 1/static_cast<T>(Depth);
+        int idx = 0;
+        for(auto& Osc : m_Oscillator)
+        {
+            Osc.s_Amplitude = idx<Depth ? Amplitude : 0;
+            ++idx;
+        }
+
+        // need to re-calculate the dephase depending on the new depth
+        DePhase(m_Dephase);
+    }
+
 private:
     struct SOsc
     {
+        T s_Amplitude;
         T s_PhaseShift;
         T s_FrequencyMultiplier;
         CPhaseStep<T> s_PhaseStep;
@@ -91,11 +112,13 @@ private:
 
         T operator()()
         {
-            return s_Oscillator(s_PhaseGenerator(s_PhaseStep()));
+            return s_Amplitude*s_Oscillator(s_PhaseGenerator(s_PhaseStep()));
         }
     };
 
     T m_Frequency;
+    int m_Depth;
+    T m_Dephase;
     std::array<SOsc, N> m_Oscillator;
 };
 

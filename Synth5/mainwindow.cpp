@@ -281,3 +281,8 @@ void MainWindow::on_doubleSpinBox_Dephase_valueChanged(double arg1)
 {
     m_Controller->OnDephase(arg1);
 }
+
+void MainWindow::on_spinBox_DetuneDepth_valueChanged(int arg1)
+{
+    m_Controller->OnDetuneDepth(arg1);
+}
