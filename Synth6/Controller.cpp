@@ -15,6 +15,8 @@
 #include "Triangle.h"
 //#include "SymmetricalOperator.h"
 #include "CrossFader.h"
+#include "SelectableCombinor.h"
+#include "Combinor.h"
 
 namespace
 {
@@ -80,6 +82,55 @@ int GetSelection(const std::string& Description)
     return 8;
 }
 
+CSelectableCombinor<float> CreateSelectableCombinor()
+{
+    CSelectableCombinor<float> Combinor;
+
+    Combinor.Add(CHardLimitAdder<float>());
+    Combinor.Add(CMultiplier<float>());
+    Combinor.Add(CMaxer<float>());
+    Combinor.Add(CMiner<float>());
+    Combinor.Add(CAbsDiffer<float>());
+    Combinor.Add(CDividerA<float>());
+    Combinor.Add(CDividerB<float>());
+
+    return Combinor;
+}
+
+int GetCombinorSelection(const std::string& Description)
+{
+    if(Description=="+L")
+    {
+        return 0;
+    }
+    if(Description=="*")
+    {
+        return 1;
+    }
+    if(Description=="M")
+    {
+        return 2;
+    }
+    if(Description=="m")
+    {
+        return 3;
+    }
+    if(Description=="|-|")
+    {
+        return 4;
+    }
+    if(Description=="DivA")
+    {
+        return 5;
+    }
+    if(Description=="DivB")
+    {
+        return 6;
+    }
+    return 7;
+}
+
+
 }
 
 CController::CController(IView &View, int SamplingFrequency)
@@ -87,12 +138,13 @@ CController::CController(IView &View, int SamplingFrequency)
     , m_GrabSample(false)
     , m_SampleGrabber()
     , m_Frequency(440.0f)
-    , m_Oscillator(SamplingFrequency, CreateSelectableOperator())
-    , m_Smoother()
+    , m_Oscillator(SamplingFrequency, CreateSelectableOperator(), CreateSelectableCombinor())
     , m_Fx()
 {
     m_Oscillator.SetFrequency(440.0);
-    m_Oscillator.Select(0);
+    m_Oscillator.Select(0, 0);
+    m_Oscillator.Select(1, 0);
+    m_Oscillator.SelectCombinor(0);
 }
 
 CController::~CController()
@@ -114,34 +166,34 @@ void CController::OnFrequency(float Frequency)
     m_Oscillator.SetFrequency(Frequency);
 }
 
-void CController::OnWaveForm(const std::string &WaveForm)
-{
-    m_Oscillator.Select(GetSelection(WaveForm));
-}
-
-void CController::OnDetune(float Detune)
-{
-    m_Oscillator.Detune(Detune);
-}
-
-void CController::OnDetuneSync()
+void CController::OnSync()
 {
     m_Oscillator.Sync();
 }
 
-void CController::OnDephase(float Dephase)
+void CController::OnCombinor(const std::string &Combinor)
 {
-    m_Oscillator.DePhase(Dephase);
+    m_Oscillator.SelectCombinor(GetCombinorSelection(Combinor));
 }
 
-void CController::OnDetuneDepth(int Depth)
+void CController::OnOperator(int Idx, const std::string &Operator)
 {
-    m_Oscillator.SetDepth(Depth);
+    m_Oscillator.Select(Idx, GetSelection(Operator));
 }
 
-void CController::OnSmootherFactor(float Factor)
+void CController::OnAmplitude(int Idx, float Amplitude)
 {
-    m_Smoother.SetFactor(Factor);
+    m_Oscillator.SetAmplitude(Idx, Amplitude);
+}
+
+void CController::OnFrequencyMultiplier(int Idx, float FrequencyMultiplier)
+{
+    m_Oscillator.SetFrequencyMultiplier(Idx, FrequencyMultiplier);
+}
+
+void CController::OnPhaseshift(int Idx, float PhaseShift)
+{
+    m_Oscillator.SetPhaseShift(Idx, PhaseShift);
 }
 
 void CController::OnBitCrusherDepth(int Depth)

@@ -46,6 +46,10 @@ HEADERS  += mainwindow.h \
     TriangularLFO.h \
     CrossFader.h \
     DetunedSelectableOscillator.h \
-    SquareWave.h
+    SquareWave.h \
+    OscillatorStage.h \
+    Combinor.h \
+    SelectableCombinor.h \
+    Conversions.h
 
 FORMS    += mainwindow.ui

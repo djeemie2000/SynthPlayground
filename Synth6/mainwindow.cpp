@@ -16,6 +16,35 @@ namespace
 
 
 
+namespace
+{
+
+void InitialiseWaveFormSelection(QComboBox* ComboBox)
+{
+    ComboBox->addItem("RampUp");
+    ComboBox->addItem("RampDown");
+    ComboBox->addItem("Triangle");
+    ComboBox->addItem("FullPseudoSin");
+    ComboBox->addItem("PseudoSin");
+    ComboBox->addItem("Square");
+    ComboBox->addItem("InvSquare");
+    ComboBox->addItem("SquareWave");
+    ComboBox->addItem("NoOp");
+}
+
+void InitialiseCombinorSelection(QComboBox* ComboBox)
+{
+    ComboBox->addItem("+L");
+    ComboBox->addItem("*");
+    ComboBox->addItem("M");
+    ComboBox->addItem("m");
+    ComboBox->addItem("|-|");
+    ComboBox->addItem("DivA");
+    ComboBox->addItem("DivB");
+}
+
+}
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -26,15 +55,10 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ui->comboBox_WaveForm->addItem("RampUp");
-    ui->comboBox_WaveForm->addItem("RampDown");
-    ui->comboBox_WaveForm->addItem("Triangle");
-    ui->comboBox_WaveForm->addItem("FullPseudoSin");
-    ui->comboBox_WaveForm->addItem("PseudoSin");
-    ui->comboBox_WaveForm->addItem("Square");
-    ui->comboBox_WaveForm->addItem("InvSquare");
-    ui->comboBox_WaveForm->addItem("SquareWave");
-    ui->comboBox_WaveForm->addItem("NoOp");
+    InitialiseCombinorSelection(ui->comboBox_Combinor);
+    InitialiseWaveFormSelection(ui->comboBox_1_Operator);
+    InitialiseWaveFormSelection(ui->comboBox_2_Operator);
+
 
     QGraphicsScene* Scene = new QGraphicsScene(this);
     ui->graphicsView_WaveForm->setScene(Scene);
@@ -56,12 +80,14 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(View, SIGNAL(SignalSampleRange(int,int)), this, SLOT(OnSampleRange(int,int)));
     connect(View, SIGNAL(SignalSample(QVector<std::uint8_t>)), this, SLOT(OnSample(QVector<std::uint8_t>)));
 
-    m_Controller.reset(new CController(*View, SamplingFrequency));
+    m_Controller = new CController(*View, SamplingFrequency);
 
     m_Controller->OnFrequency(ui->doubleSpinBox_Frequency->value());
-    m_Controller->OnWaveForm(ui->comboBox_WaveForm->currentText().toStdString());
+    m_Controller->OnCombinor(ui->comboBox_Combinor->currentText().toStdString());
+    m_Controller->OnOperator(0, ui->comboBox_1_Operator->currentText().toStdString());
+    m_Controller->OnOperator(1, ui->comboBox_2_Operator->currentText().toStdString());
 
-    m_AudioIODevice = new QAudioIODevice(m_Controller.get(), this);
+    m_AudioIODevice = new QAudioIODevice(m_Controller, this);
 
     // open current device
     CreateAudioOutput();
@@ -70,6 +96,7 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete m_Controller;
 }
 
 void MainWindow::on_pushButton_Play_clicked()
@@ -233,19 +260,9 @@ void MainWindow::on_doubleSpinBox_Frequency_valueChanged(double arg1)
     m_Controller->OnFrequency(arg1);
 }
 
-void MainWindow::on_comboBox_WaveForm_activated(const QString &arg1)
-{
-    m_Controller->OnWaveForm(arg1.toStdString());
-}
-
 void MainWindow::on_checkBox_ScopeGrabRepeated_clicked(bool checked)
 {
     m_ScopeAutoGrab = checked;
-}
-
-void MainWindow::on_doubleSpinBox_SmootherFactor_valueChanged(double arg1)
-{
-    m_Controller->OnSmootherFactor(arg1);
 }
 
 void MainWindow::on_spinBox_BitCrushserDepth_valueChanged(int arg1)
@@ -268,22 +285,52 @@ void MainWindow::on_spinBox_RipplerStrength_valueChanged(int arg1)
     m_Controller->OnRipplerStrength(arg1);
 }
 
+void MainWindow::on_comboBox_Combinor_activated(const QString &arg1)
+{
+    m_Controller->OnCombinor(arg1.toStdString());
+}
+
+void MainWindow::on_doubleSpinBox_1_Amplitude_valueChanged(double arg1)
+{
+    m_Controller->OnAmplitude(0, arg1);
+}
+
+void MainWindow::on_doubleSpinBox_2_Amplitude_valueChanged(double arg1)
+{
+    m_Controller->OnAmplitude(1, arg1);
+}
+
+void MainWindow::on_comboBox_1_Operator_activated(const QString &arg1)
+{
+    m_Controller->OnOperator(0, arg1.toStdString());
+}
+
+void MainWindow::on_comboBox_2_Operator_activated(const QString &arg1)
+{
+    m_Controller->OnOperator(1, arg1.toStdString());
+}
+
+void MainWindow::on_doubleSpinBox_1_Frequency_valueChanged(double arg1)
+{
+    m_Controller->OnFrequencyMultiplier(0, arg1);
+}
+
+void MainWindow::on_doubleSpinBox_2_Frequency_valueChanged(double arg1)
+{
+    m_Controller->OnFrequencyMultiplier(1, arg1);
+}
+
+void MainWindow::on_doubleSpinBox_1_PhaseShift_valueChanged(double arg1)
+{
+    m_Controller->OnPhaseshift(0, arg1);
+}
+
+void MainWindow::on_doubleSpinBox_2_PhaseShift_valueChanged(double arg1)
+{
+    m_Controller->OnPhaseshift(1, arg1);
+}
+
 void MainWindow::on_pushButton_DetuneSync_clicked()
 {
-    m_Controller->OnDetuneSync();
-}
-
-void MainWindow::on_doubleSpinBox_Detune_valueChanged(double arg1)
-{
-    m_Controller->OnDetune(arg1);
-}
-
-void MainWindow::on_doubleSpinBox_Dephase_valueChanged(double arg1)
-{
-    m_Controller->OnDephase(arg1);
-}
-
-void MainWindow::on_spinBox_DetuneDepth_valueChanged(int arg1)
-{
-    m_Controller->OnDetuneDepth(arg1);
+    m_Controller->OnSync();
 }

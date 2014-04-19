@@ -3,8 +3,6 @@
 
 #include <vector>
 #include <functional>
-#include "NoOp.h"
-
 
 template<class T>
 class CSelectableOperator

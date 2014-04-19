@@ -44,19 +44,24 @@ private slots:
     void on_checkBox_ScopeGrabRepeated_clicked(bool checked);
 
     void on_doubleSpinBox_Frequency_valueChanged(double arg1);
-    void on_comboBox_WaveForm_activated(const QString &arg1);
 
-    void on_doubleSpinBox_SmootherFactor_valueChanged(double arg1);
 
     void on_spinBox_BitCrushserDepth_valueChanged(int arg1);
     void on_spinBox_SnHPeriod_valueChanged(int arg1);
     void on_spinBox_RipplerThreshold_valueChanged(int arg1);
     void on_spinBox_RipplerStrength_valueChanged(int arg1);
 
+    void on_comboBox_Combinor_activated(const QString &arg1);
+    void on_doubleSpinBox_1_Amplitude_valueChanged(double arg1);
+    void on_doubleSpinBox_2_Amplitude_valueChanged(double arg1);
+    void on_comboBox_1_Operator_activated(const QString &arg1);
+    void on_comboBox_2_Operator_activated(const QString &arg1);
+    void on_doubleSpinBox_1_Frequency_valueChanged(double arg1);
+    void on_doubleSpinBox_2_Frequency_valueChanged(double arg1);
+    void on_doubleSpinBox_1_PhaseShift_valueChanged(double arg1);
+    void on_doubleSpinBox_2_PhaseShift_valueChanged(double arg1);
+
     void on_pushButton_DetuneSync_clicked();
-    void on_doubleSpinBox_Detune_valueChanged(double arg1);
-    void on_doubleSpinBox_Dephase_valueChanged(double arg1);
-    void on_spinBox_DetuneDepth_valueChanged(int arg1);
 
 private:
     void CreateAudioOutput();
@@ -67,7 +72,7 @@ private:
     QAudioIODevice* m_AudioIODevice;
     bool        m_ScopeAutoGrab;
 
-    std::unique_ptr<CController> m_Controller;
+    CController* m_Controller;
 };
 
 #endif // MAINWINDOW_H

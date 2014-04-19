@@ -4,17 +4,10 @@
 #include <string>
 #include <vector>
 #include <inttypes.h>
-#include "ConstGenerator.h"
-#include "GranularSamplePlayer.h"
 #include "SampleGrabber.h"
-#include "PhaseStep.h"
-#include "PhaseGenerator.h"
-#include "PhaseDecreaseCondition.h"
 #include "Smoother.h"
-#include "SelectableOperator.h"
 #include "8BitFX.h"
-#include "TriangularLFO.h"
-#include "DetunedSelectableOscillator.h"
+#include "OscillatorStage.h"
 
 class IView;
 
@@ -30,15 +23,17 @@ public:
     std::int64_t OnRead(char *Dst, std::int64_t MaxSize);//this should be some different interface?
 
     void OnFrequency(float Frequency);
-    void OnWaveForm(const std::string& WaveForm);
 
-    void OnDetune(float Detune);
-    void OnDetuneSync();
-    void OnDephase(float Dephase);
-    void OnDetuneDepth(int Depth);
+    void OnSync();
 
-    void OnSmootherFactor(float Factor);
+    void OnCombinor(const std::string& Combinor);
+    void OnOperator(int Idx, const std::string& Operator);
+    void OnAmplitude(int Idx, float Amplitude);
+    void OnFrequencyMultiplier(int Idx, float FrequencyMultiplier);
+    void OnPhaseshift(int Idx, float PhaseShift);
 
+
+    // (8 bit) FX
     void OnBitCrusherDepth(int Depth);
     void OnSampleAndHoldPeriod(int Period);
     void OnRipplerStrength(int Strength);
@@ -51,9 +46,8 @@ private:
     CSampleGrabber<std::uint8_t> m_SampleGrabber;
 
     float m_Frequency;
-    CDetunedSelectableOscillator<float, 8> m_Oscillator;
+    COscillatorStage<float> m_Oscillator;
 
-    CSmoother<float> m_Smoother;
     C8BitFX m_Fx;
 };
 
