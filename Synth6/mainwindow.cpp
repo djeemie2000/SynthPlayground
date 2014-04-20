@@ -334,3 +334,81 @@ void MainWindow::on_pushButton_DetuneSync_clicked()
 {
     m_Controller->OnSync();
 }
+
+void MainWindow::on_pushButton_KeyBoard_C_clicked()
+{
+    EOctave Octave = static_cast<EOctave>(ui->spinBox_Octave->value());
+    m_Controller->OnNoteOn(ENote::C, Octave);
+}
+
+void MainWindow::on_pushButton_Keyboard_Csharp_clicked()
+{
+    EOctave Octave = static_cast<EOctave>(ui->spinBox_Octave->value());
+    m_Controller->OnNoteOn(ENote::Csharp, Octave);
+}
+
+void MainWindow::on_pushButton_Keyboard_D_clicked()
+{
+    EOctave Octave = static_cast<EOctave>(ui->spinBox_Octave->value());
+    m_Controller->OnNoteOn(ENote::D, Octave);
+}
+
+void MainWindow::on_pushButton_Keyboard_Dsharp_clicked()
+{
+    EOctave Octave = static_cast<EOctave>(ui->spinBox_Octave->value());
+    m_Controller->OnNoteOn(ENote::Dsharp, Octave);
+}
+
+void MainWindow::on_pushButton_Keyboard_E_clicked()
+{
+    EOctave Octave = static_cast<EOctave>(ui->spinBox_Octave->value());
+    m_Controller->OnNoteOn(ENote::E, Octave);
+}
+
+void MainWindow::on_pushButton_Keyboard_F_clicked()
+{
+    EOctave Octave = static_cast<EOctave>(ui->spinBox_Octave->value());
+    m_Controller->OnNoteOn(ENote::F, Octave);
+}
+
+void MainWindow::on_pushButton_Keyboard_Fsharp_clicked()
+{
+    EOctave Octave = static_cast<EOctave>(ui->spinBox_Octave->value());
+    m_Controller->OnNoteOn(ENote::Fsharp, Octave);
+}
+
+void MainWindow::on_pushButton_Keyboard_G_clicked()
+{
+    EOctave Octave = static_cast<EOctave>(ui->spinBox_Octave->value());
+    m_Controller->OnNoteOn(ENote::G, Octave);
+}
+
+void MainWindow::on_pushButton_Keyboard_Gsharp_clicked()
+{
+    EOctave Octave = static_cast<EOctave>(ui->spinBox_Octave->value());
+    m_Controller->OnNoteOn(ENote::Gsharp, Octave);
+}
+
+void MainWindow::on_pushButton_KeyboardA_clicked()
+{
+    EOctave Octave = static_cast<EOctave>(ui->spinBox_Octave->value());
+    m_Controller->OnNoteOn(ENote::A, Octave);
+}
+
+void MainWindow::on_pushButton_Keyboard_Asharp_clicked()
+{
+    EOctave Octave = static_cast<EOctave>(ui->spinBox_Octave->value());
+    m_Controller->OnNoteOn(ENote::Asharp, Octave);
+}
+
+void MainWindow::on_pushButton_Keyboard_B_clicked()
+{
+    EOctave Octave = static_cast<EOctave>(ui->spinBox_Octave->value());
+    m_Controller->OnNoteOn(ENote::B, Octave);
+}
+
+void MainWindow::on_pushButton_Keyboard_CPlusOneOctave_clicked()
+{
+    EOctave Octave = static_cast<EOctave>(ui->spinBox_Octave->value()+1);
+    m_Controller->OnNoteOn(ENote::C, Octave);
+}

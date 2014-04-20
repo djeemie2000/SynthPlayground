@@ -9,14 +9,12 @@
 #include "FullPseudoSin.h"
 #include "Square.h"
 #include "SquareWave.h"
-//#include "FlipOperator.h"
-//#include "MirrorOperator.h"
 #include "NoOp.h"
 #include "Triangle.h"
-//#include "SymmetricalOperator.h"
 #include "CrossFader.h"
 #include "SelectableCombinor.h"
 #include "Combinor.h"
+#include "Pitch.h"
 
 namespace
 {
@@ -137,7 +135,6 @@ CController::CController(IView &View, int SamplingFrequency)
     : m_View(View)
     , m_GrabSample(false)
     , m_SampleGrabber()
-    , m_Frequency(440.0f)
     , m_Oscillator(SamplingFrequency, CreateSelectableOperator(), CreateSelectableCombinor())
     , m_Fx()
 {
@@ -162,13 +159,22 @@ void CController::OnStop()
 
 void CController::OnFrequency(float Frequency)
 {
-    m_Frequency = Frequency;
     m_Oscillator.SetFrequency(Frequency);
 }
 
 void CController::OnSync()
 {
     m_Oscillator.Sync();
+}
+
+void CController::OnNoteOn(ENote Note, EOctave Octave)
+{
+    OnFrequency(CPitch()(Note, Octave));
+}
+
+void CController::OnNoteOff(ENote /*Note*/, EOctave /*Octave*/)
+{
+
 }
 
 void CController::OnCombinor(const std::string &Combinor)

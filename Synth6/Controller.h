@@ -8,6 +8,7 @@
 #include "Smoother.h"
 #include "8BitFX.h"
 #include "OscillatorStage.h"
+#include "Notes.h"
 
 class IView;
 
@@ -25,6 +26,9 @@ public:
     void OnFrequency(float Frequency);
 
     void OnSync();
+
+    void OnNoteOn(ENote Note, EOctave Octave);
+    void OnNoteOff(ENote, EOctave);
 
     void OnCombinor(const std::string& Combinor);
     void OnOperator(int Idx, const std::string& Operator);
@@ -45,7 +49,6 @@ private:
     bool m_GrabSample;
     CSampleGrabber<std::uint8_t> m_SampleGrabber;
 
-    float m_Frequency;
     COscillatorStage<float> m_Oscillator;
 
     C8BitFX m_Fx;

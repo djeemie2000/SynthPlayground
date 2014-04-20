@@ -63,6 +63,32 @@ private slots:
 
     void on_pushButton_DetuneSync_clicked();
 
+    void on_pushButton_KeyBoard_C_clicked();
+
+    void on_pushButton_Keyboard_Csharp_clicked();
+
+    void on_pushButton_Keyboard_D_clicked();
+
+    void on_pushButton_Keyboard_Dsharp_clicked();
+
+    void on_pushButton_Keyboard_E_clicked();
+
+    void on_pushButton_Keyboard_F_clicked();
+
+    void on_pushButton_Keyboard_Fsharp_clicked();
+
+    void on_pushButton_Keyboard_G_clicked();
+
+    void on_pushButton_Keyboard_Gsharp_clicked();
+
+    void on_pushButton_KeyboardA_clicked();
+
+    void on_pushButton_Keyboard_Asharp_clicked();
+
+    void on_pushButton_Keyboard_B_clicked();
+
+    void on_pushButton_Keyboard_CPlusOneOctave_clicked();
+
 private:
     void CreateAudioOutput();
 
