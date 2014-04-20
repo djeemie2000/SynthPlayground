@@ -12,7 +12,8 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     Controller.cpp \
     QAudioIoDevice.cpp \
-    QView.cpp
+    QView.cpp \
+    Pitch.cpp
 
 HEADERS  += mainwindow.h \
     Controller.h \
@@ -50,6 +51,8 @@ HEADERS  += mainwindow.h \
     OscillatorStage.h \
     Combinor.h \
     SelectableCombinor.h \
-    Conversions.h
+    Conversions.h \
+    Notes.h \
+    Pitch.h
 
 FORMS    += mainwindow.ui
