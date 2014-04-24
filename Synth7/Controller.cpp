@@ -15,6 +15,8 @@
 #include "SelectableCombinor.h"
 #include "Combinor.h"
 #include "Pitch.h"
+#include "WaveFolder.h"
+#include "SymmetricalOperator.h"
 
 namespace
 {
@@ -136,6 +138,7 @@ CController::CController(IView &View, int SamplingFrequency)
     , m_GrabSample(false)
     , m_SampleGrabber()
     , m_Oscillator(SamplingFrequency, CreateSelectableOperator(), CreateSelectableCombinor())
+    , m_Fold(1.0f)
     , m_Fx()
 {
     m_Oscillator.SetFrequency(440.0);
@@ -202,6 +205,11 @@ void CController::OnPhaseshift(int Idx, float PhaseShift)
     m_Oscillator.SetPhaseShift(Idx, PhaseShift);
 }
 
+void CController::OnWaveFold(float Fold)
+{
+    m_Fold = Fold;
+}
+
 void CController::OnBitCrusherDepth(int Depth)
 {
     m_Fx.SetBitCrusherDepth(Depth);
@@ -233,12 +241,16 @@ std::int64_t CController::OnRead(char *Dst, std::int64_t MaxSize)
     int MaxReadSize = 1<<11;
     std::size_t Size = MaxSize<MaxReadSize ? MaxSize : MaxReadSize;
 
+    CSymmetricalOperator<float> Symm;
+    CWaveFold1<float> Fold;
+    Fold.SetFold(m_Fold);
+
     char* pDst = Dst;
     char* pDstEnd = Dst + Size;
     while(pDst<pDstEnd)
     {
-        //*pDst = 255*m_MorphLFO(m_PhaseStep());
-        *pDst = m_Fx(128+127*m_Oscillator());
+        *pDst = m_Fx(128+127*Symm(m_Oscillator(), Fold));
+//        *pDst = m_Fx(128+127*m_Oscillator());
         ++pDst;
     }
 

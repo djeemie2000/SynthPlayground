@@ -30,11 +30,15 @@ public:
     void OnNoteOn(ENote Note, EOctave Octave);
     void OnNoteOff(ENote, EOctave);
 
+    // oscillator
     void OnCombinor(const std::string& Combinor);
     void OnOperator(int Idx, const std::string& Operator);
     void OnAmplitude(int Idx, float Amplitude);
     void OnFrequencyMultiplier(int Idx, float FrequencyMultiplier);
     void OnPhaseshift(int Idx, float PhaseShift);
+
+    //
+    void OnWaveFold(float Fold);
 
     // (8 bit) FX
     void OnBitCrusherDepth(int Depth);
@@ -49,7 +53,7 @@ private:
     CSampleGrabber<std::uint8_t> m_SampleGrabber;
 
     COscillatorStage<float> m_Oscillator;
-
+    float   m_Fold;
     C8BitFX m_Fx;
 };
 

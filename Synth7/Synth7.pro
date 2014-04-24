@@ -53,6 +53,7 @@ HEADERS  += mainwindow.h \
     SelectableCombinor.h \
     Conversions.h \
     Notes.h \
-    Pitch.h
+    Pitch.h \
+    WaveFolder.h
 
 FORMS    += mainwindow.ui

@@ -8,7 +8,7 @@ public:
     template<class OperatorType>
     T operator()(const T& Phase, OperatorType Op) const
     {
-        return Ph<0 ? -Op(-Phase) : Op(Phase);
+        return Phase<0 ? -Op(-Phase) : Op(Phase);
     }
 };
 

@@ -89,6 +89,8 @@ private slots:
 
     void on_pushButton_Keyboard_CPlusOneOctave_clicked();
 
+    void on_doubleSpinBox_WaveFold_valueChanged(double arg1);
+
 private:
     void CreateAudioOutput();
 

@@ -412,3 +412,8 @@ void MainWindow::on_pushButton_Keyboard_CPlusOneOctave_clicked()
     EOctave Octave = static_cast<EOctave>(ui->spinBox_Octave->value()+1);
     m_Controller->OnNoteOn(ENote::C, Octave);
 }
+
+void MainWindow::on_doubleSpinBox_WaveFold_valueChanged(double arg1)
+{
+    m_Controller->OnWaveFold(arg1);
+}
