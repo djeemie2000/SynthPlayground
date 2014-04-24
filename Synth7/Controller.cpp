@@ -242,7 +242,7 @@ std::int64_t CController::OnRead(char *Dst, std::int64_t MaxSize)
     std::size_t Size = MaxSize<MaxReadSize ? MaxSize : MaxReadSize;
 
     CSymmetricalOperator<float> Symm;
-    CWaveFold1<float> Fold;
+    CWaveFold2<float> Fold;
     Fold.SetFold(m_Fold);
 
     char* pDst = Dst;
