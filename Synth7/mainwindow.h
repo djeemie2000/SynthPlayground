@@ -14,7 +14,11 @@ class MainWindow;
 class QGraphicsScene;
 class QAudioOutput;
 class QAudioIODevice;
+class QPushButton;
+class QSpinBox;
+class QComboBox;
 class CController;
+class CStepSequencer;
 
 class MainWindow : public QMainWindow
 {
@@ -60,36 +64,28 @@ private slots:
     void on_doubleSpinBox_2_Frequency_valueChanged(double arg1);
     void on_doubleSpinBox_1_PhaseShift_valueChanged(double arg1);
     void on_doubleSpinBox_2_PhaseShift_valueChanged(double arg1);
-
     void on_pushButton_DetuneSync_clicked();
 
     void on_pushButton_KeyBoard_C_clicked();
-
     void on_pushButton_Keyboard_Csharp_clicked();
-
     void on_pushButton_Keyboard_D_clicked();
-
     void on_pushButton_Keyboard_Dsharp_clicked();
-
     void on_pushButton_Keyboard_E_clicked();
-
     void on_pushButton_Keyboard_F_clicked();
-
     void on_pushButton_Keyboard_Fsharp_clicked();
-
     void on_pushButton_Keyboard_G_clicked();
-
     void on_pushButton_Keyboard_Gsharp_clicked();
-
     void on_pushButton_KeyboardA_clicked();
-
     void on_pushButton_Keyboard_Asharp_clicked();
-
     void on_pushButton_Keyboard_B_clicked();
-
     void on_pushButton_Keyboard_CPlusOneOctave_clicked();
 
     void on_doubleSpinBox_WaveFold_valueChanged(double arg1);
+
+    void OnStepSequencerUpdate();
+    void OnStepSequencerTimer();
+    void on_pushButton_StepSequencerGo_clicked(bool checked);
+    void on_doubleSpinBox_StepSequencer_Bpm_valueChanged(double arg1);
 
 private:
     void CreateAudioOutput();
@@ -99,8 +95,13 @@ private:
     QAudioOutput* m_AudioOutput;
     QAudioIODevice* m_AudioIODevice;
     bool        m_ScopeAutoGrab;
+    QTimer*     m_StepSequencerTimer;
+    QVector<QPushButton*> m_StepSequencerActiveBtn;
+    QVector<QComboBox*> m_StepSequencerNoteBox;
+    QVector<QSpinBox*> m_StepSequencerOctaveBox;
 
     CController* m_Controller;
+    CStepSequencer* m_StepSequencer;
 };
 
 #endif // MAINWINDOW_H

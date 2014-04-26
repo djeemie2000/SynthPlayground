@@ -1,6 +1,8 @@
 #ifndef NOTES_H
 #define NOTES_H
 
+#include <string>
+
 enum class ENote : int
 {
     C = 0,
@@ -16,6 +18,9 @@ enum class ENote : int
     Asharp,
     B
 };
+
+std::string ToString(ENote Note);
+ENote FromString(const std::string& Note);
 
 enum class EOctave : int
 {

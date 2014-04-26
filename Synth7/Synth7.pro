@@ -13,7 +13,9 @@ SOURCES += main.cpp\
     Controller.cpp \
     QAudioIoDevice.cpp \
     QView.cpp \
-    Pitch.cpp
+    Pitch.cpp \
+    StepSequencer.cpp \
+    Notes.cpp
 
 HEADERS  += mainwindow.h \
     Controller.h \
@@ -54,6 +56,7 @@ HEADERS  += mainwindow.h \
     Conversions.h \
     Notes.h \
     Pitch.h \
-    WaveFolder.h
+    WaveFolder.h \
+    StepSequencer.h
 
 FORMS    += mainwindow.ui

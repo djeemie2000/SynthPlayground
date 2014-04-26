@@ -6,8 +6,9 @@
 #include <QFileDialog>
 #include <QTimer>
 #include "QAudioIoDevice.h"
-#include "Controller.h"
 #include "QView.h"
+#include "Controller.h"
+#include "StepSequencer.h"
 
 namespace
 {
@@ -43,6 +44,22 @@ void InitialiseCombinorSelection(QComboBox* ComboBox)
     ComboBox->addItem("DivB");
 }
 
+void InitialiseNoteSelection(QComboBox* ComboBox)
+{
+    ComboBox->addItem("B");
+    ComboBox->addItem("A#");
+    ComboBox->addItem("A");
+    ComboBox->addItem("G#");
+    ComboBox->addItem("G");
+    ComboBox->addItem("F#");
+    ComboBox->addItem("F");
+    ComboBox->addItem("E");
+    ComboBox->addItem("D#");
+    ComboBox->addItem("D");
+    ComboBox->addItem("C#");
+    ComboBox->addItem("C");
+}
+
 }
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -51,7 +68,9 @@ MainWindow::MainWindow(QWidget *parent) :
   , m_AudioOutput(0)
   , m_AudioIODevice(0)
   , m_ScopeAutoGrab(true)
-  , m_Controller()
+  , m_StepSequencerTimer(0)
+  , m_Controller(0)
+  , m_StepSequencer(0)
 {
     ui->setupUi(this);
 
@@ -72,15 +91,54 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->comboBox_AudioDevice->addItem(deviceInfo.deviceName(), qVariantFromValue(deviceInfo));
     }
 
+    // create step sequencer gui
+    const int StepSequencerNumSteps = 8;
+    QGridLayout* StepLayout = new QGridLayout;
+    StepLayout->addWidget(new QLabel("Octave"), 0, 0);
+    StepLayout->addWidget(new QLabel("Note"), 1, 0);
+    StepLayout->addWidget(new QLabel("Active"), 2, 0);
+    for(int idxStep = 1; idxStep<=StepSequencerNumSteps; ++idxStep)
+    {
+        // octave selection
+        QSpinBox* Octave = new QSpinBox;
+        Octave->setMinimum(0);
+        Octave->setMaximum(8);
+        Octave->setValue(2);
+        Octave->setSingleStep(1);
+        StepLayout->addWidget(Octave, 0, idxStep);
+        connect(Octave, SIGNAL(valueChanged(QString)), this, SLOT(OnStepSequencerUpdate()));
+        m_StepSequencerOctaveBox.push_back(Octave);
+        // Note selection
+        QComboBox* Note= new QComboBox;
+        InitialiseNoteSelection(Note);
+        StepLayout->addWidget(Note, 1, idxStep);
+        connect(Note, SIGNAL(activated(int)), this, SLOT(OnStepSequencerUpdate()));
+        m_StepSequencerNoteBox.push_back(Note);
+        // active button
+        QPushButton* OnOffBtn = new QPushButton();
+        OnOffBtn->setCheckable(true);
+        OnOffBtn->setChecked(false);
+        OnOffBtn->setText(QString("%1").arg(idxStep));
+        StepLayout->addWidget(OnOffBtn, 2, idxStep);
+        connect(OnOffBtn, SIGNAL(clicked()), this, SLOT(OnStepSequencerUpdate()));
+        m_StepSequencerActiveBtn.push_back(OnOffBtn);
+    }
+    ui->groupBox_StepSequencer_Step->setLayout(StepLayout);
+
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(OnTimer()));
     timer->start(1000);
+
+    m_StepSequencerTimer = new QTimer(this);
+    connect(m_StepSequencerTimer, SIGNAL(timeout()), this, SLOT(OnStepSequencerTimer()));
 
     QView* View = new QView(this);
     connect(View, SIGNAL(SignalSampleRange(int,int)), this, SLOT(OnSampleRange(int,int)));
     connect(View, SIGNAL(SignalSample(QVector<std::uint8_t>)), this, SLOT(OnSample(QVector<std::uint8_t>)));
 
     m_Controller = new CController(*View, SamplingFrequency);
+
+    m_StepSequencer = new CStepSequencer(StepSequencerNumSteps, *m_Controller);
 
     m_Controller->OnFrequency(ui->doubleSpinBox_Frequency->value());
     m_Controller->OnCombinor(ui->comboBox_Combinor->currentText().toStdString());
@@ -96,6 +154,7 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete m_StepSequencer;
     delete m_Controller;
 }
 
@@ -416,4 +475,44 @@ void MainWindow::on_pushButton_Keyboard_CPlusOneOctave_clicked()
 void MainWindow::on_doubleSpinBox_WaveFold_valueChanged(double arg1)
 {
     m_Controller->OnWaveFold(arg1);
+}
+
+void MainWindow::OnStepSequencerUpdate()
+{
+    for(int Step = 0; Step<m_StepSequencer->NumSteps(); ++Step)
+    {
+        m_StepSequencer->SetActive(Step, m_StepSequencerActiveBtn[Step]->isChecked());
+        m_StepSequencer->SetOctave(Step, static_cast<EOctave>(m_StepSequencerOctaveBox[Step]->value()));
+
+        std::string CurrentNoteString = m_StepSequencerNoteBox[Step]->currentText().toStdString();
+        m_StepSequencer->SetNote(Step, FromString(CurrentNoteString));
+    }
+}
+
+void MainWindow::OnStepSequencerTimer()
+{
+    m_StepSequencer->OnTick();
+}
+
+void MainWindow::on_pushButton_StepSequencerGo_clicked(bool checked)
+{
+    if(checked)
+    {
+        double Bpm = ui->doubleSpinBox_StepSequencer_Bpm->value();
+        int Interval = 60*1000/Bpm;
+        m_StepSequencerTimer->start(Interval);
+        m_StepSequencer->OnActive(true);
+    }
+    else
+    {
+        m_StepSequencerTimer->stop();
+        m_StepSequencer->OnActive(false);
+    }
+}
+
+void MainWindow::on_doubleSpinBox_StepSequencer_Bpm_valueChanged(double arg1)
+{
+    // arg1 is beats per minute => 60 seconds * 1000 / bpm = interval in milliseconds
+    int Interval = 60*1000/arg1;
+    m_StepSequencerTimer->setInterval(Interval);
 }
