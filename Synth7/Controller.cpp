@@ -17,6 +17,7 @@
 #include "Pitch.h"
 #include "WaveFolder.h"
 #include "SymmetricalOperator.h"
+#include "Conversions.h"
 
 namespace
 {
@@ -245,11 +246,11 @@ std::int64_t CController::OnRead(char *Dst, std::int64_t MaxSize)
     CWaveFold2<float> Fold;
     Fold.SetFold(m_Fold);
 
-    char* pDst = Dst;
-    char* pDstEnd = Dst + Size;
+    std::uint8_t* pDst = reinterpret_cast<std::uint8_t*>(Dst);
+    std::uint8_t* pDstEnd = reinterpret_cast<std::uint8_t*>(Dst + Size);
     while(pDst<pDstEnd)
     {
-        *pDst = m_Fx(128+127*Symm(m_Oscillator(), Fold));
+        *pDst = m_Fx( SignedToUint8<float>(Symm(m_Oscillator(), Fold)) );
 //        *pDst = m_Fx(128+127*m_Oscillator());
         ++pDst;
     }

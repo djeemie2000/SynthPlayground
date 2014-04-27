@@ -1,7 +1,8 @@
 #ifndef _8BITFX_H
 #define _8BITFX_H
 
-#include <inttypes.h>
+#include <cstdint>
+#include <limits>
 
 template<class T>
 class CBitCrusher
@@ -121,15 +122,15 @@ private:
     T m_Ripple;
 };
 
-
-class C8BitFX
+template<class T>
+class CIntegerFX
 {
 public:
-    C8BitFX()
+    CIntegerFX(T Min, T Max)
      : m_Crusher()
      , m_BitCrusherDepth(0)
      , m_SnH()
-     , m_Rippler(0, 255)
+     , m_Rippler(Min, Max)
     {
     }
 
@@ -162,7 +163,22 @@ private:
     int                         m_BitCrusherDepth;
     CSampleAndHold<std::uint8_t> m_SnH;
     CRippler<std::uint8_t>      m_Rippler;
-    //CLimiter<std::uint8_t>  m_Rippler;
+};
+
+class C8BitFX : public CIntegerFX<std::uint8_t>
+{
+public:
+    C8BitFX()
+        : CIntegerFX(0,255)
+    {}
+};
+
+class C16BitsSignedFX : public CIntegerFX<std::int16_t>
+{
+public:
+    C16BitsSignedFX()
+        : CIntegerFX(std::numeric_limits<std::int16_t>::min(), std::numeric_limits<std::int16_t>::max())
+    {}
 };
 
 #endif // _8BITFX_H

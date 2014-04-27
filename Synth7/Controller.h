@@ -3,7 +3,7 @@
 
 #include <string>
 #include <vector>
-#include <inttypes.h>
+#include <cstdint>
 #include "SampleGrabber.h"
 #include "Smoother.h"
 #include "8BitFX.h"

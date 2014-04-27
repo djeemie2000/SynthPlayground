@@ -2,7 +2,7 @@
 
 #include <string>
 #include <vector>
-#include <inttypes.h>
+#include <cstdint>
 #include "ConstGenerator.h"
 #include "GranularSamplePlayer.h"
 

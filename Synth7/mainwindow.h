@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <memory>
-#include <inttypes.h>
+#include <cstdint>
 #include <QMainWindow>
 #include <QAudio>
 #include <QVector>

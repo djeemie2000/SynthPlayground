@@ -1,7 +1,8 @@
 #ifndef CONVERSIONS_H
 #define CONVERSIONS_H
 
-#include <cstdlib>
+//#include <cstdlib>
+#include <cstdint>
 
 template<class T>
 T UnsignedToSigned(T Unsigned)
@@ -44,6 +45,32 @@ T HardLimitSigned(T In)
     }
     return In;
 }
+
+template<class T>
+T SignedFullToUnsigned(T In)
+{
+    // [-1,+1] to [0,1]
+    return (1 + In) / 2;
+}
+
+//template<class To, class From>
+//To SignedToInteger(From /*In*/)
+//{
+//    return 0;
+//}
+
+template<class From>
+std::uint8_t SignedToUint8(From In)
+{
+    return 128+127*In;//SignedFullToUnsigned(In)*255;
+}
+
+template<class From>
+std::int16_t SignedToInt16(From In)
+{
+    return In*32767;
+}
+
 
 
 #endif // CONVERSIONS_H
