@@ -138,7 +138,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     m_Controller = new CController(*View, SamplingFrequency);
 
-    m_StepSequencer = new CStepSequencer(StepSequencerNumSteps, *m_Controller);
+    m_StepSequencer = new CStepSequencer(StepSequencerNumSteps);
 
     m_Controller->OnFrequency(ui->doubleSpinBox_Frequency->value());
     m_Controller->OnCombinor(ui->comboBox_Combinor->currentText().toStdString());
@@ -491,7 +491,7 @@ void MainWindow::OnStepSequencerUpdate()
 
 void MainWindow::OnStepSequencerTimer()
 {
-    m_StepSequencer->OnTick();
+    m_StepSequencer->OnTick(*m_Controller);
 }
 
 void MainWindow::on_pushButton_StepSequencerGo_clicked(bool checked)

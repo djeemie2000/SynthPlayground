@@ -31,16 +31,16 @@ void CStepSequencer::OnActive(bool Active)
     m_Active = Active;
 }
 
-void CStepSequencer::OnTick()
+void CStepSequencer::OnTick(CController &NoteHandler)
 {
     // noteOff, use dedicated member in case step is changed since previous OnTick()
-    m_PreviousStep.NoteOff(m_NoteHandler);
+    m_PreviousStep.NoteOff(NoteHandler);
 
     if(m_Active)
     {
         // noteOn, see above remarks
         m_PreviousStep = m_Steps[m_CurrentStep];
-        m_PreviousStep.NoteOn(m_NoteHandler);
+        m_PreviousStep.NoteOn(NoteHandler);
 
         // to next step
         m_CurrentStep = (m_CurrentStep+1)%NumSteps();

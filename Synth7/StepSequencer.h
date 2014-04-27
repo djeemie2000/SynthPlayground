@@ -9,9 +9,8 @@ class CController;
 class CStepSequencer
 {
 public:
-    CStepSequencer(int NumSteps, CController& NoteHandler)
-        : m_NoteHandler(NoteHandler)
-        , m_Active(false)
+    CStepSequencer(int NumSteps)
+        : m_Active(false)
         , m_Steps(NumSteps)
         , m_CurrentStep(0)
     {}
@@ -23,7 +22,7 @@ public:
     void SetNote(int Step, ENote Note);
 
     void OnActive(bool Active);
-    void OnTick();
+    void OnTick(CController& NoteHandler);
 
 private:
     struct SStep
@@ -40,7 +39,6 @@ private:
 
     bool StepExists(int Step) const;
 
-    CController& m_NoteHandler;
     bool m_Active;
     std::vector<SStep> m_Steps;
     int m_CurrentStep;
