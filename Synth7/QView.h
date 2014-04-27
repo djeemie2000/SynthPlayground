@@ -18,7 +18,7 @@ public:
 signals:
     void SignalSampleSize(int Size);
     void SignalSampleRange(int Begin, int End);
-    void SignalSample(QVector<std::uint8_t> Sample);
+    void SignalSample(QVector<std::int16_t> Sample);
 
 public slots:
 

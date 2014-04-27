@@ -9,7 +9,7 @@
 class IView
 {
 public:
-    typedef const std::vector<std::uint8_t> SampleContainerType;
+    typedef const std::vector<std::int16_t> SampleContainerType;
 
     virtual ~IView(){}
 

@@ -40,7 +40,7 @@ private slots:
     void on_comboBox_AudioDevice_activated(int);
 
     void OnSampleSize(int Size);
-    void OnSample(QVector<std::uint8_t> Sample);
+    void OnSample(QVector<std::int16_t> Sample);
 
     void on_pushButton_ZoomInHorizontal_clicked();
     void on_pushButton_ZoomOutHorizontal_clicked();
@@ -85,7 +85,7 @@ private slots:
     void OnStepSequencerUpdate();
     void OnStepSequencerTimer();
     void on_pushButton_StepSequencerGo_clicked(bool checked);
-    void on_doubleSpinBox_StepSequencer_Bpm_valueChanged(double arg1);
+    void on_doubleSpinBox_StepSequencer_Bpm_valueChanged(double);
 
 private:
     void CreateAudioOutput();

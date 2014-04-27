@@ -134,7 +134,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QView* View = new QView(this);
     connect(View, SIGNAL(SignalSampleRange(int,int)), this, SLOT(OnSampleRange(int,int)));
-    connect(View, SIGNAL(SignalSample(QVector<std::uint8_t>)), this, SLOT(OnSample(QVector<std::uint8_t>)));
+    connect(View, SIGNAL(SignalSample(QVector<std::int16_t>)), this, SLOT(OnSample(QVector<std::int16_t>)));
 
     m_Controller = new CController(*View, SamplingFrequency);
 
@@ -217,10 +217,10 @@ void MainWindow::CreateAudioOutput()
     QAudioFormat Format;
     Format.setSampleRate(SamplingFrequency);
     Format.setChannelCount(1);
-    Format.setSampleSize(8);
+    Format.setSampleSize(16);
     Format.setCodec("audio/pcm");
     Format.setByteOrder(QAudioFormat::LittleEndian);
-    Format.setSampleType(QAudioFormat::UnSignedInt);
+    Format.setSampleType(QAudioFormat::SignedInt);
 
     if(DeviceInfo.isFormatSupported(Format))
     {
@@ -251,7 +251,7 @@ void MainWindow::OnSampleSize(int /*Size*/)
     //TODO?
 }
 
-void MainWindow::OnSample(QVector<std::uint8_t> Sample)
+void MainWindow::OnSample(QVector<std::int16_t> Sample)
 {
     qWarning() << "Recieved sample! size= " << Sample.size();
 
@@ -272,20 +272,20 @@ void MainWindow::OnSample(QVector<std::uint8_t> Sample)
             // show red line as x axis
             QPen Pen(Qt::red);
             Pen.setWidth(3);
-            Scene->addLine(Offset, 128, Offset+Sample.size(), 128, Pen);
+            Scene->addLine(Offset, 0, Offset+Sample.size(), 0, Pen);
 
             // show min and max amplitude lines
-            Scene->addLine(Offset, 0, Offset+Sample.size(), 0, QPen(Qt::red));
-            Scene->addLine(Offset, 255, Offset+Sample.size(), 255, QPen(Qt::red));
+            Scene->addLine(Offset, -127, Offset+Sample.size(), -127, QPen(Qt::red));
+            Scene->addLine(Offset, 127, Offset+Sample.size(), 127, QPen(Qt::red));
 
             // show sample as path
             QPainterPath Path;
-            Path.moveTo(Offset, 255-Sample[0]);
+            Path.moveTo(Offset, -Sample[0]/256);
             int DeltaX = 1;
             for(int x = 0; x<Sample.size(); x+=DeltaX)
             {
                 // value increases ~ y decreases!
-                QPointF Pt(Offset+x, 255-Sample.at(x));
+                QPointF Pt(Offset+x, -Sample.at(x)/256);
                 Path.lineTo(Pt);
             }
             Scene->addPath(Path, QPen(Qt::green));
@@ -300,12 +300,12 @@ void MainWindow::OnSample(QVector<std::uint8_t> Sample)
 
 void MainWindow::on_pushButton_ZoomInHorizontal_clicked()
 {
-    ui->graphicsView_WaveForm->scale(1.1f, 1.0f);
+    ui->graphicsView_WaveForm->scale(1.1f, 1.1f);
 }
 
 void MainWindow::on_pushButton_ZoomOutHorizontal_clicked()
 {
-    ui->graphicsView_WaveForm->scale(0.9f, 1.0f);
+    ui->graphicsView_WaveForm->scale(0.9f, 0.9f);
 }
 
 void MainWindow::on_pushButton_ScopeGrab_clicked()
@@ -500,7 +500,7 @@ void MainWindow::on_pushButton_StepSequencerGo_clicked(bool checked)
     {
         double Bpm = ui->doubleSpinBox_StepSequencer_Bpm->value();
         int BarsPerBeat = ui->spinBox_StepSequencer_BarsPerBeat->value();
-        int Interval = 60*1000/BarsPerBeat*Bpm;
+        int Interval = 60*1000/(BarsPerBeat*Bpm);
         m_StepSequencerTimer->start(Interval);
         m_StepSequencer->OnActive(true);
     }
@@ -511,9 +511,11 @@ void MainWindow::on_pushButton_StepSequencerGo_clicked(bool checked)
     }
 }
 
-void MainWindow::on_doubleSpinBox_StepSequencer_Bpm_valueChanged(double arg1)
+void MainWindow::on_doubleSpinBox_StepSequencer_Bpm_valueChanged(double )
 {
     // arg1 is beats per minute => 60 seconds * 1000 / bpm = interval in milliseconds
-    int Interval = 60*1000/arg1;
+    double Bpm = ui->doubleSpinBox_StepSequencer_Bpm->value();
+    int BarsPerBeat = ui->spinBox_StepSequencer_BarsPerBeat->value();
+    int Interval = 60*1000/(BarsPerBeat*Bpm);
     m_StepSequencerTimer->setInterval(Interval);
 }

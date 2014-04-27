@@ -239,19 +239,18 @@ void CController::OnGrab(int GrabSize)
 
 std::int64_t CController::OnRead(char *Dst, std::int64_t MaxSize)
 {
-    int MaxReadSize = 1<<11;
+    int MaxReadSize = 1<<12;
     std::size_t Size = MaxSize<MaxReadSize ? MaxSize : MaxReadSize;
 
     CSymmetricalOperator<float> Symm;
     CWaveFold2<float> Fold;
     Fold.SetFold(m_Fold);
 
-    std::uint8_t* pDst = reinterpret_cast<std::uint8_t*>(Dst);
-    std::uint8_t* pDstEnd = reinterpret_cast<std::uint8_t*>(Dst + Size);
+    SampleValueType* pDst = reinterpret_cast<SampleValueType*>(Dst);
+    SampleValueType* pDstEnd = reinterpret_cast<SampleValueType*>(Dst + Size);
     while(pDst<pDstEnd)
     {
-        *pDst = m_Fx( SignedToUint8<float>(Symm(m_Oscillator(), Fold)) );
-//        *pDst = m_Fx(128+127*m_Oscillator());
+        *pDst = m_Fx( SignedToInt16<float>(Symm(m_Oscillator(), Fold)) );
         ++pDst;
     }
 
@@ -270,7 +269,7 @@ std::int64_t CController::OnRead(char *Dst, std::int64_t MaxSize)
 
     if(m_GrabSample)
     {
-        m_SampleGrabber.OnRead((std::uint8_t*)Dst, Size);
+        m_SampleGrabber.OnRead((SampleValueType*)Dst, Size/2);
 
         if(m_SampleGrabber.IsSampled())
         {

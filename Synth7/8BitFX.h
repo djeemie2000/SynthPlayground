@@ -84,9 +84,10 @@ template<class T>
 class CRippler
 {
 public:
-    CRippler(T Min, T Max)
+    CRippler(T Min, T Max, T Multiplier)
      : m_Min(Min)
      , m_Max(Max)
+     , m_Multiplier(Multiplier)
      , m_MinTh(Min)
      , m_MaxTh(Max)
      , m_Strength(0)
@@ -110,12 +111,13 @@ public:
     {
         m_Ripple = 0<m_Ripple ? m_Ripple-1 : m_Strength;
 
-        return In<(m_Max+m_Min)/2 ? In + m_Ripple : In - m_Ripple;
+        return In<(m_Max+m_Min)/2 ? In + m_Multiplier*m_Ripple : In - m_Multiplier*m_Ripple;
     }
 
 private:
     const T m_Min;
     const T m_Max;
+    const T m_Multiplier;
     T m_MinTh;
     T m_MaxTh;
     T m_Strength;
@@ -126,11 +128,11 @@ template<class T>
 class CIntegerFX
 {
 public:
-    CIntegerFX(T Min, T Max)
+    CIntegerFX(T Min, T Max, T Multiplier)
      : m_Crusher()
      , m_BitCrusherDepth(0)
      , m_SnH()
-     , m_Rippler(Min, Max)
+     , m_Rippler(Min, Max, Multiplier)
     {
     }
 
@@ -154,22 +156,22 @@ public:
         m_Rippler.SetStrength(Strength);
     }
 
-    std::uint8_t operator()(std::uint8_t In)
+    T operator()(T In)
     {
         return m_Crusher(m_SnH(m_Rippler(In)), m_BitCrusherDepth);//TODO
     }
 private:
-    CBitCrusher<std::uint8_t>   m_Crusher;
-    int                         m_BitCrusherDepth;
-    CSampleAndHold<std::uint8_t> m_SnH;
-    CRippler<std::uint8_t>      m_Rippler;
+    CBitCrusher<T>      m_Crusher;
+    int                 m_BitCrusherDepth;
+    CSampleAndHold<T>   m_SnH;
+    CRippler<T>         m_Rippler;
 };
 
 class C8BitFX : public CIntegerFX<std::uint8_t>
 {
 public:
     C8BitFX()
-        : CIntegerFX(0,255)
+        : CIntegerFX(0, 255, 1)
     {}
 };
 
@@ -177,7 +179,7 @@ class C16BitsSignedFX : public CIntegerFX<std::int16_t>
 {
 public:
     C16BitsSignedFX()
-        : CIntegerFX(std::numeric_limits<std::int16_t>::min(), std::numeric_limits<std::int16_t>::max())
+        : CIntegerFX(std::numeric_limits<std::int16_t>::min(), std::numeric_limits<std::int16_t>::max(), 256)
     {}
 };
 

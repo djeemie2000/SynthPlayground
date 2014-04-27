@@ -13,5 +13,5 @@ void QView::SetSampleSize(int Size)
 
 void QView::SetSample(const IView::SampleContainerType &Sample)
 {
-    SignalSample(QVector<std::uint8_t>::fromStdVector(Sample));
+    SignalSample(QVector<std::int16_t>::fromStdVector(Sample));
 }

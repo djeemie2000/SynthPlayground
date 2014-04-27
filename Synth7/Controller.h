@@ -47,14 +47,15 @@ public:
     void OnRipplerThreshold(int Threshold);
 
 private:
+    typedef std::int16_t SampleValueType;
     IView& m_View;
 
     bool m_GrabSample;
-    CSampleGrabber<std::uint8_t> m_SampleGrabber;
+    CSampleGrabber<SampleValueType> m_SampleGrabber;
 
     COscillatorStage<float> m_Oscillator;
     float   m_Fold;
-    C8BitFX m_Fx;
+    C16BitsSignedFX m_Fx;
 };
 
 #endif // GRANULARSAMPLERCONTROLLER_H
