@@ -499,7 +499,8 @@ void MainWindow::on_pushButton_StepSequencerGo_clicked(bool checked)
     if(checked)
     {
         double Bpm = ui->doubleSpinBox_StepSequencer_Bpm->value();
-        int Interval = 60*1000/Bpm;
+        int BarsPerBeat = ui->spinBox_StepSequencer_BarsPerBeat->value();
+        int Interval = 60*1000/BarsPerBeat*Bpm;
         m_StepSequencerTimer->start(Interval);
         m_StepSequencer->OnActive(true);
     }
