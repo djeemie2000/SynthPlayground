@@ -6,10 +6,10 @@
 #include "Conversions.h"
 
 template<class T>
-class CHardLimitAdder
+class CHardLimitAdd
 {
 public:
-    CHardLimitAdder(){}
+    CHardLimitAdd(){}
 
     T operator()(const T& In1, const T& In2) const
     {
@@ -18,10 +18,10 @@ public:
 };
 
 template<class T>
-class CMultiplier
+class CMult
 {
 public:
-    CMultiplier(){}
+    CMult(){}
 
     T operator()(const T& In1, const T& In2) const
     {
@@ -29,24 +29,60 @@ public:
     }
 };
 
-
 template<class T>
-class CDiffer
+class CMultFirst
 {
 public:
-    CDiffer(){}
+    CMultFirst(){}
 
     T operator()(const T& In1, const T& In2) const
     {
-        return In1 - In2;
+        return In1 * std::abs(In2);
     }
 };
 
 template<class T>
-class CMaxer
+class CMultSecond
 {
 public:
-    CMaxer(){}
+    CMultSecond(){}
+
+    T operator()(const T& In1, const T& In2) const
+    {
+        return std::abs(In1) * In2;
+    }
+};
+
+template<class T>
+class CHardLimitDiff
+{
+public:
+    CHardLimitDiff(){}
+
+    T operator()(const T& In1, const T& In2) const
+    {
+        return HardLimitSigned(In1 - In2);
+    }
+};
+
+template<class T>
+class CDiffAbs
+{
+public:
+    CDiffAbs(){}
+
+    T operator()(const T& In1, const T& In2) const
+    {
+        return std::abs(In1) - std::abs(In2);
+    }
+};
+
+
+template<class T>
+class CMax
+{
+public:
+    CMax(){}
 
     T operator()(const T& In1, const T& In2) const
     {
@@ -55,14 +91,66 @@ public:
 };
 
 template<class T>
-class CMiner
+class CMaxAbs
 {
 public:
-    CMiner(){}
+    CMaxAbs(){}
+
+    T operator()(const T& In1, const T& In2) const
+    {
+        // return the value with the biggest abs
+        return std::abs(In1) < std::abs(In2) ? In2 : In1;
+    }
+};
+
+template<class T>
+class CMinAbs
+{
+public:
+    CMinAbs(){}
+
+    T operator()(const T& In1, const T& In2) const
+    {
+        // return the value with the smallest abs
+        return std::abs(In1) < std::abs(In2) ? In1 : In2;
+    }
+};
+
+template<class T>
+class CMin
+{
+public:
+    CMin(){}
 
     T operator()(const T& In1, const T& In2) const
     {
         return std::min(In1, In2);
+    }
+};
+
+template<class T>
+class CPosNegAdd
+{
+public:
+    CPosNegAdd(){}
+
+    T operator()(const T& In1, const T& In2) const
+    {
+        // add the positive part of In1 and the negative part of In2
+        return std::max(In1,static_cast<T>(0)) + std::min(In2, static_cast<T>(0));
+    }
+};
+
+template<class T>
+class CNegPosAdd
+{
+public:
+    CNegPosAdd(){}
+
+    T operator()(const T& In1, const T& In2) const
+    {
+        // add the positive part of In2 and the negative part of In1
+        return std::min(In1,static_cast<T>(0)) + std::max(In2, static_cast<T>(0));
     }
 };
 
@@ -74,7 +162,7 @@ public:
 
     T operator()(const T& In1, const T& In2) const
     {
-        return In1/(1+In2);
+        return In1/(2+In2);
     }
 };
 
@@ -86,7 +174,19 @@ public:
 
     T operator()(const T& In1, const T& In2) const
     {
-        return (1-In1)/(1+In2);
+        return In1/(2-In2);
+    }
+};
+
+template<class T>
+class CDividerC
+{
+public:
+    CDividerC(){}
+
+    T operator()(const T& In1, const T& In2) const
+    {
+        return In1/(1+std::abs(In2));
     }
 };
 

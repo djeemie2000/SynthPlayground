@@ -7,20 +7,33 @@ CSelectableCombinorFactory::CSelectableCombinorFactory()
 
 std::vector<std::string> CSelectableCombinorFactory::SelectionList()
 {
-    return {"+L", "*", "M", "m", "|-|", "DivA", "DivB" };
+    return {"+L", "*1", "*2", "*", "-L", "-||", "M||", "m||", "M", "m", "P+N", "N+P", "DivA", "DivB", "DivC" };
 }
 
 CSelectableCombinor<float> CSelectableCombinorFactory::Create()
 {
     CSelectableCombinor<float> Combinor;
 
-    Combinor.Add(CHardLimitAdder<float>());
-    Combinor.Add(CMultiplier<float>());
-    Combinor.Add(CMaxer<float>());
-    Combinor.Add(CMiner<float>());
-    Combinor.Add(CDiffer<float>());
+    Combinor.Add(CHardLimitAdd<float>());
+
+    Combinor.Add(CMultFirst<float>());
+    Combinor.Add(CMultSecond<float>());
+    Combinor.Add(CMult<float>());
+
+    Combinor.Add(CHardLimitDiff<float>());
+    Combinor.Add(CDiffAbs<float>());
+
+    Combinor.Add(CMaxAbs<float>());
+    Combinor.Add(CMinAbs<float>());
+    Combinor.Add(CMax<float>());
+    Combinor.Add(CMin<float>());
+
+    Combinor.Add(CPosNegAdd<float>());
+    Combinor.Add(CNegPosAdd<float>());
+
     Combinor.Add(CDividerA<float>());
     Combinor.Add(CDividerB<float>());
+    Combinor.Add(CDividerC<float>());
 
     return Combinor;
 }
