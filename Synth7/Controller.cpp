@@ -130,12 +130,12 @@ CController::CController(IView &View, int SamplingFrequency)
     , m_Fold(1.0f)
     , m_Fx()
     , m_LPFilter()
-    , m_LPFilterStages(1)
 {
     m_Oscillator.SetFrequency(440.0);
     m_Oscillator.Select(0, 0);
     m_Oscillator.Select(1, 0);
     m_Oscillator.SelectCombinor(0);
+    m_LPFilter.SetStages(1);
 }
 
 CController::~CController()
@@ -208,7 +208,7 @@ void CController::OnLPFilterParameter(float Parameter)
 
 void CController::OnLPFilterStages(int Stages)
 {
-    m_LPFilterStages = Stages;
+    m_LPFilter.SetStages(Stages);
 }
 
 void CController::OnBitCrusherDepth(int Depth)
@@ -250,7 +250,7 @@ std::int64_t CController::OnRead(char *Dst, std::int64_t MaxSize)
     SampleValueType* pDstEnd = reinterpret_cast<SampleValueType*>(Dst + Size);
     while(pDst<pDstEnd)
     {
-        *pDst = m_Fx(SignedToInt16<float>(m_LPFilter(Symm(m_Oscillator(), Fold), m_LPFilterStages)));
+        *pDst = m_Fx(SignedToInt16<float>(m_LPFilter(Symm(m_Oscillator(), Fold))));
         ++pDst;
     }
 

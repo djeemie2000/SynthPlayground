@@ -59,8 +59,7 @@ private:
     COscillatorStage<float> m_Oscillator;
     float   m_Fold;
     C16BitsSignedFX m_Fx;
-    COnePoleLowPassFilter<float> m_LPFilter;
-    int m_LPFilterStages;
+    CMultiStageFilter<float, COnePoleLowPassFilter<float>, 8> m_LPFilter;
 };
 
 #endif // GRANULARSAMPLERCONTROLLER_H
