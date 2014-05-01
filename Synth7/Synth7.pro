@@ -59,6 +59,7 @@ HEADERS  += mainwindow.h \
     Pitch.h \
     WaveFolder.h \
     StepSequencer.h \
-    SelectableCombinorFactory.h
+    SelectableCombinorFactory.h \
+    OnePoleFilter.h
 
 FORMS    += mainwindow.ui

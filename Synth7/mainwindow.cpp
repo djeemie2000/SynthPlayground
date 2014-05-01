@@ -511,9 +511,23 @@ void MainWindow::on_pushButton_StepSequencerGo_clicked(bool checked)
 
 void MainWindow::on_doubleSpinBox_StepSequencer_Bpm_valueChanged(double )
 {
-    // arg1 is beats per minute => 60 seconds * 1000 / bpm = interval in milliseconds
+    //  beats per minute => 60 seconds * 1000 / bpm = interval in milliseconds
     double Bpm = ui->doubleSpinBox_StepSequencer_Bpm->value();
     int BarsPerBeat = ui->spinBox_StepSequencer_BarsPerBeat->value();
     int Interval = 60*1000/(BarsPerBeat*Bpm);
     m_StepSequencerTimer->setInterval(Interval);
+}
+
+void MainWindow::on_spinBox_StepSequencer_BarsPerBeat_valueChanged(int )
+{
+    // beats per minute => 60 seconds * 1000 / bpm = interval in milliseconds
+    double Bpm = ui->doubleSpinBox_StepSequencer_Bpm->value();
+    int BarsPerBeat = ui->spinBox_StepSequencer_BarsPerBeat->value();
+    int Interval = 60*1000/(BarsPerBeat*Bpm);
+    m_StepSequencerTimer->setInterval(Interval);
+}
+
+void MainWindow::on_doubleSpinBox_LPFilterParameter_valueChanged(double arg1)
+{
+    m_Controller->OnLPFilterParameter(arg1);
 }

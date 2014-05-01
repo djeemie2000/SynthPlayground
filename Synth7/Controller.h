@@ -9,6 +9,7 @@
 #include "8BitFX.h"
 #include "OscillatorStage.h"
 #include "Notes.h"
+#include "OnePoleFilter.h"
 
 class IView;
 
@@ -39,6 +40,7 @@ public:
 
     //
     void OnWaveFold(float Fold);
+    void OnLPFilterParameter(float Parameter);
 
     // (8 bit) FX
     void OnBitCrusherDepth(int Depth);
@@ -56,6 +58,7 @@ private:
     COscillatorStage<float> m_Oscillator;
     float   m_Fold;
     C16BitsSignedFX m_Fx;
+    COnePoleLowPassFilter<float> m_LPFilter;
 };
 
 #endif // GRANULARSAMPLERCONTROLLER_H

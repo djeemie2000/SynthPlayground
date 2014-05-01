@@ -129,6 +129,7 @@ CController::CController(IView &View, int SamplingFrequency)
     , m_Oscillator(SamplingFrequency, CreateSelectableOperator(), CSelectableCombinorFactory::Create())
     , m_Fold(1.0f)
     , m_Fx()
+    , m_LPFilter()
 {
     m_Oscillator.SetFrequency(440.0);
     m_Oscillator.Select(0, 0);
@@ -199,6 +200,11 @@ void CController::OnWaveFold(float Fold)
     m_Fold = Fold;
 }
 
+void CController::OnLPFilterParameter(float Parameter)
+{
+    m_LPFilter.SetParameter(Parameter);
+}
+
 void CController::OnBitCrusherDepth(int Depth)
 {
     m_Fx.SetBitCrusherDepth(Depth);
@@ -238,7 +244,7 @@ std::int64_t CController::OnRead(char *Dst, std::int64_t MaxSize)
     SampleValueType* pDstEnd = reinterpret_cast<SampleValueType*>(Dst + Size);
     while(pDst<pDstEnd)
     {
-        *pDst = m_Fx( SignedToInt16<float>(Symm(m_Oscillator(), Fold)) );
+        *pDst = m_Fx(SignedToInt16<float>(m_LPFilter(Symm(m_Oscillator(), Fold))));
         ++pDst;
     }
 

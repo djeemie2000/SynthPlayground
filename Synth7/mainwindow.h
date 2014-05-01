@@ -87,6 +87,10 @@ private slots:
     void on_pushButton_StepSequencerGo_clicked(bool checked);
     void on_doubleSpinBox_StepSequencer_Bpm_valueChanged(double);
 
+    void on_spinBox_StepSequencer_BarsPerBeat_valueChanged(int arg1);
+
+    void on_doubleSpinBox_LPFilterParameter_valueChanged(double arg1);
+
 private:
     void CreateAudioOutput();
 
