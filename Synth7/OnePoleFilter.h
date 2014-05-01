@@ -3,6 +3,7 @@
 
 #include <cstdlib>
 #include <array>
+#include "Conversions.h"
 
 template<class T>
 class COnePoleLowPassFilter
@@ -74,8 +75,8 @@ public:
             Out = m_Filter[Stage](Out);
             ++Stage;
         }
-        m_PrevOut = Out;//TODO more efficient?
-        return Out;
+        m_PrevOut = HardLimitSigned(Out);//TODO more efficient?
+        return m_PrevOut;
     }
 
 private:
