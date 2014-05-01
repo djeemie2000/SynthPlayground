@@ -40,6 +40,8 @@ public:
     CMultiStageFilter()
         : m_Filter()
         , m_Stages(1)
+        , m_Feedback(0)
+        , m_PrevOut(0)
     {
         m_Filter.fill(FilterType());
     }
@@ -57,21 +59,30 @@ public:
         }
     }
 
+    void SetFeedback(T Feedback)
+    {
+        // expected to be in [0,1]
+        m_Feedback = Feedback;
+    }
+
     T operator()(T In)
     {
-        T Out = In;
+        T Out = In - m_Feedback*m_PrevOut;
         int Stage = 0;
         while(Stage<m_Stages)
         {
             Out = m_Filter[Stage](Out);
             ++Stage;
         }
+        m_PrevOut = Out;//TODO more efficient?
         return Out;
     }
 
 private:
     std::array<FilterType, N> m_Filter;
     int m_Stages;
+    T m_Feedback;
+    T m_PrevOut;
 
 };
 

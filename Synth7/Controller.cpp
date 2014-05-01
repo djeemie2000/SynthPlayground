@@ -211,6 +211,11 @@ void CController::OnLPFilterStages(int Stages)
     m_LPFilter.SetStages(Stages);
 }
 
+void CController::OnLPFilterFeedback(float Feedback)
+{
+    m_LPFilter.SetFeedback(Feedback);
+}
+
 void CController::OnBitCrusherDepth(int Depth)
 {
     m_Fx.SetBitCrusherDepth(Depth);

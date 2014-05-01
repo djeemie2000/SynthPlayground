@@ -42,6 +42,7 @@ public:
     void OnWaveFold(float Fold);
     void OnLPFilterParameter(float Parameter);
     void OnLPFilterStages(int Stages);
+    void OnLPFilterFeedback(float Feedback);
 
     // (8 bit) FX
     void OnBitCrusherDepth(int Depth);
