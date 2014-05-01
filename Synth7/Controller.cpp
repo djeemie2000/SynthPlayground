@@ -18,6 +18,7 @@
 #include "WaveFolder.h"
 #include "SymmetricalOperator.h"
 #include "Conversions.h"
+#include "SelectableCombinorFactory.h"
 
 namespace
 {
@@ -83,20 +84,7 @@ int GetSelection(const std::string& Description)
     return 8;
 }
 
-CSelectableCombinor<float> CreateSelectableCombinor()
-{
-    CSelectableCombinor<float> Combinor;
 
-    Combinor.Add(CHardLimitAdder<float>());
-    Combinor.Add(CMultiplier<float>());
-    Combinor.Add(CMaxer<float>());
-    Combinor.Add(CMiner<float>());
-    Combinor.Add(CDiffer<float>());
-    Combinor.Add(CDividerA<float>());
-    Combinor.Add(CDividerB<float>());
-
-    return Combinor;
-}
 
 int GetCombinorSelection(const std::string& Description)
 {
@@ -138,7 +126,7 @@ CController::CController(IView &View, int SamplingFrequency)
     : m_View(View)
     , m_GrabSample(false)
     , m_SampleGrabber()
-    , m_Oscillator(SamplingFrequency, CreateSelectableOperator(), CreateSelectableCombinor())
+    , m_Oscillator(SamplingFrequency, CreateSelectableOperator(), CSelectableCombinorFactory::Create())
     , m_Fold(1.0f)
     , m_Fx()
 {
@@ -181,9 +169,9 @@ void CController::OnNoteOff(ENote /*Note*/, EOctave /*Octave*/)
 
 }
 
-void CController::OnCombinor(const std::string &Combinor)
+void CController::OnCombinor(int Selected)
 {
-    m_Oscillator.SelectCombinor(GetCombinorSelection(Combinor));
+    m_Oscillator.SelectCombinor(Selected);
 }
 
 void CController::OnOperator(int Idx, const std::string &Operator)
@@ -239,7 +227,7 @@ void CController::OnGrab(int GrabSize)
 
 std::int64_t CController::OnRead(char *Dst, std::int64_t MaxSize)
 {
-    int MaxReadSize = 1<<12;
+    int MaxReadSize = 1<<13;
     std::size_t Size = MaxSize<MaxReadSize ? MaxSize : MaxReadSize;
 
     CSymmetricalOperator<float> Symm;

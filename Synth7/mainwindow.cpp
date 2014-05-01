@@ -9,6 +9,7 @@
 #include "QView.h"
 #include "Controller.h"
 #include "StepSequencer.h"
+#include "SelectableCombinorFactory.h"
 
 namespace
 {
@@ -35,13 +36,10 @@ void InitialiseWaveFormSelection(QComboBox* ComboBox)
 
 void InitialiseCombinorSelection(QComboBox* ComboBox)
 {
-    ComboBox->addItem("+L");
-    ComboBox->addItem("*");
-    ComboBox->addItem("M");
-    ComboBox->addItem("m");
-    ComboBox->addItem("|-|");
-    ComboBox->addItem("DivA");
-    ComboBox->addItem("DivB");
+    for(auto& Item : CSelectableCombinorFactory::SelectionList())
+    {
+        ComboBox->addItem(QString::fromStdString(Item));
+    }
 }
 
 void InitialiseNoteSelection(QComboBox* ComboBox)
@@ -141,7 +139,7 @@ MainWindow::MainWindow(QWidget *parent) :
     m_StepSequencer = new CStepSequencer(StepSequencerNumSteps);
 
     m_Controller->OnFrequency(ui->doubleSpinBox_Frequency->value());
-    m_Controller->OnCombinor(ui->comboBox_Combinor->currentText().toStdString());
+    m_Controller->OnCombinor(ui->comboBox_Combinor->currentIndex());
     m_Controller->OnOperator(0, ui->comboBox_1_Operator->currentText().toStdString());
     m_Controller->OnOperator(1, ui->comboBox_2_Operator->currentText().toStdString());
 
@@ -344,9 +342,9 @@ void MainWindow::on_spinBox_RipplerStrength_valueChanged(int arg1)
     m_Controller->OnRipplerStrength(arg1);
 }
 
-void MainWindow::on_comboBox_Combinor_activated(const QString &arg1)
+void MainWindow::on_comboBox_Combinor_activated(const QString &)
 {
-    m_Controller->OnCombinor(arg1.toStdString());
+    m_Controller->OnCombinor(ui->comboBox_Combinor->currentIndex());
 }
 
 void MainWindow::on_doubleSpinBox_1_Amplitude_valueChanged(double arg1)

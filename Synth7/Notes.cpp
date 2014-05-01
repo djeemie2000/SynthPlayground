@@ -1,6 +1,6 @@
 #include "Notes.h"
 
-std::string ToString(ENote Note)
+std::string ToString(ENote /*Note*/)
 {
     return "AAAAA";
 }

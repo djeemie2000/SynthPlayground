@@ -15,7 +15,8 @@ SOURCES += main.cpp\
     QView.cpp \
     Pitch.cpp \
     StepSequencer.cpp \
-    Notes.cpp
+    Notes.cpp \
+    SelectableCombinorFactory.cpp
 
 HEADERS  += mainwindow.h \
     Controller.h \
@@ -57,6 +58,7 @@ HEADERS  += mainwindow.h \
     Notes.h \
     Pitch.h \
     WaveFolder.h \
-    StepSequencer.h
+    StepSequencer.h \
+    SelectableCombinorFactory.h
 
 FORMS    += mainwindow.ui

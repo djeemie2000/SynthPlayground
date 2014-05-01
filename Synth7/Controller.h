@@ -31,7 +31,7 @@ public:
     void OnNoteOff(ENote, EOctave);
 
     // oscillator
-    void OnCombinor(const std::string& Combinor);
+    void OnCombinor(int Selected);
     void OnOperator(int Idx, const std::string& Operator);
     void OnAmplitude(int Idx, float Amplitude);
     void OnFrequencyMultiplier(int Idx, float FrequencyMultiplier);
