@@ -24,6 +24,18 @@ public:
         return Out;
     }
 
+    T operator()(T In, int Repeat)
+    {
+        T Out = operator()(In);
+        while(1<Repeat)
+        {
+            Out = operator()(Out);
+            --Repeat;
+        }
+        return Out;
+    }
+
+
 private:
     T m_PrevOut;
     T m_A0;

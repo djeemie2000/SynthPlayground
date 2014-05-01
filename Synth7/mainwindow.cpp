@@ -531,3 +531,8 @@ void MainWindow::on_doubleSpinBox_LPFilterParameter_valueChanged(double arg1)
 {
     m_Controller->OnLPFilterParameter(arg1);
 }
+
+void MainWindow::on_spinBox_LPFilterStages_valueChanged(int arg1)
+{
+    m_Controller->OnLPFilterStages(arg1);
+}

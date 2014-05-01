@@ -41,6 +41,7 @@ public:
     //
     void OnWaveFold(float Fold);
     void OnLPFilterParameter(float Parameter);
+    void OnLPFilterStages(int Stages);
 
     // (8 bit) FX
     void OnBitCrusherDepth(int Depth);
@@ -59,6 +60,7 @@ private:
     float   m_Fold;
     C16BitsSignedFX m_Fx;
     COnePoleLowPassFilter<float> m_LPFilter;
+    int m_LPFilterStages;
 };
 
 #endif // GRANULARSAMPLERCONTROLLER_H
