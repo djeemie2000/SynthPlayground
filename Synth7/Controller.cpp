@@ -105,6 +105,21 @@ void CController::OnLPFilterFeedback(float Feedback)
     m_LPFilter.SetFeedback(Feedback);
 }
 
+void CController::OnNonLinearShaperA(float A)
+{
+    m_NonLinearShaper.SetA(A);
+}
+
+void CController::OnNonLinearShaperB(float B)
+{
+    m_NonLinearShaper.SetB(B);
+}
+
+void CController::OnLinearShaperPreGain(float PreGain)
+{
+    m_NonLinearShaper.SetPregain(PreGain);
+}
+
 void CController::OnBitCrusherDepth(int Depth)
 {
     m_Fx.SetBitCrusherDepth(Depth);
@@ -137,6 +152,7 @@ std::int64_t CController::OnRead(char *Dst, std::int64_t MaxSize)
     std::size_t Size = MaxSize<MaxReadSize ? MaxSize : MaxReadSize;
 
     CSymmetricalOperator<float> Symm;
+    CSymmetricalOperator<float> Symm2;
     CWaveFold2<float> Fold;
     Fold.SetFold(m_Fold);
 
@@ -144,7 +160,7 @@ std::int64_t CController::OnRead(char *Dst, std::int64_t MaxSize)
     SampleValueType* pDstEnd = reinterpret_cast<SampleValueType*>(Dst + Size);
     while(pDst<pDstEnd)
     {
-        *pDst = m_Fx(SignedToInt16<float>(m_LPFilter(Symm(m_Oscillator(), Fold))));
+        *pDst = m_Fx(SignedToInt16<float>(Symm2(m_LPFilter(Symm(m_Oscillator(), Fold)), m_NonLinearShaper)));
         ++pDst;
     }
 

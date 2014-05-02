@@ -10,6 +10,7 @@
 #include "OscillatorStage.h"
 #include "Notes.h"
 #include "OnePoleFilter.h"
+#include "NonLinearShaper.h"
 
 class IView;
 
@@ -44,6 +45,11 @@ public:
     void OnLPFilterStages(int Stages);
     void OnLPFilterFeedback(float Feedback);
 
+    //
+    void OnNonLinearShaperA(float A);
+    void OnNonLinearShaperB(float B);
+    void OnLinearShaperPreGain(float PreGain);
+
     // (8 bit) FX
     void OnBitCrusherDepth(int Depth);
     void OnSampleAndHoldPeriod(int Period);
@@ -61,6 +67,7 @@ private:
     float   m_Fold;
     C16BitsSignedFX m_Fx;
     CMultiStageFilter<float, COnePoleLowPassFilter<float>, 24> m_LPFilter;
+    CNonLinearShaper<float> m_NonLinearShaper;
 };
 
 #endif // GRANULARSAMPLERCONTROLLER_H

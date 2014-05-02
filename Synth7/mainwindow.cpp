@@ -537,3 +537,18 @@ void MainWindow::on_doubleSpinBox_LPFilterFeedback_valueChanged(double arg1)
 {
     m_Controller->OnLPFilterFeedback(arg1);
 }
+
+void MainWindow::on_doubleSpinBox_NonLinear_A_valueChanged(double arg1)
+{
+    m_Controller->OnNonLinearShaperA(arg1);
+}
+
+void MainWindow::on_doubleSpinBox_NonLinear_B_valueChanged(double arg1)
+{
+    m_Controller->OnNonLinearShaperB(arg1);
+}
+
+void MainWindow::on_doubleSpinBox_NonLinear_Pre_valueChanged(double arg1)
+{
+    m_Controller->OnLinearShaperPreGain(arg1);
+}

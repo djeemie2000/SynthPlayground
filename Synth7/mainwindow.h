@@ -90,8 +90,11 @@ private slots:
 
     void on_doubleSpinBox_LPFilterParameter_valueChanged(double arg1);
     void on_spinBox_LPFilterStages_valueChanged(int arg1);
-
     void on_doubleSpinBox_LPFilterFeedback_valueChanged(double arg1);
+
+    void on_doubleSpinBox_NonLinear_A_valueChanged(double arg1);
+    void on_doubleSpinBox_NonLinear_B_valueChanged(double arg1);
+    void on_doubleSpinBox_NonLinear_Pre_valueChanged(double arg1);
 
 private:
     void CreateAudioOutput();

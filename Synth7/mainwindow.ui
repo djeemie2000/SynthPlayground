@@ -250,7 +250,7 @@
           <item>
            <widget class="QLabel" name="label_13">
             <property name="text">
-             <string>BitCrusher Depth</string>
+             <string>BitCrusher</string>
             </property>
            </widget>
           </item>
@@ -264,7 +264,7 @@
           <item>
            <widget class="QLabel" name="label_14">
             <property name="text">
-             <string>Sample n hold period</string>
+             <string>S n H</string>
             </property>
            </widget>
           </item>
@@ -298,7 +298,7 @@
           <item>
            <widget class="QLabel" name="label_17">
             <property name="text">
-             <string>threshold</string>
+             <string>Th</string>
             </property>
            </widget>
           </item>
@@ -323,9 +323,81 @@
            </spacer>
           </item>
           <item>
+           <widget class="QLabel" name="label_21">
+            <property name="text">
+             <string>NonLinear</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="doubleSpinBox_NonLinear_A">
+            <property name="decimals">
+             <number>3</number>
+            </property>
+            <property name="minimum">
+             <double>-4.000000000000000</double>
+            </property>
+            <property name="maximum">
+             <double>4.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.010000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="doubleSpinBox_NonLinear_B">
+            <property name="decimals">
+             <number>3</number>
+            </property>
+            <property name="minimum">
+             <double>-4.000000000000000</double>
+            </property>
+            <property name="maximum">
+             <double>4.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.010000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_22">
+            <property name="text">
+             <string>Pre</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="doubleSpinBox_NonLinear_Pre">
+            <property name="maximum">
+             <double>64.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.010000000000000</double>
+            </property>
+            <property name="value">
+             <double>1.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_13">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
            <widget class="QLabel" name="label_20">
             <property name="text">
-             <string>LP Filter</string>
+             <string>LP</string>
             </property>
            </widget>
           </item>
@@ -343,6 +415,13 @@
            </widget>
           </item>
           <item>
+           <widget class="QLabel" name="label_24">
+            <property name="text">
+             <string>Pole</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QSpinBox" name="spinBox_LPFilterStages">
             <property name="minimum">
              <number>1</number>
@@ -352,6 +431,13 @@
             </property>
             <property name="value">
              <number>1</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_23">
+            <property name="text">
+             <string>Q</string>
             </property>
            </widget>
           </item>
@@ -387,7 +473,7 @@
           <item>
            <widget class="QLabel" name="label_15">
             <property name="text">
-             <string>WaveFolder</string>
+             <string>Fold</string>
             </property>
            </widget>
           </item>
@@ -885,7 +971,7 @@
      <x>0</x>
      <y>0</y>
      <width>1395</width>
-     <height>21</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>
