@@ -33,7 +33,7 @@ public:
 
     // oscillator
     void OnCombinor(int Selected);
-    void OnOperator(int Idx, const std::string& Operator);
+    void OnOperator(int Idx, int Selected);
     void OnAmplitude(int Idx, float Amplitude);
     void OnFrequencyMultiplier(int Idx, float FrequencyMultiplier);
     void OnPhaseshift(int Idx, float PhaseShift);

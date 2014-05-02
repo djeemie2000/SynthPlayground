@@ -58,8 +58,8 @@ private slots:
     void on_comboBox_Combinor_activated(const QString &);
     void on_doubleSpinBox_1_Amplitude_valueChanged(double arg1);
     void on_doubleSpinBox_2_Amplitude_valueChanged(double arg1);
-    void on_comboBox_1_Operator_activated(const QString &arg1);
-    void on_comboBox_2_Operator_activated(const QString &arg1);
+    void on_comboBox_1_Operator_activated(const QString &);
+    void on_comboBox_2_Operator_activated(const QString &);
     void on_doubleSpinBox_1_Frequency_valueChanged(double arg1);
     void on_doubleSpinBox_2_Frequency_valueChanged(double arg1);
     void on_doubleSpinBox_1_PhaseShift_valueChanged(double arg1);

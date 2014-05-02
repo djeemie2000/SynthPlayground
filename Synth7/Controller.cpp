@@ -1,132 +1,21 @@
 #include <cstring>
 #include "Controller.h"
-#include "ReadWavFile.h"
 #include "View.h"
-#include "RampDown.h"
-#include "RampUp.h"
-#include "InvSquare.h"
-#include "PseudoSin.h"
-#include "FullPseudoSin.h"
-#include "Square.h"
-#include "SquareWave.h"
-#include "NoOp.h"
-#include "Triangle.h"
-#include "CrossFader.h"
 #include "SelectableCombinor.h"
-#include "Combinor.h"
+#include "SelectableOperator.h"
 #include "Pitch.h"
 #include "WaveFolder.h"
 #include "SymmetricalOperator.h"
 #include "Conversions.h"
 #include "SelectableCombinorFactory.h"
+#include "SelectableOperatorFactory.h"
 
-namespace
-{
-
-CSelectableOperator<float> CreateSelectableOperator()
-{
-    CSelectableOperator<float> Op;
-    Op.Add(CRampUp<float>());
-    Op.Add(CRampDown<float>());
-    Op.Add(CTriangle<float>());
-    Op.Add(CFullPseudoSin<float>());
-    Op.Add(CPseudoSin<float>());
-    Op.Add(CQuadratic<float>());
-    Op.Add(CInvSquare<float>());
-    Op.Add(CSquareWave<float>());
-    Op.Add(CNoOp<float>());
-
-    return Op;
-}
-
-int GetSelection(const std::string& Description)
-{
-    if(Description=="RampUp")
-    {
-        return 0;
-    }
-
-    if(Description=="RampDown")
-    {
-        return 1;
-    }
-
-    if(Description=="Triangle")
-    {
-        return 2;
-    }
-
-    if(Description=="FullPseudoSin")
-    {
-        return 3;
-    }
-
-    if(Description=="PseudoSin")
-    {
-        return 4;
-    }
-
-    if(Description=="Square")
-    {
-        return 5;
-    }
-
-    if(Description=="InvSquare")
-    {
-        return 6;
-    }
-
-    if(Description=="SquareWave")
-    {
-        return 7;
-    }
-
-    return 8;
-}
-
-
-
-int GetCombinorSelection(const std::string& Description)
-{
-    if(Description=="+L")
-    {
-        return 0;
-    }
-    if(Description=="*")
-    {
-        return 1;
-    }
-    if(Description=="M")
-    {
-        return 2;
-    }
-    if(Description=="m")
-    {
-        return 3;
-    }
-    if(Description=="|-|")
-    {
-        return 4;
-    }
-    if(Description=="DivA")
-    {
-        return 5;
-    }
-    if(Description=="DivB")
-    {
-        return 6;
-    }
-    return 7;
-}
-
-
-}
 
 CController::CController(IView &View, int SamplingFrequency)
     : m_View(View)
     , m_GrabSample(false)
     , m_SampleGrabber()
-    , m_Oscillator(SamplingFrequency, CreateSelectableOperator(), CSelectableCombinorFactory::Create())
+    , m_Oscillator(SamplingFrequency, CSelectableOperatorFactory::Create(), CSelectableCombinorFactory::Create())
     , m_Fold(1.0f)
     , m_Fx()
     , m_LPFilter()
@@ -176,9 +65,9 @@ void CController::OnCombinor(int Selected)
     m_Oscillator.SelectCombinor(Selected);
 }
 
-void CController::OnOperator(int Idx, const std::string &Operator)
+void CController::OnOperator(int Idx, int Selected)
 {
-    m_Oscillator.Select(Idx, GetSelection(Operator));
+    m_Oscillator.Select(Idx, Selected);
 }
 
 void CController::OnAmplitude(int Idx, float Amplitude)

@@ -10,6 +10,7 @@
 #include "Controller.h"
 #include "StepSequencer.h"
 #include "SelectableCombinorFactory.h"
+#include "SelectableOperatorFactory.h"
 
 namespace
 {
@@ -23,15 +24,10 @@ namespace
 
 void InitialiseWaveFormSelection(QComboBox* ComboBox)
 {
-    ComboBox->addItem("RampUp");
-    ComboBox->addItem("RampDown");
-    ComboBox->addItem("Triangle");
-    ComboBox->addItem("FullPseudoSin");
-    ComboBox->addItem("PseudoSin");
-    ComboBox->addItem("Square");
-    ComboBox->addItem("InvSquare");
-    ComboBox->addItem("SquareWave");
-    ComboBox->addItem("NoOp");
+    for(auto& Item : CSelectableOperatorFactory::SelectionList())
+    {
+        ComboBox->addItem(QString::fromStdString(Item));
+    }
 }
 
 void InitialiseCombinorSelection(QComboBox* ComboBox)
@@ -140,8 +136,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     m_Controller->OnFrequency(ui->doubleSpinBox_Frequency->value());
     m_Controller->OnCombinor(ui->comboBox_Combinor->currentIndex());
-    m_Controller->OnOperator(0, ui->comboBox_1_Operator->currentText().toStdString());
-    m_Controller->OnOperator(1, ui->comboBox_2_Operator->currentText().toStdString());
+    m_Controller->OnOperator(0, ui->comboBox_1_Operator->currentIndex());
+    m_Controller->OnOperator(1, ui->comboBox_2_Operator->currentIndex());
 
     m_AudioIODevice = new QAudioIODevice(m_Controller, this);
 
@@ -357,14 +353,14 @@ void MainWindow::on_doubleSpinBox_2_Amplitude_valueChanged(double arg1)
     m_Controller->OnAmplitude(1, arg1);
 }
 
-void MainWindow::on_comboBox_1_Operator_activated(const QString &arg1)
+void MainWindow::on_comboBox_1_Operator_activated(const QString &)
 {
-    m_Controller->OnOperator(0, arg1.toStdString());
+    m_Controller->OnOperator(0, ui->comboBox_1_Operator->currentIndex());
 }
 
-void MainWindow::on_comboBox_2_Operator_activated(const QString &arg1)
+void MainWindow::on_comboBox_2_Operator_activated(const QString &)
 {
-    m_Controller->OnOperator(1, arg1.toStdString());
+    m_Controller->OnOperator(1, ui->comboBox_2_Operator->currentIndex());
 }
 
 void MainWindow::on_doubleSpinBox_1_Frequency_valueChanged(double arg1)

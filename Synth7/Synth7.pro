@@ -16,7 +16,8 @@ SOURCES += main.cpp\
     Pitch.cpp \
     StepSequencer.cpp \
     Notes.cpp \
-    SelectableCombinorFactory.cpp
+    SelectableCombinorFactory.cpp \
+    SelectableOperatorFactory.cpp
 
 HEADERS  += mainwindow.h \
     Controller.h \
@@ -60,6 +61,7 @@ HEADERS  += mainwindow.h \
     WaveFolder.h \
     StepSequencer.h \
     SelectableCombinorFactory.h \
-    OnePoleFilter.h
+    OnePoleFilter.h \
+    SelectableOperatorFactory.h
 
 FORMS    += mainwindow.ui
