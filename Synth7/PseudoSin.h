@@ -9,7 +9,7 @@ public:
     {
         //T Phase01 = (1+Phase)/2;
         //return 4*Phase01*(1-Phase01);
-        return (1+Phase)*(1-Phase);
+        return 2*(1+Phase)*(1-Phase)-1;
     }
 };
 
