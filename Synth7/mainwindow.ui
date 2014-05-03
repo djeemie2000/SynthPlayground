@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1395</width>
+    <width>1407</width>
     <height>669</height>
    </rect>
   </property>
@@ -397,7 +397,7 @@
           <item>
            <widget class="QLabel" name="label_20">
             <property name="text">
-             <string>LP</string>
+             <string>LP Cutoff</string>
             </property>
            </widget>
           </item>
@@ -411,6 +411,9 @@
             </property>
             <property name="singleStep">
              <double>0.010000000000000</double>
+            </property>
+            <property name="value">
+             <double>1.000000000000000</double>
             </property>
            </widget>
           </item>
@@ -970,7 +973,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1395</width>
+     <width>1407</width>
      <height>25</height>
     </rect>
    </property>
