@@ -17,10 +17,11 @@ public:
 
     void SetParameter(T Parameter)
     {
+        // parameter in [0,1] range
         // parameter is 1 => no filtering
         // parameter is 0 => lowest cutoff
-        m_A0 = Parameter;
-        m_B1 = 1-Parameter;
+        m_A0 = Parameter*Parameter;
+        m_B1 = 1-Parameter*Parameter;
     }
 
     T operator()(T In)
