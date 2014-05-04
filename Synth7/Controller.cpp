@@ -20,7 +20,7 @@ CController::CController(IView &View, int SamplingFrequency)
     , m_Fx()
     , m_LPFilter()
 {
-    m_Oscillator.SetFrequency(440.0);
+    m_Oscillator.SetFrequency(CPitch()(ENote::A, EOctave::Octave2));
     m_Oscillator.Select(0, 0);
     m_Oscillator.Select(1, 0);
     m_Oscillator.SelectCombinor(0);
@@ -40,11 +40,6 @@ void CController::OnStop()
 {
 }
 
-void CController::OnFrequency(float Frequency)
-{
-    m_Oscillator.SetFrequency(Frequency);
-}
-
 void CController::OnSync()
 {
     m_Oscillator.Sync();
@@ -52,7 +47,8 @@ void CController::OnSync()
 
 void CController::OnNoteOn(ENote Note, EOctave Octave)
 {
-    OnFrequency(CPitch()(Note, Octave));
+    m_Oscillator.SetFrequency(CPitch()(Note, Octave));
+    m_Oscillator.Sync();//optional?
 }
 
 void CController::OnNoteOff(ENote /*Note*/, EOctave /*Octave*/)

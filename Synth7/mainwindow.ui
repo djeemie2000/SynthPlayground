@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1407</width>
+    <width>1448</width>
     <height>669</height>
    </rect>
   </property>
@@ -70,28 +70,8 @@
           <string>Operator</string>
          </property>
          <layout class="QGridLayout" name="gridLayout">
-          <item row="1" column="1">
-           <widget class="QLabel" name="label_9">
-            <property name="text">
-             <string>Frequency</string>
-            </property>
-           </widget>
-          </item>
           <item row="6" column="6">
            <widget class="QComboBox" name="comboBox_2_Operator"/>
-          </item>
-          <item row="3" column="1">
-           <widget class="QDoubleSpinBox" name="doubleSpinBox_Frequency">
-            <property name="decimals">
-             <number>0</number>
-            </property>
-            <property name="maximum">
-             <double>22050.000000000000000</double>
-            </property>
-            <property name="value">
-             <double>220.000000000000000</double>
-            </property>
-           </widget>
           </item>
           <item row="3" column="5">
            <widget class="QLabel" name="label">
@@ -211,17 +191,17 @@
             </property>
            </widget>
           </item>
-          <item row="6" column="1">
-           <widget class="QPushButton" name="pushButton_DetuneSync">
-            <property name="text">
-             <string>Sync</string>
-            </property>
-           </widget>
-          </item>
           <item row="1" column="3">
            <widget class="QLabel" name="label_10">
             <property name="text">
              <string>Combinor</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="3">
+           <widget class="QPushButton" name="pushButton_DetuneSync">
+            <property name="text">
+             <string>Sync</string>
             </property>
            </widget>
           </item>
@@ -973,7 +953,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1407</width>
+     <width>1448</width>
      <height>25</height>
     </rect>
    </property>

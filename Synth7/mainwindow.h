@@ -47,9 +47,6 @@ private slots:
     void on_pushButton_ScopeGrab_clicked();
     void on_checkBox_ScopeGrabRepeated_clicked(bool checked);
 
-    void on_doubleSpinBox_Frequency_valueChanged(double arg1);
-
-
     void on_spinBox_BitCrushserDepth_valueChanged(int arg1);
     void on_spinBox_SnHPeriod_valueChanged(int arg1);
     void on_spinBox_RipplerThreshold_valueChanged(int arg1);

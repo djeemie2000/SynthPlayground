@@ -25,12 +25,9 @@ public:
     void OnGrab(int GrabSize);
     std::int64_t OnRead(char *Dst, std::int64_t MaxSize);//this should be some different interface?
 
-    void OnFrequency(float Frequency);
-
-    void OnSync();
-
     void OnNoteOn(ENote Note, EOctave Octave);
     void OnNoteOff(ENote, EOctave);
+    void OnSync();
 
     // oscillator
     void OnCombinor(int Selected);

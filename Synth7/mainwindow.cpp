@@ -134,7 +134,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     m_StepSequencer = new CStepSequencer(StepSequencerNumSteps);
 
-    m_Controller->OnFrequency(ui->doubleSpinBox_Frequency->value());
     m_Controller->OnCombinor(ui->comboBox_Combinor->currentIndex());
     m_Controller->OnOperator(0, ui->comboBox_1_Operator->currentIndex());
     m_Controller->OnOperator(1, ui->comboBox_2_Operator->currentIndex());
@@ -306,11 +305,6 @@ void MainWindow::on_pushButton_ScopeGrab_clicked()
 {
     int GrabSize = ui->spinBox_ScopeGrabSize->value();
     m_Controller->OnGrab(GrabSize);
-}
-
-void MainWindow::on_doubleSpinBox_Frequency_valueChanged(double arg1)
-{
-    m_Controller->OnFrequency(arg1);
 }
 
 void MainWindow::on_checkBox_ScopeGrabRepeated_clicked(bool checked)
