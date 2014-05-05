@@ -63,6 +63,7 @@ HEADERS  += mainwindow.h \
     SelectableCombinorFactory.h \
     OnePoleFilter.h \
     SelectableOperatorFactory.h \
-    NonLinearShaper.h
+    NonLinearShaper.h \
+    BasicEnvelope.h
 
 FORMS    += mainwindow.ui

@@ -19,6 +19,8 @@ CController::CController(IView &View, int SamplingFrequency)
     , m_Fold(1.0f)
     , m_Fx()
     , m_LPFilter()
+    , m_NonLinearShaper()
+    , m_Envelope()
 {
     m_Oscillator.SetFrequency(CPitch()(ENote::A, EOctave::Octave2));
     m_Oscillator.Select(0, 0);
@@ -49,11 +51,12 @@ void CController::OnNoteOn(ENote Note, EOctave Octave)
 {
     m_Oscillator.SetFrequency(CPitch()(Note, Octave));
     m_Oscillator.Sync();//optional?
+    m_Envelope.NoteOn();
 }
 
 void CController::OnNoteOff(ENote /*Note*/, EOctave /*Octave*/)
 {
-
+    m_Envelope.NoteOff();
 }
 
 void CController::OnCombinor(int Selected)
@@ -156,7 +159,7 @@ std::int64_t CController::OnRead(char *Dst, std::int64_t MaxSize)
     SampleValueType* pDstEnd = reinterpret_cast<SampleValueType*>(Dst + Size);
     while(pDst<pDstEnd)
     {
-        *pDst = m_Fx(SignedToInt16<float>(Symm2(m_LPFilter(Symm(m_Oscillator(), Fold)), m_NonLinearShaper)));
+        *pDst = m_Fx(SignedToInt16<float>(m_Envelope()*Symm2(m_LPFilter(Symm(m_Oscillator(), Fold)), m_NonLinearShaper)));
         ++pDst;
     }
 

@@ -11,6 +11,7 @@
 #include "Notes.h"
 #include "OnePoleFilter.h"
 #include "NonLinearShaper.h"
+#include "BasicEnvelope.h"
 
 class IView;
 
@@ -65,6 +66,7 @@ private:
     C16BitsSignedFX m_Fx;
     CMultiStageFilter<float, COnePoleLowPassFilter<float>, 24> m_LPFilter;
     CNonLinearShaper<float> m_NonLinearShaper;
+    CBasicEnvelope<float> m_Envelope;
 };
 
 #endif // GRANULARSAMPLERCONTROLLER_H
