@@ -3,17 +3,16 @@
 
 #include <vector>
 #include "Notes.h"
+#include <memory>
 
 class CController;
+template<class T> class CPeriodicThreadRunner;
 
 class CStepSequencer
 {
 public:
-    CStepSequencer(int NumSteps)
-        : m_Active(false)
-        , m_Steps(NumSteps)
-        , m_CurrentStep(0)
-    {}
+    CStepSequencer(int NumSteps, CController& NoteHandler);
+    ~CStepSequencer();
 
     int NumSteps() const;
 
@@ -21,8 +20,13 @@ public:
     void SetOctave(int Step, EOctave Octave);
     void SetNote(int Step, ENote Note);
 
-    void OnActive(bool Active);
-    void OnTick(CController& NoteHandler);
+    void SetBeatsPerMinute(int Bpm);
+    void SetBarsPerBeat(int BarsPerBeat);
+
+    void Start();
+    void Stop();
+
+    void OnTick();
 
 private:
     struct SStep
@@ -38,11 +42,18 @@ private:
     };
 
     bool StepExists(int Step) const;
+    int PeriodMilliSeconds() const;
 
-    bool m_Active;
+    CController& m_NoteHandler;
+
     std::vector<SStep> m_Steps;
     int m_CurrentStep;
+
     SStep m_PreviousStep;
+
+    int m_Bpm;
+    int m_BarsPerBeat;
+    std::unique_ptr<CPeriodicThreadRunner<CStepSequencer>> m_ThreadRunner;
 };
 
 #endif // STEPSEQUENCER_H

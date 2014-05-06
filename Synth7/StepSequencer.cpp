@@ -1,6 +1,23 @@
 #include "StepSequencer.h"
 
 #include "Controller.h"
+#include "PeriodicThreadRunner.h"
+
+CStepSequencer::CStepSequencer(int NumSteps, CController &NoteHandler)
+    : m_NoteHandler(NoteHandler)
+    , m_Steps(NumSteps)
+    , m_CurrentStep(0)
+    , m_Bpm(120)
+    , m_BarsPerBeat(2)
+    , m_ThreadRunner()
+{
+    m_ThreadRunner.reset(new CPeriodicThreadRunner<CStepSequencer>(*this));
+    m_ThreadRunner->SetPeriod(PeriodMilliSeconds());
+}
+
+CStepSequencer::~CStepSequencer()
+{
+}
 
 void CStepSequencer::SetActive(int Step, bool IsActive)
 {
@@ -26,25 +43,39 @@ void CStepSequencer::SetNote(int Step, ENote Note)
     }
 }
 
-void CStepSequencer::OnActive(bool Active)
+void CStepSequencer::SetBeatsPerMinute(int Bpm)
 {
-    m_Active = Active;
+    m_Bpm = Bpm;
+    m_ThreadRunner->SetPeriod(PeriodMilliSeconds());
 }
 
-void CStepSequencer::OnTick(CController &NoteHandler)
+void CStepSequencer::SetBarsPerBeat(int BarsPerBeat)
+{
+    m_BarsPerBeat = BarsPerBeat;
+    m_ThreadRunner->SetPeriod(PeriodMilliSeconds());
+}
+
+void CStepSequencer::Start()
+{
+    m_ThreadRunner->Start();
+}
+
+void CStepSequencer::Stop()
+{
+    m_ThreadRunner->Stop();
+}
+
+void CStepSequencer::OnTick()
 {
     // noteOff, use dedicated member in case step is changed since previous OnTick()
-    m_PreviousStep.NoteOff(NoteHandler);
+    m_PreviousStep.NoteOff(m_NoteHandler);
 
-    if(m_Active)
-    {
-        // noteOn, see above remarks
-        m_PreviousStep = m_Steps[m_CurrentStep];
-        m_PreviousStep.NoteOn(NoteHandler);
+    // noteOn, see above remarks
+    m_PreviousStep = m_Steps[m_CurrentStep];
+    m_PreviousStep.NoteOn(m_NoteHandler);
 
-        // to next step
-        m_CurrentStep = (m_CurrentStep+1)%NumSteps();
-    }
+    // to next step
+    m_CurrentStep = (m_CurrentStep+1)%NumSteps();
 }
 
 int CStepSequencer::NumSteps() const
@@ -55,6 +86,11 @@ int CStepSequencer::NumSteps() const
 bool CStepSequencer::StepExists(int Step) const
 {
     return 0<=Step && Step<NumSteps();
+}
+
+int CStepSequencer::PeriodMilliSeconds() const
+{
+    return 60 * 1000 / (m_Bpm * m_BarsPerBeat);
 }
 
 CStepSequencer::SStep::SStep()

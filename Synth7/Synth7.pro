@@ -64,6 +64,7 @@ HEADERS  += mainwindow.h \
     OnePoleFilter.h \
     SelectableOperatorFactory.h \
     NonLinearShaper.h \
-    BasicEnvelope.h
+    BasicEnvelope.h \
+    PeriodicThreadRunner.h
 
 FORMS    += mainwindow.ui

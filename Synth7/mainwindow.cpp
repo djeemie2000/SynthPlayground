@@ -62,7 +62,6 @@ MainWindow::MainWindow(QWidget *parent) :
   , m_AudioOutput(0)
   , m_AudioIODevice(0)
   , m_ScopeAutoGrab(true)
-  , m_StepSequencerTimer(0)
   , m_Controller(0)
   , m_StepSequencer(0)
 {
@@ -123,16 +122,13 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(timer, SIGNAL(timeout()), this, SLOT(OnTimer()));
     timer->start(1000);
 
-    m_StepSequencerTimer = new QTimer(this);
-    connect(m_StepSequencerTimer, SIGNAL(timeout()), this, SLOT(OnStepSequencerTimer()));
-
     QView* View = new QView(this);
     connect(View, SIGNAL(SignalSampleRange(int,int)), this, SLOT(OnSampleRange(int,int)));
     connect(View, SIGNAL(SignalSample(QVector<std::int16_t>)), this, SLOT(OnSample(QVector<std::int16_t>)));
 
     m_Controller = new CController(*View, SamplingFrequency);
 
-    m_StepSequencer = new CStepSequencer(StepSequencerNumSteps);
+    m_StepSequencer = new CStepSequencer(StepSequencerNumSteps, *m_Controller);
 
     m_Controller->OnCombinor(ui->comboBox_Combinor->currentIndex());
     m_Controller->OnOperator(0, ui->comboBox_1_Operator->currentIndex());
@@ -477,44 +473,26 @@ void MainWindow::OnStepSequencerUpdate()
     }
 }
 
-void MainWindow::OnStepSequencerTimer()
-{
-    m_StepSequencer->OnTick(*m_Controller);
-}
-
 void MainWindow::on_pushButton_StepSequencerGo_clicked(bool checked)
 {
     if(checked)
-    {
-        double Bpm = ui->doubleSpinBox_StepSequencer_Bpm->value();
-        int BarsPerBeat = ui->spinBox_StepSequencer_BarsPerBeat->value();
-        int Interval = 60*1000/(BarsPerBeat*Bpm);
-        m_StepSequencerTimer->start(Interval);
-        m_StepSequencer->OnActive(true);
+    {        
+        m_StepSequencer->Start();
     }
     else
-    {
-        m_StepSequencerTimer->stop();
-        m_StepSequencer->OnActive(false);
+    {        
+        m_StepSequencer->Stop();
     }
 }
 
-void MainWindow::on_doubleSpinBox_StepSequencer_Bpm_valueChanged(double )
+void MainWindow::on_doubleSpinBox_StepSequencer_Bpm_valueChanged(double Bpm)
 {
-    //  beats per minute => 60 seconds * 1000 / bpm = interval in milliseconds
-    double Bpm = ui->doubleSpinBox_StepSequencer_Bpm->value();
-    int BarsPerBeat = ui->spinBox_StepSequencer_BarsPerBeat->value();
-    int Interval = 60*1000/(BarsPerBeat*Bpm);
-    m_StepSequencerTimer->setInterval(Interval);
+    m_StepSequencer->SetBeatsPerMinute(Bpm);
 }
 
-void MainWindow::on_spinBox_StepSequencer_BarsPerBeat_valueChanged(int )
+void MainWindow::on_spinBox_StepSequencer_BarsPerBeat_valueChanged(int BarsPerBeat)
 {
-    // beats per minute => 60 seconds * 1000 / bpm = interval in milliseconds
-    double Bpm = ui->doubleSpinBox_StepSequencer_Bpm->value();
-    int BarsPerBeat = ui->spinBox_StepSequencer_BarsPerBeat->value();
-    int Interval = 60*1000/(BarsPerBeat*Bpm);
-    m_StepSequencerTimer->setInterval(Interval);
+    m_StepSequencer->SetBarsPerBeat(BarsPerBeat);
 }
 
 void MainWindow::on_doubleSpinBox_LPFilterParameter_valueChanged(double arg1)
