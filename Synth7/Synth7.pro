@@ -65,6 +65,7 @@ HEADERS  += mainwindow.h \
     SelectableOperatorFactory.h \
     NonLinearShaper.h \
     BasicEnvelope.h \
-    PeriodicThreadRunner.h
+    PeriodicThreadRunner.h \
+    ClockUtilities.h
 
 FORMS    += mainwindow.ui
