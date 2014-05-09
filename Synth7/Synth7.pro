@@ -16,11 +16,17 @@ SOURCES += main.cpp\
 
 HEADERS  += mainwindow.h \  
     QAudioIoDevice.h \
-    QView.h \
-    Notes.h \
+    QView.h
 
 FORMS    += mainwindow.ui
 
 INCLUDEPATH += ./../SynthLib
 
 LIBS += -L./../SynthLib -lSynthLib
+
+debug:OBJECTS_DIR = ../build-dir/Synth7/Debug/
+debug:UI_DIR = ../build-dir/Synth7/Debug/
+debug:MOC_DIR = ../build-dir/Synth7/Debug/
+release:OBJECTS_DIR = ../build-dir/Synth7/Release/
+release:UI_DIR = ../build-dir/Synth7/Release/
+release:MOC_DIR = ../build-dir/Synth7/Release/

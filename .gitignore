@@ -1,2 +1,6 @@
 *.pro.user
 build-*
+*.o
+*.a
+*.exe
+Makefile

@@ -60,3 +60,6 @@ unix {
     target.path = /usr/lib
     INSTALLS += target
 }
+
+debug:OBJECTS_DIR = ../build-dir/SynthLib/Debug/
+release:OBJECTS_DIR = ../build-dir/SynthLib/Release/
