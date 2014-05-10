@@ -6,5 +6,6 @@ CONFIG += c++11 (Qt5)
 SUBDIRS += \
     ../UnitTest \   #a "lib" project
     ../SynthLib \        # a "lib" project
-    ../Synth7         # an  "app" project
+    ../Synth7 \         # an  "app" project
+    ../TestSynthLib
 

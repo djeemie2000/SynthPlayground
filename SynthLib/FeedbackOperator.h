@@ -26,12 +26,10 @@ public:
         T FeedbackPhase = Phase + m_Feedback*m_PrevValue;
         if(1 < FeedbackPhase)
         {
-            //FeedbackPhase = 1;//????????????????
             FeedbackPhase -= 2;
         }
         else if(FeedbackPhase<-1)
         {
-            //FeedbackPhase = 0;//?????????????
             FeedbackPhase += 2;//??
         }
 
