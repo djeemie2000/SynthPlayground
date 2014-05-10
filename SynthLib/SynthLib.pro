@@ -61,5 +61,9 @@ unix {
     INSTALLS += target
 }
 
-debug:OBJECTS_DIR = ../build-dir/SynthLib/Debug/
-release:OBJECTS_DIR = ../build-dir/SynthLib/Release/
+debug:DESTDIR = ../build-dir/Debug/SynthLib
+release:DESTDIR = ../build-dir/Release/SynthLib
+
+OBJECTS_DIR = $$DESTDIR
+UI_DIR = $$DESTDIR
+MOC_DIR = $$DESTDIR

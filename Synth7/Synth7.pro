@@ -22,11 +22,15 @@ FORMS    += mainwindow.ui
 
 INCLUDEPATH += ./../SynthLib
 
-LIBS += -L./../SynthLib -lSynthLib
+debug:LIBS += -L./../build-dir/Debug/SynthLib
+release:LIBS += -L./../build-dir/Release/SynthLib
 
-debug:OBJECTS_DIR = ../build-dir/Synth7/Debug/
-debug:UI_DIR = ../build-dir/Synth7/Debug/
-debug:MOC_DIR = ../build-dir/Synth7/Debug/
-release:OBJECTS_DIR = ../build-dir/Synth7/Release/
-release:UI_DIR = ../build-dir/Synth7/Release/
-release:MOC_DIR = ../build-dir/Synth7/Release/
+LIBS += -lSynthLib
+
+debug:DESTDIR = ../build-dir/Debug/Synth7
+release:DESTDIR = ../build-dir/Release/Synth7
+
+OBJECTS_DIR = $$DESTDIR
+UI_DIR = $$DESTDIR
+MOC_DIR = $$DESTDIR
+
