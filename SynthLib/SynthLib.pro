@@ -56,6 +56,7 @@ HEADERS += StepSequencer.h \
     WaveFolder.h \
     WriteWavFile.h \
     TriangularLFO.h
+
 unix {
     target.path = /usr/lib
     INSTALLS += target

@@ -1,9 +1,10 @@
 TEMPLATE = subdirs
 
-CONFIG += ordered7
+CONFIG += ordered
 CONFIG += c++11 (Qt5)
 
 SUBDIRS += \
-    ../SynthLib \        # an "lib" project
-    ../Synth7         # a  "app" project
+    ../UnitTest \   #a "lib" project
+    ../SynthLib \        # a "lib" project
+    ../Synth7         # an  "app" project
 
