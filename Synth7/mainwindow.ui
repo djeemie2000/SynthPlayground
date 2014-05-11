@@ -18,7 +18,7 @@
     <item>
      <widget class="QGroupBox" name="groupBox_3">
       <property name="title">
-       <string>Sample</string>
+       <string>Synth</string>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
@@ -209,7 +209,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QGroupBox" name="groupBox_4">
+        <widget class="QGroupBox" name="groupBox_Fx">
          <property name="title">
           <string>Fx</string>
          </property>

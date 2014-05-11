@@ -12,6 +12,9 @@
 #include "SelectableCombinorFactory.h"
 #include "SelectableOperatorFactory.h"
 
+#include "GuiUtilities.h"
+#include "QGuiCallbacks.h"
+
 namespace
 {
     const int SamplingFrequency = 44100;
@@ -135,6 +138,10 @@ MainWindow::MainWindow(QWidget *parent) :
     m_Controller->OnOperator(1, ui->comboBox_2_Operator->currentIndex());
 
     m_AudioIODevice = new QAudioIODevice(m_Controller, this);
+
+    QDoubleSpinBox* Fold2 = guiutilities::AddDoubleSpinBox(ui->groupBox_Fx, this, {"WaveFold", 0.97, 0, 1, 0.01, 2});
+    QDoubleValueChanged* Fold2Callback = new QDoubleValueChanged( [this](double Value){ m_Controller->OnWaveFold(Value); } );
+    connect(Fold2, SIGNAL(valueChanged(double)), Fold2Callback, SLOT(OnValueChanged(double)));
 
     // open current device
     CreateAudioOutput();

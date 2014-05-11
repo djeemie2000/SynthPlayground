@@ -11,12 +11,16 @@ CONFIG   += c++11 (Qt5)
 SOURCES += main.cpp\
     mainwindow.cpp \
     QAudioIoDevice.cpp \
-    QView.cpp
+    QView.cpp \
+    GuiUtilities.cpp \
+    QGuiCallbacks.cpp
 
 
 HEADERS  += mainwindow.h \  
     QAudioIoDevice.h \
-    QView.h
+    QView.h \
+    GuiUtilities.h \
+    QGuiCallbacks.h
 
 FORMS    += mainwindow.ui
 
