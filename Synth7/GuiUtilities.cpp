@@ -5,8 +5,9 @@
 #include <QLabel>
 #include <QString>
 #include <QLayout>
+#include "QGuiCallbacks.h"
 
-namespace guiutilities
+namespace guiutils
 {
 
 QDoubleSpinBox *AddDoubleSpinBox(QGroupBox *GroupBox, QWidget *Parent, const SDoubleSpinboxProperties &Properties)
@@ -26,6 +27,14 @@ QDoubleSpinBox *AddDoubleSpinBox(QGroupBox *GroupBox, QWidget *Parent, const SDo
     return SpinBox;
 }
 
+void AddDoubleSpinBox(QGroupBox *GroupBox, QWidget *Parent, const SDoubleSpinboxProperties &Properties, DoubleValueChangedCallbackType Callback)
+{
+    QDoubleSpinBox* SpinBox = AddDoubleSpinBox(GroupBox, Parent, Properties);
+
+    QDoubleValueChanged* CallbackHandler = new QDoubleValueChanged(Callback, Parent);
+    Parent->connect(SpinBox, SIGNAL(valueChanged(double)), CallbackHandler, SLOT(OnValueChanged(double)));
+}
+
 QSpinBox *AddSpinBox(QGroupBox *GroupBox, QWidget *Parent, const SSpinboxProperties &Properties)
 {
     // add label with name
@@ -42,6 +51,13 @@ QSpinBox *AddSpinBox(QGroupBox *GroupBox, QWidget *Parent, const SSpinboxPropert
     return SpinBox;
 }
 
+void AddSpinBox(QGroupBox *GroupBox, QWidget *Parent, const SSpinboxProperties &Properties, IntValueChangedCallbackType Callback)
+{
+    QSpinBox* SpinBox = AddSpinBox(GroupBox, Parent, Properties);
+
+    QIntValueChanged* CallbackHandler = new QIntValueChanged(Callback, Parent);
+    Parent->connect(SpinBox, SIGNAL(valueChanged(int)), CallbackHandler, SLOT(OnValueChanged(int)));
+}
 
 
 }

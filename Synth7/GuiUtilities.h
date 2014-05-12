@@ -2,14 +2,18 @@
 #define GUIUTILITIES_H
 
 #include <string>
+#include <functional>
 
 class QDoubleSpinBox;
 class QSpinBox;
 class QGroupBox;
 class QWidget;
 
-namespace guiutilities
+namespace guiutils
 {
+
+typedef std::function<void(double)> DoubleValueChangedCallbackType;
+typedef std::function<void(int)> IntValueChangedCallbackType;
 
 struct SDoubleSpinboxProperties
 {
@@ -21,7 +25,7 @@ struct SDoubleSpinboxProperties
     int s_NumDecimals;
 };
 
-QDoubleSpinBox* AddDoubleSpinBox(QGroupBox* GroupBox, QWidget * Parent, const SDoubleSpinboxProperties& Properties);
+void AddDoubleSpinBox(QGroupBox* GroupBox, QWidget * Parent, const SDoubleSpinboxProperties& Properties, DoubleValueChangedCallbackType Callback);
 
 struct SSpinboxProperties
 {
@@ -32,7 +36,7 @@ struct SSpinboxProperties
     int s_Step;
 };
 
-QSpinBox* AddSpinBox(QGroupBox* GroupBox, QWidget * Parent, const SSpinboxProperties& Properties);
+void AddSpinBox(QGroupBox* GroupBox, QWidget * Parent, const SSpinboxProperties& Properties, IntValueChangedCallbackType Callback);
 
 }
 

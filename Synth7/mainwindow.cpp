@@ -139,9 +139,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     m_AudioIODevice = new QAudioIODevice(m_Controller, this);
 
-    QDoubleSpinBox* Fold2 = guiutilities::AddDoubleSpinBox(ui->groupBox_Fx, this, {"WaveFold", 0.97, 0, 1, 0.01, 2});
-    QDoubleValueChanged* Fold2Callback = new QDoubleValueChanged( [this](double Value){ m_Controller->OnWaveFold(Value); } );
-    connect(Fold2, SIGNAL(valueChanged(double)), Fold2Callback, SLOT(OnValueChanged(double)));
+    guiutils::AddDoubleSpinBox(ui->groupBox_Fx, this, {"WaveFold", 0.97, 0, 1, 0.01, 2}, [this](double Value){ m_Controller->OnWaveFold(Value); });
 
     // open current device
     CreateAudioOutput();

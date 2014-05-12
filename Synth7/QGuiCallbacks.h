@@ -3,21 +3,32 @@
 
 #include <QObject>
 #include <functional>
-
-typedef std::function<void(double)> DoubleValueChangedCallbackType;
-typedef std::function<void(int)> IntValueChangedCallbackType;
+#include "GuiUtilities.h"
 
 class QDoubleValueChanged : public QObject
 {
     Q_OBJECT
 public:
-    explicit QDoubleValueChanged(const DoubleValueChangedCallbackType& Callback, QObject *parent = 0);
+    explicit QDoubleValueChanged(const guiutils::DoubleValueChangedCallbackType& Callback, QObject *parent = 0);
 
 public slots:
     void OnValueChanged(double Value);
 
 private:
-    DoubleValueChangedCallbackType m_Callback;
+    guiutils::DoubleValueChangedCallbackType m_Callback;
+};
+
+class QIntValueChanged : public QObject
+{
+    Q_OBJECT
+public:
+    explicit QIntValueChanged(const guiutils::IntValueChangedCallbackType& Callback, QObject *parent = 0);
+
+public slots:
+    void OnValueChanged(int Value);
+
+private:
+    guiutils::IntValueChangedCallbackType m_Callback;
 };
 
 #endif // QGUICALLBACKS_H
