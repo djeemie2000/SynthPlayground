@@ -55,7 +55,8 @@ HEADERS += StepSequencer.h \
     View.h \
     WaveFolder.h \
     WriteWavFile.h \
-    TriangularLFO.h
+    TriangularLFO.h \
+    PeriodicConstGenerator.h
 
 unix {
     target.path = /usr/lib
