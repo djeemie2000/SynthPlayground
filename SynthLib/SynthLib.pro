@@ -8,7 +8,8 @@ SOURCES += StepSequencer.cpp \
     Controller.cpp \
     Pitch.cpp \
     SelectableCombinorFactory.cpp \
-    SelectableOperatorFactory.cpp
+    SelectableOperatorFactory.cpp \
+    StepSequencer2.cpp
 
 HEADERS += StepSequencer.h \
     Notes.h \
@@ -56,7 +57,8 @@ HEADERS += StepSequencer.h \
     WaveFolder.h \
     WriteWavFile.h \
     TriangularLFO.h \
-    PeriodicConstGenerator.h
+    PeriodicConstGenerator.h \
+    StepSequencer2.h
 
 unix {
     target.path = /usr/lib

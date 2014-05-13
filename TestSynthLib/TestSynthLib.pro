@@ -4,7 +4,8 @@ CONFIG += c++11 (Qt5)
 
 SOURCES += main.cpp \
     TestRampUp.cpp \
-    TestPeriodicConstGenerator.cpp
+    TestPeriodicConstGenerator.cpp \
+    TestStepSequencer2.cpp
 
 
 unix {
