@@ -13,14 +13,16 @@ SOURCES += main.cpp\
     QAudioIoDevice.cpp \
     QView.cpp \
     GuiUtilities.cpp \
-    QGuiCallbacks.cpp
+    QGuiCallbacks.cpp \
+    GuiItems.cpp
 
 
 HEADERS  += mainwindow.h \  
     QAudioIoDevice.h \
     QView.h \
     GuiUtilities.h \
-    QGuiCallbacks.h
+    QGuiCallbacks.h \
+    GuiItems.h
 
 FORMS    += mainwindow.ui
 

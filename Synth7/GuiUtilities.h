@@ -15,6 +15,10 @@ namespace guiutils
 typedef std::function<void(double)> DoubleValueChangedCallbackType;
 typedef std::function<void(int)> IntValueChangedCallbackType;
 
+QGroupBox* AddGroupBox(QGroupBox *GroupBox, QWidget *Parent, const std::string& Name);
+
+void AddLabel(QGroupBox *GroupBox, QWidget *Parent, const std::string& Name);
+
 struct SDoubleSpinboxProperties
 {
     std::string s_Name;

@@ -5,15 +5,32 @@
 #include <QLabel>
 #include <QString>
 #include <QLayout>
+#include <QHBoxLayout>
 #include "QGuiCallbacks.h"
 
 namespace guiutils
 {
 
+QGroupBox *AddGroupBox(QGroupBox *GroupBox, QWidget *Parent, const std::string &Name)
+{
+    QGroupBox* ChildBox = new QGroupBox(QString::fromStdString(Name), Parent);
+    ChildBox->setLayout(new QHBoxLayout());
+    GroupBox->layout()->addWidget(ChildBox);
+    return ChildBox;
+}
+
+void AddLabel(QGroupBox *GroupBox, QWidget *Parent, const std::string& Name)
+{
+    if(!Name.empty())
+    {
+        GroupBox->layout()->addWidget(new QLabel(QString::fromStdString(Name), Parent));
+    }
+}
+
 QDoubleSpinBox *AddDoubleSpinBox(QGroupBox *GroupBox, QWidget *Parent, const SDoubleSpinboxProperties &Properties)
 {
     // add label with name
-    GroupBox->layout()->addWidget(new QLabel(QString::fromStdString(Properties.s_Name), Parent));
+    AddLabel(GroupBox, Parent, Properties.s_Name);
 
     // create spingbox, apply properties, and add to groupbox
     QDoubleSpinBox* SpinBox = new QDoubleSpinBox(Parent);
@@ -38,7 +55,7 @@ void AddDoubleSpinBox(QGroupBox *GroupBox, QWidget *Parent, const SDoubleSpinbox
 QSpinBox *AddSpinBox(QGroupBox *GroupBox, QWidget *Parent, const SSpinboxProperties &Properties)
 {
     // add label with name
-    GroupBox->layout()->addWidget(new QLabel(QString::fromStdString(Properties.s_Name), Parent));
+    AddLabel(GroupBox, Parent, Properties.s_Name);
 
     // create spingbox, apply properties, and add to groupbox
     QSpinBox* SpinBox = new QSpinBox(Parent);
@@ -58,6 +75,8 @@ void AddSpinBox(QGroupBox *GroupBox, QWidget *Parent, const SSpinboxProperties &
     QIntValueChanged* CallbackHandler = new QIntValueChanged(Callback, Parent);
     Parent->connect(SpinBox, SIGNAL(valueChanged(int)), CallbackHandler, SLOT(OnValueChanged(int)));
 }
+
+
 
 
 }
