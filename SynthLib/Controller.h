@@ -12,6 +12,8 @@
 #include "OnePoleFilter.h"
 #include "NonLinearShaper.h"
 #include "BasicEnvelope.h"
+#include "StepSequencer2.h"
+#include "PeriodicTicker.h"
 
 class IView;
 
@@ -37,13 +39,15 @@ public:
     void OnFrequencyMultiplier(int Idx, float FrequencyMultiplier);
     void OnPhaseshift(int Idx, float PhaseShift);
 
-    //
+    // WaveFolder
     void OnWaveFold(float Fold);
+
+    // LP filter
     void OnLPFilterParameter(float Parameter);
     void OnLPFilterStages(int Stages);
     void OnLPFilterFeedback(float Feedback);
 
-    //
+    // nonlinear shaper
     void OnNonLinearShaperA(float A);
     void OnNonLinearShaperB(float B);
     void OnLinearShaperPreGain(float PreGain);
@@ -53,6 +57,20 @@ public:
     void OnSampleAndHoldPeriod(int Period);
     void OnRipplerStrength(int Strength);
     void OnRipplerThreshold(int Threshold);
+
+    // Step sequencer
+    int NumSteps() const;
+
+    void SetActive(int Step, bool IsActive);
+    void SetOctave(int Step, EOctave Octave);
+    void SetNote(int Step, ENote Note);
+
+    void SetBeatsPerMinute(int Bpm);
+    void SetBarsPerBeat(int BarsPerBeat);
+
+    void Start();
+    void Stop();
+
 
 private:
     typedef std::int16_t SampleValueType;
@@ -67,6 +85,8 @@ private:
     CMultiStageFilter<float, COnePoleLowPassFilter<float>, 24> m_LPFilter;
     CNonLinearShaper<float> m_NonLinearShaper;
     CBasicEnvelope<float> m_Envelope;
+    CStepSequencer2<float, 8> m_StepSequencer;
+    CPeriodicTicker m_StepSequencerTicker;
 };
 
 #endif // GRANULARSAMPLERCONTROLLER_H

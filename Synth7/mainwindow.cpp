@@ -8,7 +8,6 @@
 #include "QAudioIoDevice.h"
 #include "QView.h"
 #include "Controller.h"
-#include "StepSequencer.h"
 #include "SelectableCombinorFactory.h"
 #include "SelectableOperatorFactory.h"
 
@@ -66,7 +65,6 @@ MainWindow::MainWindow(QWidget *parent) :
   , m_AudioIODevice(0)
   , m_ScopeAutoGrab(true)
   , m_Controller(0)
-  , m_StepSequencer(0)
 {
     ui->setupUi(this);
 
@@ -131,8 +129,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     m_Controller = new CController(*View, SamplingFrequency);
 
-    m_StepSequencer = new CStepSequencer(StepSequencerNumSteps, *m_Controller);
-
     m_Controller->OnCombinor(ui->comboBox_Combinor->currentIndex());
     m_Controller->OnOperator(0, ui->comboBox_1_Operator->currentIndex());
     m_Controller->OnOperator(1, ui->comboBox_2_Operator->currentIndex());
@@ -148,7 +144,6 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
-    delete m_StepSequencer;
     delete m_Controller;
 }
 
@@ -468,13 +463,13 @@ void MainWindow::on_doubleSpinBox_WaveFold_valueChanged(double arg1)
 
 void MainWindow::OnStepSequencerUpdate()
 {
-    for(int Step = 0; Step<m_StepSequencer->NumSteps(); ++Step)
+    for(int Step = 0; Step<m_Controller->NumSteps(); ++Step)
     {
-        m_StepSequencer->SetActive(Step, m_StepSequencerActiveBtn[Step]->isChecked());
-        m_StepSequencer->SetOctave(Step, static_cast<EOctave>(m_StepSequencerOctaveBox[Step]->value()));
+        m_Controller->SetActive(Step, m_StepSequencerActiveBtn[Step]->isChecked());
+        m_Controller->SetOctave(Step, static_cast<EOctave>(m_StepSequencerOctaveBox[Step]->value()));
 
         std::string CurrentNoteString = m_StepSequencerNoteBox[Step]->currentText().toStdString();
-        m_StepSequencer->SetNote(Step, FromString(CurrentNoteString));
+        m_Controller->SetNote(Step, FromString(CurrentNoteString));
     }
 }
 
@@ -482,22 +477,22 @@ void MainWindow::on_pushButton_StepSequencerGo_clicked(bool checked)
 {
     if(checked)
     {        
-        m_StepSequencer->Start();
+        m_Controller->Start();
     }
     else
     {        
-        m_StepSequencer->Stop();
+        m_Controller->Stop();
     }
 }
 
 void MainWindow::on_doubleSpinBox_StepSequencer_Bpm_valueChanged(double Bpm)
 {
-    m_StepSequencer->SetBeatsPerMinute(Bpm);
+    m_Controller->SetBeatsPerMinute(Bpm);
 }
 
 void MainWindow::on_spinBox_StepSequencer_BarsPerBeat_valueChanged(int BarsPerBeat)
 {
-    m_StepSequencer->SetBarsPerBeat(BarsPerBeat);
+    m_Controller->SetBarsPerBeat(BarsPerBeat);
 }
 
 void MainWindow::on_doubleSpinBox_LPFilterParameter_valueChanged(double arg1)

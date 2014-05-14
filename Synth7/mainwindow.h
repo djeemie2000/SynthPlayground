@@ -105,7 +105,6 @@ private:
     QVector<QSpinBox*> m_StepSequencerOctaveBox;
 
     CController* m_Controller;
-    CStepSequencer* m_StepSequencer;
 };
 
 #endif // MAINWINDOW_H
