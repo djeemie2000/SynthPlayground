@@ -21,12 +21,16 @@ CController::CController(IView &View, int SamplingFrequency)
     , m_LPFilter()
     , m_NonLinearShaper()
     , m_Envelope()
+    , m_StepSequencer(SamplingFrequency)
 {
     m_Oscillator.SetFrequency(CPitch()(ENote::A, EOctave::Octave2));
     m_Oscillator.Select(0, 0);
     m_Oscillator.Select(1, 0);
     m_Oscillator.SelectCombinor(0);
     m_LPFilter.SetStages(1);
+
+    m_StepSequencer.SetBeatsPerMinute(120);
+    m_StepSequencer.SetBarsPerBeat(2);
 }
 
 CController::~CController()
@@ -139,6 +143,48 @@ void CController::OnRipplerThreshold(int Threshold)
     m_Fx.SetRipplerThreshold(Threshold);
 }
 
+int CController::NumSteps() const
+{
+    return m_StepSequencer.NumSteps();
+}
+
+void CController::SetActive(int Step, bool IsActive)
+{
+    m_StepSequencer.SetActive(Step, IsActive);
+}
+
+void CController::SetOctave(int Step, EOctave Octave)
+{
+    m_StepSequencer.SetOctave(Step, Octave);
+}
+
+void CController::SetNote(int Step, ENote Note)
+{
+    m_StepSequencer.SetNote(Step, Note);
+}
+
+void CController::SetBeatsPerMinute(int Bpm)
+{
+    m_StepSequencer.SetBeatsPerMinute(Bpm);
+    m_StepSequencerTicker.SetPeriod(m_StepSequencer.PeriodSamples());
+}
+
+void CController::SetBarsPerBeat(int BarsPerBeat)
+{
+    m_StepSequencer.SetBarsPerBeat(BarsPerBeat);
+    m_StepSequencerTicker.SetPeriod(m_StepSequencer.PeriodSamples());
+}
+
+void CController::Start()
+{
+    m_StepSequencerTicker.Activate(true);
+}
+
+void CController::Stop()
+{
+    m_StepSequencerTicker.Activate(false);
+}
+
 void CController::OnGrab(int GrabSize)
 {
     m_GrabSample = true;
@@ -157,11 +203,27 @@ std::int64_t CController::OnRead(char *Dst, std::int64_t MaxSize)
 
     SampleValueType* pDst = reinterpret_cast<SampleValueType*>(Dst);
     SampleValueType* pDstEnd = reinterpret_cast<SampleValueType*>(Dst + Size);
+
+
     while(pDst<pDstEnd)
     {
+        if(m_StepSequencerTicker())
+        {
+            // note off previous step, advance to next step and apply!
+            if(m_StepSequencer.CurrentStep().s_IsActive)
+            {
+                OnNoteOff(m_StepSequencer.CurrentStep().s_Note, m_StepSequencer.CurrentStep().s_Octave);
+            }
+            m_StepSequencer.Advance();
+            if(m_StepSequencer.CurrentStep().s_IsActive)
+            {
+                OnNoteOn(m_StepSequencer.CurrentStep().s_Note, m_StepSequencer.CurrentStep().s_Octave);
+            }
+        }
         *pDst = m_Fx(SignedToInt16<float>(m_Envelope()*Symm2(m_LPFilter(Symm(m_Oscillator(), Fold)), m_NonLinearShaper)));
         ++pDst;
     }
+
 
 //    else if(m_WaveForm=="NoOp")
 //    {
