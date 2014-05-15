@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>QKeyboardWidget</class>
+ <widget class="QWidget" name="QKeyboardWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>586</width>
+    <height>108</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout_2">
+   <item>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Keyboard</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="4">
+       <widget class="QToolButton" name="toolButton_Dsharp">
+        <property name="text">
+         <string>D#</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="5">
+       <widget class="QToolButton" name="toolButton_E">
+        <property name="text">
+         <string>E </string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="8">
+       <widget class="QToolButton" name="toolButton_G">
+        <property name="text">
+         <string>G </string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="11">
+       <widget class="QToolButton" name="toolButton_Asharp">
+        <property name="text">
+         <string>A#</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="12">
+       <widget class="QToolButton" name="toolButton_B">
+        <property name="text">
+         <string>B </string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="15">
+       <spacer name="horizontalSpacer_4">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="1" column="3">
+       <widget class="QToolButton" name="toolButton_D">
+        <property name="text">
+         <string>D </string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QToolButton" name="toolButton_C">
+        <property name="text">
+         <string>C </string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="9">
+       <widget class="QToolButton" name="toolButton_Gsharp">
+        <property name="text">
+         <string>G#</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="13">
+       <widget class="QToolButton" name="toolButton_Cplus1">
+        <property name="text">
+         <string>C </string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QToolButton" name="toolButton_Csharp">
+        <property name="text">
+         <string>C#</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="1" column="6">
+       <widget class="QToolButton" name="toolButton_F">
+        <property name="text">
+         <string>F </string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="7">
+       <widget class="QToolButton" name="toolButton_Fsharp">
+        <property name="text">
+         <string>F#</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="10">
+       <widget class="QToolButton" name="toolButton_A">
+        <property name="text">
+         <string>A </string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="14">
+       <widget class="QSpinBox" name="spinBox_Octave">
+        <property name="maximum">
+         <number>8</number>
+        </property>
+        <property name="value">
+         <number>2</number>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="14">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Octave</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

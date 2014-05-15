@@ -6,6 +6,7 @@
 #include <QDebug>
 #include "QAudioIoDevice.h"
 #include "QView.h"
+#include "QKeyboardWidget.h"
 #include "Controller.h"
 #include "SelectableCombinorFactory.h"
 #include "SelectableOperatorFactory.h"
@@ -134,10 +135,12 @@ MainWindow::MainWindow(QWidget *parent) :
     m_AudioIODevice = new QAudioIODevice(m_Controller, this);
 
     // build gui
+    guiutils::AddBitFX(ui->groupBox_Shaping, this, *m_Controller);
     guiutils::AddNonLinearShaper(ui->groupBox_Shaping, this, *m_Controller);
     guiutils::AddLPFilter(ui->groupBox_Shaping, this, *m_Controller);
     guiutils::AddWaveFolder(ui->groupBox_Shaping, this, *m_Controller);
-    guiutils::AddBitFX(ui->groupBox_Fx, this, *m_Controller);
+
+    ui->groupBox_Synth->layout()->addWidget(new QKeyboardWidget(*m_Controller, this));
 
     // open current device
     CreateAudioOutput();
@@ -358,84 +361,6 @@ void MainWindow::on_doubleSpinBox_2_PhaseShift_valueChanged(double arg1)
 void MainWindow::on_pushButton_DetuneSync_clicked()
 {
     m_Controller->OnSync();
-}
-
-void MainWindow::on_pushButton_KeyBoard_C_clicked()
-{
-    EOctave Octave = static_cast<EOctave>(ui->spinBox_Octave->value());
-    m_Controller->OnNoteOn(ENote::C, Octave);
-}
-
-void MainWindow::on_pushButton_Keyboard_Csharp_clicked()
-{
-    EOctave Octave = static_cast<EOctave>(ui->spinBox_Octave->value());
-    m_Controller->OnNoteOn(ENote::Csharp, Octave);
-}
-
-void MainWindow::on_pushButton_Keyboard_D_clicked()
-{
-    EOctave Octave = static_cast<EOctave>(ui->spinBox_Octave->value());
-    m_Controller->OnNoteOn(ENote::D, Octave);
-}
-
-void MainWindow::on_pushButton_Keyboard_Dsharp_clicked()
-{
-    EOctave Octave = static_cast<EOctave>(ui->spinBox_Octave->value());
-    m_Controller->OnNoteOn(ENote::Dsharp, Octave);
-}
-
-void MainWindow::on_pushButton_Keyboard_E_clicked()
-{
-    EOctave Octave = static_cast<EOctave>(ui->spinBox_Octave->value());
-    m_Controller->OnNoteOn(ENote::E, Octave);
-}
-
-void MainWindow::on_pushButton_Keyboard_F_clicked()
-{
-    EOctave Octave = static_cast<EOctave>(ui->spinBox_Octave->value());
-    m_Controller->OnNoteOn(ENote::F, Octave);
-}
-
-void MainWindow::on_pushButton_Keyboard_Fsharp_clicked()
-{
-    EOctave Octave = static_cast<EOctave>(ui->spinBox_Octave->value());
-    m_Controller->OnNoteOn(ENote::Fsharp, Octave);
-}
-
-void MainWindow::on_pushButton_Keyboard_G_clicked()
-{
-    EOctave Octave = static_cast<EOctave>(ui->spinBox_Octave->value());
-    m_Controller->OnNoteOn(ENote::G, Octave);
-}
-
-void MainWindow::on_pushButton_Keyboard_Gsharp_clicked()
-{
-    EOctave Octave = static_cast<EOctave>(ui->spinBox_Octave->value());
-    m_Controller->OnNoteOn(ENote::Gsharp, Octave);
-}
-
-void MainWindow::on_pushButton_KeyboardA_clicked()
-{
-    EOctave Octave = static_cast<EOctave>(ui->spinBox_Octave->value());
-    m_Controller->OnNoteOn(ENote::A, Octave);
-}
-
-void MainWindow::on_pushButton_Keyboard_Asharp_clicked()
-{
-    EOctave Octave = static_cast<EOctave>(ui->spinBox_Octave->value());
-    m_Controller->OnNoteOn(ENote::Asharp, Octave);
-}
-
-void MainWindow::on_pushButton_Keyboard_B_clicked()
-{
-    EOctave Octave = static_cast<EOctave>(ui->spinBox_Octave->value());
-    m_Controller->OnNoteOn(ENote::B, Octave);
-}
-
-void MainWindow::on_pushButton_Keyboard_CPlusOneOctave_clicked()
-{
-    EOctave Octave = static_cast<EOctave>(ui->spinBox_Octave->value()+1);
-    m_Controller->OnNoteOn(ENote::C, Octave);
 }
 
 void MainWindow::OnStepSequencerUpdate()

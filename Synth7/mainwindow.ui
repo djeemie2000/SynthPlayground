@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1448</width>
-    <height>793</height>
+    <height>903</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,7 +16,7 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="QGroupBox" name="groupBox_3">
+     <widget class="QGroupBox" name="groupBox_Synth">
       <property name="title">
        <string>Synth</string>
       </property>
@@ -290,7 +290,7 @@
        <item>
         <widget class="QGroupBox" name="groupBox_Shaping">
          <property name="title">
-          <string>Shaping</string>
+          <string>Fx + Shaping</string>
          </property>
          <property name="flat">
           <bool>false</bool>
@@ -308,249 +308,6 @@
              </size>
             </property>
            </spacer>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <widget class="QGroupBox" name="groupBox_Fx">
-         <property name="title">
-          <string>Fx</string>
-         </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_5">
-          <item>
-           <spacer name="horizontalSpacer_12">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>1239</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <widget class="QGroupBox" name="groupBox_2">
-         <property name="title">
-          <string>KeyBoard</string>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_2">
-          <item row="2" column="1">
-           <widget class="QPushButton" name="pushButton_KeyBoard_C">
-            <property name="text">
-             <string>C</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="9">
-           <widget class="QPushButton" name="pushButton_Keyboard_Gsharp">
-            <property name="text">
-             <string>G#</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="5">
-           <widget class="QPushButton" name="pushButton_Keyboard_E">
-            <property name="text">
-             <string>E</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="9">
-           <spacer name="horizontalSpacer_9">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="2" column="3">
-           <widget class="QPushButton" name="pushButton_Keyboard_D">
-            <property name="text">
-             <string>D</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="4">
-           <spacer name="horizontalSpacer_7">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="2" column="16">
-           <spacer name="horizontalSpacer_4">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="2" column="6">
-           <widget class="QPushButton" name="pushButton_Keyboard_F">
-            <property name="text">
-             <string>F</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <spacer name="horizontalSpacer_3">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="1" column="4">
-           <widget class="QPushButton" name="pushButton_Keyboard_Dsharp">
-            <property name="text">
-             <string>Eb</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="13">
-           <widget class="QPushButton" name="pushButton_Keyboard_CPlusOneOctave">
-            <property name="text">
-             <string>C</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="2">
-           <spacer name="horizontalSpacer_6">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="2" column="8">
-           <widget class="QPushButton" name="pushButton_Keyboard_G">
-            <property name="text">
-             <string>G</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="12">
-           <widget class="QPushButton" name="pushButton_Keyboard_B">
-            <property name="text">
-             <string>B</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="2">
-           <widget class="QPushButton" name="pushButton_Keyboard_Csharp">
-            <property name="text">
-             <string>C#</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="11">
-           <widget class="QPushButton" name="pushButton_Keyboard_Asharp">
-            <property name="text">
-             <string>Bb</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="7">
-           <widget class="QPushButton" name="pushButton_Keyboard_Fsharp">
-            <property name="text">
-             <string>F#</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <spacer name="horizontalSpacer_5">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="2" column="10">
-           <widget class="QPushButton" name="pushButton_KeyboardA">
-            <property name="text">
-             <string>A</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="7">
-           <spacer name="horizontalSpacer_8">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="2" column="11">
-           <spacer name="horizontalSpacer_10">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="1" column="12">
-           <widget class="QLabel" name="label_12">
-            <property name="text">
-             <string>Octave</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="13">
-           <widget class="QSpinBox" name="spinBox_Octave">
-            <property name="maximum">
-             <number>8</number>
-            </property>
-            <property name="value">
-             <number>2</number>
-            </property>
-           </widget>
           </item>
          </layout>
         </widget>
@@ -657,7 +414,7 @@
        </sizepolicy>
       </property>
       <property name="title">
-       <string>Controls</string>
+       <string>AudioDevice</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
@@ -703,13 +460,6 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_Open">
-         <property name="text">
-          <string>Open</string>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QPushButton" name="pushButton_Play">
          <property name="text">
           <string>Play</string>
@@ -720,13 +470,6 @@
         <widget class="QPushButton" name="pushButton_Stop">
          <property name="text">
           <string>Stop</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_7">
-         <property name="text">
-          <string>SCOPE</string>
          </property>
         </widget>
        </item>

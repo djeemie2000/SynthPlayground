@@ -14,7 +14,8 @@ SOURCES += main.cpp\
     QView.cpp \
     GuiUtilities.cpp \
     QGuiCallbacks.cpp \
-    GuiItems.cpp
+    GuiItems.cpp \
+    QKeyboardWidget.cpp
 
 
 HEADERS  += mainwindow.h \  
@@ -22,9 +23,11 @@ HEADERS  += mainwindow.h \
     QView.h \
     GuiUtilities.h \
     QGuiCallbacks.h \
-    GuiItems.h
+    GuiItems.h \
+    QKeyboardWidget.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    QKeyboardWidget.ui
 
 INCLUDEPATH += ./../SynthLib
 

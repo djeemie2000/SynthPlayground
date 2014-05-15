@@ -58,27 +58,10 @@ private slots:
     void on_doubleSpinBox_2_PhaseShift_valueChanged(double arg1);
     void on_pushButton_DetuneSync_clicked();
 
-    void on_pushButton_KeyBoard_C_clicked();
-    void on_pushButton_Keyboard_Csharp_clicked();
-    void on_pushButton_Keyboard_D_clicked();
-    void on_pushButton_Keyboard_Dsharp_clicked();
-    void on_pushButton_Keyboard_E_clicked();
-    void on_pushButton_Keyboard_F_clicked();
-    void on_pushButton_Keyboard_Fsharp_clicked();
-    void on_pushButton_Keyboard_G_clicked();
-    void on_pushButton_Keyboard_Gsharp_clicked();
-    void on_pushButton_KeyboardA_clicked();
-    void on_pushButton_Keyboard_Asharp_clicked();
-    void on_pushButton_Keyboard_B_clicked();
-    void on_pushButton_Keyboard_CPlusOneOctave_clicked();
-
-
     void OnStepSequencerUpdate();
     void on_pushButton_StepSequencerGo_clicked(bool checked);
     void on_doubleSpinBox_StepSequencer_Bpm_valueChanged(double Bpm);
     void on_spinBox_StepSequencer_BarsPerBeat_valueChanged(int BarsPerBeat);
-
-
 
 private:
     void CreateAudioOutput();
