@@ -88,17 +88,9 @@ public:
      : m_Min(Min)
      , m_Max(Max)
      , m_Multiplier(Multiplier)
-     , m_MinTh(Min)
-     , m_MaxTh(Max)
      , m_Strength(0)
      , m_Ripple(0)
     {
-    }
-
-    void SetThreshold(T Threshold)
-    {
-        m_MaxTh = m_Max - Threshold;
-        m_MinTh = m_Min + Threshold;
     }
 
     void SetStrength(T Strength)
@@ -118,8 +110,6 @@ private:
     const T m_Min;
     const T m_Max;
     const T m_Multiplier;
-    T m_MinTh;
-    T m_MaxTh;
     T m_Strength;
     T m_Ripple;
 };
@@ -144,11 +134,6 @@ public:
     void SetSampleAndHoldPeriod(int Period)
     {
         m_SnH.SetPeriod(Period);
-    }
-
-    void SetRipplerThreshold(int Threshold)
-    {
-        m_Rippler.SetThreshold(Threshold);
     }
 
     void SetRipplerStrength(int Strength)

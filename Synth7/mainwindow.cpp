@@ -11,8 +11,9 @@
 #include "SelectableCombinorFactory.h"
 #include "SelectableOperatorFactory.h"
 
-#include "GuiUtilities.h"
-#include "QGuiCallbacks.h"
+//#include "GuiUtilities.h"
+#include "GuiItems.h"
+//#include "QGuiCallbacks.h"
 
 namespace
 {
@@ -135,7 +136,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     m_AudioIODevice = new QAudioIODevice(m_Controller, this);
 
-    guiutils::AddDoubleSpinBox(ui->groupBox_Fx, this, {"WaveFold", 0.97, 0, 1, 0.01, 2}, [this](double Value){ m_Controller->OnWaveFold(Value); });
+    // build gui
+    guiutils::AddNonLinearShaper(ui->groupBox_Shaping, this, *m_Controller);
+    guiutils::AddLPFilter(ui->groupBox_Shaping, this, *m_Controller);
+    guiutils::AddWaveFolder(ui->groupBox_Shaping, this, *m_Controller);
 
     // open current device
     CreateAudioOutput();
@@ -318,11 +322,6 @@ void MainWindow::on_spinBox_SnHPeriod_valueChanged(int arg1)
     m_Controller->OnSampleAndHoldPeriod(arg1);
 }
 
-void MainWindow::on_spinBox_RipplerThreshold_valueChanged(int arg1)
-{
-    m_Controller->OnRipplerThreshold(arg1);
-}
-
 void MainWindow::on_spinBox_RipplerStrength_valueChanged(int arg1)
 {
     m_Controller->OnRipplerStrength(arg1);
@@ -456,11 +455,6 @@ void MainWindow::on_pushButton_Keyboard_CPlusOneOctave_clicked()
     m_Controller->OnNoteOn(ENote::C, Octave);
 }
 
-void MainWindow::on_doubleSpinBox_WaveFold_valueChanged(double arg1)
-{
-    m_Controller->OnWaveFold(arg1);
-}
-
 void MainWindow::OnStepSequencerUpdate()
 {
     for(int Step = 0; Step<m_Controller->NumSteps(); ++Step)
@@ -493,34 +487,4 @@ void MainWindow::on_doubleSpinBox_StepSequencer_Bpm_valueChanged(double Bpm)
 void MainWindow::on_spinBox_StepSequencer_BarsPerBeat_valueChanged(int BarsPerBeat)
 {
     m_Controller->SetBarsPerBeat(BarsPerBeat);
-}
-
-void MainWindow::on_doubleSpinBox_LPFilterParameter_valueChanged(double arg1)
-{
-    m_Controller->OnLPFilterParameter(arg1);
-}
-
-void MainWindow::on_spinBox_LPFilterStages_valueChanged(int arg1)
-{
-    m_Controller->OnLPFilterStages(arg1);
-}
-
-void MainWindow::on_doubleSpinBox_LPFilterFeedback_valueChanged(double arg1)
-{
-    m_Controller->OnLPFilterFeedback(arg1);
-}
-
-void MainWindow::on_doubleSpinBox_NonLinear_A_valueChanged(double arg1)
-{
-    m_Controller->OnNonLinearShaperA(arg1);
-}
-
-void MainWindow::on_doubleSpinBox_NonLinear_B_valueChanged(double arg1)
-{
-    m_Controller->OnNonLinearShaperB(arg1);
-}
-
-void MainWindow::on_doubleSpinBox_NonLinear_Pre_valueChanged(double arg1)
-{
-    m_Controller->OnLinearShaperPreGain(arg1);
 }

@@ -118,7 +118,7 @@ void CController::OnNonLinearShaperB(float B)
     m_NonLinearShaper.SetB(B);
 }
 
-void CController::OnLinearShaperPreGain(float PreGain)
+void CController::OnNonLinearShaperPreGain(float PreGain)
 {
     m_NonLinearShaper.SetPregain(PreGain);
 }
@@ -136,11 +136,6 @@ void CController::OnSampleAndHoldPeriod(int Period)
 void CController::OnRipplerStrength(int Strength)
 {
     m_Fx.SetRipplerStrength(Strength);
-}
-
-void CController::OnRipplerThreshold(int Threshold)
-{
-    m_Fx.SetRipplerThreshold(Threshold);
 }
 
 int CController::NumSteps() const

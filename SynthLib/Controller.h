@@ -50,7 +50,7 @@ public:
     // nonlinear shaper
     void OnNonLinearShaperA(float A);
     void OnNonLinearShaperB(float B);
-    void OnLinearShaperPreGain(float PreGain);
+    void OnNonLinearShaperPreGain(float PreGain);
 
     // (8 bit) FX
     void OnBitCrusherDepth(int Depth);

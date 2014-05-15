@@ -28,6 +28,18 @@ void AddLPFilter(QGroupBox *GroupBox, QWidget *Parent, CController &Controller)
     AddDoubleSpinBox(Box, Parent, {"Q", 0.0, -1.0, 2.0, 0.01, 3}, [&Controller](double Value){ Controller.OnLPFilterFeedback(Value); });
 }
 
+void AddNonLinearShaper(QGroupBox *GroupBox, QWidget *Parent, CController &Controller)
+{
+    // add child groupbox
+    QGroupBox* Box = AddGroupBox(GroupBox, Parent, "NonLinearShaper");
+    // add "Cubic" double spin box
+    AddDoubleSpinBox(Box, Parent, {"Cubic", 0.0, -10.0, 10.0, 0.01, 3}, [&Controller](double Value){ Controller.OnNonLinearShaperA(Value); });
+    // add "Quadratic" double spin box
+    AddDoubleSpinBox(Box, Parent, {"Quadratic", 0.0, -10.0, 10.0, 0.01, 3}, [&Controller](double Value){ Controller.OnNonLinearShaperB(Value); });
+    // add "PreGain" double spin box
+    AddDoubleSpinBox(Box, Parent, {"PreGain", 1.0, 0.0, 10.0, 0.01, 3}, [&Controller](double Value){ Controller.OnNonLinearShaperPreGain(Value); });
+}
+
 
 
 }

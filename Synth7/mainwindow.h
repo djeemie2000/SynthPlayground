@@ -49,7 +49,6 @@ private slots:
 
     void on_spinBox_BitCrushserDepth_valueChanged(int arg1);
     void on_spinBox_SnHPeriod_valueChanged(int arg1);
-    void on_spinBox_RipplerThreshold_valueChanged(int arg1);
     void on_spinBox_RipplerStrength_valueChanged(int arg1);
 
     void on_comboBox_Combinor_activated(const QString &);
@@ -77,20 +76,13 @@ private slots:
     void on_pushButton_Keyboard_B_clicked();
     void on_pushButton_Keyboard_CPlusOneOctave_clicked();
 
-    void on_doubleSpinBox_WaveFold_valueChanged(double arg1);
 
     void OnStepSequencerUpdate();
     void on_pushButton_StepSequencerGo_clicked(bool checked);
     void on_doubleSpinBox_StepSequencer_Bpm_valueChanged(double Bpm);
     void on_spinBox_StepSequencer_BarsPerBeat_valueChanged(int BarsPerBeat);
 
-    void on_doubleSpinBox_LPFilterParameter_valueChanged(double arg1);
-    void on_spinBox_LPFilterStages_valueChanged(int arg1);
-    void on_doubleSpinBox_LPFilterFeedback_valueChanged(double arg1);
 
-    void on_doubleSpinBox_NonLinear_A_valueChanged(double arg1);
-    void on_doubleSpinBox_NonLinear_B_valueChanged(double arg1);
-    void on_doubleSpinBox_NonLinear_Pre_valueChanged(double arg1);
 
 private:
     void CreateAudioOutput();
