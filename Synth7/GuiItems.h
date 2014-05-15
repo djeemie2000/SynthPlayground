@@ -15,6 +15,8 @@ void AddLPFilter(QGroupBox *GroupBox, QWidget *Parent, CController& Controller);
 
 void AddNonLinearShaper(QGroupBox *GroupBox, QWidget *Parent, CController& Controller);
 
+void AddBitFX(QGroupBox *GroupBox, QWidget *Parent, CController& Controller);
+
 
 }
 

@@ -40,6 +40,14 @@ void AddNonLinearShaper(QGroupBox *GroupBox, QWidget *Parent, CController &Contr
     AddDoubleSpinBox(Box, Parent, {"PreGain", 1.0, 0.0, 10.0, 0.01, 3}, [&Controller](double Value){ Controller.OnNonLinearShaperPreGain(Value); });
 }
 
+void AddBitFX(QGroupBox *GroupBox, QWidget *Parent, CController &Controller)
+{
+    QGroupBox* Box = AddGroupBox(GroupBox, Parent, "BitFX");
+    AddSpinBox(Box, Parent, {"BitCrusher", 0, 0, 15, 1}, [&Controller](int Value){ Controller.OnBitCrusherDepth(Value); });
+    AddSpinBox(Box, Parent, {"S n H", 0, 0, 1024, 1}, [&Controller](int Value){ Controller.OnSampleAndHoldPeriod(Value); });
+    AddSpinBox(Box, Parent, {"Rippler", 0, 0, 255, 1}, [&Controller](int Value){ Controller.OnRipplerStrength(Value); });
+}
+
 
 
 }

@@ -1,6 +1,6 @@
 #include <cstring>
 #include "Controller.h"
-#include "View.h"
+#include "ScopeI.h"
 #include "SelectableCombinor.h"
 #include "SelectableOperator.h"
 #include "Pitch.h"
@@ -11,8 +11,8 @@
 #include "SelectableOperatorFactory.h"
 
 
-CController::CController(IView &View, int SamplingFrequency)
-    : m_View(View)
+CController::CController(IScope &Scope, int SamplingFrequency)
+    : m_Scope(Scope)
     , m_GrabSample(false)
     , m_SampleGrabber()
     , m_Oscillator(SamplingFrequency, CSelectableOperatorFactory::Create(), CSelectableCombinorFactory::Create())
@@ -240,7 +240,7 @@ std::int64_t CController::OnRead(char *Dst, std::int64_t MaxSize)
         if(m_SampleGrabber.IsSampled())
         {
             // doing this here might cause interuptions in the audio
-            m_View.SetSample(m_SampleGrabber.GetSample());
+            m_Scope.SetSample(m_SampleGrabber.GetSample());
 
             m_GrabSample = false;//avoid SetSample() over and over again
         }

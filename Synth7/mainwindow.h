@@ -47,10 +47,6 @@ private slots:
     void on_pushButton_ScopeGrab_clicked();
     void on_checkBox_ScopeGrabRepeated_clicked(bool checked);
 
-    void on_spinBox_BitCrushserDepth_valueChanged(int arg1);
-    void on_spinBox_SnHPeriod_valueChanged(int arg1);
-    void on_spinBox_RipplerStrength_valueChanged(int arg1);
-
     void on_comboBox_Combinor_activated(const QString &);
     void on_doubleSpinBox_1_Amplitude_valueChanged(double arg1);
     void on_doubleSpinBox_2_Amplitude_valueChanged(double arg1);

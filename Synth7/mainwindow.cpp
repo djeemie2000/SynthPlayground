@@ -2,18 +2,15 @@
 #include "ui_mainwindow.h"
 #include <QAudioDeviceInfo>
 #include <QAudioOutput>
-#include <QDebug>
-#include <QFileDialog>
 #include <QTimer>
+#include <QDebug>
 #include "QAudioIoDevice.h"
 #include "QView.h"
 #include "Controller.h"
 #include "SelectableCombinorFactory.h"
 #include "SelectableOperatorFactory.h"
 
-//#include "GuiUtilities.h"
 #include "GuiItems.h"
-//#include "QGuiCallbacks.h"
 
 namespace
 {
@@ -116,7 +113,8 @@ MainWindow::MainWindow(QWidget *parent) :
         OnOffBtn->setText(QString("%1").arg(idxStep));
         StepLayout->addWidget(OnOffBtn, 2, idxStep);
         connect(OnOffBtn, SIGNAL(clicked()), this, SLOT(OnStepSequencerUpdate()));
-        m_StepSequencerActiveBtn.push_back(OnOffBtn);
+        m_StepSequencerActiveBtn.push_back(OnOffBtn);void OnRipplerThreshold(int Threshold);
+
     }
     ui->groupBox_StepSequencer_Step->setLayout(StepLayout);
 
@@ -124,8 +122,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(timer, SIGNAL(timeout()), this, SLOT(OnTimer()));
     timer->start(1000);
 
-    QView* View = new QView(this);
-    connect(View, SIGNAL(SignalSampleRange(int,int)), this, SLOT(OnSampleRange(int,int)));
+    QScope* View = new QScope(this);
     connect(View, SIGNAL(SignalSample(QVector<std::int16_t>)), this, SLOT(OnSample(QVector<std::int16_t>)));
 
     m_Controller = new CController(*View, SamplingFrequency);
@@ -140,6 +137,7 @@ MainWindow::MainWindow(QWidget *parent) :
     guiutils::AddNonLinearShaper(ui->groupBox_Shaping, this, *m_Controller);
     guiutils::AddLPFilter(ui->groupBox_Shaping, this, *m_Controller);
     guiutils::AddWaveFolder(ui->groupBox_Shaping, this, *m_Controller);
+    guiutils::AddBitFX(ui->groupBox_Fx, this, *m_Controller);
 
     // open current device
     CreateAudioOutput();
@@ -246,7 +244,7 @@ void MainWindow::OnSampleSize(int /*Size*/)
 
 void MainWindow::OnSample(QVector<std::int16_t> Sample)
 {
-    qWarning() << "Recieved sample! size= " << Sample.size();
+    //qWarning() << "Recieved sample! size= " << Sample.size();
 
     if(!Sample.empty())
     {
@@ -310,21 +308,6 @@ void MainWindow::on_pushButton_ScopeGrab_clicked()
 void MainWindow::on_checkBox_ScopeGrabRepeated_clicked(bool checked)
 {
     m_ScopeAutoGrab = checked;
-}
-
-void MainWindow::on_spinBox_BitCrushserDepth_valueChanged(int arg1)
-{
-    m_Controller->OnBitCrusherDepth(arg1);
-}
-
-void MainWindow::on_spinBox_SnHPeriod_valueChanged(int arg1)
-{
-    m_Controller->OnSampleAndHoldPeriod(arg1);
-}
-
-void MainWindow::on_spinBox_RipplerStrength_valueChanged(int arg1)
-{
-    m_Controller->OnRipplerStrength(arg1);
 }
 
 void MainWindow::on_comboBox_Combinor_activated(const QString &)

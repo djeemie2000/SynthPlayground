@@ -15,12 +15,12 @@
 #include "StepSequencer2.h"
 #include "PeriodicTicker.h"
 
-class IView;
+class IScope;
 
 class CController
 {
 public:
-    CController(IView& View, int SamplingFrequency);
+    CController(IScope& Scope, int SamplingFrequency);
     ~CController();
 
     void OnPlay();
@@ -56,7 +56,6 @@ public:
     void OnBitCrusherDepth(int Depth);
     void OnSampleAndHoldPeriod(int Period);
     void OnRipplerStrength(int Strength);
-    void OnRipplerThreshold(int Threshold);
 
     // Step sequencer
     int NumSteps() const;
@@ -74,7 +73,7 @@ public:
 
 private:
     typedef std::int16_t SampleValueType;
-    IView& m_View;
+    IScope& m_Scope;
 
     bool m_GrabSample;
     CSampleGrabber<SampleValueType> m_SampleGrabber;

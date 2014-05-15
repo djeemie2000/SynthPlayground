@@ -53,7 +53,7 @@ HEADERS += StepSequencer.h \
     SquareWave.h \
     SymmetricalOperator.h \
     Triangle.h \
-    View.h \
+    ScopeI.h \
     WaveFolder.h \
     WriteWavFile.h \
     TriangularLFO.h \
