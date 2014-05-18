@@ -87,6 +87,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // create step sequencer gui
     const int StepSequencerNumSteps = 8;
     QGridLayout* StepLayout = new QGridLayout;
+    ui->groupBox_StepSequencer_Step->setLayout(StepLayout);
     StepLayout->addWidget(new QLabel("Octave"), 0, 0);
     StepLayout->addWidget(new QLabel("Note"), 1, 0);
     StepLayout->addWidget(new QLabel("Active"), 2, 0);
@@ -108,16 +109,15 @@ MainWindow::MainWindow(QWidget *parent) :
         connect(Note, SIGNAL(activated(int)), this, SLOT(OnStepSequencerUpdate()));
         m_StepSequencerNoteBox.push_back(Note);
         // active button
-        QPushButton* OnOffBtn = new QPushButton();
+        QToolButton* OnOffBtn = new QToolButton();
         OnOffBtn->setCheckable(true);
         OnOffBtn->setChecked(false);
         OnOffBtn->setText(QString("%1").arg(idxStep));
         StepLayout->addWidget(OnOffBtn, 2, idxStep);
         connect(OnOffBtn, SIGNAL(clicked()), this, SLOT(OnStepSequencerUpdate()));
-        m_StepSequencerActiveBtn.push_back(OnOffBtn);void OnRipplerThreshold(int Threshold);
-
+        m_StepSequencerActiveBtn.push_back(OnOffBtn);
     }
-    ui->groupBox_StepSequencer_Step->setLayout(StepLayout);
+    ui->groupBox_StepSequencer->hide();//TODO!!!!
 
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(OnTimer()));
@@ -135,12 +135,14 @@ MainWindow::MainWindow(QWidget *parent) :
     m_AudioIODevice = new QAudioIODevice(m_Controller, this);
 
     // build gui
-    guiutils::AddBitFX(ui->groupBox_Shaping, this, *m_Controller);
     guiutils::AddNonLinearShaper(ui->groupBox_Shaping, this, *m_Controller);
     guiutils::AddLPFilter(ui->groupBox_Shaping, this, *m_Controller);
     guiutils::AddWaveFolder(ui->groupBox_Shaping, this, *m_Controller);
+    guiutils::AddBitFX(ui->groupBox_Fx, this, *m_Controller);
 
     ui->groupBox_Synth->layout()->addWidget(new QKeyboardWidget(*m_Controller, this));
+
+    guiutils::AddStepSequencer(ui->groupBox_Synth, this, *m_Controller);
 
     // open current device
     CreateAudioOutput();

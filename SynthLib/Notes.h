@@ -2,6 +2,7 @@
 #define NOTES_H
 
 #include <string>
+#include <vector>
 
 enum class ENote : int
 {
@@ -21,6 +22,8 @@ enum class ENote : int
 
 std::string ToString(ENote Note);
 ENote FromString(const std::string& Note);
+std::vector<std::string> NoteList();
+
 
 enum class EOctave : int
 {

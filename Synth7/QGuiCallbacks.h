@@ -31,4 +31,31 @@ private:
     guiutils::IntValueChangedCallbackType m_Callback;
 };
 
+class QBoolValueChanged : public QObject
+{
+    Q_OBJECT
+public:
+    explicit QBoolValueChanged(const guiutils::BoolValueChangedCallbackType& Callback, QObject *parent = 0);
+
+public slots:
+    void OnValueChanged(bool Value);
+
+private:
+    guiutils::BoolValueChangedCallbackType m_Callback;
+};
+
+class QSomethingHappened : public QObject
+{
+    Q_OBJECT
+public:
+    explicit QSomethingHappened(const guiutils::SimpleCallbackType& Callback, QObject *parent = 0);
+
+public slots:
+    void OnSomethingHappened();
+
+private:
+    guiutils::SimpleCallbackType m_Callback;
+};
+
+
 #endif // QGUICALLBACKS_H

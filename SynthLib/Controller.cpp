@@ -31,6 +31,7 @@ CController::CController(IScope &Scope, int SamplingFrequency)
 
     m_StepSequencer.SetBeatsPerMinute(120);
     m_StepSequencer.SetBarsPerBeat(2);
+    m_StepSequencerTicker.SetPeriod(m_StepSequencer.PeriodSamples());
 }
 
 CController::~CController()
@@ -172,11 +173,13 @@ void CController::SetBarsPerBeat(int BarsPerBeat)
 
 void CController::Start()
 {
+    std::printf("Start \r\n");
     m_StepSequencerTicker.Activate(true);
 }
 
 void CController::Stop()
 {
+    std::printf("Stop \r\n");
     m_StepSequencerTicker.Activate(false);
 }
 

@@ -17,6 +17,8 @@ void AddNonLinearShaper(QGroupBox *GroupBox, QWidget *Parent, CController& Contr
 
 void AddBitFX(QGroupBox *GroupBox, QWidget *Parent, CController& Controller);
 
+void AddStepSequencer(QGroupBox *GroupBox, QWidget *Parent, CController& Controller);
+
 
 }
 

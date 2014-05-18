@@ -17,6 +17,7 @@ class QAudioIODevice;
 class QPushButton;
 class QSpinBox;
 class QComboBox;
+class QToolButton;
 class CController;
 class CStepSequencer;
 
@@ -71,7 +72,7 @@ private:
     QAudioOutput* m_AudioOutput;
     QAudioIODevice* m_AudioIODevice;
     bool        m_ScopeAutoGrab;
-    QVector<QPushButton*> m_StepSequencerActiveBtn;
+    QVector<QToolButton*> m_StepSequencerActiveBtn;
     QVector<QComboBox*> m_StepSequencerNoteBox;
     QVector<QSpinBox*> m_StepSequencerOctaveBox;
 
