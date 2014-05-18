@@ -4,7 +4,8 @@
 #include <QGridLayout>
 #include "Notes.h"
 #include "Controller.h"
-
+#include "SelectableCombinorFactory.h"
+#include "SelectableOperatorFactory.h"
 
 namespace guiutils
 {
@@ -54,9 +55,6 @@ void AddStepSequencer(QGroupBox *GroupBox, QWidget *Parent, CController &Control
     QGroupBox* Box = new QGroupBox("StepSequencer", Parent);
     QGridLayout* Layout = new QGridLayout();
 
-    //Layout->setAlignment()
-
-    //TODO!!!!
     AddLabel(Layout, Parent, 0, 1, "Bpm");
     AddLabel(Layout, Parent, 0, 2, "Beats");
 
@@ -81,6 +79,35 @@ void AddStepSequencer(QGroupBox *GroupBox, QWidget *Parent, CController &Control
         AddSmallButton(Layout, Parent, 4+Step, 2, "On", [&Controller,Step](bool Value){ Controller.SetActive(Step, Value); });
     }
 
+
+    Box->setLayout(Layout);
+    GroupBox->layout()->addWidget(Box);
+}
+
+void AddOperatorStage(QGroupBox *GroupBox, QWidget *Parent, CController &Controller)
+{
+    QGroupBox* Box = new QGroupBox("Operator", Parent);
+    QGridLayout* Layout = new QGridLayout();
+
+    AddLabel(Layout, Parent, 0, 0, "Combinor");
+    AddComboBox(Layout, Parent, 0, 1, {"", CSelectableCombinorFactory::SelectionList(), 0 }, [&Controller](int Value){ Controller.OnCombinor(Value); });
+    AddSmallButton(Layout, Parent, 0, 2, "Sync", [&Controller](){ Controller.OnSync(); });
+
+    AddDoubleSpinBox(Layout, Parent, 1, 0, {"", 0.5, 0.0, 1.0, 0.01, 2}, [&Controller](double Value){ Controller.OnFrequencyMultiplier(0, Value); });
+    AddLabel(Layout, Parent, 1, 1, "Amplitude");
+    AddDoubleSpinBox(Layout, Parent, 1, 2, {"", 0.5, 0.0, 1.0, 0.01, 2}, [&Controller](double Value){ Controller.OnFrequencyMultiplier(1, Value); });
+
+    AddComboBox(Layout, Parent, 2, 0, {"", CSelectableOperatorFactory::SelectionList(), 0 }, [&Controller](int Value){ Controller.OnOperator(0, Value); });
+    AddLabel(Layout, Parent, 2, 1, "Operator");
+    AddComboBox(Layout, Parent, 2, 2, {"", CSelectableOperatorFactory::SelectionList(), 0 }, [&Controller](int Value){ Controller.OnOperator(1, Value); });
+
+    AddDoubleSpinBox(Layout, Parent, 3, 0, {"", 1.0, 0.0, 32.0, 0.001, 4}, [&Controller](double Value){ Controller.OnFrequencyMultiplier(0, Value); });
+    AddLabel(Layout, Parent, 3, 1, "Freq Multiplier");
+    AddDoubleSpinBox(Layout, Parent, 3, 2, {"", 1.0, 0.0, 32.0, 0.001, 4}, [&Controller](double Value){ Controller.OnFrequencyMultiplier(1, Value); });
+
+    AddDoubleSpinBox(Layout, Parent, 4, 0, {"", 0.0, 0.0, 1.0, 0.001, 3}, [&Controller](double Value){ Controller.OnPhaseshift(0, Value); });
+    AddLabel(Layout, Parent, 4, 1, "Phase Shift");
+    AddDoubleSpinBox(Layout, Parent, 4, 2, {"", 0.0, 0.0, 1.0, 0.001, 3}, [&Controller](double Value){ Controller.OnPhaseshift(1, Value); });
 
     Box->setLayout(Layout);
     GroupBox->layout()->addWidget(Box);

@@ -19,6 +19,7 @@ void AddBitFX(QGroupBox *GroupBox, QWidget *Parent, CController& Controller);
 
 void AddStepSequencer(QGroupBox *GroupBox, QWidget *Parent, CController& Controller);
 
+void AddOperatorStage(QGroupBox *GroupBox, QWidget *Parent, CController& Controller);
 
 }
 

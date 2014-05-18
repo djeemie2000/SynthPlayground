@@ -18,45 +18,6 @@ namespace
     const int SamplingFrequency = 44100;
 }
 
-
-
-namespace
-{
-
-void InitialiseWaveFormSelection(QComboBox* ComboBox)
-{
-    for(auto& Item : CSelectableOperatorFactory::SelectionList())
-    {
-        ComboBox->addItem(QString::fromStdString(Item));
-    }
-}
-
-void InitialiseCombinorSelection(QComboBox* ComboBox)
-{
-    for(auto& Item : CSelectableCombinorFactory::SelectionList())
-    {
-        ComboBox->addItem(QString::fromStdString(Item));
-    }
-}
-
-void InitialiseNoteSelection(QComboBox* ComboBox)
-{
-    ComboBox->addItem("B");
-    ComboBox->addItem("A#");
-    ComboBox->addItem("A");
-    ComboBox->addItem("G#");
-    ComboBox->addItem("G");
-    ComboBox->addItem("F#");
-    ComboBox->addItem("F");
-    ComboBox->addItem("E");
-    ComboBox->addItem("D#");
-    ComboBox->addItem("D");
-    ComboBox->addItem("C#");
-    ComboBox->addItem("C");
-}
-
-}
-
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -66,11 +27,6 @@ MainWindow::MainWindow(QWidget *parent) :
   , m_Controller(0)
 {
     ui->setupUi(this);
-
-    InitialiseCombinorSelection(ui->comboBox_Combinor);
-    InitialiseWaveFormSelection(ui->comboBox_1_Operator);
-    InitialiseWaveFormSelection(ui->comboBox_2_Operator);
-
 
     QGraphicsScene* Scene = new QGraphicsScene(this);
     ui->graphicsView_WaveForm->setScene(Scene);
@@ -84,41 +40,6 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->comboBox_AudioDevice->addItem(deviceInfo.deviceName(), qVariantFromValue(deviceInfo));
     }
 
-    // create step sequencer gui
-    const int StepSequencerNumSteps = 8;
-    QGridLayout* StepLayout = new QGridLayout;
-    ui->groupBox_StepSequencer_Step->setLayout(StepLayout);
-    StepLayout->addWidget(new QLabel("Octave"), 0, 0);
-    StepLayout->addWidget(new QLabel("Note"), 1, 0);
-    StepLayout->addWidget(new QLabel("Active"), 2, 0);
-    for(int idxStep = 1; idxStep<=StepSequencerNumSteps; ++idxStep)
-    {
-        // octave selection
-        QSpinBox* Octave = new QSpinBox;
-        Octave->setMinimum(0);
-        Octave->setMaximum(8);
-        Octave->setValue(2);
-        Octave->setSingleStep(1);
-        StepLayout->addWidget(Octave, 0, idxStep);
-        connect(Octave, SIGNAL(valueChanged(QString)), this, SLOT(OnStepSequencerUpdate()));
-        m_StepSequencerOctaveBox.push_back(Octave);
-        // Note selection
-        QComboBox* Note= new QComboBox;
-        InitialiseNoteSelection(Note);
-        StepLayout->addWidget(Note, 1, idxStep);
-        connect(Note, SIGNAL(activated(int)), this, SLOT(OnStepSequencerUpdate()));
-        m_StepSequencerNoteBox.push_back(Note);
-        // active button
-        QToolButton* OnOffBtn = new QToolButton();
-        OnOffBtn->setCheckable(true);
-        OnOffBtn->setChecked(false);
-        OnOffBtn->setText(QString("%1").arg(idxStep));
-        StepLayout->addWidget(OnOffBtn, 2, idxStep);
-        connect(OnOffBtn, SIGNAL(clicked()), this, SLOT(OnStepSequencerUpdate()));
-        m_StepSequencerActiveBtn.push_back(OnOffBtn);
-    }
-    ui->groupBox_StepSequencer->hide();//TODO!!!!
-
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(OnTimer()));
     timer->start(1000);
@@ -127,10 +48,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(View, SIGNAL(SignalSample(QVector<std::int16_t>)), this, SLOT(OnSample(QVector<std::int16_t>)));
 
     m_Controller = new CController(*View, SamplingFrequency);
-
-    m_Controller->OnCombinor(ui->comboBox_Combinor->currentIndex());
-    m_Controller->OnOperator(0, ui->comboBox_1_Operator->currentIndex());
-    m_Controller->OnOperator(1, ui->comboBox_2_Operator->currentIndex());
 
     m_AudioIODevice = new QAudioIODevice(m_Controller, this);
 
@@ -143,6 +60,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->groupBox_Synth->layout()->addWidget(new QKeyboardWidget(*m_Controller, this));
 
     guiutils::AddStepSequencer(ui->groupBox_Synth, this, *m_Controller);
+
+    guiutils::AddOperatorStage(ui->groupBox_Operator, this, *m_Controller);
 
     // open current device
     CreateAudioOutput();
@@ -313,88 +232,4 @@ void MainWindow::on_pushButton_ScopeGrab_clicked()
 void MainWindow::on_checkBox_ScopeGrabRepeated_clicked(bool checked)
 {
     m_ScopeAutoGrab = checked;
-}
-
-void MainWindow::on_comboBox_Combinor_activated(const QString &)
-{
-    m_Controller->OnCombinor(ui->comboBox_Combinor->currentIndex());
-}
-
-void MainWindow::on_doubleSpinBox_1_Amplitude_valueChanged(double arg1)
-{
-    m_Controller->OnAmplitude(0, arg1);
-}
-
-void MainWindow::on_doubleSpinBox_2_Amplitude_valueChanged(double arg1)
-{
-    m_Controller->OnAmplitude(1, arg1);
-}
-
-void MainWindow::on_comboBox_1_Operator_activated(const QString &)
-{
-    m_Controller->OnOperator(0, ui->comboBox_1_Operator->currentIndex());
-}
-
-void MainWindow::on_comboBox_2_Operator_activated(const QString &)
-{
-    m_Controller->OnOperator(1, ui->comboBox_2_Operator->currentIndex());
-}
-
-void MainWindow::on_doubleSpinBox_1_Frequency_valueChanged(double arg1)
-{
-    m_Controller->OnFrequencyMultiplier(0, arg1);
-}
-
-void MainWindow::on_doubleSpinBox_2_Frequency_valueChanged(double arg1)
-{
-    m_Controller->OnFrequencyMultiplier(1, arg1);
-}
-
-void MainWindow::on_doubleSpinBox_1_PhaseShift_valueChanged(double arg1)
-{
-    m_Controller->OnPhaseshift(0, arg1);
-}
-
-void MainWindow::on_doubleSpinBox_2_PhaseShift_valueChanged(double arg1)
-{
-    m_Controller->OnPhaseshift(1, arg1);
-}
-
-void MainWindow::on_pushButton_DetuneSync_clicked()
-{
-    m_Controller->OnSync();
-}
-
-void MainWindow::OnStepSequencerUpdate()
-{
-    for(int Step = 0; Step<m_Controller->NumSteps(); ++Step)
-    {
-        m_Controller->SetActive(Step, m_StepSequencerActiveBtn[Step]->isChecked());
-        m_Controller->SetOctave(Step, static_cast<EOctave>(m_StepSequencerOctaveBox[Step]->value()));
-
-        std::string CurrentNoteString = m_StepSequencerNoteBox[Step]->currentText().toStdString();
-        m_Controller->SetNote(Step, FromString(CurrentNoteString));
-    }
-}
-
-void MainWindow::on_pushButton_StepSequencerGo_clicked(bool checked)
-{
-    if(checked)
-    {        
-        m_Controller->Start();
-    }
-    else
-    {        
-        m_Controller->Stop();
-    }
-}
-
-void MainWindow::on_doubleSpinBox_StepSequencer_Bpm_valueChanged(double Bpm)
-{
-    m_Controller->SetBeatsPerMinute(Bpm);
-}
-
-void MainWindow::on_spinBox_StepSequencer_BarsPerBeat_valueChanged(int BarsPerBeat)
-{
-    m_Controller->SetBarsPerBeat(BarsPerBeat);
 }

@@ -48,22 +48,6 @@ private slots:
     void on_pushButton_ScopeGrab_clicked();
     void on_checkBox_ScopeGrabRepeated_clicked(bool checked);
 
-    void on_comboBox_Combinor_activated(const QString &);
-    void on_doubleSpinBox_1_Amplitude_valueChanged(double arg1);
-    void on_doubleSpinBox_2_Amplitude_valueChanged(double arg1);
-    void on_comboBox_1_Operator_activated(const QString &);
-    void on_comboBox_2_Operator_activated(const QString &);
-    void on_doubleSpinBox_1_Frequency_valueChanged(double arg1);
-    void on_doubleSpinBox_2_Frequency_valueChanged(double arg1);
-    void on_doubleSpinBox_1_PhaseShift_valueChanged(double arg1);
-    void on_doubleSpinBox_2_PhaseShift_valueChanged(double arg1);
-    void on_pushButton_DetuneSync_clicked();
-
-    void OnStepSequencerUpdate();
-    void on_pushButton_StepSequencerGo_clicked(bool checked);
-    void on_doubleSpinBox_StepSequencer_Bpm_valueChanged(double Bpm);
-    void on_spinBox_StepSequencer_BarsPerBeat_valueChanged(int BarsPerBeat);
-
 private:
     void CreateAudioOutput();
 
