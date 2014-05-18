@@ -14,25 +14,28 @@
 #include "BasicEnvelope.h"
 #include "StepSequencer2.h"
 #include "PeriodicTicker.h"
+#include "SampleGrabberI.h"
 
 class IScope;
 
-class CController
+class CController : public ISampleGrabber
 {
 public:
     CController(IScope& Scope, int SamplingFrequency);
     ~CController();
 
-    void OnPlay();
-    void OnStop();
-    void OnGrab(int GrabSize);
+    // AudioSource
     std::int64_t OnRead(char *Dst, std::int64_t MaxSize);//this should be some different interface?
 
+    // SampleGrabber
+    void OnGrab(int GrabSize) override;
+
+    // NoteHandler
     void OnNoteOn(ENote Note, EOctave Octave);
     void OnNoteOff(ENote, EOctave);
-    void OnSync();
 
     // oscillator
+    void OnSync();
     void OnCombinor(int Selected);
     void OnOperator(int Idx, int Selected);
     void OnAmplitude(int Idx, float Amplitude);
@@ -59,17 +62,13 @@ public:
 
     // Step sequencer
     int NumSteps() const;
-
     void SetActive(int Step, bool IsActive);
     void SetOctave(int Step, EOctave Octave);
     void SetNote(int Step, ENote Note);
-
     void SetBeatsPerMinute(int Bpm);
     void SetBarsPerBeat(int BarsPerBeat);
-
     void Start();
     void Stop();
-
 
 private:
     typedef std::int16_t SampleValueType;

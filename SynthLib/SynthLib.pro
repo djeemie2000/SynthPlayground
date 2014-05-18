@@ -59,7 +59,8 @@ HEADERS += StepSequencer.h \
     TriangularLFO.h \
     PeriodicConstGenerator.h \
     StepSequencer2.h \
-    PeriodicTicker.h
+    PeriodicTicker.h \
+    SampleGrabberI.h
 
 unix {
     target.path = /usr/lib

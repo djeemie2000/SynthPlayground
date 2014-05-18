@@ -39,14 +39,6 @@ CController::~CController()
 
 }
 
-void CController::OnPlay()
-{
-}
-
-void CController::OnStop()
-{
-}
-
 void CController::OnSync()
 {
     m_Oscillator.Sync();

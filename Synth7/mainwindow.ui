@@ -22,117 +22,23 @@
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="QGroupBox" name="groupBox_4">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>2</verstretch>
-          </sizepolicy>
-         </property>
+        <widget class="QGroupBox" name="groupBox_Scope">
          <property name="title">
-          <string>Scope</string>
+          <string/>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <item>
-           <widget class="QGraphicsView" name="graphicsView_WaveForm">
-            <property name="frameShape">
-             <enum>QFrame::Box</enum>
+           <spacer name="horizontalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
             </property>
-            <property name="lineWidth">
-             <number>3</number>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>406</width>
+              <height>20</height>
+             </size>
             </property>
-            <property name="midLineWidth">
-             <number>1</number>
-            </property>
-            <property name="sizeAdjustPolicy">
-             <enum>QAbstractScrollArea::AdjustToContents</enum>
-            </property>
-            <property name="backgroundBrush">
-             <brush brushstyle="NoBrush">
-              <color alpha="128">
-               <red>0</red>
-               <green>255</green>
-               <blue>0</blue>
-              </color>
-             </brush>
-            </property>
-            <property name="foregroundBrush">
-             <brush brushstyle="NoBrush">
-              <color alpha="255">
-               <red>0</red>
-               <green>0</green>
-               <blue>0</blue>
-              </color>
-             </brush>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QGroupBox" name="groupBox_6">
-            <property name="title">
-             <string>Scope</string>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_3">
-             <item>
-              <widget class="QPushButton" name="pushButton_ScopeGrab">
-               <property name="text">
-                <string>Grab</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="checkBox_ScopeGrabRepeated">
-               <property name="text">
-                <string>Repeated</string>
-               </property>
-               <property name="checked">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_8">
-               <property name="text">
-                <string>GrabSize</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QSpinBox" name="spinBox_ScopeGrabSize">
-               <property name="maximum">
-                <number>4096</number>
-               </property>
-               <property name="value">
-                <number>1024</number>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_3">
-               <property name="text">
-                <string> Zoom Horizontal</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_ZoomInHorizontal">
-               <property name="text">
-                <string>ZoomIn</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_ZoomOutHorizontal">
-               <property name="text">
-                <string>ZoomOut</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
+           </spacer>
           </item>
          </layout>
         </widget>
