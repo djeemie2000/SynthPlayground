@@ -61,7 +61,7 @@ void AddStepSequencer(QGroupBox *GroupBox, QWidget *Parent, CController &Control
     // 1,0 Btn on/off
     AddSmallButton(Layout, Parent, 1, 0, "Go", [&Controller](bool Value){ if(Value){ Controller.Start(); } else { Controller.Stop(); } });
     // 1,1 doublespinbox bpm
-    AddDoubleSpinBox(Layout, Parent, 1, 1, {"", 120.0, 1.0, 240.0, 0.1, 1}, [&Controller](double Value){ Controller.OnNonLinearShaperA(Value); });
+    AddDoubleSpinBox(Layout, Parent, 1, 1, {"", 120.0, 1.0, 240.0, 0.1, 1}, [&Controller](double Value){ Controller.SetBeatsPerMinute(Value); });
     // 1,2 spinbox beats
     AddSpinBox(Layout, Parent, 1, 2, {"", 2, 1, 16, 1}, [&Controller](int Value){Controller.SetBarsPerBeat(Value); } );
 
