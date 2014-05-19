@@ -5,6 +5,7 @@
 class QGroupBox;
 class QWidget;
 class CController;
+class IStepSequencer;
 
 namespace guiutils
 {
@@ -17,7 +18,7 @@ void AddNonLinearShaper(QGroupBox *GroupBox, QWidget *Parent, CController& Contr
 
 void AddBitFX(QGroupBox *GroupBox, QWidget *Parent, CController& Controller);
 
-void AddStepSequencer(QGroupBox *GroupBox, QWidget *Parent, CController& Controller);
+void AddStepSequencer(QGroupBox *GroupBox, QWidget *Parent, IStepSequencer& Controller);
 
 void AddOperatorStage(QGroupBox *GroupBox, QWidget *Parent, CController& Controller);
 

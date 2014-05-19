@@ -15,10 +15,12 @@
 #include "StepSequencer2.h"
 #include "PeriodicTicker.h"
 #include "SampleGrabberI.h"
+#include "StepSequencerI.h"
 
 class IScope;
 
 class CController : public ISampleGrabber
+                    , public IStepSequencer
 {
 public:
     CController(IScope& Scope, int SamplingFrequency);
@@ -61,14 +63,14 @@ public:
     void OnRipplerStrength(int Strength);
 
     // Step sequencer
-    int NumSteps() const;
-    void SetActive(int Step, bool IsActive);
-    void SetOctave(int Step, EOctave Octave);
-    void SetNote(int Step, ENote Note);
-    void SetBeatsPerMinute(int Bpm);
-    void SetBarsPerBeat(int BarsPerBeat);
-    void Start();
-    void Stop();
+    int NumSteps() const override;
+    void SetActive(int Step, bool IsActive) override;
+    void SetOctave(int Step, EOctave Octave) override;
+    void SetNote(int Step, ENote Note) override;
+    void SetBeatsPerMinute(int Bpm) override;
+    void SetBarsPerBeat(int BarsPerBeat) override;
+    void Start() override;
+    void Stop() override;
 
 private:
     typedef std::int16_t SampleValueType;

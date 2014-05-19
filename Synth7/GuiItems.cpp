@@ -4,6 +4,7 @@
 #include <QGridLayout>
 #include "Notes.h"
 #include "Controller.h"
+#include "StepSequencerI.h"
 #include "SelectableCombinorFactory.h"
 #include "SelectableOperatorFactory.h"
 
@@ -50,7 +51,7 @@ void AddBitFX(QGroupBox *GroupBox, QWidget *Parent, CController &Controller)
     AddSpinBox(Box, Parent, {"Rippler", 0, 0, 255, 1}, [&Controller](int Value){ Controller.OnRipplerStrength(Value); });
 }
 
-void AddStepSequencer(QGroupBox *GroupBox, QWidget *Parent, CController &Controller)
+void AddStepSequencer(QGroupBox *GroupBox, QWidget *Parent, IStepSequencer &Controller)
 {    
     QGroupBox* Box = new QGroupBox("StepSequencer", Parent);
     QGridLayout* Layout = new QGridLayout();
