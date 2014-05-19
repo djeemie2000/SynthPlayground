@@ -39,17 +39,18 @@ MainWindow::MainWindow(QWidget *parent) :
     m_AudioIODevice = new QAudioIODevice(m_Controller, this);
 
     // build gui
+    guiutils::AddOperatorStage(ui->groupBox_Operator, this, *m_Controller);
     QScopeWidget* ScopeWidget = new QScopeWidget(*m_Controller, this);
     connect(Scope, SIGNAL(SignalSample(QVector<std::int16_t>)), ScopeWidget, SLOT(OnSample(QVector<std::int16_t>)));
-    ui->groupBox_Scope->layout()->addWidget(ScopeWidget);
+    ui->groupBox_Operator->layout()->addWidget(ScopeWidget);
 
-    guiutils::AddOperatorStage(ui->groupBox_Operator, this, *m_Controller);
+    guiutils::AddBitFX(ui->groupBox_Shaping, this, *m_Controller);
     guiutils::AddNonLinearShaper(ui->groupBox_Shaping, this, *m_Controller);
     guiutils::AddLPFilter(ui->groupBox_Shaping, this, *m_Controller);
     guiutils::AddWaveFolder(ui->groupBox_Shaping, this, *m_Controller);
-    guiutils::AddBitFX(ui->groupBox_Fx, this, *m_Controller);
-    ui->groupBox_Synth->layout()->addWidget(new QKeyboardWidget(*m_Controller, this));
-    guiutils::AddStepSequencer(ui->groupBox_Synth, this, *m_Controller);
+
+    ui->groupBox_Keyboard->layout()->addWidget(new QKeyboardWidget(*m_Controller, this));
+    guiutils::AddStepSequencer(ui->groupBox_Keyboard, this, *m_Controller);
 
     // open current device
     CreateAudioOutput();
