@@ -61,7 +61,13 @@ HEADERS += StepSequencer.h \
     StepSequencer2.h \
     PeriodicTicker.h \
     SampleGrabberI.h \
-    StepSequencerI.h
+    StepSequencerI.h \
+    BitFxI.h \
+    WaveFolderI.h \
+    NoteHandlerI.h \
+    LPFilterI.h \
+    NonLinearShaperI.h \
+    CombinedOperatorStageI.h
 
 unix {
     target.path = /usr/lib

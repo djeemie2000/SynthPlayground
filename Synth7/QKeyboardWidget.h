@@ -8,14 +8,14 @@ namespace Ui {
 class QKeyboardWidget;
 }
 
-class CController;
+class INoteHandler;
 
 class QKeyboardWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit QKeyboardWidget(CController&, QWidget *parent = 0);
+    explicit QKeyboardWidget(INoteHandler& NoteHandler, QWidget *parent = 0);
     ~QKeyboardWidget();
 
 private slots:
@@ -35,11 +35,11 @@ private slots:
     void on_spinBox_Octave_valueChanged(int arg1);
         
 private:
-    void UpdateNote();
+    void UpdateNoteHandler();
     
     Ui::QKeyboardWidget *ui;
 
-    CController& m_Controller;
+    INoteHandler& m_NoteHandler;
     ENote m_Note;
     EOctave m_Octave;
 };

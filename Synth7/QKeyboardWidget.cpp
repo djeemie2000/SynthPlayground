@@ -1,12 +1,12 @@
 #include "QKeyboardWidget.h"
 #include "ui_QKeyboardWidget.h"
 #include "Notes.h"
-#include "Controller.h"
+#include "NoteHandlerI.h"
 
-QKeyboardWidget::QKeyboardWidget(CController& Controller, QWidget *parent) :
+QKeyboardWidget::QKeyboardWidget(INoteHandler &NoteHandler, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::QKeyboardWidget)
-  , m_Controller(Controller)
+  , m_NoteHandler(NoteHandler)
   , m_Note(ENote::A)
   , m_Octave(EOctave::Octave2)
 {
@@ -21,88 +21,88 @@ QKeyboardWidget::~QKeyboardWidget()
 void QKeyboardWidget::on_toolButton_C_clicked()
 {
     m_Note = ENote::C;
-    UpdateNote();
+    UpdateNoteHandler();
 }
 
 void QKeyboardWidget::on_toolButton_D_clicked()
 {
     m_Note = ENote::D;
-    UpdateNote();
+    UpdateNoteHandler();
 }
 
 void QKeyboardWidget::on_toolButton_E_clicked()
 {
     m_Note = ENote::E;
-    UpdateNote();
+    UpdateNoteHandler();
 }
 
 void QKeyboardWidget::on_toolButton_F_clicked()
 {
     m_Note = ENote::F;
-    UpdateNote();
+    UpdateNoteHandler();
 }
 
 void QKeyboardWidget::on_toolButton_G_clicked()
 {
     m_Note = ENote::G;
-    UpdateNote();
+    UpdateNoteHandler();
 }
 
 void QKeyboardWidget::on_toolButton_A_clicked()
 {
     m_Note = ENote::A;
-    UpdateNote();
+    UpdateNoteHandler();
 }
 
 void QKeyboardWidget::on_toolButton_B_clicked()
 {
     m_Note = ENote::B;
-    UpdateNote();
+    UpdateNoteHandler();
 }
 
 void QKeyboardWidget::on_toolButton_Cplus1_clicked()
 {
     m_Note = ENote::C;
-    m_Controller.OnNoteOn(m_Note, static_cast<EOctave>(static_cast<int>(m_Octave)+1));
+    m_NoteHandler.OnNoteOn(m_Note, static_cast<EOctave>(static_cast<int>(m_Octave)+1));
 }
 
 void QKeyboardWidget::on_toolButton_Csharp_clicked()
 {
     m_Note = ENote::Csharp;
-    UpdateNote();
+    UpdateNoteHandler();
 }
 
 void QKeyboardWidget::on_toolButton_Dsharp_clicked()
 {
     m_Note = ENote::Dsharp;
-    UpdateNote();
+    UpdateNoteHandler();
 }
 
 void QKeyboardWidget::on_toolButton_Asharp_clicked()
 {
     m_Note = ENote::Asharp;
-    UpdateNote();
+    UpdateNoteHandler();
 }
 
-void QKeyboardWidget::UpdateNote()
+void QKeyboardWidget::UpdateNoteHandler()
 {
-    m_Controller.OnNoteOn(m_Note, m_Octave);
+    m_NoteHandler.OnNoteOn(m_Note, m_Octave);
 }
 
 void QKeyboardWidget::on_spinBox_Octave_valueChanged(int arg1)
 {
     m_Octave = static_cast<EOctave>(arg1);
-    UpdateNote();
+    UpdateNoteHandler();
 }
 
 void QKeyboardWidget::on_toolButton_Gsharp_clicked()
 {
     m_Note = ENote::Gsharp;
-    UpdateNote();
+    UpdateNoteHandler();
 }
 
 void QKeyboardWidget::on_toolButton_Fsharp_clicked()
 {
     m_Note = ENote::Fsharp;
-    UpdateNote();
+    UpdateNoteHandler();
 }

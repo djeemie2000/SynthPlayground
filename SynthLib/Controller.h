@@ -16,10 +16,22 @@
 #include "PeriodicTicker.h"
 #include "SampleGrabberI.h"
 #include "StepSequencerI.h"
+#include "BitFxI.h"
+#include "WaveFolderI.h"
+#include "NoteHandlerI.h"
+#include "LPFilterI.h"
+#include "NonLinearShaperI.h"
+#include "CombinedOperatorStageI.h"
 
 class IScope;
 
 class CController : public ISampleGrabber
+                    , public INoteHandler
+                    , public ICombinedOperatorStage
+                    , public IWaveFolder
+                    , public ILPFilter
+                    , public INonLinearShaper
+                    , public IBitFx
                     , public IStepSequencer
 {
 public:
@@ -33,34 +45,34 @@ public:
     void OnGrab(int GrabSize) override;
 
     // NoteHandler
-    void OnNoteOn(ENote Note, EOctave Octave);
-    void OnNoteOff(ENote, EOctave);
+    void OnNoteOn(ENote Note, EOctave Octave) override;
+    void OnNoteOff(ENote, EOctave) override;
 
     // oscillator
-    void OnSync();
-    void OnCombinor(int Selected);
-    void OnOperator(int Idx, int Selected);
-    void OnAmplitude(int Idx, float Amplitude);
-    void OnFrequencyMultiplier(int Idx, float FrequencyMultiplier);
-    void OnPhaseshift(int Idx, float PhaseShift);
+    void OnSync() override;
+    void OnCombinor(int Selected) override;
+    void OnOperator(int Idx, int Selected) override;
+    void OnAmplitude(int Idx, float Amplitude) override;
+    void OnFrequencyMultiplier(int Idx, float FrequencyMultiplier) override;
+    void OnPhaseshift(int Idx, float PhaseShift) override;
 
     // WaveFolder
-    void OnWaveFold(float Fold);
+    void OnWaveFold(float Fold) override;
 
     // LP filter
-    void OnLPFilterParameter(float Parameter);
-    void OnLPFilterStages(int Stages);
-    void OnLPFilterFeedback(float Feedback);
+    void OnLPFilterCutoff(float Parameter) override;
+    void OnLPFilterPoles(int Stages) override;
+    void OnLPFilterFeedback(float Feedback) override;
 
     // nonlinear shaper
-    void OnNonLinearShaperA(float A);
-    void OnNonLinearShaperB(float B);
-    void OnNonLinearShaperPreGain(float PreGain);
+    void OnNonLinearShaperA(float A) override;
+    void OnNonLinearShaperB(float B) override;
+    void OnNonLinearShaperPreGain(float PreGain) override;
 
     // (8 bit) FX
-    void OnBitCrusherDepth(int Depth);
-    void OnSampleAndHoldPeriod(int Period);
-    void OnRipplerStrength(int Strength);
+    void OnBitCrusherDepth(int Depth) override;
+    void OnSampleAndHoldPeriod(int Period) override;
+    void OnRipplerStrength(int Strength) override;
 
     // Step sequencer
     int NumSteps() const override;

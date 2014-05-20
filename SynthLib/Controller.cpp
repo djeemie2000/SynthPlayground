@@ -86,12 +86,12 @@ void CController::OnWaveFold(float Fold)
     m_Fold = Fold;
 }
 
-void CController::OnLPFilterParameter(float Parameter)
+void CController::OnLPFilterCutoff(float Parameter)
 {
     m_LPFilter.SetParameter(Parameter);
 }
 
-void CController::OnLPFilterStages(int Stages)
+void CController::OnLPFilterPoles(int Stages)
 {
     m_LPFilter.SetStages(Stages);
 }
