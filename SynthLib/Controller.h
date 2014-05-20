@@ -22,10 +22,12 @@
 #include "LPFilterI.h"
 #include "NonLinearShaperI.h"
 #include "CombinedOperatorStageI.h"
+#include "AudioSourceI.h"
 
 class IScope;
 
-class CController : public ISampleGrabber
+class CController : public IAudioSource
+                    , public ISampleGrabber
                     , public INoteHandler
                     , public ICombinedOperatorStage
                     , public IWaveFolder
@@ -39,7 +41,7 @@ public:
     ~CController();
 
     // AudioSource
-    std::int64_t OnRead(char *Dst, std::int64_t MaxSize);//this should be some different interface?
+    std::int64_t OnRead(char *Dst, std::int64_t MaxSize) override;
 
     // SampleGrabber
     void OnGrab(int GrabSize) override;

@@ -36,8 +36,6 @@ MainWindow::MainWindow(QWidget *parent) :
     QScope* Scope = new QScope(this);
     m_Controller = new CController(*Scope, SamplingFrequency);
 
-    m_AudioIODevice = new QAudioIODevice(m_Controller, this);
-
     // build gui
     guiutils::AddOperatorStage(ui->groupBox_Operator, this, *m_Controller);
     QScopeWidget* ScopeWidget = new QScopeWidget(*m_Controller, this);
@@ -53,6 +51,7 @@ MainWindow::MainWindow(QWidget *parent) :
     guiutils::AddStepSequencer(ui->groupBox_Keyboard, this, *m_Controller);
 
     // open current device
+    m_AudioIODevice = new QAudioIODevice(m_Controller, this);
     CreateAudioOutput();
 }
 
@@ -97,8 +96,6 @@ void MainWindow::handleStateChanged(QAudio::State state)
 {
     qWarning() << "state = " << state;
 }
-
-
 
 void MainWindow::CreateAudioOutput()
 {

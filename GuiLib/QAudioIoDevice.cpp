@@ -1,9 +1,9 @@
 #include "QAudioIoDevice.h"
-#include "Controller.h"
+#include "AudioSourceI.h"
 
-QAudioIODevice::QAudioIODevice(CController* Controller, QObject *parent)
+QAudioIODevice::QAudioIODevice(IAudioSource *AudioSource, QObject *parent)
     : QIODevice(parent)
-    , m_Controller(Controller)
+    , m_AudioSource(AudioSource)
 {
     start();
 }
@@ -21,7 +21,7 @@ void QAudioIODevice::stop()
 qint64 QAudioIODevice::readData(char *data, qint64 maxlen)
 {
     // ask the controller
-    return m_Controller ? m_Controller->OnRead(data, maxlen) : 0;
+    return m_AudioSource ? m_AudioSource->OnRead(data, maxlen) : 0;
 }
 
 qint64 QAudioIODevice::writeData(const char *data, qint64 len)

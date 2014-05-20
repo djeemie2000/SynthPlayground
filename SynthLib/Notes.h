@@ -22,8 +22,12 @@ enum class ENote : int
 
 std::string ToString(ENote Note);
 ENote FromString(const std::string& Note);
-std::vector<std::string> CreateNoteList();
 
+class CNoteList
+{
+public:
+    static std::vector<std::string> Create();
+};
 
 enum class EOctave : int
 {

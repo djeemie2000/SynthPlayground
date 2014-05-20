@@ -6,7 +6,7 @@ namespace
 
 TEST(NotesList)
 {
-    auto Actual = CreateNoteList();
+    auto Actual = CNoteList::Create();
 
     CHECK_EQUAL(11u, Actual.size());
 }

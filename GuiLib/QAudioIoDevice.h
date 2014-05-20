@@ -3,13 +3,13 @@
 
 #include <QIODevice>
 
-class CController;
+class IAudioSource;
 
 class QAudioIODevice : public QIODevice
 {
     Q_OBJECT
 public:
-    explicit QAudioIODevice(CController* Controller, QObject *parent = 0);
+    explicit QAudioIODevice(IAudioSource* AudioSource, QObject *parent = 0);
 
     void start();
     void stop();
@@ -19,7 +19,7 @@ public:
     qint64 bytesAvailable() const;
 
 private:
-    CController* m_Controller;
+    IAudioSource* m_AudioSource;
 };
 
 #endif // QAUDIOIODEVICE_H

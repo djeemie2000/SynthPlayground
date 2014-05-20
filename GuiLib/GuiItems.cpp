@@ -79,7 +79,7 @@ void AddStepSequencer(QGroupBox *GroupBox, QWidget *Parent, IStepSequencer &Cont
         // Step,0 spinbox octave
         AddSpinBox(Layout, Parent, 4+Step, 0, {"", 2, 0, 8, 1}, [&Controller,Step](int Value){ Controller.SetOctave(Step, static_cast<EOctave>(Value)); });
         // Step,1 combibox note
-        AddComboBox(Layout, Parent, 4+Step, 1, {"", CreateNoteList(), static_cast<int>(ENote::A)}, [&Controller,Step](int Value){ Controller.SetNote(Step, static_cast<ENote>(Value)); });
+        AddComboBox(Layout, Parent, 4+Step, 1, {"", { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" }/*CNoteList::Create()*/, static_cast<int>(ENote::A)}, [&Controller,Step](int Value){ Controller.SetNote(Step, static_cast<ENote>(Value)); });
         // Step,2 tool button active on/off
         AddSmallButton(Layout, Parent, 4+Step, 2, "On", [&Controller,Step](bool Value){ Controller.SetActive(Step, Value); });
     }

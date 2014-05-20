@@ -67,7 +67,8 @@ HEADERS += StepSequencer.h \
     NoteHandlerI.h \
     LPFilterI.h \
     NonLinearShaperI.h \
-    CombinedOperatorStageI.h
+    CombinedOperatorStageI.h \
+    AudioSourceI.h
 
 unix {
     target.path = /usr/lib
