@@ -6,7 +6,8 @@ SOURCES += main.cpp \
     TestRampUp.cpp \
     TestPeriodicConstGenerator.cpp \
     TestStepSequencer2.cpp \
-    TestPerdiodicTicker.cpp
+    TestPerdiodicTicker.cpp \
+    TestNotes.cpp
 
 
 unix {

@@ -59,7 +59,7 @@ ENote FromString(const std::string& Note)
     return ENote::A;
 }
 
-std::vector<std::string> NoteList()
+std::vector<std::string> CreateNoteList()
 {
     //return { "B", "A#", "A", "G#", "G", "F#", "F", "E", "D#", "D", "C#", "C" };
     return { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };

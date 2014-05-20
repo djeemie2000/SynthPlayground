@@ -9,35 +9,22 @@ TEMPLATE = app
 CONFIG   += c++11 (Qt5)
 
 SOURCES += main.cpp\
-    mainwindow.cpp \
-    QAudioIoDevice.cpp \
-    QView.cpp \
-    GuiUtilities.cpp \
-    QGuiCallbacks.cpp \
-    GuiItems.cpp \
-    QKeyboardWidget.cpp \
-    QScopeWidget.cpp
+    mainwindow.cpp
 
+HEADERS  += mainwindow.h
 
-HEADERS  += mainwindow.h \  
-    QAudioIoDevice.h \
-    QView.h \
-    GuiUtilities.h \
-    QGuiCallbacks.h \
-    GuiItems.h \
-    QKeyboardWidget.h \
-    QScopeWidget.h
-
-FORMS    += mainwindow.ui \
-    QKeyboardWidget.ui \
-    QScopeWidget.ui
+FORMS    += mainwindow.ui
 
 INCLUDEPATH += ./../SynthLib
+INCLUDEPATH += ./../GuiLib
 
 debug:LIBS += -L./../build-dir/Debug/SynthLib
+debug:LIBS += -L./../build-dir/Debug/GuiLib
 release:LIBS += -L./../build-dir/Release/SynthLib
+release:LIBS += -L./../build-dir/Release/GuiLib
 
 LIBS += -lSynthLib
+LIBS += -lGuiLib
 
 debug:DESTDIR = ../build-dir/Debug/Synth7
 release:DESTDIR = ../build-dir/Release/Synth7
