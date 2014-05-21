@@ -9,7 +9,7 @@ class QAudioIODevice : public QIODevice
 {
     Q_OBJECT
 public:
-    explicit QAudioIODevice(IAudioSource* AudioSource, QObject *parent = 0);
+    explicit QAudioIODevice(IAudioSource& AudioSource, QObject *parent = 0);
 
     void start();
     void stop();
@@ -19,7 +19,7 @@ public:
     qint64 bytesAvailable() const;
 
 private:
-    IAudioSource* m_AudioSource;
+    IAudioSource& m_AudioSource;
 };
 
 #endif // QAUDIOIODEVICE_H

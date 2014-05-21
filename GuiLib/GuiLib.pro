@@ -14,7 +14,8 @@ SOURCES += GuiUtilities.cpp \
     QView.cpp \
     QScopeWidget.cpp \
     QKeyboardWidget.cpp \
-    QAudioIoDevice.cpp
+    QAudioIoDevice.cpp \
+    QAudioDeviceWidget.cpp
 
 HEADERS += GuiUtilities.h \
     QGuiCallbacks.h \
@@ -22,11 +23,13 @@ HEADERS += GuiUtilities.h \
     QView.h \
     QScopeWidget.h \
     QKeyboardWidget.h \
-    QAudioIoDevice.h
+    QAudioIoDevice.h \
+    QAudioDeviceWidget.h
 
 FORMS += \
     QScopeWidget.ui \
-    QKeyboardWidget.ui
+    QKeyboardWidget.ui \
+    qaudiodevicewidget.ui
 
 INCLUDEPATH += ./../SynthLib
 
