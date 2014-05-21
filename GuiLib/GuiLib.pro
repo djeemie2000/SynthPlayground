@@ -29,7 +29,7 @@ HEADERS += GuiUtilities.h \
 FORMS += \
     QScopeWidget.ui \
     QKeyboardWidget.ui \
-    qaudiodevicewidget.ui
+    QAudioDeviceWidget.ui
 
 INCLUDEPATH += ./../SynthLib
 
