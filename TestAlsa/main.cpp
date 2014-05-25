@@ -32,18 +32,27 @@ snd_seq_event_t *midi_read(void)
 void midi_process(const snd_seq_event_t *ev)
 {
     if((ev->type == SND_SEQ_EVENT_NOTEON)
-            ||(ev->type == SND_SEQ_EVENT_NOTEOFF)) {
+            ||(ev->type == SND_SEQ_EVENT_NOTEOFF))
+    {
         const char *type = (ev->type==SND_SEQ_EVENT_NOTEON) ? "on " : "off";
         printf("[%d] Note %s: %2x vel(%2x)\n", ev->time.tick, type,
                                                ev->data.note.note,
                                                ev->data.note.velocity);
     }
     else if(ev->type == SND_SEQ_EVENT_CONTROLLER)
+    {
         printf("[%d] Control:  %2x val(%2x)\n", ev->time.tick,
                                                 ev->data.control.param,
                                                 ev->data.control.value);
+    }
+    else if(ev->type == SND_SEQ_EVENT_PITCHBEND)
+    {
+        printf("[%d] Pitchbend: %d\n", ev->time.tick, ev->data.control.value);
+    }
     else
+    {
         printf("[%d] Unknown:  Unhandled Event Received\n", ev->time.tick);
+    }
 }
 
 int main()
