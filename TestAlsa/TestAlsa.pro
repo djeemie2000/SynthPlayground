@@ -5,7 +5,9 @@ CONFIG -= app_bundle
 CONFIG -= qt
 CONFIG += c++11 (Qt5)
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    LogMidiInputHandler.cpp \
+    MidiInput.cpp
 
 LIBS += -lasound
 
@@ -15,5 +17,10 @@ release:DESTDIR = ../build-dir/Release/TestAlsa
 OBJECTS_DIR = $$DESTDIR
 UI_DIR = $$DESTDIR
 MOC_DIR = $$DESTDIR
+
+HEADERS += \
+    MidiInputHandlerI.h \
+    LogMidiInputHandler.h \
+    MidiInput.h
 
 
