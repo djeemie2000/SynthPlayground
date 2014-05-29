@@ -23,7 +23,7 @@ public:
 private slots:
     void on_pushButton_Play_clicked(bool checked);
     void on_horizontalSlider_Volume_sliderMoved(int position);
-    void on_comboBox_AudioDevice_currentIndexChanged(const QString &arg1);
+    void on_comboBox_AudioDevice_currentIndexChanged(const QString &);
 
     void notified();
     void handleStateChanged(QAudio::State state);
