@@ -23,10 +23,12 @@
 #include "NonLinearShaperI.h"
 #include "CombinedOperatorStageI.h"
 #include "AudioSourceI.h"
+#include "MidiInputHandlerI.h"
 
 class IScope;
 
-class CController : public IAudioSource
+class CSynth7Controller
+                    : public IAudioSource
                     , public ISampleGrabber
                     , public INoteHandler
                     , public ICombinedOperatorStage
@@ -35,10 +37,11 @@ class CController : public IAudioSource
                     , public INonLinearShaper
                     , public IBitFx
                     , public IStepSequencer
+                    , public IMidiInputHandler
 {
 public:
-    CController(IScope& Scope, int SamplingFrequency);
-    ~CController();
+    CSynth7Controller(IScope& Scope, int SamplingFrequency);
+    ~CSynth7Controller();
 
     // AudioSource
     std::int64_t OnRead(char *Dst, std::int64_t MaxSize) override;
@@ -85,6 +88,13 @@ public:
     void SetBarsPerBeat(int BarsPerBeat) override;
     void Start() override;
     void Stop() override;
+
+    // midi input handler
+    void OnNoteOn(int Note, int ) override;
+    void OnNoteOff(int Note, int ) override;
+    void OnController(int, int ) override;
+    void OnPitchbend(int) override;
+    void OnUnknown() override;
 
 private:
     typedef std::int16_t SampleValueType;

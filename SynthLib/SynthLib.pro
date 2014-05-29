@@ -71,10 +71,13 @@ HEADERS += StepSequencer.h \
     CombinedOperatorStageI.h \
     AudioSourceI.h
 
+INCLUDEPATH += ./../AlsaMidiLib
+
 unix {
     target.path = /usr/lib
     INSTALLS += target
 }
+
 
 debug:DESTDIR = ../build-dir/Debug/SynthLib
 release:DESTDIR = ../build-dir/Release/SynthLib

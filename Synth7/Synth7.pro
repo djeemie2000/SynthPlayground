@@ -17,14 +17,19 @@ FORMS    += mainwindow.ui
 
 INCLUDEPATH += ./../SynthLib
 INCLUDEPATH += ./../GuiLib
+INCLUDEPATH += ./../AlsaMidiLib
 
 debug:LIBS += -L./../build-dir/Debug/SynthLib
 debug:LIBS += -L./../build-dir/Debug/GuiLib
+debug:LIBS += -L./../build-dir/Debug/AlsaMidiLib
 release:LIBS += -L./../build-dir/Release/SynthLib
 release:LIBS += -L./../build-dir/Release/GuiLib
+release:LIBS += -L./../build-dir/Release/AlsaMidiLib
 
 LIBS += -lSynthLib
 LIBS += -lGuiLib
+LIBS += -lAlsaMidiLib
+LIBS += -lasound
 
 debug:DESTDIR = ../build-dir/Debug/Synth7
 release:DESTDIR = ../build-dir/Release/Synth7

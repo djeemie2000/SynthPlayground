@@ -154,19 +154,6 @@ ENote NoteTable[] =
     ENote::B
 };
 
-}
-
-ENote CMidiNoteConverter::ToNote(int MidiNote)
-{
-    // assume MidiNote in [0, 9*12[
-    return NoteTable[MidiNote];
-    // alternative:  static_cast<ENote>(returnMidiNote % NumNotesPerOctave);
-
-}
-
-namespace
-{
-
 EOctave OctaveTable[] =
 {
     // octave -1
@@ -307,20 +294,25 @@ EOctave OctaveTable[] =
     EOctave::Octave8
 };
 
+const int NumNotesPerOctave = 12;
+
+}
+
+ENote CMidiNoteConverter::ToNote(int MidiNote)
+{
+    // assume MidiNote in [0, 9*12[
+    //return NoteTable[MidiNote];
+    // alternative:
+    return static_cast<ENote>(MidiNote % NumNotesPerOctave);
+
 }
 
 EOctave CMidiNoteConverter::ToOctave(int MidiNote)
 {
     // assume MidiNote in [0, 9*12[
-    return OctaveTable[MidiNote];
-    // alternative : return static_cast<EOctave>(-1 + MidiNote/NumNotesPerOctave);
-}
-
-namespace
-{
-
-const int NumNotesPerOctave = 12;
-
+    //return OctaveTable[MidiNote];
+    // alternative :
+    return static_cast<EOctave>(-1 + MidiNote/NumNotesPerOctave);
 }
 
 int CMidiNoteConverter::ToMidiNote(ENote Note, EOctave Octave)

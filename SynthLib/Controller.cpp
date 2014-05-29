@@ -9,9 +9,10 @@
 #include "Conversions.h"
 #include "SelectableCombinorFactory.h"
 #include "SelectableOperatorFactory.h"
+#include "MidiNoteConverter.h"
 
 
-CController::CController(IScope &Scope, int SamplingFrequency)
+CSynth7Controller::CSynth7Controller(IScope &Scope, int SamplingFrequency)
     : m_Scope(Scope)
     , m_GrabSample(false)
     , m_SampleGrabber()
@@ -34,155 +35,184 @@ CController::CController(IScope &Scope, int SamplingFrequency)
     m_StepSequencerTicker.SetPeriod(m_StepSequencer.PeriodSamples());
 }
 
-CController::~CController()
+CSynth7Controller::~CSynth7Controller()
 {
 
 }
 
-void CController::OnSync()
+void CSynth7Controller::OnSync()
 {
     m_Oscillator.Sync();
 }
 
-void CController::OnNoteOn(ENote Note, EOctave Octave)
+void CSynth7Controller::OnNoteOn(ENote Note, EOctave Octave)
 {
+    std::printf("NoteOn \r\n");
     m_Oscillator.SetFrequency(CPitch()(Note, Octave));
     m_Oscillator.Sync();//optional?
     m_Envelope.NoteOn();
 }
 
-void CController::OnNoteOff(ENote /*Note*/, EOctave /*Octave*/)
+void CSynth7Controller::OnNoteOff(ENote /*Note*/, EOctave /*Octave*/)
 {
+    std::printf("NoteOff \r\n");
     m_Envelope.NoteOff();
 }
 
-void CController::OnCombinor(int Selected)
+void CSynth7Controller::OnCombinor(int Selected)
 {
     m_Oscillator.SelectCombinor(Selected);
 }
 
-void CController::OnOperator(int Idx, int Selected)
+void CSynth7Controller::OnOperator(int Idx, int Selected)
 {
     m_Oscillator.Select(Idx, Selected);
 }
 
-void CController::OnAmplitude(int Idx, float Amplitude)
+void CSynth7Controller::OnAmplitude(int Idx, float Amplitude)
 {
     m_Oscillator.SetAmplitude(Idx, Amplitude);
 }
 
-void CController::OnFrequencyMultiplier(int Idx, float FrequencyMultiplier)
+void CSynth7Controller::OnFrequencyMultiplier(int Idx, float FrequencyMultiplier)
 {
     m_Oscillator.SetFrequencyMultiplier(Idx, FrequencyMultiplier);
 }
 
-void CController::OnPhaseshift(int Idx, float PhaseShift)
+void CSynth7Controller::OnPhaseshift(int Idx, float PhaseShift)
 {
     m_Oscillator.SetPhaseShift(Idx, PhaseShift);
 }
 
-void CController::OnWaveFold(float Fold)
+void CSynth7Controller::OnWaveFold(float Fold)
 {
     m_Fold = Fold;
 }
 
-void CController::OnLPFilterCutoff(float Parameter)
+void CSynth7Controller::OnLPFilterCutoff(float Parameter)
 {
     m_LPFilter.SetParameter(Parameter);
 }
 
-void CController::OnLPFilterPoles(int Stages)
+void CSynth7Controller::OnLPFilterPoles(int Stages)
 {
     m_LPFilter.SetStages(Stages);
 }
 
-void CController::OnLPFilterFeedback(float Feedback)
+void CSynth7Controller::OnLPFilterFeedback(float Feedback)
 {
     m_LPFilter.SetFeedback(Feedback);
 }
 
-void CController::OnNonLinearShaperA(float A)
+void CSynth7Controller::OnNonLinearShaperA(float A)
 {
     m_NonLinearShaper.SetA(A);
 }
 
-void CController::OnNonLinearShaperB(float B)
+void CSynth7Controller::OnNonLinearShaperB(float B)
 {
     m_NonLinearShaper.SetB(B);
 }
 
-void CController::OnNonLinearShaperPreGain(float PreGain)
+void CSynth7Controller::OnNonLinearShaperPreGain(float PreGain)
 {
     m_NonLinearShaper.SetPregain(PreGain);
 }
 
-void CController::OnBitCrusherDepth(int Depth)
+void CSynth7Controller::OnBitCrusherDepth(int Depth)
 {
     m_Fx.SetBitCrusherDepth(Depth);
 }
 
-void CController::OnSampleAndHoldPeriod(int Period)
+void CSynth7Controller::OnSampleAndHoldPeriod(int Period)
 {
     m_Fx.SetSampleAndHoldPeriod(Period);
 }
 
-void CController::OnRipplerStrength(int Strength)
+void CSynth7Controller::OnRipplerStrength(int Strength)
 {
     m_Fx.SetRipplerStrength(Strength);
 }
 
-int CController::NumSteps() const
+int CSynth7Controller::NumSteps() const
 {
     return m_StepSequencer.NumSteps();
 }
 
-void CController::SetActive(int Step, bool IsActive)
+void CSynth7Controller::SetActive(int Step, bool IsActive)
 {
     m_StepSequencer.SetActive(Step, IsActive);
 }
 
-void CController::SetOctave(int Step, EOctave Octave)
+void CSynth7Controller::SetOctave(int Step, EOctave Octave)
 {
     m_StepSequencer.SetOctave(Step, Octave);
 }
 
-void CController::SetNote(int Step, ENote Note)
+void CSynth7Controller::SetNote(int Step, ENote Note)
 {
     m_StepSequencer.SetNote(Step, Note);
 }
 
-void CController::SetBeatsPerMinute(int Bpm)
+void CSynth7Controller::SetBeatsPerMinute(int Bpm)
 {
     m_StepSequencer.SetBeatsPerMinute(Bpm);
     m_StepSequencerTicker.SetPeriod(m_StepSequencer.PeriodSamples());
 }
 
-void CController::SetBarsPerBeat(int BarsPerBeat)
+void CSynth7Controller::SetBarsPerBeat(int BarsPerBeat)
 {
     m_StepSequencer.SetBarsPerBeat(BarsPerBeat);
     m_StepSequencerTicker.SetPeriod(m_StepSequencer.PeriodSamples());
 }
 
-void CController::Start()
+void CSynth7Controller::Start()
 {
-    std::printf("Start \r\n");
+    std::printf("StepSequencer Start \r\n");
     m_StepSequencerTicker.Activate(true);
 }
 
-void CController::Stop()
+void CSynth7Controller::Stop()
 {
-    std::printf("Stop \r\n");
+    std::printf("StepSequencer Stop \r\n");
     m_StepSequencerTicker.Activate(false);
 }
 
-void CController::OnGrab(int GrabSize)
+void CSynth7Controller::OnNoteOn(int Note, int)
+{
+    std::printf("Midi NoteOn : %d \r\n", Note);
+    OnNoteOn(CMidiNoteConverter().ToNote(Note), CMidiNoteConverter().ToOctave(Note));
+}
+
+void CSynth7Controller::OnNoteOff(int Note, int)
+{
+    std::printf("Midi NoteOff : %d \r\n", Note);
+    OnNoteOff(CMidiNoteConverter().ToNote(Note), CMidiNoteConverter().ToOctave(Note));
+}
+
+void CSynth7Controller::OnController(int , int)
+{
+}
+
+void CSynth7Controller::OnPitchbend(int )
+{
+}
+
+void CSynth7Controller::OnUnknown()
+{
+}
+
+void CSynth7Controller::OnGrab(int GrabSize)
 {
     m_GrabSample = true;
     m_SampleGrabber.OnGrab(GrabSize);
 }
 
-std::int64_t CController::OnRead(char *Dst, std::int64_t MaxSize)
+std::int64_t CSynth7Controller::OnRead(char *Dst, std::int64_t MaxSize)
 {
+    std::printf("OnRead \r\n");
+
+
     int MaxReadSize = 1<<13;
     std::size_t Size = MaxSize<MaxReadSize ? MaxSize : MaxReadSize;
 

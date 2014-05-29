@@ -17,8 +17,8 @@ class QPushButton;
 class QSpinBox;
 class QComboBox;
 class QToolButton;
-class CController;
-class CStepSequencer;
+class CSynth7Controller;
+class CMidiInput;
 
 class MainWindow : public QMainWindow
 {
@@ -33,7 +33,8 @@ private slots:
 private:
     Ui::MainWindow *ui;
 
-    CController* m_Controller;
+    CSynth7Controller*  m_Controller;
+    CMidiInput*         m_MidiInput;
 };
 
 #endif // MAINWINDOW_H
