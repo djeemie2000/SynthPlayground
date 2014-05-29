@@ -5,12 +5,14 @@ CONFIG += c++11 (Qt5)
 
 SOURCES += \
     LogMidiInputHandler.cpp \
-    MidiInput.cpp
+    MidiInput.cpp \
+    MidiNoteConverter.cpp
 
 HEADERS += \
     MidiInputHandlerI.h \
     LogMidiInputHandler.h \
-    MidiInput.h
+    MidiInput.h \
+    MidiNoteConverter.h
 
 INCLUDEPATH += ./../SynthLib
 
