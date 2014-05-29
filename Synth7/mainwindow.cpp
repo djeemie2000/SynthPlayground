@@ -24,6 +24,7 @@ MainWindow::MainWindow(QWidget *parent)
   , ui(new Ui::MainWindow)
   , m_Controller(0)
   , m_MidiInput(0)
+  , m_ScopeWidget(0)
 {
     ui->setupUi(this);
 
@@ -34,9 +35,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     // build gui
     guiutils::AddOperatorStage(ui->groupBox_Operator, this, *m_Controller);
-    QScopeWidget* ScopeWidget = new QScopeWidget(*m_Controller, this);
-    connect(Scope, SIGNAL(SignalSample(QVector<std::int16_t>)), ScopeWidget, SLOT(OnSample(QVector<std::int16_t>)));
-    ui->groupBox_Operator->layout()->addWidget(ScopeWidget);
+    m_ScopeWidget = new QScopeWidget(*m_Controller, this);
+    connect(Scope, SIGNAL(SignalSample(QVector<std::int16_t>)), m_ScopeWidget, SLOT(OnSample(QVector<std::int16_t>)));
+    ui->groupBox_Operator->layout()->addWidget(m_ScopeWidget);
 
     guiutils::AddBitFX(ui->groupBox_Shaping, this, *m_Controller);
     guiutils::AddNonLinearShaper(ui->groupBox_Shaping, this, *m_Controller);
@@ -56,6 +57,7 @@ MainWindow::~MainWindow()
     m_MidiInput->Close();
 
     delete ui;
+    delete m_ScopeWidget;
     delete m_MidiInput;
     delete m_MidiInputHandler;
     delete m_Controller;
