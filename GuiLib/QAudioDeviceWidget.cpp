@@ -87,7 +87,7 @@ void QAudioDeviceWidget::on_horizontalSlider_Volume_sliderMoved(int position)
     }
 }
 
-void QAudioDeviceWidget::on_comboBox_AudioDevice_currentIndexChanged(const QString &arg1)
+void QAudioDeviceWidget::on_comboBox_AudioDevice_currentIndexChanged(const QString &)
 {
     // changed audio device => (re)create audio output
     CreateAudioOutput();

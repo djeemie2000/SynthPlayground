@@ -5,13 +5,13 @@
 #include "Notes.h"
 #include <memory>
 
-class CController;
+class INoteHandler;
 template<class T> class CPeriodicThreadRunner;
 
 class CStepSequencer
 {
 public:
-    CStepSequencer(int NumSteps, CController& NoteHandler);
+    CStepSequencer(int NumSteps, INoteHandler& NoteHandler);
     ~CStepSequencer();
 
     int NumSteps() const;
@@ -37,14 +37,14 @@ private:
 
         SStep();
 
-        void NoteOn(CController& NoteHandler);
-        void NoteOff(CController& NoteHandler);
+        void NoteOn(INoteHandler& NoteHandler);
+        void NoteOff(INoteHandler& NoteHandler);
     };
 
     bool StepExists(int Step) const;
     int PeriodMilliSeconds() const;
 
-    CController& m_NoteHandler;
+    INoteHandler& m_NoteHandler;
 
     std::vector<SStep> m_Steps;
     int m_CurrentStep;

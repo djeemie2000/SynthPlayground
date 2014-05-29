@@ -1,9 +1,8 @@
 #include "StepSequencer.h"
-
-#include "Controller.h"
+#include "NoteHandlerI.h"
 #include "PeriodicThreadRunner.h"
 
-CStepSequencer::CStepSequencer(int NumSteps, CController &NoteHandler)
+CStepSequencer::CStepSequencer(int NumSteps, INoteHandler &NoteHandler)
     : m_NoteHandler(NoteHandler)
     , m_Steps(NumSteps)
     , m_CurrentStep(0)
@@ -100,7 +99,7 @@ CStepSequencer::SStep::SStep()
 {
 }
 
-void CStepSequencer::SStep::NoteOn(CController &NoteHandler)
+void CStepSequencer::SStep::NoteOn(INoteHandler &NoteHandler)
 {
     if(s_IsActive)
     {
@@ -108,7 +107,7 @@ void CStepSequencer::SStep::NoteOn(CController &NoteHandler)
     }
 }
 
-void CStepSequencer::SStep::NoteOff(CController &NoteHandler)
+void CStepSequencer::SStep::NoteOff(INoteHandler &NoteHandler)
 {
     if(s_IsActive)
     {

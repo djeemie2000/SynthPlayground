@@ -14,6 +14,7 @@ SOURCES += StepSequencer.cpp \
 HEADERS += StepSequencer.h \
     Notes.h \
     PeriodicThreadRunner.h \
+    ContinuousThreadRunner.h \
     8BitFX.h \
     BasicEnvelope.h \
     CenteredShaper.h \

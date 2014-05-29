@@ -1,6 +1,7 @@
 #include <iostream>
 #include "MidiInput.h"
 #include "MidiInputHandlerI.h"
+#include "ContinuousThreadRunner.h"
 
 namespace
 {
@@ -21,12 +22,35 @@ CMidiInput::CMidiInput(IMidiInputHandler &Handler)
  : m_Handler(Handler)
  , m_MidiSequencerHandle(0)
  , m_MidiInputPort(-1)
+ , m_IsOpen(false)
 {
+    m_ThreadRunner.reset(new CContinuousThreadRunner<CMidiInput>(*this));
 }
 
 CMidiInput::~CMidiInput()
 {
-    //TODO close if needed!
+    // close if needed!
+    Close();
+}
+
+bool CMidiInput::Open(const std::string &ClientName, const std::string &PortName)
+{
+    if(OpenMidiInput(ClientName, PortName))
+    {
+        m_IsOpen = true;
+        StartListening();
+    }
+    return m_IsOpen;
+}
+
+void CMidiInput::Close()
+{
+    if(m_IsOpen)
+    {
+        CloseMidiInput();
+        StopListening();
+        m_IsOpen = false;
+    }
 }
 
 bool CMidiInput::OpenMidiInput(const std::string& ClientName, const std::string& PortName)
@@ -42,17 +66,17 @@ bool CMidiInput::CloseMidiInput()
             && CheckMidiCommand(snd_seq_close(m_MidiSequencerHandle), "Could not close sequencer");
 }
 
-void CMidiInput::Start()
+void CMidiInput::StartListening()
 {
-    //TODO start thread!
+    m_ThreadRunner->Start();
 }
 
-void CMidiInput::Stop()
+void CMidiInput::StopListening()
 {
-    // TODO stop thread
+    m_ThreadRunner->Stop();
 }
 
-void CMidiInput::Run()
+void CMidiInput::OnTick()
 {
     ProcessMidiEvent(ReadMidiEvent());
 }

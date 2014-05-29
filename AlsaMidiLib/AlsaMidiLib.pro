@@ -12,6 +12,8 @@ HEADERS += \
     LogMidiInputHandler.h \
     MidiInput.h
 
+INCLUDEPATH += ./../SynthLib
+
 LIBS += -lasound
 
 unix {
