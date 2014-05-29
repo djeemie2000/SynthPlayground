@@ -1,5 +1,5 @@
-#ifndef GRANULARSAMPLERCONTROLLER_H
-#define GRANULARSAMPLERCONTROLLER_H
+#ifndef SYNTH7CONTROLLER_H
+#define SYNTH7CONTROLLER_H
 
 #include <string>
 #include <vector>
@@ -113,4 +113,4 @@ private:
     CPeriodicTicker m_StepSequencerTicker;
 };
 
-#endif // GRANULARSAMPLERCONTROLLER_H
+#endif // SYNTH7CONTROLLER_H

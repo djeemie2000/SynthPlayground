@@ -12,6 +12,7 @@
 #include "Controller.h"
 #include "GuiItems.h"
 #include "MidiInput.h"
+#include "NoteQueueMidiInputHandler.h"
 
 namespace
 {
@@ -28,7 +29,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     QScope* Scope = new QScope(this);
     m_Controller = new CSynth7Controller(*Scope, SamplingFrequency);
-    m_MidiInput = new CMidiInput(*m_Controller);
+    m_MidiInputHandler = new CNoteQueueMidiInputHandler(*m_Controller);
+    m_MidiInput = new CMidiInput(*m_MidiInputHandler);
 
     // build gui
     guiutils::AddOperatorStage(ui->groupBox_Operator, this, *m_Controller);
@@ -55,5 +57,6 @@ MainWindow::~MainWindow()
 
     delete ui;
     delete m_MidiInput;
+    delete m_MidiInputHandler;
     delete m_Controller;
 }

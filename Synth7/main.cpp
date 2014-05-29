@@ -7,7 +7,5 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.show();
 
-    //qRegisterMetaType<QVector<float> >("QVector<float>");
-
     return a.exec();
 }

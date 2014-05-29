@@ -1,24 +1,15 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <memory>
-#include <cstdint>
 #include <QMainWindow>
-#include <QAudio>
 
 namespace Ui {
 class MainWindow;
 }
 
-class QGraphicsScene;
-class QAudioOutput;
-class QAudioIODevice;
-class QPushButton;
-class QSpinBox;
-class QComboBox;
-class QToolButton;
 class CSynth7Controller;
 class CMidiInput;
+class IMidiInputHandler;
 
 class MainWindow : public QMainWindow
 {
@@ -34,6 +25,7 @@ private:
     Ui::MainWindow *ui;
 
     CSynth7Controller*  m_Controller;
+    IMidiInputHandler*  m_MidiInputHandler;
     CMidiInput*         m_MidiInput;
 };
 

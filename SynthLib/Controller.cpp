@@ -47,7 +47,7 @@ void CSynth7Controller::OnSync()
 
 void CSynth7Controller::OnNoteOn(ENote Note, EOctave Octave)
 {
-    std::printf("NoteOn \r\n");
+    //std::printf"NoteOn \r\n");
     m_Oscillator.SetFrequency(CPitch()(Note, Octave));
     m_Oscillator.Sync();//optional?
     m_Envelope.NoteOn();
@@ -55,7 +55,7 @@ void CSynth7Controller::OnNoteOn(ENote Note, EOctave Octave)
 
 void CSynth7Controller::OnNoteOff(ENote /*Note*/, EOctave /*Octave*/)
 {
-    std::printf("NoteOff \r\n");
+    //std::printf"NoteOff \r\n");
     m_Envelope.NoteOff();
 }
 
@@ -168,25 +168,25 @@ void CSynth7Controller::SetBarsPerBeat(int BarsPerBeat)
 
 void CSynth7Controller::Start()
 {
-    std::printf("StepSequencer Start \r\n");
+    //std::printf"StepSequencer Start \r\n");
     m_StepSequencerTicker.Activate(true);
 }
 
 void CSynth7Controller::Stop()
 {
-    std::printf("StepSequencer Stop \r\n");
+    //std::printf"StepSequencer Stop \r\n");
     m_StepSequencerTicker.Activate(false);
 }
 
 void CSynth7Controller::OnNoteOn(int Note, int)
 {
-    std::printf("Midi NoteOn : %d \r\n", Note);
+    //std::printf"Midi NoteOn : %d \r\n", Note);
     OnNoteOn(CMidiNoteConverter().ToNote(Note), CMidiNoteConverter().ToOctave(Note));
 }
 
 void CSynth7Controller::OnNoteOff(int Note, int)
 {
-    std::printf("Midi NoteOff : %d \r\n", Note);
+    //std::printf"Midi NoteOff : %d \r\n", Note);
     OnNoteOff(CMidiNoteConverter().ToNote(Note), CMidiNoteConverter().ToOctave(Note));
 }
 
@@ -210,10 +210,10 @@ void CSynth7Controller::OnGrab(int GrabSize)
 
 std::int64_t CSynth7Controller::OnRead(char *Dst, std::int64_t MaxSize)
 {
-    std::printf("OnRead \r\n");
+    //std::printf("OnRead \r\n");
 
 
-    int MaxReadSize = 1<<13;
+    int MaxReadSize = 1<<10;
     std::size_t Size = MaxSize<MaxReadSize ? MaxSize : MaxReadSize;
 
     CSymmetricalOperator<float> Symm;
