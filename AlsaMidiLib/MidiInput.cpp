@@ -1,7 +1,7 @@
 #include <iostream>
 #include "MidiInput.h"
 #include "MidiInputHandlerI.h"
-#include "ContinuousThreadRunner.h"
+#include "PeriodicThreadRunner.h"
 
 namespace
 {
@@ -24,7 +24,8 @@ CMidiInput::CMidiInput(IMidiInputHandler &Handler)
     , m_MidiInputPort(-1)
     , m_IsOpen(false)
 {
-    m_ThreadRunner.reset(new CContinuousThreadRunner<CMidiInput>(*this));
+    m_ThreadRunner.reset(new CPeriodicThreadRunner<CMidiInput>(*this));
+    m_ThreadRunner->SetPeriod(1);//1mSec??
 }
 
 CMidiInput::~CMidiInput()

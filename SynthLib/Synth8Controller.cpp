@@ -202,7 +202,7 @@ std::int64_t CSynth8Controller::OnRead(char *Dst, std::int64_t MaxSize)
     //std::printf("OnRead \r\n");
 
 
-    int MaxReadSize = 1<<10;
+    int MaxReadSize = 512;//1<<10;
     std::size_t Size = MaxSize<MaxReadSize ? MaxSize : MaxReadSize;
 
     CSymmetricalOperator<float> Symm;

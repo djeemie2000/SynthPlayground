@@ -6,7 +6,7 @@
 #include <alsa/asoundlib.h>
 
 class IMidiInputHandler;
-template<class T> class CContinuousThreadRunner;
+template<class T> class CPeriodicThreadRunner;
 
 class CMidiInput
 {
@@ -32,7 +32,7 @@ private:
     snd_seq_t*  m_MidiSequencerHandle;
     int         m_MidiInputPort;
     bool        m_IsOpen;
-    std::unique_ptr<CContinuousThreadRunner<CMidiInput>> m_ThreadRunner;
+    std::unique_ptr<CPeriodicThreadRunner<CMidiInput>> m_ThreadRunner;
 };
 
 
