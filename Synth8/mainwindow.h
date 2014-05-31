@@ -8,7 +8,7 @@ class MainWindow;
 }
 
 class QScopeWidget;
-class CSynth7Controller;
+class CSynth8Controller;
 class CMidiInput;
 class IMidiInputHandler;
 
@@ -26,7 +26,7 @@ private:
     Ui::MainWindow *ui;
 
 
-    CSynth7Controller*  m_Controller;
+    CSynth8Controller*  m_Controller;
     IMidiInputHandler*  m_MidiInputHandler;
     CMidiInput*         m_MidiInput;
     QScopeWidget*       m_ScopeWidget;

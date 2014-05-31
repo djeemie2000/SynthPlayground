@@ -5,7 +5,8 @@ CONFIG += c++11 (Qt5)
 
 SOURCES += StepSequencer.cpp \
     Notes.cpp \
-    Controller.cpp \
+    Synth7Controller.cpp \
+    Synth8Controller.cpp \
     Pitch.cpp \
     SelectableCombinorFactory.cpp \
     SelectableOperatorFactory.cpp \
@@ -21,7 +22,8 @@ HEADERS += StepSequencer.h \
     ClockUtilities.h \
     Combinor.h \
     ConstGenerator.h \
-    Controller.h \
+    Synth7Controller.h \
+    Synth8Controller.h \
     Conversions.h \
     CrossFader.h \
     DetunedSelectableOscillator.h \
@@ -35,7 +37,7 @@ HEADERS += StepSequencer.h \
     NonLinearShaper.h \
     NoOp.h \
     OnePoleFilter.h \
-    OscillatorStage.h \
+    CombinedOperatorStage.h \
     PhaseDecreaseCondition.h \
     PhaseGenerator.h \
     PhaseStep.h \

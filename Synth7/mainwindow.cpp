@@ -9,7 +9,7 @@
 #include "QKeyboardWidget.h"
 #include "QScopeWidget.h"
 #include "QAudioDeviceWidget.h"
-#include "Controller.h"
+#include "Synth7Controller.h"
 #include "GuiItems.h"
 #include "MidiInput.h"
 #include "NoteQueueMidiInputHandler.h"

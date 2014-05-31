@@ -1,5 +1,5 @@
 #include <cstring>
-#include "Controller.h"
+#include "Synth7Controller.h"
 #include "ScopeI.h"
 #include "SelectableCombinor.h"
 #include "SelectableOperator.h"

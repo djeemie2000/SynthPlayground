@@ -9,7 +9,7 @@
 #include "QKeyboardWidget.h"
 #include "QScopeWidget.h"
 #include "QAudioDeviceWidget.h"
-#include "Controller.h"
+#include "Synth8Controller.h"
 #include "GuiItems.h"
 #include "MidiInput.h"
 #include "NoteQueueMidiInputHandler.h"
@@ -29,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     QScope* Scope = new QScope(this);
-    m_Controller = new CSynth7Controller(*Scope, SamplingFrequency);
+    m_Controller = new CSynth8Controller(*Scope, SamplingFrequency);
     m_MidiInputHandler = new CNoteQueueMidiInputHandler(*m_Controller);
     m_MidiInput = new CMidiInput(*m_MidiInputHandler);
 

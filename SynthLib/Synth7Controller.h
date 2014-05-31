@@ -7,7 +7,7 @@
 #include "SampleGrabber.h"
 #include "Smoother.h"
 #include "8BitFX.h"
-#include "OscillatorStage.h"
+#include "CombinedOperatorStage.h"
 #include "Notes.h"
 #include "OnePoleFilter.h"
 #include "NonLinearShaper.h"
@@ -103,7 +103,7 @@ private:
     bool m_GrabSample;
     CSampleGrabber<SampleValueType> m_SampleGrabber;
 
-    COscillatorStage<float> m_Oscillator;
+    CCombinedOperatorStage<float> m_Oscillator;
     float   m_Fold;
     C16BitsSignedFX m_Fx;
     CMultiStageFilter<float, COnePoleLowPassFilter<float>, 24> m_LPFilter;

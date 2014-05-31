@@ -10,12 +10,12 @@
 #include "Conversions.h"
 
 template<class T>
-class COscillatorStage
+class CCombinedOperatorStage
 {
 public:
     static constexpr int NumOsc = 2;
 
-    COscillatorStage(int SamplingFrequency, const CSelectableOperator<T>& Oscillator, const CSelectableCombinor<T>& Combinor)
+    CCombinedOperatorStage(int SamplingFrequency, const CSelectableOperator<T>& Oscillator, const CSelectableCombinor<T>& Combinor)
      : m_Frequency(440)
      , m_Depth(NumOsc)
      , m_Dephase(0)
