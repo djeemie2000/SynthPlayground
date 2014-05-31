@@ -34,12 +34,11 @@ MainWindow::MainWindow(QWidget *parent)
     m_MidiInput = new CMidiInput(*m_MidiInputHandler);
 
     // build gui
-    guiutils::AddOperatorStage(ui->groupBox_Operator, this, *m_Controller);
+    guiutils::AddCombinedFoldedOperatorStage(ui->groupBox_Operator, this, *m_Controller);
     m_ScopeWidget = new QScopeWidget(*m_Controller, this);
     connect(Scope, SIGNAL(SignalSample(QVector<std::int16_t>)), m_ScopeWidget, SLOT(OnSample(QVector<std::int16_t>)));
     ui->groupBox_Operator->layout()->addWidget(m_ScopeWidget);
 
-    guiutils::AddBitFX(ui->groupBox_Shaping, this, *m_Controller);
     guiutils::AddNonLinearShaper(ui->groupBox_Shaping, this, *m_Controller);
     guiutils::AddLPFilter(ui->groupBox_Shaping, this, *m_Controller);
     guiutils::AddWaveFolder(ui->groupBox_Shaping, this, *m_Controller);

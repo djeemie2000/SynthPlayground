@@ -18,7 +18,6 @@ CSynth8Controller::CSynth8Controller(IScope &Scope, int SamplingFrequency)
     , m_SampleGrabber()
     , m_Oscillator(SamplingFrequency, CSelectableOperatorFactory::Create(), CSelectableCombinorFactory::Create())
     , m_Fold(1.0f)
-    , m_Fx()
     , m_LPFilter()
     , m_NonLinearShaper()
     , m_Envelope()
@@ -84,6 +83,11 @@ void CSynth8Controller::OnPhaseshift(int Idx, float PhaseShift)
     m_Oscillator.SetPhaseShift(Idx, PhaseShift);
 }
 
+void CSynth8Controller::OnFold(int Idx, float Fold)
+{
+    m_Oscillator.SetFold(Idx, Fold);
+}
+
 void CSynth8Controller::OnWaveFold(float Fold)
 {
     m_Fold = Fold;
@@ -117,21 +121,6 @@ void CSynth8Controller::OnNonLinearShaperB(float B)
 void CSynth8Controller::OnNonLinearShaperPreGain(float PreGain)
 {
     m_NonLinearShaper.SetPregain(PreGain);
-}
-
-void CSynth8Controller::OnBitCrusherDepth(int Depth)
-{
-    m_Fx.SetBitCrusherDepth(Depth);
-}
-
-void CSynth8Controller::OnSampleAndHoldPeriod(int Period)
-{
-    m_Fx.SetSampleAndHoldPeriod(Period);
-}
-
-void CSynth8Controller::OnRipplerStrength(int Strength)
-{
-    m_Fx.SetRipplerStrength(Strength);
 }
 
 int CSynth8Controller::NumSteps() const
@@ -240,7 +229,7 @@ std::int64_t CSynth8Controller::OnRead(char *Dst, std::int64_t MaxSize)
                 OnNoteOn(m_StepSequencer.CurrentStep().s_Note, m_StepSequencer.CurrentStep().s_Octave);
             }
         }
-        *pDst = m_Fx(SignedToInt16<float>(m_Envelope()*Symm2(m_LPFilter(Symm(m_Oscillator(), Fold)), m_NonLinearShaper)));
+        *pDst = (SignedToInt16<float>(m_Envelope()*Symm2(m_LPFilter(Symm(m_Oscillator(), Fold)), m_NonLinearShaper)));
         ++pDst;
     }
 

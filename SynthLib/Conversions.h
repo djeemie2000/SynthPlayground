@@ -47,6 +47,19 @@ T HardLimitSigned(T In)
 }
 
 template<class T>
+void CropSigned(T& In)
+{
+    if(In<-1)
+    {
+        In = -1;
+    }
+    else if(1<In)
+    {
+        In = 1;
+    }
+}
+
+template<class T>
 T SignedFullToUnsigned(T In)
 {
     // [-1,+1] to [0,1]

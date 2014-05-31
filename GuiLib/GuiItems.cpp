@@ -11,6 +11,7 @@
 #include "CombinedOperatorStageI.h"
 #include "SelectableCombinorFactory.h"
 #include "SelectableOperatorFactory.h"
+#include "CombinedFoldedOperatorStageI.h"
 
 namespace guiutils
 {
@@ -89,7 +90,7 @@ void AddStepSequencer(QGroupBox *GroupBox, QWidget *Parent, IStepSequencer &Cont
     GroupBox->layout()->addWidget(Box);
 }
 
-void AddOperatorStage(QGroupBox *GroupBox, QWidget *Parent, ICombinedOperatorStage &Controller)
+void AddCombinedOperatorStage(QGroupBox *GroupBox, QWidget *Parent, ICombinedOperatorStage &Controller)
 {
     QGroupBox* Box = new QGroupBox("Operator", Parent);
     QGridLayout* Layout = new QGridLayout();
@@ -113,6 +114,45 @@ void AddOperatorStage(QGroupBox *GroupBox, QWidget *Parent, ICombinedOperatorSta
     AddDoubleSpinBox(Layout, Parent, 4, 0, {"", 0.0, 0.0, 1.0, 0.001, 3}, [&Controller](double Value){ Controller.OnPhaseshift(0, Value); });
     AddLabel(Layout, Parent, 4, 1, "Phase Shift");
     AddDoubleSpinBox(Layout, Parent, 4, 2, {"", 0.0, 0.0, 1.0, 0.001, 3}, [&Controller](double Value){ Controller.OnPhaseshift(1, Value); });
+
+    Box->setLayout(Layout);
+    GroupBox->layout()->addWidget(Box);
+}
+
+void AddCombinedFoldedOperatorStage(QGroupBox *GroupBox, QWidget *Parent, ICombinedFoldedOperatorStage &Controller)
+{
+    QGroupBox* Box = new QGroupBox("Operator", Parent);
+    QGridLayout* Layout = new QGridLayout();
+
+    int GridX = 0;
+    AddLabel(Layout, Parent, GridX, 0, "Combinor");
+    AddComboBox(Layout, Parent, GridX, 1, {"", CSelectableCombinorFactory::SelectionList(), 0 }, [&Controller](int Value){ Controller.OnCombinor(Value); });
+    AddSmallButton(Layout, Parent, GridX, 2, "Sync", [&Controller](){ Controller.OnSync(); });
+
+    ++GridX;
+    AddDoubleSpinBox(Layout, Parent, GridX, 0, {"", 0.5, 0.0, 1.0, 0.01, 2}, [&Controller](double Value){ Controller.OnAmplitude(0, Value); });
+    AddLabel(Layout, Parent, GridX, 1, "Amplitude");
+    AddDoubleSpinBox(Layout, Parent, GridX, 2, {"", 0.5, 0.0, 1.0, 0.01, 2}, [&Controller](double Value){ Controller.OnAmplitude(1, Value); });
+
+    ++GridX;
+    AddDoubleSpinBox(Layout, Parent, GridX, 0, {"", 0.97, 0.0, 1.0, 0.01, 3}, [&Controller](double Value){ Controller.OnFold(0, Value); });
+    AddLabel(Layout, Parent, GridX, 1, "Fold");
+    AddDoubleSpinBox(Layout, Parent, GridX, 2, {"", 0.97, 0.0, 1.0, 0.01, 3}, [&Controller](double Value){ Controller.OnFold(1, Value); });
+
+    ++GridX;
+    AddComboBox(Layout, Parent, GridX, 0, {"", CSelectableOperatorFactory::SelectionList(), 0 }, [&Controller](int Value){ Controller.OnOperator(0, Value); });
+    AddLabel(Layout, Parent, GridX, 1, "Operator");
+    AddComboBox(Layout, Parent, GridX, 2, {"", CSelectableOperatorFactory::SelectionList(), 0 }, [&Controller](int Value){ Controller.OnOperator(1, Value); });
+
+    ++GridX;
+    AddDoubleSpinBox(Layout, Parent, GridX, 0, {"", 1.0, 0.0, 32.0, 0.001, 4}, [&Controller](double Value){ Controller.OnFrequencyMultiplier(0, Value); });
+    AddLabel(Layout, Parent, GridX, 1, "Freq Multiplier");
+    AddDoubleSpinBox(Layout, Parent, GridX, 2, {"", 1.0, 0.0, 32.0, 0.001, 4}, [&Controller](double Value){ Controller.OnFrequencyMultiplier(1, Value); });
+
+    ++GridX;
+    AddDoubleSpinBox(Layout, Parent, GridX, 0, {"", 0.0, 0.0, 1.0, 0.001, 3}, [&Controller](double Value){ Controller.OnPhaseshift(0, Value); });
+    AddLabel(Layout, Parent, GridX, 1, "Phase Shift");
+    AddDoubleSpinBox(Layout, Parent, GridX, 2, {"", 0.0, 0.0, 1.0, 0.001, 3}, [&Controller](double Value){ Controller.OnPhaseshift(1, Value); });
 
     Box->setLayout(Layout);
     GroupBox->layout()->addWidget(Box);

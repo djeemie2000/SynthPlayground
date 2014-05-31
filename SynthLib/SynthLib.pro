@@ -38,6 +38,7 @@ HEADERS += StepSequencer.h \
     NoOp.h \
     OnePoleFilter.h \
     CombinedOperatorStage.h \
+    CombinedFoldedOperatorStage.h \
     PhaseDecreaseCondition.h \
     PhaseGenerator.h \
     PhaseStep.h \
@@ -71,7 +72,10 @@ HEADERS += StepSequencer.h \
     LPFilterI.h \
     NonLinearShaperI.h \
     CombinedOperatorStageI.h \
-    AudioSourceI.h
+    CombinedFoldedOperatorStageI.h \
+    AudioSourceI.h \
+    Amp.h \
+    Modulator.h
 
 INCLUDEPATH += ./../AlsaMidiLib
 

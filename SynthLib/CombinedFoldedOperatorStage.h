@@ -8,21 +8,25 @@
 #include "SelectableOperator.h"
 #include "SelectableCombinor.h"
 #include "Conversions.h"
+#include "SymmetricalOperator.h"
+#include "WaveFolder.h"
 
 template<class T>
-class CCombinedOperatorStage
+class CCombinedFoldedOperatorStage
 {
 public:
     static constexpr int NumOsc = 2;
 
-    CCombinedOperatorStage(int SamplingFrequency, const CSelectableOperator<T>& Oscillator, const CSelectableCombinor<T>& Combinor)
+    CCombinedFoldedOperatorStage(int SamplingFrequency, const CSelectableOperator<T>& Oscillator, const CSelectableCombinor<T>& Combinor)
      : m_Frequency(440)
      , m_Dephase(0)
      , m_Oscillator()
      , m_Combinor(Combinor)
     {
-        m_Oscillator.fill({1/static_cast<T>(NumOsc), 0, 1, CPhaseStep<T>(SamplingFrequency), CPhaseGenerator<T>(), Oscillator});
+        m_Oscillator.fill({1/static_cast<T>(NumOsc), 0, 1, CPhaseStep<T>(SamplingFrequency), CPhaseGenerator<T>(), Oscillator, CSymmetricalOperator<T>(), CWaveFold2<T>()});
         SetFrequency(m_Frequency);
+        SetFold(0, 0.97);
+        SetFold(1, 0.97);
     }
 
     T operator()()
@@ -62,6 +66,11 @@ public:
         m_Oscillator[Oscillator].s_Amplitude = Amplitude;
     }
 
+    void SetFold(int Oscillator, T Fold)
+    {
+        m_Oscillator[Oscillator].s_Folder.SetFold(Fold);
+    }
+
     void SetPhaseShift(int Oscillator, const T& PhaseShift)
     {
         m_Oscillator[Oscillator].s_PhaseShift = PhaseShift;
@@ -85,10 +94,12 @@ private:
         CPhaseStep<T> s_PhaseStep;
         CPhaseGenerator<T> s_PhaseGenerator;
         CSelectableOperator<T> s_Oscillator;
+        CSymmetricalOperator<float> s_Symm;
+        CWaveFold2<T> s_Folder;
 
         T operator()()
         {
-            return s_Amplitude*s_Oscillator(s_PhaseGenerator(s_PhaseStep()));
+            return s_Amplitude*s_Symm(s_Oscillator(s_PhaseGenerator(s_PhaseStep())), s_Folder);
         }
     };
 

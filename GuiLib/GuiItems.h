@@ -10,6 +10,7 @@ class IWaveFolder;
 class ILPFilter;
 class INonLinearShaper;
 class ICombinedOperatorStage;
+class ICombinedFoldedOperatorStage;
 
 namespace guiutils
 {
@@ -24,7 +25,10 @@ void AddBitFX(QGroupBox *GroupBox, QWidget *Parent, IBitFx& Controller);
 
 void AddStepSequencer(QGroupBox *GroupBox, QWidget *Parent, IStepSequencer& Controller);
 
-void AddOperatorStage(QGroupBox *GroupBox, QWidget *Parent, ICombinedOperatorStage& Controller);
+void AddCombinedOperatorStage(QGroupBox *GroupBox, QWidget *Parent, ICombinedOperatorStage& Controller);
+
+void AddCombinedFoldedOperatorStage(QGroupBox *GroupBox, QWidget *Parent, ICombinedFoldedOperatorStage& Controller);
+
 
 }
 

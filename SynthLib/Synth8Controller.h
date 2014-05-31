@@ -6,8 +6,7 @@
 #include <cstdint>
 #include "SampleGrabber.h"
 #include "Smoother.h"
-#include "8BitFX.h"
-#include "CombinedOperatorStage.h"
+#include "CombinedFoldedOperatorStage.h"
 #include "Notes.h"
 #include "OnePoleFilter.h"
 #include "NonLinearShaper.h"
@@ -16,12 +15,11 @@
 #include "PeriodicTicker.h"
 #include "SampleGrabberI.h"
 #include "StepSequencerI.h"
-#include "BitFxI.h"
 #include "WaveFolderI.h"
 #include "NoteHandlerI.h"
 #include "LPFilterI.h"
 #include "NonLinearShaperI.h"
-#include "CombinedOperatorStageI.h"
+#include "CombinedFoldedOperatorStageI.h"
 #include "AudioSourceI.h"
 #include "MidiInputHandlerI.h"
 
@@ -31,11 +29,10 @@ class CSynth8Controller
                     : public IAudioSource
                     , public ISampleGrabber
                     , public INoteHandler
-                    , public ICombinedOperatorStage
+                    , public ICombinedFoldedOperatorStage
                     , public IWaveFolder
                     , public ILPFilter
                     , public INonLinearShaper
-                    , public IBitFx
                     , public IStepSequencer
                     , public IMidiInputHandler
 {
@@ -60,6 +57,7 @@ public:
     void OnAmplitude(int Idx, float Amplitude) override;
     void OnFrequencyMultiplier(int Idx, float FrequencyMultiplier) override;
     void OnPhaseshift(int Idx, float PhaseShift) override;
+    void OnFold(int Idx, float Fold) override;
 
     // WaveFolder
     void OnWaveFold(float Fold) override;
@@ -73,11 +71,6 @@ public:
     void OnNonLinearShaperA(float A) override;
     void OnNonLinearShaperB(float B) override;
     void OnNonLinearShaperPreGain(float PreGain) override;
-
-    // (8 bit) FX
-    void OnBitCrusherDepth(int Depth) override;
-    void OnSampleAndHoldPeriod(int Period) override;
-    void OnRipplerStrength(int Strength) override;
 
     // Step sequencer
     int NumSteps() const override;
@@ -103,9 +96,8 @@ private:
     bool m_GrabSample;
     CSampleGrabber<SampleValueType> m_SampleGrabber;
 
-    CCombinedOperatorStage<float> m_Oscillator;
+    CCombinedFoldedOperatorStage<float> m_Oscillator;
     float   m_Fold;
-    C16BitsSignedFX m_Fx;
     CMultiStageFilter<float, COnePoleLowPassFilter<float>, 24> m_LPFilter;
     CNonLinearShaper<float> m_NonLinearShaper;
     CBasicEnvelope<float> m_Envelope;
