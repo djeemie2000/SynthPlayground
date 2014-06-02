@@ -68,6 +68,8 @@ struct SComboboxProperties
 
 void AddComboBox(QGridLayout* Layout, QWidget* Parent, int X, int Y, const SComboboxProperties& Properties, IntValueChangedCallbackType Callback);
 
+void AddComboBox(QGroupBox* GroupBox, QWidget* Parent, const SComboboxProperties& Properties, IntValueChangedCallbackType Callback);
+
 }
 
 #endif // GUIUTILITIES_H

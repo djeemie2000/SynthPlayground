@@ -177,9 +177,15 @@ void AddCallback(QComboBox* ComboBox, QWidget* Parent, IntValueChangedCallbackTy
 
 void AddComboBox(QGridLayout *Layout, QWidget *Parent, int X, int Y, const SComboboxProperties &Properties, IntValueChangedCallbackType Callback)
 {
-    //TODO
     QComboBox* ComboBox = CreateComboBox(Parent, Properties);
     Layout->addWidget(ComboBox, Y, X);
+    AddCallback(ComboBox, Parent, Callback);
+}
+
+void AddComboBox(QGroupBox* GroupBox, QWidget* Parent, const SComboboxProperties& Properties, IntValueChangedCallbackType Callback)
+{
+    QComboBox* ComboBox = CreateComboBox(Parent, Properties);
+    GroupBox->layout()->addWidget(ComboBox);
     AddCallback(ComboBox, Parent, Callback);
 }
 

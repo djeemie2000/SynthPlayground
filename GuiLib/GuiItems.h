@@ -11,6 +11,7 @@ class ILPFilter;
 class INonLinearShaper;
 class ICombinedOperatorStage;
 class ICombinedFoldedOperatorStage;
+class ILFOs;
 
 namespace guiutils
 {
@@ -29,6 +30,7 @@ void AddCombinedOperatorStage(QGroupBox *GroupBox, QWidget *Parent, ICombinedOpe
 
 void AddCombinedFoldedOperatorStage(QGroupBox *GroupBox, QWidget *Parent, ICombinedFoldedOperatorStage& Controller);
 
+void AddLFO(QGroupBox *GroupBox, QWidget *Parent, ILFOs& LFOs);
 
 }
 

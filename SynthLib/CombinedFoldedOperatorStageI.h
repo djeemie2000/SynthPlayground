@@ -13,6 +13,7 @@ public:
     virtual void OnFrequencyMultiplier(int Idx, float FrequencyMultiplier) =0;
     virtual void OnPhaseshift(int Idx, float PhaseShift) =0;
     virtual void OnFold(int Idx, float Fold) =0;
+    virtual void OnFoldModAmount(int Oscillator, float Amount) =0;
 
 };
 

@@ -12,6 +12,7 @@
 #include "SelectableCombinorFactory.h"
 #include "SelectableOperatorFactory.h"
 #include "CombinedFoldedOperatorStageI.h"
+#include "LFOsI.h"
 
 namespace guiutils
 {
@@ -140,6 +141,11 @@ void AddCombinedFoldedOperatorStage(QGroupBox *GroupBox, QWidget *Parent, ICombi
     AddDoubleSpinBox(Layout, Parent, GridX, 2, {"", 0.97, 0.0, 1.0, 0.01, 3}, [&Controller](double Value){ Controller.OnFold(1, Value); });
 
     ++GridX;
+    AddDoubleSpinBox(Layout, Parent, GridX, 0, {"", 0.0, -1.0, 1.0, 0.01, 3}, [&Controller](double Value){ Controller.OnFoldModAmount(0, Value); });
+    AddLabel(Layout, Parent, GridX, 1, "FoldModAmt");
+    AddDoubleSpinBox(Layout, Parent, GridX, 2, {"", 0.0, -1.0, 1.0, 0.01, 3}, [&Controller](double Value){ Controller.OnFoldModAmount(1, Value); });
+
+    ++GridX;
     AddComboBox(Layout, Parent, GridX, 0, {"", CSelectableOperatorFactory::SelectionList(), 0 }, [&Controller](int Value){ Controller.OnOperator(0, Value); });
     AddLabel(Layout, Parent, GridX, 1, "Operator");
     AddComboBox(Layout, Parent, GridX, 2, {"", CSelectableOperatorFactory::SelectionList(), 0 }, [&Controller](int Value){ Controller.OnOperator(1, Value); });
@@ -156,6 +162,16 @@ void AddCombinedFoldedOperatorStage(QGroupBox *GroupBox, QWidget *Parent, ICombi
 
     Box->setLayout(Layout);
     GroupBox->layout()->addWidget(Box);
+}
+
+void AddLFO(QGroupBox *GroupBox, QWidget *Parent, ILFOs &LFOs)
+{
+    // add child groupbox
+    QGroupBox* Box = AddGroupBox(GroupBox, Parent, "LFO");
+    // add "Frequency" double spin box
+    AddDoubleSpinBox(Box, Parent, {"Freq", 1.0, 0.01, 44100.0, 0.1, 2}, [&LFOs](double Value){ LFOs.SetFrequency(0, Value); });
+    // add waveform selection
+    AddComboBox(Box, Parent, {"Shape", CSelectableOperatorFactory::SelectionList(), 3 }, [&LFOs](int Value){ LFOs.SelectWaveform(0, Value); });
 }
 
 }

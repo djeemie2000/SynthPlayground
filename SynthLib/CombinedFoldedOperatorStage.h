@@ -23,15 +23,18 @@ public:
      , m_Oscillator()
      , m_Combinor(Combinor)
     {
-        m_Oscillator.fill({1/static_cast<T>(NumOsc), 0, 1, CPhaseStep<T>(SamplingFrequency), CPhaseGenerator<T>(), Oscillator, CSymmetricalOperator<T>(), CWaveFold2<T>()});
+        m_Oscillator.fill({1/static_cast<T>(NumOsc), 0, 1, 0.97, 0.0, CPhaseStep<T>(SamplingFrequency), CPhaseGenerator<T>(), Oscillator, CSymmetricalOperator<T>(), CWaveFold2<T>()});
         SetFrequency(m_Frequency);
-        SetFold(0, 0.97);
-        SetFold(1, 0.97);
     }
 
     T operator()()
     {
         return m_Combinor(m_Oscillator[0](), m_Oscillator[1]());
+    }
+
+    T operator()(T ModIn)
+    {
+        return m_Combinor(m_Oscillator[0](ModIn), m_Oscillator[1](ModIn));
     }
 
     void Sync()
@@ -68,7 +71,12 @@ public:
 
     void SetFold(int Oscillator, T Fold)
     {
-        m_Oscillator[Oscillator].s_Folder.SetFold(Fold);
+        m_Oscillator[Oscillator].s_Fold = Fold;
+    }
+
+    void SetFoldModAmount(int Oscillator, T Amount)
+    {
+        m_Oscillator[Oscillator].s_ModAmount = Amount;
     }
 
     void SetPhaseShift(int Oscillator, const T& PhaseShift)
@@ -91,6 +99,8 @@ private:
         T s_Amplitude;
         T s_PhaseShift;
         T s_FrequencyMultiplier;
+        T s_Fold;
+        T s_ModAmount;
         CPhaseStep<T> s_PhaseStep;
         CPhaseGenerator<T> s_PhaseGenerator;
         CSelectableOperator<T> s_Oscillator;
@@ -99,7 +109,11 @@ private:
 
         T operator()()
         {
-            return s_Amplitude*s_Symm(s_Oscillator(s_PhaseGenerator(s_PhaseStep())), s_Folder);
+            return s_Amplitude*s_Symm(s_Oscillator(s_PhaseGenerator(s_PhaseStep())), s_Folder, s_Fold);
+        }
+        T operator()(T ModIn)
+        {
+            return s_Amplitude*s_Symm(s_Oscillator(s_PhaseGenerator(s_PhaseStep())), s_Folder, s_Fold+s_ModAmount*ModIn);
         }
     };
 

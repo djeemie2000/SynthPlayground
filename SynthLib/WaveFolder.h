@@ -72,6 +72,32 @@ public:
         return Out;
     }
 
+    T operator()(T In, T Fold)
+    {
+        // In in [0, 1]
+        T Out = In/Fold;
+
+        bool Done = false;
+        while(!Done)
+        {
+            if(Out<1)
+            {
+                Done = true;
+            }
+            else if(Out<2)
+            {
+                Out = 2 - Out;
+                Done = true;
+            }
+            else
+            {
+                Out -= 2;
+            }
+        }
+
+        return Out;
+    }
+
 private:
     T m_Fold;
 };

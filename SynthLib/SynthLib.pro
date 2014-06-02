@@ -75,7 +75,9 @@ HEADERS += StepSequencer.h \
     CombinedFoldedOperatorStageI.h \
     AudioSourceI.h \
     Amp.h \
-    Modulator.h
+    Modulator.h \
+    LFO.h \
+    LFOsI.h
 
 INCLUDEPATH += ./../AlsaMidiLib
 

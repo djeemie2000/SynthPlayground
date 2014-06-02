@@ -22,6 +22,8 @@
 #include "CombinedFoldedOperatorStageI.h"
 #include "AudioSourceI.h"
 #include "MidiInputHandlerI.h"
+#include "LFOsI.h"
+#include "LFO.h"
 
 class IScope;
 
@@ -35,6 +37,7 @@ class CSynth8Controller
                     , public INonLinearShaper
                     , public IStepSequencer
                     , public IMidiInputHandler
+                    , public ILFOs
 {
 public:
     CSynth8Controller(IScope& Scope, int SamplingFrequency);
@@ -58,6 +61,7 @@ public:
     void OnFrequencyMultiplier(int Idx, float FrequencyMultiplier) override;
     void OnPhaseshift(int Idx, float PhaseShift) override;
     void OnFold(int Idx, float Fold) override;
+    void OnFoldModAmount(int Oscillator, float Amount) override;
 
     // WaveFolder
     void OnWaveFold(float Fold) override;
@@ -89,6 +93,10 @@ public:
     void OnPitchbend(int) override;
     void OnUnknown() override;
 
+    // LFOs
+    void SetFrequency(int Idx, float Frequency) override;
+    void SelectWaveform(int Idx, int Selected) override;
+
 private:
     typedef std::int16_t SampleValueType;
     IScope& m_Scope;
@@ -103,6 +111,7 @@ private:
     CBasicEnvelope<float> m_Envelope;
     CStepSequencer2<float, 8> m_StepSequencer;
     CPeriodicTicker m_StepSequencerTicker;
+    CLFO<float> m_LFO1;
 };
 
 #endif // SYNTH8CONTROLLER_H
