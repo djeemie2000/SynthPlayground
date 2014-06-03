@@ -5,7 +5,6 @@
 #include <vector>
 #include <cstdint>
 #include "SampleGrabber.h"
-#include "Smoother.h"
 #include "CombinedFoldedOperatorStage.h"
 #include "Notes.h"
 #include "OnePoleFilter.h"
@@ -22,7 +21,7 @@
 #include "CombinedFoldedOperatorStageI.h"
 #include "AudioSourceI.h"
 #include "MidiInputHandlerI.h"
-#include "LFOsI.h"
+#include "LFOBankI.h"
 #include "LFO.h"
 
 class IScope;
@@ -37,7 +36,7 @@ class CSynth8Controller
                     , public INonLinearShaper
                     , public IStepSequencer
                     , public IMidiInputHandler
-                    , public ILFOs
+                    , public ILFOBank
 {
 public:
     CSynth8Controller(IScope& Scope, int SamplingFrequency);
@@ -94,8 +93,9 @@ public:
     void OnUnknown() override;
 
     // LFOs
-    void SetFrequency(int Idx, float Frequency) override;
-    void SelectWaveform(int Idx, int Selected) override;
+    void SetLFOFrequency(int Idx, float Frequency) override;
+    void SelectLFOWaveform(int Idx, int Selected) override;
+    int LFOBankSize() const override;
 
 private:
     typedef std::int16_t SampleValueType;
@@ -111,7 +111,7 @@ private:
     CBasicEnvelope<float> m_Envelope;
     CStepSequencer2<float, 8> m_StepSequencer;
     CPeriodicTicker m_StepSequencerTicker;
-    CLFO<float> m_LFO1;
+    std::vector<CLFO<float>> m_LFO;
 };
 
 #endif // SYNTH8CONTROLLER_H

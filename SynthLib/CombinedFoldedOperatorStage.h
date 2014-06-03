@@ -32,9 +32,9 @@ public:
         return m_Combinor(m_Oscillator[0](), m_Oscillator[1]());
     }
 
-    T operator()(T ModIn)
+    T operator()(T ModIn1, T ModIn2)
     {
-        return m_Combinor(m_Oscillator[0](ModIn), m_Oscillator[1](ModIn));
+        return m_Combinor(m_Oscillator[0](ModIn1), m_Oscillator[1](ModIn2));
     }
 
     void Sync()

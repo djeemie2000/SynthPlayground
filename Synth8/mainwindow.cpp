@@ -34,7 +34,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_MidiInput = new CMidiInput(*m_MidiInputHandler);
 
     // build gui
-    guiutils::AddLFO(ui->groupBox_Operator, this, *m_Controller);
+    guiutils::AddLFOBank(ui->groupBox_Operator, this, *m_Controller);
     guiutils::AddCombinedFoldedOperatorStage(ui->groupBox_Operator, this, *m_Controller);
     m_ScopeWidget = new QScopeWidget(*m_Controller, this);
     connect(Scope, SIGNAL(SignalSample(QVector<std::int16_t>)), m_ScopeWidget, SLOT(OnSample(QVector<std::int16_t>)));

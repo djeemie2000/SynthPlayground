@@ -12,7 +12,7 @@
 #include "SelectableCombinorFactory.h"
 #include "SelectableOperatorFactory.h"
 #include "CombinedFoldedOperatorStageI.h"
-#include "LFOsI.h"
+#include "LFOBankI.h"
 
 namespace guiutils
 {
@@ -164,14 +164,24 @@ void AddCombinedFoldedOperatorStage(QGroupBox *GroupBox, QWidget *Parent, ICombi
     GroupBox->layout()->addWidget(Box);
 }
 
-void AddLFO(QGroupBox *GroupBox, QWidget *Parent, ILFOs &LFOs)
+void AddLFOBank(QGroupBox *GroupBox, QWidget *Parent, ILFOBank &LFOBank)
 {
-    // add child groupbox
-    QGroupBox* Box = AddGroupBox(GroupBox, Parent, "LFO");
-    // add "Frequency" double spin box
-    AddDoubleSpinBox(Box, Parent, {"Freq", 1.0, 0.01, 44100.0, 0.1, 2}, [&LFOs](double Value){ LFOs.SetFrequency(0, Value); });
-    // add waveform selection
-    AddComboBox(Box, Parent, {"Shape", CSelectableOperatorFactory::SelectionList(), 3 }, [&LFOs](int Value){ LFOs.SelectWaveform(0, Value); });
+    QGroupBox* Box = new QGroupBox("LFOBank", Parent);
+    QGridLayout* Layout = new QGridLayout();
+
+    AddLabel(Layout, Parent, 0, 0, "Freq");
+    AddLabel(Layout, Parent, 1, 0, "Shape");
+
+    for(int idxLFO = 0; idxLFO<LFOBank.LFOBankSize(); ++idxLFO)
+    {
+        // add "Frequency" double spin box
+        AddDoubleSpinBox(Layout, Parent, 0, idxLFO+1, {"", 1.0, 0.01, 44100.0, 0.1, 2}, [&LFOBank,idxLFO](double Value){ LFOBank.SetLFOFrequency(idxLFO, Value); });
+        // add waveform selection
+        AddComboBox(Layout, Parent, 1, idxLFO+1, {"", CSelectableOperatorFactory::SelectionList(), 3 }, [&LFOBank,idxLFO](int Value){ LFOBank.SelectLFOWaveform(idxLFO, Value); });
+    }
+
+    Box->setLayout(Layout);
+    GroupBox->layout()->addWidget(Box);
 }
 
 }

@@ -22,7 +22,7 @@ CSynth8Controller::CSynth8Controller(IScope &Scope, int SamplingFrequency)
     , m_NonLinearShaper()
     , m_Envelope()
     , m_StepSequencer(SamplingFrequency)
-    , m_LFO1(SamplingFrequency, CSelectableOperatorFactory::Create())
+    , m_LFO(2, {SamplingFrequency, CSelectableOperatorFactory::Create()})
 {
     m_Oscillator.SetFrequency(CPitch()(ENote::A, EOctave::Octave2));
     m_Oscillator.Select(0, 0);
@@ -34,8 +34,11 @@ CSynth8Controller::CSynth8Controller(IScope &Scope, int SamplingFrequency)
     m_StepSequencer.SetBarsPerBeat(2);
     m_StepSequencerTicker.SetPeriod(m_StepSequencer.PeriodSamples());
 
-    m_LFO1.SetFrequency(1);
-    m_LFO1.SelectWaveform(0);
+    for(auto& LFO : m_LFO)
+    {
+        LFO.SetFrequency(1);
+        LFO.SelectWaveform(0);
+    }
 }
 
 CSynth8Controller::~CSynth8Controller()
@@ -200,14 +203,19 @@ void CSynth8Controller::OnUnknown()
 {
 }
 
-void CSynth8Controller::SetFrequency(int Idx, float Frequency)
+void CSynth8Controller::SetLFOFrequency(int Idx, float Frequency)
 {
-    m_LFO1.SetFrequency(Frequency);
+    m_LFO.at(Idx).SetFrequency(Frequency);
 }
 
-void CSynth8Controller::SelectWaveform(int Idx, int Selected)
+void CSynth8Controller::SelectLFOWaveform(int Idx, int Selected)
 {
-    m_LFO1.SelectWaveform(Selected);
+    m_LFO.at(Idx).SelectWaveform(Selected);
+}
+
+int CSynth8Controller::LFOBankSize() const
+{
+    return static_cast<int>(m_LFO.size());
 }
 
 void CSynth8Controller::OnGrab(int GrabSize)
@@ -248,7 +256,7 @@ std::int64_t CSynth8Controller::OnRead(char *Dst, std::int64_t MaxSize)
                 OnNoteOn(m_StepSequencer.CurrentStep().s_Note, m_StepSequencer.CurrentStep().s_Octave);
             }
         }
-        *pDst = (SignedToInt16<float>(m_Envelope()*Symm2(m_LPFilter(Symm(m_Oscillator(m_LFO1()), Fold)), m_NonLinearShaper)));
+        *pDst = (SignedToInt16<float>(m_Envelope()*Symm2(m_LPFilter(Symm(m_Oscillator(m_LFO[0](), m_LFO[1]()), Fold)), m_NonLinearShaper)));
         ++pDst;
     }
 

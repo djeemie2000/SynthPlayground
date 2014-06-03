@@ -77,7 +77,7 @@ HEADERS += StepSequencer.h \
     Amp.h \
     Modulator.h \
     LFO.h \
-    LFOsI.h
+    LFOBankI.h
 
 INCLUDEPATH += ./../AlsaMidiLib
 
