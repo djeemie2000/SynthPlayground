@@ -1,6 +1,7 @@
 #include <iostream>
 #include <deque>
 #include <vector>
+#include <map>
 #include <functional>
 #include <string>
 
@@ -8,20 +9,20 @@ using namespace std;
 
 struct SCmdStackItem
 {
-    int s_Id;
+    std::string s_Name;
     bool s_BoolValue;
     int s_IntValue;
     float s_FloatValue;
 
     SCmdStackItem()
-        : s_Id(-1)
+        : s_Name()
         , s_BoolValue(false)
         , s_IntValue(-1)
         , s_FloatValue(-1.0f)
     {}
 
-    SCmdStackItem(int Id, bool BoolValue, int IntValue, float FloatValue)
-        : s_Id(Id)
+    SCmdStackItem(const std::string& Name, bool BoolValue, int IntValue, float FloatValue)
+        : s_Name(Name)
         , s_BoolValue(BoolValue)
         , s_IntValue(IntValue)
         , s_FloatValue(FloatValue)
@@ -30,18 +31,22 @@ struct SCmdStackItem
 
 typedef std::deque<SCmdStackItem> CmdStack;
 
-
 typedef std::function<void(const SCmdStackItem&)> CmdFunction;
-typedef std::vector<CmdFunction> CmdFunctionList;
+typedef std::map<std::string, CmdFunction> CmdFunctionMap;
 
-
-void ExecuteCmdStack(CmdStack& Stack, const CmdFunctionList& FunctionList)
+void ExecuteCmdStack(CmdStack& Stack, const CmdFunctionMap& FunctionMap)
 {
-    while(!Stack.empty())
+    for(auto& Item : Stack)
     {
-        SCmdStackItem& Item = Stack.front();
-        FunctionList.at(Item.s_Id)(Item);//execute function stack item ~Id
-        Stack.pop_front();
+        auto itFunction = FunctionMap.find(Item.s_Name);
+        if(itFunction!=FunctionMap.end())
+        {
+            itFunction->second(Item); //execute function stack item ~Name
+        }
+        else
+        {
+            std::cout << "Error! executing unknown function " << Item.s_Name << std::endl;
+        }
     }
 }
 
@@ -82,57 +87,53 @@ public:
 
 };
 
-
-typedef std::vector<std::string> CmdNameList;
-std::string GetName(const CmdNameList& NameList, int Id)
+void BuildCmdFunctionMap(CDummyController& Controller, CmdFunctionMap& FunctionMap)
 {
-    return NameList.at(Id);
+    FunctionMap["DummyController/BoolCmd1"] = [&Controller](const SCmdStackItem& Item){ Controller.BoolCommand1(Item.s_BoolValue);} ;
+    FunctionMap["DummyController/BoolCmd2"] = [&Controller](const SCmdStackItem& Item){ Controller.BoolCommand2(Item.s_BoolValue);} ;
+    FunctionMap["DummyController/IntCmd1"] = [&Controller](const SCmdStackItem& Item){ Controller.IntCommand1(Item.s_IntValue);} ;
+    FunctionMap["DummyController/IntCmd2"] = [&Controller](const SCmdStackItem& Item){ Controller.IntCommand2(Item.s_IntValue);} ;
+    FunctionMap["DummyController/FloatCmd1"] = [&Controller](const SCmdStackItem& Item){ Controller.FloatCommand1(Item.s_FloatValue);} ;
+    FunctionMap["DummyController/FloatCmd2"] = [&Controller](const SCmdStackItem& Item){ Controller.FloatCommand2(Item.s_FloatValue);} ;
 }
 
-void BuildCmdFunctionList(CDummyController& Controller, CmdFunctionList& FunctionList, CmdNameList& NameList)
+void TestCmdFunctionMap(const CmdFunctionMap& FunctionMap, const SCmdStackItem& Item)
 {
-    // assumes list is empty?
-    FunctionList.push_back([&Controller](const SCmdStackItem& Item){ Controller.BoolCommand1(Item.s_BoolValue);}  );
-    NameList.push_back("DummyController/BoolCmd1");
-    FunctionList.push_back([&Controller](const SCmdStackItem& Item){ Controller.BoolCommand2(Item.s_BoolValue);}  );
-    NameList.push_back("DummyController/BoolCmd2");
-    FunctionList.push_back([&Controller](const SCmdStackItem& Item){ Controller.IntCommand1(Item.s_IntValue);}  );
-    NameList.push_back("DummyController/IntCmd1");
-    FunctionList.push_back([&Controller](const SCmdStackItem& Item){ Controller.IntCommand2(Item.s_IntValue);}  );
-    NameList.push_back("DummyController/IntCmd2");
-    FunctionList.push_back([&Controller](const SCmdStackItem& Item){ Controller.FloatCommand1(Item.s_FloatValue);}  );
-    NameList.push_back("DummyController/FloatCmd1");
-    FunctionList.push_back([&Controller](const SCmdStackItem& Item){ Controller.FloatCommand2(Item.s_FloatValue);}  );
-    NameList.push_back("DummyController/FloatCmd2");
-}
-
-void TestCmdFunctionList(const CmdFunctionList& FunctionList, const SCmdStackItem& Item)
-{
-    for(auto& Function : FunctionList)
+    for(auto& Function : FunctionMap)
     {
-        Function(Item);
+        std::cout << "Testing Cmd " << Function.first << ": " << std::endl;
+        Function.second(Item);
     }
 }
 
-void ExportCurrent(const CmdStack& Current, const CmdNameList& NameList)
+void ExportCurrent(const CmdStack& Current)
 {
     for(auto& Item : Current)
     {
-        std::cout << "Exporting: Name=" << NameList.at(Item.s_Id)
+        std::cout << "Exporting: Name=" << Item.s_Name
                   << " BoolValue=" << Item.s_BoolValue
                   << " IntValue=" << Item.s_IntValue
                   << " FloatValue=" << Item.s_FloatValue
-                  << " (internal Id=" << Item.s_Id << ")"
                   << std::endl;
     }
 }
 
-void ExtractCurrent(const CmdStack& Stack, int NumFunctionIds, CmdStack& Current)
+
+typedef std::map<std::string, SCmdStackItem> CmdStackMap;
+
+void UpdateCurrent(const CmdStack& Stack, CmdStackMap& Current)
 {
-    Current.assign(NumFunctionIds, SCmdStackItem());
     for(auto& Item : Stack)
     {
-        Current.at(Item.s_Id) = Item;
+        Current[Item.s_Name] = Item;
+    }
+}
+
+void ExtractCurrentStack(const CmdStackMap& Current, CmdStack& CurrentStack)
+{
+    for(auto& Item : Current)
+    {
+        CurrentStack.push_back(Item.second);
     }
 }
 
@@ -142,38 +143,40 @@ int main()
 
 
     CDummyController Controller;
-    CmdFunctionList FunctionList;
-    CmdNameList NameList;
-    BuildCmdFunctionList(Controller, FunctionList, NameList);
+    CmdFunctionMap FunctionMap;
+    BuildCmdFunctionMap(Controller, FunctionMap);
 
-    std::cout << "Testing CmdFunction list " << std::endl;
-    TestCmdFunctionList(FunctionList, { 0, true, 2, 3.0f});
+    std::cout << "Testing CmdFunction map " << std::endl;
+    TestCmdFunctionMap(FunctionMap, { "0", true, 2, 3.0f});
 
     CmdStack Stack;
-    Stack.push_back({ 0, true, 2, 3.0f});
-    Stack.push_back({ 0, false, 2, 3.0f});
-    Stack.push_back({ 1, true, 2, 3.0f});
-    Stack.push_back({ 1, false, 2, 3.0f});
-    Stack.push_back({ 2, true, 2, 3.0f});
-    Stack.push_back({ 2, true, -2, 3.0f});
-    Stack.push_back({ 3, true, 2, 3.0f});
-    Stack.push_back({ 3, true, -2, 3.0f});
-    Stack.push_back({ 4, true, 2, 3.0f});
-    Stack.push_back({ 4, true, 2, -3.0f});
-    Stack.push_back({ 5, true, 2, 3.0f});
-    Stack.push_back({ 5, true, 2, -3.0f});
-
-    CmdStack Current;
-    ExtractCurrent(Stack, FunctionList.size(), Current);
+    Stack.push_back({ "DummyController/BoolCmd1", true, 2, 3.0f});
+    Stack.push_back({ "DummyController/BoolCmd1", false, 2, 3.0f});
+    Stack.push_back({ "DummyController/BoolCmd2", true, 2, 3.0f});
+    Stack.push_back({ "DummyController/BoolCmd2", false, 2, 3.0f});
+    Stack.push_back({ "DummyController/IntCmd1", true, 2, 3.0f});
+    Stack.push_back({ "DummyController/IntCmd1", true, -2, 3.0f});
+    Stack.push_back({ "DummyController/IntCmd2", true, 2, 3.0f});
+    Stack.push_back({ "DummyController/IntCmd2", true, -2, 3.0f});
+    Stack.push_back({ "DummyController/FloatCmd1", true, 2, 3.0f});
+    Stack.push_back({ "DummyController/FloatCmd1", true, 2, -3.0f});
+    Stack.push_back({ "DummyController/FloatCmd2", true, 2, 3.0f});
+    Stack.push_back({ "DummyController/FloatCmd2", true, 2, -3.0f});
 
     std::cout << "Executing Cmd stack" << std::endl;
-    ExecuteCmdStack(Stack, FunctionList);
+    ExecuteCmdStack(Stack, FunctionMap);
+
+    std::cout << "Updating current commands with Cmd stack" << std::endl;
+    CmdStackMap Current;
+    UpdateCurrent(Stack, Current);
 
     std::cout << "Exporting current Cmd stack" << std::endl;
-    ExportCurrent(Current, NameList);
+    CmdStack CurrentStack;
+    ExtractCurrentStack(Current, CurrentStack);
+    ExportCurrent(CurrentStack);
 
-//    std::cout << "Executing current Cmd stack" << std::endl;
-//    ExecuteCmdStack(Current, FunctionList);
+    std::cout << "Executing current Cmd stack" << std::endl;
+    ExecuteCmdStack(CurrentStack, FunctionMap);
 
     return 0;
 }
