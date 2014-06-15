@@ -10,12 +10,14 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     QCommandSender.cpp \
     CommandStack.cpp \
-    QCommandStackHandler.cpp
+    QCommandStackHandler.cpp \
+    AppSpecific.cpp
 
 HEADERS  += mainwindow.h \
     QCommandSender.h \
     CommandStack.h \
-    QCommandStackHandler.h
+    QCommandStackHandler.h \
+    AppSpecific.h
 
 FORMS    += mainwindow.ui
 

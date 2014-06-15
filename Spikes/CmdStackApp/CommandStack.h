@@ -49,49 +49,6 @@ typedef std::map<std::string, CmdFunction> CmdFunctionMap;
 
 void ExecuteCmdStack(CmdStack& Stack, ICommandStackHandler &Handler);
 
-class CDummyController
-{
-public:
-    CDummyController(){}
-
-    void BoolCommand1(bool Value)
-    {
-        std::cout << "BoolCommand1 " << Value << std::endl;
-    }
-
-    void BoolCommand2(bool Value)
-    {
-        std::cout << "BoolCommand2 " << Value << std::endl;
-    }
-
-    void IntCommand1(int Value)
-    {
-        std::cout << "IntCommand1 " << Value << std::endl;
-    }
-
-    void IntCommand2(int Value)
-    {
-        std::cout << "IntCommand2 " << Value << std::endl;
-    }
-
-    void FloatCommand1(float Value)
-    {
-        std::cout << "FloatCommand1 " << Value << std::endl;
-    }
-
-    void FloatCommand2(float Value)
-    {
-        std::cout << "FloatCommand2 " << Value << std::endl;
-    }
-
-    void Command1()
-    {
-        std::cout << "Command1 (no value)" << std::endl;
-    }
-
-};
-
-void BuildCmdFunctionMap(CDummyController& Controller, CmdFunctionMap& FunctionMap);
 void TestCmdFunctionMap(const CmdFunctionMap& FunctionMap, const SCmdStackItem& Item);
 
 typedef std::map<std::string, SCmdStackItem> CmdStackMap;
@@ -128,17 +85,22 @@ public:
     virtual ~IImporter(){}
 
     virtual bool Import(const std::string& Path) =0;
+
+    virtual bool Default() =0;
 };
 
 class CCommandStackImporter : public IImporter
 {
 public:
-    CCommandStackImporter(SPCommandStackHandler Handler);
+    CCommandStackImporter(SPCommandStackHandler Handler, const CmdStack& Defaults);
 
     bool Import(const string &Path) override;
 
+    bool Default() override;
+
 private:
     SPCommandStackHandler m_Handler;
+    CmdStack m_DefaultStack;
 };
 
 class CExecuteCommandStackHandler : public ICommandStackHandler

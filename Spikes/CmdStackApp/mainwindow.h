@@ -10,7 +10,7 @@ class MainWindow;
 
 class ICommandStackHandler;
 class IExporter;
-class CDummyController;
+class CAppSpecificController;
 class IImporter;
 
 class MainWindow : public QMainWindow
@@ -27,10 +27,12 @@ private slots:
 
     void on_pushButton_Import_clicked();
 
+    void on_pushButton_Default_clicked();
+
 private:
     Ui::MainWindow *ui;
 
-    std::shared_ptr<CDummyController> m_Controller;
+    std::shared_ptr<CAppSpecificController> m_Controller;
     std::shared_ptr<ICommandStackHandler> m_Handler;
     std::shared_ptr<IExporter> m_Exporter;
     std::shared_ptr<IImporter> m_Importer;

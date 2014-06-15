@@ -1,17 +1,6 @@
 #include "CommandStack.h"
 #include <fstream>
 
-void BuildCmdFunctionMap(CDummyController& Controller, CmdFunctionMap& FunctionMap)
-{
-    FunctionMap["Internal/Param1"] = [&Controller](const SCmdStackItem& Item){ Controller.BoolCommand1(Item.s_BoolValue);} ;
-    FunctionMap["Internal/BoolCmd2"] = [&Controller](const SCmdStackItem& Item){ Controller.BoolCommand2(Item.s_BoolValue);} ;
-    FunctionMap["Internal/Param2"] = [&Controller](const SCmdStackItem& Item){ Controller.IntCommand1(Item.s_IntValue);} ;
-    FunctionMap["Internal/Param4"] = [&Controller](const SCmdStackItem& Item){ Controller.IntCommand2(Item.s_IntValue);} ;
-    FunctionMap["Internal/Param3"] = [&Controller](const SCmdStackItem& Item){ Controller.FloatCommand1(Item.s_FloatValue);} ;
-    FunctionMap["Internal/FloatCmd2"] = [&Controller](const SCmdStackItem& Item){ Controller.FloatCommand2(Item.s_FloatValue);} ;
-    FunctionMap["Internal/Param5"] = [&Controller](const SCmdStackItem& Item){ Controller.Command1();} ;
-}
-
 void TestCmdFunctionMap(const CmdFunctionMap& FunctionMap, const SCmdStackItem& Item)
 {
     for(auto& Function : FunctionMap)
@@ -200,8 +189,9 @@ void CMultiCommandStackHandler::Register(SPCommandStackHandler Handler)
 }
 
 
-CCommandStackImporter::CCommandStackImporter(SPCommandStackHandler Handler)
+CCommandStackImporter::CCommandStackImporter(SPCommandStackHandler Handler, const CmdStack &Defaults)
  : m_Handler(Handler)
+ , m_DefaultStack(Defaults)
 {
 }
 
@@ -217,6 +207,15 @@ bool CCommandStackImporter::Import(const string &Path)
         return true;
     }
     return false;
+}
+
+bool CCommandStackImporter::Default()
+{
+    for(auto& Item : m_DefaultStack)
+    {
+        m_Handler->Handle(Item);
+    }
+    return true;
 }
 
 

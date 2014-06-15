@@ -3,8 +3,21 @@
 #include <QFileDialog>
 
 #include "CommandStack.h"
+#include "AppSpecific.h"
 #include "QCommandSender.h"
 #include "QCommandStackHandler.h"
+
+
+void ConnectToolButton(QToolButton* Button, QWidget* Parent, const std::string& ParameterName, ICommandStackHandler& Handler, IRegisterNamedCommandStackHandler& FeedbackDistributor)
+{
+    // gui -> controller
+    QCommandSender* Sender = new QCommandSender(ParameterName, Handler, Parent);
+    Parent->connect(Button, SIGNAL(clicked(bool)), Sender, SLOT(OnBoolChanged(bool)));
+    // controller -> gui
+    QCommandStackHandler* Reciever = new QCommandStackHandler();//no ownership by parent!
+    Parent->connect(Reciever, SIGNAL(SignalBoolValueChanged(bool)), Button, SLOT(setChecked(bool)));
+    FeedbackDistributor.Register(ParameterName, SPCommandStackHandler(Reciever));
+}
 
 MainWindow::MainWindow(QWidget *parent)
   : QMainWindow(parent)
@@ -21,7 +34,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->comboBox_Param4->setCurrentIndex(0);
 
     // app-specific controller
-    m_Controller.reset(new CDummyController());
+    m_Controller.reset(new CAppSpecificController());
 
     // command stack handling
     std::unique_ptr<CMultiCommandStackHandler> MultiHandler(new CMultiCommandStackHandler());
@@ -31,9 +44,8 @@ MainWindow::MainWindow(QWidget *parent)
     std::shared_ptr<CExportCommandStackHandler> Exporter(new CExportCommandStackHandler());
     MultiHandler->Register(Exporter);
 
-    CmdFunctionMap FunctionMap;
-    BuildCmdFunctionMap(*m_Controller, FunctionMap);// app-specific function map
-    MultiHandler->Register(SPCommandStackHandler(new CExecuteCommandStackHandler(FunctionMap)));
+    // app-specific function map
+    MultiHandler->Register(SPCommandStackHandler(new CExecuteCommandStackHandler(BuildAppSpecificCmdFunctionMap(*m_Controller))));
 
     // distributor: handles feedback from controller to gui
     std::shared_ptr<CCommandStackDistributor> Distributor(new CCommandStackDistributor());
@@ -45,18 +57,12 @@ MainWindow::MainWindow(QWidget *parent)
     m_Exporter = Exporter;
 
     // importer (loads a patch from file)
-    m_Importer.reset(new CCommandStackImporter(m_Handler));
+    m_Importer.reset(new CCommandStackImporter(m_Handler, BuildAppSpecificDefaults()));
 
     // construct gui:
 
     // tool button, param1
-    //      - gui -> controller
-    QCommandSender* SenderParam1 = new QCommandSender("Internal/Param1", *m_Handler, this);
-    connect(ui->toolButton_Param1, SIGNAL(clicked(bool)), SenderParam1, SLOT(OnBoolChanged(bool)));
-    //      - controller -> gui
-    QCommandStackHandler* RecieverParam1 = new QCommandStackHandler();//no ownership by parent!
-    connect(RecieverParam1, SIGNAL(SignalBoolValueChanged(bool)), ui->toolButton_Param1, SLOT(setChecked(bool)));
-    Distributor->Register("Internal/Param1", SPCommandStackHandler(RecieverParam1));
+    ConnectToolButton(ui->toolButton_Param1, this, "Internal/Param1", *m_Handler, *Distributor);
 
     // spinbox, param2
     QCommandSender* SenderParam2 = new QCommandSender("Internal/Param2", *m_Handler, this);
@@ -85,7 +91,6 @@ MainWindow::MainWindow(QWidget *parent)
     // push button, param5
     QCommandSender* SenderParam5 = new QCommandSender("Internal/Param5", *m_Handler, this);
     connect(ui->pushButton_Param5, SIGNAL(clicked()), SenderParam5, SLOT(OnChanged()));
-
     // need feedback??
 }
 
@@ -118,6 +123,12 @@ void MainWindow::on_pushButton_Import_clicked()
     QString Path = QFileDialog::getOpenFileName(this, "Load Patch", "", "Patch (*.xml);;All Files (*)");
     if(!Path.isEmpty())
     {
+        //m_Importer->Default();
         m_Importer->Import(Path.toStdString());
     }
+}
+
+void MainWindow::on_pushButton_Default_clicked()
+{
+    m_Importer->Default();
 }
