@@ -1,7 +1,7 @@
 #include "QCommandSender.h"
-#include "CommandStack.h"
+#include "CommandStackController.h"
 
-QCommandSender::QCommandSender(const std::string &Name, ICommandStackHandler& Handler, QObject *parent)
+QCommandSender::QCommandSender(const std::string &Name, CCommandStackController& Handler, QObject *parent)
     : QObject(parent)
     , m_Name(Name)
     , m_Handler(Handler)

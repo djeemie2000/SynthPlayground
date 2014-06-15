@@ -4,13 +4,13 @@
 #include <string>
 #include <QObject>
 
-class ICommandStackHandler;
+class CCommandStackController;
 
 class QCommandSender : public QObject
 {
     Q_OBJECT
 public:
-    explicit QCommandSender(const std::string& Name, ICommandStackHandler& Handler, QObject *parent = 0);
+    explicit QCommandSender(const std::string& Name, CCommandStackController& Handler, QObject *parent = 0);
 
 signals:
 
@@ -22,7 +22,7 @@ public slots:
 
 private:
     std::string m_Name;
-    ICommandStackHandler& m_Handler;
+    CCommandStackController& m_Handler;
 };
 
 #endif // QCOMMANDSENDER_H
