@@ -1,3 +1,4 @@
+#include <iostream>
 #include "QCommandStackHandler.h"
 
 QCommandStackHandler::QCommandStackHandler(QObject *parent) :

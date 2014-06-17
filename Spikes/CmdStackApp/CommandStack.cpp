@@ -1,5 +1,6 @@
-#include "CommandStack.h"
+#include <iostream>
 #include <fstream>
+#include "CommandStack.h"
 
 void TestCmdFunctionMap(const CmdFunctionMap& FunctionMap, const SCmdStackItem& Item)
 {

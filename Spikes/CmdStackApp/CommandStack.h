@@ -1,7 +1,6 @@
 #ifndef COMMANDSTACK_H
 #define COMMANDSTACK_H
 
-#include <iostream>
 #include <deque>
 #include <vector>
 #include <map>
@@ -46,17 +45,7 @@ public:
 
 typedef std::function<void(const SCmdStackItem&)> CmdFunction;
 typedef std::map<std::string, CmdFunction> CmdFunctionMap;
-
-void ExecuteCmdStack(CmdStack& Stack, ICommandStackHandler &Handler);
-
-void TestCmdFunctionMap(const CmdFunctionMap& FunctionMap, const SCmdStackItem& Item);
-
 typedef std::map<std::string, SCmdStackItem> CmdStackMap;
-
-void UpdateCurrent(const CmdStack& Stack, CmdStackMap& Current);
-void ExtractCurrentStack(const CmdStackMap& Current, CmdStack& CurrentStack);
-
-bool ExportCurrentStack(const CmdStack& CurrentStack, const string &Path);
 
 class IExporter
 {

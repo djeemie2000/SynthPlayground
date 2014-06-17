@@ -13,6 +13,8 @@ class CCommandStackController
 {
 public:
     CCommandStackController(const CmdFunctionMap& FunctionMap, const CmdStack& Defaults);
+    CCommandStackController(SPCommandStackHandler Executor, const CmdStack& Defaults);
+
 
     bool Import(const std::string& Path); //!< load a patch
     bool Default(); //!< apply default settings / patch
