@@ -12,14 +12,30 @@ SOURCES += main.cpp\
     CommandStack.cpp \
     QCommandStackHandler.cpp \
     AppSpecific.cpp \
-    CommandStackController.cpp
+    CommandStackController.cpp \
+    LogCommandStackHandler.cpp \
+    ExportCommandStackHandler.cpp \
+    CommandStackImporter.cpp \
+    ExecuteCommandStackHandler.cpp \
+    MultiCommandStackHandler.cpp \
+    CommandStackDistributor.cpp
 
 HEADERS  += mainwindow.h \
     QCommandSender.h \
     CommandStack.h \
     QCommandStackHandler.h \
     AppSpecific.h \
-    CommandStackController.h
+    CommandStackController.h \
+    CommandStackHandlerI.h \
+    ImporterI.h \
+    LogCommandStackHandler.h \
+    ExporterI.h \
+    ExportCommandStackHandler.h \
+    CommandStackImporter.h \
+    ExecuteCommandStackHandler.h \
+    MultiCommandStackHandler.h \
+    RegisterNamedCommandStackHandlerI.h \
+    CommandStackDistributor.h
 
 FORMS    += mainwindow.ui
 

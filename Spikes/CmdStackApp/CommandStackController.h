@@ -3,6 +3,7 @@
 
 #include <memory>
 #include "CommandStack.h"
+#include "CommandStackHandlerI.h"
 
 class ICommandStackHandler;
 class IExporter;

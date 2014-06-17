@@ -1,5 +1,10 @@
 #include "CommandStackController.h"
-
+#include "ExecuteCommandStackHandler.h"
+#include "LogCommandStackHandler.h"
+#include "MultiCommandStackHandler.h"
+#include "CommandStackImporter.h"
+#include "ExportCommandStackHandler.h"
+#include "CommandStackDistributor.h"
 
 CCommandStackController::CCommandStackController(const CmdFunctionMap &FunctionMap, const CmdStack &Defaults)
 {

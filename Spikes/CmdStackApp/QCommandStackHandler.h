@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include "CommandStack.h"
+#include "CommandStackHandlerI.h"
 
 class QCommandStackHandler : public QObject, public ICommandStackHandler
 {
