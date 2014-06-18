@@ -8,15 +8,57 @@
 #include "QCommandStackHandler.h"
 
 
-void ConnectToolButton(QToolButton* Button, QWidget* Parent, const std::string& ParameterName, CCommandStackController& Handler, CCommandStackController& FeedbackDistributor)
+void ConnectCheckableToolButton(QToolButton* Button, QWidget* Parent, const std::string& ParameterName, CCommandStackController& Controller)
 {
     // gui -> controller
-    QCommandSender* Sender = new QCommandSender(ParameterName, Handler, Parent);
+    QCommandSender* Sender = new QCommandSender(ParameterName, Controller, Parent);
     Parent->connect(Button, SIGNAL(clicked(bool)), Sender, SLOT(OnBoolChanged(bool)));
     // controller -> gui
     QCommandStackHandler* Reciever = new QCommandStackHandler();//no ownership by parent!
     Parent->connect(Reciever, SIGNAL(SignalBoolValueChanged(bool)), Button, SLOT(setChecked(bool)));
-    FeedbackDistributor.Register(ParameterName, SPCommandStackHandler(Reciever));
+    Controller.Register(ParameterName, SPCommandStackHandler(Reciever));
+}
+
+void ConnectSpinbox(QSpinBox* SpinBox, QWidget* Parent, const std::string& ParameterName, CCommandStackController& Controller)
+{
+    // gui -> controller
+    QCommandSender* Sender = new QCommandSender(ParameterName, Controller, Parent);
+    Parent->connect(SpinBox, SIGNAL(valueChanged(int)), Sender, SLOT(OnIntChanged(int)));
+    // controller -> gui
+    QCommandStackHandler* Reciever = new QCommandStackHandler();//no ownership by parent!
+    Parent->connect(Reciever, SIGNAL(SignalIntValueChanged(int)), SpinBox, SLOT(setValue(int)));
+    Controller.Register(ParameterName, SPCommandStackHandler(Reciever));
+}
+
+void ConnectDoubleSpinbox(QDoubleSpinBox* SpinBox, QWidget* Parent, const std::string& ParameterName, CCommandStackController& Controller)
+{
+    // gui -> controller
+    QCommandSender* Sender = new QCommandSender(ParameterName, Controller, Parent);
+    Parent->connect(SpinBox, SIGNAL(valueChanged(double)), Sender, SLOT(OnDoubleChanged(double)));
+    // controller -> gui
+    QCommandStackHandler* Reciever = new QCommandStackHandler();//no ownership by parent!
+    Parent->connect(Reciever, SIGNAL(SignalDoubleValueChanged(double)), SpinBox, SLOT(setValue(double)));
+    Controller.Register(ParameterName, SPCommandStackHandler(Reciever));
+}
+
+void ConnectCombobox(QComboBox* ComboBox, QWidget* Parent, const std::string& ParameterName, CCommandStackController& Controller)
+{
+    // gui -> controller
+    QCommandSender* Sender = new QCommandSender(ParameterName, Controller, Parent);
+    Parent->connect(ComboBox, SIGNAL(currentIndexChanged(int)), Sender, SLOT(OnIntChanged(int)));
+    // controller -> gui
+    QCommandStackHandler* Reciever = new QCommandStackHandler();//no ownership by parent!
+    Parent->connect(Reciever, SIGNAL(SignalIntValueChanged(int)), ComboBox, SLOT(setCurrentIndex(int)));
+    Controller.Register(ParameterName, SPCommandStackHandler(Reciever));
+}
+
+void ConnectPushButton(QPushButton* Button, QWidget* Parent, const std::string& ParameterName, CCommandStackController& Controller)
+{
+    // not checkable push button!
+    // gui -> controller
+    QCommandSender* Sender = new QCommandSender(ParameterName, Controller, Parent);
+    Parent->connect(Button, SIGNAL(clicked(bool)), Sender, SLOT(OnBoolChanged(bool)));
+    // need to get feedback from controller ???
 }
 
 MainWindow::MainWindow(QWidget *parent)
@@ -40,36 +82,19 @@ MainWindow::MainWindow(QWidget *parent)
     // construct gui:
 
     // tool button, param1
-    ConnectToolButton(ui->toolButton_Param1, this, "Internal/Param1", *m_CommandController, *m_CommandController);
+    ConnectCheckableToolButton(ui->toolButton_Param1, this, "Internal/Param1", *m_CommandController);
 
     // spinbox, param2
-    QCommandSender* SenderParam2 = new QCommandSender("Internal/Param2", *m_CommandController, this);
-    connect(ui->spinBox_Param2, SIGNAL(valueChanged(int)), SenderParam2, SLOT(OnIntChanged(int)));
+    ConnectSpinbox(ui->spinBox_Param2, this, "Internal/Param2", *m_CommandController);
 
-    QCommandStackHandler* RecieverParam2 = new QCommandStackHandler();//no ownership by parent!
-    connect(RecieverParam2, SIGNAL(SignalIntValueChanged(int)), ui->spinBox_Param2, SLOT(setValue(int)));
-    m_CommandController->Register("Internal/Param2", SPCommandStackHandler(RecieverParam2));
-
-    // double spin box, param2
-    QCommandSender* SenderParam3 = new QCommandSender("Internal/Param3", *m_CommandController, this);
-    connect(ui->doubleSpinBox_Param3, SIGNAL(valueChanged(double)), SenderParam3, SLOT(OnDoubleChanged(double)));
-
-    QCommandStackHandler* RecieverParam3 = new QCommandStackHandler();//no ownership by parent!
-    connect(RecieverParam3, SIGNAL(SignalDoubleValueChanged(double)), ui->doubleSpinBox_Param3, SLOT(setValue(double)));
-    m_CommandController->Register("Internal/Param3", SPCommandStackHandler(RecieverParam3));
+    // double spin box, param3
+    ConnectDoubleSpinbox(ui->doubleSpinBox_Param3, this, "Internal/Param3", *m_CommandController);
 
     // combo box, param4
-    QCommandSender* SenderParam4 = new QCommandSender("Internal/Param4", *m_CommandController, this);
-    connect(ui->comboBox_Param4, SIGNAL(currentIndexChanged(int)), SenderParam4, SLOT(OnIntChanged(int)));
-
-    QCommandStackHandler* RecieverParam4 = new QCommandStackHandler();//no ownership by parent!
-    connect(RecieverParam4, SIGNAL(SignalIntValueChanged(int)), ui->comboBox_Param4, SLOT(setCurrentIndex(int)));
-    m_CommandController->Register("Internal/Param4", SPCommandStackHandler(RecieverParam4));
+    ConnectCombobox(ui->comboBox_Param4, this, "Internal/Param4", *m_CommandController);
 
     // push button, param5
-    QCommandSender* SenderParam5 = new QCommandSender("Internal/Param5", *m_CommandController, this);
-    connect(ui->pushButton_Param5, SIGNAL(clicked()), SenderParam5, SLOT(OnChanged()));
-    // need feedback??
+    ConnectPushButton(ui->pushButton_Param5, this, "Internal/Param5", *m_CommandController);
 }
 
 MainWindow::~MainWindow()
