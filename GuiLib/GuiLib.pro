@@ -15,7 +15,9 @@ SOURCES += GuiUtilities.cpp \
     QScopeWidget.cpp \
     QKeyboardWidget.cpp \
     QAudioIoDevice.cpp \
-    QAudioDeviceWidget.cpp
+    QAudioDeviceWidget.cpp \
+    QCommandSender.cpp \
+    QCommandStackHandler.cpp
 
 HEADERS += GuiUtilities.h \
     QGuiCallbacks.h \
@@ -24,14 +26,16 @@ HEADERS += GuiUtilities.h \
     QScopeWidget.h \
     QKeyboardWidget.h \
     QAudioIoDevice.h \
-    QAudioDeviceWidget.h
+    QAudioDeviceWidget.h \
+    QCommandSender.h \
+    QCommandStackHandler.h
 
 FORMS += \
     QScopeWidget.ui \
     QKeyboardWidget.ui \
     QAudioDeviceWidget.ui
 
-INCLUDEPATH += ./../SynthLib
+INCLUDEPATH += ./../SynthLib ./../CommandStackLib
 
 unix {
     target.path = /usr/lib

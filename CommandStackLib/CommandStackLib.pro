@@ -1,16 +1,9 @@
-
-QT       += core gui
-
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
-
 TARGET = CommandStackLib
 TEMPLATE = lib
 CONFIG += staticlib
 CONFIG   += c++11 (Qt5)
 
-SOURCES += QCommandSender.cpp \
-    QCommandStackHandler.cpp \
-    CommandStack.cpp \
+SOURCES += CommandStack.cpp \
     CommandStackController.cpp \
     LogCommandStackHandler.cpp \
     ExportCommandStackHandler.cpp \
@@ -19,9 +12,7 @@ SOURCES += QCommandSender.cpp \
     MultiCommandStackHandler.cpp \
     CommandStackDistributor.cpp
 
-HEADERS += QCommandSender.h \
-    CommandStack.h \
-    QCommandStackHandler.h \
+HEADERS += CommandStack.h \
     CommandStackController.h \
     CommandStackHandlerI.h \
     ImporterI.h \
