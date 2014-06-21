@@ -15,6 +15,7 @@
 #include "NoteQueueMidiInputHandler.h"
 #include "CommandStackController.h"
 #include "CommandStack.h"
+#include "QPatchManagerWidget.h"
 
 namespace
 {
@@ -107,7 +108,7 @@ namespace
         Stack.push_back({"NonLinearShaper/PreGain", false, 0, 1.00f});
 
         // StepSequencer
-        Stack.push_back({"StepSequencer/BeatsPerMinute", false, 120, 0.0f});
+        Stack.push_back({"StepSequencer/BeatsPerMinute", false, 0, 120.0f});
         Stack.push_back({"StepSequencer/BarsPerBeat", false, 2, 0.0f});
         Stack.push_back({"StepSequencer/Go", false, 0, 0.0f});
         for(int Step = 0; Step<8; ++Step)
@@ -158,6 +159,7 @@ MainWindow::MainWindow(QWidget *parent)
     guiutils::AddStepSequencer(ui->groupBox_Keyboard, this, m_Controller->NumSteps(), "StepSequencer", *m_CommandStackController);
 
     ui->groupBox_AudioDevice->layout()->addWidget(new QAudioDeviceWidget(*m_Controller, SamplingFrequency, this));
+    ui->groupBox_AudioDevice->layout()->addWidget(new QPatchManagerWidget(*m_CommandStackController, this));
 
     m_MidiInput->Open("Synth8", "MidiIn");
 }

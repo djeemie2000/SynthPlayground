@@ -18,7 +18,8 @@ SOURCES += GuiUtilities.cpp \
     QAudioDeviceWidget.cpp \
     QCommandSender.cpp \
     QCommandStackHandler.cpp \
-    GuiCommandStack.cpp
+    GuiCommandStack.cpp \
+    QPatchManagerWidget.cpp
 
 HEADERS += GuiUtilities.h \
     QGuiCallbacks.h \
@@ -30,12 +31,14 @@ HEADERS += GuiUtilities.h \
     QAudioDeviceWidget.h \
     QCommandSender.h \
     QCommandStackHandler.h \
-    GuiCommandStack.h
+    GuiCommandStack.h \
+    QPatchManagerWidget.h
 
 FORMS += \
     QScopeWidget.ui \
     QKeyboardWidget.ui \
-    QAudioDeviceWidget.ui
+    QAudioDeviceWidget.ui \
+    QPatchManagerWidget.ui
 
 INCLUDEPATH += ./../SynthLib ./../CommandStackLib
 
