@@ -11,6 +11,7 @@ class QScopeWidget;
 class CSynth8Controller;
 class CMidiInput;
 class IMidiInputHandler;
+class CCommandStackController;
 
 class MainWindow : public QMainWindow
 {
@@ -30,6 +31,7 @@ private:
     IMidiInputHandler*  m_MidiInputHandler;
     CMidiInput*         m_MidiInput;
     QScopeWidget*       m_ScopeWidget;
+    CCommandStackController* m_CommandStackController;
 };
 
 #endif // MAINWINDOW_H

@@ -2,7 +2,8 @@ TARGET = TestCommandStackLib
 TEMPLATE = app
 CONFIG += c++11 (Qt5)
 
-SOURCES += main.cpp 
+SOURCES += main.cpp \ 
+    TestCommandStackDistributor.cpp
 
 unix {
     target.path = /usr/lib

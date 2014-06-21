@@ -9,6 +9,15 @@
 #include "QCommandStackHandler.h"
 #include "CommandStackController.h"
 
+void ConnectToolButton(QToolButton* Button, QWidget* Parent, const std::string& ParameterName, CCommandStackController& Controller)
+{
+    // gui -> controller
+    QCommandSender* Sender = new QCommandSender(ParameterName, Controller, Parent);
+    Parent->connect(Button, SIGNAL(clicked(bool)), Sender, SLOT(OnBoolChanged(bool)));
+    // controller -> gui
+    // need to get feedback from controller ???
+}
+
 void ConnectCheckableToolButton(QToolButton* Button, QWidget* Parent, const std::string& ParameterName, CCommandStackController& Controller)
 {
     // gui -> controller

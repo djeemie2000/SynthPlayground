@@ -13,6 +13,7 @@
 #include "SelectableOperatorFactory.h"
 #include "CombinedFoldedOperatorStageI.h"
 #include "LFOBankI.h"
+#include "CommandStackController.h"
 
 namespace guiutils
 {
@@ -23,6 +24,14 @@ void AddWaveFolder(QGroupBox *GroupBox, QWidget *Parent, IWaveFolder &Controller
     QGroupBox* Box = AddGroupBox(GroupBox, Parent, "WaveFolder");
     // -> add "Fold" doublespinbox
     AddDoubleSpinBox(Box, Parent, {"Fold", 0.97, 0, 1, 0.01, 2}, [&Controller](double Value){ Controller.OnWaveFold(Value); });
+}
+
+void AddWaveFolder(QGroupBox *GroupBox, QWidget *Parent, const std::string& Name, CCommandStackController& Controller)
+{
+    // add child groupbox
+    QGroupBox* Box = AddGroupBox(GroupBox, Parent, "WaveFolder");
+    // -> add "Fold" doublespinbox
+    AddDoubleSpinBox(Box, Parent, {"Fold", 0.97, 0, 1, 0.01, 2}, Name+"/Fold", Controller);
 }
 
 void AddLPFilter(QGroupBox *GroupBox, QWidget *Parent, ILPFilter &Controller)
@@ -37,6 +46,18 @@ void AddLPFilter(QGroupBox *GroupBox, QWidget *Parent, ILPFilter &Controller)
     AddDoubleSpinBox(Box, Parent, {"Q", 0.0, -1.0, 2.0, 0.01, 3}, [&Controller](double Value){ Controller.OnLPFilterFeedback(Value); });
 }
 
+void AddLPFilter(QGroupBox *GroupBox, QWidget *Parent, const std::string& Name, CCommandStackController& Controller)
+{
+    // add child groupbox
+    QGroupBox* Box = AddGroupBox(GroupBox, Parent, "LPFilter");
+    // add "Cutoff" double spin box
+    AddDoubleSpinBox(Box, Parent, {"CutOff", 1.0, 0.0, 1.0, 0.01, 2}, Name+"/Cutoff", Controller);
+    // add "Poles" int spin box
+    AddSpinBox(Box, Parent, {"Poles", 1, 1, 24, 1}, Name+"/Poles", Controller);
+    // add "Q" double spin box
+    AddDoubleSpinBox(Box, Parent, {"Q", 0.0, -1.0, 2.0, 0.01, 3}, Name+"/Q", Controller);
+}
+
 void AddNonLinearShaper(QGroupBox *GroupBox, QWidget *Parent, INonLinearShaper &Controller)
 {
     // add child groupbox
@@ -47,6 +68,18 @@ void AddNonLinearShaper(QGroupBox *GroupBox, QWidget *Parent, INonLinearShaper &
     AddDoubleSpinBox(Box, Parent, {"Quadratic", 0.0, -10.0, 10.0, 0.01, 3}, [&Controller](double Value){ Controller.OnNonLinearShaperB(Value); });
     // add "PreGain" double spin box
     AddDoubleSpinBox(Box, Parent, {"PreGain", 1.0, 0.0, 10.0, 0.01, 3}, [&Controller](double Value){ Controller.OnNonLinearShaperPreGain(Value); });
+}
+
+void AddNonLinearShaper(QGroupBox *GroupBox, QWidget *Parent, const std::string& Name, CCommandStackController& Controller)
+{
+    // add child groupbox
+    QGroupBox* Box = AddGroupBox(GroupBox, Parent, "NonLinearShaper");
+    // add "Cubic" double spin box
+    AddDoubleSpinBox(Box, Parent, {"Cubic", 0.0, -10.0, 10.0, 0.01, 3}, Name+"/Cubic", Controller);
+    // add "Quadratic" double spin box
+    AddDoubleSpinBox(Box, Parent, {"Quadratic", 0.0, -10.0, 10.0, 0.01, 3}, Name+"/Quadratic", Controller);
+    // add "PreGain" double spin box
+    AddDoubleSpinBox(Box, Parent, {"PreGain", 1.0, 0.0, 10.0, 0.01, 3}, Name+"/PreGain", Controller);
 }
 
 void AddBitFX(QGroupBox *GroupBox, QWidget *Parent, IBitFx &Controller)
@@ -91,6 +124,40 @@ void AddStepSequencer(QGroupBox *GroupBox, QWidget *Parent, IStepSequencer &Cont
     GroupBox->layout()->addWidget(Box);
 }
 
+void AddStepSequencer(QGroupBox *GroupBox, QWidget *Parent, int NumSteps, const std::string& Name, CCommandStackController& Controller)
+{
+    QGroupBox* Box = new QGroupBox("StepSequencer", Parent);
+    QGridLayout* Layout = new QGridLayout();
+
+    AddLabel(Layout, Parent, 0, 1, "Bpm");
+    AddLabel(Layout, Parent, 0, 2, "Beats");
+
+    // 1,0 Btn on/off
+    AddCheckableSmallButton(Layout, Parent, 1, 0, "Go", Name+"/Go", Controller);
+    // 1,1 doublespinbox bpm
+    AddDoubleSpinBox(Layout, Parent, 1, 1, {"", 120.0, 1.0, 240.0, 0.1, 1}, Name+"/BeatsPerMinute", Controller);
+    // 1,2 spinbox beats
+    AddSpinBox(Layout, Parent, 1, 2, {"", 2, 1, 16, 1}, Name+"/BarsPerBeat", Controller);
+
+    AddLabel(Layout, Parent, 2, 0, "Octave");
+    AddLabel(Layout, Parent, 2, 1, "Note");
+    AddLabel(Layout, Parent, 2, 2, "Active");
+
+    for(int Step = 0; Step<NumSteps; ++Step)
+    {
+        // Step,0 spinbox octave
+        AddSpinBox(Layout, Parent, 4+Step, 0, {"", 2, 0, 8, 1}, Name+"/Octave/"+std::to_string(Step), Controller);
+        // Step,1 combibox note
+        AddComboBox(Layout, Parent, 4+Step, 1, {"", { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" }/*CNoteList::Create()*/, static_cast<int>(ENote::A)}, Name+"/Note/"+std::to_string(Step), Controller);
+        // Step,2 tool button active on/off
+        AddCheckableSmallButton(Layout, Parent, 4+Step, 2, "On", Name+"/Active/"+std::to_string(Step), Controller);
+    }
+
+    Box->setLayout(Layout);
+    GroupBox->layout()->addWidget(Box);
+}
+
+
 void AddCombinedOperatorStage(QGroupBox *GroupBox, QWidget *Parent, ICombinedOperatorStage &Controller)
 {
     QGroupBox* Box = new QGroupBox("Operator", Parent);
@@ -119,6 +186,36 @@ void AddCombinedOperatorStage(QGroupBox *GroupBox, QWidget *Parent, ICombinedOpe
     Box->setLayout(Layout);
     GroupBox->layout()->addWidget(Box);
 }
+
+void AddCombinedOperatorStage(QGroupBox *GroupBox, QWidget *Parent, const std::string& Name, CCommandStackController& Controller)
+{
+    QGroupBox* Box = new QGroupBox("Operator", Parent);
+    QGridLayout* Layout = new QGridLayout();
+
+    AddLabel(Layout, Parent, 0, 0, "Combinor");
+    AddComboBox(Layout, Parent, 0, 1, {"", CSelectableCombinorFactory::SelectionList(), 0 }, Name+"/Combinor", Controller);
+    AddSmallButton(Layout, Parent, 0, 2, "Sync", Name+"/Sync", Controller);
+
+    AddDoubleSpinBox(Layout, Parent, 1, 0, {"", 0.5, 0.0, 1.0, 0.01, 2}, Name+"/Amplitude/0", Controller);
+    AddLabel(Layout, Parent, 1, 1, "Amplitude");
+    AddDoubleSpinBox(Layout, Parent, 1, 2, {"", 0.5, 0.0, 1.0, 0.01, 2}, Name+"/Amplitude/1", Controller);
+
+    AddComboBox(Layout, Parent, 2, 0, {"", CSelectableOperatorFactory::SelectionList(), 0 }, Name+"/Operator/0", Controller);
+    AddLabel(Layout, Parent, 2, 1, "Operator");
+    AddComboBox(Layout, Parent, 2, 2, {"", CSelectableOperatorFactory::SelectionList(), 0 }, Name+"/Operator/1", Controller);
+
+    AddDoubleSpinBox(Layout, Parent, 3, 0, {"", 1.0, 0.0, 32.0, 0.001, 4}, Name+"/FrequencyMultiplier/0", Controller);
+    AddLabel(Layout, Parent, 3, 1, "Freq Multiplier");
+    AddDoubleSpinBox(Layout, Parent, 3, 2, {"", 1.0, 0.0, 32.0, 0.001, 4}, Name+"/FrequencyMultiplier/1", Controller);
+
+    AddDoubleSpinBox(Layout, Parent, 4, 0, {"", 0.0, 0.0, 1.0, 0.001, 3}, Name+"/PhaseShift/0", Controller);
+    AddLabel(Layout, Parent, 4, 1, "Phase Shift");
+    AddDoubleSpinBox(Layout, Parent, 4, 2, {"", 0.0, 0.0, 1.0, 0.001, 3}, Name+"/PhaseShift/1", Controller);
+
+    Box->setLayout(Layout);
+    GroupBox->layout()->addWidget(Box);
+}
+
 
 void AddCombinedFoldedOperatorStage(QGroupBox *GroupBox, QWidget *Parent, ICombinedFoldedOperatorStage &Controller)
 {
@@ -164,6 +261,51 @@ void AddCombinedFoldedOperatorStage(QGroupBox *GroupBox, QWidget *Parent, ICombi
     GroupBox->layout()->addWidget(Box);
 }
 
+void AddCombinedFoldedOperatorStage(QGroupBox *GroupBox, QWidget *Parent, const std::string& Name, CCommandStackController& Controller)
+{
+    QGroupBox* Box = new QGroupBox("Operator", Parent);
+    QGridLayout* Layout = new QGridLayout();
+
+    int GridX = 0;
+    AddLabel(Layout, Parent, GridX, 0, "Combinor");
+    AddComboBox(Layout, Parent, GridX, 1, {"", CSelectableCombinorFactory::SelectionList(), 0 }, Name+"/Combinor", Controller);
+    AddSmallButton(Layout, Parent, GridX, 2, "Sync", Name+"/Sync", Controller);
+
+    ++GridX;
+    AddDoubleSpinBox(Layout, Parent, GridX, 0, {"", 0.5, 0.0, 1.0, 0.01, 2}, Name+"/Amplitude/0", Controller);
+    AddLabel(Layout, Parent, GridX, 1, "Amplitude");
+    AddDoubleSpinBox(Layout, Parent, GridX, 2, {"", 0.5, 0.0, 1.0, 0.01, 2}, Name+"/Amplitude/1", Controller);
+
+    ++GridX;
+    AddDoubleSpinBox(Layout, Parent, GridX, 0, {"", 0.97, 0.0, 1.0, 0.01, 3}, Name+"/Fold/0", Controller);
+    AddLabel(Layout, Parent, GridX, 1, "Fold");
+    AddDoubleSpinBox(Layout, Parent, GridX, 2, {"", 0.97, 0.0, 1.0, 0.01, 3}, Name+"/Fold/1", Controller);
+
+    ++GridX;
+    AddDoubleSpinBox(Layout, Parent, GridX, 0, {"", 0.0, -1.0, 1.0, 0.01, 3}, Name+"/FoldModAmt/0", Controller);
+    AddLabel(Layout, Parent, GridX, 1, "FoldModAmt");
+    AddDoubleSpinBox(Layout, Parent, GridX, 2, {"", 0.0, -1.0, 1.0, 0.01, 3}, Name+"/FoldModAmt/1", Controller);
+
+    ++GridX;
+    AddComboBox(Layout, Parent, GridX, 0, {"", CSelectableOperatorFactory::SelectionList(), 0 }, Name+"/Operator/0", Controller);
+    AddLabel(Layout, Parent, GridX, 1, "Operator");
+    AddComboBox(Layout, Parent, GridX, 2, {"", CSelectableOperatorFactory::SelectionList(), 0 }, Name+"/Operator/1", Controller);
+
+    ++GridX;
+    AddDoubleSpinBox(Layout, Parent, GridX, 0, {"", 1.0, 0.0, 32.0, 0.001, 4}, Name+"/FrequencyMultiplier/0", Controller);
+    AddLabel(Layout, Parent, GridX, 1, "Freq Multiplier");
+    AddDoubleSpinBox(Layout, Parent, GridX, 2, {"", 1.0, 0.0, 32.0, 0.001, 4}, Name+"/FrequencyMultiplier/1", Controller);
+
+    ++GridX;
+    AddDoubleSpinBox(Layout, Parent, GridX, 0, {"", 0.0, 0.0, 1.0, 0.001, 3}, Name+"/PhaseShift/0", Controller);
+    AddLabel(Layout, Parent, GridX, 1, "Phase Shift");
+    AddDoubleSpinBox(Layout, Parent, GridX, 2, {"", 0.0, 0.0, 1.0, 0.001, 3}, Name+"/PhaseShift/1", Controller);
+
+    Box->setLayout(Layout);
+    GroupBox->layout()->addWidget(Box);
+}
+
+
 void AddLFOBank(QGroupBox *GroupBox, QWidget *Parent, ILFOBank &LFOBank)
 {
     QGroupBox* Box = new QGroupBox("LFOBank", Parent);
@@ -183,5 +325,28 @@ void AddLFOBank(QGroupBox *GroupBox, QWidget *Parent, ILFOBank &LFOBank)
     Box->setLayout(Layout);
     GroupBox->layout()->addWidget(Box);
 }
+
+
+
+void AddLFOBank(QGroupBox *GroupBox, QWidget *Parent, int LFOBankSize, const std::string& Name, CCommandStackController &Controller)
+{
+    QGroupBox* Box = new QGroupBox("LFOBank", Parent);
+    QGridLayout* Layout = new QGridLayout();
+
+    AddLabel(Layout, Parent, 0, 0, "Freq");
+    AddLabel(Layout, Parent, 1, 0, "Shape");
+
+    for(int idxLFO = 0; idxLFO<LFOBankSize; ++idxLFO)
+    {
+        // add "Frequency" double spin box
+        AddDoubleSpinBox(Layout, Parent, 0, idxLFO+1, {"", 1.0, 0.01, 44100.0, 0.1, 2}, Name+"/"+std::to_string(idxLFO)+"/Frequency", Controller);
+        // add waveform selection
+        AddComboBox(Layout, Parent, 1, idxLFO+1, {"", CSelectableOperatorFactory::SelectionList(), 3 }, Name+"/"+std::to_string(idxLFO)+"/Waveform", Controller);
+    }
+
+    Box->setLayout(Layout);
+    GroupBox->layout()->addWidget(Box);
+}
+
 
 }

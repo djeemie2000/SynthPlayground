@@ -10,6 +10,7 @@
 #include <QToolButton>
 #include <QComboBox>
 #include "QGuiCallbacks.h"
+#include "GuiCommandStack.h"
 
 namespace guiutils
 {
@@ -65,10 +66,25 @@ void AddSmallButton(QGridLayout *Layout, QWidget *Parent, int X, int Y, const st
     Layout->addWidget(Button, Y, X);
 }
 
+void AddSmallButton(QGridLayout* Layout, QWidget *Parent, int X, int Y, const std::string& Name, const std::string& ParameterName, CCommandStackController& Controller)
+{
+    QToolButton* Button = CreateToolButton(Parent, Name, false);
+    ConnectCheckableToolButton(Button, Parent, ParameterName, Controller);
+    Layout->addWidget(Button, Y, X);
+}
+
+
 void AddSmallButton(QGridLayout *Layout, QWidget *Parent, int X, int Y, const std::string &Name, BoolValueChangedCallbackType Callback)
 {
     QToolButton* Button = CreateToolButton(Parent, Name, true);
     AddCallback(Button, Parent, Callback);
+    Layout->addWidget(Button, Y, X);
+}
+
+void AddCheckableSmallButton(QGridLayout *Layout, QWidget *Parent, int X, int Y, const std::string &Name, const std::string &ParameterName, CCommandStackController &Controller)
+{
+    QToolButton* Button = CreateToolButton(Parent, Name, true);
+    ConnectCheckableToolButton(Button, Parent, ParameterName, Controller);
     Layout->addWidget(Button, Y, X);
 }
 
@@ -101,12 +117,31 @@ void AddDoubleSpinBox(QGroupBox *GroupBox, QWidget *Parent, const SDoubleSpinbox
     AddCallback(SpinBox, Parent, Callback);
 }
 
+void AddDoubleSpinBox(QGroupBox* GroupBox, QWidget * Parent, const SDoubleSpinboxProperties& Properties, const std::string& ParameterName, CCommandStackController& Controller)
+{
+    // add label with name
+    AddLabel(GroupBox, Parent, Properties.s_Name);
+
+    // create spingbox, apply properties, add to groupbox, add Callback
+    QDoubleSpinBox* SpinBox = CreateDoubleSpinBox(Parent, Properties);
+    GroupBox->layout()->addWidget(SpinBox);
+    ConnectDoubleSpinbox(SpinBox, Parent, ParameterName, Controller);
+}
+
 void AddDoubleSpinBox(QGridLayout *Layout, QWidget *Parent, int X, int Y, const SDoubleSpinboxProperties &Properties, DoubleValueChangedCallbackType Callback)
 {
     QDoubleSpinBox* SpinBox = CreateDoubleSpinBox(Parent, Properties);
     Layout->addWidget(SpinBox, Y, X);
     AddCallback(SpinBox, Parent, Callback);
 }
+
+void AddDoubleSpinBox(QGridLayout* Layout, QWidget * Parent, int X, int Y, const SDoubleSpinboxProperties& Properties, const std::string& ParameterName, CCommandStackController& Controller)
+{
+    QDoubleSpinBox* SpinBox = CreateDoubleSpinBox(Parent, Properties);
+    Layout->addWidget(SpinBox, Y, X);
+    ConnectDoubleSpinbox(SpinBox, Parent, ParameterName, Controller);
+}
+
 
 QSpinBox *CreateSpinBox(QWidget *Parent, const SSpinboxProperties &Properties)
 {
@@ -151,11 +186,29 @@ void AddSpinBox(QGroupBox *GroupBox, QWidget *Parent, const SSpinboxProperties &
     AddCallback(SpinBox, Parent, Callback);
 }
 
+void AddSpinBox(QGroupBox* GroupBox, QWidget * Parent, const SSpinboxProperties& Properties, const std::string& ParameterName, CCommandStackController& Controller)
+{
+    // add label with name
+    AddLabel(GroupBox, Parent, Properties.s_Name);
+
+    QSpinBox* SpinBox = CreateSpinBox(Parent, Properties);
+    GroupBox->layout()->addWidget(SpinBox);
+    ConnectSpinbox(SpinBox, Parent, ParameterName, Controller);
+}
+
+
 void AddSpinBox(QGridLayout *Layout, QWidget *Parent, int X, int Y, const SSpinboxProperties &Properties, IntValueChangedCallbackType Callback)
 {
     QSpinBox* SpinBox = CreateSpinBox(Parent, Properties);
     Layout->addWidget(SpinBox, Y, X);
     AddCallback(SpinBox, Parent, Callback);
+}
+
+void AddSpinBox(QGridLayout* Layout, QWidget * Parent, int X, int Y, const SSpinboxProperties& Properties, const std::string& ParameterName, CCommandStackController& Controller)
+{
+    QSpinBox* SpinBox = CreateSpinBox(Parent, Properties);
+    Layout->addWidget(SpinBox, Y, X);
+    ConnectSpinbox(SpinBox, Parent, ParameterName, Controller);
 }
 
 QComboBox* CreateComboBox(QWidget* Parent, const SComboboxProperties& Properties)
@@ -187,6 +240,13 @@ void AddComboBox(QGroupBox* GroupBox, QWidget* Parent, const SComboboxProperties
     QComboBox* ComboBox = CreateComboBox(Parent, Properties);
     GroupBox->layout()->addWidget(ComboBox);
     AddCallback(ComboBox, Parent, Callback);
+}
+
+void AddComboBox(QGridLayout *Layout, QWidget *Parent, int X, int Y, const SComboboxProperties &Properties, const std::string& ParameterName, CCommandStackController& Controller)
+{
+    QComboBox* ComboBox = CreateComboBox(Parent, Properties);
+    Layout->addWidget(ComboBox, Y, X);
+    ConnectCombobox(ComboBox, Parent, ParameterName, Controller);
 }
 
 }

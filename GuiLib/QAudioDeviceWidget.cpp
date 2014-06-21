@@ -1,8 +1,8 @@
+#include <iostream>
 #include "QAudioDeviceWidget.h"
-#include "ui_qaudiodevicewidget.h"
+#include "ui_QAudioDeviceWidget.h"
 #include <QAudioDeviceInfo>
 #include <QAudioOutput>
-#include <QDebug>
 #include "QAudioIoDevice.h"
 
 
@@ -60,7 +60,7 @@ void QAudioDeviceWidget::CreateAudioOutput()
     }
     else
     {
-        qWarning("Audio format not supported by device!");
+        std::cout << "Audio format not supported by device!" << std::endl;
     }
 }
 
@@ -95,12 +95,13 @@ void QAudioDeviceWidget::on_comboBox_AudioDevice_currentIndexChanged(const QStri
 
 void QAudioDeviceWidget::notified()
 {
-    qWarning() << "bytesFree = " << m_AudioOutput->bytesFree()
+    std::cout << "bytesFree = " << m_AudioOutput->bytesFree()
                    << ", " << "elapsedUSecs = " << m_AudioOutput->elapsedUSecs()
-                   << ", " << "processedUSecs = " << m_AudioOutput->processedUSecs();
+                   << ", " << "processedUSecs = " << m_AudioOutput->processedUSecs()
+                      << std::endl;
 }
 
 void QAudioDeviceWidget::handleStateChanged(QAudio::State state)
 {
-    qWarning() << "state = " << state;
+    std::cout << "state = " << state << std::endl;
 }
