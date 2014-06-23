@@ -8,7 +8,7 @@ TEST(NotesList)
 {
     auto Actual = CNoteList::Create();
 
-    CHECK_EQUAL(11u, Actual.size());
+    CHECK_EQUAL(12u, Actual.size());
 }
 
 }

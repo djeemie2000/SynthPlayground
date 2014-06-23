@@ -7,7 +7,9 @@ SOURCES += main.cpp \
     TestPeriodicConstGenerator.cpp \
     TestStepSequencer2.cpp \
     TestPerdiodicTicker.cpp \
-    TestNotes.cpp
+    TestNotes.cpp \
+    TestDelayLine.cpp \
+    TestFeedbackDelay.cpp
 
 
 unix {
