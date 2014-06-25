@@ -23,6 +23,8 @@ CSynth8Controller::CSynth8Controller(IScope &Scope, int SamplingFrequency)
     , m_Envelope()
     , m_StepSequencer(SamplingFrequency)
     , m_LFO(2, {SamplingFrequency, CSelectableOperatorFactory::Create()})
+    , m_NumSamplesGenerator(SamplingFrequency)
+    , m_Delay(SamplingFrequency*5, 0.0f)//5 seconds capacity
 {
     m_Oscillator.SetFrequency(CPitch()(ENote::A, EOctave::Octave2));
     m_Oscillator.Select(0, 0);
@@ -218,6 +220,34 @@ int CSynth8Controller::LFOBankSize() const
     return static_cast<int>(m_LFO.size());
 }
 
+void CSynth8Controller::OnDelayMilliSeconds(float Delay)
+{
+    m_NumSamplesGenerator.SetMilliSeconds(Delay);
+    m_Delay.SetDelay(m_NumSamplesGenerator());
+}
+
+void CSynth8Controller::OnDelayFeedback(float Feedback)
+{
+    m_Delay.SetFeedback(Feedback);
+}
+
+void CSynth8Controller::OnDelayWetDry(float WetDry)
+{
+    m_Delay.SetWet(WetDry);
+}
+
+void CSynth8Controller::OnEnvelopeAttack(float AttackMilliSeconds)
+{
+    m_NumSamplesGenerator.SetMilliSeconds(AttackMilliSeconds);
+    m_Envelope.SetAttackSamples(m_NumSamplesGenerator());
+}
+
+void CSynth8Controller::OnEnvelopeRelease(float ReleaseMilliSeconds)
+{
+    m_NumSamplesGenerator.SetMilliSeconds(ReleaseMilliSeconds);
+    m_Envelope.SetReleaseSamples(m_NumSamplesGenerator());
+}
+
 void CSynth8Controller::OnGrab(int GrabSize)
 {
     m_GrabSample = true;
@@ -256,7 +286,8 @@ std::int64_t CSynth8Controller::OnRead(char *Dst, std::int64_t MaxSize)
                 OnNoteOn(m_StepSequencer.CurrentStep().s_Note, m_StepSequencer.CurrentStep().s_Octave);
             }
         }
-        *pDst = (SignedToInt16<float>(m_Envelope()*Symm2(m_LPFilter(Symm(m_Oscillator(m_LFO[0](), m_LFO[1]()), Fold)), m_NonLinearShaper)));
+
+        *pDst = (SignedToInt16<float>(m_Delay(m_Envelope()*Symm2(m_LPFilter(Symm(m_Oscillator(m_LFO[0](), m_LFO[1]()), Fold)), m_NonLinearShaper))));
         ++pDst;
     }
 

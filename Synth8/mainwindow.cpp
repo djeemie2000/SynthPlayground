@@ -71,6 +71,16 @@ namespace
         FunctionMap["LFOBank/1/Frequency"] = [&Controller](const SCmdStackItem& Item){  Controller.SetLFOFrequency(1, Item.s_FloatValue); };
         FunctionMap["LFOBank/1/Waveform"] = [&Controller](const SCmdStackItem& Item){  Controller.SelectLFOWaveform(0, Item.s_IntValue); };
 
+        // FeedbackDelay
+        FunctionMap["Delay/DelayMilliSeconds"] = [&Controller](const SCmdStackItem& Item){  Controller.OnDelayMilliSeconds(Item.s_FloatValue); };
+        FunctionMap["Delay/Feedback"] = [&Controller](const SCmdStackItem& Item){  Controller.OnDelayFeedback(Item.s_FloatValue); };
+        FunctionMap["Delay/WetDry"] = [&Controller](const SCmdStackItem& Item){  Controller.OnDelayWetDry(Item.s_FloatValue); };
+
+        // AR envelope
+        FunctionMap["Envelope/AR/0/AttackMilliSeconds"] = [&Controller](const SCmdStackItem& Item){  Controller.OnEnvelopeAttack(Item.s_FloatValue); };
+        FunctionMap["Envelope/AR/0/ReleaseMilliSeconds"] = [&Controller](const SCmdStackItem& Item){  Controller.OnEnvelopeRelease(Item.s_FloatValue); };
+
+
         return FunctionMap;
     }
 
@@ -124,6 +134,15 @@ namespace
         Stack.push_front({"LFOBank/1/Frequency", false, 0, 1.0f});
         Stack.push_front({"LFOBank/1/WaveForm", false, 3, 0.0f});
 
+        // feedback delay
+        Stack.push_front({"Delay/DelayMilliSeconds", false, 0, 0.0f});
+        Stack.push_front({"Delay/Feedback", false, 0, 0.0f});
+        Stack.push_front({"Delay/WetDry", false, 0, 0.0f});
+
+        // AR envelope
+        Stack.push_front({"Envelope/AR/0/AttackMilliSeconds", false, 0, 10.0f});
+        Stack.push_front({"Envelope/AR/0/ReleaseMilliSeconds", false, 0, 20.0f});
+
         return Stack;
     }
 }
@@ -144,6 +163,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_CommandStackController = new CCommandStackController(BuildFunctionMap(*m_Controller), BuildDefaultCommandStack());
 
     // build gui
+    guiutils::AddAREnvelope(ui->groupBox_Operator, this, "Envelope/AR/0", *m_CommandStackController);
     guiutils::AddLFOBank(ui->groupBox_Operator, this, m_Controller->LFOBankSize(), "LFOBank", *m_CommandStackController);
     guiutils::AddCombinedFoldedOperatorStage(ui->groupBox_Operator, this, "Oscillator", *m_CommandStackController);
     m_ScopeWidget = new QScopeWidget(*m_Controller, this);

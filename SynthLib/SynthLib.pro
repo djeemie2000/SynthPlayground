@@ -81,7 +81,9 @@ HEADERS += StepSequencer.h \
     DelayLine.h \
     FeedbackDelay.h \
     AREnvelope.h \
-    ConstNumSamplesGenerator.h
+    ConstNumSamplesGenerator.h \
+    FeedbackDelayI.h \
+    AREnvelopeI.h
 
 INCLUDEPATH += ./../AlsaMidiLib
 

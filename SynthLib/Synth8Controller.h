@@ -9,7 +9,7 @@
 #include "Notes.h"
 #include "OnePoleFilter.h"
 #include "NonLinearShaper.h"
-#include "BasicEnvelope.h"
+#include "AREnvelope.h"
 #include "StepSequencer2.h"
 #include "PeriodicTicker.h"
 #include "SampleGrabberI.h"
@@ -23,6 +23,10 @@
 #include "MidiInputHandlerI.h"
 #include "LFOBankI.h"
 #include "LFO.h"
+#include "FeedbackDelay.h"
+#include "FeedbackDelayI.h"
+#include "ConstNumSamplesGenerator.h"
+#include "AREnvelopeI.h"
 
 class IScope;
 
@@ -37,6 +41,8 @@ class CSynth8Controller
                     , public IStepSequencer
                     , public IMidiInputHandler
                     , public ILFOBank
+                    , public IFeedbackDelay
+                    , public IAREnvelope
 {
 public:
     CSynth8Controller(IScope& Scope, int SamplingFrequency);
@@ -97,6 +103,15 @@ public:
     void SelectLFOWaveform(int Idx, int Selected) override;
     int LFOBankSize() const override;
 
+    // FeedbackDelay
+    void OnDelayMilliSeconds(float Delay) override;
+    void OnDelayFeedback(float Feedback) override;
+    void OnDelayWetDry(float WetDry) override;
+
+    // AREnvelope
+    void OnEnvelopeAttack(float AttackMilliSeconds);
+    void OnEnvelopeRelease(float ReleaseMilliSeconds);
+
 private:
     typedef std::int16_t SampleValueType;
     IScope& m_Scope;
@@ -108,10 +123,12 @@ private:
     float   m_Fold;
     CMultiStageFilter<float, COnePoleLowPassFilter<float>, 24> m_LPFilter;
     CNonLinearShaper<float> m_NonLinearShaper;
-    CBasicEnvelope<float> m_Envelope;
+    CAREnvelope<float> m_Envelope;
     CStepSequencer2<float, 8> m_StepSequencer;
     CPeriodicTicker m_StepSequencerTicker;
     std::vector<CLFO<float>> m_LFO;
+    CConstNumSamplesGenerator<float> m_NumSamplesGenerator;
+    CFeedbackDelay<float> m_Delay;
 };
 
 #endif // SYNTH8CONTROLLER_H

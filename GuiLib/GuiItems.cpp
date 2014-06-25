@@ -348,5 +348,15 @@ void AddLFOBank(QGroupBox *GroupBox, QWidget *Parent, int LFOBankSize, const std
     GroupBox->layout()->addWidget(Box);
 }
 
+void AddAREnvelope(QGroupBox *GroupBox, QWidget *Parent, const string &Name, CCommandStackController &Controller)
+{
+    // add child groupbox
+    QGroupBox* Box = AddGroupBox(GroupBox, Parent, "AREnvelope");
+    // add "attack" double spin box
+    AddDoubleSpinBox(Box, Parent, {"Attack", 10.0, 0.0, 10000.0, 1.0, 1}, Name+"/AttackMilliSeconds", Controller);
+    // add "release" double spin box
+    AddDoubleSpinBox(Box, Parent, {"Release", 20.0, 0.0, 10000.0, 1.0, 1}, Name+"/ReleaseMilliSeconds", Controller);
+}
+
 
 }
