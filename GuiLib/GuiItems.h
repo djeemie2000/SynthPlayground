@@ -44,6 +44,9 @@ void AddLFOBank(QGroupBox *GroupBox, QWidget *Parent, int LFOBankSize, const std
 
 void AddAREnvelope(QGroupBox *GroupBox, QWidget *Parent, const std::string& Name, CCommandStackController& Controller);
 
+void AddFeedbackDelay(QGroupBox *GroupBox, QWidget *Parent, const std::string& Name, CCommandStackController& Controller);
+
+
 }
 
 #endif // GUIITEMS_H

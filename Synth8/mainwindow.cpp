@@ -163,17 +163,17 @@ MainWindow::MainWindow(QWidget *parent)
     m_CommandStackController = new CCommandStackController(BuildFunctionMap(*m_Controller), BuildDefaultCommandStack());
 
     // build gui
-    guiutils::AddAREnvelope(ui->groupBox_Operator, this, "Envelope/AR/0", *m_CommandStackController);
     guiutils::AddLFOBank(ui->groupBox_Operator, this, m_Controller->LFOBankSize(), "LFOBank", *m_CommandStackController);
     guiutils::AddCombinedFoldedOperatorStage(ui->groupBox_Operator, this, "Oscillator", *m_CommandStackController);
     m_ScopeWidget = new QScopeWidget(*m_Controller, this);
     connect(Scope, SIGNAL(SignalSample(QVector<std::int16_t>)), m_ScopeWidget, SLOT(OnSample(QVector<std::int16_t>)));
     ui->groupBox_Operator->layout()->addWidget(m_ScopeWidget);
 
-
+    guiutils::AddFeedbackDelay(ui->groupBox_Shaping, this, "Delay", *m_CommandStackController);
     guiutils::AddNonLinearShaper(ui->groupBox_Shaping, this, "NonLinearShaper", *m_CommandStackController);
     guiutils::AddLPFilter(ui->groupBox_Shaping, this, "LPFilter", *m_CommandStackController);
     guiutils::AddWaveFolder(ui->groupBox_Shaping, this, "WaveFolder", *m_CommandStackController);
+    guiutils::AddAREnvelope(ui->groupBox_Shaping, this, "Envelope/AR/0", *m_CommandStackController);
 
     ui->groupBox_Keyboard->layout()->addWidget(new QKeyboardWidget(*m_Controller, this));
     guiutils::AddStepSequencer(ui->groupBox_Keyboard, this, m_Controller->NumSteps(), "StepSequencer", *m_CommandStackController);
