@@ -79,7 +79,9 @@ HEADERS += StepSequencer.h \
     LFO.h \
     LFOBankI.h \
     DelayLine.h \
-    FeedbackDelay.h
+    FeedbackDelay.h \
+    AREnvelope.h \
+    ConstNumSamplesGenerator.h
 
 INCLUDEPATH += ./../AlsaMidiLib
 

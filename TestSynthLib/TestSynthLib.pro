@@ -9,7 +9,9 @@ SOURCES += main.cpp \
     TestPerdiodicTicker.cpp \
     TestNotes.cpp \
     TestDelayLine.cpp \
-    TestFeedbackDelay.cpp
+    TestFeedbackDelay.cpp \
+    TestAREnvelope.cpp \
+    TestConstNumSamplesGenerator.cpp
 
 
 unix {
@@ -37,3 +39,6 @@ release {
 OBJECTS_DIR = $$DESTDIR
 UI_DIR = $$DESTDIR
 MOC_DIR = $$DESTDIR
+
+OTHER_FILES += \
+    TestAREnvelope.cpp4
