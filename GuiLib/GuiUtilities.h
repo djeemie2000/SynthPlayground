@@ -32,6 +32,7 @@ void AddSmallButton(QGridLayout* Layout, QWidget *Parent, int X, int Y, const st
 void AddSmallButton(QGridLayout* Layout, QWidget *Parent, int X, int Y, const std::string& Name, BoolValueChangedCallbackType Callback);
 void AddCheckableSmallButton(QGridLayout* Layout, QWidget *Parent, int X, int Y, const std::string& Name, const std::string& ParameterName, CCommandStackController& Controller);
 
+void AddCheckableSmallButton(QGroupBox *GroupBox, QWidget *Parent, const std::string &Name, const std::string &ParameterName, CCommandStackController &Controller);
 
 struct SDoubleSpinboxProperties
 {

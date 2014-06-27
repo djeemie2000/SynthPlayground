@@ -236,6 +236,11 @@ void CSynth8Controller::OnDelayWetDry(float WetDry)
     m_Delay.SetWet(WetDry);
 }
 
+void CSynth8Controller::OnDelayBypass(bool Bypass)
+{
+    m_Delay.SetBypass(Bypass);
+}
+
 void CSynth8Controller::OnEnvelopeAttack(float AttackMilliSeconds)
 {
     m_NumSamplesGenerator.SetMilliSeconds(AttackMilliSeconds);

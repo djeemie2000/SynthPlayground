@@ -88,6 +88,13 @@ void AddCheckableSmallButton(QGridLayout *Layout, QWidget *Parent, int X, int Y,
     Layout->addWidget(Button, Y, X);
 }
 
+void AddCheckableSmallButton(QGroupBox *GroupBox, QWidget *Parent, const std::string &Name, const std::string &ParameterName, CCommandStackController &Controller)
+{
+    QToolButton* Button = CreateToolButton(Parent, Name, true);
+    ConnectCheckableToolButton(Button, Parent, ParameterName, Controller);
+    GroupBox->layout()->addWidget(Button);
+}
+
 QDoubleSpinBox* CreateDoubleSpinBox(QWidget* Parent, const SDoubleSpinboxProperties &Properties)
 {
     // create spingbox, apply properties

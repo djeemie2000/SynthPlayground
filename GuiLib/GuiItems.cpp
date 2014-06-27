@@ -363,6 +363,8 @@ void AddFeedbackDelay(QGroupBox *GroupBox, QWidget *Parent, const string &Name, 
     // add child groupbox
     QGroupBox* Box = AddGroupBox(GroupBox, Parent, "Delay");
     // add "WetDry" double spin box
+    AddCheckableSmallButton(Box, Parent, "Bypass", Name+"/Bypass", Controller);
+    // add "WetDry" double spin box
     AddDoubleSpinBox(Box, Parent, {"WetDry", 00.0, 0.0, 1.0, 0.01, 3}, Name+"/WetDry", Controller);
     // add "Delay" double spin box
     AddDoubleSpinBox(Box, Parent, {"Delay", 00.0, 0.0, 5000.0, 1, 1}, Name+"/DelayMilliSeconds", Controller);

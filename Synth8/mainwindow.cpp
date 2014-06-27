@@ -75,11 +75,11 @@ namespace
         FunctionMap["Delay/DelayMilliSeconds"] = [&Controller](const SCmdStackItem& Item){  Controller.OnDelayMilliSeconds(Item.s_FloatValue); };
         FunctionMap["Delay/Feedback"] = [&Controller](const SCmdStackItem& Item){  Controller.OnDelayFeedback(Item.s_FloatValue); };
         FunctionMap["Delay/WetDry"] = [&Controller](const SCmdStackItem& Item){  Controller.OnDelayWetDry(Item.s_FloatValue); };
+        FunctionMap["Delay/Bypass"] = [&Controller](const SCmdStackItem& Item){  Controller.OnDelayBypass(Item.s_BoolValue); };
 
         // AR envelope
         FunctionMap["Envelope/AR/0/AttackMilliSeconds"] = [&Controller](const SCmdStackItem& Item){  Controller.OnEnvelopeAttack(Item.s_FloatValue); };
         FunctionMap["Envelope/AR/0/ReleaseMilliSeconds"] = [&Controller](const SCmdStackItem& Item){  Controller.OnEnvelopeRelease(Item.s_FloatValue); };
-
 
         return FunctionMap;
     }
@@ -138,6 +138,8 @@ namespace
         Stack.push_front({"Delay/DelayMilliSeconds", false, 0, 250.0f});
         Stack.push_front({"Delay/Feedback", false, 0, 0.5f});
         Stack.push_front({"Delay/WetDry", false, 0, 0.0f});
+        Stack.push_front({"Delay/Bypass", true, 0, 0.0f});
+
 
         // AR envelope
         Stack.push_front({"Envelope/AR/0/AttackMilliSeconds", false, 0, 10.0f});

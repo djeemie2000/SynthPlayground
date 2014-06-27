@@ -107,6 +107,7 @@ public:
     void OnDelayMilliSeconds(float Delay) override;
     void OnDelayFeedback(float Feedback) override;
     void OnDelayWetDry(float WetDry) override;
+    void OnDelayBypass(bool Bypass) override;
 
     // AREnvelope
     void OnEnvelopeAttack(float AttackMilliSeconds);

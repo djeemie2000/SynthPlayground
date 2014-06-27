@@ -7,12 +7,18 @@ class CFeedbackDelay
 {
 public:
     CFeedbackDelay(int Capacity, T DefaultValue)
-        : m_DelayLine(Capacity, DefaultValue)
+        : m_Active(true)
+        , m_DelayLine(Capacity, DefaultValue)
         , m_PrevIn(DefaultValue)
         , m_PrevDelayLineOutput(DefaultValue)
         , m_Wet(0)
         , m_Feedback(0)
     {}
+
+    void SetBypass(bool Bypass)
+    {
+        m_Active = !Bypass;
+    }
 
     void SetDelay(int Delay)
     {
@@ -36,11 +42,15 @@ public:
         // which is fed into the delay line
         // output signal is a mix of wet (delay line output) and dry signal (In)
                     //T InputValue = (1-m_Feedback)*In + m_Feedback*m_PrevValue;
-        T InputValue = m_PrevIn + m_Feedback*m_PrevDelayLineOutput;
-        m_PrevDelayLineOutput = m_DelayLine(InputValue);
-        m_PrevIn = In;
-        return m_Wet*m_PrevDelayLineOutput + (1-m_Wet)*In;
 
+        if(m_Active)
+        {
+            T InputValue = m_PrevIn + m_Feedback*m_PrevDelayLineOutput;
+            m_PrevDelayLineOutput = m_DelayLine(InputValue);
+            m_PrevIn = In;
+            return m_Wet*m_PrevDelayLineOutput + (1-m_Wet)*In;
+        }
+        return In;
 //        U WetMix = m_Wet;
 //        U DryMix = (1-m_Wet);
 //        T InInternal = In/2;
@@ -76,6 +86,7 @@ public:
     }
 
 private:
+    bool m_Active;
     CDelayLine<T> m_DelayLine;
     T m_PrevIn;
     T m_PrevDelayLineOutput;
