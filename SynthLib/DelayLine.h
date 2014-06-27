@@ -21,17 +21,20 @@ public:
         // Delay = std::max<Delay, m_Capacity); ???
         if(0<=Delay && Delay<m_Capacity)
         {
-            m_ReadIndex = Delay<m_ReadIndex ? m_ReadIndex-Delay : m_Capacity-(Delay-m_ReadIndex);//TODO check!
+            // read index should be delay 'before' write index
+            m_ReadIndex = Delay<m_WriteIndex ? m_WriteIndex-Delay : m_Capacity-(Delay-m_WriteIndex);//TODO check!
         }
     }
 
     T operator()()
     {
-        m_Values[m_ReadIndex];
+        return m_Values[m_ReadIndex];
     }
 
     T operator ()(T In)
     {
+        m_Values[m_WriteIndex] = In;
+
         ++m_WriteIndex;
         if(m_Capacity<=m_WriteIndex)
         {
@@ -44,7 +47,6 @@ public:
             m_ReadIndex = 0;
         }
 
-        m_Values[m_WriteIndex] = In;
         return m_Values[m_ReadIndex];
     }
 

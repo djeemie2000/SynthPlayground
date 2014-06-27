@@ -135,8 +135,8 @@ namespace
         Stack.push_front({"LFOBank/1/WaveForm", false, 3, 0.0f});
 
         // feedback delay
-        Stack.push_front({"Delay/DelayMilliSeconds", false, 0, 0.0f});
-        Stack.push_front({"Delay/Feedback", false, 0, 0.0f});
+        Stack.push_front({"Delay/DelayMilliSeconds", false, 0, 250.0f});
+        Stack.push_front({"Delay/Feedback", false, 0, 0.5f});
         Stack.push_front({"Delay/WetDry", false, 0, 0.0f});
 
         // AR envelope
