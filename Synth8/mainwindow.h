@@ -9,6 +9,7 @@ class MainWindow;
 
 class QScopeWidget;
 class CSynth8Controller;
+class CJackAudioOutput;
 class CMidiInput;
 class IMidiInputHandler;
 class CCommandStackController;
@@ -28,6 +29,7 @@ private:
 
 
     CSynth8Controller*  m_Controller;
+    CJackAudioOutput*   m_AudioOutput;
     IMidiInputHandler*  m_MidiInputHandler;
     CMidiInput*         m_MidiInput;
     QScopeWidget*       m_ScopeWidget;

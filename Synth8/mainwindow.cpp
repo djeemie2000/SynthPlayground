@@ -10,6 +10,7 @@
 #include "QScopeWidget.h"
 #include "QAudioDeviceWidget.h"
 #include "Synth8Controller.h"
+#include "JackAudioOutput.h"
 #include "GuiItems.h"
 #include "MidiInput.h"
 #include "NoteQueueMidiInputHandler.h"
@@ -153,6 +154,7 @@ MainWindow::MainWindow(QWidget *parent)
   : QMainWindow(parent)
   , ui(new Ui::MainWindow)
   , m_Controller(0)
+  , m_AudioOutput(0)
   , m_MidiInput(0)
   , m_ScopeWidget(0)
 {
@@ -160,6 +162,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     QScope* Scope = new QScope(this);
     m_Controller = new CSynth8Controller(*Scope, SamplingFrequency);
+    m_AudioOutput = new CJackAudioOutput(*m_Controller);
     m_MidiInputHandler = new CNoteQueueMidiInputHandler(*m_Controller);
     m_MidiInput = new CMidiInput(*m_MidiInputHandler);
     m_CommandStackController = new CCommandStackController(BuildFunctionMap(*m_Controller), BuildDefaultCommandStack());
@@ -180,20 +183,23 @@ MainWindow::MainWindow(QWidget *parent)
     ui->groupBox_Keyboard->layout()->addWidget(new QKeyboardWidget(*m_Controller, this));
     guiutils::AddStepSequencer(ui->groupBox_Keyboard, this, m_Controller->NumSteps(), "StepSequencer", *m_CommandStackController);
 
-    ui->groupBox_AudioDevice->layout()->addWidget(new QAudioDeviceWidget(*m_Controller, SamplingFrequency, this));
+//    ui->groupBox_AudioDevice->layout()->addWidget(new QAudioDeviceWidget(*m_Controller, SamplingFrequency, this));
     ui->groupBox_AudioDevice->layout()->addWidget(new QPatchManagerWidget(*m_CommandStackController, this));
 
+    m_AudioOutput->Open("Synth8", "AudioOut");
     m_MidiInput->Open("Synth8", "MidiIn");
 }
 
 MainWindow::~MainWindow()
 {
     m_MidiInput->Close();
+    m_AudioOutput->Close();
 
     delete ui;
     delete m_ScopeWidget;
     delete m_CommandStackController;
     delete m_MidiInput;
     delete m_MidiInputHandler;
+    delete m_AudioOutput;
     delete m_Controller;
 }

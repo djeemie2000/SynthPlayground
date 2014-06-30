@@ -19,25 +19,30 @@ INCLUDEPATH += ./../SynthLib
 INCLUDEPATH += ./../CommandStackLib
 INCLUDEPATH += ./../GuiLib
 INCLUDEPATH += ./../AlsaMidiLib
+INCLUDEPATH += ./../JackLib
 
 CONFIG(debug, debug|release) {
     LIBS += -L./../build-dir/Debug/SynthLib
     LIBS += -L./../build-dir/Debug/CommandStackLib
     LIBS += -L./../build-dir/Debug/GuiLib
     LIBS += -L./../build-dir/Debug/AlsaMidiLib
+    LIBS += -L./../build-dir/Debug/JackLib
 }
 CONFIG(release, debug|release) {
     LIBS += -L./../build-dir/Release/SynthLib
     LIBS += -L./../build-dir/Release/CommandStackLib
     LIBS += -L./../build-dir/Release/GuiLib
     LIBS += -L./../build-dir/Release/AlsaMidiLib
+    LIBS += -L./../build-dir/Release/JackLib
 }
 
 LIBS += -lSynthLib
 LIBS += -lCommandStackLib
 LIBS += -lGuiLib
 LIBS += -lAlsaMidiLib
+LIBS += -lJackLib
 LIBS += -lasound
+LIBS += -ljack
 
 CONFIG(debug, debug|release) {
     DESTDIR = ../build-dir/Debug/Synth8

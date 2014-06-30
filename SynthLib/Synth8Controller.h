@@ -27,11 +27,13 @@
 #include "FeedbackDelayI.h"
 #include "ConstNumSamplesGenerator.h"
 #include "AREnvelopeI.h"
+#include "AudioSource2I.h"
 
 class IScope;
 
 class CSynth8Controller
                     : public IAudioSource
+                    , public IAudioSource2
                     , public ISampleGrabber
                     , public INoteHandler
                     , public ICombinedFoldedOperatorStage
@@ -50,6 +52,9 @@ public:
 
     // AudioSource
     std::int64_t OnRead(char *Dst, std::int64_t MaxSize) override;
+
+    // AudioSource2
+    int OnRead(void *Dst, int NumFrames) override;
 
     // SampleGrabber
     void OnGrab(int GrabSize) override;

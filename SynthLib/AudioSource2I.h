@@ -1,5 +1,5 @@
-#ifndef AUDIOSOURCEI_H
-#define AUDIOSOURCEI_H
+#ifndef AUDIOSOURCE2I_H
+#define AUDIOSOURCE2I_H
 
 #include <cstdint>
 
@@ -17,4 +17,4 @@ public:
     virtual int OnRead(void *Dst, int NumFrames) =0;
 };
 
-#endif // AUDIOSOURCEI_H
+#endif // AUDIOSOURCE2I_H

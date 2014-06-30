@@ -9,6 +9,7 @@ SUBDIRS += \
     ../SynthLib \        # a 'lib' project
     ../TestSynthLib \ # an 'app' project
     ../AlsaMidiLib \ # a 'lib' project
+    ../JackLib \ # a 'lib' project
     ../CommandStackLib \ # a 'lib' project
     ../TestCommandStackLib \ # an 'app' project
     ../GuiLib \ # a 'lib' project

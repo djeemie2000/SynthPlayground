@@ -325,3 +325,38 @@ std::int64_t CSynth8Controller::OnRead(char *Dst, std::int64_t MaxSize)
 
     return Size;
 }
+
+int CSynth8Controller::OnRead(void *Dst, int NumFrames)
+{
+    CSymmetricalOperator<float> Symm;
+    CSymmetricalOperator<float> Symm2;
+    CWaveFold2<float> Fold;
+    Fold.SetFold(m_Fold);
+
+    float* pDst = reinterpret_cast<float*>(Dst);
+    float* pDstEnd = pDst + NumFrames;
+
+    while(pDst<pDstEnd)
+    {
+        if(m_StepSequencerTicker())
+        {
+            // note off previous step, advance to next step and apply!
+            if(m_StepSequencer.CurrentStep().s_IsActive)
+            {
+                OnNoteOff(m_StepSequencer.CurrentStep().s_Note, m_StepSequencer.CurrentStep().s_Octave);
+            }
+            m_StepSequencer.Advance();
+            if(m_StepSequencer.CurrentStep().s_IsActive)
+            {
+                OnNoteOn(m_StepSequencer.CurrentStep().s_Note, m_StepSequencer.CurrentStep().s_Octave);
+            }
+        }
+
+        *pDst = (m_Delay(m_Envelope()*Symm2(m_LPFilter(Symm(m_Oscillator(m_LFO[0](), m_LFO[1]()), Fold)), m_NonLinearShaper)));
+        ++pDst;
+    }
+
+    // TODO grab sample in float format
+
+    return 0; // zero means ok
+}
