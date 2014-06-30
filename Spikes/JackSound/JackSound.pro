@@ -2,12 +2,18 @@ TARGET = JackSound
 TEMPLATE = app
 CONFIG += c++11 (Qt5)
 
-SOURCES += main.cpp 
+SOURCES += main.cpp \ 
+    JackAudioOutput.cpp
+
+HEADERS += \
+    JackAudioOutput.h
 
 unix {
     target.path = /usr/lib
     INSTALLS += target
 }
+
+INCLUDEPATH += ../../SynthLib
 
 LIBS += -ljack
 
