@@ -17,11 +17,11 @@ INCLUDEPATH += ../../SynthLib
 
 LIBS += -ljack
 
-debug {
+CONFIG(debug, debug|release) {
     DESTDIR = ../build-dir/Debug/JackSound
 }
-release {
-    DESTDIR = ../build-dir/Release/JackSound
+CONFIG(release, debug|release) {
+   DESTDIR = ../build-dir/Release/JackSound
 }
 
 OBJECTS_DIR = $$DESTDIR

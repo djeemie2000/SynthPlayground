@@ -92,9 +92,12 @@ unix {
     INSTALLS += target
 }
 
-
-debug:DESTDIR = ../build-dir/Debug/SynthLib
-release:DESTDIR = ../build-dir/Release/SynthLib
+CONFIG(debug, debug|release) {
+    DESTDIR = ../build-dir/Debug/SynthLib
+}
+CONFIG(release, debug|release) {
+    DESTDIR = ../build-dir/Release/SynthLib
+}
 
 OBJECTS_DIR = $$DESTDIR
 UI_DIR = $$DESTDIR

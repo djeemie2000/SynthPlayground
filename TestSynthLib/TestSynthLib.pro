@@ -13,7 +13,6 @@ SOURCES += main.cpp \
     TestAREnvelope.cpp \
     TestConstNumSamplesGenerator.cpp
 
-
 unix {
     target.path = /usr/lib
     INSTALLS += target
@@ -22,15 +21,14 @@ unix {
 INCLUDEPATH += ./../SynthLib
 INCLUDEPATH += ./../UnitTest
 
-
 LIBS += -lSynthLib -lUnitTest
 
-debug {
+CONFIG(debug, debug|release) {
     LIBS += -L./../build-dir/Debug/SynthLib
     LIBS += -L./../build-dir/Debug/UnitTest
     DESTDIR = ../build-dir/Debug/TestSynthLib
 }
-release {
+CONFIG(release, debug|release) {
     LIBS += -L./../build-dir/Release/SynthLib
     LIBS += -L./../build-dir/Release/UnitTest
     DESTDIR = ../build-dir/Release/TestSynthLib
@@ -39,6 +37,3 @@ release {
 OBJECTS_DIR = $$DESTDIR
 UI_DIR = $$DESTDIR
 MOC_DIR = $$DESTDIR
-
-OTHER_FILES += \
-    TestAREnvelope.cpp4

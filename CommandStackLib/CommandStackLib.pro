@@ -33,8 +33,12 @@ unix {
 #debug:LIBS += -L./../build-dir/Debug/SynthLib
 #release:LIBS += -L./../build-dir/Release/SynthLib
 
-debug:DESTDIR = ../build-dir/Debug/CommandStackLib
-release:DESTDIR = ../build-dir/Release/CommandStackLib
+CONFIG(debug, debug|release) {
+    DESTDIR = ../build-dir/Debug/CommandStackLib
+}
+CONFIG(release, debug|release) {
+    DESTDIR = ../build-dir/Release/CommandStackLib
+}
 
 OBJECTS_DIR = $$DESTDIR
 UI_DIR = $$DESTDIR

@@ -16,12 +16,12 @@ INCLUDEPATH += ./../UnitTest
 
 LIBS += -lCommandStackLib -lUnitTest
 
-debug {
+CONFIG(debug, debug|release) {
     LIBS += -L./../build-dir/Debug/CommandStackLib
     LIBS += -L./../build-dir/Debug/UnitTest
     DESTDIR = ../build-dir/Debug/TestCommandStackLib
 }
-release {
+CONFIG(release, debug|release) {
     LIBS += -L./../build-dir/Release/CommandStackLib
     LIBS += -L./../build-dir/Release/UnitTest
     DESTDIR = ../build-dir/Release/TestCommandStackLib

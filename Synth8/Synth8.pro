@@ -20,14 +20,18 @@ INCLUDEPATH += ./../CommandStackLib
 INCLUDEPATH += ./../GuiLib
 INCLUDEPATH += ./../AlsaMidiLib
 
-debug:LIBS += -L./../build-dir/Debug/SynthLib
-debug:LIBS += -L./../build-dir/Debug/CommandStackLib
-debug:LIBS += -L./../build-dir/Debug/GuiLib
-debug:LIBS += -L./../build-dir/Debug/AlsaMidiLib
-release:LIBS += -L./../build-dir/Release/SynthLib
-release:LIBS += -L./../build-dir/Release/CommandStackLib
-release:LIBS += -L./../build-dir/Release/GuiLib
-release:LIBS += -L./../build-dir/Release/AlsaMidiLib
+CONFIG(debug, debug|release) {
+    LIBS += -L./../build-dir/Debug/SynthLib
+    LIBS += -L./../build-dir/Debug/CommandStackLib
+    LIBS += -L./../build-dir/Debug/GuiLib
+    LIBS += -L./../build-dir/Debug/AlsaMidiLib
+}
+CONFIG(release, debug|release) {
+    LIBS += -L./../build-dir/Release/SynthLib
+    LIBS += -L./../build-dir/Release/CommandStackLib
+    LIBS += -L./../build-dir/Release/GuiLib
+    LIBS += -L./../build-dir/Release/AlsaMidiLib
+}
 
 LIBS += -lSynthLib
 LIBS += -lCommandStackLib
@@ -35,8 +39,12 @@ LIBS += -lGuiLib
 LIBS += -lAlsaMidiLib
 LIBS += -lasound
 
-debug:DESTDIR = ../build-dir/Debug/Synth8
-release:DESTDIR = ../build-dir/Release/Synth8
+CONFIG(debug, debug|release) {
+    DESTDIR = ../build-dir/Debug/Synth8
+}
+CONFIG(release, debug|release) {
+    DESTDIR = ../build-dir/Release/Synth8
+}
 
 OBJECTS_DIR = $$DESTDIR
 UI_DIR = $$DESTDIR

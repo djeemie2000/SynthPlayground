@@ -17,8 +17,12 @@ unix {
     INSTALLS += target
 }
 
-debug:DESTDIR = ../build-dir/Debug/TinyXml2
-release:DESTDIR = ../build-dir/Release/TinyXml2
+CONFIG(debug, debug|release) {
+    DESTDIR = ../build-dir/Debug/TinyXml2
+}
+CONFIG(release, debug|release) {
+    DESTDIR = ../build-dir/Release/TinyXml2
+}
 
 OBJECTS_DIR = $$DESTDIR
 UI_DIR = $$DESTDIR

@@ -52,8 +52,12 @@ unix {
 
 #LIBS += -lSynthLib
 
-debug:DESTDIR = ../build-dir/Debug/GuiLib
-release:DESTDIR = ../build-dir/Release/GuiLib
+CONFIG(debug, debug|release) {
+    DESTDIR = ../build-dir/Debug/GuiLib
+}
+CONFIG(release, debug|release) {
+    DESTDIR = ../build-dir/Release/GuiLib
+}
 
 OBJECTS_DIR = $$DESTDIR
 UI_DIR = $$DESTDIR

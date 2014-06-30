@@ -72,14 +72,17 @@ HEADERS += \
     Win32/TimeHelpers.h
 }
 
-
 unix {
     target.path = /usr/lib
     INSTALLS += target
 }
 
-debug:DESTDIR = ../build-dir/Debug/UnitTest
-release:DESTDIR = ../build-dir/Release/UnitTest
+CONFIG(debug, debug|release) {
+    DESTDIR = ../build-dir/Debug/UnitTest
+}
+CONFIG(release, debug|release) {
+    DESTDIR = ../build-dir/Release/UnitTest
+}
 
 OBJECTS_DIR = $$DESTDIR
 UI_DIR = $$DESTDIR

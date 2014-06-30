@@ -25,8 +25,12 @@ unix {
     INSTALLS += target
 }
 
-debug:DESTDIR = ../build-dir/Debug/AlsaMidiLib
-release:DESTDIR = ../build-dir/Release/AlsaMidiLib
+CONFIG(debug, debug|release) {
+    DESTDIR = ../build-dir/Debug/AlsaMidiLib
+}
+CONFIG(release, debug|release) {
+    DESTDIR = ../build-dir/Release/AlsaMidiLib
+}
 
 OBJECTS_DIR = $$DESTDIR
 UI_DIR = $$DESTDIR
