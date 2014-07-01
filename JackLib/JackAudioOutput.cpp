@@ -1,4 +1,5 @@
-#include <functional>
+//#include <functional>
+#include <iostream>
 #include "JackAudioOutput.h"
 #include "AudioSource2I.h"
 
@@ -7,30 +8,30 @@ namespace
 
 int JackProcessFunction(jack_nframes_t NumFrames, void* arg)
 {
-    return ((CJackAudioOutput*)arg)->OnProcess(NumFrames);
+    return ((CJackIOManager*)arg)->OnProcessAudioOutput(NumFrames);
 }
 
 void JackShutdownFunction(void* arg)
 {
-    ((CJackAudioOutput*)arg)->Close();
+    ((CJackIOManager*)arg)->CloseClient();
 }
 
 }
 
-CJackAudioOutput::CJackAudioOutput(IAudioSource2& AudioSource)
- : m_AudioSource(AudioSource)
- , m_Client(0)
- , m_Port(0)
- , m_SamplingFrequency(44100)
+CJackIOManager::CJackIOManager()
+ : m_Client(0)
+ , m_SamplingFrequency(-1)
+ , m_AudioOutputPort(0)
+ , m_AudioSource()
 {
 }
 
-CJackAudioOutput::~CJackAudioOutput()
+CJackIOManager::~CJackIOManager()
 {
-    Close();
+    CloseClient();
 }
 
-bool CJackAudioOutput::Open(const std::string &ClientName, const std::string &PortName)
+bool CJackIOManager::OpenClient(const std::string &ClientName)
 {
     bool Success = false;
     // open client with requested name. No further options are needed
@@ -39,52 +40,61 @@ bool CJackAudioOutput::Open(const std::string &ClientName, const std::string &Po
     {
         // retrieve and display the current sample rate.
         m_SamplingFrequency = jack_get_sample_rate(m_Client);
-        //printf("engine sample rate: %d \n", m_SamplingFrequency);
 
-        // create one output port. Use default audio type, which is mono float 32 bits.
-        // it is adviced to use 'terminal' option for audio synthesizers.
-        m_Port = jack_port_register(m_Client, PortName.c_str(), JACK_DEFAULT_AUDIO_TYPE, JackPortIsOutput|JackPortIsTerminal, 0);
-        if(m_Port)
-        {
-            // tell the JACK server to call `process()' whenever there is work to be done.
-            jack_set_process_callback(m_Client,
-                                      JackProcessFunction,
-                                      this);
+        // tell the JACK server to call `jack_shutdown()' if it ever shuts down,
+        // either entirely, or if it just decides to stop calling us.
+        jack_on_shutdown(m_Client,
+                         JackShutdownFunction,
+                         this);
 
-            // tell the JACK server to call `jack_shutdown()' if it ever shuts down,
-            // either entirely, or if it just decides to stop calling us.
-            jack_on_shutdown(m_Client,
-                             JackShutdownFunction,
-                             this);
-
-            // tell the JACK server that we are ready to roll
-            if(0==jack_activate(m_Client))
-            {
-                Success = true;
-            }
-            else
-            { // TODO capture error and print it?
-                fprintf(stderr, "cannot activate client\r\n");
-            }
-        }
+        Success = true;
     }
+
     if(!Success)
     {
         // make sure everything is cleaned ip, even if just one step failed
-        Close();
+        CloseClient();
     }
 
     return Success;
 }
 
-void CJackAudioOutput::Close()
+bool CJackIOManager::OpenAudioOutput(const std::string &Name, std::shared_ptr<IAudioSource2> AudioSource)
+{
+    bool Success = false;
+    if(m_Client)
+    {
+        // create one output port. Use default audio type, which is mono float 32 bits.
+        // it is adviced to use 'terminal' option for audio synthesizers.
+        m_AudioOutputPort = jack_port_register(m_Client, Name.c_str(), JACK_DEFAULT_AUDIO_TYPE, JackPortIsOutput|JackPortIsTerminal, 0);
+        if(m_AudioOutputPort)
+        {
+            // tell the JACK server to call `process()' whenever there is work to be done.
+            if(0==jack_set_process_callback(m_Client,
+                                            JackProcessFunction,
+                                            this))
+            {
+                m_AudioSource = AudioSource;
+                Success = true;
+            }
+            else
+            {
+                std::cerr << "Failed to set process callback for audio output " << Name << std::endl;
+            }
+        }
+    }
+    return Success;
+}
+
+
+void CJackIOManager::CloseClient()
 {
     if(m_Client)
     {
-        if(m_Port)
+        if(m_AudioOutputPort)
         {
-            jack_port_unregister(m_Client, m_Port);
-            m_Port = 0;
+            jack_port_unregister(m_Client, m_AudioOutputPort);
+            m_AudioOutputPort = 0;
         }
         // tell jack we do not want to play along anymore
         jack_deactivate(m_Client);
@@ -95,28 +105,48 @@ void CJackAudioOutput::Close()
     }
 }
 
-bool CJackAudioOutput::IsOpen() const
+bool CJackIOManager::ClientIsOpen() const
 {
     return 0!=m_Client;
 }
 
-int CJackAudioOutput::SamplingFrequency() const
+
+int CJackIOManager::SamplingFrequency() const
 {
     return static_cast<int>(m_SamplingFrequency);
 }
 
-int CJackAudioOutput::OnProcess(jack_nframes_t NumFrames)
+int CJackIOManager::OnProcessAudioOutput(jack_nframes_t NumFrames)
 {
     // if this function is called, it is fair to assume we are opened
-    void* DstBuffer = jack_port_get_buffer(m_Port, NumFrames);
+    void* DstBuffer = jack_port_get_buffer(m_AudioOutputPort, NumFrames);
     // should return 0 upon succes, non-zero error code upon failure
-    return m_AudioSource.OnRead(DstBuffer, NumFrames);
+    return m_AudioSource->OnRead(DstBuffer, NumFrames);
 }
 
-void CJackAudioOutput::OnShutdown()
+void CJackIOManager::OnShutdown()
 {
+    std::cout << "JAck shutting down unexpectedly!" << std::endl;
     // not sure if we can do this inside this function!
-    Close();
+    //Close();
+}
+
+bool CJackIOManager::ActivateClient()
+{
+    bool Success = false;
+    if(m_Client)
+    {
+        // tell the JACK server that we are ready to roll
+        if(0==jack_activate(m_Client))
+        {
+            Success = true;
+        }
+        else
+        { // TODO capture error and print it?
+            std::cerr << "cannot activate client" << std::endl;
+        }
+    }
+    return Success;
 }
 
 

@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <memory>
 
 namespace Ui {
 class MainWindow;
@@ -9,7 +10,7 @@ class MainWindow;
 
 class QScopeWidget;
 class CSynth8Controller;
-class CJackAudioOutput;
+class CJackIOManager;
 class CMidiInput;
 class IMidiInputHandler;
 class CCommandStackController;
@@ -28,12 +29,12 @@ private:
     Ui::MainWindow *ui;
 
 
-    CSynth8Controller*  m_Controller;
-    CJackAudioOutput*   m_AudioOutput;
-    IMidiInputHandler*  m_MidiInputHandler;
-    CMidiInput*         m_MidiInput;
+    std::shared_ptr<CJackIOManager>   m_AudioOutput;
+    std::shared_ptr<CSynth8Controller>  m_Controller;
+    std::shared_ptr<IMidiInputHandler>  m_MidiInputHandler;
+    std::shared_ptr<CMidiInput>         m_MidiInput;
     QScopeWidget*       m_ScopeWidget;
-    CCommandStackController* m_CommandStackController;
+    std::shared_ptr<CCommandStackController> m_CommandStackController;
 };
 
 #endif // MAINWINDOW_H

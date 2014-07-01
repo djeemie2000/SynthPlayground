@@ -2,31 +2,45 @@
 #define JACKAUDIOOUTPUT_H
 
 #include <string>
+#include <memory>
 #include<jack/jack.h>
 
 class IAudioSource2;
 
-class CJackAudioOutput
+/*!
+ * \brief The CJackAudioOutput class
+ * Usage:
+ * OpenClient,
+ * then open some audio/midi outputs/inputs,
+ * then activate client
+ * CloseClient
+ */
+class CJackIOManager
 {
 public:
-    CJackAudioOutput(IAudioSource2& AudioSource);
-    ~CJackAudioOutput();
+    CJackIOManager();
+    ~CJackIOManager();
 
-    bool Open(const std::string& ClientName, const std::string& PortName);
-    void Close();
-
-    bool IsOpen() const;
+    bool OpenClient(const std::string& ClientName);
     int SamplingFrequency() const;
+    bool ClientIsOpen() const;
 
+    bool OpenAudioOutput(const std::string& Name, std::shared_ptr<IAudioSource2> AudioSource);
+    //bool OpenAudioInput(const std::string& Name, std::shared_ptr<IAudioSink2> AudioSink);
+    // idem for midi -> midi handler => generic midi stuff into MidiLib => AlsaLib separately
 
-    int OnProcess(jack_nframes_t NumFrames);
+    bool ActivateClient();
+
+    void CloseClient();// close client and all ports (audio input/output,midi)
+
+    int OnProcessAudioOutput(jack_nframes_t NumFrames);
     void OnShutdown();
 
 private:
-    IAudioSource2&   m_AudioSource;
     jack_client_t*  m_Client;
-    jack_port_t *   m_Port;
     jack_nframes_t  m_SamplingFrequency;
+    jack_port_t *   m_AudioOutputPort;
+    std::shared_ptr<IAudioSource2>   m_AudioSource;
 };
 
 #endif // JACKAUDIOOUTPUT_H

@@ -20,8 +20,6 @@
 
 namespace
 {
-    const int SamplingFrequency = 44100;
-
     CmdFunctionMap BuildFunctionMap(CSynth8Controller& Controller)
     {
         CmdFunctionMap FunctionMap;
@@ -153,19 +151,21 @@ namespace
 MainWindow::MainWindow(QWidget *parent)
   : QMainWindow(parent)
   , ui(new Ui::MainWindow)
-  , m_Controller(0)
-  , m_AudioOutput(0)
+  , m_AudioOutput()
+  , m_Controller()
   , m_MidiInput(0)
   , m_ScopeWidget(0)
 {
     ui->setupUi(this);
 
+    m_AudioOutput.reset(new CJackIOManager());
+    m_AudioOutput->OpenClient("Synth8");
+
     QScope* Scope = new QScope(this);
-    m_Controller = new CSynth8Controller(*Scope, SamplingFrequency);
-    m_AudioOutput = new CJackAudioOutput(*m_Controller);
-    m_MidiInputHandler = new CNoteQueueMidiInputHandler(*m_Controller);
-    m_MidiInput = new CMidiInput(*m_MidiInputHandler);
-    m_CommandStackController = new CCommandStackController(BuildFunctionMap(*m_Controller), BuildDefaultCommandStack());
+    m_Controller.reset(new CSynth8Controller(*Scope, m_AudioOutput->SamplingFrequency()));
+    m_MidiInputHandler.reset(new CNoteQueueMidiInputHandler(*m_Controller));
+    m_MidiInput.reset(new CMidiInput(*m_MidiInputHandler));
+    m_CommandStackController.reset(new CCommandStackController(BuildFunctionMap(*m_Controller), BuildDefaultCommandStack()));
 
     // build gui
     guiutils::AddLFOBank(ui->groupBox_Operator, this, m_Controller->LFOBankSize(), "LFOBank", *m_CommandStackController);
@@ -183,23 +183,23 @@ MainWindow::MainWindow(QWidget *parent)
     ui->groupBox_Keyboard->layout()->addWidget(new QKeyboardWidget(*m_Controller, this));
     guiutils::AddStepSequencer(ui->groupBox_Keyboard, this, m_Controller->NumSteps(), "StepSequencer", *m_CommandStackController);
 
-//    ui->groupBox_AudioDevice->layout()->addWidget(new QAudioDeviceWidget(*m_Controller, SamplingFrequency, this));
     ui->groupBox_AudioDevice->layout()->addWidget(new QPatchManagerWidget(*m_CommandStackController, this));
 
-    m_AudioOutput->Open("Synth8", "AudioOut");
+    m_AudioOutput->OpenAudioOutput("Out", m_Controller);
+    m_AudioOutput->ActivateClient();
     m_MidiInput->Open("Synth8", "MidiIn");
 }
 
 MainWindow::~MainWindow()
 {
     m_MidiInput->Close();
-    m_AudioOutput->Close();
+    m_AudioOutput->CloseClient();
 
     delete ui;
     delete m_ScopeWidget;
-    delete m_CommandStackController;
-    delete m_MidiInput;
-    delete m_MidiInputHandler;
-    delete m_AudioOutput;
-    delete m_Controller;
+    //delete m_CommandStackController;
+    //delete m_MidiInput;
+    //delete m_MidiInputHandler;
+    //delete m_AudioOutput;
+    //delete m_Controller;
 }
