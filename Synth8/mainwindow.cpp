@@ -181,8 +181,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(Scope, SIGNAL(SignalSample(QVector<std::int16_t>)), m_ScopeWidget, SLOT(OnSample(QVector<std::int16_t>)));
     ui->groupBox_Operator->layout()->addWidget(m_ScopeWidget);
 
-    guiutils::AddMasterVolume(ui->groupBox_Shaping, this, "MasterVolume", *m_CommandStackController);
-    guiutils::AddFeedbackDelay(ui->groupBox_Shaping, this, "Delay", *m_CommandStackController);
+    guiutils::AddMasterVolume(ui->groupBox_Fx, this, "MasterVolume", *m_CommandStackController);
+    guiutils::AddFeedbackDelay(ui->groupBox_Fx, this, "Delay", *m_CommandStackController);
     guiutils::AddNonLinearShaper(ui->groupBox_Shaping, this, "NonLinearShaper", *m_CommandStackController);
     guiutils::AddLPFilter(ui->groupBox_Shaping, this, "LPFilter", *m_CommandStackController);
     guiutils::AddWaveFolder(ui->groupBox_Shaping, this, "WaveFolder", *m_CommandStackController);

@@ -39,7 +39,7 @@
           <item>
            <widget class="QLabel" name="label_2">
             <property name="text">
-             <string> </string>
+             <string/>
             </property>
            </widget>
           </item>
@@ -55,7 +55,7 @@
           <item>
            <widget class="QLabel" name="label">
             <property name="text">
-             <string> </string>
+             <string/>
             </property>
            </widget>
           </item>
@@ -65,7 +65,7 @@
        <item>
         <widget class="QGroupBox" name="groupBox_Shaping">
          <property name="title">
-          <string>Fx + Shaping</string>
+          <string>Shaping</string>
          </property>
          <property name="flat">
           <bool>false</bool>
@@ -74,7 +74,23 @@
           <item>
            <widget class="QLabel" name="label_3">
             <property name="text">
-             <string> </string>
+             <string/>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox_Fx">
+         <property name="title">
+          <string>Fx</string>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <item>
+           <widget class="QLabel" name="label_5">
+            <property name="text">
+             <string/>
             </property>
            </widget>
           </item>
@@ -90,7 +106,7 @@
           <item>
            <widget class="QLabel" name="label_4">
             <property name="text">
-             <string> </string>
+             <string/>
             </property>
            </widget>
           </item>
@@ -108,7 +124,7 @@
      <x>0</x>
      <y>0</y>
      <width>702</width>
-     <height>21</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>
