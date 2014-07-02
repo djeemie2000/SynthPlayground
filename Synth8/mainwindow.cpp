@@ -80,6 +80,10 @@ namespace
         FunctionMap["Envelope/AR/0/AttackMilliSeconds"] = [&Controller](const SCmdStackItem& Item){  Controller.OnEnvelopeAttack(Item.s_FloatValue); };
         FunctionMap["Envelope/AR/0/ReleaseMilliSeconds"] = [&Controller](const SCmdStackItem& Item){  Controller.OnEnvelopeRelease(Item.s_FloatValue); };
 
+        // master volume
+        FunctionMap["MasterVolume"] = [&Controller](const SCmdStackItem& Item){  Controller.SetMasterVolume(Item.s_FloatValue); };
+
+
         return FunctionMap;
     }
 
@@ -128,21 +132,24 @@ namespace
         }
 
         // LFO bank
-        Stack.push_front({"LFOBank/0/Frequency", false, 0, 1.0f});
-        Stack.push_front({"LFOBank/0/WaveForm", false, 3, 0.0f});
-        Stack.push_front({"LFOBank/1/Frequency", false, 0, 1.0f});
-        Stack.push_front({"LFOBank/1/WaveForm", false, 3, 0.0f});
+        Stack.push_back({"LFOBank/0/Frequency", false, 0, 1.0f});
+        Stack.push_back({"LFOBank/0/WaveForm", false, 3, 0.0f});
+        Stack.push_back({"LFOBank/1/Frequency", false, 0, 1.0f});
+        Stack.push_back({"LFOBank/1/WaveForm", false, 3, 0.0f});
 
         // feedback delay
-        Stack.push_front({"Delay/DelayMilliSeconds", false, 0, 250.0f});
-        Stack.push_front({"Delay/Feedback", false, 0, 0.5f});
-        Stack.push_front({"Delay/WetDry", false, 0, 0.0f});
-        Stack.push_front({"Delay/Bypass", true, 0, 0.0f});
+        Stack.push_back({"Delay/DelayMilliSeconds", false, 0, 250.0f});
+        Stack.push_back({"Delay/Feedback", false, 0, 0.5f});
+        Stack.push_back({"Delay/WetDry", false, 0, 0.0f});
+        Stack.push_back({"Delay/Bypass", true, 0, 0.0f});
 
 
         // AR envelope
-        Stack.push_front({"Envelope/AR/0/AttackMilliSeconds", false, 0, 10.0f});
-        Stack.push_front({"Envelope/AR/0/ReleaseMilliSeconds", false, 0, 20.0f});
+        Stack.push_back({"Envelope/AR/0/AttackMilliSeconds", false, 0, 10.0f});
+        Stack.push_back({"Envelope/AR/0/ReleaseMilliSeconds", false, 0, 20.0f});
+
+        // master volume
+        Stack.push_back({"MasterVolume", false, 0, 1.0f});
 
         return Stack;
     }
@@ -174,6 +181,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(Scope, SIGNAL(SignalSample(QVector<std::int16_t>)), m_ScopeWidget, SLOT(OnSample(QVector<std::int16_t>)));
     ui->groupBox_Operator->layout()->addWidget(m_ScopeWidget);
 
+    guiutils::AddMasterVolume(ui->groupBox_Shaping, this, "MasterVolume", *m_CommandStackController);
     guiutils::AddFeedbackDelay(ui->groupBox_Shaping, this, "Delay", *m_CommandStackController);
     guiutils::AddNonLinearShaper(ui->groupBox_Shaping, this, "NonLinearShaper", *m_CommandStackController);
     guiutils::AddLPFilter(ui->groupBox_Shaping, this, "LPFilter", *m_CommandStackController);

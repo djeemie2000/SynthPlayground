@@ -26,7 +26,7 @@ public:
     bool ClientIsOpen() const;
 
     bool OpenAudioOutput(const std::string& Name, std::shared_ptr<IAudioSource2> AudioSource);
-    //bool OpenAudioInput(const std::string& Name, std::shared_ptr<IAudioSink2> AudioSink);
+    //bool OpenAudioInput(const std::string& Name, std::shared_ptr<IAudioRenderer2> AudioSink);
     // idem for midi -> midi handler => generic midi stuff into MidiLib => AlsaLib separately
 
     bool ActivateClient();

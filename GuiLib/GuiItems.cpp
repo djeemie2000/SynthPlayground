@@ -365,12 +365,19 @@ void AddFeedbackDelay(QGroupBox *GroupBox, QWidget *Parent, const string &Name, 
     // add "WetDry" double spin box
     AddCheckableSmallButton(Box, Parent, "Bypass", Name+"/Bypass", Controller);
     // add "WetDry" double spin box
-    AddDoubleSpinBox(Box, Parent, {"WetDry", 00.0, 0.0, 1.0, 0.01, 3}, Name+"/WetDry", Controller);
+    AddDoubleSpinBox(Box, Parent, {"WetDry", 0.0, 0.0, 1.0, 0.01, 3}, Name+"/WetDry", Controller);
     // add "Delay" double spin box
-    AddDoubleSpinBox(Box, Parent, {"Delay", 00.0, 0.0, 5000.0, 1, 1}, Name+"/DelayMilliSeconds", Controller);
+    AddDoubleSpinBox(Box, Parent, {"Delay", 0.0, 0.0, 5000.0, 1, 1}, Name+"/DelayMilliSeconds", Controller);
     // add "Feedback" double spin box
-    AddDoubleSpinBox(Box, Parent, {"Feedback", 00.0, 0.0, 1.0, 0.01, 3}, Name+"/Feedback", Controller);
+    AddDoubleSpinBox(Box, Parent, {"Feedback", 0.0, 0.0, 1.0, 0.01, 3}, Name+"/Feedback", Controller);
 }
 
+void AddMasterVolume(QGroupBox *GroupBox, QWidget *Parent, const string &Name, CCommandStackController &Controller)
+{
+    // add child groupbox
+    QGroupBox* Box = AddGroupBox(GroupBox, Parent, "Master");
+    // add "Volume" double spin box
+    AddDoubleSpinBox(Box, Parent, {"Volume", 1.0, 0.0, 1.0, 0.01, 3}, Name, Controller);
+}
 
 }

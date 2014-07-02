@@ -28,6 +28,8 @@
 #include "ConstNumSamplesGenerator.h"
 #include "AREnvelopeI.h"
 #include "AudioSource2I.h"
+#include "MasterVolumeI.h"
+#include "ConstGenerator.h"
 
 class IScope;
 
@@ -45,6 +47,7 @@ class CSynth8Controller
                     , public ILFOBank
                     , public IFeedbackDelay
                     , public IAREnvelope
+                    , public IMasterVolume
 {
 public:
     CSynth8Controller(IScope& Scope, int SamplingFrequency);
@@ -115,8 +118,11 @@ public:
     void OnDelayBypass(bool Bypass) override;
 
     // AREnvelope
-    void OnEnvelopeAttack(float AttackMilliSeconds);
-    void OnEnvelopeRelease(float ReleaseMilliSeconds);
+    void OnEnvelopeAttack(float AttackMilliSeconds) override;
+    void OnEnvelopeRelease(float ReleaseMilliSeconds) override;
+
+    // MasterVolume
+    void SetMasterVolume(float Volume) override;
 
 private:
     typedef std::int16_t SampleValueType;
@@ -135,6 +141,7 @@ private:
     std::vector<CLFO<float>> m_LFO;
     CConstNumSamplesGenerator<float> m_NumSamplesGenerator;
     CFeedbackDelay<float> m_Delay;
+    CConstGenerator<float> m_MasterVolume;
 };
 
 #endif // SYNTH8CONTROLLER_H

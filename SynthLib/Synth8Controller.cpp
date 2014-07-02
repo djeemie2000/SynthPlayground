@@ -25,6 +25,7 @@ CSynth8Controller::CSynth8Controller(IScope &Scope, int SamplingFrequency)
     , m_LFO(2, {SamplingFrequency, CSelectableOperatorFactory::Create()})
     , m_NumSamplesGenerator(SamplingFrequency)
     , m_Delay(SamplingFrequency*5, 0.0f)//5 seconds capacity
+    , m_MasterVolume()
 {
     m_Oscillator.SetFrequency(CPitch()(ENote::A, EOctave::Octave2));
     m_Oscillator.Select(0, 0);
@@ -41,6 +42,8 @@ CSynth8Controller::CSynth8Controller(IScope &Scope, int SamplingFrequency)
         LFO.SetFrequency(1);
         LFO.SelectWaveform(0);
     }
+
+    m_MasterVolume.Set(1.0f);//default full volume
 }
 
 CSynth8Controller::~CSynth8Controller()
@@ -253,6 +256,11 @@ void CSynth8Controller::OnEnvelopeRelease(float ReleaseMilliSeconds)
     m_Envelope.SetReleaseSamples(m_NumSamplesGenerator());
 }
 
+void CSynth8Controller::SetMasterVolume(float Volume)
+{
+    m_MasterVolume.Set(Volume);
+}
+
 void CSynth8Controller::OnGrab(int GrabSize)
 {
     m_GrabSample = true;
@@ -332,6 +340,7 @@ int CSynth8Controller::OnRead(void *Dst, int NumFrames)
     CSymmetricalOperator<float> Symm2;
     CWaveFold2<float> Fold;
     Fold.SetFold(m_Fold);
+    float MasterVolume = m_MasterVolume();
 
     float* pDst = reinterpret_cast<float*>(Dst);
     float* pDstEnd = pDst + NumFrames;
@@ -352,7 +361,7 @@ int CSynth8Controller::OnRead(void *Dst, int NumFrames)
             }
         }
 
-        *pDst = (m_Delay(m_Envelope()*Symm2(m_LPFilter(Symm(m_Oscillator(m_LFO[0](), m_LFO[1]()), Fold)), m_NonLinearShaper)));
+        *pDst = MasterVolume*(m_Delay(m_Envelope()*Symm2(m_LPFilter(Symm(m_Oscillator(m_LFO[0](), m_LFO[1]()), Fold)), m_NonLinearShaper)));
         ++pDst;
     }
 

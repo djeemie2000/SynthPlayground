@@ -46,6 +46,8 @@ void AddAREnvelope(QGroupBox *GroupBox, QWidget *Parent, const std::string& Name
 
 void AddFeedbackDelay(QGroupBox *GroupBox, QWidget *Parent, const std::string& Name, CCommandStackController& Controller);
 
+void AddMasterVolume(QGroupBox *GroupBox, QWidget *Parent, const std::string& Name, CCommandStackController& Controller);
+
 
 }
 
