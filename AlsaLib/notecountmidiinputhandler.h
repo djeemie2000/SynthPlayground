@@ -1,12 +1,13 @@
 #ifndef NOTECOUNTMIDIINPUTHANDLER_H
 #define NOTECOUNTMIDIINPUTHANDLER_H
 
+#include <memory>
 #include "MidiInputHandlerI.h"
 
 class CNoteCountMidiInputHandler : public IMidiInputHandler
 {
 public:
-    CNoteCountMidiInputHandler(IMidiInputHandler& Handler);
+    CNoteCountMidiInputHandler(std::shared_ptr<IMidiInputHandler> Handler);
 
     void OnNoteOn(int Note, int Velocity) override;
     void OnNoteOff(int Note, int Velocity) override;
@@ -15,7 +16,7 @@ public:
     void OnUnknown() override;
 
 private:
-    IMidiInputHandler& m_Handler;
+    std::shared_ptr<IMidiInputHandler> m_Handler;
     int m_NoteCount;
 };
 

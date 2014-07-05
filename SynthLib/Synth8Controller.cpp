@@ -184,13 +184,13 @@ void CSynth8Controller::Stop()
 
 void CSynth8Controller::OnNoteOn(int Note, int)
 {
-    //std::printf"Midi NoteOn : %d \r\n", Note);
+    std::cout << "Midi NoteOn : " << Note << std::endl;
     OnNoteOn(CMidiNoteConverter().ToNote(Note), CMidiNoteConverter().ToOctave(Note));
 }
 
 void CSynth8Controller::OnNoteOff(int Note, int)
 {
-    //std::printf"Midi NoteOff : %d \r\n", Note);
+    std::cout << "Midi NoteOff : " << Note << std::endl;
     OnNoteOff(CMidiNoteConverter().ToNote(Note), CMidiNoteConverter().ToOctave(Note));
 }
 

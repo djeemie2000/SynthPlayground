@@ -8,7 +8,8 @@ SOURCES += \
     AlsaMidiInput.cpp \
     MidiNoteConverter.cpp \
     NoteQueueMidiInputHandler.cpp \
-    notecountmidiinputhandler.cpp
+    notecountmidiinputhandler.cpp \
+    CommandStackMidiInputHandler.cpp
 
 HEADERS += \
     MidiInputHandlerI.h \
@@ -16,9 +17,11 @@ HEADERS += \
     AlsaMidiInput.h \
     MidiNoteConverter.h \
     NoteQueueMidiInputHandler.h \
-    notecountmidiinputhandler.h
+    notecountmidiinputhandler.h \
+    CommandStackMidiInputHandler.h
 
 INCLUDEPATH += ./../SynthLib
+INCLUDEPATH += ./../CommandStackLib
 
 LIBS += -lasound
 

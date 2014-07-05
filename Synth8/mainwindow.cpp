@@ -7,6 +7,7 @@
 #include "GuiItems.h"
 #include "AlsaMidiInput.h"
 #include "notecountmidiinputhandler.h"
+#include "CommandStackMidiInputHandler.h"
 #include "CommandStackController.h"
 #include "CommandStack.h"
 #include "QPatchManagerWidget.h"
@@ -76,6 +77,9 @@ namespace
         // master volume
         FunctionMap["MasterVolume"] = [&Controller](const SCmdStackItem& Item){  Controller.SetMasterVolume(Item.s_FloatValue); };
 
+        // Midi note on/off
+        FunctionMap["Midi/NoteOn"] = [&Controller](const SCmdStackItem& Item){  Controller.OnNoteOn(Item.s_IntValue & 0x000000FF, Item.s_IntValue >> 8);  };
+        FunctionMap["Midi/NoteOff"] = [&Controller](const SCmdStackItem& Item){  Controller.OnNoteOff(Item.s_IntValue & 0x000000FF, Item.s_IntValue >> 8);  };
 
         return FunctionMap;
     }
@@ -161,9 +165,9 @@ MainWindow::MainWindow(QWidget *parent)
     m_AudioOutput->OpenClient("Synth8");
 
     m_Controller.reset(new CSynth8Controller(m_AudioOutput->SamplingFrequency()));
-    m_MidiInputHandler.reset(new CNoteCountMidiInputHandler(*m_Controller));
-    m_MidiInput.reset(new CAlsaMidiInput(*m_MidiInputHandler));
     m_CommandStackController.reset(new CCommandStackController(BuildFunctionMap(*m_Controller), BuildDefaultCommandStack()));
+    m_MidiInputHandler.reset(new CNoteCountMidiInputHandler(std::shared_ptr<IMidiInputHandler>(new CCommandStackMidiInputHandler(*m_CommandStackController))));
+    m_MidiInput.reset(new CAlsaMidiInput(*m_MidiInputHandler));
 
     // build gui
     guiutils::AddLFOBank(ui->groupBox_Operator, this, m_Controller->LFOBankSize(), "LFOBank", *m_CommandStackController);

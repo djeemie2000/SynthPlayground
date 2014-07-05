@@ -3,12 +3,13 @@
 
 #include <list>
 #include <utility>
+#include <memory>
 #include "MidiInputHandlerI.h"
 
 class CNoteQueueMidiInputHandler : public IMidiInputHandler
 {
 public:
-    CNoteQueueMidiInputHandler(IMidiInputHandler& Handler);
+    CNoteQueueMidiInputHandler(std::shared_ptr<IMidiInputHandler> Handler);
 
     void OnNoteOn(int Note, int Velocity) override;
     void OnNoteOff(int Note, int Velocity) override;
@@ -25,10 +26,9 @@ private:
         SQueueItem(int Note, int Velocity);
         bool operator ==(const SQueueItem& Other) const;
         bool operator !=(const SQueueItem& Other) const;
-
     };
 
-    IMidiInputHandler& m_Handler;
+    std::shared_ptr<IMidiInputHandler> m_Handler;
     std::list<SQueueItem> m_NoteQueue;
 
 };
