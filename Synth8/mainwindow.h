@@ -8,7 +8,6 @@ namespace Ui {
 class MainWindow;
 }
 
-class QScopeWidget;
 class CSynth8Controller;
 class CJackIOManager;
 class CMidiInput;
@@ -28,12 +27,10 @@ private slots:
 private:
     Ui::MainWindow *ui;
 
-
     std::shared_ptr<CJackIOManager>   m_AudioOutput;
     std::shared_ptr<CSynth8Controller>  m_Controller;
     std::shared_ptr<IMidiInputHandler>  m_MidiInputHandler;
     std::shared_ptr<CMidiInput>         m_MidiInput;
-    QScopeWidget*       m_ScopeWidget;
     std::shared_ptr<CCommandStackController> m_CommandStackController;
 };
 

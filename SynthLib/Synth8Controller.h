@@ -3,8 +3,6 @@
 
 #include <string>
 #include <vector>
-#include <cstdint>
-#include "SampleGrabber.h"
 #include "CombinedFoldedOperatorStage.h"
 #include "Notes.h"
 #include "OnePoleFilter.h"
@@ -19,7 +17,6 @@
 #include "LPFilterI.h"
 #include "NonLinearShaperI.h"
 #include "CombinedFoldedOperatorStageI.h"
-#include "AudioSourceI.h"
 #include "MidiInputHandlerI.h"
 #include "LFOBankI.h"
 #include "LFO.h"
@@ -34,9 +31,7 @@
 class IInt16Scope;
 
 class CSynth8Controller
-                    : public IAudioSource
-                    , public IAudioSource2
-                    , public ISampleGrabber
+                    : public IAudioSource2
                     , public INoteHandler
                     , public ICombinedFoldedOperatorStage
                     , public IWaveFolder
@@ -50,17 +45,11 @@ class CSynth8Controller
                     , public IMasterVolume
 {
 public:
-    CSynth8Controller(IInt16Scope& Scope, int SamplingFrequency);
+    CSynth8Controller(int SamplingFrequency);
     ~CSynth8Controller();
-
-    // AudioSource
-    std::int64_t OnRead(char *Dst, std::int64_t MaxSize) override;
 
     // AudioSource2
     int OnRead(void *Dst, int NumFrames) override;
-
-    // SampleGrabber
-    void OnGrab(int GrabSize) override;
 
     // NoteHandler
     void OnNoteOn(ENote Note, EOctave Octave) override;
@@ -125,12 +114,6 @@ public:
     void SetMasterVolume(float Volume) override;
 
 private:
-    typedef std::int16_t SampleValueType;
-    IInt16Scope& m_Scope;
-
-    bool m_GrabSample;
-    CSampleGrabber<SampleValueType> m_SampleGrabber;
-
     CCombinedFoldedOperatorStage<float> m_Oscillator;
     float   m_Fold;
     CMultiStageFilter<float, COnePoleLowPassFilter<float>, 24> m_LPFilter;

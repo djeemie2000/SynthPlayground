@@ -12,11 +12,8 @@
 #include "MidiNoteConverter.h"
 
 
-CSynth8Controller::CSynth8Controller(IInt16Scope &Scope, int SamplingFrequency)
-    : m_Scope(Scope)
-    , m_GrabSample(false)
-    , m_SampleGrabber()
-    , m_Oscillator(SamplingFrequency, CSelectableOperatorFactory::Create(), CSelectableCombinorFactory::Create())
+CSynth8Controller::CSynth8Controller(int SamplingFrequency)
+    : m_Oscillator(SamplingFrequency, CSelectableOperatorFactory::Create(), CSelectableCombinorFactory::Create())
     , m_Fold(1.0f)
     , m_LPFilter()
     , m_NonLinearShaper()
@@ -261,79 +258,6 @@ void CSynth8Controller::SetMasterVolume(float Volume)
     m_MasterVolume.Set(Volume);
 }
 
-void CSynth8Controller::OnGrab(int GrabSize)
-{
-    m_GrabSample = true;
-    m_SampleGrabber.OnGrab(GrabSize);
-}
-
-std::int64_t CSynth8Controller::OnRead(char *Dst, std::int64_t MaxSize)
-{
-    //std::printf("OnRead \r\n");
-
-
-    int MaxReadSize = 512;//1<<10;
-    std::size_t Size = MaxSize<MaxReadSize ? MaxSize : MaxReadSize;
-
-    CSymmetricalOperator<float> Symm;
-    CSymmetricalOperator<float> Symm2;
-    CWaveFold2<float> Fold;
-    Fold.SetFold(m_Fold);
-
-    SampleValueType* pDst = reinterpret_cast<SampleValueType*>(Dst);
-    SampleValueType* pDstEnd = reinterpret_cast<SampleValueType*>(Dst + Size);
-
-
-    while(pDst<pDstEnd)
-    {
-        if(m_StepSequencerTicker())
-        {
-            // note off previous step, advance to next step and apply!
-            if(m_StepSequencer.CurrentStep().s_IsActive)
-            {
-                OnNoteOff(m_StepSequencer.CurrentStep().s_Note, m_StepSequencer.CurrentStep().s_Octave);
-            }
-            m_StepSequencer.Advance();
-            if(m_StepSequencer.CurrentStep().s_IsActive)
-            {
-                OnNoteOn(m_StepSequencer.CurrentStep().s_Note, m_StepSequencer.CurrentStep().s_Octave);
-            }
-        }
-
-        *pDst = (SignedToInt16<float>(m_Delay(m_Envelope()*Symm2(m_LPFilter(Symm(m_Oscillator(m_LFO[0](), m_LFO[1]()), Fold)), m_NonLinearShaper))));
-        ++pDst;
-    }
-
-
-//    else if(m_WaveForm=="NoOp")
-//    {
-//        char* pDst = Dst;
-//        char* pDstEnd = Dst + Size;
-//        while(pDst<pDstEnd)
-//        {
-//            float Tmp = m_PhaseGen(m_PhaseStep());
-//            std::uint8_t Tmp2 = 255*Tmp;
-//            *pDst = Tmp2;//255*m_PhaseGen(m_PhaseStep());
-//            ++pDst;
-//        }
-//    }
-
-    if(m_GrabSample)
-    {
-        m_SampleGrabber.OnRead((SampleValueType*)Dst, Size/2);
-
-        if(m_SampleGrabber.IsSampled())
-        {
-            // doing this here might cause interuptions in the audio
-            m_Scope.SetSample(m_SampleGrabber.GetSample());
-
-            m_GrabSample = false;//avoid SetSample() over and over again
-        }
-    }
-
-    return Size;
-}
-
 int CSynth8Controller::OnRead(void *Dst, int NumFrames)
 {
     CSymmetricalOperator<float> Symm;
@@ -364,8 +288,6 @@ int CSynth8Controller::OnRead(void *Dst, int NumFrames)
         *pDst = MasterVolume*(m_Delay(m_Envelope()*Symm2(m_LPFilter(Symm(m_Oscillator(m_LFO[0](), m_LFO[1]()), Fold)), m_NonLinearShaper)));
         ++pDst;
     }
-
-    // TODO grab sample in float format
 
     return 0; // zero means ok
 }

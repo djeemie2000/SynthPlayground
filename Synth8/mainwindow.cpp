@@ -1,13 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QAudioDeviceInfo>
-#include <QAudioOutput>
-#include <QTimer>
-#include <QDebug>
-#include "QAudioIoDevice.h"
-#include "QScope.h"
 #include "QKeyboardWidget.h"
-#include "QScopeWidget.h"
 #include "QAudioDeviceWidget.h"
 #include "Synth8Controller.h"
 #include "JackIOManager.h"
@@ -161,15 +154,13 @@ MainWindow::MainWindow(QWidget *parent)
   , m_AudioOutput()
   , m_Controller()
   , m_MidiInput(0)
-  , m_ScopeWidget(0)
 {
     ui->setupUi(this);
 
     m_AudioOutput.reset(new CJackIOManager());
     m_AudioOutput->OpenClient("Synth8");
 
-    QInt16Scope* Scope = new QInt16Scope(this);
-    m_Controller.reset(new CSynth8Controller(*Scope, m_AudioOutput->SamplingFrequency()));
+    m_Controller.reset(new CSynth8Controller(m_AudioOutput->SamplingFrequency()));
     m_MidiInputHandler.reset(new CNoteQueueMidiInputHandler(*m_Controller));
     m_MidiInput.reset(new CMidiInput(*m_MidiInputHandler));
     m_CommandStackController.reset(new CCommandStackController(BuildFunctionMap(*m_Controller), BuildDefaultCommandStack()));
@@ -177,9 +168,6 @@ MainWindow::MainWindow(QWidget *parent)
     // build gui
     guiutils::AddLFOBank(ui->groupBox_Operator, this, m_Controller->LFOBankSize(), "LFOBank", *m_CommandStackController);
     guiutils::AddCombinedFoldedOperatorStage(ui->groupBox_Operator, this, "Oscillator", *m_CommandStackController);
-    m_ScopeWidget = new QScopeWidget(*m_Controller, this);
-    connect(Scope, SIGNAL(SignalSample(QVector<std::int16_t>)), m_ScopeWidget, SLOT(OnSample(QVector<std::int16_t>)));
-    ui->groupBox_Operator->layout()->addWidget(m_ScopeWidget);
 
     guiutils::AddMasterVolume(ui->groupBox_Fx, this, "MasterVolume", *m_CommandStackController);
     guiutils::AddFeedbackDelay(ui->groupBox_Fx, this, "Delay", *m_CommandStackController);
@@ -204,10 +192,4 @@ MainWindow::~MainWindow()
     m_AudioOutput->CloseClient();
 
     delete ui;
-    delete m_ScopeWidget;
-    //delete m_CommandStackController;
-    //delete m_MidiInput;
-    //delete m_MidiInputHandler;
-    //delete m_AudioOutput;
-    //delete m_Controller;
 }
