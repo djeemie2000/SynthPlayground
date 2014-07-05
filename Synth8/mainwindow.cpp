@@ -5,8 +5,8 @@
 #include "Synth8Controller.h"
 #include "JackIOManager.h"
 #include "GuiItems.h"
-#include "MidiInput.h"
-#include "NoteQueueMidiInputHandler.h"
+#include "AlsaMidiInput.h"
+#include "notecountmidiinputhandler.h"
 #include "CommandStackController.h"
 #include "CommandStack.h"
 #include "QPatchManagerWidget.h"
@@ -161,8 +161,8 @@ MainWindow::MainWindow(QWidget *parent)
     m_AudioOutput->OpenClient("Synth8");
 
     m_Controller.reset(new CSynth8Controller(m_AudioOutput->SamplingFrequency()));
-    m_MidiInputHandler.reset(new CNoteQueueMidiInputHandler(*m_Controller));
-    m_MidiInput.reset(new CMidiInput(*m_MidiInputHandler));
+    m_MidiInputHandler.reset(new CNoteCountMidiInputHandler(*m_Controller));
+    m_MidiInput.reset(new CAlsaMidiInput(*m_MidiInputHandler));
     m_CommandStackController.reset(new CCommandStackController(BuildFunctionMap(*m_Controller), BuildDefaultCommandStack()));
 
     // build gui

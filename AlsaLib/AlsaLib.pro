@@ -1,20 +1,22 @@
-TARGET = AlsaMidiLib
+TARGET = AlsaLib
 TEMPLATE = lib
 CONFIG += staticlib
 CONFIG += c++11 (Qt5)
 
 SOURCES += \
     LogMidiInputHandler.cpp \
-    MidiInput.cpp \
+    AlsaMidiInput.cpp \
     MidiNoteConverter.cpp \
-    NoteQueueMidiInputHandler.cpp
+    NoteQueueMidiInputHandler.cpp \
+    notecountmidiinputhandler.cpp
 
 HEADERS += \
     MidiInputHandlerI.h \
     LogMidiInputHandler.h \
-    MidiInput.h \
+    AlsaMidiInput.h \
     MidiNoteConverter.h \
-    NoteQueueMidiInputHandler.h
+    NoteQueueMidiInputHandler.h \
+    notecountmidiinputhandler.h
 
 INCLUDEPATH += ./../SynthLib
 
@@ -26,10 +28,10 @@ unix {
 }
 
 CONFIG(debug, debug|release) {
-    DESTDIR = ../build-dir/Debug/AlsaMidiLib
+    DESTDIR = ../build-dir/Debug/AlsaLib
 }
 CONFIG(release, debug|release) {
-    DESTDIR = ../build-dir/Release/AlsaMidiLib
+    DESTDIR = ../build-dir/Release/AlsaLib
 }
 
 OBJECTS_DIR = $$DESTDIR

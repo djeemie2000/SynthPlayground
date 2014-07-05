@@ -8,11 +8,11 @@
 class IMidiInputHandler;
 template<class T> class CPeriodicThreadRunner;
 
-class CMidiInput
+class CAlsaMidiInput
 {
 public:
-    CMidiInput(IMidiInputHandler& Handler);
-    ~CMidiInput();
+    CAlsaMidiInput(IMidiInputHandler& Handler);
+    ~CAlsaMidiInput();
 
     bool Open(const std::string &ClientName, const std::string &PortName);
     void Close();
@@ -32,7 +32,7 @@ private:
     snd_seq_t*  m_MidiSequencerHandle;
     int         m_MidiInputPort;
     bool        m_IsOpen;
-    std::unique_ptr<CPeriodicThreadRunner<CMidiInput>> m_ThreadRunner;
+    std::unique_ptr<CPeriodicThreadRunner<CAlsaMidiInput>> m_ThreadRunner;
 };
 
 
