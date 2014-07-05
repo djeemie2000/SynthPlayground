@@ -9,7 +9,7 @@ public:
         : m_Envelope(0)
         , m_Increment(0)
         , m_AttackIncrement(1)
-        , m_ReleaseIncrement(1)
+        , m_ReleaseIncrement(-1)
     {}
 
     void SetAttackSamples(T Attack)

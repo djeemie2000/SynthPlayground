@@ -1,4 +1,5 @@
 #include <cstring>
+#include <iostream>
 #include "Synth8Controller.h"
 #include "ScopeI.h"
 #include "SelectableCombinor.h"
@@ -55,7 +56,7 @@ void CSynth8Controller::OnSync()
 
 void CSynth8Controller::OnNoteOn(ENote Note, EOctave Octave)
 {
-    //std::printf"NoteOn \r\n");
+    //std::cout << "NoteOn" << std::endl;
     m_Oscillator.SetFrequency(CPitch()(Note, Octave));
     m_Oscillator.Sync();//optional?
     m_Envelope.NoteOn();
@@ -63,7 +64,7 @@ void CSynth8Controller::OnNoteOn(ENote Note, EOctave Octave)
 
 void CSynth8Controller::OnNoteOff(ENote /*Note*/, EOctave /*Octave*/)
 {
-    //std::printf"NoteOff \r\n");
+    //std::cout << "NoteOff" << std::endl;
     m_Envelope.NoteOff();
 }
 
