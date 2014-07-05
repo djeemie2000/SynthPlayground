@@ -4,10 +4,10 @@ CONFIG += staticlib
 CONFIG += c++11 (Qt5)
 
 SOURCES += \
-        JackAudioOutput.cpp 
+        JackIOManager.cpp
 
 HEADERS += \
-        JackAudioOutput.h 
+        JackIOManager.h
 
 INCLUDEPATH += ./../SynthLib
 

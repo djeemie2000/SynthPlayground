@@ -12,7 +12,7 @@
 #include "MidiNoteConverter.h"
 
 
-CSynth8Controller::CSynth8Controller(IScope &Scope, int SamplingFrequency)
+CSynth8Controller::CSynth8Controller(IInt16Scope &Scope, int SamplingFrequency)
     : m_Scope(Scope)
     , m_GrabSample(false)
     , m_SampleGrabber()

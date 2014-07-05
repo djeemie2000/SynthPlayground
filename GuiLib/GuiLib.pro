@@ -11,7 +11,7 @@ CONFIG   += c++11 (Qt5)
 SOURCES += GuiUtilities.cpp \
     QGuiCallbacks.cpp \
     GuiItems.cpp \
-    QView.cpp \
+    QScope.cpp \
     QScopeWidget.cpp \
     QKeyboardWidget.cpp \
     QAudioIoDevice.cpp \
@@ -19,12 +19,13 @@ SOURCES += GuiUtilities.cpp \
     QCommandSender.cpp \
     QCommandStackHandler.cpp \
     GuiCommandStack.cpp \
-    QPatchManagerWidget.cpp
+    QPatchManagerWidget.cpp \
+    QScopeWidget2.cpp
 
 HEADERS += GuiUtilities.h \
     QGuiCallbacks.h \
     GuiItems.h \
-    QView.h \
+    QScope.h \
     QScopeWidget.h \
     QKeyboardWidget.h \
     QAudioIoDevice.h \
@@ -32,13 +33,15 @@ HEADERS += GuiUtilities.h \
     QCommandSender.h \
     QCommandStackHandler.h \
     GuiCommandStack.h \
-    QPatchManagerWidget.h
+    QPatchManagerWidget.h \
+    QScopeWidget2.h
 
 FORMS += \
     QScopeWidget.ui \
     QKeyboardWidget.ui \
     QAudioDeviceWidget.ui \
-    QPatchManagerWidget.ui
+    QPatchManagerWidget.ui \
+    QScopeWidget2.ui
 
 INCLUDEPATH += ./../SynthLib ./../CommandStackLib
 

@@ -1,19 +1,19 @@
-//#include <functional>
 #include <iostream>
-#include "JackAudioOutput.h"
+#include "JackIOManager.h"
 #include "AudioSource2I.h"
+#include "AudioRendererI.h"
 
 namespace
 {
 
 int JackProcessFunction(jack_nframes_t NumFrames, void* arg)
 {
-    return ((CJackIOManager*)arg)->OnProcessAudioOutput(NumFrames);
+    return ((CJackIOManager*)arg)->OnProcessAudio(NumFrames);
 }
 
 void JackShutdownFunction(void* arg)
 {
-    ((CJackIOManager*)arg)->CloseClient();
+    ((CJackIOManager*)arg)->OnShutdown();
 }
 
 }
@@ -23,6 +23,8 @@ CJackIOManager::CJackIOManager()
  , m_SamplingFrequency(-1)
  , m_AudioOutputPort(0)
  , m_AudioSource()
+ , m_AudioInputPort(0)
+ , m_AudioRenderer()
 {
 }
 
@@ -47,7 +49,17 @@ bool CJackIOManager::OpenClient(const std::string &ClientName)
                          JackShutdownFunction,
                          this);
 
-        Success = true;
+        // tell the JACK server to call `process()' whenever there is work to be done.
+        if(0==jack_set_process_callback(m_Client,
+                                        JackProcessFunction,
+                                        this))
+        {
+            Success = true;
+        }
+        else
+        {
+            std::cerr << "Failed to set process callback for client " << ClientName << std::endl;
+        }
     }
 
     if(!Success)
@@ -69,23 +81,29 @@ bool CJackIOManager::OpenAudioOutput(const std::string &Name, std::shared_ptr<IA
         m_AudioOutputPort = jack_port_register(m_Client, Name.c_str(), JACK_DEFAULT_AUDIO_TYPE, JackPortIsOutput|JackPortIsTerminal, 0);
         if(m_AudioOutputPort)
         {
-            // tell the JACK server to call `process()' whenever there is work to be done.
-            if(0==jack_set_process_callback(m_Client,
-                                            JackProcessFunction,
-                                            this))
-            {
-                m_AudioSource = AudioSource;
-                Success = true;
-            }
-            else
-            {
-                std::cerr << "Failed to set process callback for audio output " << Name << std::endl;
-            }
+            m_AudioSource = AudioSource;
+            Success = true;
         }
     }
     return Success;
 }
 
+bool CJackIOManager::OpenAudioInput(const std::string &Name, std::shared_ptr<IAudioRenderer> AudioRenderer)
+{
+    bool Success = false;
+    if(m_Client)
+    {
+        // create one input port. Use default audio type, which is mono float 32 bits.
+        // it is adviced to use 'terminal' option ???.
+        m_AudioInputPort = jack_port_register(m_Client, Name.c_str(), JACK_DEFAULT_AUDIO_TYPE, JackPortIsInput|JackPortIsTerminal, 0);
+        if(m_AudioInputPort)
+        {
+            m_AudioRenderer = AudioRenderer;
+            Success = true;
+        }
+    }
+    return Success;
+}
 
 void CJackIOManager::CloseClient()
 {
@@ -95,6 +113,11 @@ void CJackIOManager::CloseClient()
         {
             jack_port_unregister(m_Client, m_AudioOutputPort);
             m_AudioOutputPort = 0;
+        }
+        if(m_AudioInputPort)
+        {
+            jack_port_unregister(m_Client, m_AudioInputPort);
+            m_AudioInputPort = 0;
         }
         // tell jack we do not want to play along anymore
         jack_deactivate(m_Client);
@@ -116,12 +139,31 @@ int CJackIOManager::SamplingFrequency() const
     return static_cast<int>(m_SamplingFrequency);
 }
 
-int CJackIOManager::OnProcessAudioOutput(jack_nframes_t NumFrames)
+int CJackIOManager::OnProcessAudio(jack_nframes_t NumFrames)
 {
     // if this function is called, it is fair to assume we are opened
-    void* DstBuffer = jack_port_get_buffer(m_AudioOutputPort, NumFrames);
-    // should return 0 upon succes, non-zero error code upon failure
-    return m_AudioSource->OnRead(DstBuffer, NumFrames);
+    int ReturnValue = 0;
+    if(m_AudioOutputPort && m_AudioSource)
+    {
+        int NumConnected = jack_port_connected(m_AudioOutputPort);
+        if(0<NumConnected)
+        {
+            void* DstBuffer = jack_port_get_buffer(m_AudioOutputPort, NumFrames);
+            // should return 0 upon succes, non-zero error code upon failure
+            ReturnValue = m_AudioSource->OnRead(DstBuffer, NumFrames);
+        }
+    }
+    if(m_AudioInputPort && m_AudioRenderer)
+    {
+        int NumConnected = jack_port_connected(m_AudioInputPort);
+        if(0<NumConnected)
+        {
+            void* SrcBuffer = jack_port_get_buffer(m_AudioInputPort, NumFrames);
+            // should return 0 upon succes, non-zero error code upon failure
+            ReturnValue = m_AudioRenderer->OnWrite(SrcBuffer, NumFrames);
+        }
+    }
+    return ReturnValue;
 }
 
 void CJackIOManager::OnShutdown()

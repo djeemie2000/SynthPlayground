@@ -5,12 +5,12 @@
 #include <QTimer>
 #include <QDebug>
 #include "QAudioIoDevice.h"
-#include "QView.h"
+#include "QScope.h"
 #include "QKeyboardWidget.h"
 #include "QScopeWidget.h"
 #include "QAudioDeviceWidget.h"
 #include "Synth8Controller.h"
-#include "JackAudioOutput.h"
+#include "JackIOManager.h"
 #include "GuiItems.h"
 #include "MidiInput.h"
 #include "NoteQueueMidiInputHandler.h"
@@ -168,7 +168,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_AudioOutput.reset(new CJackIOManager());
     m_AudioOutput->OpenClient("Synth8");
 
-    QScope* Scope = new QScope(this);
+    QInt16Scope* Scope = new QInt16Scope(this);
     m_Controller.reset(new CSynth8Controller(*Scope, m_AudioOutput->SamplingFrequency()));
     m_MidiInputHandler.reset(new CNoteQueueMidiInputHandler(*m_Controller));
     m_MidiInput.reset(new CMidiInput(*m_MidiInputHandler));

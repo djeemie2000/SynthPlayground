@@ -31,7 +31,7 @@
 #include "MasterVolumeI.h"
 #include "ConstGenerator.h"
 
-class IScope;
+class IInt16Scope;
 
 class CSynth8Controller
                     : public IAudioSource
@@ -50,7 +50,7 @@ class CSynth8Controller
                     , public IMasterVolume
 {
 public:
-    CSynth8Controller(IScope& Scope, int SamplingFrequency);
+    CSynth8Controller(IInt16Scope& Scope, int SamplingFrequency);
     ~CSynth8Controller();
 
     // AudioSource
@@ -126,7 +126,7 @@ public:
 
 private:
     typedef std::int16_t SampleValueType;
-    IScope& m_Scope;
+    IInt16Scope& m_Scope;
 
     bool m_GrabSample;
     CSampleGrabber<SampleValueType> m_SampleGrabber;

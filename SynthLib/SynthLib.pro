@@ -10,7 +10,9 @@ SOURCES += StepSequencer.cpp \
     Pitch.cpp \
     SelectableCombinorFactory.cpp \
     SelectableOperatorFactory.cpp \
-    StepSequencer2.cpp
+    StepSequencer2.cpp \
+    ScopeController.cpp \
+    periodicsamplegrabberproxy.cpp
 
 HEADERS += StepSequencer.h \
     Notes.h \
@@ -84,7 +86,13 @@ HEADERS += StepSequencer.h \
     ConstNumSamplesGenerator.h \
     FeedbackDelayI.h \
     AREnvelopeI.h \
-    MasterVolumeI.h
+    MasterVolumeI.h \
+    PeriodicSampleGrabber.h \
+    ScopeController.h \
+    AudioSource2I.h \
+    AudioRendererI.h \
+    PeriodicSampleGrabberI.h \
+    periodicsamplegrabberproxy.h
 
 INCLUDEPATH += ./../AlsaMidiLib
 

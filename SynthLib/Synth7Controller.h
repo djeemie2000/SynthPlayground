@@ -25,7 +25,7 @@
 #include "AudioSourceI.h"
 #include "MidiInputHandlerI.h"
 
-class IScope;
+class IInt16Scope;
 
 class CSynth7Controller
                     : public IAudioSource
@@ -40,7 +40,7 @@ class CSynth7Controller
                     , public IMidiInputHandler
 {
 public:
-    CSynth7Controller(IScope& Scope, int SamplingFrequency);
+    CSynth7Controller(IInt16Scope& Scope, int SamplingFrequency);
     ~CSynth7Controller();
 
     // AudioSource
@@ -98,7 +98,7 @@ public:
 
 private:
     typedef std::int16_t SampleValueType;
-    IScope& m_Scope;
+    IInt16Scope& m_Scope;
 
     bool m_GrabSample;
     CSampleGrabber<SampleValueType> m_SampleGrabber;
