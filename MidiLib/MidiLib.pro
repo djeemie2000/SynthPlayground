@@ -1,4 +1,4 @@
-TARGET = AlsaLib
+TARGET = MidiLib
 TEMPLATE = lib
 CONFIG += staticlib
 CONFIG += c++11 (Qt5)
@@ -34,10 +34,10 @@ unix {
 }
 
 CONFIG(debug, debug|release) {
-    DESTDIR = ../build-dir/Debug/AlsaLib
+    DESTDIR = ../build-dir/Debug/MidiLib
 }
 CONFIG(release, debug|release) {
-    DESTDIR = ../build-dir/Release/AlsaLib
+    DESTDIR = ../build-dir/Release/MidiLib
 }
 
 OBJECTS_DIR = $$DESTDIR

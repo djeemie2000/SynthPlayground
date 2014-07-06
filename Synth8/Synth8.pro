@@ -18,28 +18,28 @@ FORMS    += mainwindow.ui
 INCLUDEPATH += ./../SynthLib
 INCLUDEPATH += ./../CommandStackLib
 INCLUDEPATH += ./../GuiLib
-INCLUDEPATH += ./../AlsaLib
+INCLUDEPATH += ./../MidiLib
 INCLUDEPATH += ./../JackLib
 
 CONFIG(debug, debug|release) {
     LIBS += -L./../build-dir/Debug/SynthLib
     LIBS += -L./../build-dir/Debug/CommandStackLib
     LIBS += -L./../build-dir/Debug/GuiLib
-    LIBS += -L./../build-dir/Debug/AlsaLib
+    LIBS += -L./../build-dir/Debug/MidiLib
     LIBS += -L./../build-dir/Debug/JackLib
 }
 CONFIG(release, debug|release) {
     LIBS += -L./../build-dir/Release/SynthLib
     LIBS += -L./../build-dir/Release/CommandStackLib
     LIBS += -L./../build-dir/Release/GuiLib
-    LIBS += -L./../build-dir/Release/AlsaLib
+    LIBS += -L./../build-dir/Release/MidiLib
     LIBS += -L./../build-dir/Release/JackLib
 }
 
 LIBS += -lSynthLib
 LIBS += -lCommandStackLib
 LIBS += -lGuiLib
-LIBS += -lAlsaLib
+LIBS += -lMidiLib
 LIBS += -lJackLib
 LIBS += -lasound
 LIBS += -ljack

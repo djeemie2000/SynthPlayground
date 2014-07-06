@@ -94,7 +94,7 @@ HEADERS += StepSequencer.h \
     PeriodicSampleGrabberI.h \
     periodicsamplegrabberproxy.h
 
-INCLUDEPATH += ./../AlsaLib
+INCLUDEPATH += ./../MidiLib
 
 unix {
     target.path = /usr/lib

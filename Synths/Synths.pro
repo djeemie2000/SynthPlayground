@@ -8,7 +8,7 @@ SUBDIRS += \
     ../TinyXml2 \           # a 'lib' project
     ../SynthLib \           # a 'lib' project
     ../TestSynthLib \       # an 'app' project
-    ../AlsaLib \        # a 'lib' project
+    ../MidiLib \        # a 'lib' project
     ../JackLib \            # a 'lib' project
     ../CommandStackLib \    # a 'lib' project
     ../TestCommandStackLib \ # an 'app' project
