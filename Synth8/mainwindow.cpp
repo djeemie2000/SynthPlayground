@@ -6,8 +6,7 @@
 #include "JackIOManager.h"
 #include "GuiItems.h"
 #include "AlsaMidiInput.h"
-#include "notecountmidiinputhandler.h"
-#include "CommandStackMidiInputHandler.h"
+#include "MidiInputController.h"
 #include "CommandStackController.h"
 #include "CommandStack.h"
 #include "QPatchManagerWidget.h"
@@ -166,8 +165,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     m_Controller.reset(new CSynth8Controller(m_AudioOutput->SamplingFrequency()));
     m_CommandStackController.reset(new CCommandStackController(BuildFunctionMap(*m_Controller), BuildDefaultCommandStack()));
-    m_MidiInputHandler.reset(new CNoteCountMidiInputHandler(std::shared_ptr<IMidiInputHandler>(new CCommandStackMidiInputHandler(*m_CommandStackController))));
-    m_MidiInput.reset(new CAlsaMidiInput(*m_MidiInputHandler));
+    m_MidiInputController.reset(new CMidiInputController(*m_CommandStackController));
+    m_MidiInput.reset(new CAlsaMidiInput(*m_MidiInputController));
 
     // build gui
     guiutils::AddLFOBank(ui->groupBox_Operator, this, m_Controller->LFOBankSize(), "LFOBank", *m_CommandStackController);

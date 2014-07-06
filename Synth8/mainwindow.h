@@ -11,7 +11,7 @@ class MainWindow;
 class CSynth8Controller;
 class CJackIOManager;
 class CAlsaMidiInput;
-class IMidiInputHandler;
+class CMidiInputController;
 class CCommandStackController;
 
 class MainWindow : public QMainWindow
@@ -29,7 +29,7 @@ private:
 
     std::shared_ptr<CJackIOManager>   m_AudioOutput;
     std::shared_ptr<CSynth8Controller>  m_Controller;
-    std::shared_ptr<IMidiInputHandler>  m_MidiInputHandler;
+    std::shared_ptr<CMidiInputController>  m_MidiInputController;
     std::shared_ptr<CAlsaMidiInput>         m_MidiInput;
     std::shared_ptr<CCommandStackController> m_CommandStackController;
 };

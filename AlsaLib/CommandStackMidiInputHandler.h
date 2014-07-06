@@ -5,15 +5,14 @@
 #include <functional>
 #include <map>
 #include "MidiInputHandlerI.h"
+#include "MidiControllerHandlerI.h"
 
 class CCommandStackController;
 struct SCmdStackItem;
 
-class CCommandStackMidiInputHandler : public IMidiInputHandler
+class CCommandStackMidiInputHandler : public IMidiInputHandler, public IMidiControllerHandler
 {
 public:
-    typedef std::function<void(SCmdStackItem& Item, int MidiControllerValue)> HandlerFunction;
-
     CCommandStackMidiInputHandler(CCommandStackController& CommandStackHandler);
 
     void OnNoteOn(int Note, int Velocity) override;
@@ -28,14 +27,14 @@ public:
      * \param Parameter
      * \return
      */
-    bool Link(const std::string& ParameterName, int Parameter);
+    bool Link(const std::string& ParameterName, int Parameter) override;
 
     /*!
      * \brief Add a handler for a named parameter
      * \param ParameterName
      * \param Handler
      */
-    void Add(const std::string& ParameterName, const HandlerFunction& Handler);
+    void Add(const std::string& ParameterName, const HandlerFunction& Handler) override;
 
 private:
     CCommandStackController& m_CommandStackHandler;

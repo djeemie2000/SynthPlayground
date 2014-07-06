@@ -52,6 +52,7 @@ void CCommandStackMidiInputHandler::OnUnknown()
 bool CCommandStackMidiInputHandler::Link(const string &ParameterName, int Parameter)
 {
     m_Links[Parameter] = ParameterName;
+    return true;
 }
 
 void CCommandStackMidiInputHandler::Add(const string &ParameterName, const CCommandStackMidiInputHandler::HandlerFunction &Handler)
