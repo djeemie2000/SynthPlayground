@@ -83,6 +83,12 @@ namespace
         return FunctionMap;
     }
 
+    void BuildMidiControllerMap(CMidiInputController& Controller)
+    {
+        Controller.Add("MasterVolume", [](SCmdStackItem& Item, int Value){ Item.s_FloatValue = Value/127.0f;  });
+        Controller.Link("MasterVolume", 7);
+    }
+
     CmdStack BuildDefaultCommandStack()
     {
         CmdStack Stack;
@@ -166,6 +172,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_Controller.reset(new CSynth8Controller(m_AudioOutput->SamplingFrequency()));
     m_CommandStackController.reset(new CCommandStackController(BuildFunctionMap(*m_Controller), BuildDefaultCommandStack()));
     m_MidiInputController.reset(new CMidiInputController(*m_CommandStackController));
+    BuildMidiControllerMap(*m_MidiInputController);
     m_MidiInput.reset(new CAlsaMidiInput(*m_MidiInputController));
 
     // build gui
