@@ -92,7 +92,8 @@ HEADERS += StepSequencer.h \
     AudioSource2I.h \
     AudioRendererI.h \
     PeriodicSampleGrabberI.h \
-    periodicsamplegrabberproxy.h
+    periodicsamplegrabberproxy.h \
+    FMOperatorStage.h
 
 INCLUDEPATH += ./../MidiLib
 

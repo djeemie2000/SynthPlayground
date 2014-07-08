@@ -12,7 +12,8 @@ SOURCES += main.cpp \
     TestFeedbackDelay.cpp \
     TestAREnvelope.cpp \
     TestConstNumSamplesGenerator.cpp \
-    TestPeriodicSampleGrabber.cpp
+    TestPeriodicSampleGrabber.cpp \
+    TestFMOperatorStage.cpp
 
 unix {
     target.path = /usr/lib
