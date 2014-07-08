@@ -41,7 +41,7 @@ public:
     {
         for(auto& Osc : m_Oscillator)
         {
-            Osc.s_PhaseGenerator.Set(Osc.s_PhaseShift);
+            Osc.s_PhaseGenerator.Set(-1+Osc.s_PhaseShift);
         }
     }
 
