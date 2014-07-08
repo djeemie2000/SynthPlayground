@@ -74,8 +74,8 @@ public:
     void Sync()
     {
         // should set to -1 now instead of 0 ?
-        m_CarrierPhaseGen.Set(-1);
-        m_ModulatorPhaseGen.Set(-1+m_ModulatorPhaseShift);
+        m_CarrierPhaseGen.Sync();
+        m_ModulatorPhaseGen.Sync(m_ModulatorPhaseShift);
     }
 
     T operator()()

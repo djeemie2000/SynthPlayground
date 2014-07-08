@@ -19,6 +19,16 @@ public:
         m_Phase = Phase;
     }
 
+    void Sync()
+    {
+        m_Phase = MinPhase;
+    }
+
+    void Sync(T Phase)
+    {
+        m_Phase = MinPhase + Phase;
+    }
+
     T operator()(const T& PhaseStep)
     {
         m_Phase += PhaseStep;
