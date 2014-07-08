@@ -256,4 +256,12 @@ void AddComboBox(QGridLayout *Layout, QWidget *Parent, int X, int Y, const SComb
     ConnectCombobox(ComboBox, Parent, ParameterName, Controller);
 }
 
+void AddComboBox(QGroupBox* GroupBox, QWidget* Parent, const SComboboxProperties& Properties, const std::string& ParameterName, CCommandStackController& Controller)
+{
+    QComboBox* ComboBox = CreateComboBox(Parent, Properties);
+    GroupBox->layout()->addWidget(ComboBox);
+    ConnectCombobox(ComboBox, Parent, ParameterName, Controller);
+}
+
+
 }

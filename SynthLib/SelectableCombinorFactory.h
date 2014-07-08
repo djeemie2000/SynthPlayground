@@ -10,9 +10,17 @@ class CSelectableCombinorFactory
 public:
     CSelectableCombinorFactory();
 
-    static std::vector<std::string> SelectionList();
+    static std::vector<std::string> SelectionList()
+    {
+        return {"+L", "*1", "*2", "*", "-L", "-||", "M||", "m||", "M", "m", "P+N", "N+P", "DivA", "DivB", "DivC" };
+    }
 
     static CSelectableCombinor<float> Create();
 };
+
+//std::vector<std::string> CSelectableCombinorFactory::SelectionList()
+//{
+//    return {"+L", "*1", "*2", "*", "-L", "-||", "M||", "m||", "M", "m", "P+N", "N+P", "DivA", "DivB", "DivC" };
+//}
 
 #endif // SELECTABLECOMBINORFACTORY_H

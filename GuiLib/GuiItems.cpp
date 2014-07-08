@@ -305,6 +305,24 @@ void AddCombinedFoldedOperatorStage(QGroupBox *GroupBox, QWidget *Parent, const 
     GroupBox->layout()->addWidget(Box);
 }
 
+void AddFMOperatorStage(QGroupBox *GroupBox, QWidget *Parent, const std::string& Name, CCommandStackController& Controller)
+{
+    // add child groupbox
+    QGroupBox* Box = AddGroupBox(GroupBox, Parent, "FMOperator");
+    AddLabel(Box, Parent, "Oscillator");
+    AddComboBox(Box, Parent, {"Oscillator", CSelectableOperatorFactory::SelectionList(), 0 }, Name+"/Oscillator/Select", Controller);
+
+    AddLabel(Box, Parent, "Modulator");
+    AddComboBox(Box, Parent, {"Modulator", CSelectableOperatorFactory::SelectionList(), 0 }, Name+"/Modulator/Select", Controller);
+    AddDoubleSpinBox(Box, Parent, {"Amplitude", 0.0, 0, 1.0, 0.01, 3}, Name+"/Modulator/Amplitude", Controller);
+    AddDoubleSpinBox(Box, Parent, {"AmplitudeModAmt", 0.0, 0, 1.0, 0.01, 3}, Name+"/Modulator/AmplitudeModAmt", Controller);
+    AddDoubleSpinBox(Box, Parent, {"Freq Multiplier", 1.0, 0, 32.0, 0.001, 4}, Name+"/Modulator/FrequencyMultiplier", Controller);
+    AddDoubleSpinBox(Box, Parent, {"Phase Shift", 0.0, 0, 2.0, 0.001, 3}, Name+"/Modulator/PhaseShift", Controller);
+
+    AddLabel(Box, Parent, "Carrier");
+    AddComboBox(Box, Parent, {"Carrier", CSelectableOperatorFactory::SelectionList(), 0 }, Name+"/Carrier/Select", Controller);
+}
+
 
 void AddLFOBank(QGroupBox *GroupBox, QWidget *Parent, ILFOBank &LFOBank)
 {

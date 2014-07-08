@@ -7,6 +7,7 @@ SOURCES += StepSequencer.cpp \
     Notes.cpp \
     Synth7Controller.cpp \
     Synth8Controller.cpp \
+    Synth9Controller.cpp \
     Pitch.cpp \
     SelectableCombinorFactory.cpp \
     SelectableOperatorFactory.cpp \
@@ -26,6 +27,7 @@ HEADERS += StepSequencer.h \
     ConstGenerator.h \
     Synth7Controller.h \
     Synth8Controller.h \
+    Synth9Controller.h \
     Conversions.h \
     CrossFader.h \
     DetunedSelectableOscillator.h \
@@ -93,7 +95,8 @@ HEADERS += StepSequencer.h \
     AudioRendererI.h \
     PeriodicSampleGrabberI.h \
     periodicsamplegrabberproxy.h \
-    FMOperatorStage.h
+    FMOperatorStage.h \
+    FMOperatorStageI.h
 
 INCLUDEPATH += ./../MidiLib
 

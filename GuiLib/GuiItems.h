@@ -39,6 +39,9 @@ void AddCombinedOperatorStage(QGroupBox *GroupBox, QWidget *Parent, const std::s
 void AddCombinedFoldedOperatorStage(QGroupBox *GroupBox, QWidget *Parent, ICombinedFoldedOperatorStage& Controller);
 void AddCombinedFoldedOperatorStage(QGroupBox *GroupBox, QWidget *Parent, const std::string& Name, CCommandStackController& Controller);
 
+void AddFMOperatorStage(QGroupBox *GroupBox, QWidget *Parent, const std::string& Name, CCommandStackController& Controller);
+
+
 void AddLFOBank(QGroupBox *GroupBox, QWidget *Parent, ILFOBank& LFOBank);
 void AddLFOBank(QGroupBox *GroupBox, QWidget *Parent, int LFOBankSize, const std::string& Name, CCommandStackController& Controller);
 

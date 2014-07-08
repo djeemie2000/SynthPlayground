@@ -5,10 +5,10 @@ CSelectableCombinorFactory::CSelectableCombinorFactory()
 {
 }
 
-std::vector<std::string> CSelectableCombinorFactory::SelectionList()
-{
-    return {"+L", "*1", "*2", "*", "-L", "-||", "M||", "m||", "M", "m", "P+N", "N+P", "DivA", "DivB", "DivC" };
-}
+//std::vector<std::string> CSelectableCombinorFactory::SelectionList()
+//{
+//    return {"+L", "*1", "*2", "*", "-L", "-||", "M||", "m||", "M", "m", "P+N", "N+P", "DivA", "DivB", "DivC" };
+//}
 
 CSelectableCombinor<float> CSelectableCombinorFactory::Create()
 {

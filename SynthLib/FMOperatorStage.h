@@ -14,6 +14,7 @@ public:
      : m_CarrierPhaseStep(SamplingFrequency)
      , m_CarrierPhaseGen()
      , m_Carrier(Operator)
+     , m_Frequency(440)
      , m_ModulatorPhaseStep(SamplingFrequency)
      , m_ModulatorPhaseGen()
      , m_Modulator(Operator)
@@ -32,8 +33,10 @@ public:
 
     void SetFrequency(T Frequency)
     {
-        m_CarrierPhaseStep.SetFrequency(Frequency);
-        m_ModulatorPhaseStep.SetFrequency(Frequency*m_ModulatorFreqMultiplier);
+        m_Frequency = Frequency;
+
+        m_CarrierPhaseStep.SetFrequency(m_Frequency);
+        m_ModulatorPhaseStep.SetFrequency(m_Frequency*m_ModulatorFreqMultiplier);
     }
 
     void SelectCarrier(int Selected)
@@ -59,6 +62,9 @@ public:
     void SetModulatorFrequencyMultiplier(T Multiplier)
     {
         m_ModulatorFreqMultiplier = Multiplier;
+
+        m_CarrierPhaseStep.SetFrequency(m_Frequency);
+        m_ModulatorPhaseStep.SetFrequency(m_Frequency*m_ModulatorFreqMultiplier);
     }
 
     void SetModulatorAmplitudeModAmount(T ModAmt)
@@ -89,7 +95,7 @@ public:
     T operator()(T ModIn)
     {
         T ModulatorAmplitude = m_ModulatorAmplitude + m_ModulatorAmplitudeModAmt*ModIn;
-        T Phase = m_Carrier(m_CarrierPhaseGen()) + ModulatorAmplitude*m_Modulator(m_ModulatorPhaseGen());
+        T Phase = m_Carrier(m_CarrierPhaseGen(m_CarrierPhaseStep())) + ModulatorAmplitude*m_Modulator(m_ModulatorPhaseGen(m_ModulatorPhaseStep()));
         // we can hard limit the modulator amplitude, the phase or the oscillator output.
         // which one sounds most interesting?
         return m_Oscillator(HardLimitSigned(Phase));
@@ -99,6 +105,7 @@ private:
     CPhaseStep<T> m_CarrierPhaseStep;
     CPhaseGenerator<T> m_CarrierPhaseGen;
     CSelectableOperator<T> m_Carrier;
+    T m_Frequency;
 
     CPhaseStep<T> m_ModulatorPhaseStep;
     CPhaseGenerator<T> m_ModulatorPhaseGen;

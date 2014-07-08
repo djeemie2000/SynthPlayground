@@ -78,6 +78,7 @@ void AddComboBox(QGridLayout* Layout, QWidget* Parent, int X, int Y, const SComb
 void AddComboBox(QGridLayout *Layout, QWidget *Parent, int X, int Y, const SComboboxProperties &Properties, const std::string& ParameterName, CCommandStackController& Controller);
 
 void AddComboBox(QGroupBox* GroupBox, QWidget* Parent, const SComboboxProperties& Properties, IntValueChangedCallbackType Callback);
+void AddComboBox(QGroupBox* GroupBox, QWidget* Parent, const SComboboxProperties& Properties, const std::string& ParameterName, CCommandStackController& Controller);
 
 }
 
