@@ -1,6 +1,7 @@
 #ifndef SCOPECONTROLLER_H
 #define SCOPECONTROLLER_H
 
+#include <cstdint>
 #include "AudioRendererI.h"
 #include "PeriodicSampleGrabberI.h"
 #include "PeriodicSampleGrabber.h"
@@ -13,7 +14,7 @@ class CScopeController : public IAudioRenderer
 public:
     CScopeController(IScope<float>& Scope);
 
-    int OnWrite(void *Src, int NumFrames) override;
+    int OnWrite(void *Src, int NumFrames, std::uint32_t TimeStamp) override;
 
     void OnGrabSize(int GrabSize) override;
     void OnGrabPeriod(int GrabPeriod) override;

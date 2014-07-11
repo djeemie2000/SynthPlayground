@@ -7,21 +7,21 @@ CCommandStackMidiInputHandler::CCommandStackMidiInputHandler(CCommandStackContro
 {
 }
 
-void CCommandStackMidiInputHandler::OnNoteOn(int Note, int Velocity)
+void CCommandStackMidiInputHandler::OnNoteOn(int Note, int Velocity, std::uint32_t TimeStamp)
 {
     // handled by a 'custom' command
     // Midi notes are in [0x00, 0x77] range
     m_CommandStackHandler.Handle({"Midi/NoteOn", false, Note | Velocity<<8, 0.0f });
 }
 
-void CCommandStackMidiInputHandler::OnNoteOff(int Note, int Velocity)
+void CCommandStackMidiInputHandler::OnNoteOff(int Note, int Velocity, std::uint32_t TimeStamp)
 {
     // handled by a 'custom' command
     // Midi notes are in [0x00, 0x77] range
     m_CommandStackHandler.Handle({"Midi/NoteOff", false, Note | Velocity<<8, 0.0f });
 }
 
-void CCommandStackMidiInputHandler::OnController(int Parameter, int Value)
+void CCommandStackMidiInputHandler::OnController(int Parameter, int Value, std::uint32_t TimeStamp)
 {
     auto itLink = m_Links.find(Parameter);
     if(itLink != m_Links.end())
@@ -37,14 +37,14 @@ void CCommandStackMidiInputHandler::OnController(int Parameter, int Value)
     }
 }
 
-void CCommandStackMidiInputHandler::OnPitchbend(int Value)
+void CCommandStackMidiInputHandler::OnPitchbend(int Value, std::uint32_t TimeStamp)
 {
     // handle by 'custom' command
     // m_CommandStackHandler.Handle({"Midi/PitchBend", false, Value, 0.0f });
     // TODO use dedicated midi controller number
 }
 
-void CCommandStackMidiInputHandler::OnUnknown()
+void CCommandStackMidiInputHandler::OnUnknown(std::uint32_t )
 {
     //not handled
 }

@@ -99,23 +99,23 @@ void CAlsaMidiInput::ProcessMidiEvent(const snd_seq_event_t *ev)
     {
         if(ev->type == SND_SEQ_EVENT_NOTEON)
         {
-            m_Handler.OnNoteOn(ev->data.note.note, ev->data.note.velocity);
+            m_Handler.OnNoteOn(ev->data.note.note, ev->data.note.velocity, ev->time.tick);
         }
         else if(ev->type == SND_SEQ_EVENT_NOTEOFF)
         {
-            m_Handler.OnNoteOff(ev->data.note.note, ev->data.note.velocity);
+            m_Handler.OnNoteOff(ev->data.note.note, ev->data.note.velocity, ev->time.tick);
         }
         else if(ev->type == SND_SEQ_EVENT_CONTROLLER)
         {
-            m_Handler.OnController(ev->data.control.param, ev->data.control.value);
+            m_Handler.OnController(ev->data.control.param, ev->data.control.value, ev->time.tick);
         }
         else if(ev->type == SND_SEQ_EVENT_PITCHBEND)
         {
-            m_Handler.OnPitchbend(ev->data.control.value);
+            m_Handler.OnPitchbend(ev->data.control.value, ev->time.tick);
         }
         else
         {
-            m_Handler.OnUnknown();
+            m_Handler.OnUnknown(ev->time.tick);
         }
     }
 }

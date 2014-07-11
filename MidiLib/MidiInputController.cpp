@@ -12,34 +12,34 @@ CMidiInputController::CMidiInputController(CCommandStackController &CommandStack
     m_MidiInputHandler.reset(new CNoteCountMidiInputHandler(CommandStackMidiInputHandler));
 }
 
-void CMidiInputController::OnNoteOn(int Note, int Velocity)
+void CMidiInputController::OnNoteOn(int Note, int Velocity, std::uint32_t TimeStamp)
 {
-    m_MidiInputHandler->OnNoteOn(Note, Velocity);
-    m_MidiInputLogger->OnNoteOn(Note, Velocity);
+    m_MidiInputHandler->OnNoteOn(Note, Velocity, TimeStamp);
+    m_MidiInputLogger->OnNoteOn(Note, Velocity, TimeStamp);
 }
 
-void CMidiInputController::OnNoteOff(int Note, int Velocity)
+void CMidiInputController::OnNoteOff(int Note, int Velocity, std::uint32_t TimeStamp)
 {
-    m_MidiInputHandler->OnNoteOff(Note, Velocity);
-    m_MidiInputLogger->OnNoteOff(Note, Velocity);
+    m_MidiInputHandler->OnNoteOff(Note, Velocity, TimeStamp);
+    m_MidiInputLogger->OnNoteOff(Note, Velocity, TimeStamp);
 }
 
-void CMidiInputController::OnController(int Parameter, int Value)
+void CMidiInputController::OnController(int Parameter, int Value, std::uint32_t TimeStamp)
 {
-    m_MidiInputHandler->OnController(Parameter, Value);
-    m_MidiInputLogger->OnController(Parameter, Value);
+    m_MidiInputHandler->OnController(Parameter, Value, TimeStamp);
+    m_MidiInputLogger->OnController(Parameter, Value, TimeStamp);
 }
 
-void CMidiInputController::OnPitchbend(int Value)
+void CMidiInputController::OnPitchbend(int Value, std::uint32_t TimeStamp)
 {
-    m_MidiInputHandler->OnPitchbend(Value);
-    m_MidiInputLogger->OnPitchbend(Value);
+    m_MidiInputHandler->OnPitchbend(Value, TimeStamp);
+    m_MidiInputLogger->OnPitchbend(Value, TimeStamp);
 }
 
-void CMidiInputController::OnUnknown()
+void CMidiInputController::OnUnknown(std::uint32_t TimeStamp)
 {
-    m_MidiInputHandler->OnUnknown();
-    m_MidiInputLogger->OnUnknown();
+    m_MidiInputHandler->OnUnknown(TimeStamp);
+    m_MidiInputLogger->OnUnknown(TimeStamp);
 }
 
 bool CMidiInputController::Link(const std::string &ParameterName, int Parameter)

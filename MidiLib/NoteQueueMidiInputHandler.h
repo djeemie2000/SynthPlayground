@@ -1,6 +1,7 @@
 #ifndef NOTEQUEUEMIDIINPUTHANDLER_H
 #define NOTEQUEUEMIDIINPUTHANDLER_H
 
+#include <cstdint>
 #include <list>
 #include <utility>
 #include <memory>
@@ -11,19 +12,20 @@ class CNoteQueueMidiInputHandler : public IMidiInputHandler
 public:
     CNoteQueueMidiInputHandler(std::shared_ptr<IMidiInputHandler> Handler);
 
-    void OnNoteOn(int Note, int Velocity) override;
-    void OnNoteOff(int Note, int Velocity) override;
-    void OnController(int Parameter, int Value) override;
-    void OnPitchbend(int Value) override;
-    void OnUnknown() override;
+    void OnNoteOn(int Note, int Velocity, std::uint32_t TimeStamp) override;
+    void OnNoteOff(int Note, int Velocity, std::uint32_t TimeStamp) override;
+    void OnController(int Parameter, int Value, std::uint32_t TimeStamp) override;
+    void OnPitchbend(int Value, std::uint32_t TimeStamp) override;
+    void OnUnknown(std::uint32_t TimeStamp) override;
 
 private:
     struct SQueueItem
     {
         int s_Note;
         int s_Velocity;
+        std::uint32_t s_TimeStamp;
 
-        SQueueItem(int Note, int Velocity);
+        SQueueItem(int Note, int Velocity, std::uint32_t TimeStamp);
         bool operator ==(const SQueueItem& Other) const;
         bool operator !=(const SQueueItem& Other) const;
     };

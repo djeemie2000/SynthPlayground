@@ -178,27 +178,27 @@ void CSynth7Controller::Stop()
     m_StepSequencerTicker.Activate(false);
 }
 
-void CSynth7Controller::OnNoteOn(int Note, int)
+void CSynth7Controller::OnNoteOn(int Note, int, std::uint32_t TimeStamp)
 {
     //std::printf"Midi NoteOn : %d \r\n", Note);
     OnNoteOn(CMidiNoteConverter().ToNote(Note), CMidiNoteConverter().ToOctave(Note));
 }
 
-void CSynth7Controller::OnNoteOff(int Note, int)
+void CSynth7Controller::OnNoteOff(int Note, int, std::uint32_t TimeStamp)
 {
     //std::printf"Midi NoteOff : %d \r\n", Note);
     OnNoteOff(CMidiNoteConverter().ToNote(Note), CMidiNoteConverter().ToOctave(Note));
 }
 
-void CSynth7Controller::OnController(int , int)
+void CSynth7Controller::OnController(int , int, std::uint32_t )
 {
 }
 
-void CSynth7Controller::OnPitchbend(int )
+void CSynth7Controller::OnPitchbend(int , std::uint32_t)
 {
 }
 
-void CSynth7Controller::OnUnknown()
+void CSynth7Controller::OnUnknown(std::uint32_t TimeStamp)
 {
 }
 

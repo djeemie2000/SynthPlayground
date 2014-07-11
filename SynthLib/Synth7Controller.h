@@ -90,11 +90,11 @@ public:
     void Stop() override;
 
     // midi input handler
-    void OnNoteOn(int Note, int ) override;
-    void OnNoteOff(int Note, int ) override;
-    void OnController(int, int ) override;
-    void OnPitchbend(int) override;
-    void OnUnknown() override;
+    void OnNoteOn(int Note, int , std::uint32_t TimeStamp) override;
+    void OnNoteOff(int Note, int , std::uint32_t TimeStamp) override;
+    void OnController(int, int , std::uint32_t ) override;
+    void OnPitchbend(int, std::uint32_t ) override;
+    void OnUnknown(std::uint32_t ) override;
 
 private:
     typedef std::int16_t SampleValueType;

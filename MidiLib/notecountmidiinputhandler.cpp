@@ -6,32 +6,32 @@ CNoteCountMidiInputHandler::CNoteCountMidiInputHandler(std::shared_ptr<IMidiInpu
 {
 }
 
-void CNoteCountMidiInputHandler::OnNoteOn(int Note, int Velocity)
+void CNoteCountMidiInputHandler::OnNoteOn(int Note, int Velocity, std::uint32_t TimeStamp)
 {
     ++m_NoteCount;
-    m_Handler->OnNoteOn(Note, Velocity);
+    m_Handler->OnNoteOn(Note, Velocity, TimeStamp);
 }
 
-void CNoteCountMidiInputHandler::OnNoteOff(int Note, int Velocity)
+void CNoteCountMidiInputHandler::OnNoteOff(int Note, int Velocity, std::uint32_t TimeStamp)
 {
     --m_NoteCount;
     if(m_NoteCount<=0)
     {
-        m_Handler->OnNoteOff(Note, Velocity);
+        m_Handler->OnNoteOff(Note, Velocity, TimeStamp);
     }
 }
 
-void CNoteCountMidiInputHandler::OnController(int Parameter, int Value)
+void CNoteCountMidiInputHandler::OnController(int Parameter, int Value, std::uint32_t TimeStamp)
 {
-    m_Handler->OnController(Parameter, Value);
+    m_Handler->OnController(Parameter, Value, TimeStamp);
 }
 
-void CNoteCountMidiInputHandler::OnPitchbend(int Value)
+void CNoteCountMidiInputHandler::OnPitchbend(int Value, std::uint32_t TimeStamp)
 {
-    m_Handler->OnPitchbend(Value);
+    m_Handler->OnPitchbend(Value, TimeStamp);
 }
 
-void CNoteCountMidiInputHandler::OnUnknown()
+void CNoteCountMidiInputHandler::OnUnknown(std::uint32_t TimeStamp)
 {
-    m_Handler->OnUnknown();
+    m_Handler->OnUnknown(TimeStamp);
 }

@@ -182,27 +182,27 @@ void CSynth8Controller::Stop()
     m_StepSequencerTicker.Activate(false);
 }
 
-void CSynth8Controller::OnNoteOn(int Note, int)
+void CSynth8Controller::OnNoteOn(int Note, int , std::uint32_t TimeStamp)
 {
     std::cout << "Midi NoteOn : " << Note << std::endl;
     OnNoteOn(CMidiNoteConverter().ToNote(Note), CMidiNoteConverter().ToOctave(Note));
 }
 
-void CSynth8Controller::OnNoteOff(int Note, int)
+void CSynth8Controller::OnNoteOff(int Note, int , std::uint32_t TimeStamp)
 {
     std::cout << "Midi NoteOff : " << Note << std::endl;
     OnNoteOff(CMidiNoteConverter().ToNote(Note), CMidiNoteConverter().ToOctave(Note));
 }
 
-void CSynth8Controller::OnController(int , int)
+void CSynth8Controller::OnController(int , int , std::uint32_t)
 {
 }
 
-void CSynth8Controller::OnPitchbend(int )
+void CSynth8Controller::OnPitchbend(int , std::uint32_t)
 {
 }
 
-void CSynth8Controller::OnUnknown()
+void CSynth8Controller::OnUnknown(std::uint32_t)
 {
 }
 
@@ -259,7 +259,7 @@ void CSynth8Controller::SetMasterVolume(float Volume)
     m_MasterVolume.Set(Volume);
 }
 
-int CSynth8Controller::OnRead(void *Dst, int NumFrames)
+int CSynth8Controller::OnRead(void *Dst, int NumFrames, std::uint32_t TimeStamp)
 {
     CSymmetricalOperator<float> Symm;
     CSymmetricalOperator<float> Symm2;

@@ -11,7 +11,7 @@ CScopeController::CScopeController(IScope<float> &Scope)
     m_Grabber.SetGrabSize(GrabSize);
 }
 
-int CScopeController::OnWrite(void *Src, int NumFrames)
+int CScopeController::OnWrite(void *Src, int NumFrames, std::uint32_t TimeStamp)
 {
     if(Src)
     {

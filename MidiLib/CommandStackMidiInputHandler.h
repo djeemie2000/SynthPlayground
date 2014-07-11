@@ -15,11 +15,11 @@ class CCommandStackMidiInputHandler : public IMidiInputHandler, public IMidiCont
 public:
     CCommandStackMidiInputHandler(CCommandStackController& CommandStackHandler);
 
-    void OnNoteOn(int Note, int Velocity) override;
-    void OnNoteOff(int Note, int ) override;
-    void OnController(int Parameter, int Value) override;
-    void OnPitchbend(int Value) override;
-    void OnUnknown() override;
+    void OnNoteOn(int Note, int Velocity, std::uint32_t TimeStamp) override;
+    void OnNoteOff(int Note, int , std::uint32_t TimeStamp) override;
+    void OnController(int Parameter, int Value, std::uint32_t TimeStamp) override;
+    void OnPitchbend(int Value, std::uint32_t TimeStamp) override;
+    void OnUnknown(std::uint32_t TimeStamp) override;
 
     /*!
      * \brief Link a named parameter to a midi controller parameter

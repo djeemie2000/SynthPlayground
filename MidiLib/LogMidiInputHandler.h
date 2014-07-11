@@ -8,11 +8,11 @@ class CLogMidiInputHandler : public IMidiInputHandler
 public:
     CLogMidiInputHandler();
 
-    void OnNoteOn(int Note, int Velocity) override;
-    void OnNoteOff(int Note, int Velocity) override;
-    void OnController(int Parameter, int Value) override;
-    void OnPitchbend(int Value) override;
-    void OnUnknown() override;
+    void OnNoteOn(int Note, int Velocity, std::uint32_t TimeStamp) override;
+    void OnNoteOff(int Note, int Velocity, std::uint32_t TimeStamp) override;
+    void OnController(int Parameter, int Value, std::uint32_t TimeStamp) override;
+    void OnPitchbend(int Value, std::uint32_t TimeStamp) override;
+    void OnUnknown(std::uint32_t TimeStamp) override;
 };
 
 #endif // LOGMIDIINPUTHANDLER_H

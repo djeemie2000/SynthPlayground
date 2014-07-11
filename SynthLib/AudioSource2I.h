@@ -14,7 +14,7 @@ public:
      * \param NumFrames number of frames that is required to be written into buffer
      * \return zero upon success, non-zero error code upon failure
      */
-    virtual int OnRead(void *Dst, int NumFrames) =0;
+    virtual int OnRead(void *Dst, int NumFrames, std::uint32_t TimeStamp) =0;
 };
 
 #endif // AUDIOSOURCE2I_H
