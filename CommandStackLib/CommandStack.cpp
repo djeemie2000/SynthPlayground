@@ -15,5 +15,17 @@ SCmdStackItem::SCmdStackItem(const string &Name, bool BoolValue, int IntValue, f
     , s_BoolValue(BoolValue)
     , s_IntValue(IntValue)
     , s_FloatValue(FloatValue)
+    , s_TimeStamp(0)
+    , s_HasTimeStamp(false)
+{
+}
+
+SCmdStackItem::SCmdStackItem(const std::string& Name, bool BoolValue, int IntValue, float FloatValue, std::uint32_t TimeStamp)
+    : s_Name(Name)
+    , s_BoolValue(BoolValue)
+    , s_IntValue(IntValue)
+    , s_FloatValue(FloatValue)
+    , s_TimeStamp(TimeStamp)
+    , s_HasTimeStamp(true)
 {
 }

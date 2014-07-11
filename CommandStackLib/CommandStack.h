@@ -1,6 +1,7 @@
 #ifndef COMMANDSTACK_H
 #define COMMANDSTACK_H
 
+#include <cstdint>
 #include <deque>
 #include <map>
 #include <functional>
@@ -14,10 +15,13 @@ struct SCmdStackItem
     bool s_BoolValue;
     int s_IntValue;
     float s_FloatValue;
+    std::uint32_t s_TimeStamp;
+    bool s_HasTimeStamp;
 
     SCmdStackItem();
 
     SCmdStackItem(const std::string& Name, bool BoolValue, int IntValue, float FloatValue);
+    SCmdStackItem(const std::string& Name, bool BoolValue, int IntValue, float FloatValue, std::uint32_t TimeStamp);
 };
 
 typedef std::deque<SCmdStackItem> CmdStack;

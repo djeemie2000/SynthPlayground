@@ -11,14 +11,14 @@ void CCommandStackMidiInputHandler::OnNoteOn(int Note, int Velocity, std::uint32
 {
     // handled by a 'custom' command
     // Midi notes are in [0x00, 0x77] range
-    m_CommandStackHandler.Handle({"Midi/NoteOn", false, Note | Velocity<<8, 0.0f });
+    m_CommandStackHandler.Handle({"Midi/NoteOn", false, Note | Velocity<<8, 0.0f, TimeStamp });
 }
 
 void CCommandStackMidiInputHandler::OnNoteOff(int Note, int Velocity, std::uint32_t TimeStamp)
 {
     // handled by a 'custom' command
     // Midi notes are in [0x00, 0x77] range
-    m_CommandStackHandler.Handle({"Midi/NoteOff", false, Note | Velocity<<8, 0.0f });
+    m_CommandStackHandler.Handle({"Midi/NoteOff", false, Note | Velocity<<8, 0.0f, TimeStamp });
 }
 
 void CCommandStackMidiInputHandler::OnController(int Parameter, int Value, std::uint32_t TimeStamp)
@@ -31,13 +31,15 @@ void CCommandStackMidiInputHandler::OnController(int Parameter, int Value, std::
         {
             SCmdStackItem Item;
             Item.s_Name = itHandler->first;
+            Item.s_TimeStamp = TimeStamp;
+            Item.s_HasTimeStamp = true;
             itHandler->second(Item, Value);
             m_CommandStackHandler.Handle(Item);
         }
     }
 }
 
-void CCommandStackMidiInputHandler::OnPitchbend(int Value, std::uint32_t TimeStamp)
+void CCommandStackMidiInputHandler::OnPitchbend(int , std::uint32_t )
 {
     // handle by 'custom' command
     // m_CommandStackHandler.Handle({"Midi/PitchBend", false, Value, 0.0f });
