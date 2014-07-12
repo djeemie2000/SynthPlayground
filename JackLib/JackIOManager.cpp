@@ -206,8 +206,7 @@ int CJackIOManager::OnProcessAudio(jack_nframes_t NumFrames)
                             }
                             else if(TypeByte==0xE0)
                             {
-                                // ??? TODO signed ???
-                                m_MidiHandler->OnPitchbend(MidiEvent.buffer[1]<<7 | MidiEvent.buffer[2], MidiEvent.time);//????????
+                                m_MidiHandler->OnPitchbend((MidiEvent.buffer[2]-64)<<7, MidiEvent.time);//fine?
                             }
                             else
                             {
