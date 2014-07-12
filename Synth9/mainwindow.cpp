@@ -186,6 +186,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->groupBox_AudioDevice->layout()->addWidget(new QPatchManagerWidget(*m_CommandStackController, this));
 
     m_AudioOutput->OpenAudioOutput("Out", m_Controller);
+    m_AudioOutput->OpenMidiInput("MidiIn2", m_MidiInputController);
     m_AudioOutput->ActivateClient();
     m_MidiInput->Open("Synth9", "MidiIn");
 }
