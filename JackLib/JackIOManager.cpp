@@ -168,26 +168,7 @@ int CJackIOManager::OnProcessAudio(jack_nframes_t NumFrames)
     // if this function is called, it is fair to assume we are opened (so m_Client exists)
     int ReturnValue = 0;
     jack_nframes_t TimeStamp = jack_last_frame_time(m_Client);
-    if(m_AudioOutputPort && m_AudioSource)
-    {
-        int NumConnected = jack_port_connected(m_AudioOutputPort);
-        if(0<NumConnected)
-        {
-            void* DstBuffer = jack_port_get_buffer(m_AudioOutputPort, NumFrames);
-            // should return 0 upon succes, non-zero error code upon failure
-            ReturnValue = m_AudioSource->OnRead(DstBuffer, NumFrames, TimeStamp);
-        }
-    }
-    if(m_AudioInputPort && m_AudioRenderer)
-    {
-        int NumConnected = jack_port_connected(m_AudioInputPort);
-        if(0<NumConnected)
-        {
-            void* SrcBuffer = jack_port_get_buffer(m_AudioInputPort, NumFrames);
-            // should return 0 upon succes, non-zero error code upon failure
-            ReturnValue = m_AudioRenderer->OnWrite(SrcBuffer, NumFrames, TimeStamp);
-        }
-    }
+    // handle midi input before generating audio
     if(m_MidiInputPort && m_MidiHandler)
     {
         int NumConnected = jack_port_connected(m_MidiInputPort);
@@ -246,6 +227,28 @@ int CJackIOManager::OnProcessAudio(jack_nframes_t NumFrames)
             ReturnValue = 0;
         }
 
+    }
+    // generating audio
+    if(m_AudioOutputPort && m_AudioSource)
+    {
+        int NumConnected = jack_port_connected(m_AudioOutputPort);
+        if(0<NumConnected)
+        {
+            void* DstBuffer = jack_port_get_buffer(m_AudioOutputPort, NumFrames);
+            // should return 0 upon succes, non-zero error code upon failure
+            ReturnValue = m_AudioSource->OnRead(DstBuffer, NumFrames, TimeStamp);
+        }
+    }
+    // handle incoming audio
+    if(m_AudioInputPort && m_AudioRenderer)
+    {
+        int NumConnected = jack_port_connected(m_AudioInputPort);
+        if(0<NumConnected)
+        {
+            void* SrcBuffer = jack_port_get_buffer(m_AudioInputPort, NumFrames);
+            // should return 0 upon succes, non-zero error code upon failure
+            ReturnValue = m_AudioRenderer->OnWrite(SrcBuffer, NumFrames, TimeStamp);
+        }
     }
 
     return ReturnValue;
