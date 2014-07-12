@@ -10,6 +10,7 @@ HEADERS += \
         JackIOManager.h
 
 INCLUDEPATH += ./../SynthLib
+INCLUDEPATH += ./../MidiLib
 
 LIBS += -ljack
 

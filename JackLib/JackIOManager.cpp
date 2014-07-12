@@ -2,6 +2,8 @@
 #include "JackIOManager.h"
 #include "AudioSource2I.h"
 #include "AudioRendererI.h"
+#include "MidiInputHandlerI.h"
+#include <jack/midiport.h>
 
 namespace
 {
@@ -25,6 +27,8 @@ CJackIOManager::CJackIOManager()
  , m_AudioSource()
  , m_AudioInputPort(0)
  , m_AudioRenderer()
+ , m_MidiInputPort(0)
+ , m_MidiHandler()
 {
 }
 
@@ -105,6 +109,21 @@ bool CJackIOManager::OpenAudioInput(const std::string &Name, std::shared_ptr<IAu
     return Success;
 }
 
+bool CJackIOManager::OpenMidiInput(const std::string &Name, std::shared_ptr<IMidiInputHandler> MidiHandler)
+{
+    bool Success = false;
+    if(m_Client)
+    {
+        m_MidiInputPort = jack_port_register(m_Client, Name.c_str(), JACK_DEFAULT_MIDI_TYPE, JackPortIsInput|JackPortIsTerminal, 0);//use JackPortIsTerminal ?
+        if(m_MidiInputPort)
+        {
+            m_MidiHandler = MidiHandler;
+            Success = true;
+        }
+    }
+    return Success;
+}
+
 void CJackIOManager::CloseClient()
 {
     if(m_Client)
@@ -118,6 +137,11 @@ void CJackIOManager::CloseClient()
         {
             jack_port_unregister(m_Client, m_AudioInputPort);
             m_AudioInputPort = 0;
+        }
+        if(m_MidiInputPort)
+        {
+            jack_port_unregister(m_Client, m_MidiInputPort);
+            m_MidiInputPort = 0;
         }
         // tell jack we do not want to play along anymore
         jack_deactivate(m_Client);
@@ -164,9 +188,65 @@ int CJackIOManager::OnProcessAudio(jack_nframes_t NumFrames)
             ReturnValue = m_AudioRenderer->OnWrite(SrcBuffer, NumFrames, TimeStamp);
         }
     }
+    if(m_MidiInputPort && m_MidiHandler)
+    {
+        int NumConnected = jack_port_connected(m_MidiInputPort);
+        if(0<NumConnected)
+        {
+            void* SrcBuffer = jack_port_get_buffer(m_MidiInputPort, NumFrames);
+            jack_nframes_t NumEvents = jack_midi_get_event_count(SrcBuffer);
+            if(0<NumEvents)
+            {
+                jack_nframes_t EventIndex = 0;
+                while(EventIndex<NumEvents)
+                {
+                    jack_midi_event_t MidiEvent;
+                    if(0==jack_midi_event_get(&MidiEvent, SrcBuffer, EventIndex))
+                    {
+                        // handle:
+                        // Note on  : 3 bytes 0x9x MidiNote [0,127] Velocity [0,127] -> msb always 0
+                        // Note off : 3 bytes 0x8x MidiNote [0,127] Velocity [0,127] -> msb always 0
+                        // Controll : 3 bytes 0xBx Param    [0,127] Value    [0,127] -> msb always 0
+                        // Pitchbend: 3 bytes 0xEx Fine     [0,127] Coarse   [0,127] -> msb always 0
+                        if(MidiEvent.size==3)
+                        {
+                            jack_midi_data_t TypeByte = MidiEvent.buffer[0] & 0xF0;
+                            if(TypeByte==0x90)
+                            {
+                                m_MidiHandler->OnNoteOn(MidiEvent.buffer[1], MidiEvent.buffer[2], MidiEvent.time);
+                            }
+                            else if(TypeByte==0x80)
+                            {
+                                m_MidiHandler->OnNoteOff(MidiEvent.buffer[1], MidiEvent.buffer[2], MidiEvent.time);
+                            }
+                            else if(TypeByte==0xB0)
+                            {
+                                m_MidiHandler->OnController(MidiEvent.buffer[1], MidiEvent.buffer[2], MidiEvent.time);
+                            }
+                            else if(TypeByte==0xE0)
+                            {
+                                // ??? TODO signed ???
+                                m_MidiHandler->OnPitchbend(MidiEvent.buffer[1]<<7 | MidiEvent.buffer[2], MidiEvent.time);//????????
+                            }
+                            else
+                            {
+                                m_MidiHandler->OnUnknown(MidiEvent.time);
+                            }
+                        }
+                        else
+                        {
+                            m_MidiHandler->OnUnknown(MidiEvent.time);
+                        }
+                    }
+                    ++EventIndex;
+                }
+            }
 
-    // test/debug
-    std::cout << TimeStamp << std::endl;
+            // should return 0 upon succes, non-zero error code upon failure
+            ReturnValue = 0;
+        }
+
+    }
 
     return ReturnValue;
 }

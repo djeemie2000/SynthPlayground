@@ -7,6 +7,7 @@
 
 class IAudioSource2;
 class IAudioRenderer;
+class IMidiInputHandler;
 
 /*!
  * \brief The CJackIOManager class
@@ -29,6 +30,7 @@ public:
     bool OpenAudioOutput(const std::string& Name, std::shared_ptr<IAudioSource2> AudioSource);
     bool OpenAudioInput(const std::string& Name, std::shared_ptr<IAudioRenderer> AudioRenderer);
     // idem for midi -> midi handler => generic midi stuff into MidiLib => MidiLib separately
+    bool OpenMidiInput(const std::string& Name, std::shared_ptr<IMidiInputHandler> MidiHandler);
 
     bool ActivateClient();
 
@@ -44,6 +46,8 @@ private:
     std::shared_ptr<IAudioSource2>   m_AudioSource;
     jack_port_t*    m_AudioInputPort;
     std::shared_ptr<IAudioRenderer> m_AudioRenderer;
+    jack_port_t*    m_MidiInputPort;
+    std::shared_ptr<IMidiInputHandler> m_MidiHandler;
 };
 
 #endif // JACKAUDIOOUTPUT_H
