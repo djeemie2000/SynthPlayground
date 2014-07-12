@@ -82,14 +82,18 @@ void CAlsaMidiInput::OnTick()
 {
     if(m_IsOpen)
     {
-        ProcessMidiEvent(ReadMidiEvent());
+        int RemainingBufferSize = 1;
+        while(0<RemainingBufferSize)
+        {
+            ProcessMidiEvent(ReadMidiEvent(RemainingBufferSize));
+        }
     }
 }
 
-snd_seq_event_t* CAlsaMidiInput::ReadMidiEvent() const
+snd_seq_event_t* CAlsaMidiInput::ReadMidiEvent(int &RemainingBufferSize) const
 {
     snd_seq_event_t *ev = 0;
-    snd_seq_event_input(m_MidiSequencerHandle, &ev);
+    RemainingBufferSize = snd_seq_event_input(m_MidiSequencerHandle, &ev);
     return ev;
 }
 

@@ -26,7 +26,7 @@ private:
     void StopListening();
 
     IMidiInputHandler& m_Handler;
-    snd_seq_event_t *ReadMidiEvent() const;
+    snd_seq_event_t *ReadMidiEvent(int& RemainingBufferSize) const;
     void ProcessMidiEvent(const snd_seq_event_t *ev);
 
     snd_seq_t*  m_MidiSequencerHandle;
