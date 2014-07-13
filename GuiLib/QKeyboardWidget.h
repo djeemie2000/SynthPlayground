@@ -19,22 +19,23 @@ public:
     ~QKeyboardWidget();
 
 private slots:
-    void on_toolButton_C_clicked();
-    void on_toolButton_Csharp_clicked();
-    void on_toolButton_D_clicked();
-    void on_toolButton_Dsharp_clicked();
-    void on_toolButton_E_clicked();
-    void on_toolButton_F_clicked();
-    void on_toolButton_Fsharp_clicked();
-    void on_toolButton_G_clicked();
-    void on_toolButton_Gsharp_clicked();
-    void on_toolButton_A_clicked();
-    void on_toolButton_Asharp_clicked();
-    void on_toolButton_B_clicked();
-    void on_toolButton_Cplus1_clicked();    
-    void on_spinBox_Octave_valueChanged(int arg1);
-        
+    void on_toolButton_C_clicked(bool checked);
+    void on_toolButton_Csharp_clicked(bool checked);
+    void on_toolButton_D_clicked(bool checked);
+    void on_toolButton_Dsharp_clicked(bool checked);
+    void on_toolButton_E_clicked(bool checked);
+    void on_toolButton_F_clicked(bool checked);
+    void on_toolButton_Fsharp_clicked(bool checked);
+    void on_toolButton_G_clicked(bool checked);
+    void on_toolButton_Gsharp_clicked(bool checked);
+    void on_toolButton_A_clicked(bool checked);
+    void on_toolButton_Asharp_clicked(bool checked);
+    void on_toolButton_B_clicked(bool checked);
+    void on_toolButton_Cplus1_clicked(bool checked);
+    void on_spinBox_Octave_valueChanged(int arg1);        
+
 private:
+    void OnNoteClicked(ENote Note, int RelativeOctave, bool Checked);
     void UpdateNoteHandler();
     
     Ui::QKeyboardWidget *ui;
@@ -42,6 +43,8 @@ private:
     INoteHandler& m_NoteHandler;
     ENote m_Note;
     EOctave m_Octave;
+    bool m_NoteOn;
+    int m_RelativeOctave;
 };
 
 #endif // QKEYBOARDWIDGET_H

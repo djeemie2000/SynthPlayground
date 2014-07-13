@@ -21,7 +21,8 @@ HEADERS += \
     notecountmidiinputhandler.h \
     CommandStackMidiInputHandler.h \
     MidiInputController.h \
-    MidiControllerHandlerI.h
+    MidiControllerHandlerI.h \
+    MidiSourceI.h
 
 INCLUDEPATH += ./../SynthLib
 INCLUDEPATH += ./../CommandStackLib

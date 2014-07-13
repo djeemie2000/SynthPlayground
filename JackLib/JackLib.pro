@@ -4,10 +4,12 @@ CONFIG += staticlib
 CONFIG += c++11 (Qt5)
 
 SOURCES += \
-        JackIOManager.cpp
+        JackIOManager.cpp \
+    JackMidiSource.cpp
 
 HEADERS += \
-        JackIOManager.h
+        JackIOManager.h \
+    JackMidiSource.h
 
 INCLUDEPATH += ./../SynthLib
 INCLUDEPATH += ./../MidiLib

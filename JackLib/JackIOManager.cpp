@@ -3,6 +3,7 @@
 #include "AudioSource2I.h"
 #include "AudioRendererI.h"
 #include "MidiInputHandlerI.h"
+#include "MidiSourceI.h"
 #include <jack/midiport.h>
 
 namespace
@@ -10,7 +11,7 @@ namespace
 
 int JackProcessFunction(jack_nframes_t NumFrames, void* arg)
 {
-    return ((CJackIOManager*)arg)->OnProcessAudio(NumFrames);
+    return ((CJackIOManager*)arg)->OnProcess(NumFrames);
 }
 
 void JackShutdownFunction(void* arg)
@@ -29,6 +30,8 @@ CJackIOManager::CJackIOManager()
  , m_AudioRenderer()
  , m_MidiInputPort(0)
  , m_MidiHandler()
+ , m_MidiOutputPort(0)
+ , m_MidiSource()
 {
 }
 
@@ -124,6 +127,21 @@ bool CJackIOManager::OpenMidiInput(const std::string &Name, std::shared_ptr<IMid
     return Success;
 }
 
+bool CJackIOManager::OpenMidiOutput(const std::string &Name, std::shared_ptr<IMidiSource> MidiSource)
+{
+    bool Success = false;
+    if(m_Client)
+    {
+        m_MidiOutputPort = jack_port_register(m_Client, Name.c_str(), JACK_DEFAULT_MIDI_TYPE, JackPortIsOutput|JackPortIsTerminal, 0);//use JackPortIsTerminal ?
+        if(m_MidiOutputPort)
+        {
+            m_MidiSource = MidiSource;
+            Success = true;
+        }
+    }
+    return Success;
+}
+
 void CJackIOManager::CloseClient()
 {
     if(m_Client)
@@ -163,7 +181,7 @@ int CJackIOManager::SamplingFrequency() const
     return static_cast<int>(m_SamplingFrequency);
 }
 
-int CJackIOManager::OnProcessAudio(jack_nframes_t NumFrames)
+int CJackIOManager::OnProcess(jack_nframes_t NumFrames)
 {
     // if this function is called, it is fair to assume we are opened (so m_Client exists)
     int ReturnValue = 0;
@@ -225,7 +243,16 @@ int CJackIOManager::OnProcessAudio(jack_nframes_t NumFrames)
             // should return 0 upon succes, non-zero error code upon failure
             ReturnValue = 0;
         }
-
+    }
+    if(m_MidiOutputPort && m_MidiSource)
+    {
+        int NumConnected = jack_port_connected(m_MidiOutputPort);
+        if(0<NumConnected)
+        {
+            void* DstBuffer = jack_port_get_buffer(m_MidiOutputPort, NumFrames);
+            jack_midi_clear_buffer(DstBuffer);
+            m_MidiSource->OnRead(DstBuffer, NumFrames, TimeStamp);
+        }
     }
     // generating audio
     if(m_AudioOutputPort && m_AudioSource)
