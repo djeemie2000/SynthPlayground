@@ -13,7 +13,8 @@ SOURCES += StepSequencer.cpp \
     SelectableOperatorFactory.cpp \
     StepSequencer2.cpp \
     ScopeController.cpp \
-    periodicsamplegrabberproxy.cpp
+    periodicsamplegrabberproxy.cpp \
+    Synth10Controller.cpp
 
 HEADERS += StepSequencer.h \
     Notes.h \
@@ -96,7 +97,9 @@ HEADERS += StepSequencer.h \
     PeriodicSampleGrabberI.h \
     periodicsamplegrabberproxy.h \
     FMOperatorStage.h \
-    FMOperatorStageI.h
+    FMOperatorStageI.h \
+    Synth10Controller.h \
+    SkewedInterpolatingOperator.h
 
 INCLUDEPATH += ./../MidiLib
 
