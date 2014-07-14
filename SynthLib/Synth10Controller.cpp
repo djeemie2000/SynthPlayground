@@ -58,6 +58,26 @@ void CSynth10Controller::OnNoteOff(ENote /*Note*/, EOctave /*Octave*/)
     m_Envelope.NoteOff();
 }
 
+void CSynth10Controller::SelectOperator1(int Selected)
+{
+    m_Oscillator.SelectOperator1(Selected);
+}
+
+void CSynth10Controller::SelectOperator2(int Selected)
+{
+    m_Oscillator.SelectOperator2(Selected);
+}
+
+void CSynth10Controller::SetMix(float Mix)
+{
+    m_Oscillator.SetMix(Mix);
+}
+
+void CSynth10Controller::SetMixModAmt(float ModAmt)
+{
+    m_Oscillator.SetMixModAmt(ModAmt);
+}
+
 void CSynth10Controller::OnLPFilterCutoff(float Parameter)
 {
     m_LPFilter.SetParameter(Parameter);

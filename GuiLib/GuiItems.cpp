@@ -323,6 +323,17 @@ void AddFMOperatorStage(QGroupBox *GroupBox, QWidget *Parent, const std::string&
     AddComboBox(Box, Parent, {"Carrier", CSelectableOperatorFactory::SelectionList(), 0 }, Name+"/Carrier/Select", Controller);
 }
 
+void AddInterpolatingOperator(QGroupBox *GroupBox, QWidget *Parent, const std::string& Name, CCommandStackController& Controller)
+{
+    // add child groupbox
+    QGroupBox* Box = AddGroupBox(GroupBox, Parent, "FMOperator");
+    AddComboBox(Box, Parent, {"Operator1", CSelectableOperatorFactory::SelectionList(), 0 }, Name+"/Operator1/Select", Controller);
+    AddComboBox(Box, Parent, {"Operator2", CSelectableOperatorFactory::SelectionList(), 0 }, Name+"/Operator2/Select", Controller);
+
+    AddDoubleSpinBox(Box, Parent, {"Mix", 0.0, 0, 1.0, 0.01, 3}, Name+"/Mix", Controller);
+    AddDoubleSpinBox(Box, Parent, {"MixModAmt", 0.0, -1.0, 1.0, 0.01, 3}, Name+"/MixModAmt", Controller);
+}
+
 
 void AddLFOBank(QGroupBox *GroupBox, QWidget *Parent, ILFOBank &LFOBank)
 {

@@ -12,8 +12,6 @@
 #include "StepSequencerI.h"
 #include "NoteHandlerI.h"
 #include "LPFilterI.h"
-#include "NonLinearShaperI.h"
-#include "FMOperatorStageI.h"
 #include "MidiInputHandlerI.h"
 #include "LFOBankI.h"
 #include "LFO.h"
@@ -25,14 +23,15 @@
 #include "MasterVolumeI.h"
 #include "ConstGenerator.h"
 #include "SkewedInterpolatingOperator.h"
+#include "InterpolatingOperatorI.h"
 
 class IInt16Scope;
 
 class CSynth10Controller
                     : public IAudioSource2
                     , public INoteHandler
+                    , public IInterpolatingOperator
                     , public ILPFilter
-                    , public INonLinearShaper
                     , public IStepSequencer
                     , public IMidiInputHandler
                     , public ILFOBank
@@ -52,14 +51,10 @@ public:
     void OnNoteOff(ENote, EOctave) override;
 
     //  operator
-//    void OnSync() override;
-//    void OnCarrier(int Selected) override;
-//    void OnModulator(int Selected) override;
-//    void OnOscillator(int Selected) override;
-//    void OnModulatorAmplitude(float Amplitude) override;
-//    void OnModulatorAmplitudeModAmount(float ModAmt) override;
-//    void OnModulatorFrequencyMultiplier(float FrequencyMultiplier) override;
-//    void OnModulatorPhaseshift(float PhaseShift) override;
+    void SelectOperator1(int Selected) override;
+    void SelectOperator2(int Selected) override;
+    void SetMix(float Mix) override;
+    void SetMixModAmt(float ModAmt) override;
 
     // LP filter
     void OnLPFilterCutoff(float Parameter) override;

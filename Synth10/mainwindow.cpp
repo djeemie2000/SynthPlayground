@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 #include "QKeyboardWidget.h"
 #include "QAudioDeviceWidget.h"
-#include "Synth9Controller.h"
+#include "Synth10Controller.h"
 #include "JackIOManager.h"
 #include "GuiItems.h"
 #include "AlsaMidiInput.h"
@@ -13,32 +13,20 @@
 
 namespace
 {
-    CmdFunctionMap BuildFunctionMap(CSynth9Controller& Controller)
+    CmdFunctionMap BuildFunctionMap(CSynth10Controller& Controller)
     {
         CmdFunctionMap FunctionMap;
 
-        // oscillator (combined folded operator stage)
-        FunctionMap["Oscillator/Carrier/Select"] = [&Controller](const SCmdStackItem& Item){  Controller.OnCarrier(Item.s_IntValue); };
-        FunctionMap["Oscillator/Modulator/Select"] = [&Controller](const SCmdStackItem& Item){  Controller.OnModulator(Item.s_IntValue); };
-        FunctionMap["Oscillator/Sync"] = [&Controller](const SCmdStackItem& ){  Controller.OnSync(); };
-        FunctionMap["Oscillator/Modulator/Amplitude"] = [&Controller](const SCmdStackItem& Item){  Controller.OnModulatorAmplitude(Item.s_FloatValue); };
-        FunctionMap["Oscillator/Modulator/AmplitudeModAmt"] = [&Controller](const SCmdStackItem& Item){  Controller.OnModulatorAmplitudeModAmount(Item.s_FloatValue); };
-        FunctionMap["Oscillator/Modulator/PhaseShift"] = [&Controller](const SCmdStackItem& Item){  Controller.OnModulatorPhaseshift(Item.s_FloatValue); };
-        FunctionMap["Oscillator/Modulator/FrequencyMultiplier"] = [&Controller](const SCmdStackItem& Item){  Controller.OnModulatorFrequencyMultiplier(Item.s_FloatValue); };
-        FunctionMap["Oscillator/Oscillator/Select"] = [&Controller](const SCmdStackItem& Item){  Controller.OnOscillator(Item.s_IntValue); };
-
-        // WaveFolder
-        FunctionMap["WaveFolder/Fold"] = [&Controller](const SCmdStackItem& Item){ Controller.OnWaveFold(Item.s_FloatValue); };
+        // oscillator
+        FunctionMap["Oscillator/Operator1/Select"] = [&Controller](const SCmdStackItem& Item){  Controller.SelectOperator1(Item.s_IntValue); };
+        FunctionMap["Oscillator/Operator2/Select"] = [&Controller](const SCmdStackItem& Item){  Controller.SelectOperator2(Item.s_IntValue); };
+        FunctionMap["Oscillator/Mix"] = [&Controller](const SCmdStackItem& Item){  Controller.SetMix(Item.s_FloatValue); };
+        FunctionMap["Oscillator/MixModAmt"] = [&Controller](const SCmdStackItem& Item){  Controller.SetMixModAmt(Item.s_FloatValue); };
 
         // LP Filter
         FunctionMap["LPFilter/Cutoff"] = [&Controller](const SCmdStackItem& Item){ Controller.OnLPFilterCutoff(Item.s_FloatValue); };
         FunctionMap["LPFilter/Poles"] = [&Controller](const SCmdStackItem& Item){ Controller.OnLPFilterPoles(Item.s_IntValue); };
         FunctionMap["LPFilter/Q"] = [&Controller](const SCmdStackItem& Item){ Controller.OnLPFilterFeedback(Item.s_FloatValue); };
-
-        // NonLinearShaper
-        FunctionMap["NonLinearShaper/Cubic"] = [&Controller](const SCmdStackItem& Item){ Controller.OnNonLinearShaperA(Item.s_FloatValue); };
-        FunctionMap["NonLinearShaper/Quadratic"] = [&Controller](const SCmdStackItem& Item){ Controller.OnNonLinearShaperB(Item.s_FloatValue); };
-        FunctionMap["NonLinearShaper/PreGain"] = [&Controller](const SCmdStackItem& Item){ Controller.OnNonLinearShaperPreGain(Item.s_FloatValue); };
 
         // StepSequencer
         FunctionMap["StepSequencer/BeatsPerMinute"] = [&Controller](const SCmdStackItem& Item){ Controller.SetBeatsPerMinute(Item.s_FloatValue); };
@@ -56,6 +44,8 @@ namespace
         FunctionMap["LFOBank/0/Waveform"] = [&Controller](const SCmdStackItem& Item){  Controller.SelectLFOWaveform(0, Item.s_IntValue); };
         FunctionMap["LFOBank/1/Frequency"] = [&Controller](const SCmdStackItem& Item){  Controller.SetLFOFrequency(1, Item.s_FloatValue); };
         FunctionMap["LFOBank/1/Waveform"] = [&Controller](const SCmdStackItem& Item){  Controller.SelectLFOWaveform(1, Item.s_IntValue); };
+        FunctionMap["LFOBank/2/Frequency"] = [&Controller](const SCmdStackItem& Item){  Controller.SetLFOFrequency(2, Item.s_FloatValue); };
+        FunctionMap["LFOBank/2/Waveform"] = [&Controller](const SCmdStackItem& Item){  Controller.SelectLFOWaveform(2, Item.s_IntValue); };
 
         // FeedbackDelay
         FunctionMap["Delay/DelayMilliSeconds"] = [&Controller](const SCmdStackItem& Item){  Controller.OnDelayMilliSeconds(Item.s_FloatValue); };
@@ -88,33 +78,15 @@ namespace
         CmdStack Stack;
 
         // Oscillator
-//        Stack.push_back({"Oscillator/Combinor", false, 0, 0.0f});
-//        Stack.push_back({"Oscillator/Sync", false, 0, 0.0f});
-//        Stack.push_back({"Oscillator/Amplitude/0", false, 0, 0.50f});
-//        Stack.push_back({"Oscillator/Amplitude/1", false, 0, 0.50f});
-//        Stack.push_back({"Oscillator/Fold/0", false, 0, 0.97f});
-//        Stack.push_back({"Oscillator/Fold/1", false, 0, 0.97f});
-//        Stack.push_back({"Oscillator/FoldModAmt/0", false, 0, 0.00f});
-//        Stack.push_back({"Oscillator/FoldModAmt/1", false, 0, 0.00f});
-//        Stack.push_back({"Oscillator/Operator/0", false, 0, 0.0f});
-//        Stack.push_back({"Oscillator/Operator/1", false, 0, 0.0f});
-//        Stack.push_back({"Oscillator/FrequencyMultiplier/0", false, 0, 1.00f});
-//        Stack.push_back({"Oscillator/FrequencyMultiplier/1", false, 0, 1.00f});
-//        Stack.push_back({"Oscillator/PhaseShift/0", false, 0, 0.00f});
-//        Stack.push_back({"Oscillator/PhaseShift/1", false, 0, 0.00f});
-
-        // WaveFolder
-        Stack.push_back({"WaveFolder/Fold", false, 0, 0.97f});
+        Stack.push_back({"Oscillator/Operator1/Select", false, 0, 0.0f});
+        Stack.push_back({"Oscillator/Operator2/Select", false, 0, 0.0f});
+        Stack.push_back({"Oscillator/Mix", false, 0, 0.0f});
+        Stack.push_back({"Oscillator/MixModAmt", false, 0, 0.0f});
 
         // LP Filter
         Stack.push_back({"LPFilter/Cutoff", false, 0, 1.00f});
         Stack.push_back({"LPFilter/Poles", false, 1, 0.0f});
         Stack.push_back({"LPFilter/Q", false, 0, 0.00f});
-
-        // NonLinearShaper
-        Stack.push_back({"NonLinearShaper/Cubic", false, 0, 0.00f});
-        Stack.push_back({"NonLinearShaper/Quadratic", false, 0, 0.00f});
-        Stack.push_back({"NonLinearShaper/PreGain", false, 0, 1.00f});
 
         // StepSequencer
         Stack.push_back({"StepSequencer/BeatsPerMinute", false, 0, 120.0f});
@@ -132,13 +104,14 @@ namespace
         Stack.push_back({"LFOBank/0/WaveForm", false, 3, 0.0f});
         Stack.push_back({"LFOBank/1/Frequency", false, 0, 1.0f});
         Stack.push_back({"LFOBank/1/WaveForm", false, 3, 0.0f});
+        Stack.push_back({"LFOBank/2/Frequency", false, 0, 1.0f});
+        Stack.push_back({"LFOBank/2/WaveForm", false, 3, 0.0f});
 
         // feedback delay
         Stack.push_back({"Delay/DelayMilliSeconds", false, 0, 250.0f});
         Stack.push_back({"Delay/Feedback", false, 0, 0.5f});
         Stack.push_back({"Delay/WetDry", false, 0, 0.0f});
         Stack.push_back({"Delay/Bypass", true, 0, 0.0f});
-
 
         // AR envelope
         Stack.push_back({"Envelope/AR/0/AttackMilliSeconds", false, 0, 10.0f});
@@ -161,9 +134,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     m_AudioOutput.reset(new CJackIOManager());
-    m_AudioOutput->OpenClient("Synth9");
+    m_AudioOutput->OpenClient("Synth10");
 
-    m_Controller.reset(new CSynth9Controller(m_AudioOutput->SamplingFrequency()));
+    m_Controller.reset(new CSynth10Controller(m_AudioOutput->SamplingFrequency()));
     m_CommandStackController.reset(new CCommandStackController(BuildFunctionMap(*m_Controller), BuildDefaultCommandStack()));
     m_MidiInputController.reset(new CMidiInputController(*m_CommandStackController));
     BuildMidiControllerMap(*m_MidiInputController);
@@ -171,13 +144,11 @@ MainWindow::MainWindow(QWidget *parent)
 
     // build gui
     guiutils::AddLFOBank(ui->groupBox_Operator, this, m_Controller->LFOBankSize(), "LFOBank", *m_CommandStackController);
-    guiutils::AddFMOperatorStage(ui->groupBox_Operator, this, "Oscillator", *m_CommandStackController);
+    guiutils::AddInterpolatingOperator(ui->groupBox_Operator, this, "Oscillator", *m_CommandStackController);
 
     guiutils::AddMasterVolume(ui->groupBox_Fx, this, "MasterVolume", *m_CommandStackController);
     guiutils::AddFeedbackDelay(ui->groupBox_Fx, this, "Delay", *m_CommandStackController);
-    guiutils::AddNonLinearShaper(ui->groupBox_Shaping, this, "NonLinearShaper", *m_CommandStackController);
     guiutils::AddLPFilter(ui->groupBox_Shaping, this, "LPFilter", *m_CommandStackController);
-    guiutils::AddWaveFolder(ui->groupBox_Shaping, this, "WaveFolder", *m_CommandStackController);
     guiutils::AddAREnvelope(ui->groupBox_Shaping, this, "Envelope/AR/0", *m_CommandStackController);
 
     ui->groupBox_Keyboard->layout()->addWidget(new QKeyboardWidget(*m_Controller, this));
@@ -188,7 +159,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_AudioOutput->OpenAudioOutput("Out", m_Controller);
     m_AudioOutput->OpenMidiInput("MidiIn2", m_MidiInputController);
     m_AudioOutput->ActivateClient();
-    m_MidiInput->Open("Synth9", "MidiIn");
+    m_MidiInput->Open("Synth10", "MidiIn");
 }
 
 MainWindow::~MainWindow()
