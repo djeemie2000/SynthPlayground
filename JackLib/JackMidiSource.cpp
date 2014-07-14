@@ -1,3 +1,4 @@
+#include <iostream>
 #include "JackMidiSource.h"
 #include <jack/midiport.h>
 
@@ -45,9 +46,17 @@ int CJackMidiSource::OnRead(void *Dst, int NumFrames, std::uint32_t TimeStamp)
     while (0< jack_ringbuffer_read_space(m_RingBuffer))
     {
         std::uint32_t TimeStamp = 0;
-        if(0<ReadFromRingBuffer(m_RingBuffer, TimeStamp, m_IntermediateBuffer))
+        int NumRead = ReadFromRingBuffer(m_RingBuffer, TimeStamp, m_IntermediateBuffer);
+        if(0<NumRead)
         {
-            jack_midi_event_write(Dst, TimeStamp, (const jack_midi_data_t*)m_IntermediateBuffer.data(), m_IntermediateBuffer.size());
+            if(0!=jack_midi_event_write(Dst, TimeStamp, (const jack_midi_data_t*)m_IntermediateBuffer.data(), m_IntermediateBuffer.size()))
+            {
+                std::cout << "Could not write midi data" << std::endl;
+            }
+            else
+            {
+                std::cout << "Write midi data" << std::endl;
+            }
         }
     }
 
