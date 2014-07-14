@@ -14,7 +14,8 @@ SOURCES += StepSequencer.cpp \
     StepSequencer2.cpp \
     ScopeController.cpp \
     periodicsamplegrabberproxy.cpp \
-    Synth10Controller.cpp
+    Synth10Controller.cpp \
+    keyboardcontroller.cpp
 
 HEADERS += StepSequencer.h \
     Notes.h \
@@ -101,7 +102,8 @@ HEADERS += StepSequencer.h \
     Synth10Controller.h \
     SkewedInterpolatingOperator.h \
     InterpolatingOperatorI.h \
-    PhaseSkewer.h
+    PhaseSkewer.h \
+    keyboardcontroller.h
 
 INCLUDEPATH += ./../MidiLib
 
