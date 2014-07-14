@@ -23,7 +23,7 @@ public:
      : m_ModAmt(0)
     {}
 
-    void SeTModAmount(T ModAmt)
+    void SetModAmount(T ModAmt)
     {
         m_ModAmt = ModAmt;
     }
@@ -41,5 +41,33 @@ public:
 private:
     T m_ModAmt;
 };
+
+template<class T>
+class CModulatorSigned
+{
+public:
+    CModulatorSigned()
+     : m_ModAmt(0)
+    {}
+
+    void SetModAmount(T ModAmt)
+    {
+        m_ModAmt = ModAmt;
+    }
+
+    T operator()(T In, T ModIn) const
+    {
+        return HardLimitSigned(In + ModIn*m_ModAmt);
+    }
+
+    T operator()(T In, T ModIn, T ModAmount) const
+    {
+        return HardLimitSigned(In + ModIn*ModAmount);
+    }
+
+private:
+    T m_ModAmt;
+};
+
 
 #endif // MODULATOR_H

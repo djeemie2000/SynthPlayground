@@ -56,6 +56,9 @@ public:
     void SetMix(float Mix) override;
     void SetMixModAmt(float ModAmt) override;
 
+    void SetSkew(float Skew);
+    void SetSkewModAmt(float ModAmt);
+
     // LP filter
     void OnLPFilterCutoff(float Parameter) override;
     void OnLPFilterPoles(int Stages) override;

@@ -78,6 +78,16 @@ void CSynth10Controller::SetMixModAmt(float ModAmt)
     m_Oscillator.SetMixModAmt(ModAmt);
 }
 
+void CSynth10Controller::SetSkew(float Skew)
+{
+    m_Oscillator.SetSkew(Skew);
+}
+
+void CSynth10Controller::SetSkewModAmt(float ModAmt)
+{
+    m_Oscillator.SetSkewModAmt(ModAmt);
+}
+
 void CSynth10Controller::OnLPFilterCutoff(float Parameter)
 {
     m_LPFilter.SetParameter(Parameter);
@@ -237,7 +247,7 @@ int CSynth10Controller::OnRead(void *Dst, int NumFrames, std::uint32_t TimeStamp
             }
         }
 
-        *pDst = m_MasterVolume()*m_Delay(m_Envelope()*m_LPFilter(m_Oscillator(m_LFO[0]())));
+        *pDst = m_MasterVolume()*m_Delay(m_Envelope()*m_LPFilter(m_Oscillator(m_LFO[0](), m_LFO[1]())));
         ++pDst;
     }
 

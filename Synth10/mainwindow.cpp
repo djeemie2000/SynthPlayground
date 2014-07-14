@@ -22,6 +22,8 @@ namespace
         FunctionMap["Oscillator/Operator2/Select"] = [&Controller](const SCmdStackItem& Item){  Controller.SelectOperator2(Item.s_IntValue); };
         FunctionMap["Oscillator/Mix"] = [&Controller](const SCmdStackItem& Item){  Controller.SetMix(Item.s_FloatValue); };
         FunctionMap["Oscillator/MixModAmt"] = [&Controller](const SCmdStackItem& Item){  Controller.SetMixModAmt(Item.s_FloatValue); };
+        FunctionMap["Oscillator/Skew"] = [&Controller](const SCmdStackItem& Item){  Controller.SetSkew(Item.s_FloatValue); };
+        FunctionMap["Oscillator/SkewModAmt"] = [&Controller](const SCmdStackItem& Item){  Controller.SetSkewModAmt(Item.s_FloatValue); };
 
         // LP Filter
         FunctionMap["LPFilter/Cutoff"] = [&Controller](const SCmdStackItem& Item){ Controller.OnLPFilterCutoff(Item.s_FloatValue); };
@@ -78,6 +80,12 @@ namespace
         Controller.Add("Oscillator/MixModAmt", [](SCmdStackItem& Item, int Value){ Item.s_FloatValue = (Value-64)/64.0f; });
         Controller.Link("Oscillator/MixModAmt", 0x47);
 
+        Controller.Add("Oscillator/Skew", [](SCmdStackItem& Item, int Value){ Item.s_FloatValue = (Value-64)/64.0f; });
+        Controller.Link("Oscillator/Skew", 0x5b);
+
+        Controller.Add("Oscillator/SkewModAmt", [](SCmdStackItem& Item, int Value){ Item.s_FloatValue = (Value-64)/64.0f; });
+        Controller.Link("Oscillator/SkewModAmt", 0x5d);
+
         Controller.Add("LFOBank/0/Frequency", [](SCmdStackItem& Item, int Value) { Item.s_FloatValue = Value*Value*0.010f; });
         Controller.Link("LFOBank/0/Frequency", 0x49);
 
@@ -100,6 +108,8 @@ namespace
         Stack.push_back({"Oscillator/Operator2/Select", false, 0, 0.0f});
         Stack.push_back({"Oscillator/Mix", false, 0, 0.0f});
         Stack.push_back({"Oscillator/MixModAmt", false, 0, 0.0f});
+        Stack.push_back({"Oscillator/Skew", false, 0, 0.0f});
+        Stack.push_back({"Oscillator/SkewModAmt", false, 0, 0.0f});
 
         // LP Filter
         Stack.push_back({"LPFilter/Cutoff", false, 0, 1.00f});

@@ -100,7 +100,8 @@ HEADERS += StepSequencer.h \
     FMOperatorStageI.h \
     Synth10Controller.h \
     SkewedInterpolatingOperator.h \
-    InterpolatingOperatorI.h
+    InterpolatingOperatorI.h \
+    PhaseSkewer.h
 
 INCLUDEPATH += ./../MidiLib
 

@@ -7,6 +7,7 @@
 #include "ConstGenerator.h"
 #include "CrossFader.h"
 #include "Modulator.h"
+#include "PhaseSkewer.h"
 
 template<class T>
 class CSkewedInterpolatingOperator
@@ -17,6 +18,7 @@ public:
      , m_PhaseGenerator()
      , m_Skew()
      , m_SkewModulator()
+     , m_Skewer()
      , m_Operator1(Operator)
      , m_Operator2(Operator)
      , m_Mix()
@@ -51,7 +53,7 @@ public:
 
     void SetMixModAmt(T ModAmt)
     {
-        m_MixModulator.SeTModAmount(ModAmt);
+        m_MixModulator.SetModAmount(ModAmt);
     }
 
     void SetSkew(T Skew)
@@ -61,29 +63,33 @@ public:
 
     void SetSkewModAmt(T ModAmt)
     {
-        m_SkewModulator.SeTModAmount(ModAmt);
+        m_SkewModulator.SetModAmount(ModAmt);
     }
 
     T operator()()
     {
-        return m_CrossFader(m_Operator1, m_Operator2, m_PhaseGenerator(m_PhaseStep()), m_Mix());
+        return m_CrossFader(m_Operator1, m_Operator2, m_Skewer(m_PhaseGenerator(m_PhaseStep()), m_Skew()), m_Mix());
     }
 
-    T operator()(T MixModIn)
+    T operator()(T MixModIn, T SkewModIn)
     {
-        return m_CrossFader(m_Operator1, m_Operator2, m_PhaseGenerator(m_PhaseStep()), m_MixModulator(m_Mix(), MixModIn));
+        return m_CrossFader(m_Operator1,
+                            m_Operator2,
+                            m_Skewer( m_PhaseGenerator(m_PhaseStep()), m_SkewModulator(m_Skew(), SkewModIn) ),
+                            m_MixModulator(m_Mix(), MixModIn) );
     }
 
 private:
-    CPhaseStep<T> m_PhaseStep;
-    CPhaseGenerator<T> m_PhaseGenerator;
-    CConstGenerator<T> m_Skew;
-    CModulatorUnsigned<T> m_SkewModulator;
-    CSelectableOperator<T> m_Operator1;
-    CSelectableOperator<T> m_Operator2;
-    CConstGenerator<T> m_Mix;
-    CModulatorUnsigned<T> m_MixModulator;
-    CCrossFader<T> m_CrossFader;
+    CPhaseStep<T>           m_PhaseStep;
+    CPhaseGenerator<T>      m_PhaseGenerator;
+    CConstGenerator<T>      m_Skew;
+    CModulatorSigned<T>     m_SkewModulator;
+    CPhaseSkewer<T>         m_Skewer;
+    CSelectableOperator<T>  m_Operator1;
+    CSelectableOperator<T>  m_Operator2;
+    CConstGenerator<T>      m_Mix;
+    CModulatorUnsigned<T>   m_MixModulator;
+    CCrossFader<T>          m_CrossFader;
 };
 
 #endif // SKEWEDINTERPOLATINGOPERATOR_H
