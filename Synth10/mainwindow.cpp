@@ -71,6 +71,24 @@ namespace
     {
         Controller.Add("MasterVolume", [](SCmdStackItem& Item, int Value){ Item.s_FloatValue = Value/127.0f;  });
         Controller.Link("MasterVolume", 7);
+
+        Controller.Add("Oscillator/Mix", [](SCmdStackItem& Item, int Value){ Item.s_FloatValue = Value/127.0f; });
+        Controller.Link("Oscillator/Mix", 0x4a);
+
+        Controller.Add("Oscillator/MixModAmt", [](SCmdStackItem& Item, int Value){ Item.s_FloatValue = (Value-64)/64.0f; });
+        Controller.Link("Oscillator/MixModAmt", 0x47);
+
+        Controller.Add("LFOBank/0/Frequency", [](SCmdStackItem& Item, int Value) { Item.s_FloatValue = Value*Value*0.010f; });
+        Controller.Link("LFOBank/0/Frequency", 0x49);
+
+        Controller.Add("LPFilter/Cutoff", [](SCmdStackItem& Item, int Value) { Item.s_FloatValue = Value/127.0f; });
+        Controller.Link("LPFilter/Cutoff", 0x48);
+
+        Controller.Add("Envelope/AR/0/AttackMilliSeconds", [](SCmdStackItem& Item, int Value) { Item.s_FloatValue = Value*32; });
+        Controller.Link("Envelope/AR/0/AttackMilliSeconds", 0x05);
+
+        Controller.Add("Envelope/AR/0/ReleaseMilliSeconds", [](SCmdStackItem& Item, int Value) { Item.s_FloatValue = Value*32; });
+        Controller.Link("Envelope/AR/0/ReleaseMilliSeconds", 0x54);
     }
 
     CmdStack BuildDefaultCommandStack()
