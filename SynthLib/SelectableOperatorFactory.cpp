@@ -6,6 +6,8 @@
 #include "Square.h"
 #include "InvSquare.h"
 #include "SquareWave.h"
+#include "RampUpDown.h"
+#include "SquareQuadratic.h"
 #include "NoOp.h"
 
 CSelectableOperatorFactory::CSelectableOperatorFactory()
@@ -14,7 +16,7 @@ CSelectableOperatorFactory::CSelectableOperatorFactory()
 
 std::vector<std::string> CSelectableOperatorFactory::SelectionList()
 {
-    return {"RampUp", "RampDown", "Triangle", "FullPseudoSin", "PseudoSin", "Quadratic", "InvQuadratic", "Square", "NoOp" };
+    return {"RampUp", "RampDown", "Triangle", "FullPseudoSin", "PseudoSin", "Quadratic", "InvQuadratic", "Square", "SquareQuadratic", "RampUpDown", "NoOp" };
 }
 
 CSelectableOperator<float> CSelectableOperatorFactory::Create()
@@ -29,6 +31,8 @@ CSelectableOperator<float> CSelectableOperatorFactory::Create()
     Op.Add(CQuadratic<float>());
     Op.Add(CInvSquare<float>());
     Op.Add(CSquareWave<float>());
+    Op.Add(CSquareQuadratic<float>());
+    Op.Add(CRampUpDown<float>());
     Op.Add(CNoOp<float>());
 
     return Op;

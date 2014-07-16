@@ -104,7 +104,9 @@ HEADERS += StepSequencer.h \
     InterpolatingOperatorI.h \
     PhaseSkewer.h \
     keyboardcontroller.h \
-    DCOperator.h
+    DCOperator.h \
+    RampUpDown.h \
+    SquareQuadratic.h
 
 INCLUDEPATH += ./../MidiLib
 
