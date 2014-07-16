@@ -103,7 +103,8 @@ HEADERS += StepSequencer.h \
     SkewedInterpolatingOperator.h \
     InterpolatingOperatorI.h \
     PhaseSkewer.h \
-    keyboardcontroller.h
+    keyboardcontroller.h \
+    DCOperator.h
 
 INCLUDEPATH += ./../MidiLib
 

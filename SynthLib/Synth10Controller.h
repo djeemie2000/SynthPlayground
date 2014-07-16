@@ -24,6 +24,7 @@
 #include "ConstGenerator.h"
 #include "SkewedInterpolatingOperator.h"
 #include "InterpolatingOperatorI.h"
+#include "DCOperator.h"
 
 class IInt16Scope;
 
@@ -58,6 +59,10 @@ public:
 
     void SetSkew(float Skew);
     void SetSkewModAmt(float ModAmt);
+
+    // DC
+    void SetDCOffset(float DCOffset);
+    void SetDCOffsetModAmt(float ModAmt);
 
     // LP filter
     void OnLPFilterCutoff(float Parameter) override;
@@ -101,11 +106,17 @@ public:
 
 private:
     CSkewedInterpolatingOperator<float> m_Oscillator;
+    CConstGenerator<float>  m_DCOffset;
+    CModulatorSigned<float>     m_DCOffsetModulator;
+    CFixedGainDCOperator<float> m_DCOperator;
     CMultiStageFilter<float, COnePoleLowPassFilter<float>, 24> m_LPFilter;
-    CAREnvelope<float> m_Envelope;
+    CAREnvelope<float>      m_Envelope;
+
+    std::vector<CLFO<float>> m_LFO;
+
     CStepSequencer2<float, 8> m_StepSequencer;
     CPeriodicTicker m_StepSequencerTicker;
-    std::vector<CLFO<float>> m_LFO;
+
     CConstNumSamplesGenerator<float> m_NumSamplesGenerator;
     CFeedbackDelay<float> m_Delay;
     CConstGenerator<float> m_MasterVolume;

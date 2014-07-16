@@ -337,6 +337,14 @@ void AddInterpolatingOperator(QGroupBox *GroupBox, QWidget *Parent, const std::s
     AddDoubleSpinBox(Box, Parent, {"SkewModAmt", 0.0, -1.0, 1.0, 0.01, 3}, Name+"/SkewModAmt", Controller);
 }
 
+void AddDCOffsetOperator(QGroupBox *GroupBox, QWidget *Parent, const std::string& Name, CCommandStackController& Controller)
+{
+    // add child groupbox
+    QGroupBox* Box = AddGroupBox(GroupBox, Parent, "DC");
+
+    AddDoubleSpinBox(Box, Parent, {"Offset", 0.0, -1.0, 1.0, 0.01, 3}, Name+"/Offset", Controller);
+    AddDoubleSpinBox(Box, Parent, {"ModAmt", 0.0, -1.0, 1.0, 0.01, 3}, Name+"/OffsetModAmt", Controller);
+}
 
 void AddLFOBank(QGroupBox *GroupBox, QWidget *Parent, ILFOBank &LFOBank)
 {

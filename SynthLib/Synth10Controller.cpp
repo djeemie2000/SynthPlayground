@@ -15,10 +15,12 @@
 
 CSynth10Controller::CSynth10Controller(int SamplingFrequency)
     : m_Oscillator(SamplingFrequency, CSelectableOperatorFactory::Create())
+    , m_DCOffset()
+    , m_DCOffsetModulator()
     , m_LPFilter()
     , m_Envelope()
-    , m_StepSequencer(SamplingFrequency)
     , m_LFO(3, {SamplingFrequency, CSelectableOperatorFactory::Create()})
+    , m_StepSequencer(SamplingFrequency)
     , m_NumSamplesGenerator(SamplingFrequency)
     , m_Delay(SamplingFrequency*5, 0.0f)//5 seconds capacity
     , m_MasterVolume()
@@ -26,6 +28,10 @@ CSynth10Controller::CSynth10Controller(int SamplingFrequency)
     m_Oscillator.SetFrequency(CPitch()(ENote::A, EOctave::Octave2));
     m_Oscillator.SelectOperator1(0);
     m_Oscillator.SelectOperator2(0);
+
+    m_DCOffset.Set(0);
+    m_DCOffsetModulator.SetModAmount(0);
+
     m_LPFilter.SetStages(1);
 
     m_StepSequencer.SetBeatsPerMinute(120);
@@ -86,6 +92,16 @@ void CSynth10Controller::SetSkew(float Skew)
 void CSynth10Controller::SetSkewModAmt(float ModAmt)
 {
     m_Oscillator.SetSkewModAmt(ModAmt);
+}
+
+void CSynth10Controller::SetDCOffset(float DCOffset)
+{
+    m_DCOffset.Set(DCOffset);
+}
+
+void CSynth10Controller::SetDCOffsetModAmt(float ModAmt)
+{
+    m_DCOffsetModulator.SetModAmount(ModAmt);
 }
 
 void CSynth10Controller::OnLPFilterCutoff(float Parameter)
@@ -225,9 +241,7 @@ void CSynth10Controller::SetMasterVolume(float Volume)
 }
 
 int CSynth10Controller::OnRead(void *Dst, int NumFrames, std::uint32_t TimeStamp)
-{
-    CSymmetricalOperator<float> Symm;
-
+{    
     float* pDst = reinterpret_cast<float*>(Dst);
     float* pDstEnd = pDst + NumFrames;
 
@@ -247,7 +261,8 @@ int CSynth10Controller::OnRead(void *Dst, int NumFrames, std::uint32_t TimeStamp
             }
         }
 
-        *pDst = m_MasterVolume()*m_Delay(m_Envelope()*m_LPFilter(m_Oscillator(m_LFO[0](), m_LFO[1]())));
+        *pDst = m_MasterVolume()*m_Delay(m_Envelope()*m_LPFilter( m_DCOperator( m_Oscillator(m_LFO[0](), m_LFO[1]()),
+                                                                                m_DCOffsetModulator(m_DCOffset(), m_LFO[2]()) )));
         ++pDst;
     }
 

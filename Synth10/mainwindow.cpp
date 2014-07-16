@@ -25,6 +25,10 @@ namespace
         FunctionMap["Oscillator/Skew"] = [&Controller](const SCmdStackItem& Item){  Controller.SetSkew(Item.s_FloatValue); };
         FunctionMap["Oscillator/SkewModAmt"] = [&Controller](const SCmdStackItem& Item){  Controller.SetSkewModAmt(Item.s_FloatValue); };
 
+        // DC offset
+        FunctionMap["DCOffset/Offset"] = [&Controller](const SCmdStackItem& Item){  Controller.SetDCOffset(Item.s_FloatValue); };
+        FunctionMap["DCOffset/OffsetModAmt"] = [&Controller](const SCmdStackItem& Item){  Controller.SetDCOffsetModAmt(Item.s_FloatValue); };
+
         // LP Filter
         FunctionMap["LPFilter/Cutoff"] = [&Controller](const SCmdStackItem& Item){ Controller.OnLPFilterCutoff(Item.s_FloatValue); };
         FunctionMap["LPFilter/Poles"] = [&Controller](const SCmdStackItem& Item){ Controller.OnLPFilterPoles(Item.s_IntValue); };
@@ -97,6 +101,8 @@ namespace
 
         Controller.Add("Envelope/AR/0/ReleaseMilliSeconds", [](SCmdStackItem& Item, int Value) { Item.s_FloatValue = Value*32; });
         Controller.Link("Envelope/AR/0/ReleaseMilliSeconds", 0x54);
+
+        // TODO modwheel for DC offset
     }
 
     CmdStack BuildDefaultCommandStack()
@@ -110,6 +116,10 @@ namespace
         Stack.push_back({"Oscillator/MixModAmt", false, 0, 0.0f});
         Stack.push_back({"Oscillator/Skew", false, 0, 0.0f});
         Stack.push_back({"Oscillator/SkewModAmt", false, 0, 0.0f});
+
+        // DCOffset
+        Stack.push_back({"DCOffset/Offset", false, 0, 0.0f});
+        Stack.push_back({"DCOffset/OffsetModAmt", false, 0, 0.0f});
 
         // LP Filter
         Stack.push_back({"LPFilter/Cutoff", false, 0, 1.00f});
@@ -172,6 +182,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     // build gui
     guiutils::AddLFOBank(ui->groupBox_Operator, this, m_Controller->LFOBankSize(), "LFOBank", *m_CommandStackController);
+    guiutils::AddDCOffsetOperator(ui->groupBox_Operator, this, "DCOffset", *m_CommandStackController);
     guiutils::AddInterpolatingOperator(ui->groupBox_Operator, this, "Oscillator", *m_CommandStackController);
 
     guiutils::AddMasterVolume(ui->groupBox_Fx, this, "MasterVolume", *m_CommandStackController);
