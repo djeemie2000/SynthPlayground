@@ -106,7 +106,8 @@ HEADERS += StepSequencer.h \
     keyboardcontroller.h \
     DCOperator.h \
     RampUpDown.h \
-    SquareQuadratic.h
+    SquareQuadratic.h \
+    IntegerPowerShaper.h
 
 INCLUDEPATH += ./../MidiLib
 

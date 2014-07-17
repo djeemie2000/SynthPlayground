@@ -45,6 +45,7 @@ void AddInterpolatingOperator(QGroupBox *GroupBox, QWidget *Parent, const std::s
 
 void AddDCOffsetOperator(QGroupBox *GroupBox, QWidget *Parent, const std::string& Name, CCommandStackController& Controller);
 
+void AddIntegerPowerShaper(QGroupBox *GroupBox, QWidget *Parent, const std::string& Name, CCommandStackController& Controller);
 
 void AddLFOBank(QGroupBox *GroupBox, QWidget *Parent, ILFOBank& LFOBank);
 void AddLFOBank(QGroupBox *GroupBox, QWidget *Parent, int LFOBankSize, const std::string& Name, CCommandStackController& Controller);

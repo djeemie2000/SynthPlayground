@@ -15,6 +15,7 @@
 
 CSynth10Controller::CSynth10Controller(int SamplingFrequency)
     : m_Oscillator(SamplingFrequency, CSelectableOperatorFactory::Create())
+    , m_Shaper()
     , m_DCOffset()
     , m_DCOffsetModulator()
     , m_LPFilter()
@@ -92,6 +93,21 @@ void CSynth10Controller::SetSkew(float Skew)
 void CSynth10Controller::SetSkewModAmt(float ModAmt)
 {
     m_Oscillator.SetSkewModAmt(ModAmt);
+}
+
+void CSynth10Controller::SetShaperStrength(float Strength)
+{
+    m_Shaper.SetStrength(Strength);
+}
+
+void CSynth10Controller::SetShaperPower(int Power)
+{
+    m_Shaper.SetPower(Power);
+}
+
+void CSynth10Controller::SetShaperPreGain(float PreGain)
+{
+    m_Shaper.SetPreGain(PreGain);
 }
 
 void CSynth10Controller::SetDCOffset(float DCOffset)
@@ -261,7 +277,7 @@ int CSynth10Controller::OnRead(void *Dst, int NumFrames, std::uint32_t TimeStamp
             }
         }
 
-        *pDst = m_MasterVolume()*m_Delay(m_Envelope()*m_LPFilter( m_DCOperator( m_Oscillator(m_LFO[0](), m_LFO[1]()),
+        *pDst = m_MasterVolume()*m_Delay(m_Envelope()*m_LPFilter( m_DCOperator( m_Shaper(m_Oscillator(m_LFO[0](), m_LFO[1]())),
                                                                                 m_DCOffsetModulator(m_DCOffset(), m_LFO[2]()) )));
         ++pDst;
     }

@@ -29,6 +29,11 @@ namespace
         FunctionMap["DCOffset/Offset"] = [&Controller](const SCmdStackItem& Item){  Controller.SetDCOffset(Item.s_FloatValue); };
         FunctionMap["DCOffset/OffsetModAmt"] = [&Controller](const SCmdStackItem& Item){  Controller.SetDCOffsetModAmt(Item.s_FloatValue); };
 
+        // Shaper
+        FunctionMap["Shaper/Strength"] = [&Controller](const SCmdStackItem& Item){  Controller.SetShaperStrength(Item.s_FloatValue); };
+        FunctionMap["Shaper/Power"] = [&Controller](const SCmdStackItem& Item){  Controller.SetShaperPower(Item.s_IntValue); };
+        FunctionMap["Shaper/PreGain"] = [&Controller](const SCmdStackItem& Item){  Controller.SetShaperPreGain(Item.s_FloatValue); };
+
         // LP Filter
         FunctionMap["LPFilter/Cutoff"] = [&Controller](const SCmdStackItem& Item){ Controller.OnLPFilterCutoff(Item.s_FloatValue); };
         FunctionMap["LPFilter/Poles"] = [&Controller](const SCmdStackItem& Item){ Controller.OnLPFilterPoles(Item.s_IntValue); };
@@ -121,6 +126,11 @@ namespace
         Stack.push_back({"DCOffset/Offset", false, 0, 0.0f});
         Stack.push_back({"DCOffset/OffsetModAmt", false, 0, 0.0f});
 
+        // Shaper
+        Stack.push_back({"Shaper/Strength", false, 0, 0.0f});
+        Stack.push_back({"Shaper/Power", false, 4, 0.0f});
+        Stack.push_back({"Shaper/PreGain", false, 0, 1.0f});
+
         // LP Filter
         Stack.push_back({"LPFilter/Cutoff", false, 0, 1.00f});
         Stack.push_back({"LPFilter/Poles", false, 1, 0.0f});
@@ -183,6 +193,7 @@ MainWindow::MainWindow(QWidget *parent)
     // build gui
     guiutils::AddLFOBank(ui->groupBox_Operator, this, m_Controller->LFOBankSize(), "LFOBank", *m_CommandStackController);
     guiutils::AddDCOffsetOperator(ui->groupBox_Operator, this, "DCOffset", *m_CommandStackController);
+    guiutils::AddIntegerPowerShaper(ui->groupBox_Operator, this, "Shaper", *m_CommandStackController);
     guiutils::AddInterpolatingOperator(ui->groupBox_Operator, this, "Oscillator", *m_CommandStackController);
 
     guiutils::AddMasterVolume(ui->groupBox_Fx, this, "MasterVolume", *m_CommandStackController);
@@ -196,7 +207,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->groupBox_AudioDevice->layout()->addWidget(new QPatchManagerWidget(*m_CommandStackController, this));
 
     m_AudioOutput->OpenAudioOutput("Out", m_Controller);
-    m_AudioOutput->OpenMidiInput("MidiIn2", m_MidiInputController);
+    //m_AudioOutput->OpenMidiInput("MidiIn2", m_MidiInputController);
     m_AudioOutput->ActivateClient();
     m_MidiInput->Open("Synth10", "MidiIn");
 }

@@ -25,6 +25,7 @@
 #include "SkewedInterpolatingOperator.h"
 #include "InterpolatingOperatorI.h"
 #include "DCOperator.h"
+#include "IntegerPowerShaper.h"
 
 class IInt16Scope;
 
@@ -59,6 +60,11 @@ public:
 
     void SetSkew(float Skew);
     void SetSkewModAmt(float ModAmt);
+
+    // Shaper
+    void SetShaperStrength(float Strength);
+    void SetShaperPower(int Power);
+    void SetShaperPreGain(float PreGain);
 
     // DC
     void SetDCOffset(float DCOffset);
@@ -106,6 +112,7 @@ public:
 
 private:
     CSkewedInterpolatingOperator<float> m_Oscillator;
+    CIntegerPowerShaper<float> m_Shaper;
     CConstGenerator<float>  m_DCOffset;
     CModulatorSigned<float>     m_DCOffsetModulator;
     CFixedGainDCOperator<float> m_DCOperator;

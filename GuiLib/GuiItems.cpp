@@ -346,6 +346,16 @@ void AddDCOffsetOperator(QGroupBox *GroupBox, QWidget *Parent, const std::string
     AddDoubleSpinBox(Box, Parent, {"ModAmt", 0.0, -1.0, 1.0, 0.01, 3}, Name+"/OffsetModAmt", Controller);
 }
 
+void AddIntegerPowerShaper(QGroupBox *GroupBox, QWidget *Parent, const std::string& Name, CCommandStackController& Controller)
+{
+    // add child groupbox
+    QGroupBox* Box = AddGroupBox(GroupBox, Parent, "Shaper");
+
+    AddDoubleSpinBox(Box, Parent, {"Strength", 0.0, 0.0, 1.0, 0.01, 3}, Name+"/Strength", Controller);
+    AddSpinBox(Box, Parent, {"Power", 4, 1, 64, 1}, Name+"/Power", Controller);
+    AddDoubleSpinBox(Box, Parent, {"PreGain", 0.0, 0.0, 1.0, 0.01, 3}, Name+"/PreGain", Controller);
+}
+
 void AddLFOBank(QGroupBox *GroupBox, QWidget *Parent, ILFOBank &LFOBank)
 {
     QGroupBox* Box = new QGroupBox("LFOBank", Parent);
@@ -407,9 +417,9 @@ void AddFeedbackDelay(QGroupBox *GroupBox, QWidget *Parent, const string &Name, 
     // add "WetDry" double spin box
     AddDoubleSpinBox(Box, Parent, {"WetDry", 0.0, 0.0, 1.0, 0.01, 3}, Name+"/WetDry", Controller);
     // add "Delay" double spin box
-    AddDoubleSpinBox(Box, Parent, {"Delay", 0.0, 0.0, 5000.0, 1, 1}, Name+"/DelayMilliSeconds", Controller);
+    AddDoubleSpinBox(Box, Parent, {"Delay", 250.0, 0.0, 5000.0, 1, 1}, Name+"/DelayMilliSeconds", Controller);
     // add "Feedback" double spin box
-    AddDoubleSpinBox(Box, Parent, {"Feedback", 0.0, 0.0, 1.0, 0.01, 3}, Name+"/Feedback", Controller);
+    AddDoubleSpinBox(Box, Parent, {"Feedback", 500.0, 0.0, 1.0, 0.01, 3}, Name+"/Feedback", Controller);
 }
 
 void AddMasterVolume(QGroupBox *GroupBox, QWidget *Parent, const string &Name, CCommandStackController &Controller)
