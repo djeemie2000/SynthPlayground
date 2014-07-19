@@ -15,7 +15,8 @@ SOURCES += StepSequencer.cpp \
     ScopeController.cpp \
     periodicsamplegrabberproxy.cpp \
     Synth10Controller.cpp \
-    keyboardcontroller.cpp
+    keyboardcontroller.cpp \
+    effectsappcontroller.cpp
 
 HEADERS += StepSequencer.h \
     Notes.h \
@@ -107,7 +108,9 @@ HEADERS += StepSequencer.h \
     DCOperator.h \
     RampUpDown.h \
     SquareQuadratic.h \
-    IntegerPowerShaper.h
+    IntegerPowerShaper.h \
+    AudioFilterI.h \
+    effectsappcontroller.h
 
 INCLUDEPATH += ./../MidiLib
 
