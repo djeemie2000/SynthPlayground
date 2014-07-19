@@ -43,17 +43,23 @@ FORMS += \
     QPatchManagerWidget.ui \
     QScopeWidget2.ui
 
-INCLUDEPATH += ./../SynthLib ./../CommandStackLib
+INCLUDEPATH += ./../SynthLib
+INCLUDEPATH += ./../CommandStackLib
 
 unix {
     target.path = /usr/lib
     INSTALLS += target
 }
 
-#debug:LIBS += -L./../build-dir/Debug/SynthLib
-#release:LIBS += -L./../build-dir/Release/SynthLib
+CONFIG(debug, debug|release) {
+    LIBS += -L./../build-dir/Debug/SynthLib
+    PRE_TARGETDEPS += ./../build-dir/Debug/SynthLib/libSynthLib.a
+    LIBS += -L./../build-dir/Debug/CommandStackLib
+    PRE_TARGETDEPS += ./../build-dir/Debug/CommandStackLib/libCommandStackLib.a
+}
 
-#LIBS += -lSynthLib
+LIBS += -lSynthLib
+LIBS += -lCommandStackLib
 
 CONFIG(debug, debug|release) {
     DESTDIR = ../build-dir/Debug/GuiLib

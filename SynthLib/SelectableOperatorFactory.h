@@ -8,9 +8,12 @@
 class CSelectableOperatorFactory
 {
 public:
-    CSelectableOperatorFactory();
+//    CSelectableOperatorFactory();
 
-    static std::vector<std::string> SelectionList();
+    static std::vector<std::string> SelectionList()
+    {
+        return {"RampUp", "RampDown", "Triangle", "FullPseudoSin", "PseudoSin", "Quadratic", "InvQuadratic", "Square", "SquareQuadratic", "RampUpDown", "NoOp" };
+    }
 
     static CSelectableOperator<float> Create();
 };

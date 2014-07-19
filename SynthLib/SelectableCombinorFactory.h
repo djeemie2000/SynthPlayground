@@ -8,7 +8,7 @@
 class CSelectableCombinorFactory
 {
 public:
-    CSelectableCombinorFactory();
+    //CSelectableCombinorFactory();
 
     static std::vector<std::string> SelectionList()
     {

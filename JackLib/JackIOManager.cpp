@@ -4,6 +4,7 @@
 #include "AudioRendererI.h"
 #include "MidiInputHandlerI.h"
 #include "MidiSourceI.h"
+#include "AudioFilterI.h"
 #include <jack/midiport.h>
 
 namespace
@@ -32,6 +33,7 @@ CJackIOManager::CJackIOManager()
  , m_MidiHandler()
  , m_MidiOutputPort(0)
  , m_MidiSource()
+ , m_AudioFilter()
 {
 }
 
@@ -142,6 +144,25 @@ bool CJackIOManager::OpenMidiOutput(const std::string &Name, std::shared_ptr<IMi
     return Success;
 }
 
+bool CJackIOManager::OpenAudioFilter(const std::string &NameIn, const std::string &NameOut, std::shared_ptr<IAudioFilter> AudioFilter)
+{
+    bool Success = false;
+    if(m_Client)
+    {
+        m_AudioFilter.s_InputPort = jack_port_register(m_Client, NameIn.c_str(), JACK_DEFAULT_AUDIO_TYPE, JackPortIsInput, 0);//do not use JackPortIsTerminal
+        if(m_AudioFilter.s_InputPort)
+        {
+            m_AudioFilter.s_OutputPort = jack_port_register(m_Client, NameOut.c_str(), JACK_DEFAULT_AUDIO_TYPE, JackPortIsOutput, 0);//do not use JackPortIsTerminal
+            if(m_AudioFilter.s_OutputPort)
+            {
+                m_AudioFilter.s_Filter = AudioFilter;
+                Success = true;
+            }
+        }
+    }
+    return Success;
+}
+
 void CJackIOManager::CloseClient()
 {
     if(m_Client)
@@ -151,16 +172,36 @@ void CJackIOManager::CloseClient()
             jack_port_unregister(m_Client, m_AudioOutputPort);
             m_AudioOutputPort = 0;
         }
+        m_AudioSource.reset();
         if(m_AudioInputPort)
         {
             jack_port_unregister(m_Client, m_AudioInputPort);
             m_AudioInputPort = 0;
         }
+        m_AudioRenderer.reset();
         if(m_MidiInputPort)
         {
             jack_port_unregister(m_Client, m_MidiInputPort);
             m_MidiInputPort = 0;
         }
+        m_MidiHandler.reset();
+        if(m_MidiOutputPort)
+        {
+            jack_port_unregister(m_Client, m_MidiOutputPort);
+            m_MidiOutputPort = 0;
+        }
+        m_MidiSource.reset();
+        if(m_AudioFilter.s_InputPort)
+        {
+            jack_port_unregister(m_Client, m_AudioFilter.s_InputPort);
+            m_AudioFilter.s_InputPort = 0;
+        }
+        if(m_AudioFilter.s_OutputPort)
+        {
+            jack_port_unregister(m_Client, m_AudioFilter.s_OutputPort);
+            m_AudioFilter.s_OutputPort = 0;
+        }
+        m_AudioFilter.s_Filter.reset();
         // tell jack we do not want to play along anymore
         jack_deactivate(m_Client);
         // close and remove the client
@@ -276,6 +317,19 @@ int CJackIOManager::OnProcess(jack_nframes_t NumFrames)
             ReturnValue = m_AudioRenderer->OnWrite(SrcBuffer, NumFrames, TimeStamp);
         }
     }
+    // audio filter
+    if(m_AudioFilter.IsActive())
+    {
+        int NumConnectedIn = jack_port_connected(m_AudioFilter.s_InputPort);
+        int NumConnectedOut = jack_port_connected(m_AudioFilter.s_OutputPort);
+        if(0<NumConnectedIn && 0<NumConnectedOut)
+        {
+            void* SrcBuffer = jack_port_get_buffer(m_AudioFilter.s_InputPort, NumFrames);
+            void* DstBuffer = jack_port_get_buffer(m_AudioFilter.s_OutputPort, NumFrames);
+            // should return 0 upon succes, non-zero error code upon failure
+            ReturnValue = m_AudioFilter.s_Filter->OnProcess(SrcBuffer, DstBuffer, NumFrames, TimeStamp);
+        }
+    }
 
     return ReturnValue;
 }
@@ -305,4 +359,14 @@ bool CJackIOManager::ActivateClient()
     return Success;
 }
 
+CJackIOManager::SAudioFilter::SAudioFilter()
+    : s_InputPort(0)
+    , s_OutputPort(0)
+    , s_Filter()
+{
+}
 
+bool CJackIOManager::SAudioFilter::IsActive() const
+{
+    return s_InputPort && s_OutputPort && s_Filter;
+}

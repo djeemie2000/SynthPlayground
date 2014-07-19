@@ -1,9 +1,9 @@
 #include "SelectableCombinorFactory.h"
 #include "Combinor.h"
 
-CSelectableCombinorFactory::CSelectableCombinorFactory()
-{
-}
+//CSelectableCombinorFactory::CSelectableCombinorFactory()
+//{
+//}
 
 //std::vector<std::string> CSelectableCombinorFactory::SelectionList()
 //{

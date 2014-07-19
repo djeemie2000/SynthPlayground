@@ -18,4 +18,5 @@ SUBDIRS += \
     ../Synth9 \             # an  'app' project
     ../Scope \              # an  'app' project
     ../Keyboard \           # an  'app' project
-    ../Synth10              # an  'app' project
+    ../Synth10 \            # an  'app' project
+    ../EffectsApp           # an  'app' project
