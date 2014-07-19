@@ -53,14 +53,14 @@ namespace
         Stack.push_back({"PreGain", false, 0, 1.0f});
 
         // feedback delay
-        Stack.push_back({"Delay/Left/DelayMilliSeconds", false, 0, 250.0f});
+        Stack.push_back({"Delay/Left/DelayMilliSeconds", false, 0, 247.0f});
         Stack.push_back({"Delay/Left/Feedback", false, 0, 0.5f});
-        Stack.push_back({"Delay/Left/WetDry", false, 0, 0.0f});
+        Stack.push_back({"Delay/Left/WetDry", false, 0, 0.4f});
         Stack.push_back({"Delay/Left/Bypass", true, 0, 0.0f});
 
-        Stack.push_back({"Delay/Right/DelayMilliSeconds", false, 0, 250.0f});
+        Stack.push_back({"Delay/Right/DelayMilliSeconds", false, 0, 253.0f});
         Stack.push_back({"Delay/Right/Feedback", false, 0, 0.5f});
-        Stack.push_back({"Delay/Right/WetDry", false, 0, 0.0f});
+        Stack.push_back({"Delay/Right/WetDry", false, 0, 0.4f});
         Stack.push_back({"Delay/Right/Bypass", true, 0, 0.0f});
 
         // master volume
@@ -89,12 +89,13 @@ MainWindow::MainWindow(QWidget *parent)
     //m_MidiInput.reset(new CAlsaMidiInput(*m_MidiInputController));
 
     // build gui
+    ui->groupBox_Fx->layout()->addWidget(new QPatchManagerWidget(*m_CommandStackController, this));
+
     guiutils::AddMasterVolume(ui->groupBox_Fx, this, "MasterVolume", *m_CommandStackController);
     guiutils::AddFeedbackDelay(ui->groupBox_Fx, this, "Delay/Left", *m_CommandStackController);
     guiutils::AddFeedbackDelay(ui->groupBox_Fx, this, "Delay/Right", *m_CommandStackController);
     // TODO pre gain
 
-    ui->groupBox_AudioDevice->layout()->addWidget(new QPatchManagerWidget(*m_CommandStackController, this));
 
     m_AudioOutput->OpenAudioFilter(m_Controller);
     m_AudioOutput->ActivateClient();
