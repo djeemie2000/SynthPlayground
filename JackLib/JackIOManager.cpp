@@ -144,21 +144,24 @@ bool CJackIOManager::OpenMidiOutput(const std::string &Name, std::shared_ptr<IMi
     return Success;
 }
 
-bool CJackIOManager::OpenAudioFilter(const std::string &NameIn, const std::string &NameOut, std::shared_ptr<IAudioFilter> AudioFilter)
+bool CJackIOManager::OpenAudioFilter(std::shared_ptr<IAudioFilter> AudioFilter)
 {
     bool Success = false;
-    if(m_Client)
+    if(m_Client && AudioFilter)
     {
-        m_AudioFilter.s_InputPort = jack_port_register(m_Client, NameIn.c_str(), JACK_DEFAULT_AUDIO_TYPE, JackPortIsInput, 0);//do not use JackPortIsTerminal
-        if(m_AudioFilter.s_InputPort)
+        // TODO fail and reset filter struct if any port fails to create
+        for(auto InputName : AudioFilter->GetInputNames())
         {
-            m_AudioFilter.s_OutputPort = jack_port_register(m_Client, NameOut.c_str(), JACK_DEFAULT_AUDIO_TYPE, JackPortIsOutput, 0);//do not use JackPortIsTerminal
-            if(m_AudioFilter.s_OutputPort)
-            {
-                m_AudioFilter.s_Filter = AudioFilter;
-                Success = true;
-            }
+            jack_port_t* InputPort = jack_port_register(m_Client, InputName.c_str(), JACK_DEFAULT_AUDIO_TYPE, JackPortIsInput, 0);//do not use JackPortIsTerminal unless only ins or only outs
+            m_AudioFilter.m_InputPorts.push_back(InputPort);
         }
+        for(auto InputName : AudioFilter->GetOutputNames())
+        {
+            jack_port_t* OutputPort = jack_port_register(m_Client, InputName.c_str(), JACK_DEFAULT_AUDIO_TYPE, JackPortIsOutput, 0);//do not use JackPortIsTerminal unless only ins or only outs
+            m_AudioFilter.m_OutputPorts.push_back(OutputPort);
+        }
+        m_AudioFilter.s_Filter = AudioFilter;
+        Success = true;
     }
     return Success;
 }
@@ -167,41 +170,49 @@ void CJackIOManager::CloseClient()
 {
     if(m_Client)
     {
+        // audio out
         if(m_AudioOutputPort)
         {
             jack_port_unregister(m_Client, m_AudioOutputPort);
             m_AudioOutputPort = 0;
         }
         m_AudioSource.reset();
+        // audio in
         if(m_AudioInputPort)
         {
             jack_port_unregister(m_Client, m_AudioInputPort);
             m_AudioInputPort = 0;
         }
         m_AudioRenderer.reset();
+        // midi in
         if(m_MidiInputPort)
         {
             jack_port_unregister(m_Client, m_MidiInputPort);
             m_MidiInputPort = 0;
         }
         m_MidiHandler.reset();
+        // midi out
         if(m_MidiOutputPort)
         {
             jack_port_unregister(m_Client, m_MidiOutputPort);
             m_MidiOutputPort = 0;
         }
         m_MidiSource.reset();
-        if(m_AudioFilter.s_InputPort)
+        // filter
+        for(auto& InputPort : m_AudioFilter.m_InputPorts)
         {
-            jack_port_unregister(m_Client, m_AudioFilter.s_InputPort);
-            m_AudioFilter.s_InputPort = 0;
+            jack_port_unregister(m_Client, InputPort);
+            InputPort = 0;
         }
-        if(m_AudioFilter.s_OutputPort)
+        m_AudioFilter.m_InputPorts.clear();
+        for(auto& OutputPort : m_AudioFilter.m_OutputPorts)
         {
-            jack_port_unregister(m_Client, m_AudioFilter.s_OutputPort);
-            m_AudioFilter.s_OutputPort = 0;
+            jack_port_unregister(m_Client, OutputPort);
+            OutputPort = 0;
         }
+        m_AudioFilter.m_OutputPorts.clear();
         m_AudioFilter.s_Filter.reset();
+
         // tell jack we do not want to play along anymore
         jack_deactivate(m_Client);
         // close and remove the client
@@ -318,17 +329,23 @@ int CJackIOManager::OnProcess(jack_nframes_t NumFrames)
         }
     }
     // audio filter
-    if(m_AudioFilter.IsActive())
+    if(m_AudioFilter.s_Filter)
     {
-        int NumConnectedIn = jack_port_connected(m_AudioFilter.s_InputPort);
-        int NumConnectedOut = jack_port_connected(m_AudioFilter.s_OutputPort);
-        if(0<NumConnectedIn && 0<NumConnectedOut)
+        // if nothing is connected => ignored (for now)
+        std::vector<void*> SourceBuffers;
+        for(auto& InputPort : m_AudioFilter.m_InputPorts)
         {
-            void* SrcBuffer = jack_port_get_buffer(m_AudioFilter.s_InputPort, NumFrames);
-            void* DstBuffer = jack_port_get_buffer(m_AudioFilter.s_OutputPort, NumFrames);
-            // should return 0 upon succes, non-zero error code upon failure
-            ReturnValue = m_AudioFilter.s_Filter->OnProcess(SrcBuffer, DstBuffer, NumFrames, TimeStamp);
+            void* SrcBuffer = jack_port_get_buffer(InputPort, NumFrames);
+            SourceBuffers.push_back(SrcBuffer);
         }
+        std::vector<void*> DestinationBuffers;
+        for(auto& OutputPort : m_AudioFilter.m_OutputPorts)
+        {
+            void* DstBuffer = jack_port_get_buffer(OutputPort, NumFrames);
+            DestinationBuffers.push_back(DstBuffer);
+        }
+        // should return 0 upon succes, non-zero error code upon failure
+        ReturnValue = m_AudioFilter.s_Filter->OnProcess(SourceBuffers, DestinationBuffers, NumFrames, TimeStamp);
     }
 
     return ReturnValue;
@@ -357,16 +374,4 @@ bool CJackIOManager::ActivateClient()
         }
     }
     return Success;
-}
-
-CJackIOManager::SAudioFilter::SAudioFilter()
-    : s_InputPort(0)
-    , s_OutputPort(0)
-    , s_Filter()
-{
-}
-
-bool CJackIOManager::SAudioFilter::IsActive() const
-{
-    return s_InputPort && s_OutputPort && s_Filter;
 }

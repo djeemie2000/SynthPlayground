@@ -3,6 +3,7 @@
 
 #include <string>
 #include <memory>
+#include <vector>
 #include<jack/jack.h>
 
 class IAudioSource2;
@@ -34,7 +35,7 @@ public:
     // idem for midi -> midi handler => generic midi stuff into MidiLib => MidiLib separately
     bool OpenMidiInput(const std::string& Name, std::shared_ptr<IMidiInputHandler> MidiHandler);
     bool OpenMidiOutput(const std::string& Name, std::shared_ptr<IMidiSource> MidiSource);
-    bool OpenAudioFilter(const std::string& NameIn, const std::string& NameOut, std::shared_ptr<IAudioFilter> AudioFilter);
+    bool OpenAudioFilter(std::shared_ptr<IAudioFilter> AudioFilter);
 
     bool ActivateClient();
 
@@ -61,16 +62,12 @@ private:
 
     struct SAudioFilter
     {
-        jack_port_t* s_InputPort;
-        jack_port_t* s_OutputPort;
+        std::vector<jack_port_t*> m_InputPorts;
+        std::vector<jack_port_t*> m_OutputPorts;
         std::shared_ptr<IAudioFilter> s_Filter;
-
-        SAudioFilter();
-        bool IsActive() const;
     };
 
     SAudioFilter m_AudioFilter;
-
 };
 
 #endif // JACKAUDIOOUTPUT_H
