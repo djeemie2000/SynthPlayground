@@ -21,10 +21,15 @@ namespace
         FunctionMap["PreGain"] = [&Controller](const SCmdStackItem& Item){  Controller.OnPreGain(Item.s_FloatValue); };
 
         // FeedbackDelay
-        FunctionMap["Delay/DelayMilliSeconds"] = [&Controller](const SCmdStackItem& Item){  Controller.OnDelayMilliSeconds(Item.s_FloatValue); };
-        FunctionMap["Delay/Feedback"] = [&Controller](const SCmdStackItem& Item){  Controller.OnDelayFeedback(Item.s_FloatValue); };
-        FunctionMap["Delay/WetDry"] = [&Controller](const SCmdStackItem& Item){  Controller.OnDelayWetDry(Item.s_FloatValue); };
-        FunctionMap["Delay/Bypass"] = [&Controller](const SCmdStackItem& Item){  Controller.OnDelayBypass(Item.s_BoolValue); };
+        FunctionMap["Delay/Left/DelayMilliSeconds"] = [&Controller](const SCmdStackItem& Item){  Controller.OnDelayMilliSecondsLeft(Item.s_FloatValue); };
+        FunctionMap["Delay/Left/Feedback"] = [&Controller](const SCmdStackItem& Item){  Controller.OnDelayFeedbackLeft(Item.s_FloatValue); };
+        FunctionMap["Delay/Left/WetDry"] = [&Controller](const SCmdStackItem& Item){  Controller.OnDelayWetDryLeft(Item.s_FloatValue); };
+        FunctionMap["Delay/Left/Bypass"] = [&Controller](const SCmdStackItem& Item){  Controller.OnDelayBypassLeft(Item.s_BoolValue); };
+
+        FunctionMap["Delay/Right/DelayMilliSeconds"] = [&Controller](const SCmdStackItem& Item){  Controller.OnDelayMilliSecondsRight(Item.s_FloatValue); };
+        FunctionMap["Delay/Right/Feedback"] = [&Controller](const SCmdStackItem& Item){  Controller.OnDelayFeedbackRight(Item.s_FloatValue); };
+        FunctionMap["Delay/Right/WetDry"] = [&Controller](const SCmdStackItem& Item){  Controller.OnDelayWetDryRight(Item.s_FloatValue); };
+        FunctionMap["Delay/Right/Bypass"] = [&Controller](const SCmdStackItem& Item){  Controller.OnDelayBypassRight(Item.s_BoolValue); };
 
         // master volume
         FunctionMap["MasterVolume"] = [&Controller](const SCmdStackItem& Item){  Controller.SetMasterVolume(Item.s_FloatValue); };
@@ -48,10 +53,15 @@ namespace
         Stack.push_back({"PreGain", false, 0, 1.0f});
 
         // feedback delay
-        Stack.push_back({"Delay/DelayMilliSeconds", false, 0, 250.0f});
-        Stack.push_back({"Delay/Feedback", false, 0, 0.5f});
-        Stack.push_back({"Delay/WetDry", false, 0, 0.0f});
-        Stack.push_back({"Delay/Bypass", true, 0, 0.0f});
+        Stack.push_back({"Delay/Left/DelayMilliSeconds", false, 0, 250.0f});
+        Stack.push_back({"Delay/Left/Feedback", false, 0, 0.5f});
+        Stack.push_back({"Delay/Left/WetDry", false, 0, 0.0f});
+        Stack.push_back({"Delay/Left/Bypass", true, 0, 0.0f});
+
+        Stack.push_back({"Delay/Right/DelayMilliSeconds", false, 0, 250.0f});
+        Stack.push_back({"Delay/Right/Feedback", false, 0, 0.5f});
+        Stack.push_back({"Delay/Right/WetDry", false, 0, 0.0f});
+        Stack.push_back({"Delay/Right/Bypass", true, 0, 0.0f});
 
         // master volume
         Stack.push_back({"MasterVolume", false, 0, 0.5f});
@@ -80,12 +90,13 @@ MainWindow::MainWindow(QWidget *parent)
 
     // build gui
     guiutils::AddMasterVolume(ui->groupBox_Fx, this, "MasterVolume", *m_CommandStackController);
-    guiutils::AddFeedbackDelay(ui->groupBox_Fx, this, "Delay", *m_CommandStackController);
+    guiutils::AddFeedbackDelay(ui->groupBox_Fx, this, "Delay/Left", *m_CommandStackController);
+    guiutils::AddFeedbackDelay(ui->groupBox_Fx, this, "Delay/Right", *m_CommandStackController);
     // TODO pre gain
 
     ui->groupBox_AudioDevice->layout()->addWidget(new QPatchManagerWidget(*m_CommandStackController, this));
 
-    m_AudioOutput->OpenAudioFilter("In", "Out", m_Controller);
+    m_AudioOutput->OpenAudioFilter(m_Controller);
     m_AudioOutput->ActivateClient();
 //    m_MidiInput->Open("EffectsApp", "MidiIn");
 }

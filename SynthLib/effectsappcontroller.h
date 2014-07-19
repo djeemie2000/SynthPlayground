@@ -2,34 +2,41 @@
 #define EFFECTSAPPCONTROLLER_H
 
 #include "AudioFilterI.h"
-#include "FeedbackDelayI.h"
 #include "MasterVolumeI.h"
 #include "FeedbackDelay.h"
 #include "ConstGenerator.h"
 #include "ConstNumSamplesGenerator.h"
 
 class CEffectsAppController : public IAudioFilter
-                                , public IFeedbackDelay
                                 , public IMasterVolume
 {
 public:
     CEffectsAppController(int SamplingFrequency);
 
-    int OnProcess(void *Src, void *Dst, int NumFrames, std::uint32_t TimeStamp) override;
+    std::vector<std::string> GetInputNames() const override;
+    std::vector<std::string> GetOutputNames() const override;
+    int OnProcess(const std::vector<void*>& SourceBuffers, const std::vector<void*>& DestinationBuffers, int NumFrames, std::uint32_t TimeStamp);
 
     void OnPreGain(float PreGain);
 
-    void OnDelayBypass(bool Bypass) override;
-    void OnDelayWetDry(float WetDry) override;
-    void OnDelayMilliSeconds(float Delay) override;
-    void OnDelayFeedback(float Feedback) override;
+    void OnDelayBypassLeft(bool Bypass);
+    void OnDelayWetDryLeft(float WetDry);
+    void OnDelayMilliSecondsLeft(float Delay);
+    void OnDelayFeedbackLeft(float Feedback);
+
+    void OnDelayBypassRight(bool Bypass);
+    void OnDelayWetDryRight(float WetDry);
+    void OnDelayMilliSecondsRight(float Delay);
+    void OnDelayFeedbackRight(float Feedback);
 
     void SetMasterVolume(float Volume) override;
 
 private:
     CConstGenerator<float> m_PreGain;
-    CConstNumSamplesGenerator<float> m_DelayTime;
-    CFeedbackDelay<float> m_Delay;
+    CConstNumSamplesGenerator<float> m_DelayTimeLeft;
+    CFeedbackDelay<float> m_DelayLeft;
+    CConstNumSamplesGenerator<float> m_DelayTimeRight;
+    CFeedbackDelay<float> m_DelayRight;
     CConstGenerator<float> m_MasterVolume;
 };
 
