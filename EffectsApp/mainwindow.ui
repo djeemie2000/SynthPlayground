@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>702</width>
-    <height>452</height>
+    <width>425</width>
+    <height>177</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,25 +16,16 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="QGroupBox" name="groupBox_Synth">
+     <widget class="QGroupBox" name="groupBox_Fx">
       <property name="title">
        <string>Effects</string>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout">
+      <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <widget class="QGroupBox" name="groupBox_Fx">
-         <property name="title">
-          <string>Fx</string>
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string/>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_2">
-          <item>
-           <widget class="QLabel" name="label_5">
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-         </layout>
         </widget>
        </item>
       </layout>
@@ -47,7 +38,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>702</width>
+     <width>425</width>
      <height>25</height>
     </rect>
    </property>
