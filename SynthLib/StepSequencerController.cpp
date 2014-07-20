@@ -45,6 +45,18 @@ void CStepSequencerController::SetBarsPerBeat(int BarsPerBeat)
     m_StepSequencerTicker.SetPeriod(m_StepSequencer.PeriodSamples());
 }
 
+void CStepSequencerController::Start()
+{
+    //std::printf"StepSequencer Start \r\n");
+    m_StepSequencerTicker.Activate(true);
+}
+
+void CStepSequencerController::Stop()
+{
+    //std::printf"StepSequencer Stop \r\n");
+    m_StepSequencerTicker.Activate(false);
+}
+
 int CStepSequencerController::OnRead(void *Dst, int NumFrames, std::uint32_t TimeStamp)
 {
     int Frame = 0;
