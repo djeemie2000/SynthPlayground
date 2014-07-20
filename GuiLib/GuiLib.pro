@@ -51,15 +51,15 @@ unix {
     INSTALLS += target
 }
 
-CONFIG(debug, debug|release) {
-    LIBS += -L./../build-dir/Debug/SynthLib
-    PRE_TARGETDEPS += ./../build-dir/Debug/SynthLib/libSynthLib.a
-    LIBS += -L./../build-dir/Debug/CommandStackLib
-    PRE_TARGETDEPS += ./../build-dir/Debug/CommandStackLib/libCommandStackLib.a
-}
+#CONFIG(debug, debug|release) {
+#    LIBS += -L./../build-dir/Debug/SynthLib
+#    PRE_TARGETDEPS += ./../build-dir/Debug/SynthLib/libSynthLib.a
+#    LIBS += -L./../build-dir/Debug/CommandStackLib
+#    PRE_TARGETDEPS += ./../build-dir/Debug/CommandStackLib/libCommandStackLib.a
+#}
 
-LIBS += -lSynthLib
-LIBS += -lCommandStackLib
+#LIBS += -lSynthLib
+#LIBS += -lCommandStackLib
 
 CONFIG(debug, debug|release) {
     DESTDIR = ../build-dir/Debug/GuiLib

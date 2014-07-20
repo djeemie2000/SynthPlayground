@@ -23,17 +23,27 @@ INCLUDEPATH += ./../JackLib
 
 CONFIG(debug, debug|release) {
     LIBS += -L./../build-dir/Debug/SynthLib
+    PRE_TARGETDEPS += ./../build-dir/Debug/SynthLib/libSynthLib.a
     LIBS += -L./../build-dir/Debug/CommandStackLib
+    PRE_TARGETDEPS += ./../build-dir/Debug/CommandStackLib/libCommandStackLib.a
     LIBS += -L./../build-dir/Debug/GuiLib
+    PRE_TARGETDEPS += ./../build-dir/Debug/GuiLib/libGuiLib.a
     LIBS += -L./../build-dir/Debug/MidiLib
+    PRE_TARGETDEPS += ./../build-dir/Debug/MidiLib/libMidiLib.a
     LIBS += -L./../build-dir/Debug/JackLib
+    PRE_TARGETDEPS += ./../build-dir/Debug/JackLib/libJackLib.a
 }
 CONFIG(release, debug|release) {
     LIBS += -L./../build-dir/Release/SynthLib
+    PRE_TARGETDEPS += ./../build-dir/Release/SynthLib/libSynthLib.a
     LIBS += -L./../build-dir/Release/CommandStackLib
+    PRE_TARGETDEPS += ./../build-dir/Release/CommandStackLib/libCommandStackLib.a
     LIBS += -L./../build-dir/Release/GuiLib
+    PRE_TARGETDEPS += ./../build-dir/Release/GuiLib/libGuiLib.a
     LIBS += -L./../build-dir/Release/MidiLib
+    PRE_TARGETDEPS += ./../build-dir/Release/MidiLib/libMidiLib.a
     LIBS += -L./../build-dir/Release/JackLib
+    PRE_TARGETDEPS += ./../build-dir/Release/JackLib/libJackLib.a
 }
 
 LIBS += -lSynthLib

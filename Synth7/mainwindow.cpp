@@ -5,13 +5,13 @@
 #include <QTimer>
 #include <QDebug>
 #include "QAudioIoDevice.h"
-#include "QView.h"
+#include "QScope.h"
 #include "QKeyboardWidget.h"
 #include "QScopeWidget.h"
 #include "QAudioDeviceWidget.h"
 #include "Synth7Controller.h"
 #include "GuiItems.h"
-#include "MidiInput.h"
+#include "AlsaMidiInput.h"
 #include "NoteQueueMidiInputHandler.h"
 
 namespace
@@ -28,10 +28,10 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    QScope* Scope = new QScope(this);
-    m_Controller = new CSynth7Controller(*Scope, SamplingFrequency);
-    m_MidiInputHandler = new CNoteQueueMidiInputHandler(*m_Controller);
-    m_MidiInput = new CMidiInput(*m_MidiInputHandler);
+    QInt16Scope* Scope = new QInt16Scope(this);
+    m_Controller.reset(new CSynth7Controller(*Scope, SamplingFrequency));
+    m_MidiInputHandler.reset(new CNoteQueueMidiInputHandler(m_Controller));
+    m_MidiInput.reset(new CAlsaMidiInput(*m_MidiInputHandler));
 
     // build gui
     guiutils::AddCombinedOperatorStage(ui->groupBox_Operator, this, *m_Controller);
@@ -58,7 +58,7 @@ MainWindow::~MainWindow()
 
     delete ui;
     delete m_ScopeWidget;
-    delete m_MidiInput;
-    delete m_MidiInputHandler;
-    delete m_Controller;
+    //delete m_MidiInput;
+    //delete m_MidiInputHandler;
+    //delete m_Controller;
 }
