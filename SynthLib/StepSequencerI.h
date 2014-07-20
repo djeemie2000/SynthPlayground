@@ -1,6 +1,8 @@
 #ifndef STEPSEQUENCERI_H
 #define STEPSEQUENCERI_H
 
+#include "Notes.h"
+
 class IStepSequencer
 {
 public:

@@ -27,8 +27,6 @@
 #include "DCOperator.h"
 #include "IntegerPowerShaper.h"
 
-class IInt16Scope;
-
 class CSynth10Controller
                     : public IAudioSource2
                     , public INoteHandler
