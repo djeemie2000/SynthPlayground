@@ -6,11 +6,14 @@ CStepSequencerController::CStepSequencerController(int SamplingFrequency, std::s
     : m_MidiInputHandler(MidiInputHandler)
     , m_MidiSource(MidiSource)
     , m_StepSequencer(SamplingFrequency)
+    , m_CurrentStep()
     , m_StepSequencerTicker()
+    , m_IsActive(false)
 {
     m_StepSequencer.SetBeatsPerMinute(120);
     m_StepSequencer.SetBarsPerBeat(2);
     m_StepSequencerTicker.SetPeriod(m_StepSequencer.PeriodSamples());
+    m_StepSequencerTicker.Activate(true);//always active!
 }
 
 int CStepSequencerController::NumSteps() const
@@ -48,13 +51,13 @@ void CStepSequencerController::SetBarsPerBeat(int BarsPerBeat)
 void CStepSequencerController::Start()
 {
     //std::printf"StepSequencer Start \r\n");
-    m_StepSequencerTicker.Activate(true);
+    m_IsActive = true;
 }
 
 void CStepSequencerController::Stop()
 {
     //std::printf"StepSequencer Stop \r\n");
-    m_StepSequencerTicker.Activate(false);
+    m_IsActive = false;
 }
 
 int CStepSequencerController::OnRead(void *Dst, int NumFrames, std::uint32_t TimeStamp)
@@ -65,16 +68,20 @@ int CStepSequencerController::OnRead(void *Dst, int NumFrames, std::uint32_t Tim
         if(m_StepSequencerTicker())
         {
             // note off previous step, advance to next step and apply!
-            if(m_StepSequencer.CurrentStep().s_IsActive)
+            if(m_CurrentStep.s_IsActive)
             {
-                int MidiNote = CMidiNoteConverter().ToMidiNote(m_StepSequencer.CurrentStep().s_Note, m_StepSequencer.CurrentStep().s_Octave);
-                m_MidiInputHandler->OnNoteOn(MidiNote, 127, Frame);
+                int MidiNote = CMidiNoteConverter().ToMidiNote(m_CurrentStep.s_Note, m_CurrentStep.s_Octave);
+                m_MidiInputHandler->OnNoteOff(MidiNote, 127, Frame);
             }
+
             m_StepSequencer.Advance();
-            if(m_StepSequencer.CurrentStep().s_IsActive)
+            m_CurrentStep = m_StepSequencer.CurrentStep();
+            m_CurrentStep.s_IsActive &= m_IsActive;//if not active, do not play the current step
+
+            if(m_CurrentStep.s_IsActive)
             {
-                int MidiNote = CMidiNoteConverter().ToMidiNote(m_StepSequencer.CurrentStep().s_Note, m_StepSequencer.CurrentStep().s_Octave);
-                m_MidiInputHandler->OnNoteOff(MidiNote, 0, Frame);
+                int MidiNote = CMidiNoteConverter().ToMidiNote(m_CurrentStep.s_Note, m_CurrentStep.s_Octave);
+                m_MidiInputHandler->OnNoteOn(MidiNote, 127, Frame);
             }
         }
         ++Frame;
