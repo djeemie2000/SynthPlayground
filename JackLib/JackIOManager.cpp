@@ -353,7 +353,7 @@ int CJackIOManager::OnProcess(jack_nframes_t NumFrames)
 
 void CJackIOManager::OnShutdown()
 {
-    std::cout << "JAck shutting down unexpectedly!" << std::endl;
+    std::cout << "Jack shutting down unexpectedly!" << std::endl;
     // not sure if we can do this inside this function!
     //Close();
 }

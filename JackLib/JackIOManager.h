@@ -4,7 +4,7 @@
 #include <string>
 #include <memory>
 #include <vector>
-#include<jack/jack.h>
+#include <jack/jack.h>
 
 class IAudioSource2;
 class IAudioRenderer;

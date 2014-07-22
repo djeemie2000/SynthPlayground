@@ -5,11 +5,13 @@ CONFIG += c++11 (Qt5)
 
 SOURCES += \
         JackIOManager.cpp \
-    JackMidiSource.cpp
+    JackMidiSource.cpp \
+    JackConnectionManager.cpp
 
 HEADERS += \
         JackIOManager.h \
-    JackMidiSource.h
+    JackMidiSource.h \
+    JackConnectionManager.h
 
 INCLUDEPATH += ./../SynthLib
 INCLUDEPATH += ./../MidiLib
