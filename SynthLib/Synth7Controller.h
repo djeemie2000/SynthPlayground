@@ -80,7 +80,7 @@ public:
     void OnRipplerStrength(int Strength) override;
 
     // Step sequencer
-    int NumSteps() const override;
+    int GetMaxNumSteps() const override;
     void SetActive(int Step, bool IsActive) override;
     void SetOctave(int Step, EOctave Octave) override;
     void SetNote(int Step, ENote Note) override;

@@ -134,9 +134,9 @@ void CSynth7Controller::OnRipplerStrength(int Strength)
     m_Fx.SetRipplerStrength(Strength);
 }
 
-int CSynth7Controller::NumSteps() const
+int CSynth7Controller::GetMaxNumSteps() const
 {
-    return m_StepSequencer.NumSteps();
+    return m_StepSequencer.GetMaxNumSteps();
 }
 
 void CSynth7Controller::SetActive(int Step, bool IsActive)

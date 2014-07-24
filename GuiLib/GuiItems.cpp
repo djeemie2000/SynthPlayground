@@ -95,6 +95,8 @@ void AddStepSequencer(QGroupBox *GroupBox, QWidget *Parent, IStepSequencer &Cont
     QGroupBox* Box = new QGroupBox("StepSequencer", Parent);
     QGridLayout* Layout = new QGridLayout();
 
+    // spinbox for num steps
+    AddSpinBox(Layout, Parent, 0, 0, {"", Controller.GetMaxNumSteps(), 1, Controller.GetMaxNumSteps(), 1}, [&Controller](int Value){Controller.SetNumSteps(Value); } );
     AddLabel(Layout, Parent, 0, 1, "Bpm");
     AddLabel(Layout, Parent, 0, 2, "Beats");
 
@@ -109,7 +111,7 @@ void AddStepSequencer(QGroupBox *GroupBox, QWidget *Parent, IStepSequencer &Cont
     AddLabel(Layout, Parent, 2, 1, "Note");
     AddLabel(Layout, Parent, 2, 2, "Active");
 
-    for(int Step = 0; Step<Controller.NumSteps(); ++Step)
+    for(int Step = 0; Step<Controller.GetMaxNumSteps(); ++Step)
     {
         // Step,0 spinbox octave
         AddSpinBox(Layout, Parent, 4+Step, 0, {"", 2, 0, 8, 1}, [&Controller,Step](int Value){ Controller.SetOctave(Step, static_cast<EOctave>(Value)); });
@@ -124,11 +126,13 @@ void AddStepSequencer(QGroupBox *GroupBox, QWidget *Parent, IStepSequencer &Cont
     GroupBox->layout()->addWidget(Box);
 }
 
-void AddStepSequencer(QGroupBox *GroupBox, QWidget *Parent, int NumSteps, const std::string& Name, CCommandStackController& Controller)
+void AddStepSequencer(QGroupBox *GroupBox, QWidget *Parent, int MaxNumSteps, const std::string& Name, CCommandStackController& Controller)
 {
     QGroupBox* Box = new QGroupBox("StepSequencer", Parent);
     QGridLayout* Layout = new QGridLayout();
 
+    // spinbox for num steps
+    AddSpinBox(Layout, Parent, 0, 0, {"", MaxNumSteps, 1, MaxNumSteps, 1}, Name+"/NumSteps", Controller );
     AddLabel(Layout, Parent, 0, 1, "Bpm");
     AddLabel(Layout, Parent, 0, 2, "Beats");
 
@@ -143,7 +147,7 @@ void AddStepSequencer(QGroupBox *GroupBox, QWidget *Parent, int NumSteps, const 
     AddLabel(Layout, Parent, 2, 1, "Note");
     AddLabel(Layout, Parent, 2, 2, "Active");
 
-    for(int Step = 0; Step<NumSteps; ++Step)
+    for(int Step = 0; Step<MaxNumSteps; ++Step)
     {
         // Step,0 spinbox octave
         AddSpinBox(Layout, Parent, 4+Step, 0, {"", 2, 0, 8, 1}, Name+"/Octave/"+std::to_string(Step), Controller);

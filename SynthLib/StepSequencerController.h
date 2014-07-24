@@ -18,12 +18,13 @@ public:
     int OnRead(void *Dst, int NumFrames, std::uint32_t TimeStamp) override;
 
     // Step sequencer
-    int NumSteps() const override;
+    int GetMaxNumSteps() const override;
     void SetActive(int Step, bool IsActive) override;
     void SetOctave(int Step, EOctave Octave) override;
     void SetNote(int Step, ENote Note) override;
     void SetBeatsPerMinute(int Bpm) override;
     void SetBarsPerBeat(int BarsPerBeat) override;
+    void SetNumSteps(int NumSteps) override;
     void Start() override;
     void Stop() override;
 

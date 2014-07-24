@@ -138,9 +138,9 @@ void CSynth8Controller::OnNonLinearShaperPreGain(float PreGain)
     m_NonLinearShaper.SetPregain(PreGain);
 }
 
-int CSynth8Controller::NumSteps() const
+int CSynth8Controller::GetMaxNumSteps() const
 {
-    return m_StepSequencer.NumSteps();
+    return m_StepSequencer.GetMaxNumSteps();
 }
 
 void CSynth8Controller::SetActive(int Step, bool IsActive)
@@ -168,6 +168,11 @@ void CSynth8Controller::SetBarsPerBeat(int BarsPerBeat)
 {
     m_StepSequencer.SetBarsPerBeat(BarsPerBeat);
     m_StepSequencerTicker.SetPeriod(m_StepSequencer.PeriodSamples());
+}
+
+void CSynth8Controller::SetNumSteps(int NumSteps)
+{
+    m_StepSequencer.SetNumSteps(NumSteps);
 }
 
 void CSynth8Controller::Start()

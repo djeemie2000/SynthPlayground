@@ -31,10 +31,11 @@ public:
 
     void SetBeatsPerMinute(int Bpm);
     void SetBarsPerBeat(int BarsPerBeat);
+    void SetNumSteps(int NumSteps);
 
     void Advance();
 
-    int NumSteps() const;
+    int GetMaxNumSteps() const;
     int PeriodSamples() const;
     const SStep& CurrentStep() const;
 
@@ -44,7 +45,7 @@ private:
     const int m_SamplingFrequency;
     std::array<SStep, N> m_Steps;
     int m_Step;
-    int m_CurrentStep;
+    int m_NumSteps;
     int m_Bpm;
     int m_BarsPerBeat;
 };
@@ -54,6 +55,7 @@ CStepSequencer2<T,N>::CStepSequencer2(int SamplingFrequency)
  : m_SamplingFrequency(SamplingFrequency)
  , m_Steps()
  , m_Step(0)
+ , m_NumSteps(N)
  , m_Bpm(120)
  , m_BarsPerBeat(2)
 {
@@ -61,7 +63,7 @@ CStepSequencer2<T,N>::CStepSequencer2(int SamplingFrequency)
 }
 
 template<class T, int N>
-int CStepSequencer2<T,N>::NumSteps() const
+int CStepSequencer2<T,N>::GetMaxNumSteps() const
 {
     return N;
 }
@@ -106,6 +108,15 @@ void CStepSequencer2<T,N>::SetBarsPerBeat(int BarsPerBeat)
 }
 
 template<class T, int N>
+void CStepSequencer2<T,N>::SetNumSteps(int NumSteps)
+{
+    if(0<NumSteps && NumSteps<=GetMaxNumSteps())
+    {
+        m_NumSteps = NumSteps;
+    }
+}
+
+template<class T, int N>
 bool CStepSequencer2<T,N>::StepExists(int Step) const
 {
     return 0<=Step && Step<N;
@@ -126,7 +137,8 @@ const typename CStepSequencer2<T,N>::SStep &CStepSequencer2<T,N>::CurrentStep() 
 template<class T, int N>
 void CStepSequencer2<T,N>::Advance()
 {
-    m_Step = (m_Step+1)%N;
+    //use actual number of steps instead of the maximum number of steps!
+    m_Step = (m_Step+1)%m_NumSteps;
 }
 
 #endif // STEPSEQUENCER2_H

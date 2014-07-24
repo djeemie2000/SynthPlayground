@@ -135,9 +135,9 @@ void CSynth10Controller::OnLPFilterFeedback(float Feedback)
     m_LPFilter.SetFeedback(Feedback);
 }
 
-int CSynth10Controller::NumSteps() const
+int CSynth10Controller::GetMaxNumSteps() const
 {
-    return m_StepSequencer.NumSteps();
+    return m_StepSequencer.GetMaxNumSteps();
 }
 
 void CSynth10Controller::SetActive(int Step, bool IsActive)
@@ -165,6 +165,11 @@ void CSynth10Controller::SetBarsPerBeat(int BarsPerBeat)
 {
     m_StepSequencer.SetBarsPerBeat(BarsPerBeat);
     m_StepSequencerTicker.SetPeriod(m_StepSequencer.PeriodSamples());
+}
+
+void CSynth10Controller::SetNumSteps(int NumSteps)
+{
+    m_StepSequencer.SetNumSteps(NumSteps);
 }
 
 void CSynth10Controller::Start()

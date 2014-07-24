@@ -18,7 +18,8 @@ namespace
         FunctionMap["StepSequencer/BeatsPerMinute"] = [&Controller](const SCmdStackItem& Item){ Controller.SetBeatsPerMinute(Item.s_FloatValue); };
         FunctionMap["StepSequencer/BarsPerBeat"] = [&Controller](const SCmdStackItem& Item){ Controller.SetBarsPerBeat(Item.s_IntValue); };
         FunctionMap["StepSequencer/Go"] = [&Controller](const SCmdStackItem& Item){ if(Item.s_BoolValue) { Controller.Start(); } else {Controller.Stop(); } };
-        for(int Step = 0; Step<Controller.NumSteps(); ++Step)
+        FunctionMap["StepSequencer/NumSteps"] = [&Controller](const SCmdStackItem& Item){ Controller.SetNumSteps(Item.s_IntValue); };
+        for(int Step = 0; Step<Controller.GetMaxNumSteps(); ++Step)
         {
             FunctionMap["StepSequencer/Active/"+std::to_string(Step)] = [&Controller,Step](const SCmdStackItem& Item){ Controller.SetActive(Step, Item.s_BoolValue); };
             FunctionMap["StepSequencer/Note/"+std::to_string(Step)] = [&Controller,Step](const SCmdStackItem& Item){ Controller.SetNote(Step, static_cast<ENote>(Item.s_IntValue)); };
@@ -36,6 +37,7 @@ namespace
         Stack.push_back({"StepSequencer/BeatsPerMinute", false, 0, 120.0f});
         Stack.push_back({"StepSequencer/BarsPerBeat", false, 2, 0.0f});
         Stack.push_back({"StepSequencer/Go", false, 0, 0.0f});
+        Stack.push_back({"StepSequencer/NumSteps", false, 8, 0.0f});
         for(int Step = 0; Step<8; ++Step)
         {
             Stack.push_back({"StepSequencer/Active/"+std::to_string(Step), false, 0, 0.0f});
@@ -63,7 +65,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_CommandStackController.reset(new CCommandStackController(BuildFunctionMap(*m_Controller), BuildDefaultCommandStack()));
 
     // build gui
-    guiutils::AddStepSequencer(ui->groupBox_StepSequencer, this, m_Controller->NumSteps(), "StepSequencer", *m_CommandStackController);
+    guiutils::AddStepSequencer(ui->groupBox_StepSequencer, this, m_Controller->GetMaxNumSteps(), "StepSequencer", *m_CommandStackController);
 
     ui->groupBox_StepSequencer->layout()->addWidget(new QPatchManagerWidget(*m_CommandStackController, this));
 

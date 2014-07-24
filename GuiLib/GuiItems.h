@@ -30,7 +30,7 @@ void AddNonLinearShaper(QGroupBox *GroupBox, QWidget *Parent, const std::string&
 void AddBitFX(QGroupBox *GroupBox, QWidget *Parent, IBitFx& Controller);
 
 void AddStepSequencer(QGroupBox *GroupBox, QWidget *Parent, IStepSequencer& Controller);
-void AddStepSequencer(QGroupBox *GroupBox, QWidget *Parent, int NumSteps, const std::string& Name, CCommandStackController& Controller);
+void AddStepSequencer(QGroupBox *GroupBox, QWidget *Parent, int MaxNumSteps, const std::string& Name, CCommandStackController& Controller);
 
 
 void AddCombinedOperatorStage(QGroupBox *GroupBox, QWidget *Parent, ICombinedOperatorStage& Controller);

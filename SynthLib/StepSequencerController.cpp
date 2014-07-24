@@ -16,9 +16,9 @@ CStepSequencerController::CStepSequencerController(int SamplingFrequency, std::s
     m_StepSequencerTicker.Activate(true);//always active!
 }
 
-int CStepSequencerController::NumSteps() const
+int CStepSequencerController::GetMaxNumSteps() const
 {
-    return m_StepSequencer.NumSteps();
+    return m_StepSequencer.GetMaxNumSteps();
 }
 
 void CStepSequencerController::SetActive(int Step, bool IsActive)
@@ -46,6 +46,11 @@ void CStepSequencerController::SetBarsPerBeat(int BarsPerBeat)
 {
     m_StepSequencer.SetBarsPerBeat(BarsPerBeat);
     m_StepSequencerTicker.SetPeriod(m_StepSequencer.PeriodSamples());
+}
+
+void CStepSequencerController::SetNumSteps(int NumSteps)
+{
+    m_StepSequencer.SetNumSteps(NumSteps);
 }
 
 void CStepSequencerController::Start()
