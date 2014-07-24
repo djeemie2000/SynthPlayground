@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>577</width>
-    <height>388</height>
+    <width>458</width>
+    <height>206</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,23 +18,8 @@
     <item>
      <widget class="QGroupBox" name="groupBox_StepSequencer">
       <property name="title">
-       <string>StepSequencer</string>
+       <string/>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout">
-       <item>
-        <widget class="QLabel" name="label">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-      </layout>
      </widget>
     </item>
    </layout>
@@ -44,7 +29,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>577</width>
+     <width>458</width>
      <height>25</height>
     </rect>
    </property>

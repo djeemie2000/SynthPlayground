@@ -65,6 +65,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_CommandStackController.reset(new CCommandStackController(BuildFunctionMap(*m_Controller), BuildDefaultCommandStack()));
 
     // build gui
+    ui->groupBox_StepSequencer->setLayout(new QVBoxLayout());
     guiutils::AddStepSequencer(ui->groupBox_StepSequencer, this, m_Controller->GetMaxNumSteps(), "StepSequencer", *m_CommandStackController);
 
     ui->groupBox_StepSequencer->layout()->addWidget(new QPatchManagerWidget(*m_CommandStackController, this));
