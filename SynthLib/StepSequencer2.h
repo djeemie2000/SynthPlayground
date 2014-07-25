@@ -32,12 +32,14 @@ public:
     void SetBeatsPerMinute(int Bpm);
     void SetBarsPerBeat(int BarsPerBeat);
     void SetNumSteps(int NumSteps);
+    void SetDuration(int DurationPercentage);
 
     void Advance();
 
     int GetMaxNumSteps() const;
     int PeriodSamples() const;
     const SStep& CurrentStep() const;
+    int DurationSamples() const;
 
 private:
     bool StepExists(int Step) const;
@@ -48,6 +50,7 @@ private:
     int m_NumSteps;
     int m_Bpm;
     int m_BarsPerBeat;
+    int m_DurationPercentage; // duration a a percentage of the period
 };
 
 template<class T, int N>
@@ -58,6 +61,7 @@ CStepSequencer2<T,N>::CStepSequencer2(int SamplingFrequency)
  , m_NumSteps(N)
  , m_Bpm(120)
  , m_BarsPerBeat(2)
+ , m_DurationPercentage(100)
 {
     m_Steps.fill(SStep());
 }
@@ -117,6 +121,15 @@ void CStepSequencer2<T,N>::SetNumSteps(int NumSteps)
 }
 
 template<class T, int N>
+void CStepSequencer2<T,N>::SetDuration(int DurationPercentage)
+{
+    if(0<DurationPercentage && DurationPercentage<=100)
+    {
+        m_DurationPercentage = DurationPercentage;
+    }
+}
+
+template<class T, int N>
 bool CStepSequencer2<T,N>::StepExists(int Step) const
 {
     return 0<=Step && Step<N;
@@ -126,6 +139,12 @@ template<class T, int N>
 int CStepSequencer2<T,N>::PeriodSamples() const
 {
     return 60 * m_SamplingFrequency / (m_Bpm * m_BarsPerBeat);
+}
+
+template<class T, int N>
+int CStepSequencer2<T,N>::DurationSamples() const
+{
+    return m_DurationPercentage*PeriodSamples()/100;
 }
 
 template<class T, int N>

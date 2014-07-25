@@ -7,13 +7,11 @@ CStepSequencerController::CStepSequencerController(int SamplingFrequency, std::s
     , m_MidiSource(MidiSource)
     , m_StepSequencer(SamplingFrequency)
     , m_CurrentStep()
-    , m_StepSequencerTicker()
     , m_IsActive(false)
+    , m_Counter(0)
 {
     m_StepSequencer.SetBeatsPerMinute(120);
     m_StepSequencer.SetBarsPerBeat(2);
-    m_StepSequencerTicker.SetPeriod(m_StepSequencer.PeriodSamples());
-    m_StepSequencerTicker.Activate(true);//always active!
 }
 
 int CStepSequencerController::GetMaxNumSteps() const
@@ -39,13 +37,11 @@ void CStepSequencerController::SetNote(int Step, ENote Note)
 void CStepSequencerController::SetBeatsPerMinute(int Bpm)
 {
     m_StepSequencer.SetBeatsPerMinute(Bpm);
-    m_StepSequencerTicker.SetPeriod(m_StepSequencer.PeriodSamples());
 }
 
 void CStepSequencerController::SetBarsPerBeat(int BarsPerBeat)
 {
     m_StepSequencer.SetBarsPerBeat(BarsPerBeat);
-    m_StepSequencerTicker.SetPeriod(m_StepSequencer.PeriodSamples());
 }
 
 void CStepSequencerController::SetNumSteps(int NumSteps)
@@ -65,18 +61,25 @@ void CStepSequencerController::Stop()
     m_IsActive = false;
 }
 
+void CStepSequencerController::SetDuration(int DurationPercentage)
+{
+    m_StepSequencer.SetDuration(DurationPercentage);
+}
+
 int CStepSequencerController::OnRead(void *Dst, int NumFrames, std::uint32_t TimeStamp)
 {
     int Frame = 0;
     while(Frame<NumFrames)
     {
-        if(m_StepSequencerTicker())
+        const int MidiNoteVelocity = 127;
+
+        if(m_Counter==0)//m_StepSequencerTicker())
         {
-            // note off previous step, advance to next step and apply!
+            // note off previous step, advance to next step, apply!
             if(m_CurrentStep.s_IsActive)
             {
                 int MidiNote = CMidiNoteConverter().ToMidiNote(m_CurrentStep.s_Note, m_CurrentStep.s_Octave);
-                m_MidiInputHandler->OnNoteOff(MidiNote, 127, Frame);
+                m_MidiInputHandler->OnNoteOff(MidiNote, MidiNoteVelocity, Frame);
             }
 
             m_StepSequencer.Advance();
@@ -86,9 +89,26 @@ int CStepSequencerController::OnRead(void *Dst, int NumFrames, std::uint32_t Tim
             if(m_CurrentStep.s_IsActive)
             {
                 int MidiNote = CMidiNoteConverter().ToMidiNote(m_CurrentStep.s_Note, m_CurrentStep.s_Octave);
-                m_MidiInputHandler->OnNoteOn(MidiNote, 127, Frame);
+                m_MidiInputHandler->OnNoteOn(MidiNote, MidiNoteVelocity, Frame);
             }
         }
+        else if(m_Counter==m_StepSequencer.DurationSamples())
+        {
+            // note off previous step
+            if(m_CurrentStep.s_IsActive)
+            {
+                int MidiNote = CMidiNoteConverter().ToMidiNote(m_CurrentStep.s_Note, m_CurrentStep.s_Octave);
+                m_MidiInputHandler->OnNoteOff(MidiNote, MidiNoteVelocity, Frame);
+                m_CurrentStep.s_IsActive = false;
+            }
+        }
+
+        ++m_Counter;
+        if(m_StepSequencer.PeriodSamples()<=m_Counter)
+        {
+            m_Counter = 0;
+        }
+
         ++Frame;
     }
 

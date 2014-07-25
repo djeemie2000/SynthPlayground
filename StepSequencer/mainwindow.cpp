@@ -19,6 +19,7 @@ namespace
         FunctionMap["StepSequencer/BarsPerBeat"] = [&Controller](const SCmdStackItem& Item){ Controller.SetBarsPerBeat(Item.s_IntValue); };
         FunctionMap["StepSequencer/Go"] = [&Controller](const SCmdStackItem& Item){ if(Item.s_BoolValue) { Controller.Start(); } else {Controller.Stop(); } };
         FunctionMap["StepSequencer/NumSteps"] = [&Controller](const SCmdStackItem& Item){ Controller.SetNumSteps(Item.s_IntValue); };
+        FunctionMap["StepSequencer/Duration"] = [&Controller](const SCmdStackItem& Item){ Controller.SetDuration(Item.s_IntValue); };
         for(int Step = 0; Step<Controller.GetMaxNumSteps(); ++Step)
         {
             FunctionMap["StepSequencer/Active/"+std::to_string(Step)] = [&Controller,Step](const SCmdStackItem& Item){ Controller.SetActive(Step, Item.s_BoolValue); };
@@ -38,6 +39,7 @@ namespace
         Stack.push_back({"StepSequencer/BarsPerBeat", false, 2, 0.0f});
         Stack.push_back({"StepSequencer/Go", false, 0, 0.0f});
         Stack.push_back({"StepSequencer/NumSteps", false, 8, 0.0f});
+        Stack.push_back({"StepSequencer/Duration", false, 100, 0.0f});
         for(int Step = 0; Step<8; ++Step)
         {
             Stack.push_back({"StepSequencer/Active/"+std::to_string(Step), false, 0, 0.0f});

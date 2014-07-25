@@ -27,14 +27,15 @@ public:
     void SetNumSteps(int NumSteps) override;
     void Start() override;
     void Stop() override;
+    void SetDuration(int DurationPercentage);
 
 private:
     std::shared_ptr<IMidiInputHandler> m_MidiInputHandler;
     std::shared_ptr<IMidiSource> m_MidiSource;
     CStepSequencer2<float, 16> m_StepSequencer;
     CStepSequencer2<float, 16>::SStep m_CurrentStep;
-    CPeriodicTicker m_StepSequencerTicker;
     bool    m_IsActive;
+    int     m_Counter;
 };
 
 #endif // STEPSEQUENCERCONTROLLER_H

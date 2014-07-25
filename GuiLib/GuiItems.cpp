@@ -131,21 +131,26 @@ void AddStepSequencer(QGroupBox *GroupBox, QWidget *Parent, int MaxNumSteps, con
     QGroupBox* Box = new QGroupBox("StepSequencer", Parent);
     QGridLayout* Layout = new QGridLayout();
 
-    // spinbox for num steps
-    AddSpinBox(Layout, Parent, 0, 0, {"", MaxNumSteps, 1, MaxNumSteps, 1}, Name+"/NumSteps", Controller );
-    AddLabel(Layout, Parent, 0, 1, "Bpm");
-    AddLabel(Layout, Parent, 0, 2, "Beats");
-
     // 1,0 Btn on/off
-    AddCheckableSmallButton(Layout, Parent, 1, 0, "Go", Name+"/Go", Controller);
-    // 1,1 doublespinbox bpm
-    AddDoubleSpinBox(Layout, Parent, 1, 1, {"", 120.0, 1.0, 240.0, 0.1, 1}, Name+"/BeatsPerMinute", Controller);
-    // 1,2 spinbox beats
-    AddSpinBox(Layout, Parent, 1, 2, {"", 2, 1, 16, 1}, Name+"/BarsPerBeat", Controller);
+    AddCheckableSmallButton(Layout, Parent, 0, 0, "Go", Name+"/Go", Controller);
+    AddLabel(Layout, Parent, 0, 1, "Steps");
+    // spinbox for num steps
+    AddSpinBox(Layout, Parent, 0, 2, {"", MaxNumSteps, 1, MaxNumSteps, 1}, Name+"/NumSteps", Controller );
 
-    AddLabel(Layout, Parent, 2, 0, "Octave");
-    AddLabel(Layout, Parent, 2, 1, "Note");
-    AddLabel(Layout, Parent, 2, 2, "Active");
+    AddLabel(Layout, Parent, 1, 0, "Duration");
+    AddLabel(Layout, Parent, 1, 1, "Bpm");
+    AddLabel(Layout, Parent, 1, 2, "Beats");
+
+    // 1,0 doublespinbox bpm
+    AddSpinBox(Layout, Parent, 2, 0, {"", 100, 1, 100, 1}, Name+"/Duration", Controller);
+    // 1,1 doublespinbox bpm
+    AddDoubleSpinBox(Layout, Parent, 2, 1, {"", 120.0, 1.0, 240.0, 0.1, 1}, Name+"/BeatsPerMinute", Controller);
+    // 1,2 spinbox beats
+    AddSpinBox(Layout, Parent, 2, 2, {"", 2, 1, 16, 1}, Name+"/BarsPerBeat", Controller);
+
+    AddLabel(Layout, Parent, 3, 0, "Octave");
+    AddLabel(Layout, Parent, 3, 1, "Note");
+    AddLabel(Layout, Parent, 3, 2, "Active");
 
     for(int Step = 0; Step<MaxNumSteps; ++Step)
     {
