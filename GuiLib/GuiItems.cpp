@@ -365,6 +365,14 @@ void AddIntegerPowerShaper(QGroupBox *GroupBox, QWidget *Parent, const std::stri
     AddDoubleSpinBox(Box, Parent, {"PreGain", 0.0, 0.0, 1.0, 0.01, 3}, Name+"/PreGain", Controller);
 }
 
+void AddDistortion(QGroupBox *GroupBox, QWidget *Parent, const string &Name, CCommandStackController &Controller)
+{
+    // add child groupbox
+    QGroupBox* Box = AddGroupBox(GroupBox, Parent, "Distortion");
+
+    AddDoubleSpinBox(Box, Parent, {"Drive", 0.0, 0.0, 1.0, 0.01, 3}, Name+"/Drive", Controller);
+}
+
 void AddLFOBank(QGroupBox *GroupBox, QWidget *Parent, ILFOBank &LFOBank)
 {
     QGroupBox* Box = new QGroupBox("LFOBank", Parent);

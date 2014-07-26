@@ -55,6 +55,9 @@ namespace
         FunctionMap["LFOBank/2/Frequency"] = [&Controller](const SCmdStackItem& Item){  Controller.SetLFOFrequency(2, Item.s_FloatValue); };
         FunctionMap["LFOBank/2/Waveform"] = [&Controller](const SCmdStackItem& Item){  Controller.SelectLFOWaveform(2, Item.s_IntValue); };
 
+        // Distortion
+        FunctionMap["Distortion/Drive"] = [&Controller](const SCmdStackItem& Item){ Controller.OnDistortionDrive(Item.s_FloatValue); };
+
         // FeedbackDelay
         FunctionMap["Delay/DelayMilliSeconds"] = [&Controller](const SCmdStackItem& Item){  Controller.OnDelayMilliSeconds(Item.s_FloatValue); };
         FunctionMap["Delay/Feedback"] = [&Controller](const SCmdStackItem& Item){  Controller.OnDelayFeedback(Item.s_FloatValue); };
@@ -104,6 +107,9 @@ namespace
         Controller.Add("Envelope/AR/0/ReleaseMilliSeconds", [](SCmdStackItem& Item, int Value) { Item.s_FloatValue = Value*32; });
         Controller.Link("Envelope/AR/0/ReleaseMilliSeconds", 0x54);
 
+        // modwheel -> distortion!
+        Controller.Add("Distortion/Drive", [](SCmdStackItem& Item, int Value){ Item.s_FloatValue = Value/127.0f; });
+        Controller.Link("Distortion/Drive", 0x01);
     }
 
     CmdStack BuildDefaultCommandStack()
@@ -148,6 +154,9 @@ namespace
         Stack.push_back({"LFOBank/2/Frequency", false, 0, 1.0f});
         Stack.push_back({"LFOBank/2/WaveForm", false, 3, 0.0f});
 
+        // Distortion
+        Stack.push_back({"Distortion/Drive", false, 0, 0.0f});
+
         // feedback delay
         Stack.push_back({"Delay/DelayMilliSeconds", false, 0, 250.0f});
         Stack.push_back({"Delay/Feedback", false, 0, 0.5f});
@@ -191,6 +200,7 @@ MainWindow::MainWindow(QWidget *parent)
     guiutils::AddMasterVolume(ui->groupBox_Fx, this, "MasterVolume", *m_CommandStackController);
     guiutils::AddFeedbackDelay(ui->groupBox_Fx, this, "Delay", *m_CommandStackController);
     guiutils::AddLPFilter(ui->groupBox_Shaping, this, "LPFilter", *m_CommandStackController);
+    guiutils::AddDistortion(ui->groupBox_Shaping, this, "Distortion", *m_CommandStackController);
     guiutils::AddAREnvelope(ui->groupBox_Shaping, this, "Envelope/AR/0", *m_CommandStackController);
 
     ui->groupBox_Keyboard->layout()->addWidget(new QKeyboardWidget(*m_Controller, this));

@@ -20,6 +20,7 @@ CSynth10Controller::CSynth10Controller(int SamplingFrequency)
     , m_Envelope()
     , m_LFO(3, {SamplingFrequency, CSelectableOperatorFactory::Create()})
     , m_StepSequencer(SamplingFrequency)
+    , m_Distortion()
     , m_NumSamplesGenerator(SamplingFrequency)
     , m_Delay(SamplingFrequency*5, 0.0f)//5 seconds capacity
     , m_MasterVolume()
@@ -208,6 +209,11 @@ int CSynth10Controller::LFOBankSize() const
     return static_cast<int>(m_LFO.size());
 }
 
+void CSynth10Controller::OnDistortionDrive(float Drive)
+{
+    m_Distortion.SetDrive(Drive);
+}
+
 void CSynth10Controller::OnDelayMilliSeconds(float Delay)
 {
     m_NumSamplesGenerator.SetMilliSeconds(Delay);
@@ -267,7 +273,7 @@ int CSynth10Controller::OnRead(void *Dst, int NumFrames, std::uint32_t TimeStamp
             }
         }
 
-        *pDst = m_MasterVolume()*m_Delay(m_Envelope()*m_LPFilter( m_Shaper(m_Oscillator(m_LFO[0](), m_LFO[1]())) ));
+        *pDst = m_MasterVolume()*m_Delay(m_Distortion( m_Envelope()*m_LPFilter( m_Shaper(m_Oscillator(m_LFO[0](), m_LFO[1]())) ) ));
         ++pDst;
     }
 

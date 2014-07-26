@@ -25,6 +25,7 @@
 #include "SkewedInterpolatingOperator.h"
 #include "InterpolatingOperatorI.h"
 #include "IntegerPowerShaper.h"
+#include "PowerLawDistortion.h"
 
 class CSynth10Controller
                     : public IAudioSource2
@@ -91,6 +92,9 @@ public:
     void SelectLFOWaveform(int Idx, int Selected) override;
     int LFOBankSize() const override;
 
+    // distortion
+    void OnDistortionDrive(float Drive);
+
     // FeedbackDelay
     void OnDelayMilliSeconds(float Delay) override;
     void OnDelayFeedback(float Feedback) override;
@@ -115,6 +119,7 @@ private:
     CStepSequencer2<float, 8> m_StepSequencer;
     CPeriodicTicker m_StepSequencerTicker;
 
+    CPowerLawDistortion<float> m_Distortion;
     CConstNumSamplesGenerator<float> m_NumSamplesGenerator;
     CFeedbackDelay<float> m_Delay;
     CConstGenerator<float> m_MasterVolume;
