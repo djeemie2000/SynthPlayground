@@ -25,10 +25,6 @@ namespace
         FunctionMap["Oscillator/Skew"] = [&Controller](const SCmdStackItem& Item){  Controller.SetSkew(Item.s_FloatValue); };
         FunctionMap["Oscillator/SkewModAmt"] = [&Controller](const SCmdStackItem& Item){  Controller.SetSkewModAmt(Item.s_FloatValue); };
 
-        // DC offset
-        FunctionMap["DCOffset/Offset"] = [&Controller](const SCmdStackItem& Item){  Controller.SetDCOffset(Item.s_FloatValue); };
-        FunctionMap["DCOffset/OffsetModAmt"] = [&Controller](const SCmdStackItem& Item){  Controller.SetDCOffsetModAmt(Item.s_FloatValue); };
-
         // Shaper
         FunctionMap["Shaper/Strength"] = [&Controller](const SCmdStackItem& Item){  Controller.SetShaperStrength(Item.s_FloatValue); };
         FunctionMap["Shaper/Power"] = [&Controller](const SCmdStackItem& Item){  Controller.SetShaperPower(Item.s_IntValue); };
@@ -108,7 +104,6 @@ namespace
         Controller.Add("Envelope/AR/0/ReleaseMilliSeconds", [](SCmdStackItem& Item, int Value) { Item.s_FloatValue = Value*32; });
         Controller.Link("Envelope/AR/0/ReleaseMilliSeconds", 0x54);
 
-        // TODO modwheel for DC offset
     }
 
     CmdStack BuildDefaultCommandStack()
@@ -122,10 +117,6 @@ namespace
         Stack.push_back({"Oscillator/MixModAmt", false, 0, 0.0f});
         Stack.push_back({"Oscillator/Skew", false, 0, 0.0f});
         Stack.push_back({"Oscillator/SkewModAmt", false, 0, 0.0f});
-
-        // DCOffset
-        Stack.push_back({"DCOffset/Offset", false, 0, 0.0f});
-        Stack.push_back({"DCOffset/OffsetModAmt", false, 0, 0.0f});
 
         // Shaper
         Stack.push_back({"Shaper/Strength", false, 0, 0.0f});
@@ -194,7 +185,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     // build gui
     guiutils::AddLFOBank(ui->groupBox_Operator, this, m_Controller->LFOBankSize(), "LFOBank", *m_CommandStackController);
-    guiutils::AddDCOffsetOperator(ui->groupBox_Operator, this, "DCOffset", *m_CommandStackController);
     guiutils::AddIntegerPowerShaper(ui->groupBox_Operator, this, "Shaper", *m_CommandStackController);
     guiutils::AddInterpolatingOperator(ui->groupBox_Operator, this, "Oscillator", *m_CommandStackController);
 
@@ -209,7 +199,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->groupBox_AudioDevice->layout()->addWidget(new QPatchManagerWidget(*m_CommandStackController, this));
 
     m_AudioOutput->OpenAudioOutput("Out", m_Controller);
-    //m_AudioOutput->OpenMidiInput("MidiIn2", m_MidiInputController);
     m_AudioOutput->ActivateClient();
     m_MidiInput->Open("Synth10", "MidiIn");
 }

@@ -24,7 +24,6 @@
 #include "ConstGenerator.h"
 #include "SkewedInterpolatingOperator.h"
 #include "InterpolatingOperatorI.h"
-#include "DCOperator.h"
 #include "IntegerPowerShaper.h"
 
 class CSynth10Controller
@@ -63,10 +62,6 @@ public:
     void SetShaperStrength(float Strength);
     void SetShaperPower(int Power);
     void SetShaperPreGain(float PreGain);
-
-    // DC
-    void SetDCOffset(float DCOffset);
-    void SetDCOffsetModAmt(float ModAmt);
 
     // LP filter
     void OnLPFilterCutoff(float Parameter) override;
@@ -112,9 +107,6 @@ public:
 private:
     CSkewedInterpolatingOperator<float> m_Oscillator;
     CIntegerPowerShaper<float> m_Shaper;
-    CConstGenerator<float>  m_DCOffset;
-    CModulatorSigned<float>     m_DCOffsetModulator;
-    CFixedGainDCOperator<float> m_DCOperator;
     CMultiStageFilter<float, COnePoleLowPassFilter<float>, 24> m_LPFilter;
     CAREnvelope<float>      m_Envelope;
 
