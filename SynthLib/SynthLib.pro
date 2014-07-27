@@ -113,7 +113,8 @@ HEADERS += StepSequencer.h \
     AudioFilterI.h \
     effectsappcontroller.h \
     StepSequencerController.h \
-    PowerLawDistortion.h
+    PowerLawDistortion.h \
+    ASREnvelope.h
 
 INCLUDEPATH += ./../MidiLib
 
