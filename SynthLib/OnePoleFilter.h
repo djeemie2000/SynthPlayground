@@ -31,6 +31,13 @@ public:
         return Out;
     }
 
+    T operator()(T In, T Parameter)
+    {
+        T Out = Parameter*Parameter*In + (1-Parameter*Parameter)*m_PrevOut;
+        m_PrevOut = Out;
+        return Out;
+    }
+
 private:
     T m_PrevOut;
     T m_A0;
