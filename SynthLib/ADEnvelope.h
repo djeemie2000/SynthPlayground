@@ -1,15 +1,15 @@
-#ifndef ARENVELOPE_H
-#define ARENVELOPE_H
+#ifndef ADENVELOPE_H
+#define ADENVELOPE_H
 
 template<class T>
-class CAREnvelope
+class CADEnvelope
 {
 public:
-    CAREnvelope()
+    CADEnvelope()
         : m_Envelope(0)
         , m_Increment(0)
         , m_AttackIncrement(1)
-        , m_ReleaseIncrement(-1)
+        , m_DecayIncrement(-1)
     {}
 
     void SetAttackSamples(T Attack)
@@ -24,15 +24,15 @@ public:
         }
     }
 
-    void SetReleaseSamples(T Release)
+    void SetDecaySamples(T Decay)
     {
-        if(0<Release)
+        if(0<Decay)
         {
-            m_ReleaseIncrement = -1/Release;
+            m_DecayIncrement = -1/Decay;
         }
         else
         {
-            m_ReleaseIncrement = -1;
+            m_DecayIncrement = -1;
         }
     }
 
@@ -44,7 +44,9 @@ public:
 
     void NoteOff()
     {
-        m_Increment = m_ReleaseIncrement;
+        // goto silence
+        m_Increment = 0;
+        m_Envelope = 0;
     }
 
 
@@ -58,15 +60,15 @@ public:
             { // positive increment
                 if(1<m_Envelope)
                 {
-                    // goto sustain phase at 1
-                    m_Increment = 0;
+                    // goto decay phase
+                    m_Increment = m_DecayIncrement;
                     m_Envelope = 1;
                 }
             }
             else
             { // negative increment
                 if(m_Envelope<0)
-                {
+                {// goto silence
                     m_Increment = 0;
                     m_Envelope = 0;
                 }
@@ -80,7 +82,8 @@ private:
     T m_Envelope;
     T m_Increment;
     T m_AttackIncrement;
-    T m_ReleaseIncrement;
+    T m_DecayIncrement;
 };
 
-#endif // ARENVELOPE_H
+
+#endif // ADENVELOPE_H

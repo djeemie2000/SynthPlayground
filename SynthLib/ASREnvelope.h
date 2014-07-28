@@ -66,6 +66,7 @@ public:
             { // positive increment : attack
                 if(m_Sustain<m_Envelope)
                 {
+                    // goto sustain phase
                     m_Increment = 0;
                     m_Envelope = m_Sustain;
                 }
