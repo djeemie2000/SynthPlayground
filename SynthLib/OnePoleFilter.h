@@ -89,6 +89,19 @@ public:
         return m_PrevOut;
     }
 
+    T operator()(T In, T Parameter)
+    {
+        T Out = In - m_Feedback*m_PrevOut;
+        int Stage = 0;
+        while(Stage<m_Stages)
+        {
+            Out = m_Filter[Stage](Out, Parameter);
+            ++Stage;
+        }
+        m_PrevOut = HardLimitSigned(Out);//TODO more efficient?
+        return m_PrevOut;
+    }
+
 private:
     std::array<FilterType, N> m_Filter;
     int m_Stages;

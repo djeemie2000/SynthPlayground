@@ -346,6 +346,18 @@ void AddInterpolatingOperator(QGroupBox *GroupBox, QWidget *Parent, const std::s
     AddDoubleSpinBox(Box, Parent, {"SkewModAmt", 0.0, -1.0, 1.0, 0.01, 3}, Name+"/SkewModAmt", Controller);
 }
 
+void AddSimpleInterpolatingOperator(QGroupBox *GroupBox, QWidget *Parent, const std::string& Name, CCommandStackController& Controller)
+{
+    // add child groupbox
+    QGroupBox* Box = AddGroupBox(GroupBox, Parent, "Oscillator");
+    AddComboBox(Box, Parent, {"Operator1", CSelectableOperatorFactory::SelectionList(), 0 }, Name+"/Operator1/Select", Controller);
+    AddComboBox(Box, Parent, {"Operator2", CSelectableOperatorFactory::SelectionList(), 0 }, Name+"/Operator2/Select", Controller);
+
+    AddDoubleSpinBox(Box, Parent, {"Mix", 0.0, 0, 1.0, 0.01, 3}, Name+"/Mix", Controller);
+    AddDoubleSpinBox(Box, Parent, {"Skew", 0.0, -1.0, 1.0, 0.01, 3}, Name+"/Skew", Controller);
+}
+
+
 void AddDCOffsetOperator(QGroupBox *GroupBox, QWidget *Parent, const std::string& Name, CCommandStackController& Controller)
 {
     // add child groupbox

@@ -17,7 +17,8 @@ SOURCES += StepSequencer.cpp \
     Synth10Controller.cpp \
     keyboardcontroller.cpp \
     effectsappcontroller.cpp \
-    StepSequencerController.cpp
+    StepSequencerController.cpp \
+    Synth11Controller.cpp
 
 HEADERS += StepSequencer.h \
     Notes.h \
@@ -115,7 +116,9 @@ HEADERS += StepSequencer.h \
     StepSequencerController.h \
     PowerLawDistortion.h \
     ASREnvelope.h \
-    ADEnvelope.h
+    ADEnvelope.h \
+    Synth11Controller.h
+
 
 INCLUDEPATH += ./../MidiLib
 

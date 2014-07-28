@@ -19,6 +19,7 @@ SUBDIRS += \
     ../Scope \              # an  'app' project
     ../Keyboard \           # an  'app' project
     ../Synth10 \            # an  'app' project
+    ../Synth11 \            # an  'app' project
     ../EffectsApp \         # an  'app' project
     ../StepSequencer \      # an  'app' project
     ../JackConnectionTool
