@@ -48,6 +48,12 @@ namespace
         FunctionMap["LFOBank/3/Frequency"] = [&Controller](const SCmdStackItem& Item){  Controller.SetLFOFrequency(3, Item.s_FloatValue); };
         FunctionMap["LFOBank/3/Waveform"] = [&Controller](const SCmdStackItem& Item){  Controller.SelectLFOWaveform(3, Item.s_IntValue); };
 
+        // Modulation
+        FunctionMap["Modulation/0/ModAmt"] = [&Controller](const SCmdStackItem& Item){  Controller.OnModAmount(0, Item.s_FloatValue); };
+        FunctionMap["Modulation/1/ModAmt"] = [&Controller](const SCmdStackItem& Item){  Controller.OnModAmount(1, Item.s_FloatValue); };
+        FunctionMap["Modulation/2/ModAmt"] = [&Controller](const SCmdStackItem& Item){  Controller.OnModAmount(2, Item.s_FloatValue); };
+        FunctionMap["Modulation/3/ModAmt"] = [&Controller](const SCmdStackItem& Item){  Controller.OnModAmount(3, Item.s_FloatValue); };
+
         // Distortion
         FunctionMap["Distortion/Drive"] = [&Controller](const SCmdStackItem& Item){ Controller.OnDistortionDrive(Item.s_FloatValue); };
 
@@ -134,6 +140,12 @@ namespace
         Stack.push_back({"LFOBank/3/Frequency", false, 0, 1.0f});
         Stack.push_back({"LFOBank/3/WaveForm", false, 3, 0.0f});
 
+        // Modulation
+        Stack.push_back({"Modulation/0/ModAmt", false, 0, 0.0f});
+        Stack.push_back({"Modulation/1/ModAmt", false, 0, 0.0f});
+        Stack.push_back({"Modulation/2/ModAmt", false, 0, 0.0f});
+        Stack.push_back({"Modulation/3/ModAmt", false, 0, 0.0f});
+
         // Distortion
         Stack.push_back({"Distortion/Drive", false, 0, 0.0f});
 
@@ -170,7 +182,8 @@ MainWindow::MainWindow(QWidget *parent)
     guiutils::AddIntegerPowerShaper(ui->groupBox_Operator, this, "Shaper", *m_CommandStackController);
     guiutils::AddSimpleInterpolatingOperator(ui->groupBox_Operator, this, "Oscillator", *m_CommandStackController);
 
-    guiutils::AddLFOBank(ui->groupBox_Shaping, this, m_Controller->LFOBankSize(), "LFOBank", *m_CommandStackController);
+    guiutils::AddLFOBank(ui->groupBox_Shaping, this, {"Mix", "Skew", "LPF", "Fold"}, "LFOBank", *m_CommandStackController);
+    guiutils::AddModulation(ui->groupBox_Shaping, this, {"Mix", "Skew", "LPF", "Fold"}, "Modulation", *m_CommandStackController);
     guiutils::AddAREnvelope(ui->groupBox_Shaping, this, "Envelope/AR/0", *m_CommandStackController);
 
     guiutils::AddMasterVolume(ui->groupBox_AudioDevice, this, "MasterVolume", *m_CommandStackController);

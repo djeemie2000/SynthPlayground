@@ -14,10 +14,12 @@ CSynth11Controller::CSynth11Controller(int SamplingFrequency)
     : m_Oscillator(SamplingFrequency, CSelectableOperatorFactory::Create())
     , m_Shaper()
     , m_Fold()
+    , m_LPFilterCutoff()
     , m_LPFilter()
     , m_NumSamplesGenerator(SamplingFrequency)
     , m_AREnvelope()
     , m_LFO(4, {SamplingFrequency, CSelectableOperatorFactory::Create()})
+    , m_Modulator(4, CModulatorSigned<float>())
     , m_Distortion()
     , m_MasterVolume()
 {
@@ -26,6 +28,7 @@ CSynth11Controller::CSynth11Controller(int SamplingFrequency)
     m_Oscillator.SelectOperator2(0);
 
     m_Fold.Set(0.97f);
+    m_LPFilterCutoff.Set(1.0f);
 
     m_LPFilter.SetStages(1);
 
@@ -106,6 +109,7 @@ void CSynth11Controller::OnWaveFold(float Fold)
 void CSynth11Controller::OnLPFilterCutoff(float Parameter)
 {
     m_LPFilter.SetParameter(Parameter);
+    m_LPFilterCutoff.Set(Parameter);
 }
 
 void CSynth11Controller::OnLPFilterPoles(int Stages)
@@ -157,6 +161,19 @@ int CSynth11Controller::LFOBankSize() const
     return static_cast<int>(m_LFO.size());
 }
 
+void CSynth11Controller::OnModAmount(int Modulator, float ModAmt)
+{
+    if(Modulator==0)
+    { // mix
+        m_Oscillator.SetMixModAmt(ModAmt);
+    }
+    else if(Modulator==1)
+    {
+        m_Oscillator.SetSkewModAmt(ModAmt);
+    }
+    m_Modulator.at(Modulator).SetModAmount(ModAmt);
+}
+
 void CSynth11Controller::OnDistortionDrive(float Drive)
 {
     m_Distortion.SetDrive(Drive);
@@ -190,11 +207,11 @@ int CSynth11Controller::OnRead(void *Dst, int NumFrames, std::uint32_t TimeStamp
 
     while(pDst<pDstEnd)
     {
-        float ModIn0 = m_LFO[0]();
-        float ModIn1 = m_LFO[1]();
-//        float ModIn2 = m_LFO[2]();
-//        float ModIn3 = m_LFO[3]();
-        *pDst = m_MasterVolume()*m_Distortion( EnvelopeAmp(m_LPFilter( SymmWaveFold(m_Shaper(m_Oscillator(ModIn0, ModIn1)), WaveFolder, m_Fold()) ), m_AREnvelope()) );
+        float ModInMix = m_LFO[0]();
+        float ModInSkew = m_LFO[1]();
+        float ModInLPF = m_LFO[2]();
+        float ModInFold = m_LFO[3]();
+        *pDst = m_MasterVolume()*m_Distortion( EnvelopeAmp(m_LPFilter( SymmWaveFold(m_Shaper(m_Oscillator(ModInMix, ModInSkew)), WaveFolder, m_Modulator[3](m_Fold(), ModInFold)) , m_Modulator[2](m_LPFilterCutoff(), ModInLPF) ), m_AREnvelope()) );
         ++pDst;
     }
 

@@ -405,8 +405,6 @@ void AddLFOBank(QGroupBox *GroupBox, QWidget *Parent, ILFOBank &LFOBank)
     GroupBox->layout()->addWidget(Box);
 }
 
-
-
 void AddLFOBank(QGroupBox *GroupBox, QWidget *Parent, int LFOBankSize, const std::string& Name, CCommandStackController &Controller)
 {
     QGroupBox* Box = new QGroupBox("LFOBank", Parent);
@@ -426,6 +424,48 @@ void AddLFOBank(QGroupBox *GroupBox, QWidget *Parent, int LFOBankSize, const std
     Box->setLayout(Layout);
     GroupBox->layout()->addWidget(Box);
 }
+
+void AddLFOBank(QGroupBox *GroupBox, QWidget *Parent, const std::vector<std::string> &LFONames, const std::string& Name, CCommandStackController &Controller)
+{
+    QGroupBox* Box = new QGroupBox("LFOBank", Parent);
+    QGridLayout* Layout = new QGridLayout();
+
+    AddLabel(Layout, Parent, 1, 0, "Freq");
+    AddLabel(Layout, Parent, 2, 0, "Shape");
+
+    for(int idxLFO = 0; idxLFO<LFONames.size(); ++idxLFO)
+    {
+        // add label with LFO name/description
+        AddLabel(Layout, Parent, 0, idxLFO+1, LFONames[idxLFO]);
+        // add "Frequency" double spin box
+        AddDoubleSpinBox(Layout, Parent, 1, idxLFO+1, {"", 1.0, 0.01, 44100.0, 0.1, 2}, Name+"/"+std::to_string(idxLFO)+"/Frequency", Controller);
+        // add waveform selection
+        AddComboBox(Layout, Parent, 2, idxLFO+1, {"", CSelectableOperatorFactory::SelectionList(), 3 }, Name+"/"+std::to_string(idxLFO)+"/Waveform", Controller);
+    }
+
+    Box->setLayout(Layout);
+    GroupBox->layout()->addWidget(Box);
+}
+
+void AddModulation(QGroupBox *GroupBox, QWidget *Parent, const std::vector<std::string>& ModulatorNames, const std::string& Name, CCommandStackController& Controller)
+{
+    QGroupBox* Box = new QGroupBox("LFOBank", Parent);
+    QGridLayout* Layout = new QGridLayout();
+
+    AddLabel(Layout, Parent, 1, 0, "ModAmt");
+
+    for(int idxLFO = 0; idxLFO<ModulatorNames.size(); ++idxLFO)
+    {
+        // add label with LFO name/description
+        AddLabel(Layout, Parent, 0, idxLFO+1, ModulatorNames[idxLFO]);
+        // add "ModAmt" double spin box
+        AddDoubleSpinBox(Layout, Parent, 1, idxLFO+1, {"", 0.0, -1.0, 1.0, 0.01, 3}, Name+"/"+std::to_string(idxLFO)+"/ModAmt", Controller);
+    }
+
+    Box->setLayout(Layout);
+    GroupBox->layout()->addWidget(Box);
+}
+
 
 void AddAREnvelope(QGroupBox *GroupBox, QWidget *Parent, const string &Name, CCommandStackController &Controller)
 {

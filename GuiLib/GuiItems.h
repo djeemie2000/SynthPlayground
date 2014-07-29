@@ -2,6 +2,7 @@
 #define GUIITEMS_H
 
 #include <string>
+#include <vector>
 
 class QGroupBox;
 class QWidget;
@@ -54,6 +55,9 @@ void AddDistortion(QGroupBox *GroupBox, QWidget *Parent, const std::string& Name
 
 void AddLFOBank(QGroupBox *GroupBox, QWidget *Parent, ILFOBank& LFOBank);
 void AddLFOBank(QGroupBox *GroupBox, QWidget *Parent, int LFOBankSize, const std::string& Name, CCommandStackController& Controller);
+void AddLFOBank(QGroupBox *GroupBox, QWidget *Parent, const std::vector<std::string>& LFONames, const std::string& Name, CCommandStackController& Controller);
+
+void AddModulation(QGroupBox *GroupBox, QWidget *Parent, const std::vector<std::string>& ModulatorNames, const std::string& Name, CCommandStackController& Controller);
 
 void AddAREnvelope(QGroupBox *GroupBox, QWidget *Parent, const std::string& Name, CCommandStackController& Controller);
 

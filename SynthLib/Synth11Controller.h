@@ -11,7 +11,6 @@
 #include "NoteHandlerI.h"
 #include "LPFilterI.h"
 #include "MidiInputHandlerI.h"
-#include "LFOBankI.h"
 #include "LFO.h"
 #include "FeedbackDelay.h"
 #include "FeedbackDelayI.h"
@@ -23,13 +22,13 @@
 #include "SkewedInterpolatingOperator.h"
 #include "IntegerPowerShaper.h"
 #include "PowerLawDistortion.h"
+#include "Modulator.h"
 
 class CSynth11Controller
                     : public IAudioSource2
                     , public INoteHandler
                     , public ILPFilter
                     , public IMidiInputHandler
-                    , public ILFOBank
 {
 public:
     CSynth11Controller(int SamplingFrequency);
@@ -71,9 +70,12 @@ public:
     void OnUnknown(std::uint32_t ) override;
 
     // LFOs
-    void SetLFOFrequency(int Idx, float Frequency) override;
-    void SelectLFOWaveform(int Idx, int Selected) override;
-    int LFOBankSize() const override;
+    void SetLFOFrequency(int Idx, float Frequency);
+    void SelectLFOWaveform(int Idx, int Selected);
+    int LFOBankSize() const;
+
+    // Modulation
+    void OnModAmount(int Modulator, float ModAmt);
 
     // distortion
     void OnDistortionDrive(float Drive);
@@ -89,11 +91,13 @@ private:
     CSkewedInterpolatingOperator<float> m_Oscillator;
     CIntegerPowerShaper<float> m_Shaper;
     CConstGenerator<float> m_Fold;
+    CConstGenerator<float> m_LPFilterCutoff;
     CMultiStageFilter<float, COnePoleLowPassFilter<float>, 24> m_LPFilter;
 
     CConstNumSamplesGenerator<float> m_NumSamplesGenerator;
     CAREnvelope<float>      m_AREnvelope;
     std::vector<CLFO<float>> m_LFO;
+    std::vector<CModulatorSigned<float>> m_Modulator;
 
     CPowerLawDistortion<float> m_Distortion;
     CConstGenerator<float> m_MasterVolume;
