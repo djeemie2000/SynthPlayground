@@ -13,7 +13,8 @@ SOURCES += main.cpp \
     TestAREnvelope.cpp \
     TestConstNumSamplesGenerator.cpp \
     TestPeriodicSampleGrabber.cpp \
-    TestFMOperatorStage.cpp
+    TestFMOperatorStage.cpp \
+    TestADSREnvelope.cpp
 
 unix {
     target.path = /usr/lib

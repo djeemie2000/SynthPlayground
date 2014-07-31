@@ -10,6 +10,7 @@ TEST(DelayZero)
     // zero should be default delay
     int Capacity = 20;
     CDelayLine<int> DelayLine(Capacity, 0);
+    DelayLine.SetDelay(0);
 
     for(int In = 0; In<100; ++In)
     {
@@ -28,7 +29,7 @@ TEST(DelayOne)
     for(int In = 0; In<100; ++In)
     {
         int Out = DelayLine(In);
-        int PreviousIn = std::max(0, In-1);
+        int PreviousIn = std::max(0, In);
         CHECK_EQUAL(PreviousIn, Out);
     }
 }
@@ -44,7 +45,7 @@ TEST(MaxDelay)
     for(int In = 0; In<100; ++In)
     {
         int Out = DelayLine(In);
-        int Expected = std::max(0, In-MaxDelay);
+        int Expected = std::max(0, In-MaxDelay+1);
         CHECK_EQUAL(Expected, Out);
     }
 }
@@ -59,7 +60,7 @@ TEST(DelayTwo)
     for(int In = 0; In<100; ++In)
     {
         int Out = DelayLine(In);
-        int PreviousIn = std::max(0, In-2);
+        int PreviousIn = std::max(0, In-1);
         CHECK_EQUAL(PreviousIn, Out);
     }
 }

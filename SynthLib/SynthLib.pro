@@ -117,7 +117,9 @@ HEADERS += StepSequencer.h \
     PowerLawDistortion.h \
     ASREnvelope.h \
     ADEnvelope.h \
-    Synth11Controller.h
+    Synth11Controller.h \
+    Inverter.h \
+    ADSREnvelope.h
 
 
 INCLUDEPATH += ./../MidiLib
