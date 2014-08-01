@@ -18,7 +18,8 @@ SOURCES += StepSequencer.cpp \
     keyboardcontroller.cpp \
     effectsappcontroller.cpp \
     StepSequencerController.cpp \
-    Synth11Controller.cpp
+    Synth11Controller.cpp \
+    RingSequencerMidiControllerStep.cpp
 
 HEADERS += StepSequencer.h \
     Notes.h \
@@ -119,7 +120,8 @@ HEADERS += StepSequencer.h \
     ADEnvelope.h \
     Synth11Controller.h \
     Inverter.h \
-    ADSREnvelope.h
+    ADSREnvelope.h \
+    RingSequencerMidiControllerStep.h
 
 
 INCLUDEPATH += ./../MidiLib
