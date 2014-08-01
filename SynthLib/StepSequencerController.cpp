@@ -9,6 +9,7 @@ CStepSequencerController::CStepSequencerController(int SamplingFrequency, std::s
     , m_CurrentStep()
     , m_IsActive(false)
     , m_Counter(0)
+    , m_StepSize(1)
 {
     m_StepSequencer.SetBeatsPerMinute(120);
     m_StepSequencer.SetBarsPerBeat(2);
@@ -66,6 +67,14 @@ void CStepSequencerController::SetDuration(int DurationPercentage)
     m_StepSequencer.SetDuration(DurationPercentage);
 }
 
+void CStepSequencerController::SetStepSize(int StepSize)
+{
+    if(1<=StepSize && StepSize<16)
+    {
+        m_StepSize = StepSize;
+    }
+}
+
 int CStepSequencerController::OnRead(void *Dst, int NumFrames, std::uint32_t TimeStamp)
 {
     int Frame = 0;
@@ -73,7 +82,7 @@ int CStepSequencerController::OnRead(void *Dst, int NumFrames, std::uint32_t Tim
     {
         const int MidiNoteVelocity = 127;
 
-        if(m_Counter==0)//m_StepSequencerTicker())
+        if(m_Counter==0)
         {
             // note off previous step, advance to next step, apply!
             if(m_CurrentStep.s_IsActive)
@@ -82,7 +91,10 @@ int CStepSequencerController::OnRead(void *Dst, int NumFrames, std::uint32_t Tim
                 m_MidiInputHandler->OnNoteOff(MidiNote, MidiNoteVelocity, Frame);
             }
 
-            m_StepSequencer.Advance();
+            for(int idx = 0; idx<m_StepSize; ++idx)
+            {
+                m_StepSequencer.Advance();
+            }
             m_CurrentStep = m_StepSequencer.CurrentStep();
             m_CurrentStep.s_IsActive &= m_IsActive;//if not active, do not play the current step
 

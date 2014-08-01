@@ -131,35 +131,39 @@ void AddStepSequencer(QGroupBox *GroupBox, QWidget *Parent, int MaxNumSteps, con
     QGroupBox* Box = new QGroupBox("StepSequencer", Parent);
     QGridLayout* Layout = new QGridLayout();
 
-    // 1,0 Btn on/off
-    AddCheckableSmallButton(Layout, Parent, 0, 0, "Go", Name+"/Go", Controller);
     AddLabel(Layout, Parent, 0, 1, "Steps");
-    // spinbox for num steps
-    AddSpinBox(Layout, Parent, 0, 2, {"", MaxNumSteps, 1, MaxNumSteps, 1}, Name+"/NumSteps", Controller );
+    AddLabel(Layout, Parent, 0, 2, "Step");
 
-    AddLabel(Layout, Parent, 1, 0, "Duration");
-    AddLabel(Layout, Parent, 1, 1, "Bpm");
-    AddLabel(Layout, Parent, 1, 2, "Beats");
+    // 1,0 Btn on/off
+    AddCheckableSmallButton(Layout, Parent, 1, 0, "Go", Name+"/Go", Controller);
+    // spinbox for num steps
+    AddSpinBox(Layout, Parent, 1, 1, {"", MaxNumSteps, 1, MaxNumSteps, 1}, Name+"/NumSteps", Controller );
+    // spinbox for step size
+    AddSpinBox(Layout, Parent, 1, 2, {"", 1, 1, MaxNumSteps, 1}, Name+"/StepSize", Controller );
+
+    AddLabel(Layout, Parent, 2, 0, "Duration");
+    AddLabel(Layout, Parent, 2, 1, "Bpm");
+    AddLabel(Layout, Parent, 2, 2, "Beats");
 
     // 1,0 doublespinbox bpm
-    AddSpinBox(Layout, Parent, 2, 0, {"", 100, 1, 100, 1}, Name+"/Duration", Controller);
+    AddSpinBox(Layout, Parent, 3, 0, {"", 100, 1, 100, 1}, Name+"/Duration", Controller);
     // 1,1 doublespinbox bpm
-    AddDoubleSpinBox(Layout, Parent, 2, 1, {"", 120.0, 1.0, 240.0, 0.1, 1}, Name+"/BeatsPerMinute", Controller);
+    AddDoubleSpinBox(Layout, Parent, 3, 1, {"", 120.0, 1.0, 240.0, 0.1, 1}, Name+"/BeatsPerMinute", Controller);
     // 1,2 spinbox beats
-    AddSpinBox(Layout, Parent, 2, 2, {"", 2, 1, 16, 1}, Name+"/BarsPerBeat", Controller);
+    AddSpinBox(Layout, Parent, 3, 2, {"", 2, 1, 16, 1}, Name+"/BarsPerBeat", Controller);
 
-    AddLabel(Layout, Parent, 3, 0, "Octave");
-    AddLabel(Layout, Parent, 3, 1, "Note");
-    AddLabel(Layout, Parent, 3, 2, "Active");
+    AddLabel(Layout, Parent, 4, 0, "Octave");
+    AddLabel(Layout, Parent, 4, 1, "Note");
+    AddLabel(Layout, Parent, 4, 2, "Active");
 
     for(int Step = 0; Step<MaxNumSteps; ++Step)
     {
         // Step,0 spinbox octave
-        AddSpinBox(Layout, Parent, 4+Step, 0, {"", 2, 0, 8, 1}, Name+"/Octave/"+std::to_string(Step), Controller);
+        AddSpinBox(Layout, Parent, 5+Step, 0, {"", 2, 0, 8, 1}, Name+"/Octave/"+std::to_string(Step), Controller);
         // Step,1 combibox note
-        AddComboBox(Layout, Parent, 4+Step, 1, {"", { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" }/*CNoteList::Create()*/, static_cast<int>(ENote::A)}, Name+"/Note/"+std::to_string(Step), Controller);
+        AddComboBox(Layout, Parent, 5+Step, 1, {"", { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" }/*CNoteList::Create()*/, static_cast<int>(ENote::A)}, Name+"/Note/"+std::to_string(Step), Controller);
         // Step,2 tool button active on/off
-        AddCheckableSmallButton(Layout, Parent, 4+Step, 2, "On", Name+"/Active/"+std::to_string(Step), Controller);
+        AddCheckableSmallButton(Layout, Parent, 5+Step, 2, "On", Name+"/Active/"+std::to_string(Step), Controller);
     }
 
     Box->setLayout(Layout);
