@@ -23,6 +23,7 @@
 #include "IntegerPowerShaper.h"
 #include "PowerLawDistortion.h"
 #include "Modulator.h"
+#include "ADSREnvelope.h"
 
 class CSynth11Controller
                     : public IAudioSource2
@@ -69,6 +70,12 @@ public:
     void OnPitchbend(int , std::uint32_t) override;
     void OnUnknown(std::uint32_t ) override;
 
+    // Envelope
+    void OnEnvelopeAttack(int Idx, float AttackMilliSeconds);
+    void OnEnvelopeDecay(int Idx, float DecayMilliSeconds);
+    void OnEnvelopeSustain(int Idx, float Sustain);
+    void OnEnvelopeRelease(int Idx, float ReleaseMilliSeconds);
+
     // LFOs
     void SetLFOFrequency(int Idx, float Frequency);
     void SelectLFOWaveform(int Idx, int Selected);
@@ -96,6 +103,7 @@ private:
 
     CConstNumSamplesGenerator<float> m_NumSamplesGenerator;
     CAREnvelope<float>      m_AREnvelope;
+    std::vector<CADSREnvelope<float>> m_Envelope;
     std::vector<CLFO<float>> m_LFO;
     std::vector<CModulatorSigned<float>> m_Modulator;
 

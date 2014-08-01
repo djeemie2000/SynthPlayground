@@ -10,9 +10,10 @@ public:
         , m_Value(0)
     {}
 
-    void SetMilliSeconds(T MilliSeconds)
+    T SetMilliSeconds(T MilliSeconds)
     {
         m_Value = MilliSeconds*m_SamplingFrequency/1000;
+        return m_Value;
     }
 
     T operator()()

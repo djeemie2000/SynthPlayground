@@ -48,6 +48,24 @@ namespace
         FunctionMap["LFOBank/3/Frequency"] = [&Controller](const SCmdStackItem& Item){  Controller.SetLFOFrequency(3, Item.s_FloatValue); };
         FunctionMap["LFOBank/3/Waveform"] = [&Controller](const SCmdStackItem& Item){  Controller.SelectLFOWaveform(3, Item.s_IntValue); };
 
+        // Envelope
+        FunctionMap["EnvelopeBank/0/AttackMilliSeconds"] = [&Controller](const SCmdStackItem& Item){  Controller.OnEnvelopeAttack(0, Item.s_FloatValue); };
+        FunctionMap["EnvelopeBank/0/DecayMilliSeconds"] = [&Controller](const SCmdStackItem& Item){  Controller.OnEnvelopeDecay(0, Item.s_FloatValue); };
+        FunctionMap["EnvelopeBank/0/Sustain"] = [&Controller](const SCmdStackItem& Item){  Controller.OnEnvelopeSustain(0, Item.s_FloatValue); };
+        FunctionMap["EnvelopeBank/0/ReleaseMilliSeconds"] = [&Controller](const SCmdStackItem& Item){  Controller.OnEnvelopeRelease(0, Item.s_FloatValue); };
+        FunctionMap["EnvelopeBank/1/AttackMilliSeconds"] = [&Controller](const SCmdStackItem& Item){  Controller.OnEnvelopeAttack(1, Item.s_FloatValue); };
+        FunctionMap["EnvelopeBank/1/DecayMilliSeconds"] = [&Controller](const SCmdStackItem& Item){  Controller.OnEnvelopeDecay(1, Item.s_FloatValue); };
+        FunctionMap["EnvelopeBank/1/Sustain"] = [&Controller](const SCmdStackItem& Item){  Controller.OnEnvelopeSustain(1, Item.s_FloatValue); };
+        FunctionMap["EnvelopeBank/1/ReleaseMilliSeconds"] = [&Controller](const SCmdStackItem& Item){  Controller.OnEnvelopeRelease(1, Item.s_FloatValue); };
+        FunctionMap["EnvelopeBank/2/AttackMilliSeconds"] = [&Controller](const SCmdStackItem& Item){  Controller.OnEnvelopeAttack(2, Item.s_FloatValue); };
+        FunctionMap["EnvelopeBank/2/DecayMilliSeconds"] = [&Controller](const SCmdStackItem& Item){  Controller.OnEnvelopeDecay(2, Item.s_FloatValue); };
+        FunctionMap["EnvelopeBank/2/Sustain"] = [&Controller](const SCmdStackItem& Item){  Controller.OnEnvelopeSustain(2, Item.s_FloatValue); };
+        FunctionMap["EnvelopeBank/2/ReleaseMilliSeconds"] = [&Controller](const SCmdStackItem& Item){  Controller.OnEnvelopeRelease(2, Item.s_FloatValue); };
+        FunctionMap["EnvelopeBank/3/AttackMilliSeconds"] = [&Controller](const SCmdStackItem& Item){  Controller.OnEnvelopeAttack(3, Item.s_FloatValue); };
+        FunctionMap["EnvelopeBank/3/DecayMilliSeconds"] = [&Controller](const SCmdStackItem& Item){  Controller.OnEnvelopeDecay(3, Item.s_FloatValue); };
+        FunctionMap["EnvelopeBank/3/Sustain"] = [&Controller](const SCmdStackItem& Item){  Controller.OnEnvelopeSustain(3, Item.s_FloatValue); };
+        FunctionMap["EnvelopeBank/3/ReleaseMilliSeconds"] = [&Controller](const SCmdStackItem& Item){  Controller.OnEnvelopeRelease(3, Item.s_FloatValue); };
+
         // Modulation
         FunctionMap["Modulation/0/ModAmt"] = [&Controller](const SCmdStackItem& Item){  Controller.OnModAmount(0, Item.s_FloatValue); };
         FunctionMap["Modulation/1/ModAmt"] = [&Controller](const SCmdStackItem& Item){  Controller.OnModAmount(1, Item.s_FloatValue); };
@@ -140,6 +158,24 @@ namespace
         Stack.push_back({"LFOBank/3/Frequency", false, 0, 1.0f});
         Stack.push_back({"LFOBank/3/WaveForm", false, 3, 0.0f});
 
+        // Envelope bank
+        Stack.push_back({"EnvelopeBank/0/AttackMilliSeconds", false, 0, 10.0f});
+        Stack.push_back({"EnvelopeBank/0/DecayMilliSeconds", false, 0, 10.0f});
+        Stack.push_back({"EnvelopeBank/0/Sustain", false, 0, 1.0f});
+        Stack.push_back({"EnvelopeBank/0/ReleaseMilliSeconds", false, 0, 10.0f});
+        Stack.push_back({"EnvelopeBank/1/AttackMilliSeconds", false, 0, 10.0f});
+        Stack.push_back({"EnvelopeBank/1/DecayMilliSeconds", false, 0, 10.0f});
+        Stack.push_back({"EnvelopeBank/1/Sustain", false, 0, 1.0f});
+        Stack.push_back({"EnvelopeBank/1/ReleaseMilliSeconds", false, 0, 10.0f});
+        Stack.push_back({"EnvelopeBank/2/AttackMilliSeconds", false, 0, 10.0f});
+        Stack.push_back({"EnvelopeBank/2/DecayMilliSeconds", false, 0, 10.0f});
+        Stack.push_back({"EnvelopeBank/2/Sustain", false, 0, 1.0f});
+        Stack.push_back({"EnvelopeBank/2/ReleaseMilliSeconds", false, 0, 10.0f});
+        Stack.push_back({"EnvelopeBank/3/AttackMilliSeconds", false, 0, 10.0f});
+        Stack.push_back({"EnvelopeBank/3/DecayMilliSeconds", false, 0, 10.0f});
+        Stack.push_back({"EnvelopeBank/3/Sustain", false, 0, 1.0f});
+        Stack.push_back({"EnvelopeBank/3/ReleaseMilliSeconds", false, 0, 10.0f});
+
         // Modulation
         Stack.push_back({"Modulation/0/ModAmt", false, 0, 0.0f});
         Stack.push_back({"Modulation/1/ModAmt", false, 0, 0.0f});
@@ -183,6 +219,7 @@ MainWindow::MainWindow(QWidget *parent)
     guiutils::AddSimpleInterpolatingOperator(ui->groupBox_Operator, this, "Oscillator", *m_CommandStackController);
 
     guiutils::AddLFOBank(ui->groupBox_Shaping, this, {"Mix", "Skew", "LPF", "Fold"}, "LFOBank", *m_CommandStackController);
+    guiutils::AddEnvelopeBank(ui->groupBox_Shaping, this, {"Mix", "Skew", "LPF", "Fold"}, "EnvelopeBank", *m_CommandStackController);
     guiutils::AddModulation(ui->groupBox_Shaping, this, {"Mix", "Skew", "LPF", "Fold"}, "Modulation", *m_CommandStackController);
     guiutils::AddAREnvelope(ui->groupBox_Shaping, this, "Envelope/AR/0", *m_CommandStackController);
 

@@ -433,7 +433,7 @@ void AddLFOBank(QGroupBox *GroupBox, QWidget *Parent, const std::vector<std::str
     AddLabel(Layout, Parent, 1, 0, "Freq");
     AddLabel(Layout, Parent, 2, 0, "Shape");
 
-    for(int idxLFO = 0; idxLFO<LFONames.size(); ++idxLFO)
+    for(std::size_t idxLFO = 0; idxLFO<LFONames.size(); ++idxLFO)
     {
         // add label with LFO name/description
         AddLabel(Layout, Parent, 0, idxLFO+1, LFONames[idxLFO]);
@@ -447,14 +447,43 @@ void AddLFOBank(QGroupBox *GroupBox, QWidget *Parent, const std::vector<std::str
     GroupBox->layout()->addWidget(Box);
 }
 
+void AddEnvelopeBank(QGroupBox *GroupBox, QWidget *Parent, const std::vector<std::string>& EnvelopeNames, const std::string& Name, CCommandStackController& Controller)
+{
+    QGroupBox* Box = new QGroupBox("EnvelopeBank", Parent);
+    QGridLayout* Layout = new QGridLayout();
+
+    AddLabel(Layout, Parent, 1, 0, "Attack");
+    AddLabel(Layout, Parent, 2, 0, "Decay");
+    AddLabel(Layout, Parent, 3, 0, "Sustain");
+    AddLabel(Layout, Parent, 4, 0, "Release");
+
+    for(std::size_t idxLFO = 0; idxLFO<EnvelopeNames.size(); ++idxLFO)
+    {
+        // add label with LFO name/description
+        AddLabel(Layout, Parent, 0, idxLFO+1, EnvelopeNames[idxLFO]);
+        // add "Attack" double spin box
+        AddDoubleSpinBox(Layout, Parent, 1, idxLFO+1, {"", 10.0, 0.0, 10000.0, 1.0, 1}, Name+"/"+std::to_string(idxLFO)+"/AttackMilliSeconds", Controller);
+        // add "Decay" double spin box
+        AddDoubleSpinBox(Layout, Parent, 2, idxLFO+1, {"", 00.0, 0.0, 10000.0, 1.0, 1}, Name+"/"+std::to_string(idxLFO)+"/DecayMilliSeconds", Controller);
+        // add "Sustain" double spin box
+        AddDoubleSpinBox(Layout, Parent, 3, idxLFO+1, {"", 1.0, 0.0, 1.0, 0.01, 3}, Name+"/"+std::to_string(idxLFO)+"/Sustain", Controller);
+        // add "Release" double spin box
+        AddDoubleSpinBox(Layout, Parent, 4, idxLFO+1, {"", 10.0, 0.0, 10000.0, 1.0, 1}, Name+"/"+std::to_string(idxLFO)+"/ReleaseMilliSeconds", Controller);
+    }
+
+    Box->setLayout(Layout);
+    GroupBox->layout()->addWidget(Box);
+}
+
+
 void AddModulation(QGroupBox *GroupBox, QWidget *Parent, const std::vector<std::string>& ModulatorNames, const std::string& Name, CCommandStackController& Controller)
 {
-    QGroupBox* Box = new QGroupBox("LFOBank", Parent);
+    QGroupBox* Box = new QGroupBox("Modulation", Parent);
     QGridLayout* Layout = new QGridLayout();
 
     AddLabel(Layout, Parent, 1, 0, "ModAmt");
 
-    for(int idxLFO = 0; idxLFO<ModulatorNames.size(); ++idxLFO)
+    for(std::size_t idxLFO = 0; idxLFO<ModulatorNames.size(); ++idxLFO)
     {
         // add label with LFO name/description
         AddLabel(Layout, Parent, 0, idxLFO+1, ModulatorNames[idxLFO]);

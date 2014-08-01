@@ -18,6 +18,7 @@ CSynth11Controller::CSynth11Controller(int SamplingFrequency)
     , m_LPFilter()
     , m_NumSamplesGenerator(SamplingFrequency)
     , m_AREnvelope()
+    , m_Envelope(4, CADSREnvelope<float>())
     , m_LFO(4, {SamplingFrequency, CSelectableOperatorFactory::Create()})
     , m_Modulator(4, CModulatorSigned<float>())
     , m_Distortion()
@@ -49,11 +50,19 @@ void CSynth11Controller::OnNoteOn(ENote Note, EOctave Octave)
 {
     m_Oscillator.SetFrequency(CPitch()(Note, Octave));
     m_AREnvelope.NoteOn();
+    for(auto& Envelope : m_Envelope)
+    {
+        Envelope.NoteOn();
+    }
 }
 
 void CSynth11Controller::OnNoteOff(ENote /*Note*/, EOctave /*Octave*/)
 {
     m_AREnvelope.NoteOff();
+    for(auto& Envelope : m_Envelope)
+    {
+        Envelope.NoteOff();
+    }
 }
 
 void CSynth11Controller::SelectOperator1(int Selected)
@@ -146,6 +155,26 @@ void CSynth11Controller::OnUnknown(std::uint32_t)
 {
 }
 
+void CSynth11Controller::OnEnvelopeAttack(int Idx, float AttackMilliSeconds)
+{
+    m_Envelope.at(Idx).SetAttackSamples(m_NumSamplesGenerator.SetMilliSeconds(AttackMilliSeconds));
+}
+
+void CSynth11Controller::OnEnvelopeDecay(int Idx, float DecayMilliSeconds)
+{
+    m_Envelope.at(Idx).SetDecaySamples(m_NumSamplesGenerator.SetMilliSeconds(DecayMilliSeconds));
+}
+
+void CSynth11Controller::OnEnvelopeSustain(int Idx, float Sustain)
+{
+    m_Envelope.at(Idx).SetSustain(Sustain);
+}
+
+void CSynth11Controller::OnEnvelopeRelease(int Idx, float ReleaseMilliSeconds)
+{
+    m_Envelope.at(Idx).SetReleaseSamples(m_NumSamplesGenerator.SetMilliSeconds(ReleaseMilliSeconds));
+}
+
 void CSynth11Controller::SetLFOFrequency(int Idx, float Frequency)
 {
     m_LFO.at(Idx).SetFrequency(Frequency);
@@ -207,10 +236,10 @@ int CSynth11Controller::OnRead(void *Dst, int NumFrames, std::uint32_t TimeStamp
 
     while(pDst<pDstEnd)
     {
-        float ModInMix = m_LFO[0]();
-        float ModInSkew = m_LFO[1]();
-        float ModInLPF = m_LFO[2]();
-        float ModInFold = m_LFO[3]();
+        float ModInMix = m_Envelope[0]();//m_LFO[0]();
+        float ModInSkew = m_Envelope[1]();//m_LFO[1]();
+        float ModInLPF = m_Envelope[2]();//m_LFO[2]();
+        float ModInFold = m_Envelope[3]();//m_LFO[3]();
         *pDst = m_MasterVolume()*m_Distortion( EnvelopeAmp(m_LPFilter( SymmWaveFold(m_Shaper(m_Oscillator(ModInMix, ModInSkew)), WaveFolder, m_Modulator[3](m_Fold(), ModInFold)) , m_Modulator[2](m_LPFilterCutoff(), ModInLPF) ), m_AREnvelope()) );
         ++pDst;
     }
