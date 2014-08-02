@@ -25,8 +25,8 @@ private:
     bool m_Active;
     int m_Min;
     int m_Max;
-    int m_Step;
     int m_Start;
+    int m_Step;
     int m_Value;
 };
 

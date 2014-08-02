@@ -91,10 +91,7 @@ int CStepSequencerController::OnRead(void *Dst, int NumFrames, std::uint32_t Tim
                 m_MidiInputHandler->OnNoteOff(MidiNote, MidiNoteVelocity, Frame);
             }
 
-            for(int idx = 0; idx<m_StepSize; ++idx)
-            {
-                m_StepSequencer.Advance();
-            }
+            m_StepSequencer.Advance(m_StepSize);
             m_CurrentStep = m_StepSequencer.CurrentStep();
             m_CurrentStep.s_IsActive &= m_IsActive;//if not active, do not play the current step
 

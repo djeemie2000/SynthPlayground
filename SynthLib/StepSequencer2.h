@@ -34,7 +34,7 @@ public:
     void SetNumSteps(int NumSteps);
     void SetDuration(int DurationPercentage);
 
-    void Advance();
+    void Advance(int NumSteps = 1);
 
     int GetMaxNumSteps() const;
     int PeriodSamples() const;
@@ -154,10 +154,10 @@ const typename CStepSequencer2<T,N>::SStep &CStepSequencer2<T,N>::CurrentStep() 
 }
 
 template<class T, int N>
-void CStepSequencer2<T,N>::Advance()
+void CStepSequencer2<T,N>::Advance(int NumSteps)
 {
     //use actual number of steps instead of the maximum number of steps!
-    m_Step = (m_Step+1)%m_NumSteps;
+    m_Step = (m_Step+NumSteps)%m_NumSteps;
 }
 
 #endif // STEPSEQUENCER2_H
