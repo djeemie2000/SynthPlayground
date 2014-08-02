@@ -1,4 +1,4 @@
-#include "effectsappcontroller.h"
+#include "EffectsAppController.h"
 
 CEffectsAppController::CEffectsAppController(int SamplingFrequency)
  : m_PreGain()

@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 #include "QKeyboardWidget.h"
 #include "QAudioDeviceWidget.h"
-#include "effectsappcontroller.h"
+#include "EffectsAppController.h"
 #include "JackIOManager.h"
 #include "GuiItems.h"
 #include "AlsaMidiInput.h"

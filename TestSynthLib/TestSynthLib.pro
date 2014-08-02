@@ -22,6 +22,7 @@ unix {
 }
 
 INCLUDEPATH += ./../SynthLib
+INCLUDEPATH += ./../SynthLib/Controllers
 INCLUDEPATH += ./../UnitTest
 
 LIBS += -lSynthLib -lUnitTest

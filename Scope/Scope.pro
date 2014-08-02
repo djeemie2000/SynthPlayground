@@ -16,6 +16,7 @@ HEADERS  += mainwindow.h
 FORMS    += mainwindow.ui
 
 INCLUDEPATH += ./../SynthLib
+INCLUDEPATH += ./../SynthLib/Controllers
 INCLUDEPATH += ./../CommandStackLib
 INCLUDEPATH += ./../GuiLib
 INCLUDEPATH += ./../JackLib

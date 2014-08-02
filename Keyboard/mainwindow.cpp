@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "QKeyboardWidget.h"
-#include "keyboardcontroller.h"
+#include "KeyboardController.h"
 #include "JackIOManager.h"
 #include "JackMidiSource.h"
 

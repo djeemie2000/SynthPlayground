@@ -1,4 +1,4 @@
-#include "keyboardcontroller.h"
+#include "KeyboardController.h"
 #include "MidiInputHandlerI.h"
 #include "MidiNoteConverter.h"
 

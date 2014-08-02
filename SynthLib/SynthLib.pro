@@ -5,20 +5,20 @@ CONFIG += c++11 (Qt5)
 
 SOURCES += StepSequencer.cpp \
     Notes.cpp \
-    Synth7Controller.cpp \
-    Synth8Controller.cpp \
-    Synth9Controller.cpp \
+    Controllers/Synth7Controller.cpp \
+    Controllers/Synth8Controller.cpp \
+    Controllers/Synth9Controller.cpp \
     Pitch.cpp \
     SelectableCombinorFactory.cpp \
     SelectableOperatorFactory.cpp \
     StepSequencer2.cpp \
-    ScopeController.cpp \
+    Controllers/ScopeController.cpp \
     periodicsamplegrabberproxy.cpp \
-    Synth10Controller.cpp \
-    keyboardcontroller.cpp \
-    effectsappcontroller.cpp \
-    StepSequencerController.cpp \
-    Synth11Controller.cpp \
+    Controllers/Synth10Controller.cpp \
+    Controllers/KeyboardController.cpp \
+    Controllers/EffectsAppController.cpp \
+    Controllers/StepSequencerController.cpp \
+    Controllers/Synth11Controller.cpp \
     RingSequencerMidiControllerStep.cpp \
     Controllers/RingSequencerController.cpp
 
@@ -32,9 +32,9 @@ HEADERS += StepSequencer.h \
     ClockUtilities.h \
     Combinor.h \
     ConstGenerator.h \
-    Synth7Controller.h \
-    Synth8Controller.h \
-    Synth9Controller.h \
+    Controllers/Synth7Controller.h \
+    Controllers/Synth8Controller.h \
+    Controllers/Synth9Controller.h \
     Conversions.h \
     CrossFader.h \
     DetunedSelectableOscillator.h \
@@ -97,29 +97,29 @@ HEADERS += StepSequencer.h \
     AREnvelopeI.h \
     MasterVolumeI.h \
     PeriodicSampleGrabber.h \
-    ScopeController.h \
+    Controllers/ScopeController.h \
     AudioSource2I.h \
     AudioRendererI.h \
     PeriodicSampleGrabberI.h \
     periodicsamplegrabberproxy.h \
     FMOperatorStage.h \
     FMOperatorStageI.h \
-    Synth10Controller.h \
+    Controllers/Synth10Controller.h \
     SkewedInterpolatingOperator.h \
     InterpolatingOperatorI.h \
     PhaseSkewer.h \
-    keyboardcontroller.h \
+    Controllers/KeyboardController.h \
     DCOperator.h \
     RampUpDown.h \
     SquareQuadratic.h \
     IntegerPowerShaper.h \
     AudioFilterI.h \
-    effectsappcontroller.h \
-    StepSequencerController.h \
+    Controllers/EffectsAppController.h \
+    Controllers/StepSequencerController.h \
     PowerLawDistortion.h \
     ASREnvelope.h \
     ADEnvelope.h \
-    Synth11Controller.h \
+    Controllers/Synth11Controller.h \
     Inverter.h \
     ADSREnvelope.h \
     RingSequencerMidiControllerStep.h \
