@@ -8,7 +8,7 @@ SUBDIRS += \
     ../TinyXml2 \           # a 'lib' project
     ../SynthLib \           # a 'lib' project
     ../TestSynthLib \       # an 'app' project
-    ../MidiLib \        # a 'lib' project
+    ../MidiLib \            # a 'lib' project
     ../JackLib \            # a 'lib' project
     ../CommandStackLib \    # a 'lib' project
     ../TestCommandStackLib \ # an 'app' project
@@ -22,4 +22,6 @@ SUBDIRS += \
     ../Synth11 \            # an  'app' project
     ../EffectsApp \         # an  'app' project
     ../StepSequencer \      # an  'app' project
-    ../JackConnectionTool
+    ../JackConnectionTool \ # an  'app' project
+    ../RingSequencer        # an  'app' project
+

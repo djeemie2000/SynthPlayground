@@ -11,6 +11,8 @@ CRingSequencerController::CRingSequencerController(int SamplingFrequency,
  , m_Active(false)
  , m_MidiControllerStep()
 {
+    m_PeriodSamples.SetBeatsPerMinute(120);
+    m_PeriodSamples.SetBarsPerBeat(4);
 }
 
 int CRingSequencerController::OnRead(void *Dst, int NumFrames, std::uint32_t TimeStamp)
@@ -24,7 +26,7 @@ int CRingSequencerController::OnRead(void *Dst, int NumFrames, std::uint32_t Tim
             {
                 for(auto& Step : m_MidiControllerStep)
                 {
-                    Step.Apply(*m_MidiInputHandler, TimeStamp);
+                    Step.Apply(*m_MidiInputHandler, Frame);
                 }
             }
 
@@ -33,6 +35,8 @@ int CRingSequencerController::OnRead(void *Dst, int NumFrames, std::uint32_t Tim
             {
                 m_Counter = 0;
             }
+
+            ++Frame;
         }
 
         return m_MidiSource->OnRead(Dst, NumFrames, TimeStamp);

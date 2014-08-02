@@ -170,6 +170,47 @@ void AddStepSequencer(QGroupBox *GroupBox, QWidget *Parent, int MaxNumSteps, con
     GroupBox->layout()->addWidget(Box);
 }
 
+void AddRingSequencer(QGroupBox *GroupBox, QWidget *Parent, int MaxNumSteps, const std::string& Name, CCommandStackController& Controller)
+{
+    QGroupBox* Box = new QGroupBox("RingSequencer", Parent);
+    QGridLayout* Layout = new QGridLayout();
+
+
+    AddLabel(Layout, Parent, 0, 1, "Duration");
+    AddLabel(Layout, Parent, 0, 2, "Bpm");
+    AddLabel(Layout, Parent, 0, 3, "Beats");
+
+    // 1,0 Btn on/off
+    AddCheckableSmallButton(Layout, Parent, 1, 0, "Go", Name+"/Go", Controller);
+    // 1,0 doublespinbox bpm
+    AddSpinBox(Layout, Parent, 1, 1, {"", 100, 1, 100, 1}, Name+"/Duration", Controller);
+    // 1,1 doublespinbox bpm
+    AddDoubleSpinBox(Layout, Parent, 1, 2, {"", 120.0, 1.0, 240.0, 0.1, 1}, Name+"/BeatsPerMinute", Controller);
+    // 1,2 spinbox beats
+    AddSpinBox(Layout, Parent, 1, 3, {"", 2, 1, 16, 1}, Name+"/BarsPerBeat", Controller);
+
+    AddLabel(Layout, Parent, 3, 0, "MidiController");
+    AddLabel(Layout, Parent, 3, 1, "Step");
+    AddLabel(Layout, Parent, 3, 2, "Active");
+    AddLabel(Layout, Parent, 3, 3, "Start");
+    AddLabel(Layout, Parent, 3, 4, "Min");
+    AddLabel(Layout, Parent, 3, 5, "Max");
+
+    for(int Step = 0; Step<MaxNumSteps; ++Step)
+    {
+        AddSpinBox(Layout, Parent, 4+Step, 0, {"", -1, -1, 128, 1}, Name+"/"+std::to_string(Step)+"/MidiController", Controller);
+        AddSpinBox(Layout, Parent, 4+Step, 1, {"", 1, 0, 128, 1}, Name+"/"+std::to_string(Step)+"/Step", Controller);
+        AddCheckableSmallButton(Layout, Parent, 4+Step, 2, "On", Name+"/"+std::to_string(Step)+"/Active", Controller);
+        AddSpinBox(Layout, Parent, 4+Step, 3, {"", 64, 0, 128, 1}, Name+"/"+std::to_string(Step)+"/Start", Controller);
+        AddSpinBox(Layout, Parent, 4+Step, 4, {"", 0, 0, 128, 1}, Name+"/"+std::to_string(Step)+"/Min", Controller);
+        AddSpinBox(Layout, Parent, 4+Step, 5, {"", 128, 0, 128, 1}, Name+"/"+std::to_string(Step)+"/Max", Controller);
+    }
+
+    Box->setLayout(Layout);
+    GroupBox->layout()->addWidget(Box);
+}
+
+
 
 void AddCombinedOperatorStage(QGroupBox *GroupBox, QWidget *Parent, ICombinedOperatorStage &Controller)
 {
