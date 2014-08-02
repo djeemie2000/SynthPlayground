@@ -4,7 +4,6 @@
 #include <memory>
 #include "MidiSourceI.h"
 #include "StepSequencer2.h"
-#include "PeriodicTicker.h"
 
 class IMidiInputHandler;
 

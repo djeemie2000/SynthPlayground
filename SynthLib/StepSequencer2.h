@@ -1,10 +1,9 @@
 #ifndef STEPSEQUENCER2_H
 #define STEPSEQUENCER2_H
 
-#include <vector>
+#include <array>
 #include "Notes.h"
 #include "Pitch.h"
-#include "PeriodicConstGenerator.h"
 
 template<class T, int N>
 class CStepSequencer2
