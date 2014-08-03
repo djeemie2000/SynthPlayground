@@ -25,6 +25,8 @@ public:
 
     T operator()(const T& In1, const T& In2) const
     {
+        // this in fact is amplitude modulation
+        // as opposed to ring modulation below
         return In1 * In2;
     }
 };
@@ -50,6 +52,32 @@ public:
     T operator()(const T& In1, const T& In2) const
     {
         return std::abs(In1) * In2;
+    }
+};
+
+template<class T>
+class CRingModFirst
+{
+public:
+    CRingModFirst(){}
+
+    T operator()(const T& In1, const T& In2) const
+    {
+        // In2 is converted from [-1, 1] to [0,1] and serves as amplitude modulator of In1
+        return In1 * (1 + In2) / 2;
+    }
+};
+
+template<class T>
+class CRingModSecond
+{
+public:
+    CRingModSecond(){}
+
+    T operator()(const T& In1, const T& In2) const
+    {
+        // In1 is converted from [-1, 1] to [0,1] and serves as amplitude modulator of In2
+        return In2 * (1 + In1) / 2;
     }
 };
 
