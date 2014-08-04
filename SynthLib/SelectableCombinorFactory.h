@@ -12,7 +12,7 @@ public:
 
     static std::vector<std::string> SelectionList()
     {
-        return {"+L", "*1", "*2", "*", "-L", "-||", "M||", "m||", "M", "m", "P+N", "N+P", "DivA", "DivB", "DivC" };
+        return {"+L", "*1", "*2", "*", "-L", "-||", "M||", "m||", "M", "m", "P+N", "N+P", "R1", "R2", "DivA", "DivB", "DivC" };
     }
 
     static CSelectableCombinor<float> Create();

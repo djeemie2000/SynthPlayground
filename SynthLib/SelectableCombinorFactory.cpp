@@ -7,7 +7,7 @@
 
 //std::vector<std::string> CSelectableCombinorFactory::SelectionList()
 //{
-//    return {"+L", "*1", "*2", "*", "-L", "-||", "M||", "m||", "M", "m", "P+N", "N+P", "DivA", "DivB", "DivC" };
+//    return {"+L", "*1", "*2", "*", "-L", "-||", "M||", "m||", "M", "m", "P+N", "N+P", "R1", "R2", "DivA", "DivB", "DivC" };
 //}
 
 CSelectableCombinor<float> CSelectableCombinorFactory::Create()
@@ -30,6 +30,9 @@ CSelectableCombinor<float> CSelectableCombinorFactory::Create()
 
     Combinor.Add(CPosNegAdd<float>());
     Combinor.Add(CNegPosAdd<float>());
+
+    Combinor.Add(CRingModFirst<float>());
+    Combinor.Add(CRingModSecond<float>());
 
     Combinor.Add(CDividerA<float>());
     Combinor.Add(CDividerB<float>());
