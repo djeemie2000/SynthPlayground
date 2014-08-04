@@ -14,7 +14,8 @@ SOURCES += main.cpp \
     TestConstNumSamplesGenerator.cpp \
     TestPeriodicSampleGrabber.cpp \
     TestFMOperatorStage.cpp \
-    TestADSREnvelope.cpp
+    TestADSREnvelope.cpp \
+    TestPosNegShaper.cpp
 
 unix {
     target.path = /usr/lib

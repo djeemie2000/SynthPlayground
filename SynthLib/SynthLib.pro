@@ -124,7 +124,8 @@ HEADERS += StepSequencer.h \
     ADSREnvelope.h \
     RingSequencerMidiControllerStep.h \
     Controllers/RingSequencerController.h \
-    BpmPeriod.h
+    BpmPeriod.h \
+    CPosNegShaper.h
 
 
 INCLUDEPATH += ./../MidiLib
