@@ -30,6 +30,10 @@ namespace
         FunctionMap["Shaper/Power"] = [&Controller](const SCmdStackItem& Item){  Controller.SetShaperPower(Item.s_IntValue); };
         FunctionMap["Shaper/PreGain"] = [&Controller](const SCmdStackItem& Item){  Controller.SetShaperPreGain(Item.s_FloatValue); };
 
+        // PosNegshaper
+        FunctionMap["PosNegShaper/Inverter/Mode"] = [&Controller](const SCmdStackItem& Item){  Controller.SetInverterMode(Item.s_IntValue); };
+        FunctionMap["PosNegShaper/Derectifier/Mode"] = [&Controller](const SCmdStackItem& Item){  Controller.SetDerectifierMode(Item.s_IntValue); };
+
         // WaveFolder
         FunctionMap["WaveFolder/Fold"] = [&Controller](const SCmdStackItem& Item){ Controller.OnWaveFold(Item.s_FloatValue); };
 
@@ -140,6 +144,10 @@ namespace
         Stack.push_back({"Shaper/Power", false, 4, 0.0f});
         Stack.push_back({"Shaper/PreGain", false, 0, 1.0f});
 
+        // PosNeg shaper
+        Stack.push_back({"PosNegShaper/Inverter/Mode", false, 1, 0.0f});
+        Stack.push_back({"PosNegShaper/Derecifier/Mode", false, 1, 0.0f});
+
         // WaveFolder
         Stack.push_back({"WaveFolder/Fold", false, 0, 0.97f});
 
@@ -215,6 +223,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_MidiInput.reset(new CAlsaMidiInput(*m_MidiInputController));
 
     // build gui
+    guiutils::AddPosNegShaper(ui->groupBox_Operator, this, "PosNegShaper", *m_CommandStackController);
     guiutils::AddIntegerPowerShaper(ui->groupBox_Operator, this, "Shaper", *m_CommandStackController);
     guiutils::AddSimpleInterpolatingOperator(ui->groupBox_Operator, this, "Oscillator", *m_CommandStackController);
 
@@ -230,6 +239,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->groupBox_AudioDevice->layout()->addWidget(new QPatchManagerWidget(*m_CommandStackController, this));
 
     m_AudioOutput->OpenAudioOutput("Out", m_Controller);
+    m_AudioOutput->OpenMidiInput("MidiIn2", m_MidiInputController);
     m_AudioOutput->ActivateClient();
     m_MidiInput->Open("Synth11", "MidiIn");
 }

@@ -430,6 +430,29 @@ void AddDistortion(QGroupBox *GroupBox, QWidget *Parent, const string &Name, CCo
     AddDoubleSpinBox(Box, Parent, {"Drive", 0.0, 0.0, 1.0, 0.01, 3}, Name+"/Drive", Controller);
 }
 
+void AddPosNegShaper(QGroupBox *GroupBox, QWidget *Parent, const std::string& Name, CCommandStackController& Controller)
+{
+    // add child groupbox
+    QGroupBox* Box = AddGroupBox(GroupBox, Parent, "PosNegShaper");
+    AddSpinBox(Box, Parent, {"InverterMode", 1, 1, 4, 1}, Name+"/Inverter/Mode", Controller);
+    AddSpinBox(Box, Parent, {"DerectifierMode", 1, 1, 4, 1}, Name+"/Derectifier/Mode", Controller);
+}
+//{
+//    QGroupBox* Box = new QGroupBox("PosNegShaper", Parent);
+//    QGridLayout* Layout = new QGridLayout();
+
+//    AddLabel(Layout, Parent, 0, 0, "+");
+//    AddCheckableSmallButton(Layout, Parent, 1, 0, "Inv", Name+"/Invert/Pos", Controller);
+//    AddCheckableSmallButton(Layout, Parent, 2, 0, "Derect", Name+"/Derectify/Pos", Controller);
+
+//    AddLabel(Layout, Parent, 0, 1, "-");
+//    AddCheckableSmallButton(Layout, Parent, 1, 1, "Inv", Name+"/Invert/Neg", Controller);
+//    AddCheckableSmallButton(Layout, Parent, 2, 1, "Derect", Name+"/Derectify/Neg", Controller);
+
+//    Box->setLayout(Layout);
+//    GroupBox->layout()->addWidget(Box);
+//}
+
 void AddLFOBank(QGroupBox *GroupBox, QWidget *Parent, ILFOBank &LFOBank)
 {
     QGroupBox* Box = new QGroupBox("LFOBank", Parent);

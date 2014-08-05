@@ -19,7 +19,7 @@ CSynth11Controller::CSynth11Controller(int SamplingFrequency)
     , m_NumSamplesGenerator(SamplingFrequency)
     , m_AREnvelope()
     , m_Envelope(4, CADSREnvelope<float>())
-    , m_LFO(4, {SamplingFrequency, CSelectableOperatorFactory::Create()})
+    , m_LFO(4, {static_cast<float>(SamplingFrequency), CSelectableOperatorFactory::Create()})
     , m_Modulator(4, CModulatorSigned<float>())
     , m_Distortion()
     , m_MasterVolume()
@@ -110,6 +110,56 @@ void CSynth11Controller::SetShaperPreGain(float PreGain)
     m_Shaper.SetPreGain(PreGain);
 }
 
+void CSynth11Controller::SetInverterMode(int Mode)
+{
+    // TODO use bitwise ands on Mode-1 : 00 01 10 11
+    if(Mode == 1)
+    {
+        m_Inverter.SetPosInvert(false);
+        m_Inverter.SetNegInvert(false);
+    }
+    else if(Mode == 2)
+    {
+        m_Inverter.SetPosInvert(false);
+        m_Inverter.SetNegInvert(true);
+    }
+    else if(Mode == 3)
+    {
+        m_Inverter.SetPosInvert(true);
+        m_Inverter.SetNegInvert(false);
+    }
+    else if(Mode == 4)
+    {
+        m_Inverter.SetPosInvert(true);
+        m_Inverter.SetNegInvert(true);
+    }
+}
+
+void CSynth11Controller::SetDerectifierMode(int Mode)
+{
+    // TODO use bitwise ands on Mode-1 : 00 01 10 11
+    if(Mode == 1)
+    {
+        m_Derectifier.SetPosDerectify(false);
+        m_Derectifier.SetNegDerectify(false);
+    }
+    else if(Mode == 2)
+    {
+        m_Derectifier.SetPosDerectify(false);
+        m_Derectifier.SetNegDerectify(true);
+    }
+    else if(Mode == 3)
+    {
+        m_Derectifier.SetPosDerectify(true);
+        m_Derectifier.SetNegDerectify(false);
+    }
+    else if(Mode == 4)
+    {
+        m_Derectifier.SetPosDerectify(true);
+        m_Derectifier.SetNegDerectify(true);
+    }
+}
+
 void CSynth11Controller::OnWaveFold(float Fold)
 {
     m_Fold.Set(Fold);
@@ -131,13 +181,13 @@ void CSynth11Controller::OnLPFilterFeedback(float Feedback)
     m_LPFilter.SetFeedback(Feedback);
 }
 
-void CSynth11Controller::OnNoteOn(int Note, int , std::uint32_t TimeStamp)
+void CSynth11Controller::OnNoteOn(int Note, int , std::uint32_t /*TimeStamp*/)
 {
     std::cout << "Midi NoteOn : " << Note << std::endl;
     OnNoteOn(CMidiNoteConverter().ToNote(Note), CMidiNoteConverter().ToOctave(Note));
 }
 
-void CSynth11Controller::OnNoteOff(int Note, int, std::uint32_t TimeStamp)
+void CSynth11Controller::OnNoteOff(int Note, int, std::uint32_t /*TimeStamp*/)
 {
     std::cout << "Midi NoteOff : " << Note << std::endl;
     OnNoteOff(CMidiNoteConverter().ToNote(Note), CMidiNoteConverter().ToOctave(Note));
@@ -225,7 +275,7 @@ void CSynth11Controller::SetMasterVolume(float Volume)
     m_MasterVolume.Set(Volume);
 }
 
-int CSynth11Controller::OnRead(void *Dst, int NumFrames, std::uint32_t TimeStamp)
+int CSynth11Controller::OnRead(void *Dst, int NumFrames, std::uint32_t /*TimeStamp*/)
 {    
     CSymmetricalOperator<float> SymmWaveFold;
     CWaveFold2<float> WaveFolder;
@@ -238,9 +288,7 @@ int CSynth11Controller::OnRead(void *Dst, int NumFrames, std::uint32_t TimeStamp
     {
         float ModInMix = m_Envelope[0]();//m_LFO[0]();
         float ModInSkew = m_Envelope[1]();//m_LFO[1]();
-        float ModInLPF = m_Envelope[2]();//m_LFO[2]();
-        float ModInFold = m_Envelope[3]();//m_LFO[3]();
-        *pDst = m_MasterVolume()*m_Distortion( EnvelopeAmp(m_LPFilter( SymmWaveFold(m_Shaper(m_Oscillator(ModInMix, ModInSkew)), WaveFolder, m_Modulator[3](m_Fold(), ModInFold)) , m_Modulator[2](m_LPFilterCutoff(), ModInLPF) ), m_AREnvelope()) );
+        *pDst = m_MasterVolume()*m_Distortion( EnvelopeAmp(m_LPFilter( SymmWaveFold( m_Derectifier(m_Inverter(m_Shaper(m_Oscillator(ModInMix, ModInSkew)))), WaveFolder, m_Modulator[3](m_Fold(), m_Envelope[3]())) , m_Modulator[2](m_LPFilterCutoff(), m_Envelope[2]()) ), m_AREnvelope()) );
         ++pDst;
     }
 

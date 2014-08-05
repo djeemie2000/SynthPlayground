@@ -24,6 +24,7 @@
 #include "PowerLawDistortion.h"
 #include "Modulator.h"
 #include "ADSREnvelope.h"
+#include "CPosNegShaper.h"
 
 class CSynth11Controller
                     : public IAudioSource2
@@ -54,6 +55,10 @@ public:
     void SetShaperStrength(float Strength);
     void SetShaperPower(int Power);
     void SetShaperPreGain(float PreGain);
+
+    // PosNeg shaping
+    void SetInverterMode(int Mode);
+    void SetDerectifierMode(int Mode);
 
     // WaveFolder
     void OnWaveFold(float Fold);
@@ -97,6 +102,8 @@ public:
 private:
     CSkewedInterpolatingOperator<float> m_Oscillator;
     CIntegerPowerShaper<float> m_Shaper;
+    CPosNegInverter<float> m_Inverter;
+    CPosNegDerectifier<float> m_Derectifier;
     CConstGenerator<float> m_Fold;
     CConstGenerator<float> m_LPFilterCutoff;
     CMultiStageFilter<float, COnePoleLowPassFilter<float>, 24> m_LPFilter;
