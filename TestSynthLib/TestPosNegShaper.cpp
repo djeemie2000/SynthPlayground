@@ -6,9 +6,9 @@ namespace
 
 const float Epsilon = 0.0001f;
 
-TEST(Defaults)
+TEST(DefaultInverter)
 {
-    CPosNegShaper<float> Shaper;
+    CPosNegInverter<float> Shaper;
 
     CHECK_CLOSE(1, Shaper(1), Epsilon);
     CHECK_CLOSE(0.5, Shaper(0.5), Epsilon);
@@ -19,9 +19,22 @@ TEST(Defaults)
     CHECK_CLOSE(-1.0, Shaper(-1.0), Epsilon);
 }
 
-TEST(PosInvert)
+TEST(DefaultDerectifier)
 {
-    CPosNegShaper<float> Shaper;
+    CPosNegDerectifier<float> Shaper;
+
+    CHECK_CLOSE(1, Shaper(1), Epsilon);
+    CHECK_CLOSE(0.5, Shaper(0.5), Epsilon);
+    CHECK_CLOSE(0.01, Shaper(0.01), Epsilon);
+    CHECK_CLOSE(0.0, Shaper(0.0), Epsilon);
+    CHECK_CLOSE(-0.01, Shaper(-0.01), Epsilon);
+    CHECK_CLOSE(-0.5, Shaper(-0.5), Epsilon);
+    CHECK_CLOSE(-1.0, Shaper(-1.0), Epsilon);
+}
+
+TEST(PosInverter)
+{
+    CPosNegInverter<float> Shaper;
 
     Shaper.SetPosInvert(true);
 
@@ -34,9 +47,9 @@ TEST(PosInvert)
     CHECK_CLOSE(-1.0, Shaper(-1.0), Epsilon);
 }
 
-TEST(NegInvert)
+TEST(NegInverter)
 {
-    CPosNegShaper<float> Shaper;
+    CPosNegInverter<float> Shaper;
 
     Shaper.SetNegInvert(true);
 
@@ -49,9 +62,9 @@ TEST(NegInvert)
     CHECK_CLOSE(0.0, Shaper(-1.0), Epsilon);
 }
 
-TEST(PosDerectify)
+TEST(PosDerectifier)
 {
-    CPosNegShaper<float> Shaper;
+    CPosNegDerectifier<float> Shaper;
 
     Shaper.SetPosDerectify(true);
 
@@ -64,9 +77,9 @@ TEST(PosDerectify)
     CHECK_CLOSE(-1.0, Shaper(-1.0), Epsilon);
 }
 
-TEST(NegDerectify)
+TEST(NegDerectifier)
 {
-    CPosNegShaper<float> Shaper;
+    CPosNegDerectifier<float> Shaper;
 
     Shaper.SetNegDerectify(true);
 

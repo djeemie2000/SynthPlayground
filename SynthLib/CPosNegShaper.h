@@ -1,15 +1,14 @@
 #ifndef CPOSNEGSHAPER_H
 #define CPOSNEGSHAPER_H
 
+
 template<class T>
-class CPosNegShaper
+class CPosNegInverter
 {
 public:
-    CPosNegShaper()
+    CPosNegInverter()
      : m_PosInvert(false)
      , m_NegInvert(false)
-     , m_PosDerectify(false)
-     , m_NegDerectify(false)
     {}
 
     void SetPosInvert(bool Invert)
@@ -21,6 +20,29 @@ public:
     {
         m_NegInvert = Invert;
     }
+
+    T operator()(T In)
+    {
+        if(0<In)
+        { // pos
+            return m_PosInvert ? 1-In : In;
+        }
+        return m_NegInvert ? -In-1 : In;
+    }
+
+private:
+    bool m_PosInvert;
+    bool m_NegInvert;
+};
+
+template<class T>
+class CPosNegDerectifier
+{
+public:
+    CPosNegDerectifier()
+     : m_PosDerectify(false)
+     , m_NegDerectify(false)
+    {}
 
     void SetPosDerectify(bool Derectify)
     {
@@ -37,17 +59,13 @@ public:
         // derectify means [0,1] to [-1,+1] conversion
         if(0<In)
         { // pos
-            T Out = m_PosInvert ? 1-In : In;
-            return m_PosDerectify ? 2*Out-1 : Out;
+            return m_PosDerectify ? 2*In-1 : In;
         }
 
-        T Out = m_NegInvert ? -In-1 : In;
-        return m_NegDerectify ? 1+2*Out : Out;
+        return m_NegDerectify ? 1+2*In : In;
     }
 
 private:
-    bool m_PosInvert;
-    bool m_NegInvert;
     bool m_PosDerectify;
     bool m_NegDerectify;
 };
