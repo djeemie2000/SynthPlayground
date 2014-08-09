@@ -5,9 +5,9 @@ template<class T>
 class CNoOp
 {
 public:
-    T operator()(const T& Phase) const
+    T operator()(const T& /*Phase*/) const
     {
-        return Phase;
+        return 0;//Phase;
     }
 };
 
