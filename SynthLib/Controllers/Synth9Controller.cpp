@@ -18,7 +18,7 @@ CSynth9Controller::CSynth9Controller(int SamplingFrequency)
     , m_NonLinearShaper()
     , m_Envelope()
     , m_StepSequencer(SamplingFrequency)
-    , m_LFO(2, {SamplingFrequency, CSelectableOperatorFactory::Create()})
+    , m_LFO(2, {static_cast<float>(SamplingFrequency), CSelectableOperatorFactory::Create()})
     , m_NumSamplesGenerator(SamplingFrequency)
     , m_Delay(SamplingFrequency*5, 0.0f)//5 seconds capacity
     , m_MasterVolume()
@@ -185,13 +185,13 @@ void CSynth9Controller::Stop()
     m_StepSequencerTicker.Activate(false);
 }
 
-void CSynth9Controller::OnNoteOn(int Note, int , std::uint32_t TimeStamp)
+void CSynth9Controller::OnNoteOn(int Note, int , std::uint32_t /*TimeStamp*/)
 {
     std::cout << "Midi NoteOn : " << Note << std::endl;
     OnNoteOn(CMidiNoteConverter().ToNote(Note), CMidiNoteConverter().ToOctave(Note));
 }
 
-void CSynth9Controller::OnNoteOff(int Note, int, std::uint32_t TimeStamp)
+void CSynth9Controller::OnNoteOff(int Note, int, std::uint32_t /*TimeStamp*/)
 {
     std::cout << "Midi NoteOff : " << Note << std::endl;
     OnNoteOff(CMidiNoteConverter().ToNote(Note), CMidiNoteConverter().ToOctave(Note));
@@ -262,7 +262,7 @@ void CSynth9Controller::SetMasterVolume(float Volume)
     m_MasterVolume.Set(Volume);
 }
 
-int CSynth9Controller::OnRead(void *Dst, int NumFrames, std::uint32_t TimeStamp)
+int CSynth9Controller::OnRead(void *Dst, int NumFrames, std::uint32_t /*TimeStamp*/)
 {
     CSymmetricalOperator<float> Symm;
     CSymmetricalOperator<float> Symm2;

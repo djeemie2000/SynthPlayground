@@ -33,16 +33,16 @@ bool readWAVData(const char* infile, std::vector<SampleType>& values, int& sampl
         {
             int TotalSize = read<int>(stream);
             if("WAVE" == read(stream, 4)
-            && "fmt " == read(stream, 4)
+            && "fmt " == read(stream, 4) // -> fmt chuck starts here
             && 16 == read<int>(stream)// header size
-            && 1 == read<short>(stream))//PCM format
+            && 1 == read<short>(stream))//PCM format (1), others not supported
             {
                 channels = read<short>(stream);
                 sampleRate = read<int>(stream);
                 int ByteRate = read<int>(stream);//TODO check
                 int FrameSize = read<short>(stream);//TODO check
-                int BitsPerSample = read<short>(stream);//TODO check
-                if("data"==read(stream, 4))
+                int BitsPerSample = read<short>(stream);//TODO should be numChannels * sizeof(SampleType)
+                if("data"==read(stream, 4)) // -> data chuck starts here
                 {
                     int DataSize = read<int>(stream);
                     int Size = DataSize / sizeof(SampleType);

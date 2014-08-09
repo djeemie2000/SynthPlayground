@@ -1,12 +1,12 @@
 #ifndef PHASEGENERATOR_H
 #define PHASEGENERATOR_H
 
-template<class T>
+template<class T, int Min = -1, int Max = 1>
 class CPhaseGenerator
 {
 public:
-    static constexpr T MinPhase = static_cast<T>(-1);
-    static constexpr T MaxPhase = static_cast<T>(1);
+    static constexpr T MinPhase = static_cast<T>(Min);
+    static constexpr T MaxPhase = static_cast<T>(Max);
     static constexpr T PhaseRange = MaxPhase - MinPhase;
 
     CPhaseGenerator()

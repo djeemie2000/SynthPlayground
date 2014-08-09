@@ -18,7 +18,7 @@ CSynth10Controller::CSynth10Controller(int SamplingFrequency)
     , m_Shaper()
     , m_LPFilter()
     , m_Envelope()
-    , m_LFO(3, {SamplingFrequency, CSelectableOperatorFactory::Create()})
+    , m_LFO(3, {static_cast<float>(SamplingFrequency), CSelectableOperatorFactory::Create()})
     , m_StepSequencer(SamplingFrequency)
     , m_Distortion()
     , m_NumSamplesGenerator(SamplingFrequency)
@@ -170,13 +170,13 @@ void CSynth10Controller::Stop()
     m_StepSequencerTicker.Activate(false);
 }
 
-void CSynth10Controller::OnNoteOn(int Note, int , std::uint32_t TimeStamp)
+void CSynth10Controller::OnNoteOn(int Note, int , std::uint32_t /*TimeStamp*/)
 {
     std::cout << "Midi NoteOn : " << Note << std::endl;
     OnNoteOn(CMidiNoteConverter().ToNote(Note), CMidiNoteConverter().ToOctave(Note));
 }
 
-void CSynth10Controller::OnNoteOff(int Note, int, std::uint32_t TimeStamp)
+void CSynth10Controller::OnNoteOff(int Note, int, std::uint32_t /*TimeStamp*/)
 {
     std::cout << "Midi NoteOff : " << Note << std::endl;
     OnNoteOff(CMidiNoteConverter().ToNote(Note), CMidiNoteConverter().ToOctave(Note));
@@ -252,7 +252,7 @@ void CSynth10Controller::SetMasterVolume(float Volume)
     m_MasterVolume.Set(Volume);
 }
 
-int CSynth10Controller::OnRead(void *Dst, int NumFrames, std::uint32_t TimeStamp)
+int CSynth10Controller::OnRead(void *Dst, int NumFrames, std::uint32_t /*TimeStamp*/)
 {    
     float* pDst = reinterpret_cast<float*>(Dst);
     float* pDstEnd = pDst + NumFrames;
