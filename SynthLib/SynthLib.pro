@@ -20,7 +20,8 @@ SOURCES += StepSequencer.cpp \
     Controllers/StepSequencerController.cpp \
     Controllers/Synth11Controller.cpp \
     RingSequencerMidiControllerStep.cpp \
-    Controllers/RingSequencerController.cpp
+    Controllers/RingSequencerController.cpp \
+    Controllers/Synth12Controller.cpp
 
 HEADERS += StepSequencer.h \
     Notes.h \
@@ -126,7 +127,8 @@ HEADERS += StepSequencer.h \
     Controllers/RingSequencerController.h \
     BpmPeriod.h \
     CPosNegShaper.h \
-    WaveTable.h
+    WaveTable.h \
+    Controllers/Synth12Controller.h
 
 
 INCLUDEPATH += ./../MidiLib
