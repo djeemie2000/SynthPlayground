@@ -84,6 +84,16 @@ std::int16_t SignedToInt16(From In)
     return In*INT16_MAX;
 }
 
-
+template<class T>
+void SplitStereo(const std::vector<T>& Stereo, std::vector<T>& Left, std::vector<T>& Right)
+{
+    Left.assign(Stereo.size()/2, 0);
+    Right.assign(Stereo.size()/2, 0);
+    for(int idx = 0; idx<Stereo.size()/2; ++idx)
+    {
+        Left[idx] = Stereo[2*idx];
+        Right[idx] = Stereo[2*idx+1];
+    }
+}
 
 #endif // CONVERSIONS_H

@@ -21,7 +21,8 @@ SOURCES += StepSequencer.cpp \
     Controllers/Synth11Controller.cpp \
     RingSequencerMidiControllerStep.cpp \
     Controllers/RingSequencerController.cpp \
-    Controllers/Synth12Controller.cpp
+    Controllers/Synth12Controller.cpp \
+    WavFileReader.cpp
 
 HEADERS += StepSequencer.h \
     Notes.h \
@@ -128,7 +129,8 @@ HEADERS += StepSequencer.h \
     BpmPeriod.h \
     CPosNegShaper.h \
     WaveTable.h \
-    Controllers/Synth12Controller.h
+    Controllers/Synth12Controller.h \
+    WavFileReader.h
 
 
 INCLUDEPATH += ./../MidiLib

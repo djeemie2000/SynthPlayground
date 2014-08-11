@@ -48,22 +48,17 @@ void CSynth12Controller::OnUnknown(std::uint32_t)
 void CSynth12Controller::OpenCarrierWaveTable(const std::string &Path)
 {
     // read wav file -> format -> convert to float -> set on wavetable
-    std::vector<std::int16_t> TableData;
-    int NumChannels = 0;
-    int SamplingFrequency = 0;
-    int BitSize = 0;
-    if(readWAVHeader(Path.c_str(), SamplingFrequency, NumChannels, BitSize))
-    {
-        std::cout << "Opened header" << Path << std::endl;
-        std::cout << "fs=" << SamplingFrequency << " Ch=" << NumChannels << " Bps=" << BitSize << std::endl;
-        //TODO conversion, stereo to mono (l,r, mix), ...
-        int bs = 0;
-    }
-    else
-    {
-        std::cout << "Failed to open " << Path << std::endl;
-    }
-
+//    if(false)
+//    {
+//        std::cout << "Opened header" << Path << std::endl;
+//        std::cout << "fs=" << SamplingFrequency << " Ch=" << NumChannels << " Bps=" << BitSize << std::endl;
+//        //TODO conversion, stereo to mono (l,r, mix), ...
+//        int bs = 0;
+//    }
+//    else
+//    {
+//        std::cout << "Failed to open " << Path << std::endl;
+//    }
 }
 
 void CSynth12Controller::OnCarrierPlaybackSpeed(float Speed)

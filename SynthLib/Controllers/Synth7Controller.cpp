@@ -198,7 +198,7 @@ void CSynth7Controller::OnPitchbend(int , std::uint32_t)
 {
 }
 
-void CSynth7Controller::OnUnknown(std::uint32_t TimeStamp)
+void CSynth7Controller::OnUnknown(std::uint32_t /*TimeStamp*/)
 {
 }
 
