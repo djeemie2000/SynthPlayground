@@ -81,7 +81,7 @@ std::uint8_t SignedToUint8(From In)
 template<class From>
 std::int16_t SignedToInt16(From In)
 {
-    return In*32767;
+    return In*INT16_MAX;
 }
 
 
