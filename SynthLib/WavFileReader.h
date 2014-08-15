@@ -12,6 +12,7 @@ public:
     void Clear();
     bool Read(const std::string& Path);
     int GetSamplingFrequency() const;
+    int GetSize() const;
     const std::vector<float> GetLeft() const;
     const std::vector<float> GetRight() const;
 

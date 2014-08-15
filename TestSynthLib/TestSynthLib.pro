@@ -15,7 +15,8 @@ SOURCES += main.cpp \
     TestPeriodicSampleGrabber.cpp \
     TestFMOperatorStage.cpp \
     TestADSREnvelope.cpp \
-    TestPosNegShaper.cpp
+    TestPosNegShaper.cpp \
+    TestSynth12Controller.cpp
 
 unix {
     target.path = /usr/lib
@@ -24,6 +25,7 @@ unix {
 
 INCLUDEPATH += ./../SynthLib
 INCLUDEPATH += ./../SynthLib/Controllers
+INCLUDEPATH += ./../MidiLib
 INCLUDEPATH += ./../UnitTest
 
 LIBS += -lSynthLib -lUnitTest

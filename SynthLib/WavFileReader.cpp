@@ -107,6 +107,11 @@ int CWavFileReader::GetSamplingFrequency() const
     return m_SamplingFrequency;
 }
 
+int CWavFileReader::GetSize() const
+{
+    return static_cast<int>(m_Left.size());
+}
+
 const std::vector<float> CWavFileReader::GetLeft() const
 {
     return m_Left;

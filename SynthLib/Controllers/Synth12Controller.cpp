@@ -15,6 +15,9 @@ CSynth12Controller::CSynth12Controller(int SamplingFrequency)
  , m_LPFilter()
  , m_MasterVolume()
 {
+    m_Fold.Set(1);
+    m_LPFilterCutoff.Set(1);
+    m_MasterVolume.Set(1);
 }
 
 void CSynth12Controller::OnNoteOn(int /*Note*/, int, std::uint32_t /*TimeStamp*/)
@@ -55,6 +58,7 @@ void CSynth12Controller::OpenCarrierWaveTable(const std::string &Path)
         std::cout << "fs=" << Reader.GetSamplingFrequency() << std::endl;
 
         m_CarrierWaveTable.Set(Reader.GetLeft(), Reader.GetSamplingFrequency());
+        m_CarrierPhaseStep.Set(Reader.GetSamplingFrequency(), Reader.GetSize());
     }
     else
     {
@@ -103,6 +107,7 @@ int CSynth12Controller::OnRead(void *Dst, int NumFrames, std::uint32_t /*TimeSta
 
     while(pDst<pDstEnd)
     {
+//        *pDst = 0;
         *pDst = m_MasterVolume()*( m_LPFilter( SymmWaveFold( m_Envelope() * m_CarrierWaveTable(m_CarrierPhase(m_CarrierPhaseStep())), WaveFolder, m_Fold()) ) );
         ++pDst;
     }

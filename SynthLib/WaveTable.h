@@ -11,7 +11,9 @@ public:
      : m_WaveTable()
      , m_SamplingFrequency(1)
      , m_Size(0)
-    {}
+    {
+        m_WaveTable.push_back(0);
+    }
 
     CWaveTable(const std::vector<DataType>& Table, PhaseType SamplingFrequency)
      : m_WaveTable(Table)

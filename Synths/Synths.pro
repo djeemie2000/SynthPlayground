@@ -23,5 +23,5 @@ SUBDIRS += \
     ../EffectsApp \         # an  'app' project
     ../StepSequencer \      # an  'app' project
     ../JackConnectionTool \ # an  'app' project
-    ../RingSequencer        # an  'app' project
-
+    ../RingSequencer \      # an  'app' project
+    ../Synth12              # an  'app' project
