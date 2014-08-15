@@ -22,7 +22,8 @@ SOURCES += StepSequencer.cpp \
     RingSequencerMidiControllerStep.cpp \
     Controllers/RingSequencerController.cpp \
     Controllers/Synth12Controller.cpp \
-    WavFileReader.cpp
+    WavFileReader.cpp \
+    ReadWavFile.cpp
 
 HEADERS += StepSequencer.h \
     Notes.h \

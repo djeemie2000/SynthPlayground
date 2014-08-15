@@ -3,7 +3,7 @@
 #include "Synth12Controller.h"
 #include "SymmetricalOperator.h"
 #include "Amp.h"
-#include "ReadWavFile.h"
+#include "WavFileReader.h"
 
 CSynth12Controller::CSynth12Controller(int SamplingFrequency)
  : m_CarrierWaveTable()
@@ -48,17 +48,18 @@ void CSynth12Controller::OnUnknown(std::uint32_t)
 void CSynth12Controller::OpenCarrierWaveTable(const std::string &Path)
 {
     // read wav file -> format -> convert to float -> set on wavetable
-//    if(false)
-//    {
-//        std::cout << "Opened header" << Path << std::endl;
-//        std::cout << "fs=" << SamplingFrequency << " Ch=" << NumChannels << " Bps=" << BitSize << std::endl;
-//        //TODO conversion, stereo to mono (l,r, mix), ...
-//        int bs = 0;
-//    }
-//    else
-//    {
-//        std::cout << "Failed to open " << Path << std::endl;
-//    }
+    CWavFileReader Reader;
+    if(Reader.Read(Path))
+    {
+        std::cout << "Opened file" << Path << std::endl;
+        std::cout << "fs=" << Reader.GetSamplingFrequency() << std::endl;
+
+        m_CarrierWaveTable.Set(Reader.GetLeft(), Reader.GetSamplingFrequency());
+    }
+    else
+    {
+        std::cout << "Failed to open " << Path << std::endl;
+    }
 }
 
 void CSynth12Controller::OnCarrierPlaybackSpeed(float Speed)
