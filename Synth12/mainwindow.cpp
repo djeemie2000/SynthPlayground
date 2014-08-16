@@ -58,7 +58,10 @@ namespace
         Controller.Add("MasterVolume", [](SCmdStackItem& Item, int Value){ Item.s_FloatValue = Value/127.0f;  });
         Controller.Link("MasterVolume", 7);
 
-        // TODO playback speed!!!!
+        // playback speed -> only can go [0,2]
+        Controller.Add("Carrier/PlaybackSpeed", [](SCmdStackItem& Item, int Value) { Item.s_FloatValue = Value/64.0f; });
+        Controller.Link("Carrier/PlaybackSpeed", 0x49);
+
 
         Controller.Add("WaveFolder/Fold", [](SCmdStackItem& Item, int Value) { Item.s_FloatValue = Value/127.0f; });
         Controller.Link("WaveFolder/Fold", 0x5b);

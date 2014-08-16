@@ -47,6 +47,7 @@ private:
     CWaveTable<float, float> m_CarrierWaveTable;
     CWaveTablePhaseStep<float> m_CarrierPhaseStep;
     CPhaseGenerator<float, 0, 1> m_CarrierPhase;
+    float m_CarrierPlaybackSpeedMultiplier;
 
     CBasicEnvelope<float> m_Envelope;
 

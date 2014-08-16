@@ -4,11 +4,15 @@
 #include "SymmetricalOperator.h"
 #include "Amp.h"
 #include "WavFileReader.h"
+#include "Notes.h"
+#include "MidiNoteConverter.h"
+#include "Pitch.h"
 
 CSynth12Controller::CSynth12Controller(int SamplingFrequency)
  : m_CarrierWaveTable()
  , m_CarrierPhaseStep(SamplingFrequency)
  , m_CarrierPhase()
+ , m_CarrierPlaybackSpeedMultiplier(1)
  , m_Envelope()
  , m_Fold()
  , m_LPFilterCutoff()
@@ -20,8 +24,14 @@ CSynth12Controller::CSynth12Controller(int SamplingFrequency)
     m_MasterVolume.Set(1);
 }
 
-void CSynth12Controller::OnNoteOn(int /*Note*/, int, std::uint32_t /*TimeStamp*/)
+void CSynth12Controller::OnNoteOn(int Note, int, std::uint32_t /*TimeStamp*/)
 {
+    // playbackspeed is multiplied by note pitch / ref note pitch
+    // ref note is A3
+    float ReferencePitch = CPitch()(ENote::A, EOctave::Octave3);
+    float CurrentPitch = CPitch()(CMidiNoteConverter().ToNote(Note), CMidiNoteConverter().ToOctave(Note));
+    m_CarrierPlaybackSpeedMultiplier = CurrentPitch/ReferencePitch;
+
     m_CarrierPhase.Sync();
     // envelope/gate to 1
     m_Envelope.NoteOn();
@@ -73,7 +83,10 @@ void CSynth12Controller::OnCarrierPlaybackSpeed(float Speed)
 
 void CSynth12Controller::OnWaveFold(float Fold)
 {
-    m_Fold.Set(Fold);
+    if(0<Fold)
+    {
+        m_Fold.Set(Fold);
+    }
 }
 
 void CSynth12Controller::OnLPFilterCutoff(float Parameter)
@@ -108,7 +121,7 @@ int CSynth12Controller::OnRead(void *Dst, int NumFrames, std::uint32_t /*TimeSta
     while(pDst<pDstEnd)
     {
 //        *pDst = 0;
-        *pDst = m_MasterVolume()*( m_LPFilter( SymmWaveFold( m_Envelope() * m_CarrierWaveTable(m_CarrierPhase(m_CarrierPhaseStep())), WaveFolder, m_Fold()) ) );
+        *pDst = m_MasterVolume()*( m_LPFilter( SymmWaveFold( m_Envelope() * m_CarrierWaveTable(m_CarrierPhase(m_CarrierPlaybackSpeedMultiplier*m_CarrierPhaseStep())), WaveFolder, m_Fold()) ) );
         ++pDst;
     }
 
