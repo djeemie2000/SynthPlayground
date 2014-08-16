@@ -9,6 +9,7 @@
 #include "WaveFolder.h"
 #include "ConstGenerator.h"
 #include "BasicEnvelope.h"
+#include "CPosNegShaper.h"
 
 class CSynth12Controller : public IAudioSource2,
                             public IMidiInputHandler
@@ -31,6 +32,10 @@ public:
     void OnCarrierPlaybackSpeed(float Speed);
     //TODO modulator
 
+    // PosNeg shaping
+    void SetInverterMode(int Mode);
+    void SetDerectifierMode(int Mode);
+
     // WaveFolder
     void OnWaveFold(float Fold);
 
@@ -48,6 +53,9 @@ private:
     CWaveTablePhaseStep<float> m_CarrierPhaseStep;
     CPhaseGenerator<float, 0, 1> m_CarrierPhase;
     float m_CarrierPlaybackSpeedMultiplier;
+
+    CPosNegInverter<float> m_Inverter;
+    CPosNegDerectifier<float> m_Derectifier;
 
     CBasicEnvelope<float> m_Envelope;
 

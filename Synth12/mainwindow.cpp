@@ -28,8 +28,8 @@ namespace
         //FunctionMap["Shaper/PreGain"] = [&Controller](const SCmdStackItem& Item){  Controller.SetShaperPreGain(Item.s_FloatValue); };
 
         // PosNegshaper
-//        FunctionMap["PosNegShaper/Inverter/Mode"] = [&Controller](const SCmdStackItem& Item){  Controller.SetInverterMode(Item.s_IntValue); };
-//        FunctionMap["PosNegShaper/Derectifier/Mode"] = [&Controller](const SCmdStackItem& Item){  Controller.SetDerectifierMode(Item.s_IntValue); };
+        FunctionMap["PosNegShaper/Inverter/Mode"] = [&Controller](const SCmdStackItem& Item){  Controller.SetInverterMode(Item.s_IntValue); };
+        FunctionMap["PosNegShaper/Derectifier/Mode"] = [&Controller](const SCmdStackItem& Item){  Controller.SetDerectifierMode(Item.s_IntValue); };
 
         // WaveFolder
         FunctionMap["WaveFolder/Fold"] = [&Controller](const SCmdStackItem& Item){ Controller.OnWaveFold(Item.s_FloatValue); };
@@ -61,6 +61,7 @@ namespace
         // playback speed -> only can go [0,2]
         Controller.Add("Carrier/PlaybackSpeed", [](SCmdStackItem& Item, int Value) { Item.s_FloatValue = Value/64.0f; });
         Controller.Link("Carrier/PlaybackSpeed", 0x49);
+        // ?? use pitchwheel for slowing down??
 
 
         Controller.Add("WaveFolder/Fold", [](SCmdStackItem& Item, int Value) { Item.s_FloatValue = Value/127.0f; });
@@ -87,8 +88,8 @@ namespace
         Stack.push_back({"Shaper/PreGain", false, 0, 1.0f});
 
         // PosNeg shaper
-//        Stack.push_back({"PosNegShaper/Inverter/Mode", false, 1, 0.0f});
-//        Stack.push_back({"PosNegShaper/Derecifier/Mode", false, 1, 0.0f});
+        Stack.push_back({"PosNegShaper/Inverter/Mode", false, 1, 0.0f});
+        Stack.push_back({"PosNegShaper/Derecifier/Mode", false, 1, 0.0f});
 
         // WaveFolder
         Stack.push_back({"WaveFolder/Fold", false, 0, 0.97f});
@@ -133,6 +134,8 @@ MainWindow::MainWindow(QWidget *parent)
 //    guiutils::AddDistortion(ui->groupBox_AudioDevice, this, "Distortion", *m_CommandStackController);
     guiutils::AddLPFilter(ui->groupBox_AudioDevice, this, "LPFilter", *m_CommandStackController);
     guiutils::AddWaveFolder(ui->groupBox_AudioDevice, this, "WaveFolder", *m_CommandStackController);
+    guiutils::AddPosNegShaper(ui->groupBox_AudioDevice, this, "PosNegShaper", *m_CommandStackController);
+
     ui->groupBox_AudioDevice->layout()->addWidget(new QPatchManagerWidget(*m_CommandStackController, this));
 
     ConnectDoubleSpinbox(ui->doubleSpinBox_CarrierSpeed, this, "Carrier/PlaybackSpeed", *m_CommandStackController);
@@ -157,6 +160,7 @@ void MainWindow::on_toolButton_Carrier_Browse_clicked()
     QString Path = QFileDialog::getOpenFileName(this, "Load sample", "", "Sample (*.wav);;All Files (*)");
     if(!Path.isEmpty())
     {
+        ui->lineEdit_Carrier->setText(Path);
         m_Controller->OpenCarrierWaveTable(Path.toStdString());
     }
 }
