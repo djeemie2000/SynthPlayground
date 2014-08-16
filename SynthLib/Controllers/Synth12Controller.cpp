@@ -19,6 +19,7 @@ CSynth12Controller::CSynth12Controller(int SamplingFrequency)
  , m_Fold()
  , m_LPFilterCutoff()
  , m_LPFilter()
+ , m_Distortion()
  , m_MasterVolume()
 {
     m_Fold.Set(1);
@@ -157,6 +158,12 @@ void CSynth12Controller::OnLPFilterFeedback(float Feedback)
     m_LPFilter.SetFeedback(Feedback);
 }
 
+void CSynth12Controller::OnDistortionDrive(float Drive)
+{
+    m_Distortion.SetDrive(Drive);
+}
+
+
 void CSynth12Controller::SetMasterVolume(float Volume)
 {
     m_MasterVolume.Set(Volume);
@@ -172,7 +179,7 @@ int CSynth12Controller::OnRead(void *Dst, int NumFrames, std::uint32_t /*TimeSta
 
     while(pDst<pDstEnd)
     {
-        *pDst = m_MasterVolume()*( m_LPFilter( SymmWaveFold( m_Envelope() * m_Derectifier(m_Inverter(m_CarrierWaveTable(m_CarrierPhase(m_CarrierPlaybackSpeedMultiplier*m_CarrierPhaseStep())))), WaveFolder, m_Fold()) ) );
+        *pDst = m_MasterVolume()*m_Distortion( m_LPFilter( SymmWaveFold( m_Envelope() * m_Derectifier(m_Inverter(m_CarrierWaveTable(m_CarrierPhase(m_CarrierPlaybackSpeedMultiplier*m_CarrierPhaseStep())))), WaveFolder, m_Fold()) ) );
         ++pDst;
     }
 

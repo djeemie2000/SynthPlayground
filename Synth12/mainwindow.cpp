@@ -20,9 +20,8 @@ namespace
         CmdFunctionMap FunctionMap;
 
         // oscillator
-
-        // Shaper
         FunctionMap["Carrier/PlaybackSpeed"] = [&Controller](const SCmdStackItem& Item){ Controller.OnCarrierPlaybackSpeed(Item.s_FloatValue); };
+
         //FunctionMap["Shaper/Strength"] = [&Controller](const SCmdStackItem& Item){  Controller.SetShaperStrength(Item.s_FloatValue); };
         //FunctionMap["Shaper/Power"] = [&Controller](const SCmdStackItem& Item){  Controller.SetShaperPower(Item.s_IntValue); };
         //FunctionMap["Shaper/PreGain"] = [&Controller](const SCmdStackItem& Item){  Controller.SetShaperPreGain(Item.s_FloatValue); };
@@ -40,7 +39,7 @@ namespace
         FunctionMap["LPFilter/Q"] = [&Controller](const SCmdStackItem& Item){ Controller.OnLPFilterFeedback(Item.s_FloatValue); };
 
         // Distortion
-       // FunctionMap["Distortion/Drive"] = [&Controller](const SCmdStackItem& Item){ Controller.OnDistortionDrive(Item.s_FloatValue); };
+        FunctionMap["Distortion/Drive"] = [&Controller](const SCmdStackItem& Item){ Controller.OnDistortionDrive(Item.s_FloatValue); };
 
 
         // master volume
@@ -71,8 +70,8 @@ namespace
         Controller.Link("LPFilter/Cutoff", 0x5d);
 
         // modwheel -> distortion!
-//        Controller.Add("Distortion/Drive", [](SCmdStackItem& Item, int Value){ Item.s_FloatValue = Value/127.0f; });
-//        Controller.Link("Distortion/Drive", 0x01);
+        Controller.Add("Distortion/Drive", [](SCmdStackItem& Item, int Value){ Item.s_FloatValue = Value/127.0f; });
+        Controller.Link("Distortion/Drive", 0x01);
     }
 
     CmdStack BuildDefaultCommandStack()
@@ -131,7 +130,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     guiutils::AddMasterVolume(ui->groupBox_AudioDevice, this, "MasterVolume", *m_CommandStackController);
-//    guiutils::AddDistortion(ui->groupBox_AudioDevice, this, "Distortion", *m_CommandStackController);
+    guiutils::AddDistortion(ui->groupBox_AudioDevice, this, "Distortion", *m_CommandStackController);
     guiutils::AddLPFilter(ui->groupBox_AudioDevice, this, "LPFilter", *m_CommandStackController);
     guiutils::AddWaveFolder(ui->groupBox_AudioDevice, this, "WaveFolder", *m_CommandStackController);
     guiutils::AddPosNegShaper(ui->groupBox_AudioDevice, this, "PosNegShaper", *m_CommandStackController);

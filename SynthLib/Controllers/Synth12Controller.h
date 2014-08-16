@@ -10,6 +10,7 @@
 #include "ConstGenerator.h"
 #include "BasicEnvelope.h"
 #include "CPosNegShaper.h"
+#include "PowerLawDistortion.h"
 
 class CSynth12Controller : public IAudioSource2,
                             public IMidiInputHandler
@@ -44,6 +45,9 @@ public:
     void OnLPFilterPoles(int Stages);
     void OnLPFilterFeedback(float Feedback);
 
+    // distortion
+    void OnDistortionDrive(float Drive);
+
     // MasterVolume
     void SetMasterVolume(float Volume);
 
@@ -62,6 +66,8 @@ private:
     CConstGenerator<float> m_Fold;
     CConstGenerator<float> m_LPFilterCutoff;
     CMultiStageFilter<float, COnePoleLowPassFilter<float>, 24> m_LPFilter;
+
+    CPowerLawDistortion<float> m_Distortion;
 
     CConstGenerator<float> m_MasterVolume;
 };
