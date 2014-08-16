@@ -31,6 +31,7 @@ public:
     // oscillator/operator
     void OpenCarrierWaveTable(const std::string& Path);
     void OnCarrierPlaybackSpeed(float Speed);
+    void OnCarrierReverse(bool Invert);
     //TODO modulator
 
     // PosNeg shaping
@@ -57,6 +58,7 @@ private:
     CWaveTablePhaseStep<float> m_CarrierPhaseStep;
     CPhaseGenerator<float, 0, 1> m_CarrierPhase;
     float m_CarrierPlaybackSpeedMultiplier;
+    CPosNegInverter<float> m_CarrierPhaseInverter;
 
     CPosNegInverter<float> m_Inverter;
     CPosNegDerectifier<float> m_Derectifier;

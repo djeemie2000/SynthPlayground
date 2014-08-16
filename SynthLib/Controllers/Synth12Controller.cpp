@@ -13,6 +13,7 @@ CSynth12Controller::CSynth12Controller(int SamplingFrequency)
  , m_CarrierPhaseStep(SamplingFrequency)
  , m_CarrierPhase()
  , m_CarrierPlaybackSpeedMultiplier(1)
+ , m_CarrierPhaseInverter()
  , m_Inverter()
  , m_Derectifier()
  , m_Envelope()
@@ -82,6 +83,11 @@ void CSynth12Controller::OpenCarrierWaveTable(const std::string &Path)
 void CSynth12Controller::OnCarrierPlaybackSpeed(float Speed)
 {
     m_CarrierPhaseStep.SetPlaybackSpeed(Speed);
+}
+
+void CSynth12Controller::OnCarrierReverse(bool Invert)
+{
+    m_CarrierPhaseInverter.SetPosInvert(Invert);
 }
 
 void CSynth12Controller::OnWaveFold(float Fold)
@@ -179,7 +185,7 @@ int CSynth12Controller::OnRead(void *Dst, int NumFrames, std::uint32_t /*TimeSta
 
     while(pDst<pDstEnd)
     {
-        *pDst = m_MasterVolume()*m_Distortion( m_LPFilter( SymmWaveFold( m_Envelope() * m_Derectifier(m_Inverter(m_CarrierWaveTable(m_CarrierPhase(m_CarrierPlaybackSpeedMultiplier*m_CarrierPhaseStep())))), WaveFolder, m_Fold()) ) );
+        *pDst = m_MasterVolume()*m_Distortion( m_LPFilter( SymmWaveFold( m_Envelope() * m_Derectifier(m_Inverter(m_CarrierWaveTable(m_CarrierPhaseInverter(m_CarrierPhase(m_CarrierPlaybackSpeedMultiplier*m_CarrierPhaseStep()))))), WaveFolder, m_Fold()) ) );
         ++pDst;
     }
 

@@ -21,6 +21,7 @@ namespace
 
         // oscillator
         FunctionMap["Carrier/PlaybackSpeed"] = [&Controller](const SCmdStackItem& Item){ Controller.OnCarrierPlaybackSpeed(Item.s_FloatValue); };
+        FunctionMap["Carrier/Reverse"] = [&Controller](const SCmdStackItem& Item){ Controller.OnCarrierReverse(Item.s_BoolValue); };
 
         //FunctionMap["Shaper/Strength"] = [&Controller](const SCmdStackItem& Item){  Controller.SetShaperStrength(Item.s_FloatValue); };
         //FunctionMap["Shaper/Power"] = [&Controller](const SCmdStackItem& Item){  Controller.SetShaperPower(Item.s_IntValue); };
@@ -80,6 +81,7 @@ namespace
 
         // Oscillator
         Stack.push_back({"Carrier/PlaybackSpeed", false, 0, 1.0f});
+        Stack.push_back({"Carrier/Reverse", false, 0, 0.0f});
 
         // Shaper
         Stack.push_back({"Shaper/Strength", false, 0, 0.0f});
@@ -88,7 +90,7 @@ namespace
 
         // PosNeg shaper
         Stack.push_back({"PosNegShaper/Inverter/Mode", false, 1, 0.0f});
-        Stack.push_back({"PosNegShaper/Derecifier/Mode", false, 1, 0.0f});
+        Stack.push_back({"PosNegShaper/Derectifier/Mode", false, 1, 0.0f});
 
         // WaveFolder
         Stack.push_back({"WaveFolder/Fold", false, 0, 0.97f});
@@ -135,9 +137,10 @@ MainWindow::MainWindow(QWidget *parent)
     guiutils::AddWaveFolder(ui->groupBox_AudioDevice, this, "WaveFolder", *m_CommandStackController);
     guiutils::AddPosNegShaper(ui->groupBox_AudioDevice, this, "PosNegShaper", *m_CommandStackController);
 
-    ui->groupBox_AudioDevice->layout()->addWidget(new QPatchManagerWidget(*m_CommandStackController, this));
+    ui->centralWidget->layout()->addWidget(new QPatchManagerWidget(*m_CommandStackController, this));
 
     ConnectDoubleSpinbox(ui->doubleSpinBox_CarrierSpeed, this, "Carrier/PlaybackSpeed", *m_CommandStackController);
+    ConnectCheckableToolButton(ui->toolButton_Carrier_Reverse, this, "Carrier/Reverse", *m_CommandStackController);
 
     m_AudioOutput->OpenAudioOutput("Out", m_Controller);
     m_AudioOutput->OpenMidiInput("MidiIn2", m_MidiInputController);
@@ -156,7 +159,7 @@ MainWindow::~MainWindow()
 void MainWindow::on_toolButton_Carrier_Browse_clicked()
 {
     // browse and open sample (wav)
-    QString Path = QFileDialog::getOpenFileName(this, "Load sample", "", "Sample (*.wav);;All Files (*)");
+    QString Path = QFileDialog::getOpenFileName(this, "Load sample", ui->lineEdit_Carrier->text(), "Sample (*.wav);;All Files (*)");
     if(!Path.isEmpty())
     {
         ui->lineEdit_Carrier->setText(Path);
