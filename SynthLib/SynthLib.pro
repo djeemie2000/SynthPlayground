@@ -23,7 +23,8 @@ SOURCES += StepSequencer.cpp \
     Controllers/RingSequencerController.cpp \
     Controllers/Synth12Controller.cpp \
     WavFileReader.cpp \
-    ReadWavFile.cpp
+    ReadWavFile.cpp \
+    MidiNoteConverter.cpp
 
 HEADERS += StepSequencer.h \
     Notes.h \
@@ -131,7 +132,8 @@ HEADERS += StepSequencer.h \
     CPosNegShaper.h \
     WaveTable.h \
     Controllers/Synth12Controller.h \
-    WavFileReader.h
+    WavFileReader.h \
+    MidiNoteConverter.h
 
 
 INCLUDEPATH += ./../MidiLib

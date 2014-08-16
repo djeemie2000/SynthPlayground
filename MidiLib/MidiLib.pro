@@ -6,7 +6,6 @@ CONFIG += c++11 (Qt5)
 SOURCES += \
     LogMidiInputHandler.cpp \
     AlsaMidiInput.cpp \
-    MidiNoteConverter.cpp \
     NoteQueueMidiInputHandler.cpp \
     notecountmidiinputhandler.cpp \
     CommandStackMidiInputHandler.cpp \
@@ -16,7 +15,6 @@ HEADERS += \
     MidiInputHandlerI.h \
     LogMidiInputHandler.h \
     AlsaMidiInput.h \
-    MidiNoteConverter.h \
     NoteQueueMidiInputHandler.h \
     notecountmidiinputhandler.h \
     CommandStackMidiInputHandler.h \
