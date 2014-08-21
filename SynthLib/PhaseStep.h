@@ -14,7 +14,7 @@ public:
         , m_PhaseStep(0)
     {}
 
-    void SetFrequency(const T& Frequency)
+    void SetFrequency(T Frequency)
     {
         // cycle through [-1,+1] in 1 period
         m_PhaseStep = 2*Frequency/m_SamplingFrequency;
@@ -23,6 +23,11 @@ public:
     T operator()()
     {
         return m_PhaseStep;
+    }
+
+    T operator()(T Frequency)
+    {
+        return 2*Frequency/m_SamplingFrequency;
     }
 
 private:

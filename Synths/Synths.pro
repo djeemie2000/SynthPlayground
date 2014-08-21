@@ -13,6 +13,8 @@ SUBDIRS += \
     ../CommandStackLib \    # a 'lib' project
     ../TestCommandStackLib \ # an 'app' project
     ../GuiLib \             # a 'lib' project
+    ../ModularLib \         # a 'lib' project
+    ../TestModularLib \     # an 'app' project
     #../Synth7  \           # an  'app' project
     ../Synth8 \             # an  'app' project
     ../Synth9 \             # an  'app' project
