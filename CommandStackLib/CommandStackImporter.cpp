@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <algorithm>
 #include "CommandStackImporter.h"
 
 CCommandStackImporter::CCommandStackImporter(SPCommandStackHandler Handler, const CmdStack &Defaults)
@@ -68,4 +69,20 @@ bool CCommandStackImporter::Default()
         m_Handler->Handle(Item);
     }
     return true;
+}
+
+void CCommandStackImporter::AddDefault(const SCmdStackItem &Default)
+{
+    m_DefaultStack.push_back(Default);
+}
+
+void CCommandStackImporter::RemoveDefault(const string &CommandName)
+{
+    auto itDefault = std::find_if(m_DefaultStack.begin(),
+                                  m_DefaultStack.end(),
+                                  [&CommandName](const SCmdStackItem& Item){ return Item.s_Name == CommandName; });
+    if(itDefault != m_DefaultStack.end())
+    {
+        m_DefaultStack.erase(itDefault);
+    }
 }

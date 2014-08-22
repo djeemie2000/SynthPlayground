@@ -13,6 +13,7 @@ public:
     void Handle(const SCmdStackItem& Item) override;
 
     void Add(const std::string& Name, const CmdFunction& Function);
+    void Remove(const std::string& Name);
 
 private:
     CmdFunctionMap m_FunctionMap;

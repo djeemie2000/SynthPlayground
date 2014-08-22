@@ -7,61 +7,41 @@
 #include "CommandStackDistributor.h"
 
 CCommandStackController::CCommandStackController(const CmdFunctionMap &FunctionMap, const CmdStack &Defaults)
+ : m_Logger(new CLogCommandStackHandler())
+ , m_Executor(new CExecuteCommandStackHandler(FunctionMap))
+ , m_Exporter(new CExportCommandStackHandler())
+ , m_Distributor(new CCommandStackDistributor())
+ , m_ImportHandler()
+ , m_Importer()
 {
-    // command stack handling
-    std::unique_ptr<CMultiCommandStackHandler> MultiHandler(new CMultiCommandStackHandler());
-
-    MultiHandler->Register(SPCommandStackHandler(new CLogCommandStackHandler()));
-
-    std::shared_ptr<CExportCommandStackHandler> Exporter(new CExportCommandStackHandler());
-    MultiHandler->Register(Exporter);
-
-    // app-specific function map
-    MultiHandler->Register(SPCommandStackHandler(new CExecuteCommandStackHandler(FunctionMap)));
-
-    // distributor: handles feedback to gui
-    std::shared_ptr<CCommandStackDistributor> Distributor(new CCommandStackDistributor());
-    MultiHandler->Register(Distributor);
-
-    m_Handler.reset(MultiHandler.release());
-
-    // register
-    m_Register = Distributor;
-
-    // exporter (save current patch to file)
-    m_Exporter = Exporter;
+    std::shared_ptr<CMultiCommandStackHandler> MultiHandler(new CMultiCommandStackHandler());
+    MultiHandler->Register(m_Logger);
+    MultiHandler->Register(m_Exporter);
+    MultiHandler->Register(m_Executor);
+    MultiHandler->Register(m_Distributor);
+    m_ImportHandler = MultiHandler;
 
     // importer (loads a patch from file)
-    m_Importer.reset(new CCommandStackImporter(m_Handler, Defaults));
+    m_Importer.reset(new CCommandStackImporter(m_ImportHandler, Defaults));
 }
 
-CCommandStackController::CCommandStackController(SPCommandStackHandler Executor, const CmdStack &Defaults)
+CCommandStackController::CCommandStackController()
+    : m_Logger(new CLogCommandStackHandler())
+    , m_Executor(new CExecuteCommandStackHandler(CmdFunctionMap()))
+    , m_Exporter(new CExportCommandStackHandler())
+    , m_Distributor(new CCommandStackDistributor())
+    , m_ImportHandler()
+    , m_Importer()
 {
-    // command stack handling
-    std::unique_ptr<CMultiCommandStackHandler> MultiHandler(new CMultiCommandStackHandler());
-
-    MultiHandler->Register(SPCommandStackHandler(new CLogCommandStackHandler()));
-
-    std::shared_ptr<CExportCommandStackHandler> Exporter(new CExportCommandStackHandler());
-    MultiHandler->Register(Exporter);
-
-    // app-specific function map
-    MultiHandler->Register(Executor);
-
-    // distributor: handles feedback to gui
-    std::shared_ptr<CCommandStackDistributor> Distributor(new CCommandStackDistributor());
-    MultiHandler->Register(Distributor);
-
-    m_Handler.reset(MultiHandler.release());
-
-    // register
-    m_Register = Distributor;
-
-    // exporter (save current patch to file)
-    m_Exporter = Exporter;
+    std::shared_ptr<CMultiCommandStackHandler> MultiHandler(new CMultiCommandStackHandler());
+    MultiHandler->Register(m_Logger);
+    MultiHandler->Register(m_Exporter);
+    MultiHandler->Register(m_Executor);
+    MultiHandler->Register(m_Distributor);
+    m_ImportHandler = MultiHandler;
 
     // importer (loads a patch from file)
-    m_Importer.reset(new CCommandStackImporter(m_Handler, Defaults));
+    m_Importer.reset(new CCommandStackImporter(m_ImportHandler, CmdStack()));
 }
 
 bool CCommandStackController::Import(const string &Path)
@@ -81,10 +61,22 @@ bool CCommandStackController::Export(const string &Path)
 
 void CCommandStackController::Handle(const SCmdStackItem &Item)
 {
-    m_Handler->Handle(Item);
+    m_ImportHandler->Handle(Item);
 }
 
-void CCommandStackController::Register(const string &Name, SPCommandStackHandler Handler)
+void CCommandStackController::Register(const string &CommandName, SPCommandStackHandler Handler)
 {
-    m_Register->Register(Name, Handler);
+    m_Distributor->Register(CommandName, Handler);
+}
+
+void CCommandStackController::AddCommand(const SCmdStackItem &Default, CmdFunction Function)
+{
+    m_Importer->AddDefault(Default);
+    m_Executor->Add(Default.s_Name, Function);
+}
+
+void CCommandStackController::RemoveCommand(const string &CommandName)
+{
+    m_Importer->RemoveDefault(CommandName);
+    m_Executor->Remove(CommandName);
 }

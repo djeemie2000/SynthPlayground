@@ -34,3 +34,8 @@ void CExecuteCommandStackHandler::Add(const string &Name, const CmdFunction &Fun
     m_FunctionMap[Name] = Function;
     // check for overwrites?
 }
+
+void CExecuteCommandStackHandler::Remove(const string &Name)
+{
+    m_FunctionMap.erase(Name);
+}
