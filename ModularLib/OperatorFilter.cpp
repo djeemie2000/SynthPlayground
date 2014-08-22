@@ -1,5 +1,5 @@
 #include <algorithm>
-#include "OscillatorFilter.h"
+#include "OperatorFilter.h"
 #include "SelectableOperatorFactory.h"
 
 COperatorFilter::COperatorFilter()

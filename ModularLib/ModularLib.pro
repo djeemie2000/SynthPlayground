@@ -5,19 +5,24 @@ CONFIG += c++11 (Qt5)
 
 SOURCES += ConstFilter.cpp \
     PhasorFilter.cpp \
-    OscillatorFilter.cpp \
+    OperatorFilter.cpp \
     AmpFilter.cpp \
     AmpModule.cpp \
-    PhasorModule.cpp
+    PhasorModule.cpp \
+    OperatorModule.cpp \
+    ConstModule.cpp
 
 HEADERS += ConstFilter.h \ 
     PhasorFilter.h \
-    OscillatorFilter.h \
+    OperatorFilter.h \
     AmpFilter.h \
     ModularModuleI.h \
     AmpModule.h \
-    PhasorModule.h
+    PhasorModule.h \
+    OperatorModule.h \
+    ConstModule.h
 
+INCLUDEPATH += ./../CommandStackLib
 INCLUDEPATH += ./../JackLib
 INCLUDEPATH += ./../MidiLib
 INCLUDEPATH += ./../SynthLib
@@ -28,7 +33,7 @@ unix {
     target.path = /usr/lib
     INSTALLS += target
 }
-
+#TODO dependencies!
 CONFIG(debug, debug|release) {
     DESTDIR = ../build-dir/Debug/ModularLib
 }
