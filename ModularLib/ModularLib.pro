@@ -5,12 +5,20 @@ CONFIG += c++11 (Qt5)
 
 SOURCES += ConstFilter.cpp \
     PhasorFilter.cpp \
-    OscillatorFilter.cpp
+    OscillatorFilter.cpp \
+    AmpFilter.cpp \
+    AmpModule.cpp \
+    PhasorModule.cpp
 
 HEADERS += ConstFilter.h \ 
     PhasorFilter.h \
-    OscillatorFilter.h
+    OscillatorFilter.h \
+    AmpFilter.h \
+    ModularModuleI.h \
+    AmpModule.h \
+    PhasorModule.h
 
+INCLUDEPATH += ./../JackLib
 INCLUDEPATH += ./../MidiLib
 INCLUDEPATH += ./../SynthLib
 INCLUDEPATH += ./../SynthLib/Interfaces
