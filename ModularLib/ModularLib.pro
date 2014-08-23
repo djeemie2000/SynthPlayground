@@ -10,7 +10,9 @@ SOURCES += ConstFilter.cpp \
     AmpModule.cpp \
     PhasorModule.cpp \
     OperatorModule.cpp \
-    ConstModule.cpp
+    ConstModule.cpp \
+    ModuleManager.cpp \
+    ModuleFactory.cpp
 
 HEADERS += ConstFilter.h \ 
     PhasorFilter.h \
@@ -20,7 +22,10 @@ HEADERS += ConstFilter.h \
     AmpModule.h \
     PhasorModule.h \
     OperatorModule.h \
-    ConstModule.h
+    ConstModule.h \
+    ModuleManager.h \
+    ModuleFactoryI.h \
+    ModuleFactory.h
 
 INCLUDEPATH += ./../CommandStackLib
 INCLUDEPATH += ./../JackLib
