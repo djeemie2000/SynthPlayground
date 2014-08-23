@@ -16,7 +16,8 @@ public:
 
     bool Create(const std::string& Type, const std::string& Name);
     bool Remove(const std::string& Name);
-    std::vector<std::string> GetAll() const;
+    std::vector<std::string> GetNames() const;
+    std::vector<std::string> GetSupportedTypes() const;
 
 private:
     std::string GenerateUniqueName(const std::string& Type);

@@ -3,7 +3,7 @@
 #include "SelectableOperatorFactory.h"
 
 COperatorFilter::COperatorFilter()
- : m_Operator(CSelectableOperatorFactory::Create())
+ : m_Operator(CSelectableOperatorFactory().CreateOperator())
 {
     m_Operator.Select(0);
 }

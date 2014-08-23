@@ -35,3 +35,8 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
 
     return Module;
 }
+
+std::vector<string> CModuleFactory::GetSupportedTypes() const
+{
+    return { "Amp", "Const", "Operator", "Phasor" };
+}

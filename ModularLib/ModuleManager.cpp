@@ -15,14 +15,10 @@ bool CModuleManager::Create(const std::string &Type, const std::string &Name)
     // always check for a unique name => fail or generate?
     bool Created = false;
     std::string UsedName = Name.empty() ? GenerateUniqueName(Type) : Name;
-    auto itModule = m_Modules.find(UsedName);
-    if(itModule != m_Modules.end())
+    if(std::shared_ptr<IModularModule> Module = m_Factory->Create(Type, UsedName))
     {
-        if(std::shared_ptr<IModularModule> Module = m_Factory->Create(Type, UsedName))
-        {
-            m_Modules[UsedName] = Module;
-            Created = true;
-        }
+        m_Modules[UsedName] = Module;
+        Created = true;
     }
     // else: not a unique name
     return Created;
@@ -40,7 +36,7 @@ bool CModuleManager::Remove(const std::string &Name)
     return Removed;
 }
 
-std::vector<std::string> CModuleManager::GetAll() const
+std::vector<std::string> CModuleManager::GetNames() const
 {
     std::vector<std::string> AllNames;
     for(auto& Module : m_Modules)
@@ -48,6 +44,11 @@ std::vector<std::string> CModuleManager::GetAll() const
         AllNames.push_back(Module.first);
     }
     return AllNames;
+}
+
+std::vector<std::string> CModuleManager::GetSupportedTypes() const
+{
+    return m_Factory->GetSupportedTypes();
 }
 
 std::string CModuleManager::GenerateUniqueName(const std::string &Type)

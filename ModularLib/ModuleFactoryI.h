@@ -3,6 +3,7 @@
 
 #include <string>
 #include <memory>
+#include <vector>
 
 class IModularModule;
 
@@ -12,6 +13,7 @@ public:
     virtual ~IModuleFactory(){}
 
     virtual std::shared_ptr<IModularModule> Create(const std::string& Type, const std::string& Name) =0;
+    virtual std::vector<std::string> GetSupportedTypes() const =0;
 };
 
 #endif // MODULEFACTORYI_H
