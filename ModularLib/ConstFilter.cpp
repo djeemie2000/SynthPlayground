@@ -16,7 +16,16 @@ std::vector<std::string> CConstFilter::GetOutputNames() const
     return {"Const"};
 }
 
-int CConstFilter::OnProcess(const std::vector<void *> &/*SourceBuffers*/, const std::vector<void *> &DestinationBuffers, int NumFrames, std::uint32_t /*TimeStamp*/)
+std::vector<std::string> CConstFilter::GetMidiInputNames() const
+{
+    return {};
+}
+
+int CConstFilter::OnProcess(const std::vector<void *> &/*SourceBuffers*/,
+                            const std::vector<void *> &DestinationBuffers,
+                            const std::vector<std::shared_ptr<IMidiRenderer>> /*MidiRenderers*/,
+                            int NumFrames,
+                            std::uint32_t /*TimeStamp*/)
 {
     if(float* DstBuffer = static_cast<float*>(DestinationBuffers[0]))
     {

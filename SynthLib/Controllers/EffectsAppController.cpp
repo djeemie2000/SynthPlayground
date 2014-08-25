@@ -26,7 +26,16 @@ std::vector<std::string> CEffectsAppController::GetOutputNames() const
     return {"OutL", "OutR"};
 }
 
-int CEffectsAppController::OnProcess(const std::vector<void*>& SourceBuffers, const std::vector<void*>& DestinationBuffers, int NumFrames, std::uint32_t /*TimeStamp*/)
+std::vector<std::string> CEffectsAppController::GetMidiInputNames() const
+{
+    return {};
+}
+
+int CEffectsAppController::OnProcess(const std::vector<void*>& SourceBuffers,
+                                     const std::vector<void*>& DestinationBuffers,
+                                     const std::vector<std::shared_ptr<IMidiRenderer> > /*MidiRenderers*/,
+                                     int NumFrames,
+                                     std::uint32_t /*TimeStamp*/)
 {
     if(SourceBuffers[0] && DestinationBuffers[0])
     {

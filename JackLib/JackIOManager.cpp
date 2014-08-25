@@ -6,6 +6,7 @@
 #include "MidiSourceI.h"
 #include "AudioFilterI.h"
 #include <jack/midiport.h>
+#include "JackMidiRenderer.h"
 
 namespace
 {
@@ -153,12 +154,17 @@ bool CJackIOManager::OpenAudioFilter(std::shared_ptr<IAudioFilter> AudioFilter)
         for(auto InputName : AudioFilter->GetInputNames())
         {
             jack_port_t* InputPort = jack_port_register(m_Client, InputName.c_str(), JACK_DEFAULT_AUDIO_TYPE, JackPortIsInput, 0);//do not use JackPortIsTerminal unless only ins or only outs
-            m_AudioFilter.m_InputPorts.push_back(InputPort);
+            m_AudioFilter.s_InputPorts.push_back(InputPort);
         }
-        for(auto InputName : AudioFilter->GetOutputNames())
+        for(auto OutputName : AudioFilter->GetOutputNames())
         {
-            jack_port_t* OutputPort = jack_port_register(m_Client, InputName.c_str(), JACK_DEFAULT_AUDIO_TYPE, JackPortIsOutput, 0);//do not use JackPortIsTerminal unless only ins or only outs
-            m_AudioFilter.m_OutputPorts.push_back(OutputPort);
+            jack_port_t* OutputPort = jack_port_register(m_Client, OutputName.c_str(), JACK_DEFAULT_AUDIO_TYPE, JackPortIsOutput, 0);//do not use JackPortIsTerminal unless only ins or only outs
+            m_AudioFilter.s_OutputPorts.push_back(OutputPort);
+        }
+        for(auto InputName : AudioFilter->GetMidiInputNames())
+        {
+            jack_port_t* InputPort = jack_port_register(m_Client, InputName.c_str(), JACK_DEFAULT_MIDI_TYPE, JackPortIsInput, 0);//use JackPortIsTerminal ?
+            m_AudioFilter.s_MidiInputPorts.push_back(InputPort);
         }
         m_AudioFilter.s_Filter = AudioFilter;
         Success = true;
@@ -199,18 +205,18 @@ void CJackIOManager::CloseClient()
         }
         m_MidiSource.reset();
         // filter
-        for(auto& InputPort : m_AudioFilter.m_InputPorts)
+        for(auto& InputPort : m_AudioFilter.s_InputPorts)
         {
             jack_port_unregister(m_Client, InputPort);
             InputPort = 0;
         }
-        m_AudioFilter.m_InputPorts.clear();
-        for(auto& OutputPort : m_AudioFilter.m_OutputPorts)
+        m_AudioFilter.s_InputPorts.clear();
+        for(auto& OutputPort : m_AudioFilter.s_OutputPorts)
         {
             jack_port_unregister(m_Client, OutputPort);
             OutputPort = 0;
         }
-        m_AudioFilter.m_OutputPorts.clear();
+        m_AudioFilter.s_OutputPorts.clear();
         m_AudioFilter.s_Filter.reset();
 
         // tell jack we do not want to play along anymore
@@ -245,52 +251,7 @@ int CJackIOManager::OnProcess(jack_nframes_t NumFrames)
         if(0<NumConnected)
         {
             void* SrcBuffer = jack_port_get_buffer(m_MidiInputPort, NumFrames);
-            jack_nframes_t NumEvents = jack_midi_get_event_count(SrcBuffer);
-            if(0<NumEvents)
-            {
-                jack_nframes_t EventIndex = 0;
-                while(EventIndex<NumEvents)
-                {
-                    jack_midi_event_t MidiEvent;
-                    if(0==jack_midi_event_get(&MidiEvent, SrcBuffer, EventIndex))
-                    {
-                        // handle:
-                        // Note on  : 3 bytes 0x9x MidiNote [0,127] Velocity [0,127] -> msb always 0
-                        // Note off : 3 bytes 0x8x MidiNote [0,127] Velocity [0,127] -> msb always 0
-                        // Controll : 3 bytes 0xBx Param    [0,127] Value    [0,127] -> msb always 0
-                        // Pitchbend: 3 bytes 0xEx Fine     [0,127] Coarse   [0,127] -> msb always 0
-                        if(MidiEvent.size==3)
-                        {
-                            jack_midi_data_t TypeByte = MidiEvent.buffer[0] & 0xF0;
-                            if(TypeByte==0x90)
-                            {
-                                m_MidiHandler->OnNoteOn(MidiEvent.buffer[1], MidiEvent.buffer[2], MidiEvent.time);
-                            }
-                            else if(TypeByte==0x80)
-                            {
-                                m_MidiHandler->OnNoteOff(MidiEvent.buffer[1], MidiEvent.buffer[2], MidiEvent.time);
-                            }
-                            else if(TypeByte==0xB0)
-                            {
-                                m_MidiHandler->OnController(MidiEvent.buffer[1], MidiEvent.buffer[2], MidiEvent.time);
-                            }
-                            else if(TypeByte==0xE0)
-                            {
-                                m_MidiHandler->OnPitchbend((MidiEvent.buffer[2]-64)<<7, MidiEvent.time);//fine?
-                            }
-                            else
-                            {
-                                m_MidiHandler->OnUnknown(MidiEvent.time);
-                            }
-                        }
-                        else
-                        {
-                            m_MidiHandler->OnUnknown(MidiEvent.time);
-                        }
-                    }
-                    ++EventIndex;
-                }
-            }
+            CJackMidiRenderer(SrcBuffer).Accept(*m_MidiHandler);
 
             // should return 0 upon succes, non-zero error code upon failure
             ReturnValue = 0;
@@ -333,19 +294,25 @@ int CJackIOManager::OnProcess(jack_nframes_t NumFrames)
     {
         // if nothing is connected => ignored (for now)
         std::vector<void*> SourceBuffers;
-        for(auto& InputPort : m_AudioFilter.m_InputPorts)
+        for(auto& InputPort : m_AudioFilter.s_InputPorts)
         {
             void* SrcBuffer = jack_port_get_buffer(InputPort, NumFrames);
             SourceBuffers.push_back(SrcBuffer);
         }
         std::vector<void*> DestinationBuffers;
-        for(auto& OutputPort : m_AudioFilter.m_OutputPorts)
+        for(auto& OutputPort : m_AudioFilter.s_OutputPorts)
         {
             void* DstBuffer = jack_port_get_buffer(OutputPort, NumFrames);
             DestinationBuffers.push_back(DstBuffer);
         }
+        std::vector<std::shared_ptr<IMidiRenderer>> MidiRenderers;
+        for(auto& MidiInputPort : m_AudioFilter.s_MidiInputPorts)
+        {
+            void* SrcBuffer = jack_port_get_buffer(MidiInputPort, NumFrames);
+            MidiRenderers.push_back(std::shared_ptr<IMidiRenderer>(new CJackMidiRenderer(SrcBuffer)));
+        }
         // should return 0 upon succes, non-zero error code upon failure
-        ReturnValue = m_AudioFilter.s_Filter->OnProcess(SourceBuffers, DestinationBuffers, NumFrames, TimeStamp);
+        ReturnValue = m_AudioFilter.s_Filter->OnProcess(SourceBuffers, DestinationBuffers, MidiRenderers, NumFrames, TimeStamp);
     }
 
     return ReturnValue;

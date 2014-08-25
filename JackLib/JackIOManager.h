@@ -62,8 +62,9 @@ private:
 
     struct SAudioFilter
     {
-        std::vector<jack_port_t*> m_InputPorts;
-        std::vector<jack_port_t*> m_OutputPorts;
+        std::vector<jack_port_t*> s_InputPorts;
+        std::vector<jack_port_t*> s_OutputPorts;
+        std::vector<jack_port_t*> s_MidiInputPorts;
         std::shared_ptr<IAudioFilter> s_Filter;
     };
 

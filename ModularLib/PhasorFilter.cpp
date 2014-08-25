@@ -16,7 +16,16 @@ std::vector<std::string> CPhasorFilter::GetOutputNames() const
     return {"Phase"};
 }
 
-int CPhasorFilter::OnProcess(const std::vector<void *> &SourceBuffers, const std::vector<void *> &DestinationBuffers, int NumFrames, std::uint32_t /*TimeStamp*/)
+std::vector<std::string> CPhasorFilter::GetMidiInputNames() const
+{
+    return {};
+}
+
+int CPhasorFilter::OnProcess(const std::vector<void *> &SourceBuffers,
+                             const std::vector<void *> &DestinationBuffers,
+                             const std::vector<std::shared_ptr<IMidiRenderer>> /*MidiRenderers*/,
+                             int NumFrames,
+                             std::uint32_t /*TimeStamp*/)
 {
     const float* FreqBuffer = static_cast<const float*>(SourceBuffers[0]);
     float* PhaseBuffer = static_cast<float*>(DestinationBuffers[0]);

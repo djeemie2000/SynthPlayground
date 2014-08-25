@@ -12,7 +12,8 @@ SOURCES += ConstFilter.cpp \
     OperatorModule.cpp \
     ConstModule.cpp \
     ModuleManager.cpp \
-    ModuleFactory.cpp
+    ModuleFactory.cpp \
+    MidiNoteFilter.cpp
 
 HEADERS += ConstFilter.h \ 
     PhasorFilter.h \
@@ -25,13 +26,15 @@ HEADERS += ConstFilter.h \
     ConstModule.h \
     ModuleManager.h \
     ModuleFactoryI.h \
-    ModuleFactory.h
+    ModuleFactory.h \
+    MidiNoteFilter.h
 
 INCLUDEPATH += ./../CommandStackLib
 INCLUDEPATH += ./../JackLib
 INCLUDEPATH += ./../MidiLib
 INCLUDEPATH += ./../SynthLib
 INCLUDEPATH += ./../SynthLib/Interfaces
+INCLUDEPATH += ./../MidiLib
 
 
 unix {

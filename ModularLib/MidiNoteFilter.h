@@ -1,13 +1,16 @@
-#ifndef AMPFILTER_H
-#define AMPFILTER_H
+#ifndef MIDINOTEFILTER_H
+#define MIDINOTEFILTER_H
 
+#include <cstdint>
+#include <string>
+#include <vector>
 #include "AudioFilterI.h"
-#include "Amp.h"
+#include "MidiInputHandlerI.h"
 
-class CAmpFilter : public IAudioFilter
+class CMidiNoteFilter : public IAudioFilter
 {
 public:
-    CAmpFilter();
+    CMidiNoteFilter();
 
     std::vector<std::string> GetInputNames() const override;
     std::vector<std::string> GetOutputNames() const override;
@@ -19,7 +22,6 @@ public:
                   std::uint32_t TimeStamp) override;
 
 private:
-    CAmp<float> m_Amp;
-};
 
-#endif // AMPFILTER_H
+};
+#endif // MIDINOTEFILTER_H

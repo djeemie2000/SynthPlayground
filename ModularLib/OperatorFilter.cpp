@@ -18,7 +18,16 @@ std::vector<std::string> COperatorFilter::GetOutputNames() const
     return { "Out" };
 }
 
-int COperatorFilter::OnProcess(const std::vector<void *> &SourceBuffers, const std::vector<void *> &DestinationBuffers, int NumFrames, std::uint32_t /*TimeStamp*/)
+std::vector<std::string> COperatorFilter::GetMidiInputNames() const
+{
+    return {};
+}
+
+int COperatorFilter::OnProcess(const std::vector<void *> &SourceBuffers,
+                               const std::vector<void *> &DestinationBuffers,
+                               const std::vector<std::shared_ptr<IMidiRenderer>> /*MidiRenderers*/,
+                               int NumFrames,
+                               std::uint32_t /*TimeStamp*/)
 {
     const float* PhaseBuffer = static_cast<const float*>(SourceBuffers[0]);
     float* OutBuffer = static_cast<float*>(DestinationBuffers[0]);
