@@ -63,5 +63,3 @@ std::string CModuleManager::GenerateUniqueName(const std::string &Type)
     }
     return Name;
 }
-
-

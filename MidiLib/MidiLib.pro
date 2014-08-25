@@ -20,7 +20,8 @@ HEADERS += \
     CommandStackMidiInputHandler.h \
     MidiInputController.h \
     MidiControllerHandlerI.h \
-    MidiSourceI.h
+    MidiSourceI.h \
+    MidiRendererI.h
 
 INCLUDEPATH += ./../SynthLib
 INCLUDEPATH += ./../CommandStackLib
