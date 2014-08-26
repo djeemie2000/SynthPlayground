@@ -4,8 +4,11 @@
 #include <cstdint>
 #include <string>
 #include <vector>
+#include <memory>
 #include "AudioFilterI.h"
 #include "MidiInputHandlerI.h"
+
+class CTriggerMidiNoteHandler;
 
 class CMidiNoteFilter : public IAudioFilter
 {
@@ -22,6 +25,8 @@ public:
                   std::uint32_t TimeStamp) override;
 
 private:
-
+    std::shared_ptr<CTriggerMidiNoteHandler> m_MidiNoteHandler; //!< does the actual work
+    std::shared_ptr<IMidiInputHandler> m_NoteCountHandler; //!< added to avoid issue with multiple simultanious notes
 };
+
 #endif // MIDINOTEFILTER_H

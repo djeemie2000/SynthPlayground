@@ -64,7 +64,7 @@ bool CRingSequencerController::CheckResize(int Idx)
 {
     if(0<=Idx)
     {
-        if(m_MidiControllerStep.size()<=Idx)
+        if(static_cast<int>(m_MidiControllerStep.size())<=Idx)
         {
             m_MidiControllerStep.resize(Idx+1);
         }

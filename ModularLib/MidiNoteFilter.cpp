@@ -1,6 +1,11 @@
 #include "MidiNoteFilter.h"
+#include "notecountmidiinputhandler.h"
+#include "TriggerMidiNoteHandler.h"
+#include "MidiRendererI.h"
 
 CMidiNoteFilter::CMidiNoteFilter()
+ : m_MidiNoteHandler(new CTriggerMidiNoteHandler())
+ , m_NoteCountHandler(new CNoteCountMidiInputHandler(m_MidiNoteHandler))
 {
 }
 
@@ -24,7 +29,16 @@ int CMidiNoteFilter::OnProcess(const std::vector<void *> &/*SourceBuffers*/,
                                const std::vector<void *> &DestinationBuffers,
                                const std::vector<std::shared_ptr<IMidiRenderer> > MidiRenderers,
                                int NumFrames,
-                               std::uint32_t TimeStamp)
+                               std::uint32_t /*TimeStamp*/)
 {
-    //TODO
+    if(MidiRenderers[0])
+    {
+        float* FreqBuffer = static_cast<float*>(DestinationBuffers[0]);
+        float* TriggerBuffer = static_cast<float*>(DestinationBuffers[1]);
+        m_MidiNoteHandler->OnStart(FreqBuffer, TriggerBuffer, NumFrames);
+        MidiRenderers[0]->Accept(*m_NoteCountHandler);
+        m_MidiNoteHandler->OnFinish();
+    }
+
+    return 0;//TODO
 }

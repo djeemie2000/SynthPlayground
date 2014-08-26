@@ -13,7 +13,9 @@ SOURCES += ConstFilter.cpp \
     ConstModule.cpp \
     ModuleManager.cpp \
     ModuleFactory.cpp \
-    MidiNoteFilter.cpp
+    MidiNoteFilter.cpp \
+    TriggerMidiNoteHandler.cpp \
+    MidiNoteModule.cpp
 
 HEADERS += ConstFilter.h \ 
     PhasorFilter.h \
@@ -27,7 +29,9 @@ HEADERS += ConstFilter.h \
     ModuleManager.h \
     ModuleFactoryI.h \
     ModuleFactory.h \
-    MidiNoteFilter.h
+    MidiNoteFilter.h \
+    TriggerMidiNoteHandler.h \
+    MidiNoteModule.h
 
 INCLUDEPATH += ./../CommandStackLib
 INCLUDEPATH += ./../JackLib

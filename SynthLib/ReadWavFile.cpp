@@ -19,7 +19,7 @@ bool readWAVHeader(const char* infile, int& SamplingFrequency, int& NumChannels,
     {
         if("RIFF" == read(stream, 4))
         {
-            int TotalSize = read<int>(stream);
+            /*int TotalSize = */read<int>(stream);
             if("WAVE" == read(stream, 4)
             && "fmt " == read(stream, 4) // -> fmt chuck starts here
             && 16 == read<int>(stream)// header size

@@ -5,6 +5,7 @@
 #include "ConstModule.h"
 #include "OperatorModule.h"
 #include "PhasorModule.h"
+#include "MidiNoteModule.h"
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -13,7 +14,6 @@ CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandS
 
 std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, const std::string &Name)
 {
-    //TODO
     std::shared_ptr<IModularModule> Module;
 
     if(Type=="Amp")
@@ -32,11 +32,15 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CPhasorModule(Name));
     }
+    else if(Type == "MidiNote")
+    {
+        Module.reset(new CMidiNoteModule(Name));
+    }
 
     return Module;
 }
 
 std::vector<string> CModuleFactory::GetSupportedTypes() const
 {
-    return { "Amp", "Const", "Operator", "Phasor" };
+    return { "Amp", "Const", "Operator", "Phasor", "MidiNote" };
 }

@@ -9,7 +9,8 @@ SOURCES += \
     NoteQueueMidiInputHandler.cpp \
     notecountmidiinputhandler.cpp \
     CommandStackMidiInputHandler.cpp \
-    MidiInputController.cpp
+    MidiInputController.cpp \
+    MidiNotePitch.cpp
 
 HEADERS += \
     MidiInputHandlerI.h \
@@ -21,7 +22,8 @@ HEADERS += \
     MidiInputController.h \
     MidiControllerHandlerI.h \
     MidiSourceI.h \
-    MidiRendererI.h
+    MidiRendererI.h \
+    MidiNotePitch.h
 
 INCLUDEPATH += ./../SynthLib
 INCLUDEPATH += ./../CommandStackLib

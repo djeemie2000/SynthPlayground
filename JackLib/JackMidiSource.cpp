@@ -39,7 +39,7 @@ int ReadFromRingBuffer(jack_ringbuffer_t* RingBuffer, std::uint32_t& TimeStamp, 
 
 }
 
-int CJackMidiSource::OnRead(void *Dst, int NumFrames, std::uint32_t TimeStamp)
+int CJackMidiSource::OnRead(void *Dst, int /*NumFrames*/, std::uint32_t /*TimeStamp*/)
 {
     // write stack of midi events into the DstBuffer
     // let's hope the jack ringbuffer does its job
