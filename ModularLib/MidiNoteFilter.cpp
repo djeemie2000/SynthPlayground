@@ -33,8 +33,8 @@ int CMidiNoteFilter::OnProcess(const std::vector<void *> &/*SourceBuffers*/,
 {
     if(MidiRenderers[0])
     {
-        float* FreqBuffer = static_cast<float*>(DestinationBuffers[0]);
-        float* TriggerBuffer = static_cast<float*>(DestinationBuffers[1]);
+        float* FreqBuffer = (float*)(DestinationBuffers[0]);
+        float* TriggerBuffer = (float*)(DestinationBuffers[1]);
         m_MidiNoteHandler->OnStart(FreqBuffer, TriggerBuffer, NumFrames);
         MidiRenderers[0]->Accept(*m_NoteCountHandler);
         m_MidiNoteHandler->OnFinish();

@@ -2,7 +2,8 @@ TARGET = TestModularLib
 TEMPLATE = app
 CONFIG += c++11 (Qt5)
 
-SOURCES += main.cpp 
+SOURCES += main.cpp \ 
+    TestPhasorFilter.cpp
 
 unix {
     target.path = /usr/lib
@@ -10,7 +11,8 @@ unix {
 }
 
 INCLUDEPATH += ./../ModularLib
-INCLUDEPATH += ./../ModularLib/Controllers
+INCLUDEPATH += ./../SynthLib
+INCLUDEPATH += ./../SynthLib/Controllers
 INCLUDEPATH += ./../MidiLib
 INCLUDEPATH += ./../UnitTest
 

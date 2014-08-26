@@ -3,6 +3,7 @@
 
 #include "AudioFilterI.h"
 #include "PhaseStep.h"
+#include "PhaseGenerator.h"
 
 class CPhasorFilter : public IAudioFilter
 {
@@ -20,6 +21,7 @@ public:
 
 private:
     CPhaseStep<float> m_PhaseStep;
+    CPhaseGenerator<float> m_PhaseGenerator;
 };
 
 #endif // PHASORFILTER_H
