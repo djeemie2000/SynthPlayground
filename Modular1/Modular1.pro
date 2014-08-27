@@ -9,11 +9,16 @@ TEMPLATE = app
 CONFIG   += c++11 (Qt5)
 
 SOURCES += main.cpp\
-    mainwindow.cpp
+    mainwindow.cpp \
+    ModuleGuiFactory.cpp \
+    QGenericModuleWidget.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    ModuleGuiFactory.h \
+    QGenericModuleWidget.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    QGenericModuleWidget.ui
 
 INCLUDEPATH += ./../SynthLib
 INCLUDEPATH += ./../SynthLib/Controllers
