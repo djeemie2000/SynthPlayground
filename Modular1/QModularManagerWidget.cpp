@@ -4,12 +4,10 @@
 #include "ModuleGuiFactory.h"
 
 QModularManagerWidget::QModularManagerWidget(std::shared_ptr<CModuleManager> Manager,
-                                             std::shared_ptr<CModuleGuiFactory> Factory,
                                              QWidget *parent)
      : QWidget(parent)
      , ui(new Ui::QModularManagerWidget)
      , m_Manager(Manager)
-     , m_Factory(Factory)
 {
     ui->setupUi(this);
 
@@ -28,7 +26,6 @@ QModularManagerWidget::~QModularManagerWidget()
 void QModularManagerWidget::on_pushButton_Create_clicked()
 {
     QList<QListWidgetItem*> Selected = ui->listWidget_ModuleTypes->selectedItems();
-    //if(!Selected.empty())
     QListWidgetItem* Item = 0;
     foreach(Item , Selected)
     {
@@ -49,7 +46,6 @@ void QModularManagerWidget::on_pushButton_Remove_clicked()
     foreach(Item , Selected)
     {
         m_Manager->Remove(Item->text().toStdString());
-        m_Factory->Remove(Item->text().toStdString());
     }
     //update names
     ui->listWidget_ModuleNames->clear();

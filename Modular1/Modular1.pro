@@ -12,12 +12,14 @@ SOURCES += main.cpp\
     mainwindow.cpp \
     ModuleGuiFactory.cpp \
     QGenericModuleWidget.cpp \
-    QModularManagerWidget.cpp
+    QModularManagerWidget.cpp \
+    GuiModuleDecorator.cpp
 
 HEADERS  += mainwindow.h \
     ModuleGuiFactory.h \
     QGenericModuleWidget.h \
-    QModularManagerWidget.h
+    QModularManagerWidget.h \
+    GuiModuleDecorator.h
 
 FORMS    += mainwindow.ui \
     QGenericModuleWidget.ui \

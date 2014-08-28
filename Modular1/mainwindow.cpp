@@ -31,7 +31,7 @@ MainWindow::MainWindow(QWidget *parent)
     addDockWidget(Qt::RightDockWidgetArea, Patch);
 
 
-    QModularManagerWidget* FactoryWidget = new QModularManagerWidget(m_ModuleManager, GuiFactory, this);
+    QModularManagerWidget* FactoryWidget = new QModularManagerWidget(m_ModuleManager, this);
     connect(FactoryWidget, SIGNAL(SignalRemoved(QString)), this, SLOT(OnRemovedModule(QString)));
 
     QDockWidget* Fact = new QDockWidget(this);
