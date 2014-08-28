@@ -27,6 +27,21 @@ std::string COperatorModule::GetName() const
     return m_Name;
 }
 
+IModularModule::Names COperatorModule::GetInputNames() const
+{
+    return m_Filter->GetInputNames();
+}
+
+IModularModule::Names COperatorModule::GetOutputNames() const
+{
+    return m_Filter->GetOutputNames();
+}
+
+IModularModule::Names COperatorModule::GetMidiInputNames() const
+{
+    return m_Filter->GetMidiInputNames();
+}
+
 bool COperatorModule::Open()
 {
     return m_IOManager->OpenClient(m_Name)

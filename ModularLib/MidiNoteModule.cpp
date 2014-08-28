@@ -22,6 +22,21 @@ std::string CMidiNoteModule::GetName() const
     return m_Name;
 }
 
+IModularModule::Names CMidiNoteModule::GetInputNames() const
+{
+    return m_Filter->GetInputNames();
+}
+
+IModularModule::Names CMidiNoteModule::GetOutputNames() const
+{
+    return m_Filter->GetOutputNames();
+}
+
+IModularModule::Names CMidiNoteModule::GetMidiInputNames() const
+{
+    return m_Filter->GetMidiInputNames();
+}
+
 bool CMidiNoteModule::Open()
 {
     return m_IOManager->OpenClient(m_Name)

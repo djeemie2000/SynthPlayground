@@ -15,7 +15,7 @@ class QModularManagerWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit QModularManagerWidget(std::shared_ptr<CModuleManager> Manager,
+    explicit QModularManagerWidget(std::weak_ptr<CModuleManager> Manager,
                                    QWidget *parent = 0);
     ~QModularManagerWidget();
 
@@ -27,7 +27,7 @@ private slots:
 
 private:
     Ui::QModularManagerWidget *ui;
-    std::shared_ptr<CModuleManager> m_Manager;
+    std::weak_ptr<CModuleManager> m_Manager;
 };
 
 #endif // MODULARFACTORYWIDGET_H

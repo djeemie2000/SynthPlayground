@@ -8,13 +8,16 @@
 class QMainWindow;
 class QDockWidget;
 
-class CGuiModuleDecorator : public IModularModule
+class CModuleGuiDecorator : public IModularModule
 {
 public:
-    CGuiModuleDecorator(std::shared_ptr<IModularModule> Module, QMainWindow* MainWindow, QDockWidget* DockWidget);
-    ~CGuiModuleDecorator();
+    CModuleGuiDecorator(std::shared_ptr<IModularModule> Module, QMainWindow* MainWindow, QDockWidget* DockWidget);
+    ~CModuleGuiDecorator();
 
     std::string GetName() const override;
+    Names GetInputNames() const override;
+    Names GetOutputNames() const override;
+    Names GetMidiInputNames() const override;
 
 private:
     std::shared_ptr<IModularModule> m_Module;

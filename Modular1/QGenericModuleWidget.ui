@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>80</width>
-    <height>33</height>
+    <width>249</width>
+    <height>85</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,9 +15,29 @@
   </property>
   <layout class="QHBoxLayout">
    <item>
+    <widget class="QGroupBox" name="groupBox_Ins">
+     <property name="title">
+      <string/>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QLabel" name="label">
      <property name="text">
       <string>MODULE</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_Outs">
+     <property name="title">
+      <string/>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing</set>
      </property>
     </widget>
    </item>

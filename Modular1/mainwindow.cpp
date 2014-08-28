@@ -30,9 +30,7 @@ MainWindow::MainWindow(QWidget *parent)
     Patch->setWidget(new QPatchManagerWidget(*m_CommandStackController, this));
     addDockWidget(Qt::RightDockWidgetArea, Patch);
 
-
-    QModularManagerWidget* FactoryWidget = new QModularManagerWidget(m_ModuleManager, this);
-    connect(FactoryWidget, SIGNAL(SignalRemoved(QString)), this, SLOT(OnRemovedModule(QString)));
+    QModularManagerWidget* FactoryWidget = new QModularManagerWidget(m_ModuleManager, this);//check destructor/use weak_ptr?
 
     QDockWidget* Fact = new QDockWidget(this);
     Fact->setFeatures(QDockWidget::DockWidgetMovable);

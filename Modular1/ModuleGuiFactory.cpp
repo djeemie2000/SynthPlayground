@@ -14,19 +14,23 @@ CModuleGuiFactory::CModuleGuiFactory(std::shared_ptr<IModuleFactory> Factory, QM
 
 std::shared_ptr<IModularModule> CModuleGuiFactory::Create(const std::string &Type, const std::string &Name)
 {
-    // add dockwidget with name to parent
-    QGenericModuleWidget* Widget = new QGenericModuleWidget(m_Parent);
+    if(auto Module = m_Factory->Create(Type, Name))
+    {
+        // add dockwidget with name to parent
+        QGenericModuleWidget* Widget = new QGenericModuleWidget(*Module, m_Parent);
 
-    QDockWidget* DockWidget = new QDockWidget(QString::fromStdString(Name), m_Parent);
-    DockWidget->setFeatures(QDockWidget::DockWidgetMovable);//not closable, not floatable
-    DockWidget->setWidget(Widget);
-    // TODO set actual widget in dockwidget
-    // TODO generic vs custom?
-    // TODO inputs and outputs?
-    // TODO generic from parameters
-//    m_Parent->addDockWidget(Qt::TopDockWidgetArea, DockWidget);
+        QDockWidget* DockWidget = new QDockWidget(QString::fromStdString(Name), m_Parent);
+        DockWidget->setFeatures(QDockWidget::DockWidgetMovable);//not closable, not floatable
+        DockWidget->setWidget(Widget);
+        // TODO set actual widget in dockwidget
+        // TODO generic vs custom?
+        // TODO inputs and outputs?
+        // TODO generic from parameters
 
-    return std::shared_ptr<IModularModule>(new CGuiModuleDecorator(m_Factory->Create(Type, Name), m_Parent, DockWidget));
+        return std::shared_ptr<IModularModule>(new CModuleGuiDecorator(Module, m_Parent, DockWidget));
+    }
+
+    return nullptr;
 }
 
 std::vector<std::string> CModuleGuiFactory::GetSupportedTypes() const

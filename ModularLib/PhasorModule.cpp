@@ -21,6 +21,21 @@ std::string CPhasorModule::GetName() const
     return m_Name;
 }
 
+IModularModule::Names CPhasorModule::GetInputNames() const
+{
+    return m_Filter->GetInputNames();
+}
+
+IModularModule::Names CPhasorModule::GetOutputNames() const
+{
+    return m_Filter->GetOutputNames();
+}
+
+IModularModule::Names CPhasorModule::GetMidiInputNames() const
+{
+    return m_Filter->GetMidiInputNames();
+}
+
 bool CPhasorModule::Open()
 {
     bool Ok = false;

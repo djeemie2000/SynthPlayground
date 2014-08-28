@@ -21,6 +21,21 @@ std::string CAmpModule::GetName() const
     return m_Name;
 }
 
+IModularModule::Names CAmpModule::GetInputNames() const
+{
+    return m_Filter->GetInputNames();
+}
+
+IModularModule::Names CAmpModule::GetOutputNames() const
+{
+    return m_Filter->GetOutputNames();
+}
+
+IModularModule::Names CAmpModule::GetMidiInputNames() const
+{
+    return m_Filter->GetMidiInputNames();
+}
+
 bool CAmpModule::Open()
 {
     return m_IOManager->OpenClient(m_Name)

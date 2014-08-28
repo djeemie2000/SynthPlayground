@@ -16,6 +16,9 @@ public:
     ~CConstModule();
 
     std::string GetName() const override;
+    Names GetInputNames() const override;
+    Names GetOutputNames() const override;
+    Names GetMidiInputNames() const override;
 
 private:
     bool Open();
