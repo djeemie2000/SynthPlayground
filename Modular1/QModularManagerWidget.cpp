@@ -1,11 +1,15 @@
-#include "ModularFactoryWidget.h"
-#include "ui_ModularFactoryWidget.h"
+#include "QModularManagerWidget.h"
+#include "ui_QModularManagerWidget.h"
 #include "ModuleManager.h"
+#include "ModuleGuiFactory.h"
 
-QModularFactoryWidget::QModularFactoryWidget(std::shared_ptr<CModuleManager> Manager, QWidget *parent)
+QModularManagerWidget::QModularManagerWidget(std::shared_ptr<CModuleManager> Manager,
+                                             std::shared_ptr<CModuleGuiFactory> Factory,
+                                             QWidget *parent)
      : QWidget(parent)
-     , ui(new Ui::QModularFactoryWidget)
+     , ui(new Ui::QModularManagerWidget)
      , m_Manager(Manager)
+     , m_Factory(Factory)
 {
     ui->setupUi(this);
 
@@ -16,17 +20,19 @@ QModularFactoryWidget::QModularFactoryWidget(std::shared_ptr<CModuleManager> Man
     }
 }
 
-QModularFactoryWidget::~QModularFactoryWidget()
+QModularManagerWidget::~QModularManagerWidget()
 {
     delete ui;
 }
 
-void QModularFactoryWidget::on_pushButton_Create_clicked()
+void QModularManagerWidget::on_pushButton_Create_clicked()
 {
     QList<QListWidgetItem*> Selected = ui->listWidget_ModuleTypes->selectedItems();
-    if(!Selected.empty())
+    //if(!Selected.empty())
+    QListWidgetItem* Item = 0;
+    foreach(Item , Selected)
     {
-        m_Manager->Create(Selected.at(0)->text().toStdString(), "");
+        m_Manager->Create(Item->text().toStdString(), "");
     }
     //update names
     ui->listWidget_ModuleNames->clear();
@@ -36,12 +42,14 @@ void QModularFactoryWidget::on_pushButton_Create_clicked()
     }
 }
 
-void QModularFactoryWidget::on_pushButton_Remove_clicked()
+void QModularManagerWidget::on_pushButton_Remove_clicked()
 {
     QList<QListWidgetItem*> Selected = ui->listWidget_ModuleNames->selectedItems();
-    if(!Selected.empty())
+    QListWidgetItem* Item = 0;
+    foreach(Item , Selected)
     {
-        m_Manager->Remove(Selected.at(0)->text().toStdString());
+        m_Manager->Remove(Item->text().toStdString());
+        m_Factory->Remove(Item->text().toStdString());
     }
     //update names
     ui->listWidget_ModuleNames->clear();

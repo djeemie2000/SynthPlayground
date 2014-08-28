@@ -20,8 +20,7 @@ SOURCES += GuiUtilities.cpp \
     QCommandStackHandler.cpp \
     GuiCommandStack.cpp \
     QPatchManagerWidget.cpp \
-    QScopeWidget2.cpp \
-    ModularFactoryWidget.cpp
+    QScopeWidget2.cpp
 
 HEADERS += GuiUtilities.h \
     QGuiCallbacks.h \
@@ -35,16 +34,14 @@ HEADERS += GuiUtilities.h \
     QCommandStackHandler.h \
     GuiCommandStack.h \
     QPatchManagerWidget.h \
-    QScopeWidget2.h \
-    ModularFactoryWidget.h
+    QScopeWidget2.h
 
 FORMS += \
     QScopeWidget.ui \
     QKeyboardWidget.ui \
     QAudioDeviceWidget.ui \
     QPatchManagerWidget.ui \
-    QScopeWidget2.ui \
-    ModularFactoryWidget.ui
+    QScopeWidget2.ui
 
 INCLUDEPATH += ./../SynthLib
 INCLUDEPATH += ./../CommandStackLib

@@ -8,7 +8,7 @@
 #include "GuiCommandStack.h"
 #include "ModuleManager.h"
 #include "ModuleFactory.h"
-#include "ModularFactoryWidget.h"
+#include "QModularManagerWidget.h"
 #include "ModuleGuiFactory.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     m_CommandStackController.reset(new CCommandStackController());
     std::shared_ptr<IModuleFactory> Factory(new CModuleFactory(m_CommandStackController));
-    std::shared_ptr<IModuleFactory> GuiFactory(new CModuleGuiFactory(Factory, this));
+    std::shared_ptr<CModuleGuiFactory> GuiFactory(new CModuleGuiFactory(Factory, this));
     m_ModuleManager.reset(new CModuleManager(GuiFactory));
 
     // build gui
@@ -30,9 +30,13 @@ MainWindow::MainWindow(QWidget *parent)
     Patch->setWidget(new QPatchManagerWidget(*m_CommandStackController, this));
     addDockWidget(Qt::RightDockWidgetArea, Patch);
 
+
+    QModularManagerWidget* FactoryWidget = new QModularManagerWidget(m_ModuleManager, GuiFactory, this);
+    connect(FactoryWidget, SIGNAL(SignalRemoved(QString)), this, SLOT(OnRemovedModule(QString)));
+
     QDockWidget* Fact = new QDockWidget(this);
     Fact->setFeatures(QDockWidget::DockWidgetMovable);
-    Fact->setWidget(new QModularFactoryWidget(m_ModuleManager, this));
+    Fact->setWidget(FactoryWidget);
     addDockWidget(Qt::RightDockWidgetArea, Fact);
 
     //ui->centralWidget->layout()->addWidget(new QPatchManagerWidget(*m_CommandStackController, this));
@@ -44,3 +48,4 @@ MainWindow::~MainWindow()
     m_ModuleManager.reset();
     delete ui;
 }
+

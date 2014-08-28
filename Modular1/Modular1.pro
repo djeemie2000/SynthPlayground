@@ -11,14 +11,17 @@ CONFIG   += c++11 (Qt5)
 SOURCES += main.cpp\
     mainwindow.cpp \
     ModuleGuiFactory.cpp \
-    QGenericModuleWidget.cpp
+    QGenericModuleWidget.cpp \
+    QModularManagerWidget.cpp
 
 HEADERS  += mainwindow.h \
     ModuleGuiFactory.h \
-    QGenericModuleWidget.h
+    QGenericModuleWidget.h \
+    QModularManagerWidget.h
 
 FORMS    += mainwindow.ui \
-    QGenericModuleWidget.ui
+    QGenericModuleWidget.ui \
+    QModularManagerWidget.ui
 
 INCLUDEPATH += ./../SynthLib
 INCLUDEPATH += ./../SynthLib/Controllers

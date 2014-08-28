@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>QModularFactoryWidget</class>
- <widget class="QWidget" name="QModularFactoryWidget">
+ <class>QModularManagerWidget</class>
+ <widget class="QWidget" name="QModularManagerWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
