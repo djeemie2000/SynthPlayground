@@ -31,7 +31,8 @@ HEADERS += ConstFilter.h \
     ModuleFactory.h \
     MidiNoteFilter.h \
     TriggerMidiNoteHandler.h \
-    MidiNoteModule.h
+    MidiNoteModule.h \
+    ModuleParameterVisitorI.h
 
 INCLUDEPATH += ./../CommandStackLib
 INCLUDEPATH += ./../JackLib

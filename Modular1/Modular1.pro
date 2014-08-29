@@ -13,13 +13,15 @@ SOURCES += main.cpp\
     ModuleGuiFactory.cpp \
     QGenericModuleWidget.cpp \
     QModularManagerWidget.cpp \
-    GuiModuleDecorator.cpp
+    GuiModuleDecorator.cpp \
+    ModuleGuiParameterVisitor.cpp
 
 HEADERS  += mainwindow.h \
     ModuleGuiFactory.h \
     QGenericModuleWidget.h \
     QModularManagerWidget.h \
-    GuiModuleDecorator.h
+    GuiModuleDecorator.h \
+    ModuleGuiParameterVisitor.h
 
 FORMS    += mainwindow.ui \
     QGenericModuleWidget.ui \

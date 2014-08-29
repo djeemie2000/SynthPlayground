@@ -19,6 +19,8 @@ public:
     Names GetOutputNames() const override;
     Names GetMidiInputNames() const override;
 
+    void Accept(IModuleParameterVisitor& ParameterVisitor) const override;
+
 private:
     bool Open();
     bool Close();

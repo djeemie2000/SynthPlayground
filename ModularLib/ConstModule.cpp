@@ -2,6 +2,7 @@
 #include "ConstFilter.h"
 #include "JackIOManager.h"
 #include "CommandStackController.h"
+#include "ModuleParameterVisitorI.h"
 
 CConstModule::CConstModule(const std::string& Name, CCommandStackController& CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -40,6 +41,13 @@ IModularModule::Names CConstModule::GetOutputNames() const
 IModularModule::Names CConstModule::GetMidiInputNames() const
 {
     return m_Filter->GetMidiInputNames();
+}
+
+void CConstModule::Accept(IModuleParameterVisitor &ParameterVisitor) const
+{
+    ParameterVisitor.Start();
+    ParameterVisitor.FloatParameter(m_Name+"/Value", "Value", 0.0f, -100000.0f, 100000.0f, 0.001, 4);
+    ParameterVisitor.Finish();
 }
 
 bool CConstModule::Open()

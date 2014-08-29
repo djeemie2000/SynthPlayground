@@ -36,3 +36,11 @@ IModularModule::Names CModuleGuiDecorator::GetMidiInputNames() const
 {
     return m_Module ? m_Module->GetMidiInputNames() : Names();
 }
+
+void CModuleGuiDecorator::Accept(IModuleParameterVisitor &ParameterVisitor) const
+{
+    if(m_Module)
+    {
+        m_Module->Accept(ParameterVisitor);
+    }
+}

@@ -1,6 +1,7 @@
 #include "PhasorModule.h"
 #include "PhasorFilter.h"
 #include "JackIOManager.h"
+#include "ModuleParameterVisitorI.h"
 
 CPhasorModule::CPhasorModule(const std::string& Name)
  : m_Name(Name)
@@ -34,6 +35,12 @@ IModularModule::Names CPhasorModule::GetOutputNames() const
 IModularModule::Names CPhasorModule::GetMidiInputNames() const
 {
     return m_Filter->GetMidiInputNames();
+}
+
+void CPhasorModule::Accept(IModuleParameterVisitor &ParameterVisitor) const
+{
+    ParameterVisitor.Start();
+    ParameterVisitor.Finish();
 }
 
 bool CPhasorModule::Open()

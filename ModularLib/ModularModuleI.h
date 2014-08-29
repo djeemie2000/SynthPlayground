@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 
+class IModuleParameterVisitor;
+
 class IModularModule
 {
 public:
@@ -16,6 +18,8 @@ public:
     virtual Names GetInputNames() const =0;
     virtual Names GetOutputNames() const =0;
     virtual Names GetMidiInputNames() const =0;
+
+    virtual void Accept(IModuleParameterVisitor& ParameterVisitor) const =0;
 };
 
 #endif // MODULARMODULEI_H

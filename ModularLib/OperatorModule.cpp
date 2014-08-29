@@ -2,6 +2,8 @@
 #include "OperatorFilter.h"
 #include "JackIOManager.h"
 #include "CommandStackController.h"
+#include "ModuleParameterVisitorI.h"
+#include "SelectableOperatorFactory.h"
 
 COperatorModule::COperatorModule(const std::string& Name, CCommandStackController& CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -40,6 +42,13 @@ IModularModule::Names COperatorModule::GetOutputNames() const
 IModularModule::Names COperatorModule::GetMidiInputNames() const
 {
     return m_Filter->GetMidiInputNames();
+}
+
+void COperatorModule::Accept(IModuleParameterVisitor &ParameterVisitor) const
+{
+    ParameterVisitor.Start();
+    ParameterVisitor.SelectionParameter(m_Name+"/Select", "WaveForm", 0, CSelectableOperatorFactory::SelectionList());
+    ParameterVisitor.Finish();
 }
 
 bool COperatorModule::Open()

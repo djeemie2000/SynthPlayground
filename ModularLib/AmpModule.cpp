@@ -36,6 +36,10 @@ IModularModule::Names CAmpModule::GetMidiInputNames() const
     return m_Filter->GetMidiInputNames();
 }
 
+void CAmpModule::Accept(IModuleParameterVisitor &/*ParameterVisitor*/) const
+{
+}
+
 bool CAmpModule::Open()
 {
     return m_IOManager->OpenClient(m_Name)

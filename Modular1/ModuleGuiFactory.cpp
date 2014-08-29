@@ -6,9 +6,11 @@
 #include <QLayout>
 #include "QGenericModuleWidget.h"
 
-CModuleGuiFactory::CModuleGuiFactory(std::shared_ptr<IModuleFactory> Factory, QMainWindow *Parent)
+CModuleGuiFactory::CModuleGuiFactory(std::shared_ptr<IModuleFactory> Factory, std::shared_ptr<CCommandStackController> CommandStackController,
+                                     QMainWindow *Parent)
  : m_Parent(Parent)
  , m_Factory(Factory)
+ , m_CommandStackController(CommandStackController)
 {
 }
 
@@ -17,7 +19,7 @@ std::shared_ptr<IModularModule> CModuleGuiFactory::Create(const std::string &Typ
     if(auto Module = m_Factory->Create(Type, Name))
     {
         // add dockwidget with name to parent
-        QGenericModuleWidget* Widget = new QGenericModuleWidget(*Module, m_Parent);
+        QGenericModuleWidget* Widget = new QGenericModuleWidget(*Module, *m_CommandStackController, m_Parent);
 
         QDockWidget* DockWidget = new QDockWidget(QString::fromStdString(Name), m_Parent);
         DockWidget->setFeatures(QDockWidget::DockWidgetMovable);//not closable, not floatable

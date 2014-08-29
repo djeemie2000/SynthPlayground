@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     m_CommandStackController.reset(new CCommandStackController());
     std::shared_ptr<IModuleFactory> Factory(new CModuleFactory(m_CommandStackController));
-    std::shared_ptr<CModuleGuiFactory> GuiFactory(new CModuleGuiFactory(Factory, this));
+    std::shared_ptr<CModuleGuiFactory> GuiFactory(new CModuleGuiFactory(Factory, m_CommandStackController, this));
     m_ModuleManager.reset(new CModuleManager(GuiFactory));
 
     // build gui

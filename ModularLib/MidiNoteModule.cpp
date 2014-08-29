@@ -37,6 +37,10 @@ IModularModule::Names CMidiNoteModule::GetMidiInputNames() const
     return m_Filter->GetMidiInputNames();
 }
 
+void CMidiNoteModule::Accept(IModuleParameterVisitor &/*ParameterVisitor*/) const
+{
+}
+
 bool CMidiNoteModule::Open()
 {
     return m_IOManager->OpenClient(m_Name)
