@@ -49,8 +49,12 @@ IModularModule::Names CLpfModule::GetMidiInputNames() const
 void CLpfModule::Accept(IModuleParameterVisitor &ParameterVisitor) const
 {
     ParameterVisitor.Start();
+    ParameterVisitor.StartLine();
     ParameterVisitor.FloatParameter(m_Name+"/Resonance", "Resonance", 0.0f, 0.0f, 2.0f, 0.01, 3);
+    ParameterVisitor.FinishLine();
+    ParameterVisitor.StartLine();
     ParameterVisitor.IntegerParameter(m_Name+"/Poles", "Poles", 1, 1, 24, 1);
+    ParameterVisitor.FinishLine();
     ParameterVisitor.Finish();
 }
 

@@ -55,7 +55,9 @@ void CControllerBankModule::Accept(IModuleParameterVisitor &ParameterVisitor) co
     ParameterVisitor.Start();
     for(int idx = 0; idx<m_Size; ++idx)
     {
+        ParameterVisitor.StartLine();
         ParameterVisitor.FloatParameter(m_Name+"/"+std::to_string(idx)+"/Value", "Value"+std::to_string(idx), 0.0f, -100000.0f, 100000.0f, 0.001, 4);
+        ParameterVisitor.FinishLine();
     }
     ParameterVisitor.Finish();
 }

@@ -2,6 +2,7 @@
 #include "ui_QGenericModuleWidget.h"
 #include "ModularModuleI.h"
 #include "ModuleGuiParameterVisitor.h"
+#include <QLabel>
 
 QGenericModuleWidget::QGenericModuleWidget(IModularModule &Module, CCommandStackController &CommandStackController, QWidget *parent) :
     QWidget(parent),
