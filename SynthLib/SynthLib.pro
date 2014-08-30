@@ -133,7 +133,8 @@ HEADERS += StepSequencer.h \
     WaveTable.h \
     Controllers/Synth12Controller.h \
     WavFileReader.h \
-    MidiNoteConverter.h
+    MidiNoteConverter.h \
+    SimpleOscillator.h
 
 
 INCLUDEPATH += ./../MidiLib

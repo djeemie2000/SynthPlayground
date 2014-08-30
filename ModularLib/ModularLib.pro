@@ -19,7 +19,9 @@ SOURCES += ControllerBankFilter.cpp \
     LpfFilter.cpp \
     LpfModule.cpp \
     LFOBankFilter.cpp \
-    LFOBankModule.cpp
+    LFOBankModule.cpp \
+    SimpleOscillatorFilter.cpp \
+    SimpleOscillatorModule.cpp
 
 HEADERS += ControllerBankFilter.h \ 
     PhasorFilter.h \
@@ -40,7 +42,9 @@ HEADERS += ControllerBankFilter.h \
     LpfFilter.h \
     LpfModule.h \
     LFOBankFilter.h \
-    LFOBankModule.h
+    LFOBankModule.h \
+    SimpleOscillatorFilter.h \
+    SimpleOscillatorModule.h
 
 INCLUDEPATH += ./../CommandStackLib
 INCLUDEPATH += ./../JackLib
