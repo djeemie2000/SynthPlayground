@@ -7,6 +7,7 @@
 #include "PhasorModule.h"
 #include "MidiNoteModule.h"
 #include "LpfModule.h"
+#include "LFOBankModule.h"
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -41,11 +42,15 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CLpfModule(Name, *m_CommandStackController));
     }
+    else if(Type == "LFOBank<8>")
+    {
+        Module.reset(new CLFOBankModule(Name, 8, *m_CommandStackController));
+    }
 
     return Module;
 }
 
 std::vector<string> CModuleFactory::GetSupportedTypes() const
 {
-    return { "Amp", "ControllerBank<8>", "Operator", "Phasor", "MidiNote", "LPF" };
+    return { "Amp", "ControllerBank<8>", "Operator", "Phasor", "MidiNote", "LPF", "LFOBank<8>" };
 }

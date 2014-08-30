@@ -72,4 +72,3 @@ bool CControllerBankModule::Close()
     m_IOManager->CloseClient();
     return true;
 }
-

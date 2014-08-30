@@ -15,6 +15,7 @@ public:
         , m_Op(Op)
     {
         SetFrequency(1);
+        SelectWaveform(0);
     }
 
     void SetFrequency(T Frequency)

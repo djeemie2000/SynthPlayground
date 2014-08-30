@@ -17,7 +17,9 @@ SOURCES += ControllerBankFilter.cpp \
     TriggerMidiNoteHandler.cpp \
     MidiNoteModule.cpp \
     LpfFilter.cpp \
-    LpfModule.cpp
+    LpfModule.cpp \
+    LFOBankFilter.cpp \
+    LFOBankModule.cpp
 
 HEADERS += ControllerBankFilter.h \ 
     PhasorFilter.h \
@@ -36,7 +38,9 @@ HEADERS += ControllerBankFilter.h \
     MidiNoteModule.h \
     ModuleParameterVisitorI.h \
     LpfFilter.h \
-    LpfModule.h
+    LpfModule.h \
+    LFOBankFilter.h \
+    LFOBankModule.h
 
 INCLUDEPATH += ./../CommandStackLib
 INCLUDEPATH += ./../JackLib
