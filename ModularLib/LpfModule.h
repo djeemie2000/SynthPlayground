@@ -1,19 +1,19 @@
-#ifndef CONSTMODULE_H
-#define CONSTMODULE_H
+#ifndef LPFMODULE_H
+#define LPFMODULE_H
 
 #include <string>
 #include <memory>
 #include "ModularModuleI.h"
 
-class CConstFilter;
+class CLpfFilter;
 class CJackIOManager;
 class CCommandStackController;
 
-class CConstModule : public IModularModule
+class CLpfModule : public IModularModule
 {
 public:
-    CConstModule(const std::string& Name, CCommandStackController& CommandStackController);
-    ~CConstModule();
+    CLpfModule(const std::string& Name, CCommandStackController& CommandStackController);
+    ~CLpfModule();
 
     std::string GetName() const override;
     Names GetInputNames() const override;
@@ -28,8 +28,8 @@ private:
 
     CCommandStackController& m_CommandStackController;
     std::string m_Name;
-    std::shared_ptr<CConstFilter> m_Filter;
+    std::shared_ptr<CLpfFilter> m_Filter;
     std::unique_ptr<CJackIOManager> m_IOManager;
 };
 
-#endif // CONSTMODULE_H
+#endif // LPFMODULE_H

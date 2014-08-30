@@ -9,7 +9,7 @@ CPhasorFilter::CPhasorFilter(int SamplingFrequency)
 
 std::vector<std::string> CPhasorFilter::GetInputNames() const
 {
-    return {"Freq"};
+    return {"Freq", "Sync"};
 }
 
 std::vector<std::string> CPhasorFilter::GetOutputNames() const
@@ -30,14 +30,33 @@ int CPhasorFilter::OnProcess(const std::vector<void *> &SourceBuffers,
 {
     const float* FreqBuffer = (const float*)(SourceBuffers[0]);
     const float* FreqBufferEnd = FreqBuffer + NumFrames;
+    const float* SyncBuffer = (const float*)(SourceBuffers[1]);
     float* PhaseBuffer = (float*)(DestinationBuffers[0]);
     if(FreqBuffer && PhaseBuffer)
     {
-        while(FreqBuffer<FreqBufferEnd)
+        if(SyncBuffer)
         {
-            *PhaseBuffer = m_PhaseGenerator(m_PhaseStep(*FreqBuffer));
-            ++FreqBuffer;
-            ++PhaseBuffer;
+            while(FreqBuffer<FreqBufferEnd)
+            {
+                if(*SyncBuffer!=0.0f)
+                {
+                    m_PhaseGenerator.Sync();
+                }
+                *PhaseBuffer = m_PhaseGenerator(m_PhaseStep(*FreqBuffer));
+                ++FreqBuffer;
+                ++SyncBuffer;
+                ++PhaseBuffer;
+            }
+        }
+        else
+        {
+            while(FreqBuffer<FreqBufferEnd)
+            {
+                *PhaseBuffer = m_PhaseGenerator(m_PhaseStep(*FreqBuffer));
+                ++FreqBuffer;
+                ++PhaseBuffer;
+            }
+
         }
     }
 

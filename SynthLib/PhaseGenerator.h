@@ -10,7 +10,7 @@ public:
     static constexpr T PhaseRange = MaxPhase - MinPhase;
 
     CPhaseGenerator()
-        : m_Phase(0)
+        : m_Phase(MinPhase)
     {
     }
 

@@ -19,6 +19,11 @@ void CModuleGuiParameterVisitor::FloatParameter(const std::string &ParameterName
     guiutils::AddDoubleSpinBox(m_GroupBox, m_Parent, {Name, Default, Min, Max, Step, NumDecimals}, ParameterName, m_CommandStackController);
 }
 
+void CModuleGuiParameterVisitor::IntegerParameter(const std::string &ParameterName, const std::string &Name, int Default, int Min, int Max, int Step)
+{
+    guiutils::AddSpinBox(m_GroupBox, m_Parent, {Name, Default, Min, Max, Step}, ParameterName, m_CommandStackController);
+}
+
 void CModuleGuiParameterVisitor::SelectionParameter(const std::string &ParameterName, const std::string &Name, int Default, const std::vector<std::string> &Selections)
 {
     guiutils::AddComboBox(m_GroupBox, m_Parent, {Name, Selections, Default}, ParameterName, m_CommandStackController);
@@ -27,5 +32,3 @@ void CModuleGuiParameterVisitor::SelectionParameter(const std::string &Parameter
 void CModuleGuiParameterVisitor::Finish()
 {
 }
-
-

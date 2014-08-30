@@ -2,10 +2,11 @@
 #include "CommandStackController.h"
 
 #include "AmpModule.h"
-#include "ConstModule.h"
+#include "ControllerBankModule.h"
 #include "OperatorModule.h"
 #include "PhasorModule.h"
 #include "MidiNoteModule.h"
+#include "LpfModule.h"
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -20,9 +21,9 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CAmpModule(Name));
     }
-    else if(Type == "Const")
+    else if(Type == "ControllerBank<8>")
     {
-        Module.reset(new CConstModule(Name, *m_CommandStackController));//TODO sp ipv ref
+        Module.reset(new CControllerBankModule(Name, 8, *m_CommandStackController));//TODO sp ipv ref
     }
     else if(Type == "Operator")
     {
@@ -36,11 +37,15 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CMidiNoteModule(Name));
     }
+    else if(Type == "LPF")
+    {
+        Module.reset(new CLpfModule(Name, *m_CommandStackController));
+    }
 
     return Module;
 }
 
 std::vector<string> CModuleFactory::GetSupportedTypes() const
 {
-    return { "Amp", "Const", "Operator", "Phasor", "MidiNote" };
+    return { "Amp", "ControllerBank<8>", "Operator", "Phasor", "MidiNote", "LPF" };
 }

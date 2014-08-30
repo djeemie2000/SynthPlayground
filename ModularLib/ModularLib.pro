@@ -3,21 +3,23 @@ TEMPLATE = lib
 CONFIG += staticlib
 CONFIG += c++11 (Qt5)
 
-SOURCES += ConstFilter.cpp \
+SOURCES += ControllerBankFilter.cpp \
     PhasorFilter.cpp \
     OperatorFilter.cpp \
     AmpFilter.cpp \
     AmpModule.cpp \
     PhasorModule.cpp \
     OperatorModule.cpp \
-    ConstModule.cpp \
+    ControllerBankModule.cpp \
     ModuleManager.cpp \
     ModuleFactory.cpp \
     MidiNoteFilter.cpp \
     TriggerMidiNoteHandler.cpp \
-    MidiNoteModule.cpp
+    MidiNoteModule.cpp \
+    LpfFilter.cpp \
+    LpfModule.cpp
 
-HEADERS += ConstFilter.h \ 
+HEADERS += ControllerBankFilter.h \ 
     PhasorFilter.h \
     OperatorFilter.h \
     AmpFilter.h \
@@ -25,14 +27,16 @@ HEADERS += ConstFilter.h \
     AmpModule.h \
     PhasorModule.h \
     OperatorModule.h \
-    ConstModule.h \
+    ControllerBankModule.h \
     ModuleManager.h \
     ModuleFactoryI.h \
     ModuleFactory.h \
     MidiNoteFilter.h \
     TriggerMidiNoteHandler.h \
     MidiNoteModule.h \
-    ModuleParameterVisitorI.h
+    ModuleParameterVisitorI.h \
+    LpfFilter.h \
+    LpfModule.h
 
 INCLUDEPATH += ./../CommandStackLib
 INCLUDEPATH += ./../JackLib

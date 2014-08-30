@@ -5,10 +5,10 @@
 #include <vector>
 #include "AudioFilterI.h"
 
-class CConstFilter : public IAudioFilter
+class CControllerBankFilter : public IAudioFilter
 {
 public:
-    CConstFilter();
+    CControllerBankFilter(int Size);
 
     std::vector<std::string> GetInputNames() const override;
     std::vector<std::string> GetOutputNames() const override;
@@ -19,7 +19,7 @@ public:
                   int NumFrames,
                   std::uint32_t TimeStamp) override;
 
-    void Set(float Value);
+    void Set(int Index, float Value);
 private:
-    float               m_Value;
+    std::vector<float>  m_Value;
 };
