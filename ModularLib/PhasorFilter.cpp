@@ -38,7 +38,7 @@ int CPhasorFilter::OnProcess(const std::vector<void *> &SourceBuffers,
         {
             while(FreqBuffer<FreqBufferEnd)
             {
-                if(*SyncBuffer!=0.0f)
+                if(0.99<*SyncBuffer)//only sync upon start trigger!
                 {
                     m_PhaseGenerator.Sync();
                 }

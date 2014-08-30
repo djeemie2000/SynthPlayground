@@ -32,7 +32,15 @@ int CLpfFilter::OnProcess(const std::vector<void *> &SourceBuffers,
     float* OutBuffer = static_cast<float*>(DestinationBuffers[0]);
     if(InBuffer && CutoffBuffer && OutBuffer)
     {
-        std::transform(InBuffer, InBuffer+NumFrames, CutoffBuffer, OutBuffer, m_LPFilter);
+        //std::transform(InBuffer, InBuffer+NumFrames, CutoffBuffer, OutBuffer, m_LPFilter); -> uses a copy of m_LPFilter?
+        const float* InBufferEnd = InBuffer+NumFrames;
+        while(InBuffer<InBufferEnd)
+        {
+            *OutBuffer = m_LPFilter(*InBuffer, *CutoffBuffer);
+            ++InBuffer;
+            ++CutoffBuffer;
+            ++OutBuffer;
+        }
     }
 
     return 0;
