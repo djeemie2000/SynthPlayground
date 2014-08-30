@@ -296,14 +296,16 @@ int CJackIOManager::OnProcess(jack_nframes_t NumFrames)
         std::vector<void*> SourceBuffers;
         for(auto& InputPort : m_AudioFilter.s_InputPorts)
         {
+            int NumConnected = jack_port_connected(InputPort);
             void* SrcBuffer = jack_port_get_buffer(InputPort, NumFrames);
-            SourceBuffers.push_back(SrcBuffer);
+            SourceBuffers.push_back(0<NumConnected ? SrcBuffer : 0);
         }
         std::vector<void*> DestinationBuffers;
         for(auto& OutputPort : m_AudioFilter.s_OutputPorts)
         {
+            int NumConnected = jack_port_connected(OutputPort);
             void* DstBuffer = jack_port_get_buffer(OutputPort, NumFrames);
-            DestinationBuffers.push_back(DstBuffer);
+            DestinationBuffers.push_back(0<NumConnected ? DstBuffer : 0);
         }
         std::vector<std::shared_ptr<IMidiRenderer>> MidiRenderers;
         for(auto& MidiInputPort : m_AudioFilter.s_MidiInputPorts)
