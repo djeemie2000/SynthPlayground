@@ -25,8 +25,8 @@ public:
 private:
     Ui::QGenericModuleWidget *ui;
 
-    void AddInput(QString Name);
-    void AddOutput(QString Name);
+    void AddInputs(IModularModule& Module);
+    void AddOutputs(IModularModule& Module);
 };
 
 #endif // QGENERICMODULEWIDGET_H

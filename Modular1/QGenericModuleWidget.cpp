@@ -12,18 +12,8 @@ QGenericModuleWidget::QGenericModuleWidget(IModularModule &Module, CCommandStack
 
     setWindowTitle(QString::fromStdString(Module.GetName()));
 
-    for(auto& Name : Module.GetInputNames())
-    {
-        AddInput(QString::fromStdString(Name));
-    }
-    for(auto& Name : Module.GetOutputNames())
-    {
-        AddOutput(QString::fromStdString(Name));
-    }
-    for(auto& Name : Module.GetMidiInputNames())
-    {
-        AddInput(QString::fromStdString(Name));
-    }
+    AddInputs(Module);
+    AddOutputs(Module);
 
     // module accepts parameter visitor around our parameters groupbox
     CModuleGuiParameterVisitor ParameterVisitor(ui->groupBox_Parameters, this, CommandStackController);
@@ -40,12 +30,28 @@ QGroupBox *QGenericModuleWidget::GetParametersGroupBox()
     return ui->groupBox_Parameters;
 }
 
-void QGenericModuleWidget::AddInput(QString Name)
+void QGenericModuleWidget::AddInputs(IModularModule &Module)
 {
-    ui->groupBox_Ins->layout()->addWidget(new QLabel(Name, this));
+    QGridLayout* InputLayout = new QGridLayout(this);
+    ui->groupBox_Ins->setLayout(InputLayout);
+    int idxInput = 0;
+    for(auto& Name : Module.GetInputNames())
+    {
+        InputLayout->addWidget(new QLabel(QString::fromStdString(Name), this), idxInput++, 0);
+    }
+    for(auto& Name : Module.GetMidiInputNames())
+    {
+        InputLayout->addWidget(new QLabel(QString::fromStdString(Name), this), idxInput++, 0);
+    }
 }
 
-void QGenericModuleWidget::AddOutput(QString Name)
+void QGenericModuleWidget::AddOutputs(IModularModule &Module)
 {
-    ui->groupBox_Outs->layout()->addWidget(new QLabel(Name, this));
+    QGridLayout* OutputLayout = new QGridLayout(this);
+    ui->groupBox_Outs->setLayout(OutputLayout);
+    int idxOutput = 0;
+    for(auto& Name : Module.GetOutputNames())
+    {
+        OutputLayout->addWidget(new QLabel(QString::fromStdString(Name), this), idxOutput++, 0);
+    }
 }
