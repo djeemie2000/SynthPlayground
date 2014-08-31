@@ -14,7 +14,10 @@ public:
      : m_PhaseStep(SamplingFrequency)
      , m_PhaseGen()
      , m_Operator(CSelectableOperatorFactory::Create())
-    {}
+    {
+        m_Operator.Select(0);
+        m_PhaseStep.SetFrequency(440.0f);
+    }
 
     void Sync()
     {

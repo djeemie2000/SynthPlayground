@@ -18,7 +18,10 @@ void CTriggerMidiNoteHandler::OnStart(float *FreqBuffer, float *TriggerBuffer, s
     m_FreqBuffer = FreqBuffer;
     m_TriggerBuffer = TriggerBuffer;
     // for ease of use, already fill trigger with all zeros
-    std::fill(m_TriggerBuffer, m_TriggerBuffer+m_NumFrames, 0.0f);
+    if(m_TriggerBuffer)
+    {
+        std::fill(m_TriggerBuffer, m_TriggerBuffer+m_NumFrames, 0.0f);
+    }
 }
 
 void CTriggerMidiNoteHandler::OnNoteOn(int Note, int /*Velocity*/, std::uint32_t TimeStamp)

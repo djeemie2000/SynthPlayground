@@ -37,12 +37,7 @@ void QModularManagerWidget::on_pushButton_Create_clicked()
         {
             Manager->Create(Item->text().toStdString(), "");
         }
-        //update names
-        ui->listWidget_ModuleNames->clear();
-        for(auto& Name : Manager->GetNames())
-        {
-            ui->listWidget_ModuleNames->addItem(QString::fromStdString(Name));
-        }
+        UpdateNames();
     }
 }
 
@@ -56,6 +51,31 @@ void QModularManagerWidget::on_pushButton_Remove_clicked()
         {
             Manager->Remove(Item->text().toStdString());
         }
+        UpdateNames();
+    }
+}
+
+void QModularManagerWidget::on_pushButton_Capture_clicked()
+{
+    if(std::shared_ptr<CModuleManager> Manager = m_Manager.lock())
+    {
+        Manager->Capture();
+    }
+}
+
+void QModularManagerWidget::on_pushButton_Restore_clicked()
+{
+    if(std::shared_ptr<CModuleManager> Manager = m_Manager.lock())
+    {
+        Manager->Restore();
+        UpdateNames();
+    }
+}
+
+void QModularManagerWidget::UpdateNames()
+{
+    if(std::shared_ptr<CModuleManager> Manager = m_Manager.lock())
+    {
         //update names
         ui->listWidget_ModuleNames->clear();
         for(auto& Name : Manager->GetNames())

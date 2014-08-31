@@ -34,6 +34,20 @@
    <item>
     <widget class="QListWidget" name="listWidget_ModuleNames"/>
    </item>
+   <item>
+    <widget class="QPushButton" name="pushButton_Capture">
+     <property name="text">
+      <string>Capture</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="pushButton_Restore">
+     <property name="text">
+      <string>Restore</string>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <resources/>

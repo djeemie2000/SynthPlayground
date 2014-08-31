@@ -3,6 +3,7 @@
 #include "ModuleParameterVisitorI.h"
 #include "CommandStackController.h"
 #include "SimpleOscillatorFilter.h"
+#include "SelectableOperatorFactory.h"
 
 CSimpleOscillatorModule::CSimpleOscillatorModule(const std::string& Name, CCommandStackController &CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -46,6 +47,9 @@ IModularModule::Names CSimpleOscillatorModule::GetMidiInputNames() const
 void CSimpleOscillatorModule::Accept(IModuleParameterVisitor &ParameterVisitor) const
 {
     ParameterVisitor.Start();
+    ParameterVisitor.StartLine();
+    ParameterVisitor.SelectionParameter(m_Name+"/Select", "WaveForm", 0, CSelectableOperatorFactory::SelectionList());
+    ParameterVisitor.FinishLine();
     ParameterVisitor.Finish();
 }
 
