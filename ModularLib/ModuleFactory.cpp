@@ -9,6 +9,7 @@
 #include "LpfModule.h"
 #include "LFOBankModule.h"
 #include "SimpleOscillatorModule.h"
+#include "StereoDelayModule.h"
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -51,11 +52,15 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CSimpleOscillatorModule(Name, *m_CommandStackController));
     }
+    else if(Type == "StereoDelay")
+    {
+        Module.reset(new CStereoDelayModule(Name, *m_CommandStackController));
+    }
 
     return Module;
 }
 
 std::vector<string> CModuleFactory::GetSupportedTypes() const
 {
-    return { "Amp", "ControllerBank<8>", "Operator", "Phasor", "MidiNote", "LPF", "LFOBank<8>", "SimpleOscillator" };
+    return { "Amp", "ControllerBank<8>", "Operator", "Phasor", "MidiNote", "LPF", "LFOBank<8>", "SimpleOscillator", "StereoDelay" };
 }

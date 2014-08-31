@@ -13,7 +13,7 @@ std::vector<std::string> CSimpleOscillatorFilter::GetInputNames() const
 
 std::vector<std::string> CSimpleOscillatorFilter::GetOutputNames() const
 {
-    return {"Phase"};
+    return {"Out"};
 }
 
 std::vector<std::string> CSimpleOscillatorFilter::GetMidiInputNames() const

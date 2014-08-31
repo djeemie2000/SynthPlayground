@@ -88,6 +88,15 @@ void AddCheckableSmallButton(QGridLayout *Layout, QWidget *Parent, int X, int Y,
     Layout->addWidget(Button, Y, X);
 }
 
+void AddCheckableSmallButton(QGridLayout* Layout, QWidget *Parent, int X, int Y, const std::string& Name, const std::string& ParameterName, bool Default, CCommandStackController& Controller)
+{
+    QToolButton* Button = CreateToolButton(Parent, Name, true);
+    Button->setChecked(Default);
+    ConnectCheckableToolButton(Button, Parent, ParameterName, Controller);
+    Layout->addWidget(Button, Y, X);
+}
+
+
 void AddCheckableSmallButton(QGroupBox *GroupBox, QWidget *Parent, const std::string &Name, const std::string &ParameterName, CCommandStackController &Controller)
 {
     QToolButton* Button = CreateToolButton(Parent, Name, true);

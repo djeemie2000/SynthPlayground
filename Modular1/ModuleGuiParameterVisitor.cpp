@@ -48,6 +48,11 @@ void CModuleGuiParameterVisitor::SelectionParameter(const std::string &Parameter
     guiutils::AddComboBox(m_Layout, m_Parent, m_Pos++, m_Line, {Name, Selections, Default}, ParameterName, m_CommandStackController);
 }
 
+void CModuleGuiParameterVisitor::BooleanParameter(const std::string &ParameterName, const std::string &Name, bool Default)
+{
+    guiutils::AddCheckableSmallButton(m_Layout, m_Parent, m_Pos++, m_Line, Name, ParameterName, Default, m_CommandStackController);
+}
+
 void CModuleGuiParameterVisitor::FinishLine()
 {
     ++m_Line;

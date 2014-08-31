@@ -21,7 +21,9 @@ SOURCES += ControllerBankFilter.cpp \
     LFOBankFilter.cpp \
     LFOBankModule.cpp \
     SimpleOscillatorFilter.cpp \
-    SimpleOscillatorModule.cpp
+    SimpleOscillatorModule.cpp \
+    Filters/StereoDelayFilter.cpp \
+    Modules/StereoDelayModule.cpp
 
 HEADERS += ControllerBankFilter.h \ 
     PhasorFilter.h \
@@ -44,8 +46,12 @@ HEADERS += ControllerBankFilter.h \
     LFOBankFilter.h \
     LFOBankModule.h \
     SimpleOscillatorFilter.h \
-    SimpleOscillatorModule.h
+    SimpleOscillatorModule.h \
+    Filters/StereoDelayFilter.h \
+    Modules/StereoDelayModule.h
 
+INCLUDEPATH += ./Filters
+INCLUDEPATH += ./Modules
 INCLUDEPATH += ./../CommandStackLib
 INCLUDEPATH += ./../JackLib
 INCLUDEPATH += ./../MidiLib
