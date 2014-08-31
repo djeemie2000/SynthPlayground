@@ -44,6 +44,10 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CLpfModule(Name, *m_CommandStackController));
     }
+    else if(Type == "LFOBank<4>")
+    {
+        Module.reset(new CLFOBankModule(Name, 4, *m_CommandStackController));
+    }
     else if(Type == "LFOBank<8>")
     {
         Module.reset(new CLFOBankModule(Name, 8, *m_CommandStackController));
@@ -62,5 +66,5 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
 
 std::vector<string> CModuleFactory::GetSupportedTypes() const
 {
-    return { "Amp", "ControllerBank<8>", "Operator", "Phasor", "MidiNote", "LPF", "LFOBank<8>", "SimpleOscillator", "StereoDelay" };
+    return { "Amp", "ControllerBank<8>", "Operator", "Phasor", "MidiNote", "LPF", "LFOBank<4>", "LFOBank<8>","SimpleOscillator", "StereoDelay" };
 }

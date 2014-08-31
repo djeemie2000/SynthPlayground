@@ -12,14 +12,14 @@ CLFOBankModule::CLFOBankModule(const std::string& Name, int Size, CCommandStackC
  , m_Filter()
  , m_IOManager(new CJackIOManager())
 {
+    // Open here?
+    Open();
     // command stack stuff for filter
     for(int idx = 0; idx<m_Size; ++idx)
     {
         m_CommandStackController.AddCommand({m_Name+"/"+std::to_string(idx)+"/Select", false, 0, 0.0f}, [idx,this](const SCmdStackItem& Item) { m_Filter->Select(idx, Item.s_IntValue); });
         m_CommandStackController.AddCommand({m_Name+"/"+std::to_string(idx)+"/Frequency", false, 0, 0.0f}, [idx,this](const SCmdStackItem& Item) { m_Filter->SetFrequency(idx, Item.s_FloatValue); });
     }
-    // Open here?
-    Open();
 }
 
 CLFOBankModule::~CLFOBankModule()
