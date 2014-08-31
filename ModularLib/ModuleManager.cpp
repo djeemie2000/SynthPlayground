@@ -1,3 +1,4 @@
+#include <sstream>
 #include "ModuleManager.h"
 #include "ModularModuleI.h"
 #include "ModuleFactoryI.h"
@@ -60,36 +61,64 @@ void CModuleManager::Capture()
 
 void CModuleManager::Restore()
 {
+    Restore(m_GrabbedState);
+}
+
+void CModuleManager::Restore(const CModuleManager::ModuleState &RestoredState)
+{
     ModuleMap RestoredModules;
-    for(auto& GrabbedModule : m_GrabbedState)
+    for(auto& Item : RestoredState)
     {
-        auto itModule = m_Modules.find(GrabbedModule.first);
+        auto itModule = m_Modules.find(Item.first);
         if(itModule==m_Modules.end())
         {
             // does not exist => create into restored
-            RestoredModules[GrabbedModule.first] = m_Factory->Create(GrabbedModule.second, GrabbedModule.first);
+            RestoredModules[Item.first] = m_Factory->Create(Item.second, Item.first);
 
         }
         else
         {
             // else => keep
-            RestoredModules[GrabbedModule.first] = itModule->second;
+            RestoredModules[Item.first] = itModule->second;
         }
     }
 
     // restore : grabbed -> current
     m_Modules = RestoredModules; // this will automatically delete all in current tha are not in restored
-    m_CurrentState = m_GrabbedState;
+    m_CurrentState = RestoredState;
 }
 
-void CModuleManager::Save(const std::string &Path)
+void CModuleManager::Save(std::string &Content)
 {
-
+    for(auto& Item : m_CurrentState)
+    {
+        Content += Item.first;
+        Content += " --- ";
+        Content += Item.second;
+        Content += "\n";
+    }
 }
 
-void CModuleManager::Load(const std::string &Path)
+void CModuleManager::Load(const std::string &Content)
 {
+    ModuleState LoadedState;
+    // Content string to state
+    std::istringstream Iss(Content.c_str());
+    do
+    {
+        std::string Line;
+        std::getline(Iss, Line);
+        if(4<=Line.length())
+        {
+            std::string Name = Line.substr(0, Line.find(" --- ", 0));
+            std::string Type = Line.substr(Line.find(" --- ", 0)+5, std::string::npos);
+            LoadedState[Name] = Type;
+        }
+    }
+    while(!Iss.eof());
 
+    // now restore loaded state
+    Restore(LoadedState);
 }
 
 std::string CModuleManager::GenerateUniqueName(const std::string &Type)

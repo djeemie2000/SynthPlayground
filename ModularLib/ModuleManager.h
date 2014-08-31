@@ -20,17 +20,18 @@ public:
     std::vector<std::string> GetSupportedTypes() const;
     void Capture();//!< capture current module state
     void Restore(); //!< restore grabbed state
-    void Save(const std::string& Path); //!< save current state
-    void Load(const std::string& Path); //!< load state
+    void Save(std::string& Content); //!< save current state
+    void Load(const std::string& Content); //!< load state
 
 private:
+    typedef std::map<std::string, std::string> ModuleState; //! module state (Name, Type)
+    typedef std::map<std::string, std::shared_ptr<IModularModule>> ModuleMap;
+
     std::string GenerateUniqueName(const std::string& Type);
+    void Restore(const ModuleState& State);
 
     std::shared_ptr<IModuleFactory> m_Factory;
-    typedef std::map<std::string, std::shared_ptr<IModularModule>> ModuleMap;
     ModuleMap m_Modules;
-
-    typedef std::map<std::string, std::string> ModuleState; //! module state (Name, Type)
     ModuleState m_CurrentState;
     ModuleState m_GrabbedState;
 };
