@@ -41,7 +41,12 @@ int CStereoDelayFilter::OnProcess(const std::vector<void *> &SourceBuffers,
                 ++pDstL;
             }
         }
-        //TODO if only destination buffer=> all zero output
+        else if(DestinationBuffers[idx])
+        {
+            //if only destination buffer=> all zero output
+            float* Dst = (float*)DestinationBuffers[idx];
+            std::fill(Dst, Dst + NumFrames, 0.0f);
+        }
     }
 
     return 0;
