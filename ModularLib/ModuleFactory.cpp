@@ -10,6 +10,7 @@
 #include "LFOBankModule.h"
 #include "SimpleOscillatorModule.h"
 #include "StereoDelayModule.h"
+#include "ADSREnvelopeBankModule.h"
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -60,11 +61,29 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CStereoDelayModule(Name, *m_CommandStackController));
     }
-
+    else if(Type == "ADSREnvelopeBank<4>")
+    {
+        Module.reset(new CADSREnvelopeBankModule(Name, 4, *m_CommandStackController));
+    }
+    else if(Type == "ADSREnvelopeBank<8>")
+    {
+        Module.reset(new CADSREnvelopeBankModule(Name, 8, *m_CommandStackController));
+    }
     return Module;
 }
 
 std::vector<string> CModuleFactory::GetSupportedTypes() const
 {
-    return { "Amp", "ControllerBank<8>", "Operator", "Phasor", "MidiNote", "LPF", "LFOBank<4>", "LFOBank<8>","SimpleOscillator", "StereoDelay" };
+    return { "Amp",
+        "ControllerBank<8>",
+        "Operator",
+        "Phasor",
+        "MidiNote",
+        "LPF",
+        "LFOBank<4>",
+        "LFOBank<8>",
+        "SimpleOscillator",
+        "StereoDelay",
+        "ADSREnvelopeBank<4>",
+        "ADSREnvelopeBank<8>"};
 }

@@ -23,7 +23,9 @@ SOURCES += ControllerBankFilter.cpp \
     SimpleOscillatorFilter.cpp \
     SimpleOscillatorModule.cpp \
     Filters/StereoDelayFilter.cpp \
-    Modules/StereoDelayModule.cpp
+    Modules/StereoDelayModule.cpp \
+    Filters/ADSREnvelopeBankFilter.cpp \
+    Modules/ADSREnvelopeBankModule.cpp
 
 HEADERS += ControllerBankFilter.h \ 
     PhasorFilter.h \
@@ -48,7 +50,9 @@ HEADERS += ControllerBankFilter.h \
     SimpleOscillatorFilter.h \
     SimpleOscillatorModule.h \
     Filters/StereoDelayFilter.h \
-    Modules/StereoDelayModule.h
+    Modules/StereoDelayModule.h \
+    Filters/ADSREnvelopeBankFilter.h \
+    Modules/ADSREnvelopeBankModule.h
 
 INCLUDEPATH += ./Filters
 INCLUDEPATH += ./Modules
