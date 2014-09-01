@@ -3,47 +3,31 @@
 #include "GuiItems.h"
 #include "CommandStackController.h"
 #include "CommandStack.h"
-#include "QPatchManagerWidget.h"
 #include <QDockWidget>
 #include "GuiCommandStack.h"
-#include "ModuleManager.h"
-#include "ModuleFactory.h"
 #include "QModularManagerWidget.h"
-#include "ModuleGuiFactory.h"
+#include "Modular1Controller.h"
 
 MainWindow::MainWindow(QWidget *parent)
   : QMainWindow(parent)
   , ui(new Ui::MainWindow)
-  , m_CommandStackController()
-  , m_ModuleManager()
+  , m_Controller()
 {
     ui->setupUi(this);
 
-    m_CommandStackController.reset(new CCommandStackController());
-    std::shared_ptr<IModuleFactory> Factory(new CModuleFactory(m_CommandStackController));
-    std::shared_ptr<CModuleGuiFactory> GuiFactory(new CModuleGuiFactory(Factory, m_CommandStackController, this));
-    m_ModuleManager.reset(new CModuleManager(GuiFactory));
+    m_Controller.reset(new CModular1Controller(this));
 
     // build gui
-    QDockWidget* Patch = new QDockWidget(this);
-    Patch->setFeatures(QDockWidget::DockWidgetMovable);
-    Patch->setWidget(new QPatchManagerWidget(*m_CommandStackController, this));
-    addDockWidget(Qt::RightDockWidgetArea, Patch);
+    QModularManagerWidget* ModularManagerWidget = new QModularManagerWidget(m_Controller, this);//check destructor/use weak_ptr?
 
-    QModularManagerWidget* FactoryWidget = new QModularManagerWidget(m_ModuleManager, this);//check destructor/use weak_ptr?
-
-    QDockWidget* Fact = new QDockWidget(this);
-    Fact->setFeatures(QDockWidget::DockWidgetMovable);
-    Fact->setWidget(FactoryWidget);
-    addDockWidget(Qt::RightDockWidgetArea, Fact);
-
-    //ui->centralWidget->layout()->addWidget(new QPatchManagerWidget(*m_CommandStackController, this));
-    //ui->centralWidget->layout()->addWidget(new QModularFactoryWidget(m_ModuleManager, this));
+    QDockWidget* Mgr = new QDockWidget(this);
+    Mgr->setFeatures(QDockWidget::DockWidgetMovable);
+    Mgr->setWidget(ModularManagerWidget);
+    addDockWidget(Qt::RightDockWidgetArea, Mgr);
 }
 
 MainWindow::~MainWindow()
 {
-    m_ModuleManager.reset();
+    m_Controller.reset();
     delete ui;
 }
-

@@ -8,8 +8,7 @@ namespace Ui {
 class MainWindow;
 }
 
-class CCommandStackController;
-class CModuleManager;
+class CModular1Controller;
 
 class MainWindow : public QMainWindow
 {
@@ -24,8 +23,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
 
-    std::shared_ptr<CCommandStackController> m_CommandStackController;
-    std::shared_ptr<CModuleManager> m_ModuleManager;
+    std::shared_ptr<CModular1Controller> m_Controller;
 };
 
 #endif // MAINWINDOW_H

@@ -1,20 +1,19 @@
 #include "QModularManagerWidget.h"
 #include "ui_QModularManagerWidget.h"
-#include "ModuleManager.h"
-#include "ModuleGuiFactory.h"
+#include "Modular1Controller.h"
 
-QModularManagerWidget::QModularManagerWidget(std::weak_ptr<CModuleManager> Manager,
+QModularManagerWidget::QModularManagerWidget(std::weak_ptr<CModular1Controller> Controller,
                                              QWidget *parent)
      : QWidget(parent)
      , ui(new Ui::QModularManagerWidget)
-     , m_Manager(Manager)
+     , m_Controller(Controller)
 {
     ui->setupUi(this);
 
     ui->listWidget_ModuleTypes->clear();
-    if(std::shared_ptr<CModuleManager> Manager = m_Manager.lock())
+    if(std::shared_ptr<CModular1Controller> Controller = m_Controller.lock())
     {
-        for(auto& Name : Manager->GetSupportedTypes())
+        for(auto& Name : Controller->GetSupportedTypes())
         {
             ui->listWidget_ModuleTypes->addItem(QString::fromStdString(Name));
         }
@@ -23,19 +22,19 @@ QModularManagerWidget::QModularManagerWidget(std::weak_ptr<CModuleManager> Manag
 
 QModularManagerWidget::~QModularManagerWidget()
 {
-    m_Manager.reset();
+    m_Controller.reset();
     delete ui;
 }
 
 void QModularManagerWidget::on_pushButton_Create_clicked()
 {
-    if(std::shared_ptr<CModuleManager> Manager = m_Manager.lock())
+    if(std::shared_ptr<CModular1Controller> Controller = m_Controller.lock())
     {
         QList<QListWidgetItem*> Selected = ui->listWidget_ModuleTypes->selectedItems();
         QListWidgetItem* Item = 0;
         foreach(Item , Selected)
         {
-            Manager->Create(Item->text().toStdString(), "");
+            Controller->Create(Item->text().toStdString(), "");
         }
         UpdateNames();
     }
@@ -43,13 +42,13 @@ void QModularManagerWidget::on_pushButton_Create_clicked()
 
 void QModularManagerWidget::on_pushButton_Remove_clicked()
 {
-    if(std::shared_ptr<CModuleManager> Manager = m_Manager.lock())
+    if(std::shared_ptr<CModular1Controller> Controller = m_Controller.lock())
     {
         QList<QListWidgetItem*> Selected = ui->listWidget_ModuleNames->selectedItems();
         QListWidgetItem* Item = 0;
         foreach(Item , Selected)
         {
-            Manager->Remove(Item->text().toStdString());
+            Controller->Remove(Item->text().toStdString());
         }
         UpdateNames();
     }
@@ -57,30 +56,39 @@ void QModularManagerWidget::on_pushButton_Remove_clicked()
 
 void QModularManagerWidget::on_pushButton_Capture_clicked()
 {
-    if(std::shared_ptr<CModuleManager> Manager = m_Manager.lock())
+    if(std::shared_ptr<CModular1Controller> Controller = m_Controller.lock())
     {
-        Manager->Capture();
+        Controller->Capture();
     }
 }
 
 void QModularManagerWidget::on_pushButton_Restore_clicked()
 {
-    if(std::shared_ptr<CModuleManager> Manager = m_Manager.lock())
+    if(std::shared_ptr<CModular1Controller> Controller = m_Controller.lock())
     {
-        Manager->Restore();
+        Controller->Restore();
         UpdateNames();
     }
 }
 
 void QModularManagerWidget::UpdateNames()
 {
-    if(std::shared_ptr<CModuleManager> Manager = m_Manager.lock())
+    if(std::shared_ptr<CModular1Controller> Controller = m_Controller.lock())
     {
         //update names
         ui->listWidget_ModuleNames->clear();
-        for(auto& Name : Manager->GetNames())
+        for(auto& Name : Controller->GetNames())
         {
             ui->listWidget_ModuleNames->addItem(QString::fromStdString(Name));
         }
+    }
+}
+
+void QModularManagerWidget::on_pushButton_RemoveAll_clicked()
+{
+    if(std::shared_ptr<CModular1Controller> Controller = m_Controller.lock())
+    {
+        Controller->RemoveAll();
+        UpdateNames();
     }
 }

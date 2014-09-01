@@ -16,12 +16,13 @@ public:
 
     bool Create(const std::string& Type, const std::string& Name);
     bool Remove(const std::string& Name);
+    bool RemoveAll();
     std::vector<std::string> GetNames() const;
     std::vector<std::string> GetSupportedTypes() const;
     void Capture();//!< capture current module state
     void Restore(); //!< restore grabbed state
-    void Save(std::string& Content); //!< save current state
-    void Load(const std::string& Content); //!< load state
+    void Export(std::string& Content); //!< save current state
+    void Import(const std::string& Content); //!< load state
 
 private:
     typedef std::map<std::string, std::string> ModuleState; //! module state (Name, Type)

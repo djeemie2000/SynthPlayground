@@ -4,7 +4,7 @@
 #include <memory>
 #include <QWidget>
 
-class CModuleManager;
+class CModular1Controller;
 
 namespace Ui {
 class QModularManagerWidget;
@@ -15,7 +15,7 @@ class QModularManagerWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit QModularManagerWidget(std::weak_ptr<CModuleManager> Manager,
+    explicit QModularManagerWidget(std::weak_ptr<CModular1Controller> Controller,
                                    QWidget *parent = 0);
     ~QModularManagerWidget();
 
@@ -26,12 +26,13 @@ private slots:
     void on_pushButton_Remove_clicked();
     void on_pushButton_Capture_clicked();
     void on_pushButton_Restore_clicked();
+    void on_pushButton_RemoveAll_clicked();
 
 private:
     void UpdateNames();
 
     Ui::QModularManagerWidget *ui;
-    std::weak_ptr<CModuleManager> m_Manager;
+    std::weak_ptr<CModular1Controller> m_Controller;
 };
 
 #endif // MODULARFACTORYWIDGET_H

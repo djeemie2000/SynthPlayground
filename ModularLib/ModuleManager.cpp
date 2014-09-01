@@ -39,6 +39,12 @@ bool CModuleManager::Remove(const std::string &Name)
     return Removed;
 }
 
+bool CModuleManager::RemoveAll()
+{
+    Restore(ModuleState());
+    return true;
+}
+
 std::vector<std::string> CModuleManager::GetNames() const
 {
     std::vector<std::string> AllNames;
@@ -64,7 +70,7 @@ void CModuleManager::Restore()
     Restore(m_GrabbedState);
 }
 
-void CModuleManager::Restore(const CModuleManager::ModuleState &RestoredState)
+void CModuleManager::Restore(const ModuleState &RestoredState)
 {
     ModuleMap RestoredModules;
     for(auto& Item : RestoredState)
@@ -88,7 +94,7 @@ void CModuleManager::Restore(const CModuleManager::ModuleState &RestoredState)
     m_CurrentState = RestoredState;
 }
 
-void CModuleManager::Save(std::string &Content)
+void CModuleManager::Export(std::string &Content)
 {
     for(auto& Item : m_CurrentState)
     {
@@ -99,7 +105,7 @@ void CModuleManager::Save(std::string &Content)
     }
 }
 
-void CModuleManager::Load(const std::string &Content)
+void CModuleManager::Import(const std::string &Content)
 {
     ModuleState LoadedState;
     // Content string to state
