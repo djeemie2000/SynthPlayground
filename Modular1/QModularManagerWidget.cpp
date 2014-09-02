@@ -92,3 +92,29 @@ void QModularManagerWidget::on_pushButton_RemoveAll_clicked()
         UpdateNames();
     }
 }
+
+void QModularManagerWidget::on_pushButton_Default_clicked()
+{
+    if(std::shared_ptr<CModular1Controller> Controller = m_Controller.lock())
+    {
+        Controller->Default();
+    }
+}
+
+void QModularManagerWidget::on_pushButton_Save_clicked()
+{
+    //TODO get path
+    if(std::shared_ptr<CModular1Controller> Controller = m_Controller.lock())
+    {
+        Controller->Save("...");
+    }
+}
+
+void QModularManagerWidget::on_pushButton_Load_clicked()
+{
+    //TODO get path
+    if(std::shared_ptr<CModular1Controller> Controller = m_Controller.lock())
+    {
+        Controller->Load("...");
+    }
+}

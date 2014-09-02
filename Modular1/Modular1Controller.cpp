@@ -10,12 +10,15 @@ CModular1Controller::CModular1Controller(QMainWindow *Parent)
  , m_ModuleManager()
  , m_ConnectionManager()
  , m_CapturedConnections()
+ , m_CapturedParameters()
 {
     m_CommandStackController.reset(new CCommandStackController());
     std::shared_ptr<IModuleFactory> Factory(new CModuleFactory(m_CommandStackController));
     std::shared_ptr<CModuleGuiFactory> GuiFactory(new CModuleGuiFactory(Factory, m_CommandStackController, Parent));
     m_ModuleManager.reset(new CModuleManager(GuiFactory));
     m_ConnectionManager.reset(new CJackConnectionManager());
+
+    m_ConnectionManager->OpenClient("ConnectionMgr");
 }
 
 bool CModular1Controller::Create(const string &Type, const string &Name)
@@ -50,18 +53,22 @@ std::vector<string> CModular1Controller::GetSupportedTypes() const
 
 void CModular1Controller::Capture()
 {
+    // capture modules (names, types)
     m_ModuleManager->Capture();
     // capture connections
     m_CapturedConnections = ConnectionsToString(*m_ConnectionManager);
-    // TODO capture parameters
+    // capture parameters
+    m_CommandStackController->ExportToString(m_CapturedParameters);
 }
 
 void CModular1Controller::Restore()
 {
+    // restore captured modules
     m_ModuleManager->Restore();
-    // restore connections
+    // restore captured connections
     StringToConnections(*m_ConnectionManager, m_CapturedConnections);
-    // TODO restore parameters
+    // restore captured parameters
+    m_CommandStackController->ImportFromString(m_CapturedParameters);
 }
 
 void CModular1Controller::Save(const string &Path)

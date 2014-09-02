@@ -11,8 +11,9 @@ public:
     CExportCommandStackHandler();
 
     void Handle(const SCmdStackItem& Item) override;
-
     bool Export(const std::string& Path) override;
+
+    bool ExportToString(std::string& Content);
 
 private:
     CmdStackMap m_Current;

@@ -80,3 +80,13 @@ void CCommandStackController::RemoveCommand(const string &CommandName)
     m_Importer->RemoveDefault(CommandName);
     m_Executor->Remove(CommandName);
 }
+
+bool CCommandStackController::ImportFromString(const string &Content)
+{
+    return m_Importer->ImportFromString(Content);
+}
+
+bool CCommandStackController::ExportToString(string &Content)
+{
+    return m_Exporter->ExportToString(Content);
+}

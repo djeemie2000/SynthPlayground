@@ -27,6 +27,9 @@ private slots:
     void on_pushButton_Capture_clicked();
     void on_pushButton_Restore_clicked();
     void on_pushButton_RemoveAll_clicked();
+    void on_pushButton_Default_clicked();
+    void on_pushButton_Save_clicked();
+    void on_pushButton_Load_clicked();
 
 private:
     void UpdateNames();

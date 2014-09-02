@@ -32,6 +32,7 @@ private:
     std::shared_ptr<CModuleManager> m_ModuleManager;
     std::shared_ptr<CJackConnectionManager> m_ConnectionManager;
     std::string m_CapturedConnections;
+    std::string m_CapturedParameters;
 };
 
 #endif // MODULAR1CONTROLLER_H

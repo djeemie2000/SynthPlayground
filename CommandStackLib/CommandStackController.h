@@ -29,6 +29,8 @@ public:
     void Register(const std::string& CommandName, SPCommandStackHandler Handler); //!< register listeners for a specific name
     void AddCommand(const SCmdStackItem& Default, CmdFunction Function);
     void RemoveCommand(const std::string& CommandName);
+    bool ImportFromString(const std::string& Content);
+    bool ExportToString(std::string& Content);
 
 private:
     std::shared_ptr<CLogCommandStackHandler> m_Logger;
