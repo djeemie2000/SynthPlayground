@@ -1,13 +1,12 @@
-#ifndef SKEWERFILTER_H
-#define SKEWERFILTER_H
+#pragma once
 
 #include "AudioFilterI.h"
-#include "PhaseSkewer.h"
+#include "SelectableCombinor.h"
 
-class CPhaseSkewerFilter : public IAudioFilter
+class CCombinorFilter : public IAudioFilter
 {
 public:
-    CPhaseSkewerFilter();
+    CCombinorFilter();
 
     std::vector<std::string> GetInputNames() const override;
     std::vector<std::string> GetOutputNames() const override;
@@ -19,7 +18,5 @@ public:
                   std::uint32_t TimeStamp) override;
 
 private:
-    CPhaseSkewer<float> m_Skewer;
+    CSelectableCombinor<float> m_Combinor;
 };
-
-#endif // SKEWERFILTER_H

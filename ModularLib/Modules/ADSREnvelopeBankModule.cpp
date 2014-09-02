@@ -64,7 +64,7 @@ void CADSREnvelopeBankModule::Accept(IModuleParameterVisitor &ParameterVisitor) 
         ParameterVisitor.StartLine();
         ParameterVisitor.FloatParameter(m_Name+"/"+std::to_string(idx)+"/Attack", "Attack"+std::to_string(idx), 10.0f, 0.0f, 10000.0f, 1.0f, 1);
         ParameterVisitor.FloatParameter(m_Name+"/"+std::to_string(idx)+"/Decay", "Decay"+std::to_string(idx), 10.0f, 0.0f, 10000.0f, 1.0f, 1);
-        ParameterVisitor.FloatParameter(m_Name+"/"+std::to_string(idx)+"/Sustain", "Sustain"+std::to_string(idx), 1.0f, 0.0f, 10.0f, 0.01, 3);
+        ParameterVisitor.FloatParameter(m_Name+"/"+std::to_string(idx)+"/Sustain", "Sustain"+std::to_string(idx), 1.0f, 0.0f, 1.0f, 0.01, 3);
         ParameterVisitor.FloatParameter(m_Name+"/"+std::to_string(idx)+"/Release", "Release"+std::to_string(idx), 10.0f, 0.0f, 10000.0f, 0.01, 1);
         ParameterVisitor.FinishLine();
     }
