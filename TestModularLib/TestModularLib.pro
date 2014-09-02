@@ -11,6 +11,8 @@ unix {
 }
 
 INCLUDEPATH += ./../ModularLib
+INCLUDEPATH += ./../ModularLib/Filters
+INCLUDEPATH += ./../ModularLib/Modules
 INCLUDEPATH += ./../SynthLib
 INCLUDEPATH += ./../SynthLib/Controllers
 INCLUDEPATH += ./../MidiLib

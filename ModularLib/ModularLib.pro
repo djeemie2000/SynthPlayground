@@ -3,53 +3,53 @@ TEMPLATE = lib
 CONFIG += staticlib
 CONFIG += c++11 (Qt5)
 
-SOURCES += ControllerBankFilter.cpp \
-    PhasorFilter.cpp \
-    OperatorFilter.cpp \
-    AmpFilter.cpp \
-    AmpModule.cpp \
-    PhasorModule.cpp \
-    OperatorModule.cpp \
-    ControllerBankModule.cpp \
+SOURCES += Filters/ControllerBankFilter.cpp \
+    Filters/PhasorFilter.cpp \
+    Filters/OperatorFilter.cpp \
+    Filters/AmpFilter.cpp \
+    Modules/AmpModule.cpp \
+    Modules/PhasorModule.cpp \
+    Modules/OperatorModule.cpp \
+    Modules/ControllerBankModule.cpp \
     ModuleManager.cpp \
     ModuleFactory.cpp \
-    MidiNoteFilter.cpp \
+    Filters/MidiNoteFilter.cpp \
     TriggerMidiNoteHandler.cpp \
-    MidiNoteModule.cpp \
-    LpfFilter.cpp \
-    LpfModule.cpp \
-    LFOBankFilter.cpp \
-    LFOBankModule.cpp \
-    SimpleOscillatorFilter.cpp \
-    SimpleOscillatorModule.cpp \
+    Modules/MidiNoteModule.cpp \
+    Filters/LpfFilter.cpp \
+    Modules/LpfModule.cpp \
+    Filters/LFOBankFilter.cpp \
+    Modules/LFOBankModule.cpp \
+    Filters/SimpleOscillatorFilter.cpp \
+    Modules/SimpleOscillatorModule.cpp \
     Filters/StereoDelayFilter.cpp \
     Modules/StereoDelayModule.cpp \
     Filters/ADSREnvelopeBankFilter.cpp \
     Modules/ADSREnvelopeBankModule.cpp \
     Filters/SkewerFilter.cpp
 
-HEADERS += ControllerBankFilter.h \ 
-    PhasorFilter.h \
-    OperatorFilter.h \
-    AmpFilter.h \
+HEADERS += Filters/ControllerBankFilter.h \
+    Filters/PhasorFilter.h \
+    Filters/OperatorFilter.h \
+    Filters/AmpFilter.h \
     ModularModuleI.h \
-    AmpModule.h \
-    PhasorModule.h \
-    OperatorModule.h \
-    ControllerBankModule.h \
+    Modules/AmpModule.h \
+    Modules/PhasorModule.h \
+    Modules/OperatorModule.h \
+    Modules/ControllerBankModule.h \
     ModuleManager.h \
     ModuleFactoryI.h \
     ModuleFactory.h \
-    MidiNoteFilter.h \
+    Filters/MidiNoteFilter.h \
     TriggerMidiNoteHandler.h \
-    MidiNoteModule.h \
+    Modules/MidiNoteModule.h \
     ModuleParameterVisitorI.h \
-    LpfFilter.h \
-    LpfModule.h \
-    LFOBankFilter.h \
-    LFOBankModule.h \
-    SimpleOscillatorFilter.h \
-    SimpleOscillatorModule.h \
+    Filters/LpfFilter.h \
+    Modules/LpfModule.h \
+    Filters/LFOBankFilter.h \
+    Modules/FOBankModule.h \
+    Filters/SimpleOscillatorFilter.h \
+    Modules/SimpleOscillatorModule.h \
     Filters/StereoDelayFilter.h \
     Modules/StereoDelayModule.h \
     Filters/ADSREnvelopeBankFilter.h \
