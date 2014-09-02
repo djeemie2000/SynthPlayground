@@ -25,7 +25,8 @@ SOURCES += ControllerBankFilter.cpp \
     Filters/StereoDelayFilter.cpp \
     Modules/StereoDelayModule.cpp \
     Filters/ADSREnvelopeBankFilter.cpp \
-    Modules/ADSREnvelopeBankModule.cpp
+    Modules/ADSREnvelopeBankModule.cpp \
+    Filters/SkewerFilter.cpp
 
 HEADERS += ControllerBankFilter.h \ 
     PhasorFilter.h \
@@ -52,7 +53,8 @@ HEADERS += ControllerBankFilter.h \
     Filters/StereoDelayFilter.h \
     Modules/StereoDelayModule.h \
     Filters/ADSREnvelopeBankFilter.h \
-    Modules/ADSREnvelopeBankModule.h
+    Modules/ADSREnvelopeBankModule.h \
+    Filters/SkewerFilter.h
 
 INCLUDEPATH += ./Filters
 INCLUDEPATH += ./Modules
