@@ -24,8 +24,8 @@ public:
 
     void Capture();//!< capture current module/connections/parameters state
     void Restore(); //!< restore grabbed state
-    void Save(const std::string& Path);
-    void Load(const std::string& Path);
+    bool Save(const std::string& Path);
+    bool Load(const std::string& Path);
 
 private:
     std::shared_ptr<CCommandStackController> m_CommandStackController;

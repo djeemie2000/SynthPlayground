@@ -1,5 +1,6 @@
 #include "QModularManagerWidget.h"
 #include "ui_QModularManagerWidget.h"
+#include <QFileDialog>
 #include "Modular1Controller.h"
 
 QModularManagerWidget::QModularManagerWidget(std::weak_ptr<CModular1Controller> Controller,
@@ -36,8 +37,8 @@ void QModularManagerWidget::on_pushButton_Create_clicked()
         {
             Controller->Create(Item->text().toStdString(), "");
         }
-        UpdateNames();
     }
+    UpdateNames();
 }
 
 void QModularManagerWidget::on_pushButton_Remove_clicked()
@@ -50,8 +51,8 @@ void QModularManagerWidget::on_pushButton_Remove_clicked()
         {
             Controller->Remove(Item->text().toStdString());
         }
-        UpdateNames();
     }
+    UpdateNames();
 }
 
 void QModularManagerWidget::on_pushButton_Capture_clicked()
@@ -67,16 +68,15 @@ void QModularManagerWidget::on_pushButton_Restore_clicked()
     if(std::shared_ptr<CModular1Controller> Controller = m_Controller.lock())
     {
         Controller->Restore();
-        UpdateNames();
     }
+    UpdateNames();
 }
 
 void QModularManagerWidget::UpdateNames()
 {
+    ui->listWidget_ModuleNames->clear();
     if(std::shared_ptr<CModular1Controller> Controller = m_Controller.lock())
     {
-        //update names
-        ui->listWidget_ModuleNames->clear();
         for(auto& Name : Controller->GetNames())
         {
             ui->listWidget_ModuleNames->addItem(QString::fromStdString(Name));
@@ -89,8 +89,8 @@ void QModularManagerWidget::on_pushButton_RemoveAll_clicked()
     if(std::shared_ptr<CModular1Controller> Controller = m_Controller.lock())
     {
         Controller->RemoveAll();
-        UpdateNames();
     }
+    UpdateNames();
 }
 
 void QModularManagerWidget::on_pushButton_Default_clicked()
@@ -103,18 +103,25 @@ void QModularManagerWidget::on_pushButton_Default_clicked()
 
 void QModularManagerWidget::on_pushButton_Save_clicked()
 {
-    //TODO get path
-    if(std::shared_ptr<CModular1Controller> Controller = m_Controller.lock())
+    QString Path = QFileDialog::getSaveFileName(this, "Save Patch", "", "Patch (*.xml);;All Files (*)");
+    if(!Path.isEmpty())
     {
-        Controller->Save("...");
+        if(std::shared_ptr<CModular1Controller> Controller = m_Controller.lock())
+        {
+            Controller->Save(Path.toStdString());
+        }
     }
 }
 
 void QModularManagerWidget::on_pushButton_Load_clicked()
 {
-    //TODO get path
-    if(std::shared_ptr<CModular1Controller> Controller = m_Controller.lock())
+    QString Path = QFileDialog::getOpenFileName(this, "Load Patch", "", "Patch (*.xml);;All Files (*)");
+    if(!Path.isEmpty())
     {
-        Controller->Load("...");
+        if(std::shared_ptr<CModular1Controller> Controller = m_Controller.lock())
+        {
+            Controller->Load(Path.toStdString());
+        }
+        UpdateNames();
     }
 }

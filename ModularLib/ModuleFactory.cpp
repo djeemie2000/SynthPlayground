@@ -25,7 +25,11 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CAmpModule(Name));
     }
-    else if(Type == "ControllerBank<8>")
+    else if(Type == "ControllerBank(4)")
+    {
+        Module.reset(new CControllerBankModule(Name, 4, *m_CommandStackController));//TODO sp ipv ref
+    }
+    else if(Type == "ControllerBank(8)")
     {
         Module.reset(new CControllerBankModule(Name, 8, *m_CommandStackController));//TODO sp ipv ref
     }
@@ -45,11 +49,11 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CLpfModule(Name, *m_CommandStackController));
     }
-    else if(Type == "LFOBank<4>")
+    else if(Type == "LFOBank(4)")
     {
         Module.reset(new CLFOBankModule(Name, 4, *m_CommandStackController));
     }
-    else if(Type == "LFOBank<8>")
+    else if(Type == "LFOBank(8)")
     {
         Module.reset(new CLFOBankModule(Name, 8, *m_CommandStackController));
     }
@@ -61,11 +65,11 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CStereoDelayModule(Name, *m_CommandStackController));
     }
-    else if(Type == "ADSREnvelopeBank<4>")
+    else if(Type == "ADSREnvelopeBank(4)")
     {
         Module.reset(new CADSREnvelopeBankModule(Name, 4, *m_CommandStackController));
     }
-    else if(Type == "ADSREnvelopeBank<8>")
+    else if(Type == "ADSREnvelopeBank(8)")
     {
         Module.reset(new CADSREnvelopeBankModule(Name, 8, *m_CommandStackController));
     }
@@ -75,15 +79,16 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
 std::vector<string> CModuleFactory::GetSupportedTypes() const
 {
     return { "Amp",
-        "ControllerBank<8>",
+        "ControllerBank(4)",
+        "ControllerBank(8)",
         "Operator",
         "Phasor",
         "MidiNote",
         "LPF",
-        "LFOBank<4>",
-        "LFOBank<8>",
+        "LFOBank(4)",
+        "LFOBank(8)",
         "SimpleOscillator",
         "StereoDelay",
-        "ADSREnvelopeBank<4>",
-        "ADSREnvelopeBank<8>"};
+        "ADSREnvelopeBank(4)",
+        "ADSREnvelopeBank(8)"};
 }

@@ -1,9 +1,11 @@
+#include <fstream>
 #include "Modular1Controller.h"
 #include "CommandStackController.h"
 #include "ModuleManager.h"
 #include "ModuleFactory.h"
 #include "ModuleGuiFactory.h"
 #include "JackConnectionManager.h"
+#include "tinyxml2.h"
 
 CModular1Controller::CModular1Controller(QMainWindow *Parent)
  : m_CommandStackController()
@@ -71,12 +73,42 @@ void CModular1Controller::Restore()
     m_CommandStackController->ImportFromString(m_CapturedParameters);
 }
 
-void CModular1Controller::Save(const string &Path)
+bool CModular1Controller::Save(const string &Path)
 {
+    std::ofstream OutFile;
+    OutFile.open(Path.c_str());
+    if(OutFile.is_open())
+    {
+        std::string Modules;
+        m_ModuleManager->Export(Modules);
+        std::string Connections = ConnectionsToString(*m_ConnectionManager);
+        std::string Parameters;
+        m_CommandStackController->ExportToString(Parameters);
 
+        OutFile << "<xml>" << std::endl
+                << "<Modules>" << std::endl << Modules << std::endl << "</Modules>" << std::endl
+                << "<Connections>" << std::endl << Connections << std::endl << "</Connections>" << std::endl
+                << "<Parameters>" << std::endl << Parameters << std::endl << "</Parameters>" << std::endl
+                << "</xml>";
+
+        return true;
+    }
+    return false;
 }
 
-void CModular1Controller::Load(const string &Path)
+bool CModular1Controller::Load(const string &Path)
 {
+    tinyxml2::XMLDocument Doc;
+    if(tinyxml2::XML_NO_ERROR == Doc.LoadFile(Path.c_str()))
+    {
+        std::string Modules = Doc.RootElement()->FirstChildElement("Modules")->GetText();
+        std::string Connections = Doc.RootElement()->FirstChildElement("Connections")->GetText();
+        std::string Parameters = Doc.RootElement()->FirstChildElement("Parameters")->GetText();
+        m_ModuleManager->Import(Modules);
+        StringToConnections(*m_ConnectionManager, Connections);
+        m_CommandStackController->ImportFromString(Parameters);
 
+        return true;
+    }
+    return false;
 }

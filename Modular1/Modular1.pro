@@ -36,6 +36,7 @@ INCLUDEPATH += ./../ModularLib
 INCLUDEPATH += ./../GuiLib
 INCLUDEPATH += ./../MidiLib
 INCLUDEPATH += ./../JackLib
+INCLUDEPATH += ./../TinyXml2
 
 CONFIG(debug, debug|release) {
     LIBS += -L./../build-dir/Debug/SynthLib
@@ -50,6 +51,8 @@ CONFIG(debug, debug|release) {
     PRE_TARGETDEPS += ./../build-dir/Debug/MidiLib/libMidiLib.a
     LIBS += -L./../build-dir/Debug/JackLib
     PRE_TARGETDEPS += ./../build-dir/Debug/JackLib/libJackLib.a
+    LIBS += -L./../build-dir/Debug/TinyXml2
+    PRE_TARGETDEPS += ./../build-dir/Debug/TinyXml2/libTinyXml2.a
 }
 CONFIG(release, debug|release) {
     LIBS += -L./../build-dir/Release/SynthLib
@@ -64,6 +67,8 @@ CONFIG(release, debug|release) {
     PRE_TARGETDEPS += ./../build-dir/Release/MidiLib/libMidiLib.a
     LIBS += -L./../build-dir/Release/JackLib
     PRE_TARGETDEPS += ./../build-dir/Release/JackLib/libJackLib.a
+    LIBS += -L./../build-dir/Release/TinyXml2
+    PRE_TARGETDEPS += ./../build-dir/Release/TinyXml2/libTinyXml2.a
 }
 
 LIBS += -lSynthLib
@@ -72,6 +77,7 @@ LIBS += -lModularLib
 LIBS += -lGuiLib
 LIBS += -lMidiLib
 LIBS += -lJackLib
+LIBS += -lTinyXml2
 LIBS += -lasound
 LIBS += -ljack
 
