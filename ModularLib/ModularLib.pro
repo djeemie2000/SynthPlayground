@@ -28,7 +28,10 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Modules/ADSREnvelopeBankModule.cpp \
     Filters/SkewerFilter.cpp \
     Modules/CombinorModule.cpp \
-    Modules/PhaseSkewerModule.cpp
+    Modules/PhaseSkewerModule.cpp \
+    Filters/MixerFilter.cpp \
+    Modules/MixerModule.cpp \
+    Filters/CombinorFilter.cpp
 
 HEADERS += Filters/ControllerBankFilter.h \
     Filters/PhasorFilter.h \
@@ -49,6 +52,7 @@ HEADERS += Filters/ControllerBankFilter.h \
     Filters/LpfFilter.h \
     Modules/LpfModule.h \
     Filters/LFOBankFilter.h \
+    Modules/LFOBankModule.h \
     Modules/FOBankModule.h \
     Filters/SimpleOscillatorFilter.h \
     Modules/SimpleOscillatorModule.h \
@@ -58,7 +62,10 @@ HEADERS += Filters/ControllerBankFilter.h \
     Modules/ADSREnvelopeBankModule.h \
     Filters/SkewerFilter.h \
     Modules/CombinorModule.h \
-    Modules/PhaseSkewerModule.h
+    Modules/PhaseSkewerModule.h \
+    Filters/MixerFilter.h \
+    Modules/MixerModule.h \
+    Filters/CombinorFilter.h
 
 INCLUDEPATH += ./Filters
 INCLUDEPATH += ./Modules

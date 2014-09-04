@@ -11,6 +11,9 @@
 #include "SimpleOscillatorModule.h"
 #include "StereoDelayModule.h"
 #include "ADSREnvelopeBankModule.h"
+#include "MixerModule.h"
+#include "PhaseSkewerModule.h"
+#include "CombinorModule.h"
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -73,6 +76,22 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CADSREnvelopeBankModule(Name, 8, *m_CommandStackController));
     }
+    else if(Type == "Mixer(4)")
+    {
+        Module.reset(new CMixerModule(Name, 4, *m_CommandStackController));
+    }
+    else if(Type == "Mixer(8)")
+    {
+        Module.reset(new CMixerModule(Name, 8, *m_CommandStackController));
+    }
+    else if(Type == "PhaseSkewer")
+    {
+        Module.reset(new CPhaseSkewerModule(Name));
+    }
+    else if(Type == "Combinor")
+    {
+        Module.reset(new CCombinorModule(Name));//TODO cmd stack
+    }
     return Module;
 }
 
@@ -90,5 +109,9 @@ std::vector<string> CModuleFactory::GetSupportedTypes() const
         "SimpleOscillator",
         "StereoDelay",
         "ADSREnvelopeBank(4)",
-        "ADSREnvelopeBank(8)"};
+        "ADSREnvelopeBank(8)",
+        "Mixer(4)",
+        "Mixer(8)",
+        "PhaseSkewer"};//,
+        //"Combinor"};
 }

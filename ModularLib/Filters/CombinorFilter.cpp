@@ -4,7 +4,7 @@
 #include "SelectableCombinorFactory.h"
 
 CCombinorFilter::CCombinorFilter()
- : m_Combinor(CSelectableCombinorFactory::Create())
+ : m_Combinor()//TODO!!!!!CSelectableCombinorFactory::Create())
 {
 }
 
@@ -34,7 +34,7 @@ int CCombinorFilter::OnProcess(const std::vector<void *> &SourceBuffers,
     float* OutBuffer = static_cast<float*>(DestinationBuffers[0]);
     if(In1Buffer && OutBuffer && In2Buffer)
     {
-        std::transform(In1Buffer, In1Buffer+NumFrames, In2Buffer, OutBuffer, m_Skewer);
+        std::transform(In1Buffer, In1Buffer+NumFrames, In2Buffer, OutBuffer, m_Combinor);//TODO
     }
 
     return 0;
