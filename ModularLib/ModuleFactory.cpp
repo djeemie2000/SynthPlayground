@@ -90,7 +90,7 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     }
     else if(Type == "Combinor")
     {
-        Module.reset(new CCombinorModule(Name));//TODO cmd stack
+        Module.reset(new CCombinorModule(Name, *m_CommandStackController));
     }
     return Module;
 }
@@ -112,6 +112,6 @@ std::vector<string> CModuleFactory::GetSupportedTypes() const
         "ADSREnvelopeBank(8)",
         "Mixer(4)",
         "Mixer(8)",
-        "PhaseSkewer"};//,
-        //"Combinor"};
+        "PhaseSkewer",
+        "Combinor"};
 }

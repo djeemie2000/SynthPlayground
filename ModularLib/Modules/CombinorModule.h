@@ -4,13 +4,14 @@
 #include <memory>
 #include "ModularModuleI.h"
 
-class IAudioFilter;
+class CCombinorFilter;
 class CJackIOManager;
+class CCommandStackController;
 
 class CCombinorModule : public IModularModule
 {
 public:
-    CCombinorModule(const std::string& Name);
+    CCombinorModule(const std::string& Name, CCommandStackController& CommandStackController);
     ~CCombinorModule();
 
     std::string GetName() const override;
@@ -24,7 +25,8 @@ private:
     bool Open();
     bool Close();
 
+    CCommandStackController& m_CommandStackController;
     std::string m_Name;
-    std::shared_ptr<IAudioFilter> m_Filter;
+    std::shared_ptr<CCombinorFilter> m_Filter;
     std::unique_ptr<CJackIOManager> m_IOManager;
 };

@@ -17,6 +17,8 @@ public:
                   int NumFrames,
                   std::uint32_t TimeStamp) override;
 
+    void Select(int Selected);
+
 private:
     CSelectableCombinor<float> m_Combinor;
 };

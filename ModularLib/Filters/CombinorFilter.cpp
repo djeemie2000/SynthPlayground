@@ -4,8 +4,9 @@
 #include "SelectableCombinorFactory.h"
 
 CCombinorFilter::CCombinorFilter()
- : m_Combinor()//TODO!!!!!CSelectableCombinorFactory::Create())
+ : m_Combinor(CSelectableCombinorFactory::Create())
 {
+    Select(0);//need to do this!
 }
 
 std::vector<std::string> CCombinorFilter::GetInputNames() const
@@ -38,4 +39,9 @@ int CCombinorFilter::OnProcess(const std::vector<void *> &SourceBuffers,
     }
 
     return 0;
+}
+
+void CCombinorFilter::Select(int Selected)
+{
+    m_Combinor.Select(Selected);
 }
