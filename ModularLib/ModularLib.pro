@@ -35,7 +35,9 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Filters/CrossMixerFilter.cpp \
     Modules/CrossMixerModule.cpp \
     Filters/ModulatorFilter.cpp \
-    Modules/ModulatorModule.cpp
+    Modules/ModulatorModule.cpp \
+    Filters/WaveFolderFilter.cpp \
+    Modules/WaveFolderModule.cpp
 
 HEADERS += Filters/ControllerBankFilter.h \
     Filters/PhasorFilter.h \
@@ -73,7 +75,9 @@ HEADERS += Filters/ControllerBankFilter.h \
     Filters/CrossMixerFilter.h \
     Modules/CrossMixerModule.h \
     Filters/ModulatorFilter.h \
-    Modules/ModulatorModule.h
+    Modules/ModulatorModule.h \
+    Filters/WaveFolderFilter.h \
+    Modules/WaveFolderModule.h
 
 INCLUDEPATH += ./Filters
 INCLUDEPATH += ./Modules

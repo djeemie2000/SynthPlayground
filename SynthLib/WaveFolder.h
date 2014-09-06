@@ -74,6 +74,11 @@ public:
 
     T operator()(T In, T Fold)
     {
+        if(Fold<=0)
+        {
+            return 0;
+        }
+
         // In in [0, 1]
         T Out = In/Fold;
 
