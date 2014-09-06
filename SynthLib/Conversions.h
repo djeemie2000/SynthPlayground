@@ -60,6 +60,19 @@ void CropSigned(T& In)
 }
 
 template<class T>
+void CropUnsigned(T& In)
+{
+    if(In<0)
+    {
+        In = 0;
+    }
+    else if(1<In)
+    {
+        In = 1;
+    }
+}
+
+template<class T>
 T SignedFullToUnsigned(T In)
 {
     // [-1,+1] to [0,1]

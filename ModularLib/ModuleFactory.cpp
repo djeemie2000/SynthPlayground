@@ -15,6 +15,7 @@
 #include "PhaseSkewerModule.h"
 #include "CombinorModule.h"
 #include "CrossMixerModule.h"
+#include "ModulatorModule.h"
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -97,6 +98,10 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CCrossMixerModule(Name));
     }
+    else if(Type == "Modulator")
+    {
+        Module.reset(new CModulatorModule(Name, 2, *m_CommandStackController));
+    }
     return Module;
 }
 
@@ -119,5 +124,6 @@ std::vector<string> CModuleFactory::GetSupportedTypes() const
         "Mixer(8)",
         "PhaseSkewer",
         "Combinor",
-        "CrossMixer"};
+        "CrossMixer",
+        "Modulator" };
 }

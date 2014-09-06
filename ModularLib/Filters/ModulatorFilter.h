@@ -1,14 +1,15 @@
-#pragma once
+#ifndef MODULATORFILTER_H
+#define MODULATORFILTER_H
 
 #include <cstdint>
 #include <string>
 #include <vector>
 #include "AudioFilterI.h"
 
-class CMixerFilter : public IAudioFilter
+class CModulatorFilter : public IAudioFilter
 {
 public:
-    CMixerFilter(int Size);
+    CModulatorFilter(int Size);
 
     std::vector<std::string> GetInputNames() const override;
     std::vector<std::string> GetOutputNames() const override;
@@ -19,10 +20,14 @@ public:
                   int NumFrames,
                   std::uint32_t TimeStamp) override;
 
-    void SetVolume(int Index, float Volume);
-    void SetMasterVolume(float Volume);
+    void SetModAmt(int Index, float ModAmt);
+    void SetOffset(float Offset);
+    void SetLimitMode(int Mode); // 0 = none, 1 = hard limit [-1,+1], 2 = hard limit [0,+1]
 
 private:
-    float               m_MasterVolume;
-    std::vector<float>  m_Volume;
+    float               m_Offset;
+    std::vector<float>  m_ModAmt;
+    int                 m_LimitMode;
 };
+
+#endif // MODULATORFILTER_H
