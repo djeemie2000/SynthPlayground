@@ -31,7 +31,9 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Modules/PhaseSkewerModule.cpp \
     Filters/MixerFilter.cpp \
     Modules/MixerModule.cpp \
-    Filters/CombinorFilter.cpp
+    Filters/CombinorFilter.cpp \
+    Filters/CrossMixerFilter.cpp \
+    Modules/CrossMixerModule.cpp
 
 HEADERS += Filters/ControllerBankFilter.h \
     Filters/PhasorFilter.h \
@@ -65,7 +67,9 @@ HEADERS += Filters/ControllerBankFilter.h \
     Modules/PhaseSkewerModule.h \
     Filters/MixerFilter.h \
     Modules/MixerModule.h \
-    Filters/CombinorFilter.h
+    Filters/CombinorFilter.h \
+    Filters/CrossMixerFilter.h \
+    Modules/CrossMixerModule.h
 
 INCLUDEPATH += ./Filters
 INCLUDEPATH += ./Modules
