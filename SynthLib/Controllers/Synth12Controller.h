@@ -9,7 +9,7 @@
 #include "WaveFolder.h"
 #include "ConstGenerator.h"
 #include "BasicEnvelope.h"
-#include "CPosNegShaper.h"
+#include "PosNegShaper.h"
 #include "PowerLawDistortion.h"
 
 class CSynth12Controller : public IAudioSource2,

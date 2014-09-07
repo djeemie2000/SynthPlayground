@@ -37,7 +37,9 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Filters/ModulatorFilter.cpp \
     Modules/ModulatorModule.cpp \
     Filters/WaveFolderFilter.cpp \
-    Modules/WaveFolderModule.cpp
+    Modules/WaveFolderModule.cpp \
+    Filters/PosNegShaperFilter.cpp \
+    Modules/PosNegShaperModule.cpp
 
 HEADERS += Filters/ControllerBankFilter.h \
     Filters/PhasorFilter.h \
@@ -77,7 +79,9 @@ HEADERS += Filters/ControllerBankFilter.h \
     Filters/ModulatorFilter.h \
     Modules/ModulatorModule.h \
     Filters/WaveFolderFilter.h \
-    Modules/WaveFolderModule.h
+    Modules/WaveFolderModule.h \
+    Filters/PosNegShaperFilter.h \
+    Modules/PosNegShaperModule.h
 
 INCLUDEPATH += ./Filters
 INCLUDEPATH += ./Modules

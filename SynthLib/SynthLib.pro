@@ -129,7 +129,7 @@ HEADERS += StepSequencer.h \
     RingSequencerMidiControllerStep.h \
     Controllers/RingSequencerController.h \
     BpmPeriod.h \
-    CPosNegShaper.h \
+    PosNegShaper.h \
     WaveTable.h \
     Controllers/Synth12Controller.h \
     WavFileReader.h \

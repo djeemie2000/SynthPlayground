@@ -24,7 +24,7 @@
 #include "PowerLawDistortion.h"
 #include "Modulator.h"
 #include "ADSREnvelope.h"
-#include "CPosNegShaper.h"
+#include "PosNegShaper.h"
 
 class CSynth11Controller
                     : public IAudioSource2

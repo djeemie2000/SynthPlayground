@@ -17,6 +17,7 @@
 #include "CrossMixerModule.h"
 #include "ModulatorModule.h"
 #include "WaveFolderModule.h"
+#include "PosNegShaperModule.h"
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -33,15 +34,15 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     }
     else if(Type == "ControllerBank(4)")
     {
-        Module.reset(new CControllerBankModule(Name, 4, *m_CommandStackController));//TODO sp ipv ref
+        Module.reset(new CControllerBankModule(Name, 4, *m_CommandStackController));//TODO wp ipv ref
     }
     else if(Type == "ControllerBank(8)")
     {
-        Module.reset(new CControllerBankModule(Name, 8, *m_CommandStackController));//TODO sp ipv ref
+        Module.reset(new CControllerBankModule(Name, 8, *m_CommandStackController));//TODO wp ipv ref
     }
     else if(Type == "Operator")
     {
-        Module.reset(new COperatorModule(Name, *m_CommandStackController));//TODO sp ipv ref
+        Module.reset(new COperatorModule(Name, *m_CommandStackController));//TODO wp ipv ref
     }
     else if(Type == "Phasor")
     {
@@ -107,6 +108,11 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CWaveFolderModule(Name));
     }
+    else if(Type == "PosNegShaper")
+    {
+        Module.reset(new CPosNegShaperModule(Name, *m_CommandStackController));
+    }
+
     return Module;
 }
 
@@ -131,5 +137,6 @@ std::vector<string> CModuleFactory::GetSupportedTypes() const
         "Combinor",
         "CrossMixer",
         "Modulator",
-        "WaveFolder"};
+        "WaveFolder",
+        "PosNegShaper"};
 }
