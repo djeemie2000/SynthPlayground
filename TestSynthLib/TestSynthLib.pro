@@ -16,7 +16,8 @@ SOURCES += main.cpp \
     TestFMOperatorStage.cpp \
     TestADSREnvelope.cpp \
     TestPosNegShaper.cpp \
-    TestSynth12Controller.cpp
+    TestSynth12Controller.cpp \
+    TestLinSegOperator.cpp
 
 unix {
     target.path = /usr/lib
