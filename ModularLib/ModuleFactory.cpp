@@ -18,6 +18,7 @@
 #include "ModulatorModule.h"
 #include "WaveFolderModule.h"
 #include "PosNegShaperModule.h"
+#include "LinSegOperatorModule.h"
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -112,6 +113,10 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CPosNegShaperModule(Name, *m_CommandStackController));
     }
+    else if(Type == "LinSegOperator")
+    {
+        Module.reset(new CLinSegOperatorModule(Name));
+    }
 
     return Module;
 }
@@ -138,5 +143,6 @@ std::vector<string> CModuleFactory::GetSupportedTypes() const
         "CrossMixer",
         "Modulator",
         "WaveFolder",
-        "PosNegShaper"};
+        "PosNegShaper",
+        "LinSegOperator"};
 }
