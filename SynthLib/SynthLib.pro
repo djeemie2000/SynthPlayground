@@ -135,7 +135,8 @@ HEADERS += StepSequencer.h \
     WavFileReader.h \
     MidiNoteConverter.h \
     SimpleOscillator.h \
-    LinSegOperator.h
+    LinSegOperator.h \
+    Detuner.h
 
 
 INCLUDEPATH += ./../MidiLib
