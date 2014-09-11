@@ -41,7 +41,9 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Filters/PosNegShaperFilter.cpp \
     Modules/PosNegShaperModule.cpp \
     Filters/LinSegOperatorFilter.cpp \
-    Modules/LinSegOperatorModule.cpp
+    Modules/LinSegOperatorModule.cpp \
+    Filters/DetunerFilter.cpp \
+    Modules/DetunerModule.cpp
 
 HEADERS += Filters/ControllerBankFilter.h \
     Filters/PhasorFilter.h \
@@ -85,7 +87,9 @@ HEADERS += Filters/ControllerBankFilter.h \
     Filters/PosNegShaperFilter.h \
     Modules/PosNegShaperModule.h \
     Filters/LinSegOperatorFilter.h \
-    Modules/LinSegOperatorModule.h
+    Modules/LinSegOperatorModule.h \
+    Filters/DetunerFilter.h \
+    Modules/DetunerModule.h
 
 INCLUDEPATH += ./Filters
 INCLUDEPATH += ./Modules
