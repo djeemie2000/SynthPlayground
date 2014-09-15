@@ -18,7 +18,8 @@ SOURCES += main.cpp \
     TestPosNegShaper.cpp \
     TestSynth12Controller.cpp \
     TestLinSegOperator.cpp \
-    TestDetune.cpp
+    TestDetune.cpp \
+    TestWaveFolder2.cpp
 
 unix {
     target.path = /usr/lib

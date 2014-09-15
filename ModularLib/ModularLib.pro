@@ -43,7 +43,9 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Filters/LinSegOperatorFilter.cpp \
     Modules/LinSegOperatorModule.cpp \
     Filters/DetunerFilter.cpp \
-    Modules/DetunerModule.cpp
+    Modules/DetunerModule.cpp \
+    Filters/MultiStageWaveFolderFilter.cpp \
+    Modules/MultiStageWaveFolderModule.cpp
 
 HEADERS += Filters/ControllerBankFilter.h \
     Filters/PhasorFilter.h \
@@ -89,7 +91,9 @@ HEADERS += Filters/ControllerBankFilter.h \
     Filters/LinSegOperatorFilter.h \
     Modules/LinSegOperatorModule.h \
     Filters/DetunerFilter.h \
-    Modules/DetunerModule.h
+    Modules/DetunerModule.h \
+    Filters/MultiStageWaveFolderFilter.h \
+    Modules/MultiStageWaveFolderModule.h
 
 INCLUDEPATH += ./Filters
 INCLUDEPATH += ./Modules

@@ -20,6 +20,7 @@
 #include "PosNegShaperModule.h"
 #include "LinSegOperatorModule.h"
 #include "DetunerModule.h"
+#include "MultiStageWaveFolderModule.h"
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -122,6 +123,10 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CDetunerModule(Name, 3, *m_CommandStackController));
     }
+    else if(Type == "MultiStageWaveFolder")
+    {
+        Module.reset(new CMultiStageWaveFolderModule(Name, *m_CommandStackController));
+    }
 
     return Module;
 }
@@ -150,5 +155,6 @@ std::vector<string> CModuleFactory::GetSupportedTypes() const
         "WaveFolder",
         "PosNegShaper",
         "LinSegOperator",
-        "Detuner(3)"};
+        "Detuner(3)",
+        "MultiStageWaveFolder" };
 }
