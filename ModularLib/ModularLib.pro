@@ -45,7 +45,9 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Filters/DetunerFilter.cpp \
     Modules/DetunerModule.cpp \
     Filters/MultiStageWaveFolderFilter.cpp \
-    Modules/MultiStageWaveFolderModule.cpp
+    Modules/MultiStageWaveFolderModule.cpp \
+    Filters/PeriodicSyncFilter.cpp \
+    Modules/PeriodicSyncModule.cpp
 
 HEADERS += Filters/ControllerBankFilter.h \
     Filters/PhasorFilter.h \
@@ -67,7 +69,6 @@ HEADERS += Filters/ControllerBankFilter.h \
     Modules/LpfModule.h \
     Filters/LFOBankFilter.h \
     Modules/LFOBankModule.h \
-    Modules/FOBankModule.h \
     Filters/SimpleOscillatorFilter.h \
     Modules/SimpleOscillatorModule.h \
     Filters/StereoDelayFilter.h \
@@ -93,7 +94,9 @@ HEADERS += Filters/ControllerBankFilter.h \
     Filters/DetunerFilter.h \
     Modules/DetunerModule.h \
     Filters/MultiStageWaveFolderFilter.h \
-    Modules/MultiStageWaveFolderModule.h
+    Modules/MultiStageWaveFolderModule.h \
+    Filters/PeriodicSyncFilter.h \
+    Modules/PeriodicSyncModule.h
 
 INCLUDEPATH += ./Filters
 INCLUDEPATH += ./Modules
