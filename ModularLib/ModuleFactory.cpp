@@ -22,6 +22,7 @@
 #include "DetunerModule.h"
 #include "MultiStageWaveFolderModule.h"
 #include "PeriodicSyncModule.h"
+#include "Distortion1Module.h"
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -132,13 +133,18 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CPeriodicSyncModule(Name));
     }
+    else if(Type == "Distortion1")
+    {
+        Module.reset(new CDistortion1Module(Name, *m_CommandStackController));
+    }
 
     return Module;
 }
 
 std::vector<string> CModuleFactory::GetSupportedTypes() const
 {
-    return { "Amp",
+    return {
+        "Amp",
         "ControllerBank(4)",
         "ControllerBank(8)",
         "Operator",
@@ -162,5 +168,7 @@ std::vector<string> CModuleFactory::GetSupportedTypes() const
         "LinSegOperator",
         "Detuner(3)",
         "MultiStageWaveFolder",
-        "PeriodicSync"};
+        "PeriodicSync",
+        "Distortion1"
+    };
 }

@@ -47,7 +47,9 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Filters/MultiStageWaveFolderFilter.cpp \
     Modules/MultiStageWaveFolderModule.cpp \
     Filters/PeriodicSyncFilter.cpp \
-    Modules/PeriodicSyncModule.cpp
+    Modules/PeriodicSyncModule.cpp \
+    Filters/Distortion1Filter.cpp \
+    Modules/Distortion1Module.cpp
 
 HEADERS += Filters/ControllerBankFilter.h \
     Filters/PhasorFilter.h \
@@ -96,7 +98,9 @@ HEADERS += Filters/ControllerBankFilter.h \
     Filters/MultiStageWaveFolderFilter.h \
     Modules/MultiStageWaveFolderModule.h \
     Filters/PeriodicSyncFilter.h \
-    Modules/PeriodicSyncModule.h
+    Modules/PeriodicSyncModule.h \
+    Filters/Distortion1Filter.h \
+    Modules/Distortion1Module.h
 
 INCLUDEPATH += ./Filters
 INCLUDEPATH += ./Modules

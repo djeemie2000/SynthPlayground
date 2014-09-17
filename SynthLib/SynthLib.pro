@@ -138,7 +138,8 @@ HEADERS += StepSequencer.h \
     LinSegOperator.h \
     Detuner.h \
     WaveFolder2.h \
-    PeriodicTrigger.h
+    PeriodicTrigger.h \
+    Gate.h
 
 
 INCLUDEPATH += ./../MidiLib
