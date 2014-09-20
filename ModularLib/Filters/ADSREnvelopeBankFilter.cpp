@@ -81,7 +81,7 @@ void CADSREnvelopeBankFilter::SetDecayMilliSeconds(int Index, float Decay)
     m_Envelope[Index].SetDecaySamples(m_NumSamples());
 }
 
-void CADSREnvelopeBankFilter::SetSustain(int Index, int Sustain)
+void CADSREnvelopeBankFilter::SetSustain(int Index, float Sustain)
 {
     m_Envelope[Index].SetSustain(Sustain);
 }

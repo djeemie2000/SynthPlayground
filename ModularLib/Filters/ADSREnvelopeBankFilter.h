@@ -23,7 +23,7 @@ public:
 
     void SetAttackMilliSeconds(int Index, float Attack);
     void SetDecayMilliSeconds(int Index, float Decay);
-    void SetSustain(int Index, int Sustain);
+    void SetSustain(int Index, float Sustain);
     void SetReleaseMilliSeconds(int Index, float Release);
 
 private:
