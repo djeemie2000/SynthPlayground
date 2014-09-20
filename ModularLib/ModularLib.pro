@@ -49,7 +49,9 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Filters/PeriodicSyncFilter.cpp \
     Modules/PeriodicSyncModule.cpp \
     Filters/Distortion1Filter.cpp \
-    Modules/Distortion1Module.cpp
+    Modules/Distortion1Module.cpp \
+    Filters/NoiseFilter.cpp \
+    Modules/NoiseModule.cpp
 
 HEADERS += Filters/ControllerBankFilter.h \
     Filters/PhasorFilter.h \
@@ -100,7 +102,9 @@ HEADERS += Filters/ControllerBankFilter.h \
     Filters/PeriodicSyncFilter.h \
     Modules/PeriodicSyncModule.h \
     Filters/Distortion1Filter.h \
-    Modules/Distortion1Module.h
+    Modules/Distortion1Module.h \
+    Filters/NoiseFilter.h \
+    Modules/NoiseModule.h
 
 INCLUDEPATH += ./Filters
 INCLUDEPATH += ./Modules

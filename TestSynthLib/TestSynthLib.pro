@@ -19,7 +19,8 @@ SOURCES += main.cpp \
     TestSynth12Controller.cpp \
     TestLinSegOperator.cpp \
     TestDetune.cpp \
-    TestWaveFolder2.cpp
+    TestWaveFolder2.cpp \
+    TestNoise.cpp
 
 unix {
     target.path = /usr/lib
