@@ -24,6 +24,7 @@
 #include "PeriodicSyncModule.h"
 #include "Distortion1Module.h"
 #include "NoiseModule.h"
+#include "SampleAndHoldModule.h"
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -142,6 +143,10 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CNoiseModule(Name));
     }
+    else if(Type == "SampleAndHold")
+    {
+        Module.reset(new CSampleAndHoldModule(Name));
+    }
 
     return Module;
 }
@@ -175,6 +180,7 @@ std::vector<string> CModuleFactory::GetSupportedTypes() const
         "MultiStageWaveFolder",
         "PeriodicSync",
         "Distortion1",
-        "Noise"
+        "Noise",
+        "SampleAndHold"
     };
 }

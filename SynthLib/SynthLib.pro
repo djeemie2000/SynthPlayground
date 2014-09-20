@@ -140,7 +140,8 @@ HEADERS += StepSequencer.h \
     WaveFolder2.h \
     PeriodicTrigger.h \
     Gate.h \
-    Noise.h
+    Noise.h \
+    SampleAndHold.h
 
 
 INCLUDEPATH += ./../MidiLib

@@ -51,7 +51,9 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Filters/Distortion1Filter.cpp \
     Modules/Distortion1Module.cpp \
     Filters/NoiseFilter.cpp \
-    Modules/NoiseModule.cpp
+    Modules/NoiseModule.cpp \
+    Filters/SampleAndHoldFilter.cpp \
+    Modules/SampleAndHoldModule.cpp
 
 HEADERS += Filters/ControllerBankFilter.h \
     Filters/PhasorFilter.h \
@@ -104,7 +106,9 @@ HEADERS += Filters/ControllerBankFilter.h \
     Filters/Distortion1Filter.h \
     Modules/Distortion1Module.h \
     Filters/NoiseFilter.h \
-    Modules/NoiseModule.h
+    Modules/NoiseModule.h \
+    Filters/SampleAndHoldFilter.h \
+    Modules/SampleAndHoldModule.h
 
 INCLUDEPATH += ./Filters
 INCLUDEPATH += ./Modules
