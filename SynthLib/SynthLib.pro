@@ -141,7 +141,8 @@ HEADERS += StepSequencer.h \
     PeriodicTrigger.h \
     Gate.h \
     Noise.h \
-    SampleAndHold.h
+    SampleAndHold.h \
+    GlitchOperator.h
 
 
 INCLUDEPATH += ./../MidiLib

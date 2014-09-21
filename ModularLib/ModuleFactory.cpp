@@ -25,6 +25,7 @@
 #include "Distortion1Module.h"
 #include "NoiseModule.h"
 #include "SampleAndHoldModule.h"
+#include "GlitchModule.h"
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -147,6 +148,10 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CSampleAndHoldModule(Name));
     }
+    else if(Type == "Glitch")
+    {
+        Module.reset(new CGlitchModule(Name, *m_CommandStackController));
+    }
 
     return Module;
 }
@@ -181,6 +186,7 @@ std::vector<string> CModuleFactory::GetSupportedTypes() const
         "PeriodicSync",
         "Distortion1",
         "Noise",
-        "SampleAndHold"
+        "SampleAndHold",
+        "Glitch"
     };
 }

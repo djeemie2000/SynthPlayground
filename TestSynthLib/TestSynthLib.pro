@@ -20,7 +20,8 @@ SOURCES += main.cpp \
     TestLinSegOperator.cpp \
     TestDetune.cpp \
     TestWaveFolder2.cpp \
-    TestNoise.cpp
+    TestNoise.cpp \
+    TestGlitchOperator.cpp
 
 unix {
     target.path = /usr/lib

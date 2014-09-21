@@ -53,7 +53,9 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Filters/NoiseFilter.cpp \
     Modules/NoiseModule.cpp \
     Filters/SampleAndHoldFilter.cpp \
-    Modules/SampleAndHoldModule.cpp
+    Modules/SampleAndHoldModule.cpp \
+    Filters/GlitchFilter.cpp \
+    Modules/GlitchModule.cpp
 
 HEADERS += Filters/ControllerBankFilter.h \
     Filters/PhasorFilter.h \
@@ -108,7 +110,9 @@ HEADERS += Filters/ControllerBankFilter.h \
     Filters/NoiseFilter.h \
     Modules/NoiseModule.h \
     Filters/SampleAndHoldFilter.h \
-    Modules/SampleAndHoldModule.h
+    Modules/SampleAndHoldModule.h \
+    Filters/GlitchFilter.h \
+    Modules/GlitchModule.h
 
 INCLUDEPATH += ./Filters
 INCLUDEPATH += ./Modules
