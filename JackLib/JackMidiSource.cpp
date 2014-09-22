@@ -80,7 +80,7 @@ void CJackMidiSource::OnController(int Parameter, int Value, std::uint32_t TimeS
 
 void CJackMidiSource::OnPitchbend(int Value, std::uint32_t TimeStamp)
 {
-    WriteToRingBuffer(m_RingBuffer, TimeStamp, { 0xB0, 0, Value });
+    WriteToRingBuffer(m_RingBuffer, TimeStamp, { 0xE0, 0, Value });
 }
 
 void CJackMidiSource::OnUnknown(std::uint32_t )

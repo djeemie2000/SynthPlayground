@@ -7,13 +7,15 @@ SOURCES += \
         JackIOManager.cpp \
     JackMidiSource.cpp \
     JackConnectionManager.cpp \
-    JackMidiRenderer.cpp
+    JackMidiRenderer.cpp \
+    JackMidiHandler.cpp
 
 HEADERS += \
         JackIOManager.h \
     JackMidiSource.h \
     JackConnectionManager.h \
-    JackMidiRenderer.h
+    JackMidiRenderer.h \
+    JackMidiHandler.h
 
 INCLUDEPATH += ./../SynthLib
 INCLUDEPATH += ./../MidiLib
