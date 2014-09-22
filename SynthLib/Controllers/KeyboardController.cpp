@@ -2,7 +2,7 @@
 #include "MidiInputHandlerI.h"
 #include "MidiNoteConverter.h"
 
-CKeyboardController::CKeyboardController(std::shared_ptr<IMidiInputHandler> Handler)
+CKeyboardController::CKeyboardController(std::shared_ptr<IMidiHandler> Handler)
  : m_Handler(Handler)
 {
 }

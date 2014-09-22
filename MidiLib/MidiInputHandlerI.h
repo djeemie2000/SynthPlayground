@@ -3,10 +3,10 @@
 
 #include <cstdint>
 
-class IMidiInputHandler
+class IMidiHandler
 {
 public:
-    virtual ~IMidiInputHandler(){}
+    virtual ~IMidiHandler(){}
 
     virtual void OnNoteOn(int Note, int Velocity, std::uint32_t TimeStamp) =0;
     virtual void OnNoteOff(int Note, int Velocity, std::uint32_t TimeStamp) =0;

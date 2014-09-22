@@ -37,7 +37,7 @@ class CSynth7Controller
                     , public INonLinearShaper
                     , public IBitFx
                     , public IStepSequencer
-                    , public IMidiInputHandler
+                    , public IMidiHandler
 {
 public:
     CSynth7Controller(IInt16Scope& Scope, int SamplingFrequency);

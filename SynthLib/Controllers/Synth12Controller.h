@@ -13,7 +13,7 @@
 #include "PowerLawDistortion.h"
 
 class CSynth12Controller : public IAudioSource2,
-                            public IMidiInputHandler
+                            public IMidiHandler
 {
 public:
     CSynth12Controller(int SamplingFrequency);

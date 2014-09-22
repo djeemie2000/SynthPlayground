@@ -30,7 +30,7 @@ class CSynth11Controller
                     : public IAudioSource2
                     , public INoteHandler
                     , public ILPFilter
-                    , public IMidiInputHandler
+                    , public IMidiHandler
 {
 public:
     CSynth11Controller(int SamplingFrequency);

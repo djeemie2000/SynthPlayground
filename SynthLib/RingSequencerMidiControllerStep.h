@@ -3,7 +3,7 @@
 
 #include <cstdint>
 
-class IMidiInputHandler;
+class IMidiHandler;
 
 class CRingSequencerMidiControllerStep
 {
@@ -16,7 +16,7 @@ public:
     void SetMin(int Min);
     void SetMax(int Max);
     void SetActive(bool Active);
-    void Apply(IMidiInputHandler& Handler, std::uint32_t TimeStamp);
+    void Apply(IMidiHandler& Handler, std::uint32_t TimeStamp);
 
 private:
     void Update();

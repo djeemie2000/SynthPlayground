@@ -3,7 +3,7 @@
 
 #include "MidiInputHandlerI.h"
 
-class CTriggerMidiNoteHandler : public IMidiInputHandler
+class CTriggerMidiNoteHandler : public IMidiHandler
 {
 public:
     CTriggerMidiNoteHandler();

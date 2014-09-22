@@ -7,7 +7,7 @@ CJackMidiRenderer::CJackMidiRenderer(void *SrcBuffer)
 {
 }
 
-void CJackMidiRenderer::Accept(IMidiInputHandler &Handler)
+void CJackMidiRenderer::Accept(IMidiHandler &Handler)
 {
     if(m_SrcBuffer)
     {

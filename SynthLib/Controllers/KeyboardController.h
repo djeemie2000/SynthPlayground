@@ -4,18 +4,18 @@
 #include <memory>
 #include "NoteHandlerI.h"
 
-class IMidiInputHandler;
+class IMidiHandler;
 
 class CKeyboardController : public INoteHandler
 {
 public:
-    CKeyboardController(std::shared_ptr<IMidiInputHandler> Handler);
+    CKeyboardController(std::shared_ptr<IMidiHandler> Handler);
 
     void OnNoteOn(ENote Note, EOctave Octave) override;
     void OnNoteOff(ENote Note, EOctave Octave) override;
 
 private:
-    std::shared_ptr<IMidiInputHandler> m_Handler;
+    std::shared_ptr<IMidiHandler> m_Handler;
 };
 
 #endif // KEYBOARDCONTROLLER_H

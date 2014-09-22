@@ -1,6 +1,6 @@
 #include "notecountmidiinputhandler.h"
 
-CNoteCountMidiInputHandler::CNoteCountMidiInputHandler(std::shared_ptr<IMidiInputHandler> Handler)
+CNoteCountMidiInputHandler::CNoteCountMidiInputHandler(std::shared_ptr<IMidiHandler> Handler)
  : m_Handler(Handler)
  , m_NoteCount(0)
 {

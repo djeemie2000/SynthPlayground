@@ -7,7 +7,7 @@
 
 class CCommandStackController;
 
-class CMidiInputController : public IMidiInputHandler, public IMidiControllerHandler
+class CMidiInputController : public IMidiHandler, public IMidiControllerHandler
 {
 public:
     CMidiInputController(CCommandStackController &CommandStackController);
@@ -22,9 +22,9 @@ public:
     void Add(const std::string &ParameterName, const HandlerFunction &Handler) override;
 
 private:
-    std::shared_ptr<IMidiInputHandler> m_MidiInputHandler;
+    std::shared_ptr<IMidiHandler> m_MidiInputHandler;
     std::shared_ptr<IMidiControllerHandler> m_MidiControllerHandler;
-    std::shared_ptr<IMidiInputHandler> m_MidiInputLogger;
+    std::shared_ptr<IMidiHandler> m_MidiInputLogger;
 };
 
 #endif // MIDIINPUTCONTROLLER_H

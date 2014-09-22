@@ -39,7 +39,7 @@ class CSynth8Controller
                     , public ILPFilter
                     , public INonLinearShaper
                     , public IStepSequencer
-                    , public IMidiInputHandler
+                    , public IMidiHandler
                     , public ILFOBank
                     , public IFeedbackDelay
                     , public IAREnvelope

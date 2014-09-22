@@ -5,13 +5,13 @@
 #include <memory>
 #include <alsa/asoundlib.h>
 
-class IMidiInputHandler;
+class IMidiHandler;
 template<class T> class CPeriodicThreadRunner;
 
 class CAlsaMidiInput
 {
 public:
-    CAlsaMidiInput(IMidiInputHandler& Handler);
+    CAlsaMidiInput(IMidiHandler& Handler);
     ~CAlsaMidiInput();
 
     bool Open(const std::string &ClientName, const std::string &PortName);
@@ -25,7 +25,7 @@ private:
     void StartListening();
     void StopListening();
 
-    IMidiInputHandler& m_Handler;
+    IMidiHandler& m_Handler;
     snd_seq_event_t *ReadMidiEvent(int& RemainingBufferSize) const;
     void ProcessMidiEvent(const snd_seq_event_t *ev);
 

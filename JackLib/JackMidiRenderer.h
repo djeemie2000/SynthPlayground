@@ -8,7 +8,7 @@ class CJackMidiRenderer : public IMidiRenderer
 public:
     CJackMidiRenderer(void* SrcBuffer);
 
-    void Accept(IMidiInputHandler &Handler) override;
+    void Accept(IMidiHandler &Handler) override;
 
 private:
     void* m_SrcBuffer;

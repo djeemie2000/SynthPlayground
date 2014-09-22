@@ -7,10 +7,10 @@
 #include <memory>
 #include "MidiInputHandlerI.h"
 
-class CNoteQueueMidiInputHandler : public IMidiInputHandler
+class CNoteQueueMidiInputHandler : public IMidiHandler
 {
 public:
-    CNoteQueueMidiInputHandler(std::shared_ptr<IMidiInputHandler> Handler);
+    CNoteQueueMidiInputHandler(std::shared_ptr<IMidiHandler> Handler);
 
     void OnNoteOn(int Note, int Velocity, std::uint32_t TimeStamp) override;
     void OnNoteOff(int Note, int Velocity, std::uint32_t TimeStamp) override;
@@ -30,7 +30,7 @@ private:
         bool operator !=(const SQueueItem& Other) const;
     };
 
-    std::shared_ptr<IMidiInputHandler> m_Handler;
+    std::shared_ptr<IMidiHandler> m_Handler;
     std::list<SQueueItem> m_NoteQueue;
 
 };

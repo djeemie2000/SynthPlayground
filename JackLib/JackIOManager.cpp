@@ -115,7 +115,7 @@ bool CJackIOManager::OpenAudioInput(const std::string &Name, std::shared_ptr<IAu
     return Success;
 }
 
-bool CJackIOManager::OpenMidiInput(const std::string &Name, std::shared_ptr<IMidiInputHandler> MidiHandler)
+bool CJackIOManager::OpenMidiInput(const std::string &Name, std::shared_ptr<IMidiHandler> MidiHandler)
 {
     bool Success = false;
     if(m_Client)

@@ -1,6 +1,6 @@
 #include "NoteQueueMidiInputHandler.h"
 
-CNoteQueueMidiInputHandler::CNoteQueueMidiInputHandler(std::shared_ptr<IMidiInputHandler> Handler)
+CNoteQueueMidiInputHandler::CNoteQueueMidiInputHandler(std::shared_ptr<IMidiHandler> Handler)
  : m_Handler(Handler)
  , m_NoteQueue()
 {

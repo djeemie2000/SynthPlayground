@@ -7,7 +7,7 @@
 #include <jack/ringbuffer.h>
 
 class CJackMidiSource : public IMidiSource,
-                        public IMidiInputHandler
+                        public IMidiHandler
 {
 public:
     CJackMidiSource();

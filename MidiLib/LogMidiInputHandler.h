@@ -3,7 +3,7 @@
 
 #include "MidiInputHandlerI.h"
 
-class CLogMidiInputHandler : public IMidiInputHandler
+class CLogMidiInputHandler : public IMidiHandler
 {
 public:
     CLogMidiInputHandler();

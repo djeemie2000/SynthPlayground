@@ -10,7 +10,7 @@
 class CCommandStackController;
 struct SCmdStackItem;
 
-class CCommandStackMidiInputHandler : public IMidiInputHandler, public IMidiControllerHandler
+class CCommandStackMidiInputHandler : public IMidiHandler, public IMidiControllerHandler
 {
 public:
     CCommandStackMidiInputHandler(CCommandStackController& CommandStackHandler);

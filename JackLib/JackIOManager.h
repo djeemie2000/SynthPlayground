@@ -8,7 +8,7 @@
 
 class IAudioSource2;
 class IAudioRenderer;
-class IMidiInputHandler;
+class IMidiHandler;
 class IMidiSource;
 class IAudioFilter;
 
@@ -33,7 +33,7 @@ public:
     bool OpenAudioOutput(const std::string& Name, std::shared_ptr<IAudioSource2> AudioSource);
     bool OpenAudioInput(const std::string& Name, std::shared_ptr<IAudioRenderer> AudioRenderer);
     // idem for midi -> midi handler => generic midi stuff into MidiLib => MidiLib separately
-    bool OpenMidiInput(const std::string& Name, std::shared_ptr<IMidiInputHandler> MidiHandler);
+    bool OpenMidiInput(const std::string& Name, std::shared_ptr<IMidiHandler> MidiHandler);
     bool OpenMidiOutput(const std::string& Name, std::shared_ptr<IMidiSource> MidiSource);
     bool OpenAudioFilter(std::shared_ptr<IAudioFilter> AudioFilter);
 
@@ -55,7 +55,7 @@ private:
     std::shared_ptr<IAudioRenderer> m_AudioRenderer;
 
     jack_port_t*    m_MidiInputPort;
-    std::shared_ptr<IMidiInputHandler> m_MidiHandler;
+    std::shared_ptr<IMidiHandler> m_MidiHandler;
 
     jack_port_t*    m_MidiOutputPort;
     std::shared_ptr<IMidiSource> m_MidiSource;

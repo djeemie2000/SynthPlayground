@@ -76,7 +76,7 @@ void CRingSequencerMidiControllerStep::Update()
     m_Value = m_Min + (m_Value - m_Min + m_Step)%(m_Max-m_Min);
 }
 
-void CRingSequencerMidiControllerStep::Apply(IMidiInputHandler &Handler, std::uint32_t TimeStamp)
+void CRingSequencerMidiControllerStep::Apply(IMidiHandler &Handler, std::uint32_t TimeStamp)
 {
     Update();
 

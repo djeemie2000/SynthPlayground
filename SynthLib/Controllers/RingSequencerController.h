@@ -7,12 +7,12 @@
 #include "BpmPeriod.h"
 #include "RingSequencerMidiControllerStep.h"
 
-class IMidiInputHandler;
+class IMidiHandler;
 
 class CRingSequencerController : public IMidiSource
 {
 public:
-    CRingSequencerController(int SamplingFrequency, std::shared_ptr<IMidiInputHandler> MidiInputHandler, std::shared_ptr<IMidiSource> MidiSource);
+    CRingSequencerController(int SamplingFrequency, std::shared_ptr<IMidiHandler> MidiInputHandler, std::shared_ptr<IMidiSource> MidiSource);
 
     int OnRead(void *Dst, int NumFrames, std::uint32_t TimeStamp) override;
 
@@ -30,7 +30,7 @@ public:
 private:
     bool CheckResize(int Idx);
 
-    std::shared_ptr<IMidiInputHandler>  m_MidiInputHandler;
+    std::shared_ptr<IMidiHandler>  m_MidiInputHandler;
     std::shared_ptr<IMidiSource>        m_MidiSource;
     int                                 m_Counter;
     CBpmPeriod                          m_PeriodSamples;

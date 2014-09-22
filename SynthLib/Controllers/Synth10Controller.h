@@ -33,7 +33,7 @@ class CSynth10Controller
                     , public IInterpolatingOperator
                     , public ILPFilter
                     , public IStepSequencer
-                    , public IMidiInputHandler
+                    , public IMidiHandler
                     , public ILFOBank
                     , public IFeedbackDelay
                     , public IAREnvelope
