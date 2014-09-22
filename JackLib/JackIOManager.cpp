@@ -313,8 +313,9 @@ int CJackIOManager::OnProcess(jack_nframes_t NumFrames)
             void* SrcBuffer = jack_port_get_buffer(MidiInputPort, NumFrames);
             MidiRenderers.push_back(std::shared_ptr<IMidiRenderer>(new CJackMidiRenderer(SrcBuffer)));
         }
+        std::vector<std::shared_ptr<IMidiHandler>> MidiHandlers;
         // should return 0 upon succes, non-zero error code upon failure
-        ReturnValue = m_AudioFilter.s_Filter->OnProcess(SourceBuffers, DestinationBuffers, MidiRenderers, NumFrames, TimeStamp);
+        ReturnValue = m_AudioFilter.s_Filter->OnProcess(SourceBuffers, DestinationBuffers, MidiRenderers, MidiHandlers, NumFrames, TimeStamp);
     }
 
     return ReturnValue;

@@ -35,6 +35,7 @@ std::vector<std::string> CMixerFilter::GetMidiOutputNames() const
 int CMixerFilter::OnProcess(const std::vector<void *> &SourceBuffers,
                             const std::vector<void *> &DestinationBuffers,
                             const std::vector<std::shared_ptr<IMidiRenderer>> /*MidiRenderers*/,
+                            const std::vector<std::shared_ptr<IMidiHandler> > /*MidiHandlers*/,
                             int NumFrames,
                             std::uint32_t /*TimeStamp*/)
 {

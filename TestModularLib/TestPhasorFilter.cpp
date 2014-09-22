@@ -24,7 +24,7 @@ TEST(Test1)
     void* SrcBuffer = FreqBuffer.data();
     void* DstBuffer = PhaseBuffer.data();
 
-    Filter.OnProcess({SrcBuffer}, {DstBuffer}, {}, BufferSize, 1234u);
+    Filter.OnProcess({SrcBuffer}, {DstBuffer}, {}, {}, BufferSize, 1234u);
 
     CHECK_CLOSE(0.020f, PhaseBuffer[0], 0.001);
     CHECK_CLOSE(0.040f, PhaseBuffer[1], 0.001);

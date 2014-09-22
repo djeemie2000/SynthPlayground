@@ -33,6 +33,7 @@ std::vector<std::string> CMidiNoteFilter::GetMidiOutputNames() const
 int CMidiNoteFilter::OnProcess(const std::vector<void *> &/*SourceBuffers*/,
                                const std::vector<void *> &DestinationBuffers,
                                const std::vector<std::shared_ptr<IMidiRenderer> > MidiRenderers,
+                               const std::vector<std::shared_ptr<IMidiHandler> > /*MidiHandlers*/,
                                int NumFrames,
                                std::uint32_t /*TimeStamp*/)
 {

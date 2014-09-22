@@ -30,6 +30,7 @@ std::vector<std::string> CPhaseSkewerFilter::GetMidiOutputNames() const
 int CPhaseSkewerFilter::OnProcess(const std::vector<void *> &SourceBuffers,
                           const std::vector<void *> &DestinationBuffers,
                           const std::vector<std::shared_ptr<IMidiRenderer>> /*MidiRenderers*/,
+                          const std::vector<std::shared_ptr<IMidiHandler> > /*MidiHandlers*/,
                           int NumFrames,
                           std::uint32_t /*TimeStamp*/)
 {

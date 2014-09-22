@@ -24,6 +24,7 @@ public:
      * \param SourceBuffers the source buffers to read from
      * \param DestinationBuffers the destination buffers to write to
      * \param MidiRenderers that render the midi input
+     * \param MidiHandlers that handle the midi output
      * \param NumFrames the number of frames to process
      * \param TimeStamp the timestamp (in frames)
      * \return
@@ -31,6 +32,7 @@ public:
     virtual int OnProcess(const std::vector<void*>& SourceBuffers,
                           const std::vector<void*>& DestinationBuffers,
                           const std::vector<std::shared_ptr<IMidiRenderer>> MidiRenderers,
+                          const std::vector<std::shared_ptr<IMidiHandler>> MidiHandlers,
                           int NumFrames,
                           std::uint32_t TimeStamp) =0;
 };
