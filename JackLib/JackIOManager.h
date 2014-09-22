@@ -65,6 +65,7 @@ private:
         std::vector<jack_port_t*> s_InputPorts;
         std::vector<jack_port_t*> s_OutputPorts;
         std::vector<jack_port_t*> s_MidiInputPorts;
+        std::vector<jack_port_t*> s_MidiOutputPorts;
         std::shared_ptr<IAudioFilter> s_Filter;
     };
 

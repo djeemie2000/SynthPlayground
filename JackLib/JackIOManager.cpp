@@ -7,6 +7,7 @@
 #include "AudioFilterI.h"
 #include <jack/midiport.h>
 #include "JackMidiRenderer.h"
+#include "JackMidiHandler.h"
 
 namespace
 {
@@ -166,6 +167,11 @@ bool CJackIOManager::OpenAudioFilter(std::shared_ptr<IAudioFilter> AudioFilter)
             jack_port_t* InputPort = jack_port_register(m_Client, InputName.c_str(), JACK_DEFAULT_MIDI_TYPE, JackPortIsInput, 0);//use JackPortIsTerminal ?
             m_AudioFilter.s_MidiInputPorts.push_back(InputPort);
         }
+        for(auto OutputName : AudioFilter->GetMidiOutputNames())
+        {
+            jack_port_t* OutputPort = jack_port_register(m_Client, OutputName.c_str(), JACK_DEFAULT_MIDI_TYPE, JackPortIsOutput, 0);//use JackPortIsTerminal ?
+            m_AudioFilter.s_MidiOutputPorts.push_back(OutputPort);
+        }
         m_AudioFilter.s_Filter = AudioFilter;
         Success = true;
     }
@@ -314,6 +320,11 @@ int CJackIOManager::OnProcess(jack_nframes_t NumFrames)
             MidiRenderers.push_back(std::shared_ptr<IMidiRenderer>(new CJackMidiRenderer(SrcBuffer)));
         }
         std::vector<std::shared_ptr<IMidiHandler>> MidiHandlers;
+        for(auto& MidiOutputPort : m_AudioFilter.s_MidiOutputPorts)
+        {
+            void* DstBuffer = jack_port_get_buffer(MidiOutputPort, NumFrames);
+            MidiHandlers.push_back(std::shared_ptr<IMidiHandler>(new CJackMidiHandler(DstBuffer)));
+        }
         // should return 0 upon succes, non-zero error code upon failure
         ReturnValue = m_AudioFilter.s_Filter->OnProcess(SourceBuffers, DestinationBuffers, MidiRenderers, MidiHandlers, NumFrames, TimeStamp);
     }
