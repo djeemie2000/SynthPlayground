@@ -7,6 +7,7 @@
 #include <memory>
 
 class IMidiRenderer;
+class IMidiHandler;
 
 class IAudioFilter
 {
@@ -16,6 +17,7 @@ public:
     virtual std::vector<std::string> GetInputNames() const =0;
     virtual std::vector<std::string> GetOutputNames() const =0;
     virtual std::vector<std::string> GetMidiInputNames() const =0;
+    virtual std::vector<std::string> GetMidiOutputNames() const =0;
 
     /*!
      * \brief OnProcess

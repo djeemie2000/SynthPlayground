@@ -21,6 +21,11 @@ std::vector<std::string> CLpfFilter::GetMidiInputNames() const
     return {};
 }
 
+std::vector<std::string> CLpfFilter::GetMidiOutputNames() const
+{
+    return {};
+}
+
 int CLpfFilter::OnProcess(const std::vector<void *> &SourceBuffers,
                           const std::vector<void *> &DestinationBuffers,
                           const std::vector<std::shared_ptr<IMidiRenderer>> /*MidiRenderers*/,

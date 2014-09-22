@@ -27,6 +27,11 @@ std::vector<std::string> CLFOBankFilter::GetMidiInputNames() const
     return {};
 }
 
+std::vector<std::string> CLFOBankFilter::GetMidiOutputNames() const
+{
+    return {};
+}
+
 int CLFOBankFilter::OnProcess(const std::vector<void *> &/*SourceBuffers*/,
                             const std::vector<void *> &DestinationBuffers,
                             const std::vector<std::shared_ptr<IMidiRenderer>> /*MidiRenderers*/,

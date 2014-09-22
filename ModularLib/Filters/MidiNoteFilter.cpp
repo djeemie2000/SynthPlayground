@@ -25,6 +25,11 @@ std::vector<std::string> CMidiNoteFilter::GetMidiInputNames() const
     return {"MidiIn"};
 }
 
+std::vector<std::string> CMidiNoteFilter::GetMidiOutputNames() const
+{
+    return {};
+}
+
 int CMidiNoteFilter::OnProcess(const std::vector<void *> &/*SourceBuffers*/,
                                const std::vector<void *> &DestinationBuffers,
                                const std::vector<std::shared_ptr<IMidiRenderer> > MidiRenderers,

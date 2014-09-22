@@ -32,6 +32,11 @@ std::vector<std::string> CADSREnvelopeBankFilter::GetMidiInputNames() const
     return {};
 }
 
+std::vector<std::string> CADSREnvelopeBankFilter::GetMidiOutputNames() const
+{
+    return {};
+}
+
 int CADSREnvelopeBankFilter::OnProcess(const std::vector<void *> &SourceBuffers,
                             const std::vector<void *> &DestinationBuffers,
                             const std::vector<std::shared_ptr<IMidiRenderer>> /*MidiRenderers*/,

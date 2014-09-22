@@ -21,6 +21,11 @@ std::vector<std::string> CSimpleOscillatorFilter::GetMidiInputNames() const
     return {};
 }
 
+std::vector<std::string> CSimpleOscillatorFilter::GetMidiOutputNames() const
+{
+    return {};
+}
+
 int CSimpleOscillatorFilter::OnProcess(const std::vector<void *> &SourceBuffers,
                              const std::vector<void *> &DestinationBuffers,
                              const std::vector<std::shared_ptr<IMidiRenderer>> /*MidiRenderers*/,

@@ -21,6 +21,11 @@ std::vector<std::string> CLinSegOperatorFilter::GetMidiInputNames() const
     return {};
 }
 
+std::vector<std::string> CLinSegOperatorFilter::GetMidiOutputNames() const
+{
+    return {};
+}
+
 int CLinSegOperatorFilter::OnProcess(const std::vector<void *> &SourceBuffers,
                           const std::vector<void *> &DestinationBuffers,
                           const std::vector<std::shared_ptr<IMidiRenderer>> /*MidiRenderers*/,

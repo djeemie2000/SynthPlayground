@@ -27,6 +27,11 @@ std::vector<std::string> CMixerFilter::GetMidiInputNames() const
     return {};
 }
 
+std::vector<std::string> CMixerFilter::GetMidiOutputNames() const
+{
+    return {};
+}
+
 int CMixerFilter::OnProcess(const std::vector<void *> &SourceBuffers,
                             const std::vector<void *> &DestinationBuffers,
                             const std::vector<std::shared_ptr<IMidiRenderer>> /*MidiRenderers*/,

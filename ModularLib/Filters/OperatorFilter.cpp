@@ -23,6 +23,11 @@ std::vector<std::string> COperatorFilter::GetMidiInputNames() const
     return {};
 }
 
+std::vector<std::string> COperatorFilter::GetMidiOutputNames() const
+{
+    return {};
+}
+
 int COperatorFilter::OnProcess(const std::vector<void *> &SourceBuffers,
                                const std::vector<void *> &DestinationBuffers,
                                const std::vector<std::shared_ptr<IMidiRenderer>> /*MidiRenderers*/,

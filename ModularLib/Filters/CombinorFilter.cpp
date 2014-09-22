@@ -24,6 +24,11 @@ std::vector<std::string> CCombinorFilter::GetMidiInputNames() const
     return {};
 }
 
+std::vector<std::string> CCombinorFilter::GetMidiOutputNames() const
+{
+    return {};
+}
+
 int CCombinorFilter::OnProcess(const std::vector<void *> &SourceBuffers,
                           const std::vector<void *> &DestinationBuffers,
                           const std::vector<std::shared_ptr<IMidiRenderer>> /*MidiRenderers*/,

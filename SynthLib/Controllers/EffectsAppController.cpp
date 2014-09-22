@@ -31,6 +31,11 @@ std::vector<std::string> CEffectsAppController::GetMidiInputNames() const
     return {};
 }
 
+std::vector<std::string> CEffectsAppController::GetMidiOutputNames() const
+{
+    return {};
+}
+
 int CEffectsAppController::OnProcess(const std::vector<void*>& SourceBuffers,
                                      const std::vector<void*>& DestinationBuffers,
                                      const std::vector<std::shared_ptr<IMidiRenderer> > /*MidiRenderers*/,

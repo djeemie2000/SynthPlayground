@@ -21,6 +21,11 @@ std::vector<std::string> CPeriodicSyncFilter::GetMidiInputNames() const
     return {};
 }
 
+std::vector<std::string> CPeriodicSyncFilter::GetMidiOutputNames() const
+{
+    return {};
+}
+
 int CPeriodicSyncFilter::OnProcess(const std::vector<void *> &SourceBuffers,
                                    const std::vector<void *> &DestinationBuffers,
                                    const std::vector<std::shared_ptr<IMidiRenderer>> /*MidiRenderers*/,

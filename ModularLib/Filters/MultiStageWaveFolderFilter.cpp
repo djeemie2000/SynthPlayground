@@ -21,6 +21,11 @@ std::vector<std::string> CMultiStageWaveFolderFilter::GetMidiInputNames() const
     return {};
 }
 
+std::vector<std::string> CMultiStageWaveFolderFilter::GetMidiOutputNames() const
+{
+    return {};
+}
+
 int CMultiStageWaveFolderFilter::OnProcess(const std::vector<void *> &SourceBuffers,
                             const std::vector<void *> &DestinationBuffers,
                             const std::vector<std::shared_ptr<IMidiRenderer>> /*MidiRenderers*/,

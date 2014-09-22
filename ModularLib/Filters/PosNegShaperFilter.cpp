@@ -23,6 +23,11 @@ std::vector<std::string> CPosNegShaperFilter::GetMidiInputNames() const
     return {};
 }
 
+std::vector<std::string> CPosNegShaperFilter::GetMidiOutputNames() const
+{
+    return {};
+}
+
 int CPosNegShaperFilter::OnProcess(const std::vector<void *> &SourceBuffers,
                           const std::vector<void *> &DestinationBuffers,
                           const std::vector<std::shared_ptr<IMidiRenderer>> /*MidiRenderers*/,

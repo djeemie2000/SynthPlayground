@@ -21,6 +21,11 @@ std::vector<std::string> CStereoDelayFilter::GetMidiInputNames() const
     return {};
 }
 
+std::vector<std::string> CStereoDelayFilter::GetMidiOutputNames() const
+{
+    return {};
+}
+
 int CStereoDelayFilter::OnProcess(const std::vector<void *> &SourceBuffers,
                                   const std::vector<void *> &DestinationBuffers,
                                   const std::vector<std::shared_ptr<IMidiRenderer> > /*MidiRenderers*/,

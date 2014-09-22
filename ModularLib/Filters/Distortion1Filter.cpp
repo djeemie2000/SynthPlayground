@@ -21,6 +21,11 @@ std::vector<std::string> CDistortion1Filter::GetMidiInputNames() const
     return {};
 }
 
+std::vector<std::string> CDistortion1Filter::GetMidiOutputNames() const
+{
+    return {};
+}
+
 int CDistortion1Filter::OnProcess(const std::vector<void *> &SourceBuffers,
                           const std::vector<void *> &DestinationBuffers,
                           const std::vector<std::shared_ptr<IMidiRenderer>> /*MidiRenderers*/,

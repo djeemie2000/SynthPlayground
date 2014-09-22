@@ -21,6 +21,11 @@ std::vector<std::string> CNoiseFilter::GetMidiInputNames() const
     return {};
 }
 
+std::vector<std::string> CNoiseFilter::GetMidiOutputNames() const
+{
+    return {};
+}
+
 int CNoiseFilter::OnProcess(const std::vector<void *> &/*SourceBuffers*/,
                           const std::vector<void *> &DestinationBuffers,
                           const std::vector<std::shared_ptr<IMidiRenderer>> /*MidiRenderers*/,

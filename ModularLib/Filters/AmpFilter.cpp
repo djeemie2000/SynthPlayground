@@ -22,6 +22,11 @@ std::vector<std::string> CAmpFilter::GetMidiInputNames() const
     return {};
 }
 
+std::vector<std::string> CAmpFilter::GetMidiOutputNames() const
+{
+    return {};
+}
+
 int CAmpFilter::OnProcess(const std::vector<void *> &SourceBuffers,
                           const std::vector<void *> &DestinationBuffers,
                           const std::vector<std::shared_ptr<IMidiRenderer>> /*MidiRenderers*/,

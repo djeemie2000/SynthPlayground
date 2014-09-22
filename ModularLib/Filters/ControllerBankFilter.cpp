@@ -26,6 +26,11 @@ std::vector<std::string> CControllerBankFilter::GetMidiInputNames() const
     return {};
 }
 
+std::vector<std::string> CControllerBankFilter::GetMidiOutputNames() const
+{
+    return {};
+}
+
 int CControllerBankFilter::OnProcess(const std::vector<void *> &/*SourceBuffers*/,
                             const std::vector<void *> &DestinationBuffers,
                             const std::vector<std::shared_ptr<IMidiRenderer>> /*MidiRenderers*/,
