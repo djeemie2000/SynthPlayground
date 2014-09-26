@@ -32,19 +32,28 @@ void CModuleGuiParameterVisitor::StartLine()
 
 void CModuleGuiParameterVisitor::FloatParameter(const std::string &ParameterName, const std::string &Name, float Default, float Min, float Max, float Step, int NumDecimals)
 {
-    guiutils::AddLabel(m_Layout, m_Parent, m_Pos++, m_Line, Name);
+    if(!Name.empty())
+    {
+        guiutils::AddLabel(m_Layout, m_Parent, m_Pos++, m_Line, Name);
+    }
     guiutils::AddDoubleSpinBox(m_Layout, m_Parent, m_Pos++, m_Line, {Name, Default, Min, Max, Step, NumDecimals}, ParameterName, m_CommandStackController);
 }
 
 void CModuleGuiParameterVisitor::IntegerParameter(const std::string &ParameterName, const std::string &Name, int Default, int Min, int Max, int Step)
 {
-    guiutils::AddLabel(m_Layout, m_Parent, m_Pos++, m_Line, Name);
+    if(!Name.empty())
+    {
+        guiutils::AddLabel(m_Layout, m_Parent, m_Pos++, m_Line, Name);
+    }
     guiutils::AddSpinBox(m_Layout, m_Parent, m_Pos++, m_Line, {Name, Default, Min, Max, Step}, ParameterName, m_CommandStackController);
 }
 
 void CModuleGuiParameterVisitor::SelectionParameter(const std::string &ParameterName, const std::string &Name, int Default, const std::vector<std::string> &Selections)
 {
-    guiutils::AddLabel(m_Layout, m_Parent, m_Pos++, m_Line, Name);
+    if(!Name.empty())
+    {
+        guiutils::AddLabel(m_Layout, m_Parent, m_Pos++, m_Line, Name);
+    }
     guiutils::AddComboBox(m_Layout, m_Parent, m_Pos++, m_Line, {Name, Selections, Default}, ParameterName, m_CommandStackController);
 }
 

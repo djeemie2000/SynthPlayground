@@ -1,8 +1,8 @@
 #include "MidiNoteConverter.h"
 
-CMidiNoteConverter::CMidiNoteConverter()
-{
-}
+//CMidiNoteConverter::CMidiNoteConverter()
+//{
+//}
 
 namespace
 {
@@ -295,7 +295,6 @@ namespace
 //};
 
 // see http://www.wavosaur.com/download/midi-note-hex.php
-const int NumNotesPerOctave = 12;
 
 }
 
@@ -316,7 +315,7 @@ EOctave CMidiNoteConverter::ToOctave(int MidiNote)
     return static_cast<EOctave>(-1 + MidiNote/NumNotesPerOctave);
 }
 
-int CMidiNoteConverter::ToMidiNote(ENote Note, EOctave Octave)
-{
-    return NumNotesPerOctave*(1+static_cast<int>(Octave)) + static_cast<int>(Note);
-}
+//int CMidiNoteConverter::ToMidiNote(ENote Note, EOctave Octave)
+//{
+//    return NumNotesPerOctave*(1+static_cast<int>(Octave)) + static_cast<int>(Note);
+//}

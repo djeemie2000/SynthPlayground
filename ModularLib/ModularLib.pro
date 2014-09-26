@@ -55,7 +55,9 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Filters/SampleAndHoldFilter.cpp \
     Modules/SampleAndHoldModule.cpp \
     Filters/GlitchFilter.cpp \
-    Modules/GlitchModule.cpp
+    Modules/GlitchModule.cpp \
+    Filters/StepSequencerFilter.cpp \
+    Modules/StepSequencerModule.cpp
 
 HEADERS += Filters/ControllerBankFilter.h \
     Filters/PhasorFilter.h \
@@ -112,7 +114,9 @@ HEADERS += Filters/ControllerBankFilter.h \
     Filters/SampleAndHoldFilter.h \
     Modules/SampleAndHoldModule.h \
     Filters/GlitchFilter.h \
-    Modules/GlitchModule.h
+    Modules/GlitchModule.h \
+    Filters/StepSequencerFilter.h \
+    Modules/StepSequencerModule.h
 
 INCLUDEPATH += ./Filters
 INCLUDEPATH += ./Modules

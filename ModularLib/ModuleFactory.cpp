@@ -26,6 +26,7 @@
 #include "NoiseModule.h"
 #include "SampleAndHoldModule.h"
 #include "GlitchModule.h"
+#include "StepSequencerModule.h"
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -152,6 +153,10 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CGlitchModule(Name, *m_CommandStackController));
     }
+    else if(Type == "StepSequencer")
+    {
+        Module.reset(new CStepSequencerModule(Name, *m_CommandStackController));
+    }
 
     return Module;
 }
@@ -187,6 +192,7 @@ std::vector<string> CModuleFactory::GetSupportedTypes() const
         "Distortion1",
         "Noise",
         "SampleAndHold",
-        "Glitch"
+        "Glitch",
+        "StepSequencer"
     };
 }
