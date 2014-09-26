@@ -223,6 +223,18 @@ void CJackIOManager::CloseClient()
             OutputPort = 0;
         }
         m_AudioFilter.s_OutputPorts.clear();
+        for(auto& MidiInputPort : m_AudioFilter.s_MidiInputPorts)
+        {
+            jack_port_unregister(m_Client, MidiInputPort);
+            MidiInputPort = 0;
+        }
+        m_AudioFilter.s_MidiInputPorts.clear();
+        for(auto& MidiOutputPort : m_AudioFilter.s_MidiOutputPorts)
+        {
+            jack_port_unregister(m_Client, MidiOutputPort);
+            MidiOutputPort = 0;
+        }
+        m_AudioFilter.s_MidiOutputPorts.clear();
         m_AudioFilter.s_Filter.reset();
 
         // tell jack we do not want to play along anymore
