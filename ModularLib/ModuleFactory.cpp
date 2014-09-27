@@ -28,6 +28,7 @@
 #include "GlitchModule.h"
 #include "MidiStepSequencerModule.h"
 #include "PeriodicTriggerModule.h"
+#include "StepSequencerModule.h"
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -158,6 +159,10 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CMidiStepSequencerModule(Name, *m_CommandStackController));
     }
+    else if(Type == "StepSequencer")
+    {
+        Module.reset(new CStepSequencerModule(Name, *m_CommandStackController));
+    }
     else if(Type == "PeriodicTrigger")
     {
         Module.reset(new CPeriodicTriggerModule(Name, *m_CommandStackController));
@@ -199,6 +204,7 @@ std::vector<string> CModuleFactory::GetSupportedTypes() const
         "SampleAndHold",
         "Glitch",
         "MidiStepSequencer",
+        "StepSequencer",
         "PeriodicTrigger"
     };
 }

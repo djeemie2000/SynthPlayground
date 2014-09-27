@@ -1,19 +1,19 @@
-#ifndef MidiStepSequencerMODULE_H
-#define MidiStepSequencerMODULE_H
+#ifndef StepSequencerMODULE_H
+#define StepSequencerMODULE_H
 
 #include <string>
 #include <memory>
 #include "ModularModuleI.h"
 
-class CMidiStepSequencerFilter;
+class CStepSequencerFilter;
 class CJackIOManager;
 class CCommandStackController;
 
-class CMidiStepSequencerModule : public IModularModule
+class CStepSequencerModule : public IModularModule
 {
 public:
-    CMidiStepSequencerModule(const std::string& Name, CCommandStackController& CommandStackController);
-    ~CMidiStepSequencerModule();
+    CStepSequencerModule(const std::string& Name, CCommandStackController& CommandStackController);
+    ~CStepSequencerModule();
 
     std::string GetName() const override;
     Names GetInputNames() const override;
@@ -27,8 +27,8 @@ private:
 
     std::string m_Name;
     CCommandStackController& m_CommandStackController;
-    std::shared_ptr<CMidiStepSequencerFilter> m_Filter;
+    std::shared_ptr<CStepSequencerFilter> m_Filter;
     std::unique_ptr<CJackIOManager> m_IOManager;
 };
 
-#endif // MidiStepSequencerMODULE_H
+#endif // StepSequencerMODULE_H

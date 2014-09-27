@@ -59,7 +59,9 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Filters/MidiStepSequencerFilter.cpp \
     Modules/MidiStepSequencerModule.cpp \
     Filters/PeriodicTriggerFilter.cpp \
-    Modules/PeriodicTriggerModule.cpp
+    Modules/PeriodicTriggerModule.cpp \
+    Filters/StepSequencerFilter.cpp \
+    Modules/StepSequencerModule.cpp
 
 HEADERS += Filters/ControllerBankFilter.h \
     Filters/PhasorFilter.h \
@@ -120,7 +122,9 @@ HEADERS += Filters/ControllerBankFilter.h \
     Filters/MidiStepSequencerFilter.h \
     Modules/MidiStepSequencerModule.h \
     Filters/PeriodicTriggerFilter.h \
-    Modules/PeriodicTriggerModule.h
+    Modules/PeriodicTriggerModule.h \
+    Filters/StepSequencerFilter.h \
+    Modules/StepSequencerModule.h
 
 INCLUDEPATH += ./Filters
 INCLUDEPATH += ./Modules
