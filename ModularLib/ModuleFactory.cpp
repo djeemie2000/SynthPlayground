@@ -154,9 +154,9 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CGlitchModule(Name, *m_CommandStackController));
     }
-    else if(Type == "StepSequencer")
+    else if(Type == "MidiStepSequencer")
     {
-        Module.reset(new CStepSequencerModule(Name, *m_CommandStackController));
+        Module.reset(new CMidiStepSequencerModule(Name, *m_CommandStackController));
     }
     else if(Type == "PeriodicTrigger")
     {
@@ -198,7 +198,7 @@ std::vector<string> CModuleFactory::GetSupportedTypes() const
         "Noise",
         "SampleAndHold",
         "Glitch",
-        "StepSequencer",
+        "MidiStepSequencer",
         "PeriodicTrigger"
     };
 }

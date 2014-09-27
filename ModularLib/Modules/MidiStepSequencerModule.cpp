@@ -4,7 +4,7 @@
 #include "ModuleParameterVisitorI.h"
 #include "CommandStackController.h"
 
-CStepSequencerModule::CStepSequencerModule(const std::string& Name, CCommandStackController &CommandStackController)
+CMidiStepSequencerModule::CMidiStepSequencerModule(const std::string& Name, CCommandStackController &CommandStackController)
  : m_Name(Name)
  , m_CommandStackController(CommandStackController)
  , m_Filter()
@@ -25,33 +25,33 @@ CStepSequencerModule::CStepSequencerModule(const std::string& Name, CCommandStac
 
 }
 
-CStepSequencerModule::~CStepSequencerModule()
+CMidiStepSequencerModule::~CMidiStepSequencerModule()
 {
     // TODO commandstack!!
     Close();
 }
 
-std::string CStepSequencerModule::GetName() const
+std::string CMidiStepSequencerModule::GetName() const
 {
     return m_Name;
 }
 
-IModularModule::Names CStepSequencerModule::GetInputNames() const
+IModularModule::Names CMidiStepSequencerModule::GetInputNames() const
 {
     return m_Filter->GetInputNames();
 }
 
-IModularModule::Names CStepSequencerModule::GetOutputNames() const
+IModularModule::Names CMidiStepSequencerModule::GetOutputNames() const
 {
     return m_Filter->GetOutputNames();
 }
 
-IModularModule::Names CStepSequencerModule::GetMidiInputNames() const
+IModularModule::Names CMidiStepSequencerModule::GetMidiInputNames() const
 {
     return m_Filter->GetMidiInputNames();
 }
 
-void CStepSequencerModule::Accept(IModuleParameterVisitor &ParameterVisitor) const
+void CMidiStepSequencerModule::Accept(IModuleParameterVisitor &ParameterVisitor) const
 {
     int MaxNumSteps = 16;//TODO from filter?
     ParameterVisitor.Start();
@@ -81,18 +81,18 @@ void CStepSequencerModule::Accept(IModuleParameterVisitor &ParameterVisitor) con
     ParameterVisitor.Finish();
 }
 
-bool CStepSequencerModule::Open()
+bool CMidiStepSequencerModule::Open()
 {
     bool Ok = false;
     if(m_IOManager->OpenClient(m_Name))
     {
-        m_Filter.reset(new CStepSequencerFilter(m_IOManager->SamplingFrequency()));
+        m_Filter.reset(new CMidiStepSequencerFilter(m_IOManager->SamplingFrequency()));
         Ok = m_IOManager->OpenAudioFilter(m_Filter) && m_IOManager->ActivateClient();
     }
     return Ok;
 }
 
-bool CStepSequencerModule::Close()
+bool CMidiStepSequencerModule::Close()
 {
     m_IOManager->CloseClient();
     return true;

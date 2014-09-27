@@ -4,10 +4,10 @@
 #include "AudioFilterI.h"
 #include "StepSequencer2.h"
 
-class CStepSequencerFilter : public IAudioFilter
+class CMidiStepSequencerFilter : public IAudioFilter
 {
 public:
-    CStepSequencerFilter(int SamplingFrequency);
+    CMidiStepSequencerFilter(int SamplingFrequency);
 
     std::vector<std::string> GetInputNames() const override;
     std::vector<std::string> GetOutputNames() const override;
