@@ -11,13 +11,13 @@ CControllerBankModule::CControllerBankModule(const std::string& Name, int Size, 
  , m_Filter(new CControllerBankFilter(Size))
  , m_IOManager(new CJackIOManager())
 {
+    // Open here?
+    Open();
     // command stack stuff for filter
     for(int idx = 0; idx<m_Size; ++idx)
     {
         m_CommandStackController.AddCommand({m_Name+"/"+std::to_string(idx)+"/Value", false, 0, 0.0f}, [idx,this](const SCmdStackItem& Item) { m_Filter->Set(idx, Item.s_FloatValue); });
     }
-    // Open here?
-    Open();
 }
 
 CControllerBankModule::~CControllerBankModule()
