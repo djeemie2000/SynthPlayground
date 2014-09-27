@@ -1,5 +1,5 @@
 #include <algorithm>
-#include "StepSequencerFilter.h"
+#include "MidiStepSequencerFilter.h"
 #include "MidiInputHandlerI.h"
 #include "MidiNoteConverter.h"
 

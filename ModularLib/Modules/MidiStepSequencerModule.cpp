@@ -1,5 +1,5 @@
-#include "StepSequencerModule.h"
-#include "StepSequencerFilter.h"
+#include "MidiStepSequencerModule.h"
+#include "MidiStepSequencerFilter.h"
 #include "JackIOManager.h"
 #include "ModuleParameterVisitorI.h"
 #include "CommandStackController.h"

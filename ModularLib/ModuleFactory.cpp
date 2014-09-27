@@ -26,7 +26,7 @@
 #include "NoiseModule.h"
 #include "SampleAndHoldModule.h"
 #include "GlitchModule.h"
-#include "StepSequencerModule.h"
+#include "MidiStepSequencerModule.h"
 #include "PeriodicTriggerModule.h"
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
