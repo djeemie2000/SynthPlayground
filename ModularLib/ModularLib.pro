@@ -14,7 +14,7 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     ModuleManager.cpp \
     ModuleFactory.cpp \
     Filters/MidiNoteFilter.cpp \
-    TriggerMidiNoteHandler.cpp \
+    MidiHandlers/TriggerMidiNoteHandler.cpp \
     Modules/MidiNoteModule.cpp \
     Filters/LpfFilter.cpp \
     Modules/LpfModule.cpp \
@@ -61,7 +61,10 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Filters/PeriodicTriggerFilter.cpp \
     Modules/PeriodicTriggerModule.cpp \
     Filters/StepSequencerFilter.cpp \
-    Modules/StepSequencerModule.cpp
+    Modules/StepSequencerModule.cpp \
+    MidiHandlers/MidiControllerValueHandler.cpp \
+    Filters/MidiControllerBankFilter.cpp \
+    Modules/MidiControllerBankModule.cpp
 
 HEADERS += Filters/ControllerBankFilter.h \
     Filters/PhasorFilter.h \
@@ -76,7 +79,7 @@ HEADERS += Filters/ControllerBankFilter.h \
     ModuleFactoryI.h \
     ModuleFactory.h \
     Filters/MidiNoteFilter.h \
-    TriggerMidiNoteHandler.h \
+    MidiHandlers/TriggerMidiNoteHandler.h \
     Modules/MidiNoteModule.h \
     ModuleParameterVisitorI.h \
     Filters/LpfFilter.h \
@@ -124,10 +127,14 @@ HEADERS += Filters/ControllerBankFilter.h \
     Filters/PeriodicTriggerFilter.h \
     Modules/PeriodicTriggerModule.h \
     Filters/StepSequencerFilter.h \
-    Modules/StepSequencerModule.h
+    Modules/StepSequencerModule.h \
+    MidiHandlers/MidiControllerValueHandler.h \
+    Filters/MidiControllerBankFilter.h \
+    Modules/MidiControllerBankModule.h
 
 INCLUDEPATH += ./Filters
 INCLUDEPATH += ./Modules
+INCLUDEPATH += ./MidiHandlers
 INCLUDEPATH += ./../CommandStackLib
 INCLUDEPATH += ./../JackLib
 INCLUDEPATH += ./../MidiLib
