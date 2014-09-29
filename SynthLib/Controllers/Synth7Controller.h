@@ -88,6 +88,7 @@ public:
     void SetBarsPerBeat(int BarsPerBeat) override;
     void Start() override;
     void Stop() override;
+    void SetNumSteps(int NumSteps) override;
 
     // midi input handler
     void OnNoteOn(int Note, int , std::uint32_t TimeStamp) override;

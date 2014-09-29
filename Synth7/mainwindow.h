@@ -12,7 +12,7 @@ class MainWindow;
 class QScopeWidget;
 class CSynth7Controller;
 class CAlsaMidiInput;
-class IMidiInputHandler;
+class IMidiHandler;
 
 class MainWindow : public QMainWindow
 {
@@ -28,7 +28,7 @@ private:
     Ui::MainWindow *ui;
 
     std::shared_ptr<CSynth7Controller>  m_Controller;
-    std::shared_ptr<IMidiInputHandler>  m_MidiInputHandler;
+    std::shared_ptr<IMidiHandler>  m_MidiInputHandler;
     std::shared_ptr<CAlsaMidiInput>         m_MidiInput;
     QScopeWidget*       m_ScopeWidget;
 };

@@ -178,6 +178,11 @@ void CSynth7Controller::Stop()
     m_StepSequencerTicker.Activate(false);
 }
 
+void CSynth7Controller::SetNumSteps(int NumSteps)
+{
+    m_StepSequencer.SetNumSteps(NumSteps);
+}
+
 void CSynth7Controller::OnNoteOn(int Note, int, std::uint32_t /*TimeStamp*/)
 {
     //std::printf"Midi NoteOn : %d \r\n", Note);

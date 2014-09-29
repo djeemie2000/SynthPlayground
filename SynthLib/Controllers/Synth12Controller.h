@@ -21,7 +21,7 @@ public:
     // AudioSource2
     int OnRead(void *Dst, int NumFrames, std::uint32_t TimeStamp) override;
 
-    // IMidiInputHandler
+    // IMidiHandler
     void OnNoteOn(int Note, int , std::uint32_t TimeStamp) override;
     void OnNoteOff(int Note, int , std::uint32_t TimeStamp) override;
     void OnController(int, int , std::uint32_t) override;
