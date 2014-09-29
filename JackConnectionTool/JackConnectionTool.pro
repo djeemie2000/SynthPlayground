@@ -18,8 +18,13 @@ CONFIG(release, debug|release) {
 }
 
 LIBS += -lJackLib
-LIBS += -ljack
-
+win32 {
+    INCLUDEPATH += "C:/Program Files (x86)/Jack/includes"
+    LIBS += "C:/Program Files (x86)/Jack/lib/libjack.lib"
+}
+unix {
+    LIBS += -ljack
+}
 CONFIG(debug, debug|release) {
     DESTDIR = ../build-dir/Debug/JackConnectionTool
 }

@@ -4,6 +4,7 @@
 #include <string>
 #include <memory>
 #include <vector>
+#include "JackWin32Port.h"
 #include <jack/jack.h>
 
 class IAudioSource2;

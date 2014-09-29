@@ -78,8 +78,14 @@ LIBS += -lGuiLib
 LIBS += -lMidiLib
 LIBS += -lJackLib
 LIBS += -lTinyXml2
-LIBS += -lasound
-LIBS += -ljack
+
+win32 {
+    INCLUDEPATH += "C:/Program Files (x86)/Jack/includes"
+    LIBS += "C:/Program Files (x86)/Jack/lib/libjack.lib"
+}
+unix {
+    LIBS += -ljack
+}
 
 CONFIG(debug, debug|release) {
     DESTDIR = ../build-dir/Debug/Modular1

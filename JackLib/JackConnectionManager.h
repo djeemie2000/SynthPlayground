@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include "JackWin32Port.h"
 #include <jack/jack.h>
 
 class CJackConnectionManager

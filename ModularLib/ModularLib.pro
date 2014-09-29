@@ -135,6 +135,9 @@ INCLUDEPATH += ./../SynthLib
 INCLUDEPATH += ./../SynthLib/Interfaces
 INCLUDEPATH += ./../MidiLib
 
+win32 {
+    INCLUDEPATH += "C:/Program Files (x86)/Jack/includes"
+}
 
 unix {
     target.path = /usr/lib

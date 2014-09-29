@@ -15,17 +15,21 @@ HEADERS += \
     JackMidiSource.h \
     JackConnectionManager.h \
     JackMidiRenderer.h \
-    JackMidiHandler.h
+    JackMidiHandler.h \
+    JackWin32Port.h
 
 INCLUDEPATH += ./../SynthLib
 INCLUDEPATH += ./../MidiLib
 
-LIBS += -ljack
+win32 {
+    INCLUDEPATH += "C:/Program Files (x86)/Jack/includes"
+}
 
 unix {
     target.path = /usr/lib
     INSTALLS += target
 }
+
 
 CONFIG(debug, debug|release) {
     DESTDIR = ../build-dir/Debug/JackLib
