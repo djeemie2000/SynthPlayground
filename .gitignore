@@ -4,3 +4,5 @@ build-*
 *.a
 *.exe
 Makefile
+*.Debug
+*.Release
