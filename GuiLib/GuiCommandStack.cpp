@@ -8,6 +8,7 @@
 #include "QCommandSender.h"
 #include "QCommandStackHandler.h"
 #include "CommandStackController.h"
+#include "CommandStackHandlerI.h"
 
 void ConnectToolButton(QToolButton* Button, QWidget* Parent, const std::string& ParameterName, CCommandStackController& Controller)
 {
