@@ -1,5 +1,5 @@
 #include "MidiNoteFilter.h"
-#include "notecountmidiinputhandler.h"
+#include "NoteCountMidiHandler.h"
 #include "TriggerMidiNoteHandler.h"
 #include "MidiRendererI.h"
 
@@ -47,4 +47,9 @@ int CMidiNoteFilter::OnProcess(const std::vector<void *> &/*SourceBuffers*/,
     }
 
     return 0;//TODO
+}
+
+void CMidiNoteFilter::OnMidiPanic()
+{
+    // TODO reset count in note count handler??
 }

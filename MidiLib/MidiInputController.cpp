@@ -1,5 +1,5 @@
 #include "MidiInputController.h"
-#include "notecountmidiinputhandler.h"
+#include "NoteCountMidiHandler.h"
 #include "CommandStackMidiInputHandler.h"
 #include "LogMidiInputHandler.h"
 

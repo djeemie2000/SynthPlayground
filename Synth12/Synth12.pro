@@ -21,6 +21,7 @@ INCLUDEPATH += ./../CommandStackLib
 INCLUDEPATH += ./../GuiLib
 INCLUDEPATH += ./../MidiLib
 INCLUDEPATH += ./../JackLib
+INCLUDEPATH += ./../AlsaLib
 
 CONFIG(debug, debug|release) {
     LIBS += -L./../build-dir/Debug/SynthLib
@@ -33,6 +34,8 @@ CONFIG(debug, debug|release) {
     PRE_TARGETDEPS += ./../build-dir/Debug/MidiLib/libMidiLib.a
     LIBS += -L./../build-dir/Debug/JackLib
     PRE_TARGETDEPS += ./../build-dir/Debug/JackLib/libJackLib.a
+    LIBS += -L./../build-dir/Debug/AlsaLib
+    PRE_TARGETDEPS += ./../build-dir/Debug/AlsaLib/libAlsaLib.a
 }
 CONFIG(release, debug|release) {
     LIBS += -L./../build-dir/Release/SynthLib
@@ -45,6 +48,8 @@ CONFIG(release, debug|release) {
     PRE_TARGETDEPS += ./../build-dir/Release/MidiLib/libMidiLib.a
     LIBS += -L./../build-dir/Release/JackLib
     PRE_TARGETDEPS += ./../build-dir/Release/JackLib/libJackLib.a
+    LIBS += -L./../build-dir/Release/AlsaLib
+    PRE_TARGETDEPS += ./../build-dir/Release/AlsaLib/libAlsaLib.a
 }
 
 LIBS += -lSynthLib
@@ -52,6 +57,7 @@ LIBS += -lCommandStackLib
 LIBS += -lGuiLib
 LIBS += -lMidiLib
 LIBS += -lJackLib
+LIBS += -lAlsaLib
 LIBS += -lasound
 LIBS += -ljack
 

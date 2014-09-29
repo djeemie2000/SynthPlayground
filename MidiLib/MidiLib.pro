@@ -5,9 +5,8 @@ CONFIG += c++11 (Qt5)
 
 SOURCES += \
     LogMidiInputHandler.cpp \
-    AlsaMidiInput.cpp \
     NoteQueueMidiInputHandler.cpp \
-    notecountmidiinputhandler.cpp \
+    NoteCountMidiHandler.cpp \
     CommandStackMidiInputHandler.cpp \
     MidiInputController.cpp \
     MidiNotePitch.cpp
@@ -15,9 +14,8 @@ SOURCES += \
 HEADERS += \
     MidiInputHandlerI.h \
     LogMidiInputHandler.h \
-    AlsaMidiInput.h \
     NoteQueueMidiInputHandler.h \
-    notecountmidiinputhandler.h \
+    NoteCountMidiHandler.h \
     CommandStackMidiInputHandler.h \
     MidiInputController.h \
     MidiControllerHandlerI.h \
@@ -27,8 +25,6 @@ HEADERS += \
 
 INCLUDEPATH += ./../SynthLib
 INCLUDEPATH += ./../CommandStackLib
-
-LIBS += -lasound
 
 unix {
     target.path = /usr/lib

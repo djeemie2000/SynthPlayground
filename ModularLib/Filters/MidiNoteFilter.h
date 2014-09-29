@@ -26,6 +26,8 @@ public:
                   int NumFrames,
                   std::uint32_t TimeStamp) override;
 
+    void OnMidiPanic();
+
 private:
     std::shared_ptr<CTriggerMidiNoteHandler> m_MidiNoteHandler; //!< does the actual work
     std::shared_ptr<IMidiHandler> m_NoteCountHandler; //!< added to avoid issue with multiple simultanious notes

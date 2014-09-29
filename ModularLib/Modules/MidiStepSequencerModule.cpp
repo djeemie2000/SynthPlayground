@@ -27,7 +27,7 @@ CMidiStepSequencerModule::CMidiStepSequencerModule(const std::string& Name, CCom
 
 CMidiStepSequencerModule::~CMidiStepSequencerModule()
 {
-    // TODO commandstack!!
+    // TODO commandstack!!!!!!!!!!!!!
     Close();
 }
 
