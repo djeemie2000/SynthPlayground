@@ -64,7 +64,9 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Modules/StepSequencerModule.cpp \
     MidiHandlers/MidiControllerValueHandler.cpp \
     Filters/MidiControllerBankFilter.cpp \
-    Modules/MidiControllerBankModule.cpp
+    Modules/MidiControllerBankModule.cpp \
+    Filters/EnvelopeFollowerFilter.cpp \
+    Modules/EnvelopeFollowerModule.cpp
 
 HEADERS += Filters/ControllerBankFilter.h \
     Filters/PhasorFilter.h \
@@ -130,7 +132,9 @@ HEADERS += Filters/ControllerBankFilter.h \
     Modules/StepSequencerModule.h \
     MidiHandlers/MidiControllerValueHandler.h \
     Filters/MidiControllerBankFilter.h \
-    Modules/MidiControllerBankModule.h
+    Modules/MidiControllerBankModule.h \
+    Filters/EnvelopeFollowerFilter.h \
+    Modules/EnvelopeFollowerModule.h
 
 INCLUDEPATH += ./Filters
 INCLUDEPATH += ./Modules

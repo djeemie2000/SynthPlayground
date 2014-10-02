@@ -142,7 +142,8 @@ HEADERS += StepSequencer.h \
     Gate.h \
     Noise.h \
     SampleAndHold.h \
-    GlitchOperator.h
+    GlitchOperator.h \
+    EnvelopeFollower.h
 
 
 INCLUDEPATH += ./../MidiLib

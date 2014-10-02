@@ -30,6 +30,7 @@
 #include "PeriodicTriggerModule.h"
 #include "StepSequencerModule.h"
 #include "MidiControllerBankModule.h"
+#include "EnvelopeFollowerModule.h"
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -172,6 +173,10 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CMidiControllerBankModule(Name, 4, *m_CommandStackController));
     }
+    else if(Type == "EnvelopeFollower")
+    {
+        Module.reset(new CEnvelopeFollowerModule(Name, *m_CommandStackController));
+    }
 
     return Module;
 }
@@ -211,6 +216,7 @@ std::vector<string> CModuleFactory::GetSupportedTypes() const
         "MidiStepSequencer",
         "StepSequencer",
         "PeriodicTrigger",
-        "MidiControllerBank(4)"
+        "MidiControllerBank(4)",
+        "EnvelopeFollower"
     };
 }
