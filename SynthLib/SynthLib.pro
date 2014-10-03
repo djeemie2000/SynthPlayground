@@ -143,7 +143,8 @@ HEADERS += StepSequencer.h \
     Noise.h \
     SampleAndHold.h \
     GlitchOperator.h \
-    EnvelopeFollower.h
+    EnvelopeFollower.h \
+    DelayLine2.h
 
 
 INCLUDEPATH += ./../MidiLib

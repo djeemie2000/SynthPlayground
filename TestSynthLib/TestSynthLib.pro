@@ -9,6 +9,7 @@ SOURCES += main.cpp \
     TestPerdiodicTicker.cpp \
     TestNotes.cpp \
     TestDelayLine.cpp \
+    TestDelayLine2.cpp \
     TestFeedbackDelay.cpp \
     TestAREnvelope.cpp \
     TestConstNumSamplesGenerator.cpp \
