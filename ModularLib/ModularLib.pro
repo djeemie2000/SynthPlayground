@@ -66,7 +66,9 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Filters/MidiControllerBankFilter.cpp \
     Modules/MidiControllerBankModule.cpp \
     Filters/EnvelopeFollowerFilter.cpp \
-    Modules/EnvelopeFollowerModule.cpp
+    Modules/EnvelopeFollowerModule.cpp \
+    Filters/DelayLineFilter.cpp \
+    Modules/DelayLineModule.cpp
 
 HEADERS += Filters/ControllerBankFilter.h \
     Filters/PhasorFilter.h \
@@ -134,7 +136,9 @@ HEADERS += Filters/ControllerBankFilter.h \
     Filters/MidiControllerBankFilter.h \
     Modules/MidiControllerBankModule.h \
     Filters/EnvelopeFollowerFilter.h \
-    Modules/EnvelopeFollowerModule.h
+    Modules/EnvelopeFollowerModule.h \
+    Filters/DelayLineFilter.h \
+    Modules/DelayLineModule.h
 
 INCLUDEPATH += ./Filters
 INCLUDEPATH += ./Modules
