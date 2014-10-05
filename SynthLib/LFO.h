@@ -35,7 +35,7 @@ public:
 
 private:
     CPhaseStep<T> m_PhaseStep;
-    CPhaseGenerator<T> m_PhaseGen;
+    CPhaseAccumulator<T> m_PhaseGen;
     CSelectableOperator<T> m_Op;
 };
 

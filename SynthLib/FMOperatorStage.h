@@ -103,12 +103,12 @@ public:
 
 private:
     CPhaseStep<T> m_CarrierPhaseStep;
-    CPhaseGenerator<T> m_CarrierPhaseGen;
+    CPhaseAccumulator<T> m_CarrierPhaseGen;
     CSelectableOperator<T> m_Carrier;
     T m_Frequency;
 
     CPhaseStep<T> m_ModulatorPhaseStep;
-    CPhaseGenerator<T> m_ModulatorPhaseGen;
+    CPhaseAccumulator<T> m_ModulatorPhaseGen;
     CSelectableOperator<T> m_Modulator;
     T m_ModulatorAmplitude;
     T m_ModulatorFreqMultiplier;

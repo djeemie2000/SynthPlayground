@@ -23,7 +23,7 @@ public:
      , m_Oscillator()
      , m_Combinor(Combinor)
     {
-        m_Oscillator.fill({1/static_cast<T>(NumOsc), 0, 1, 0.97, 0.0, CPhaseStep<T>(SamplingFrequency), CPhaseGenerator<T>(), Oscillator, CSymmetricalOperator<T>(), CWaveFold2<T>()});
+        m_Oscillator.fill({1/static_cast<T>(NumOsc), 0, 1, 0.97, 0.0, CPhaseStep<T>(SamplingFrequency), CPhaseAccumulator<T>(), Oscillator, CSymmetricalOperator<T>(), CWaveFold2<T>()});
         SetFrequency(m_Frequency);
     }
 
@@ -102,7 +102,7 @@ private:
         T s_Fold;
         T s_ModAmount;
         CPhaseStep<T> s_PhaseStep;
-        CPhaseGenerator<T> s_PhaseGenerator;
+        CPhaseAccumulator<T> s_PhaseGenerator;
         CSelectableOperator<T> s_Oscillator;
         CSymmetricalOperator<float> s_Symm;
         CWaveFold2<T> s_Folder;

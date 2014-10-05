@@ -23,7 +23,7 @@ public:
 
 private:
     CPhaseStep<float> m_PhaseStep;
-    CPhaseGenerator<float> m_PhaseGenerator;
+    CPhaseAccumulator<float> m_PhaseGenerator;
 };
 
 #endif // PHASORFILTER_H

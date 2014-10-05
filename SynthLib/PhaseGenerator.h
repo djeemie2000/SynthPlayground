@@ -2,14 +2,14 @@
 #define PHASEGENERATOR_H
 
 template<class T, int Min = -1, int Max = 1>
-class CPhaseGenerator
+class CPhaseAccumulator
 {
 public:
     static constexpr T MinPhase = static_cast<T>(Min);
     static constexpr T MaxPhase = static_cast<T>(Max);
     static constexpr T PhaseRange = MaxPhase - MinPhase;
 
-    CPhaseGenerator()
+    CPhaseAccumulator()
         : m_Phase(MinPhase)
     {
     }

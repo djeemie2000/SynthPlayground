@@ -56,7 +56,7 @@ public:
 private:
     CWaveTable<float, float> m_CarrierWaveTable;
     CWaveTablePhaseStep<float> m_CarrierPhaseStep;
-    CPhaseGenerator<float, 0, 1> m_CarrierPhase;
+    CPhaseAccumulator<float, 0, 1> m_CarrierPhase;
     float m_CarrierPlaybackSpeedMultiplier;
     CPosNegInverter<float> m_CarrierPhaseInverter;
 

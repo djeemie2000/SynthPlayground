@@ -16,7 +16,7 @@ public:
      , m_Dephase(0)
      , m_Oscillator()
     {
-        m_Oscillator.fill({1/static_cast<T>(N), 0, 1, CPhaseStep<T>(SamplingFrequency), CPhaseGenerator<T>(), Oscillator});
+        m_Oscillator.fill({1/static_cast<T>(N), 0, 1, CPhaseStep<T>(SamplingFrequency), CPhaseAccumulator<T>(), Oscillator});
         SetFrequency(m_Frequency);
         Select(0);// necessary?
         DePhase(m_Dephase);
@@ -107,7 +107,7 @@ private:
         T s_PhaseShift;
         T s_FrequencyMultiplier;
         CPhaseStep<T> s_PhaseStep;
-        CPhaseGenerator<T> s_PhaseGenerator;
+        CPhaseAccumulator<T> s_PhaseGenerator;
         CSelectableOperator<T> s_Oscillator;
 
         T operator()()

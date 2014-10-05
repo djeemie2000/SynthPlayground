@@ -81,7 +81,7 @@ public:
 
 private:
     CPhaseStep<T>           m_PhaseStep;
-    CPhaseGenerator<T>      m_PhaseGenerator;
+    CPhaseAccumulator<T>      m_PhaseGenerator;
     CConstGenerator<T>      m_Skew;
     CModulatorSigned<T>     m_SkewModulator;
     CPhaseSkewer<T>         m_Skewer;
