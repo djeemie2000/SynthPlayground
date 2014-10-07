@@ -32,6 +32,7 @@
 #include "MidiControllerBankModule.h"
 #include "EnvelopeFollowerModule.h"
 #include "DelayLineModule.h"
+#include "StereoMixerModule.h"
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -182,6 +183,10 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CDelayLineModule(Name, *m_CommandStackController));
     }
+    else if(Type == "StereoMixer(4)")
+    {
+        Module.reset(new CStereoMixerModule(Name, 4, *m_CommandStackController));
+    }
 
     return Module;
 }
@@ -223,6 +228,7 @@ std::vector<string> CModuleFactory::GetSupportedTypes() const
         "PeriodicTrigger",
         "MidiControllerBank(4)",
         "EnvelopeFollower",
-        "DelayLine"
+        "DelayLine",
+        "StereoMixer(4)"
     };
 }

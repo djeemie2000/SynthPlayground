@@ -68,7 +68,9 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Filters/EnvelopeFollowerFilter.cpp \
     Modules/EnvelopeFollowerModule.cpp \
     Filters/DelayLineFilter.cpp \
-    Modules/DelayLineModule.cpp
+    Modules/DelayLineModule.cpp \
+    Filters/StereoMixerFilter.cpp \
+    Modules/StereoMixerModule.cpp
 
 HEADERS += Filters/ControllerBankFilter.h \
     Filters/PhasorFilter.h \
@@ -138,7 +140,9 @@ HEADERS += Filters/ControllerBankFilter.h \
     Filters/EnvelopeFollowerFilter.h \
     Modules/EnvelopeFollowerModule.h \
     Filters/DelayLineFilter.h \
-    Modules/DelayLineModule.h
+    Modules/DelayLineModule.h \
+    Filters/StereoMixerFilter.h \
+    Modules/StereoMixerModule.h
 
 INCLUDEPATH += ./Filters
 INCLUDEPATH += ./Modules
