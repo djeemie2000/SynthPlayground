@@ -13,8 +13,6 @@ void PrintNames(const std::vector<std::string>& Names)
 
 int main()
 {
-    cout << "Hello World!" << endl;
-
     CJackConnectionManager Manager;
     Manager.OpenClient("JackConnectionTool");
 

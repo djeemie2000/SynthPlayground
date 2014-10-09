@@ -70,7 +70,9 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Filters/DelayLineFilter.cpp \
     Modules/DelayLineModule.cpp \
     Filters/StereoMixerFilter.cpp \
-    Modules/StereoMixerModule.cpp
+    Modules/StereoMixerModule.cpp \
+    Filters/MidiLoggerFilter.cpp \
+    Modules/MidiLoggerModule.cpp
 
 HEADERS += Filters/ControllerBankFilter.h \
     Filters/PhasorFilter.h \
@@ -142,7 +144,9 @@ HEADERS += Filters/ControllerBankFilter.h \
     Filters/DelayLineFilter.h \
     Modules/DelayLineModule.h \
     Filters/StereoMixerFilter.h \
-    Modules/StereoMixerModule.h
+    Modules/StereoMixerModule.h \
+    Filters/MidiLoggerFilter.h \
+    Modules/MidiLoggerModule.h
 
 INCLUDEPATH += ./Filters
 INCLUDEPATH += ./Modules

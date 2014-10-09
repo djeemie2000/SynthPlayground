@@ -12,7 +12,7 @@ void CLogMidiInputHandler::OnNoteOn(int Note, int Velocity, std::uint32_t TimeSt
 
 void CLogMidiInputHandler::OnNoteOff(int Note, int Velocity, std::uint32_t TimeStamp)
 {
-    std::cout <<TimeStamp << " - Note off : " << std::hex << "0x" << Note << " vel(" << std::dec << Velocity << ")" << std::endl;
+    std::cout << TimeStamp << " - Note off : " << std::hex << "0x" << Note << " vel(" << std::dec << Velocity << ")" << std::endl;
 }
 
 void CLogMidiInputHandler::OnController(int Parameter, int Value, std::uint32_t TimeStamp)
