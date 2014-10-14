@@ -22,9 +22,7 @@ int main()
     // wait untill keypressed
     char bs = std::getchar();
 
-    std::cout << "------------------" << std::endl;
-    std::cout << "JackMidiLoggerTool" << std::endl;
-    std::cout << "------------------" << std::endl;
+    About();
 
     return 0;
 }
