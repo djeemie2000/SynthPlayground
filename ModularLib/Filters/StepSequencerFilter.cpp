@@ -3,12 +3,13 @@
 #include "MidiNotePitch.h"
 #include "MidiNoteConverter.h"
 
-CStepSequencerFilter::CStepSequencerFilter(int SamplingFrequency)
+CStepSequencerFilter::CStepSequencerFilter(int SamplingFrequency, CurrentStepCallbackType Callback)
     : m_StepSequencer(SamplingFrequency)
     , m_CurrentStep()
     , m_IsActive(false)
     , m_StepSize(1)
     , m_Frequency(440.0f)
+    , m_Callback(Callback)
 {
 }
 
@@ -54,6 +55,9 @@ int CStepSequencerFilter::OnProcess(const std::vector<void *> &SourceBuffers,
                 m_StepSequencer.Advance(m_StepSize);
                 m_CurrentStep = m_StepSequencer.CurrentStep();
                 m_CurrentStep.s_IsActive &= m_IsActive;//if not active, do not play the current step
+
+                int CurrentStepIndex = m_StepSequencer.GetCurrentStep();
+                m_Callback(CurrentStepIndex);
 
                 if(m_CurrentStep.s_IsActive)
                 {

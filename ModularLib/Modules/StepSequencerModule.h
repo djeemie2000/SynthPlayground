@@ -24,11 +24,13 @@ public:
 private:
     bool Open();
     bool Close();
+    void SetCurrentStepIndex(int Index);
 
     std::string m_Name;
     CCommandStackController& m_CommandStackController;
     std::shared_ptr<CStepSequencerFilter> m_Filter;
     std::unique_ptr<CJackIOManager> m_IOManager;
+    int m_CurrentStep;
 };
 
 #endif // StepSequencerMODULE_H

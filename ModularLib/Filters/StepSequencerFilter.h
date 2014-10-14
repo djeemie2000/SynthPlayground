@@ -1,15 +1,18 @@
 #ifndef StepSequencerFILTER_H
 #define StepSequencerFILTER_H
 
+#include <functional>
 #include "AudioFilterI.h"
 #include "StepSequencer2.h"
 
 class CStepSequencerFilter : public IAudioFilter
 {
 public:
+    typedef std::function<void (int)> CurrentStepCallbackType;
+
     static const int NumSequencerSteps = 16;
 
-    CStepSequencerFilter(int SamplingFrequency);
+    CStepSequencerFilter(int SamplingFrequency, CurrentStepCallbackType Callback);
 
     std::vector<std::string> GetInputNames() const override;
     std::vector<std::string> GetOutputNames() const override;
@@ -36,6 +39,7 @@ private:
     bool    m_IsActive;
     int     m_StepSize;
     float   m_Frequency;
+    CurrentStepCallbackType m_Callback;
 };
 
 #endif // StepSequencerFILTER_H

@@ -9,6 +9,7 @@ CStepSequencerModule::CStepSequencerModule(const std::string& Name, CCommandStac
  , m_CommandStackController(CommandStackController)
  , m_Filter()
  , m_IOManager(new CJackIOManager())
+ , m_CurrentStep(0)
 {
     // Open here?
     Open();
@@ -92,7 +93,7 @@ bool CStepSequencerModule::Open()
     bool Ok = false;
     if(m_IOManager->OpenClient(m_Name))
     {
-        m_Filter.reset(new CStepSequencerFilter(m_IOManager->SamplingFrequency()));
+        m_Filter.reset(new CStepSequencerFilter(m_IOManager->SamplingFrequency(), [this](int Index){ SetCurrentStepIndex(Index);} ));
         Ok = m_IOManager->OpenAudioFilter(m_Filter) && m_IOManager->ActivateClient();
     }
     return Ok;
@@ -102,4 +103,13 @@ bool CStepSequencerModule::Close()
 {
     m_IOManager->CloseClient();
     return true;
+}
+
+void CStepSequencerModule::SetCurrentStepIndex(int Index)
+{
+    // switch off previous step
+    m_CommandStackController.Handle({m_Name+"/Step/"+std::to_string(m_CurrentStep)+"/Status", false, 0, 0.0f});
+    // switch on current step
+    m_CurrentStep = Index;
+    m_CommandStackController.Handle({m_Name+"/Step/"+std::to_string(m_CurrentStep)+"/Status", true, 0, 0.0f});
 }

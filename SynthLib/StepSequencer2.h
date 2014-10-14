@@ -39,6 +39,7 @@ public:
     int PeriodSamples() const;
     const SStep& CurrentStep() const;
     int DurationSamples() const;
+    int GetCurrentStep() const { return m_Step; }
 
 private:
     bool StepExists(int Step) const;
