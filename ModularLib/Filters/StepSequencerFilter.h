@@ -7,6 +7,8 @@
 class CStepSequencerFilter : public IAudioFilter
 {
 public:
+    static const int NumSequencerSteps = 16;
+
     CStepSequencerFilter(int SamplingFrequency);
 
     std::vector<std::string> GetInputNames() const override;
@@ -29,7 +31,6 @@ public:
     void SetNumSteps(int NumSteps);
 
 private:
-    static const int NumSequencerSteps = 16;
     CStepSequencer2<float, NumSequencerSteps>          m_StepSequencer;
     CStepSequencer2<float, NumSequencerSteps>::SStep   m_CurrentStep;
     bool    m_IsActive;

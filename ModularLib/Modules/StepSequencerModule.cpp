@@ -14,9 +14,9 @@ CStepSequencerModule::CStepSequencerModule(const std::string& Name, CCommandStac
     Open();
     // commandstack!!
     m_CommandStackController.AddCommand({m_Name+"/IsActive", false, 0, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetActive(Item.s_BoolValue); });
-    m_CommandStackController.AddCommand({m_Name+"/NumSteps", false, 16, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetNumSteps(Item.s_IntValue); });
+    m_CommandStackController.AddCommand({m_Name+"/NumSteps", false, CStepSequencerFilter::NumSequencerSteps, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetNumSteps(Item.s_IntValue); });
     m_CommandStackController.AddCommand({m_Name+"/StepSize", false, 1, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetStepSize(Item.s_IntValue); });
-    for(int idx = 0; idx<16; ++idx)
+    for(int idx = 0; idx<CStepSequencerFilter::NumSequencerSteps; ++idx)
     {
         m_CommandStackController.AddCommand({m_Name+"/Step/"+std::to_string(idx)+"/Active", false, 0, 0.0f}, [idx,this](const SCmdStackItem& Item) { m_Filter->SetActive(idx, Item.s_BoolValue); });
         m_CommandStackController.AddCommand({m_Name+"/Step/"+std::to_string(idx)+"/Octave", false, 3, 0.0f}, [idx,this](const SCmdStackItem& Item) { m_Filter->SetOctave(idx, static_cast<EOctave>(Item.s_IntValue)); });
@@ -53,12 +53,12 @@ IModularModule::Names CStepSequencerModule::GetMidiInputNames() const
 
 void CStepSequencerModule::Accept(IModuleParameterVisitor &ParameterVisitor) const
 {
-    int MaxNumSteps = 16;//TODO from filter?
+    int MaxNumSteps = CStepSequencerFilter::NumSequencerSteps;
     ParameterVisitor.Start();
     ParameterVisitor.StartLine();
     ParameterVisitor.BooleanParameter(m_Name+"/IsActive", "Go", false);
-    ParameterVisitor.IntegerParameter(m_Name+"/NumSteps", "#Steps", 16, 1, 16, 1);
-    ParameterVisitor.IntegerParameter(m_Name+"/StepSize", "Step", 1, 1, 16, 1);
+    ParameterVisitor.IntegerParameter(m_Name+"/NumSteps", "#Steps", CStepSequencerFilter::NumSequencerSteps, 1, CStepSequencerFilter::NumSequencerSteps, 1);
+    ParameterVisitor.IntegerParameter(m_Name+"/StepSize", "Step", 1, 1, CStepSequencerFilter::NumSequencerSteps, 1);
     ParameterVisitor.FinishLine();
     ParameterVisitor.StartLine();
     for(int idx = 0; idx<MaxNumSteps; ++idx)
@@ -76,6 +76,12 @@ void CStepSequencerModule::Accept(IModuleParameterVisitor &ParameterVisitor) con
     for(int idx = 0; idx<MaxNumSteps; ++idx)
     {
         ParameterVisitor.BooleanParameter(m_Name+"/Step/"+std::to_string(idx)+"/Active", "On", false);
+    }
+    ParameterVisitor.FinishLine();
+    ParameterVisitor.StartLine();
+    for(int idx = 0; idx<MaxNumSteps; ++idx)
+    {
+        ParameterVisitor.BooleanStatus(m_Name+"/Step/"+std::to_string(idx)+"/Status", "", false);
     }
     ParameterVisitor.FinishLine();
     ParameterVisitor.Finish();
