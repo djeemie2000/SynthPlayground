@@ -21,6 +21,7 @@ public:
     void BooleanParameter(const std::string& ParameterName, const std::string& Name, bool Default) override;
 //    void TriggeredParameter(const std::string& ParameterName, const std::string& Name) override;
 //    void FilePathParameter(const std::string& ParameterName, const std::string& Name, const std::string& Extensions) override;
+    void BooleanStatus(const std::string& ParameterName, const std::string& Name, bool Default) override;
     void FinishLine() override;
     void Finish() override;
 

@@ -11,6 +11,7 @@
 #include <QComboBox>
 #include "QGuiCallbacks.h"
 #include "GuiCommandStack.h"
+#include "QStatusLedWidget.h"
 
 namespace guiutils
 {
@@ -272,5 +273,12 @@ void AddComboBox(QGroupBox* GroupBox, QWidget* Parent, const SComboboxProperties
     ConnectCombobox(ComboBox, Parent, ParameterName, Controller);
 }
 
+void AddStatusLed(QGridLayout *Layout, QWidget *Parent, int X, int Y, const std::string &ParameterName, CCommandStackController &Controller)
+{
+    QStatusLedWidget* StatusLed = new QStatusLedWidget(Parent);
+    Layout->addWidget(StatusLed, Y, X);
+    //TODO connect to controller
+    ConnectStatusLed(StatusLed, Parent, ParameterName, Controller);
+}
 
 }

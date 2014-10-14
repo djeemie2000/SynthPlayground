@@ -20,7 +20,8 @@ SOURCES += GuiUtilities.cpp \
     QCommandStackHandler.cpp \
     GuiCommandStack.cpp \
     QPatchManagerWidget.cpp \
-    QScopeWidget2.cpp
+    QScopeWidget2.cpp \
+    QStatusLedWidget.cpp
 
 HEADERS += GuiUtilities.h \
     QGuiCallbacks.h \
@@ -34,7 +35,8 @@ HEADERS += GuiUtilities.h \
     QCommandStackHandler.h \
     GuiCommandStack.h \
     QPatchManagerWidget.h \
-    QScopeWidget2.h
+    QScopeWidget2.h \
+    QStatusLedWidget.h
 
 FORMS += \
     QScopeWidget.ui \

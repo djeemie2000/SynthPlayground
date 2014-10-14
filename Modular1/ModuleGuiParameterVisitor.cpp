@@ -62,6 +62,11 @@ void CModuleGuiParameterVisitor::BooleanParameter(const std::string &ParameterNa
     guiutils::AddCheckableSmallButton(m_Layout, m_Parent, m_Pos++, m_Line, Name, ParameterName, Default, m_CommandStackController);
 }
 
+void CModuleGuiParameterVisitor::BooleanStatus(const std::string &ParameterName, const std::string &/*Name*/, bool /*Default*/)
+{
+    guiutils::AddStatusLed(m_Layout, m_Parent, m_Pos++, m_Line, ParameterName, m_CommandStackController);
+}
+
 void CModuleGuiParameterVisitor::FinishLine()
 {
     ++m_Line;

@@ -10,11 +10,14 @@ class QSpinBox;
 class QDoubleSpinBox;
 class QComboBox;
 class CCommandStackController;
+class QStatusLedWidget;
 
 void ConnectCheckableToolButton(QToolButton* Button, QWidget* Parent, const std::string& ParameterName, CCommandStackController& Controller);
 void ConnectSpinbox(QSpinBox* SpinBox, QWidget* Parent, const std::string& ParameterName, CCommandStackController& Controller);
 void ConnectDoubleSpinbox(QDoubleSpinBox* SpinBox, QWidget* Parent, const std::string& ParameterName, CCommandStackController& Controller);
 void ConnectCombobox(QComboBox* ComboBox, QWidget* Parent, const std::string& ParameterName, CCommandStackController& Controller);
 void ConnectPushButton(QPushButton* Button, QWidget* Parent, const std::string& ParameterName, CCommandStackController& Controller);
+void ConnectStatusLed(QStatusLedWidget* StatusLed, QWidget* Parent, const std::string& ParameterName, CCommandStackController& Controller);
+
 
 #endif // GUICOMMANDSTACK_H

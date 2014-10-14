@@ -9,6 +9,7 @@
 #include "QCommandStackHandler.h"
 #include "CommandStackController.h"
 #include "CommandStackHandlerI.h"
+#include "QStatusLedWidget.h"
 
 void ConnectToolButton(QToolButton* Button, QWidget* Parent, const std::string& ParameterName, CCommandStackController& Controller)
 {
@@ -72,3 +73,10 @@ void ConnectPushButton(QPushButton* Button, QWidget* Parent, const std::string& 
     // need to get feedback from controller ???
 }
 
+void ConnectStatusLed(QStatusLedWidget* StatusLed, QWidget* Parent, const std::string& ParameterName, CCommandStackController& Controller)
+{
+    // controller -> gui
+    QCommandStackHandler* Reciever = new QCommandStackHandler();//no ownership by parent!
+    Parent->connect(Reciever, SIGNAL(SignalBoolValueChanged(bool)), StatusLed, SLOT(OnStatus(bool)));
+    Controller.Register(ParameterName, SPCommandStackHandler(Reciever));
+}
