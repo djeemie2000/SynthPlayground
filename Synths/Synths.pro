@@ -11,6 +11,7 @@ SUBDIRS += \
     ../MidiLib \            # a 'lib' project
     ../JackLib \            # a 'lib' project
     ../AlsaLib \            # a 'lib' project
+    ../SerialLib \          # a 'lib' project
     ../CommandStackLib \    # a 'lib' project
     ../TestCommandStackLib \ # an 'app' project
     ../GuiLib \             # a 'lib' project
