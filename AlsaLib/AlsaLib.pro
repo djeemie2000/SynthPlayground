@@ -3,9 +3,11 @@ TEMPLATE = lib
 CONFIG += staticlib
 CONFIG += c++11 (Qt5)
 
-SOURCES += AlsaMidiInput.cpp 
+SOURCES += AlsaMidiInput.cpp \ 
+    AlsaMidiOutput.cpp
 
-HEADERS += AlsaMidiInput.h
+HEADERS += AlsaMidiInput.h \
+    AlsaMidiOutput.h
 
 INCLUDEPATH += ./../SynthLib
 INCLUDEPATH += ./../MidiLib
