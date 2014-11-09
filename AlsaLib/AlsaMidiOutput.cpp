@@ -16,9 +16,8 @@ bool CheckMidiCommand(int ReturnValue, const std::string& msg)
 
 }
 
-CAlsaMidiOutput::CAlsaMidiOutput(IMidiHandler &Handler)
-    : m_Handler(Handler)
-    , m_MidiSequencerHandle(0)
+CAlsaMidiOutput::CAlsaMidiOutput()
+    : m_MidiSequencerHandle(0)
     , m_MidiOutputPort(-1)
     , m_IsOpen(false)
 {

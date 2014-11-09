@@ -8,7 +8,7 @@
 class CAlsaMidiOutput : public IMidiHandler
 {
 public:
-    CAlsaMidiOutput(IMidiHandler& Handler);
+    CAlsaMidiOutput();
     ~CAlsaMidiOutput();
 
     bool Open(const std::string &ClientName, const std::string &PortName);
@@ -24,7 +24,6 @@ private:
     bool OpenMidiOutput(const std::string &ClientName, const std::string &PortName);
     bool CloseMidiOutput();
 
-    IMidiHandler& m_Handler;
     void WriteMidiEvent(snd_seq_event_t &ev);
 
     snd_seq_t*  m_MidiSequencerHandle;

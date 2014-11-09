@@ -10,7 +10,8 @@ SOURCES += \
     CommandStackMidiInputHandler.cpp \
     MidiInputController.cpp \
     MidiNotePitch.cpp \
-    MultiMidiHandler.cpp
+    MultiMidiHandler.cpp \
+    RawMidiParser.cpp
 
 HEADERS += \
     MidiInputHandlerI.h \
@@ -23,7 +24,8 @@ HEADERS += \
     MidiSourceI.h \
     MidiRendererI.h \
     MidiNotePitch.h \
-    MultiMidiHandler.h
+    MultiMidiHandler.h \
+    RawMidiParser.h
 
 INCLUDEPATH += ./../SynthLib
 INCLUDEPATH += ./../CommandStackLib
