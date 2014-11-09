@@ -1,11 +1,16 @@
 #include <iostream>
 #include <string>
-//#include <thread>
+
+#include <thread>
+#include <chrono>
+
 #include "LinuxSerialPort.h"
 #include "AlsaMidiOutput.h"
 #include "RawMidiParser.h"
+#include "ContinuousThreadRunner.h"
 
 #include "LogMidiInputHandler.h"
+
 
 using namespace std;
 
@@ -48,53 +53,95 @@ int ParseBaudrate(int argc, const char* argv[])
     return Baudrate;
 }
 
+class CSerial2AlsaMidi
+{
+public:
+    CSerial2AlsaMidi();
+
+    bool Open(const std::string& SerialPort, int SerialBaudrate);
+    void Close();
+
+    void OnTick();
+private:
+    CAlsaMidiOutput m_MidiOutput;
+    CLinuxSerialPort m_SerialPort;
+    CLogMidiInputHandler m_MidiHandlerVerbose;
+    CRawMidiParser m_MidiParser;
+};
+
+CSerial2AlsaMidi::CSerial2AlsaMidi()
+ : m_MidiOutput()
+ , m_SerialPort()
+// , m_MidiHandlerVerbose()
+ , m_MidiParser(m_MidiOutput)
+{
+}
+
+bool CSerial2AlsaMidi::Open(const string &SerialPort, int SerialBaudrate)
+{
+    bool IsOpen = false;
+    std::cout << "Opening midi output" << std::endl;
+    if(m_MidiOutput.Open("Serial2AlsaMidiTool", "MidiOut"))
+    {
+        std::cout << "Opening serial port " << SerialPort << " (" << SerialBaudrate << ")" << std::endl;
+        if(m_SerialPort.Open(SerialPort, SerialBaudrate, 0))
+        {
+            IsOpen = true;
+        }
+        else
+        {
+            std::cout << "failed!" << std::endl;
+        }
+    }
+    else
+    {
+        std::cout << "failed!" << std::endl;
+    }
+    return IsOpen;
+}
+
+void CSerial2AlsaMidi::Close()
+{
+    std::cout << "Closing serial port" << std::endl;
+    m_SerialPort.Close();
+
+    std::cout << "Closing midi output" << std::endl;
+    m_MidiOutput.Close();
+}
+
+void CSerial2AlsaMidi::OnTick()
+{
+    // read from serial
+    CLinuxSerialPort::BufferType Buffer;
+    m_SerialPort.Read(Buffer, 3);
+
+    // PrintBuffer(Buffer);//verbose
+
+    // parse serial and send parsed midi data to alsa
+    m_MidiParser.Parse(Buffer);
+}
 
 int main(int argc, const char* argv[])
 {
     About();
+    std::cout << "Press any key to abort!" << std::endl;
 
     std::string Port = ParsePort(argc, argv);
     int Baudrate = ParseBaudrate(argc, argv);
 
-    CAlsaMidiOutput MidiOutput;
-    std::cout << "Opening midi output" << std::endl;
-    MidiOutput.Open("Serial2AlsaMidiTool", "MidiOut");
+    CSerial2AlsaMidi Controller;
+    CContinuousThreadRunner<CSerial2AlsaMidi> ThreadRunner(Controller);
 
-    CLinuxSerialPort SerialPort;
-    CLogMidiInputHandler MidiHandlerTemp;
-    CRawMidiParser MidiParser(MidiHandlerTemp);
-
-    std::cout << "Opening serial port " << Port << " (" << Baudrate << ")" << std::endl;
-    if(!SerialPort.Open(Port, Baudrate, 0))
+    if(Controller.Open(Port, Baudrate))
     {
-        std::cout << "failed!" << std::endl;
-    }
-    else
-    {
-
-        for(int Repeat = 0; Repeat<100; ++Repeat)
-        {
-            // read from serial
-            CLinuxSerialPort::BufferType Buffer;
-            SerialPort.Read(Buffer, 3);
-
-            PrintBuffer(Buffer);//debug
-
-            // parse serial and send parsed midi data to alsa
-            MidiParser.Parse(Buffer);
-        }
-
-        // wait untill keypressed
-    //    char bs = std::getchar();
-
+        ThreadRunner.Start();
     }
 
+    // wait untill keypressed
+    char bs = std::getchar();
 
-    std::cout << "Closing serial port "  << Port << " (" << Baudrate << ")" << std::endl;
-    SerialPort.Close();
-
-    std::cout << "Closing midi output" << std::endl;
-    MidiOutput.Close();
+    ThreadRunner.Stop();
+    Controller.Close();
 
     About();
 

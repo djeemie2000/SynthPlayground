@@ -9,6 +9,7 @@ SOURCES += main.cpp
 INCLUDEPATH += ./../AlsaLib
 INCLUDEPATH += ./../MidiLib
 INCLUDEPATH += ./../SerialLib
+INCLUDEPATH += ./../SynthLib
 
 CONFIG(debug, debug|release) {
     LIBS += -L./../build-dir/Debug/AlsaLib
