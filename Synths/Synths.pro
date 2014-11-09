@@ -29,6 +29,7 @@ SUBDIRS += \
     ../JackConnectionTool \ # an  'app' project
     ../JackMidiLoggerTool \ # an  'app' project
     ../AlsaMidiLoggerTool \ # an  'app' project
+    ../Serial2AlsaMidiTool \ # an  'app' project
     ../RingSequencer \      # an  'app' project
     ../Synth12 \            # an  'app' project
     ../Modular1             # an  'app' project
