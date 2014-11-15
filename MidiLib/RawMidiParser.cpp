@@ -52,7 +52,7 @@ void CRawMidiParser::Parse(const std::vector<std::uint8_t> &RawMidiData)
     // append to buffer
     m_RawMidiDataBuffer.insert(m_RawMidiDataBuffer.end(), RawMidiData.begin(), RawMidiData.end());
 
-    if(!RawMidiData.empty())
+    if(!m_RawMidiDataBuffer.empty())
     {
         bool KeepOnParsing = true;
         while(KeepOnParsing && !m_RawMidiDataBuffer.empty())
@@ -85,6 +85,7 @@ void CRawMidiParser::Parse(const std::vector<std::uint8_t> &RawMidiData)
                     int Velocity = m_RawMidiDataBuffer[2];
                     ParsedSize = 3;
                     m_MidiHandler.OnNoteOn(Note, Velocity, 0);
+                    // note: note on with velocity zero to be handled as note off?
                 }
             }
             else if(Command == PolyKeyPressureCommand)
