@@ -48,6 +48,10 @@ int CLpfFilter::OnProcess(const std::vector<void *> &SourceBuffers,
             ++OutBuffer;
         }
     }
+    else if(OutBuffer)
+    {
+        std::fill(OutBuffer, OutBuffer+NumFrames, 0.0f);
+    }
 
     return 0;
 }
