@@ -120,6 +120,13 @@ void CAlsaMidiInput::ProcessMidiEvent(const snd_seq_event_t *ev)
         else
         {
             m_Handler.OnUnknown(ev->time.tick);
+
+            // verbose log
+            for(int idx = 0; idx<12; ++idx)
+            {
+                std::cout << std::hex << "0x" << static_cast<int>(ev->data.raw8.d[idx]) << " ";
+            }
+            std::cout << std::endl;
         }
     }
 }
