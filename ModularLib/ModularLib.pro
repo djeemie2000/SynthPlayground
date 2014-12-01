@@ -72,7 +72,9 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Filters/StereoMixerFilter.cpp \
     Modules/StereoMixerModule.cpp \
     Filters/MidiLoggerFilter.cpp \
-    Modules/MidiLoggerModule.cpp
+    Modules/MidiLoggerModule.cpp \
+    Filters/AsymmetricAmpFilter.cpp \
+    Modules/AsymmetricAmpModule.cpp
 
 HEADERS += Filters/ControllerBankFilter.h \
     Filters/PhasorFilter.h \
@@ -146,7 +148,9 @@ HEADERS += Filters/ControllerBankFilter.h \
     Filters/StereoMixerFilter.h \
     Modules/StereoMixerModule.h \
     Filters/MidiLoggerFilter.h \
-    Modules/MidiLoggerModule.h
+    Modules/MidiLoggerModule.h \
+    Filters/AsymmetricAmpFilter.h \
+    Modules/AsymmetricAmpModule.h
 
 INCLUDEPATH += ./Filters
 INCLUDEPATH += ./Modules

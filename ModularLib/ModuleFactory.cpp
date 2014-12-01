@@ -33,6 +33,7 @@
 #include "EnvelopeFollowerModule.h"
 #include "DelayLineModule.h"
 #include "StereoMixerModule.h"
+#include "AsymmetricAmpModule.h"
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -187,6 +188,10 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CStereoMixerModule(Name, 4, *m_CommandStackController));
     }
+    else if(Type == "AsymmetricAmp")
+    {
+        Module.reset(new CAsymmetricAmpModule(Name, *m_CommandStackController));
+    }
 
     return Module;
 }
@@ -229,6 +234,7 @@ std::vector<string> CModuleFactory::GetSupportedTypes() const
         "MidiControllerBank(4)",
         "EnvelopeFollower",
         "DelayLine",
-        "StereoMixer(4)"
+        "StereoMixer(4)",
+        "AsymmetricAmp"
     };
 }
