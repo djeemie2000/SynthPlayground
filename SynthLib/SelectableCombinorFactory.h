@@ -13,7 +13,7 @@ public:
 
     static std::vector<std::string> SelectionList()
     {
-        return {"+L", "*1", "*2", "*", "-L", "-||", "M||", "m||", "M", "m", "P+N", "N+P", "R1", "R2", "DivA", "DivB", "DivC" };
+        return {"+L", "*1", "*2", "*", "-L", "-||", "M||", "m||", "M", "m", "P+N", "N+P", "R1", "R2", "1+1*2", "2+2*1", "DivA", "DivB", "DivC" };
     }
 
     static CSelectableCombinor<float> Create()
@@ -39,6 +39,9 @@ public:
 
         Combinor.Add(CRingModFirst<float>());
         Combinor.Add(CRingModSecond<float>());
+
+        Combinor.Add(CMultMod1<float>());
+        Combinor.Add(CMultMod2<float>());
 
         Combinor.Add(CDividerA<float>());
         Combinor.Add(CDividerB<float>());

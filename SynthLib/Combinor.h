@@ -183,6 +183,32 @@ public:
 };
 
 template<class T>
+class CMultMod1
+{
+public:
+    CMultMod1(){}
+
+    T operator()(const T& In1, const T& In2) const
+    {
+//        return In1*(1+In2);
+        return In1 + In1*In2;
+    }
+};
+
+template<class T>
+class CMultMod2
+{
+public:
+    CMultMod2(){}
+
+    T operator()(const T& In1, const T& In2) const
+    {
+//        return In2*(1+In1);
+        return In2 + In2*In1;
+    }
+};
+
+template<class T>
 class CDividerA
 {
 public:
