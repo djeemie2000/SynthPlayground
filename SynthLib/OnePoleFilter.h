@@ -85,7 +85,7 @@ public:
             Out = m_Filter[Stage](Out);
             ++Stage;
         }
-        m_PrevOut = HardLimitSigned(Out);//TODO more efficient?
+        m_PrevOut = Out;//HardLimitSigned(Out);//TODO more efficient?
         return m_PrevOut;
     }
 
@@ -98,7 +98,7 @@ public:
             Out = m_Filter[Stage](Out, Parameter);
             ++Stage;
         }
-        m_PrevOut = HardLimitSigned(Out);//TODO more efficient?
+        m_PrevOut = Out;//HardLimitSigned(Out);//TODO more efficient?
         return m_PrevOut;
     }
 
