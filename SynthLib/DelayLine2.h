@@ -10,6 +10,7 @@ public:
     CDelayLine2(int Capacity, T InitialValue)
      : m_Capacity(Capacity)
      , m_Values(Capacity, InitialValue)
+     , m_WriteIndex(0)
     {
 
     }
