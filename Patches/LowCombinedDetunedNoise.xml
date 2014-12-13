@@ -1,0 +1,93 @@
+<xml>
+<Modules>
+Combinor0 --- Combinor
+ControllerBank(4)0 --- ControllerBank(4)
+Detuner(3)0 --- Detuner(3)
+Detuner(3)1 --- Detuner(3)
+PeriodicTrigger0 --- PeriodicTrigger
+SimpleOscillator0 --- SimpleOscillator
+SimpleOscillator1 --- SimpleOscillator
+SimpleOscillator2 --- SimpleOscillator
+SimpleOscillator3 --- SimpleOscillator
+SimpleOscillator4 --- SimpleOscillator
+SimpleOscillator5 --- SimpleOscillator
+StereoMixer(4)0 --- StereoMixer(4)
+StereoMixer(4)1 --- StereoMixer(4)
+
+</Modules>
+<Connections>
+ControllerBank(4)0:Contr0 -> Detuner(3)1:Freq
+ControllerBank(4)0:Contr1 -> Detuner(3)0:Freq
+Combinor0:Out -> system:playback_1
+Combinor0:Out -> system:playback_2
+Detuner(3)0:Freq0 -> SimpleOscillator0:Freq
+Detuner(3)0:Freq1 -> SimpleOscillator1:Freq
+Detuner(3)0:Freq2 -> SimpleOscillator2:Freq
+Detuner(3)1:Freq0 -> SimpleOscillator3:Freq
+Detuner(3)1:Freq1 -> SimpleOscillator4:Freq
+Detuner(3)1:Freq2 -> SimpleOscillator5:Freq
+StereoMixer(4)0:OutL -> StereoMixer(4)1:In2
+StereoMixer(4)0:OutR -> StereoMixer(4)1:In3
+SimpleOscillator0:Out -> StereoMixer(4)0:In0
+SimpleOscillator1:Out -> StereoMixer(4)0:In1
+SimpleOscillator2:Out -> StereoMixer(4)1:In0
+SimpleOscillator3:Out -> StereoMixer(4)0:In2
+SimpleOscillator4:Out -> StereoMixer(4)0:In3
+SimpleOscillator5:Out -> StereoMixer(4)1:In1
+StereoMixer(4)1:OutL -> Combinor0:In1
+StereoMixer(4)1:OutR -> Combinor0:In2
+
+</Connections>
+<Parameters>
+Combinor0/Select 0 3 0
+ControllerBank(4)0/0/Value 0 0 140
+ControllerBank(4)0/1/Value 0 0 70
+Detuner(3)0/0/Detune 0 0 0.2
+Detuner(3)0/0/OctaveShift 0 0 0
+Detuner(3)0/1/Detune 0 0 -0.22
+Detuner(3)0/1/OctaveShift 0 0 0
+Detuner(3)0/2/Detune 0 0 -0.1111
+Detuner(3)0/2/OctaveShift 0 0 0
+Detuner(3)1/0/Detune 0 0 0.311
+Detuner(3)1/0/OctaveShift 0 0 0
+Detuner(3)1/1/Detune 0 0 -0.341
+Detuner(3)1/1/OctaveShift 0 0 0
+Detuner(3)1/2/Detune 0 0 0.2151
+Detuner(3)1/2/OctaveShift 0 0 0
+PeriodicTrigger0/BeatsPerBar 0 16 0
+PeriodicTrigger0/Duration 0 99 0
+SimpleOscillator0/Select 0 4 0
+SimpleOscillator1/Select 0 4 0
+SimpleOscillator2/Select 0 4 0
+SimpleOscillator3/Select 0 4 0
+SimpleOscillator4/Select 0 4 0
+SimpleOscillator5/Select 0 4 0
+StereoDelay0/Left/Bypass 1 0 0
+StereoDelay0/Left/DelayMilliSeconds 0 0 1
+StereoDelay0/Left/Feedback 0 0 0.2
+StereoDelay0/Left/WetDry 0 0 0.28
+StereoDelay0/Right/Bypass 1 0 0
+StereoDelay0/Right/DelayMilliSeconds 0 0 1
+StereoDelay0/Right/Feedback 0 0 0.2
+StereoDelay0/Right/WetDry 0 0 0.28
+StereoMixer(4)0/0/Pan 0 0 -0
+StereoMixer(4)0/0/Volume 0 0 0.3
+StereoMixer(4)0/1/Pan 0 0 0
+StereoMixer(4)0/1/Volume 0 0 0.3
+StereoMixer(4)0/2/Pan 0 0 -0
+StereoMixer(4)0/2/Volume 0 0 0.3
+StereoMixer(4)0/3/Pan 0 0 0
+StereoMixer(4)0/3/Volume 0 0 0.3
+StereoMixer(4)0/MasterVolume 0 0 1
+StereoMixer(4)1/0/Pan 0 0 0
+StereoMixer(4)1/0/Volume 0 0 0.3
+StereoMixer(4)1/1/Pan 0 0 -0
+StereoMixer(4)1/1/Volume 0 0 0.3
+StereoMixer(4)1/2/Pan 0 0 0
+StereoMixer(4)1/2/Volume 0 0 0.3
+StereoMixer(4)1/3/Pan 0 0 -0
+StereoMixer(4)1/3/Volume 0 0 0.3
+StereoMixer(4)1/MasterVolume 0 0 0.96
+
+</Parameters>
+</xml>
