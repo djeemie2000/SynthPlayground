@@ -1,0 +1,54 @@
+<xml>
+<Modules>
+Combinor0 --- Combinor
+Combinor1 --- Combinor
+ControllerBank(4)0 --- ControllerBank(4)
+Detuner(3)0 --- Detuner(3)
+LPF0 --- LPF
+Mixer(4)0 --- Mixer(4)
+SimpleOscillator0 --- SimpleOscillator
+SimpleOscillator1 --- SimpleOscillator
+SimpleOscillator2 --- SimpleOscillator
+
+</Modules>
+<Connections>
+Combinor0:Out -> Mixer(4)0:In0
+Combinor0:Out -> Combinor1:In1
+Detuner(3)0:Freq0 -> SimpleOscillator0:Freq
+Detuner(3)0:Freq1 -> SimpleOscillator1:Freq
+Detuner(3)0:Freq2 -> SimpleOscillator2:Freq
+ControllerBank(4)0:Contr0 -> Detuner(3)0:Freq
+ControllerBank(4)0:Contr1 -> LPF0:CutOff
+SimpleOscillator0:Out -> Combinor0:In1
+SimpleOscillator1:Out -> Combinor0:In2
+Mixer(4)0:Out -> system:playback_1
+Mixer(4)0:Out -> system:playback_2
+SimpleOscillator2:Out -> Combinor1:In2
+Combinor1:Out -> Mixer(4)0:In1
+Combinor1:Out -> LPF0:In
+LPF0:Out -> Mixer(4)0:In2
+
+</Connections>
+<Parameters>
+Combinor0/Select 0 6 0
+Combinor1/Select 0 15 0
+ControllerBank(4)0/0/Value 0 0 80
+ControllerBank(4)0/1/Value 0 0 0.75
+Detuner(3)0/0/Detune 0 0 0.009
+Detuner(3)0/0/OctaveShift 0 0 0
+Detuner(3)0/1/Detune 0 0 -0.009
+Detuner(3)0/1/OctaveShift 0 1 0
+Detuner(3)0/2/Detune 0 0 0.58
+Detuner(3)0/2/OctaveShift 0 0 0
+LPF0/Poles 0 18 0
+LPF0/Resonance 0 0 0
+Mixer(4)0/0/Volume 0 0 0
+Mixer(4)0/1/Volume 0 0 0
+Mixer(4)0/2/Volume 0 0 0.8
+Mixer(4)0/MasterVolume 0 0 0.8
+SimpleOscillator0/Select 0 6 0
+SimpleOscillator1/Select 0 6 0
+SimpleOscillator2/Select 0 7 0
+
+</Parameters>
+</xml>
