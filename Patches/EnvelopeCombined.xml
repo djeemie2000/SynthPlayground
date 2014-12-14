@@ -1,0 +1,56 @@
+<xml>
+<Modules>
+ADSREnvelopeBank(4)0 --- ADSREnvelopeBank(4)
+Amp0 --- Amp
+Combinor0 --- Combinor
+ControllerBank(4)0 --- ControllerBank(4)
+LFOBank(4)0 --- LFOBank(4)
+Mixer(4)0 --- Mixer(4)
+PeriodicTrigger0 --- PeriodicTrigger
+SimpleOscillator0 --- SimpleOscillator
+SimpleOscillator1 --- SimpleOscillator
+StereoDelay0 --- StereoDelay
+
+</Modules>
+<Connections>
+StereoDelay0:OutLeft -> system:playback_1
+StereoDelay0:OutRight -> system:playback_2
+ControllerBank(4)0:Contr0 -> SimpleOscillator0:Freq
+ControllerBank(4)0:Contr1 -> SimpleOscillator1:Freq
+SimpleOscillator0:Out -> Amp0:In
+Mixer(4)0:Out -> StereoDelay0:InLeft
+Mixer(4)0:Out -> StereoDelay0:InRight
+ADSREnvelopeBank(4)0:Envelope0 -> Amp0:Ampl
+PeriodicTrigger0:Trigger -> ADSREnvelopeBank(4)0:Trigger0
+Amp0:Out -> Mixer(4)0:In1
+Amp0:Out -> Combinor0:In1
+Combinor0:Out -> Mixer(4)0:In2
+SimpleOscillator1:Out -> Combinor0:In2
+
+</Connections>
+<Parameters>
+ADSREnvelopeBank(4)0/0/Attack 0 0 40
+ADSREnvelopeBank(4)0/0/Decay 0 0 100
+ADSREnvelopeBank(4)0/0/Release 0 0 800
+ADSREnvelopeBank(4)0/0/Sustain 0 0 0.3
+Combinor0/Select 0 2 0
+ControllerBank(4)0/0/Value 0 0 200
+ControllerBank(4)0/1/Value 0 0 110
+LFOBank(4)0/0/Frequency 0 0 4.29
+LFOBank(4)0/0/Select 0 3 0
+Mixer(4)0/0/Volume 0 0 0
+Mixer(4)0/1/Volume 0 0 0
+Mixer(4)0/2/Volume 0 0 0.4
+Mixer(4)0/MasterVolume 0 0 0.6
+PeriodicTrigger0/BeatsPerBar 0 1 0
+PeriodicTrigger0/BeatsPerMinute 0 30 0
+PeriodicTrigger0/Duration 0 50 0
+SimpleOscillator0/Select 0 3 0
+SimpleOscillator1/Select 0 3 0
+StereoDelay0/Left/Bypass 0 0 0
+StereoDelay0/Left/WetDry 0 0 0.2
+StereoDelay0/Right/Bypass 0 0 0
+StereoDelay0/Right/WetDry 0 0 0.2
+
+</Parameters>
+</xml>
