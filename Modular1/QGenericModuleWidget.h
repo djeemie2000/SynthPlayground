@@ -24,9 +24,6 @@ public:
 
 private:
     Ui::QGenericModuleWidget *ui;
-
-    void AddInputs(IModularModule& Module);
-    void AddOutputs(IModularModule& Module);
 };
 
 #endif // QGENERICMODULEWIDGET_H
