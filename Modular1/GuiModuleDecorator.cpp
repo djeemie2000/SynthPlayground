@@ -1,43 +1,54 @@
 #include "GuiModuleDecorator.h"
+#include "CountModuleParameterVisitor.h"
 #include <QTabWidget>
 
-CModuleGuiDecorator::CModuleGuiDecorator(std::shared_ptr<IModularModule> Module,
+CGuiModuleDecorator::CGuiModuleDecorator(std::shared_ptr<IModularModule> Module,
                                          QTabWidget *Parent,
                                          QWidget* Widget)
  : m_Module(Module)
  , m_Parent(Parent)
  , m_Widget(Widget)
 {
-    m_Parent->addTab(m_Widget, QString::fromStdString(GetName()));
+    //only add a tab if there are parameters in the module
+    CCountModuleParameterVisitor Visitor;
+    m_Module->Accept(Visitor);
+    if(0<Visitor.GetParameterCount())
+    {
+        m_Parent->addTab(m_Widget, QString::fromStdString(GetName()));
+    }
 }
 
-CModuleGuiDecorator::~CModuleGuiDecorator()
+CGuiModuleDecorator::~CGuiModuleDecorator()
 {
-    m_Parent->removeTab(m_Parent->indexOf(m_Widget));
+    int Index = m_Parent->indexOf(m_Widget);
+    if(-1!=Index)
+    {
+        m_Parent->removeTab(Index);
+    }
     delete m_Widget;//ownership of widget here!
 }
 
-std::string CModuleGuiDecorator::GetName() const
+std::string CGuiModuleDecorator::GetName() const
 {
     return m_Module ? m_Module->GetName() : "";
 }
 
-IModularModule::Names CModuleGuiDecorator::GetInputNames() const
+IModularModule::Names CGuiModuleDecorator::GetInputNames() const
 {
     return m_Module ? m_Module->GetInputNames() : Names();
 }
 
-IModularModule::Names CModuleGuiDecorator::GetOutputNames() const
+IModularModule::Names CGuiModuleDecorator::GetOutputNames() const
 {
     return m_Module ? m_Module->GetOutputNames() : Names();
 }
 
-IModularModule::Names CModuleGuiDecorator::GetMidiInputNames() const
+IModularModule::Names CGuiModuleDecorator::GetMidiInputNames() const
 {
     return m_Module ? m_Module->GetMidiInputNames() : Names();
 }
 
-void CModuleGuiDecorator::Accept(IModuleParameterVisitor &ParameterVisitor) const
+void CGuiModuleDecorator::Accept(IModuleParameterVisitor &ParameterVisitor) const
 {
     if(m_Module)
     {

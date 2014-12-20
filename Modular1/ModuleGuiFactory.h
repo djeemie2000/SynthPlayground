@@ -9,10 +9,10 @@
 class QTabWidget;
 class CCommandStackController;
 
-class CModuleGuiFactory : public IModuleFactory
+class CGuiModuleFactory : public IModuleFactory
 {
 public:
-    CModuleGuiFactory(std::shared_ptr<IModuleFactory> Factory, std::shared_ptr<CCommandStackController> CommandStackController, QTabWidget* Parent);
+    CGuiModuleFactory(std::shared_ptr<IModuleFactory> Factory, std::shared_ptr<CCommandStackController> CommandStackController, QTabWidget* Parent);
 
     std::shared_ptr<IModularModule> Create(const std::string& Type, const std::string& Name) override;
     std::vector<std::string> GetSupportedTypes() const override;

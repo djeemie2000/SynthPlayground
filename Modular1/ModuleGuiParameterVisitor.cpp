@@ -3,7 +3,7 @@
 #include <QGridLayout>
 #include <QGroupBox>
 
-CModuleGuiParameterVisitor::CModuleGuiParameterVisitor(QGroupBox *GroupBox,
+CGuiModuleParameterVisitor::CGuiModuleParameterVisitor(QGroupBox *GroupBox,
                                                        QWidget *Parent,
                                                        CCommandStackController &CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -21,16 +21,16 @@ CModuleGuiParameterVisitor::CModuleGuiParameterVisitor(QGroupBox *GroupBox,
     m_GroupBox->setLayout(m_Layout);
 }
 
-void CModuleGuiParameterVisitor::Start()
+void CGuiModuleParameterVisitor::Start()
 {
 }
 
-void CModuleGuiParameterVisitor::StartLine()
+void CGuiModuleParameterVisitor::StartLine()
 {
     m_Pos = 0;
 }
 
-void CModuleGuiParameterVisitor::FloatParameter(const std::string &ParameterName, const std::string &Name, float Default, float Min, float Max, float Step, int NumDecimals)
+void CGuiModuleParameterVisitor::FloatParameter(const std::string &ParameterName, const std::string &Name, float Default, float Min, float Max, float Step, int NumDecimals)
 {
     if(!Name.empty())
     {
@@ -39,7 +39,7 @@ void CModuleGuiParameterVisitor::FloatParameter(const std::string &ParameterName
     guiutils::AddDoubleSpinBox(m_Layout, m_Parent, m_Pos++, m_Line, {Name, Default, Min, Max, Step, NumDecimals}, ParameterName, m_CommandStackController);
 }
 
-void CModuleGuiParameterVisitor::IntegerParameter(const std::string &ParameterName, const std::string &Name, int Default, int Min, int Max, int Step)
+void CGuiModuleParameterVisitor::IntegerParameter(const std::string &ParameterName, const std::string &Name, int Default, int Min, int Max, int Step)
 {
     if(!Name.empty())
     {
@@ -48,7 +48,7 @@ void CModuleGuiParameterVisitor::IntegerParameter(const std::string &ParameterNa
     guiutils::AddSpinBox(m_Layout, m_Parent, m_Pos++, m_Line, {Name, Default, Min, Max, Step}, ParameterName, m_CommandStackController);
 }
 
-void CModuleGuiParameterVisitor::SelectionParameter(const std::string &ParameterName, const std::string &Name, int Default, const std::vector<std::string> &Selections)
+void CGuiModuleParameterVisitor::SelectionParameter(const std::string &ParameterName, const std::string &Name, int Default, const std::vector<std::string> &Selections)
 {
     if(!Name.empty())
     {
@@ -57,22 +57,22 @@ void CModuleGuiParameterVisitor::SelectionParameter(const std::string &Parameter
     guiutils::AddComboBox(m_Layout, m_Parent, m_Pos++, m_Line, {Name, Selections, Default}, ParameterName, m_CommandStackController);
 }
 
-void CModuleGuiParameterVisitor::BooleanParameter(const std::string &ParameterName, const std::string &Name, bool Default)
+void CGuiModuleParameterVisitor::BooleanParameter(const std::string &ParameterName, const std::string &Name, bool Default)
 {
     guiutils::AddCheckableSmallButton(m_Layout, m_Parent, m_Pos++, m_Line, Name, ParameterName, Default, m_CommandStackController);
 }
 
-void CModuleGuiParameterVisitor::BooleanStatus(const std::string &ParameterName, const std::string &/*Name*/, bool /*Default*/)
+void CGuiModuleParameterVisitor::BooleanStatus(const std::string &ParameterName, const std::string &/*Name*/, bool /*Default*/)
 {
     guiutils::AddStatusLed(m_Layout, m_Parent, m_Pos++, m_Line, ParameterName, m_CommandStackController);
 }
 
-void CModuleGuiParameterVisitor::FinishLine()
+void CGuiModuleParameterVisitor::FinishLine()
 {
     ++m_Line;
     m_Pos = 0;
 }
 
-void CModuleGuiParameterVisitor::Finish()
+void CGuiModuleParameterVisitor::Finish()
 {
 }

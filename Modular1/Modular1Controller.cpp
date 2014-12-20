@@ -16,7 +16,7 @@ CModular1Controller::CModular1Controller(QTabWidget *TabWidget)
 {
     m_CommandStackController.reset(new CCommandStackController());
     std::shared_ptr<IModuleFactory> Factory(new CModuleFactory(m_CommandStackController));
-    std::shared_ptr<CModuleGuiFactory> GuiFactory(new CModuleGuiFactory(Factory, m_CommandStackController, TabWidget));
+    std::shared_ptr<CGuiModuleFactory> GuiFactory(new CGuiModuleFactory(Factory, m_CommandStackController, TabWidget));
     m_ModuleManager.reset(new CModuleManager(GuiFactory));
     m_ConnectionManager.reset(new CJackConnectionManager());
 

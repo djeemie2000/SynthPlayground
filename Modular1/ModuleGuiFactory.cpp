@@ -5,7 +5,7 @@
 #include <QLayout>
 #include "QGenericModuleWidget.h"
 
-CModuleGuiFactory::CModuleGuiFactory(std::shared_ptr<IModuleFactory> Factory,
+CGuiModuleFactory::CGuiModuleFactory(std::shared_ptr<IModuleFactory> Factory,
                                      std::shared_ptr<CCommandStackController> CommandStackController,
                                      QTabWidget *Parent)
  : m_Parent(Parent)
@@ -14,19 +14,19 @@ CModuleGuiFactory::CModuleGuiFactory(std::shared_ptr<IModuleFactory> Factory,
 {
 }
 
-std::shared_ptr<IModularModule> CModuleGuiFactory::Create(const std::string &Type, const std::string &Name)
+std::shared_ptr<IModularModule> CGuiModuleFactory::Create(const std::string &Type, const std::string &Name)
 {
     if(auto Module = m_Factory->Create(Type, Name))
     {
         QGenericModuleWidget* Widget = new QGenericModuleWidget(*Module, *m_CommandStackController, m_Parent);
 
-        return std::shared_ptr<IModularModule>(new CModuleGuiDecorator(Module, m_Parent, Widget));
+        return std::shared_ptr<IModularModule>(new CGuiModuleDecorator(Module, m_Parent, Widget));
     }
 
     return nullptr;
 }
 
-std::vector<std::string> CModuleGuiFactory::GetSupportedTypes() const
+std::vector<std::string> CGuiModuleFactory::GetSupportedTypes() const
 {
     return m_Factory->GetSupportedTypes();
 }

@@ -8,10 +8,10 @@ class QWidget;
 class QGridLayout;
 class CCommandStackController;
 
-class CModuleGuiParameterVisitor : public IModuleParameterVisitor
+class CGuiModuleParameterVisitor : public IModuleParameterVisitor
 {
 public:
-    CModuleGuiParameterVisitor(QGroupBox* GroupBox, QWidget* Parent, CCommandStackController& CommandStackController);
+    CGuiModuleParameterVisitor(QGroupBox* GroupBox, QWidget* Parent, CCommandStackController& CommandStackController);
 
     void Start() override;
     void StartLine() override;

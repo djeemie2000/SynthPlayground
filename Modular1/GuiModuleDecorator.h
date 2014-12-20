@@ -8,11 +8,11 @@
 class QWidget;
 class QTabWidget;
 
-class CModuleGuiDecorator : public IModularModule
+class CGuiModuleDecorator : public IModularModule
 {
 public:
-    CModuleGuiDecorator(std::shared_ptr<IModularModule> Module, QTabWidget* Parent, QWidget* Widget);
-    ~CModuleGuiDecorator();
+    CGuiModuleDecorator(std::shared_ptr<IModularModule> Module, QTabWidget* Parent, QWidget* Widget);
+    ~CGuiModuleDecorator();
 
     std::string GetName() const override;
     Names GetInputNames() const override;
