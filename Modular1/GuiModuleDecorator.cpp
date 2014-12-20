@@ -1,22 +1,20 @@
 #include "GuiModuleDecorator.h"
-#include <QMainWindow>
-#include <QDockWidget>
+#include <QTabWidget>
 
 CModuleGuiDecorator::CModuleGuiDecorator(std::shared_ptr<IModularModule> Module,
-                                         QMainWindow *MainWindow,
-                                         QDockWidget *DockWidget)
+                                         QTabWidget *Parent,
+                                         QWidget* Widget)
  : m_Module(Module)
- , m_MainWindow(MainWindow)
- , m_DockWidget(DockWidget)
+ , m_Parent(Parent)
+ , m_Widget(Widget)
 {
-    m_MainWindow->addDockWidget(Qt::AllDockWidgetAreas, m_DockWidget);
-    m_DockWidget->show();
-    m_DockWidget->setFloating(true);
+    m_Parent->addTab(m_Widget, QString::fromStdString(GetName()));
 }
 
 CModuleGuiDecorator::~CModuleGuiDecorator()
 {
-    m_MainWindow->removeDockWidget(m_DockWidget);
+    m_Parent->removeTab(m_Parent->indexOf(m_Widget));
+    delete m_Widget;//ownership of widget here!
 }
 
 std::string CModuleGuiDecorator::GetName() const

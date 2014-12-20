@@ -7,7 +7,7 @@
 #include "JackConnectionManager.h"
 #include "tinyxml2.h"
 
-CModular1Controller::CModular1Controller(QMainWindow *Parent)
+CModular1Controller::CModular1Controller(QTabWidget *TabWidget)
  : m_CommandStackController()
  , m_ModuleManager()
  , m_ConnectionManager()
@@ -16,7 +16,7 @@ CModular1Controller::CModular1Controller(QMainWindow *Parent)
 {
     m_CommandStackController.reset(new CCommandStackController());
     std::shared_ptr<IModuleFactory> Factory(new CModuleFactory(m_CommandStackController));
-    std::shared_ptr<CModuleGuiFactory> GuiFactory(new CModuleGuiFactory(Factory, m_CommandStackController, Parent));
+    std::shared_ptr<CModuleGuiFactory> GuiFactory(new CModuleGuiFactory(Factory, m_CommandStackController, TabWidget));
     m_ModuleManager.reset(new CModuleManager(GuiFactory));
     m_ConnectionManager.reset(new CJackConnectionManager());
 

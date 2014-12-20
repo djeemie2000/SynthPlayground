@@ -6,6 +6,7 @@
 #include <memory>
 
 class QMainWindow;
+class QTabWidget;
 class CCommandStackController;
 class CModuleManager;
 class CJackConnectionManager;
@@ -13,7 +14,7 @@ class CJackConnectionManager;
 class CModular1Controller
 {
 public:
-    CModular1Controller(QMainWindow *Parent);
+    CModular1Controller(QTabWidget* TabWidget);
 
     bool Create(const std::string& Type, const std::string& Name);
     bool Remove(const std::string& Name);

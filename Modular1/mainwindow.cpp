@@ -15,15 +15,10 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    m_Controller.reset(new CModular1Controller(this));
+    m_Controller.reset(new CModular1Controller(ui->tabWidget));
 
-    // build gui
     QModularManagerWidget* ModularManagerWidget = new QModularManagerWidget(m_Controller, this);//check destructor/use weak_ptr?
-
-    QDockWidget* Mgr = new QDockWidget(this);
-    Mgr->setFeatures(QDockWidget::DockWidgetMovable);
-    Mgr->setWidget(ModularManagerWidget);
-    addDockWidget(Qt::RightDockWidgetArea, Mgr);
+    ui->centralWidget->layout()->addWidget(ModularManagerWidget);
 }
 
 MainWindow::~MainWindow()

@@ -11,6 +11,7 @@ QGenericModuleWidget::QGenericModuleWidget(IModularModule &Module, CCommandStack
     ui->setupUi(this);
 
     setWindowTitle(QString::fromStdString(Module.GetName()));
+    ui->groupBox_Parameters->setTitle(QString::fromStdString(Module.GetName()));
 
     // module accepts parameter visitor around our parameters groupbox
     CModuleGuiParameterVisitor ParameterVisitor(ui->groupBox_Parameters, this, CommandStackController);

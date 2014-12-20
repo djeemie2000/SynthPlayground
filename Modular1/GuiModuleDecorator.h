@@ -5,13 +5,13 @@
 #include <string>
 #include "ModularModuleI.h"
 
-class QMainWindow;
-class QDockWidget;
+class QWidget;
+class QTabWidget;
 
 class CModuleGuiDecorator : public IModularModule
 {
 public:
-    CModuleGuiDecorator(std::shared_ptr<IModularModule> Module, QMainWindow* MainWindow, QDockWidget* DockWidget);
+    CModuleGuiDecorator(std::shared_ptr<IModularModule> Module, QTabWidget* Parent, QWidget* Widget);
     ~CModuleGuiDecorator();
 
     std::string GetName() const override;
@@ -22,8 +22,8 @@ public:
 
 private:
     std::shared_ptr<IModularModule> m_Module;
-    QMainWindow* m_MainWindow;
-    QDockWidget* m_DockWidget;
+    QTabWidget* m_Parent;
+    QWidget* m_Widget;
 };
 
 #endif // GUIMODULEDECORATOR_H
