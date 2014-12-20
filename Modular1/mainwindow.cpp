@@ -14,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
   , m_Controller()
 {
     ui->setupUi(this);
+    ui->tabWidget->clear();
 
     m_Controller.reset(new CModular1Controller(ui->tabWidget));
 
