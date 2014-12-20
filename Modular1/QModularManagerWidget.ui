@@ -6,74 +6,82 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>270</width>
-    <height>357</height>
+    <width>302</width>
+    <height>292</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
-    <widget class="QPushButton" name="pushButton_Create">
-     <property name="text">
-      <string>Create</string>
+    <widget class="QGroupBox" name="groupBox_Modules">
+     <property name="title">
+      <string>Modules</string>
      </property>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item>
+       <widget class="QPushButton" name="pushButton_Remove">
+        <property name="text">
+         <string>Remove</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_RemoveAll">
+        <property name="text">
+         <string>RemoveAll</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QListWidget" name="listWidget_ModuleNames">
+        <property name="selectionMode">
+         <enum>QAbstractItemView::MultiSelection</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
    <item>
-    <widget class="QListWidget" name="listWidget_ModuleTypes"/>
-   </item>
-   <item>
-    <widget class="QPushButton" name="pushButton_Default">
-     <property name="text">
-      <string>Default</string>
+    <widget class="QGroupBox" name="groupBox_Factory">
+     <property name="title">
+      <string>Factory</string>
      </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QPushButton" name="pushButton_Remove">
-     <property name="text">
-      <string>Remove</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QPushButton" name="pushButton_RemoveAll">
-     <property name="text">
-      <string>RemoveAll</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QListWidget" name="listWidget_ModuleNames"/>
-   </item>
-   <item>
-    <widget class="QPushButton" name="pushButton_Capture">
-     <property name="text">
-      <string>Capture</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QPushButton" name="pushButton_Restore">
-     <property name="text">
-      <string>Restore</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QPushButton" name="pushButton_Save">
-     <property name="text">
-      <string>Save</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QPushButton" name="pushButton_Load">
-     <property name="text">
-      <string>Load</string>
-     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QPushButton" name="pushButton_Create">
+        <property name="text">
+         <string>Create</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QListWidget" name="listWidget_ModuleTypes"/>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_Default">
+        <property name="text">
+         <string>Default</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_Save">
+        <property name="text">
+         <string>Save</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_Load">
+        <property name="text">
+         <string>Load</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
   </layout>
