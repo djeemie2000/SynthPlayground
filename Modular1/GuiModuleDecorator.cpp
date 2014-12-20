@@ -9,7 +9,9 @@ CModuleGuiDecorator::CModuleGuiDecorator(std::shared_ptr<IModularModule> Module,
  , m_MainWindow(MainWindow)
  , m_DockWidget(DockWidget)
 {
-    m_MainWindow->addDockWidget(Qt::LeftDockWidgetArea, m_DockWidget);
+    m_MainWindow->addDockWidget(Qt::AllDockWidgetAreas, m_DockWidget);
+    m_DockWidget->show();
+    m_DockWidget->setFloating(true);
 }
 
 CModuleGuiDecorator::~CModuleGuiDecorator()

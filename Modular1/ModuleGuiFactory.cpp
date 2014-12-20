@@ -22,7 +22,7 @@ std::shared_ptr<IModularModule> CModuleGuiFactory::Create(const std::string &Typ
         QGenericModuleWidget* Widget = new QGenericModuleWidget(*Module, *m_CommandStackController, m_Parent);
 
         QDockWidget* DockWidget = new QDockWidget(QString::fromStdString(Name), m_Parent);
-        DockWidget->setFeatures(QDockWidget::DockWidgetMovable);//not closable, not floatable
+        DockWidget->setFeatures(QDockWidget::DockWidgetMovable|QDockWidget::DockWidgetFloatable);//not closable, not floatable
         DockWidget->setWidget(Widget);
         // TODO set actual widget in dockwidget
         // TODO generic vs custom?

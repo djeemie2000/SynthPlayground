@@ -10,6 +10,12 @@
     <height>96</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
@@ -21,6 +27,12 @@
      </property>
      <property name="alignment">
       <set>Qt::AlignHCenter|Qt::AlignTop</set>
+     </property>
+     <property name="flat">
+      <bool>false</bool>
+     </property>
+     <property name="checkable">
+      <bool>false</bool>
      </property>
     </widget>
    </item>
