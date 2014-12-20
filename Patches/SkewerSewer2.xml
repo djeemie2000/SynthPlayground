@@ -1,0 +1,45 @@
+<xml>
+<Modules>
+Combinor0 --- Combinor
+ControllerBank(4)0 --- ControllerBank(4)
+LFOBank(4)0 --- LFOBank(4)
+Mixer(4)0 --- Mixer(4)
+PhaseSkewer0 --- PhaseSkewer
+PhaseSkewer1 --- PhaseSkewer
+SimpleOscillator0 --- SimpleOscillator
+
+</Modules>
+<Connections>
+ControllerBank(4)0:Contr0 -> SimpleOscillator0:Freq
+LFOBank(4)0:LFO0 -> PhaseSkewer0:Skew
+LFOBank(4)0:LFO1 -> PhaseSkewer1:Skew
+Mixer(4)0:Out -> system:playback_1
+Mixer(4)0:Out -> system:playback_2
+PhaseSkewer0:Out -> Mixer(4)0:In1
+PhaseSkewer0:Out -> PhaseSkewer1:Phase
+PhaseSkewer0:Out -> Combinor0:In1
+PhaseSkewer1:Out -> Mixer(4)0:In2
+PhaseSkewer1:Out -> Combinor0:In2
+SimpleOscillator0:Out -> Mixer(4)0:In0
+SimpleOscillator0:Out -> PhaseSkewer0:Phase
+Combinor0:Out -> Mixer(4)0:In3
+
+</Connections>
+<Parameters>
+Combinor0/Select 0 3 0
+ControllerBank(4)0/0/Value 0 0 149
+LFOBank(4)0/0/Frequency 0 0 0.19
+LFOBank(4)0/0/Select 0 3 0
+LFOBank(4)0/1/Frequency 0 0 50
+LFOBank(4)0/1/Select 0 3 0
+LFOBank(4)0/2/Select 0 3 0
+LFOBank(4)0/3/Select 0 3 0
+Mixer(4)0/0/Volume 0 0 0
+Mixer(4)0/1/Volume 0 0 0
+Mixer(4)0/2/Volume 0 0 0
+Mixer(4)0/3/Volume 0 0 0.41
+Mixer(4)0/MasterVolume 0 0 0.6
+SimpleOscillator0/Select 0 8 0
+
+</Parameters>
+</xml>

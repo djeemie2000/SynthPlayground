@@ -1,0 +1,85 @@
+<xml>
+<Modules>
+Combinor0 --- Combinor
+ControllerBank(4)0 --- ControllerBank(4)
+LFOBank(4)0 --- LFOBank(4)
+Mixer(4)0 --- Mixer(4)
+PeriodicTrigger0 --- PeriodicTrigger
+PhaseSkewer0 --- PhaseSkewer
+PhaseSkewer1 --- PhaseSkewer
+SimpleOscillator0 --- SimpleOscillator
+StepSequencer0 --- StepSequencer
+
+</Modules>
+<Connections>
+LFOBank(4)0:LFO0 -> PhaseSkewer0:Skew
+LFOBank(4)0:LFO1 -> PhaseSkewer1:Skew
+Mixer(4)0:Out -> system:playback_1
+Mixer(4)0:Out -> system:playback_2
+PhaseSkewer0:Out -> Mixer(4)0:In1
+PhaseSkewer0:Out -> PhaseSkewer1:Phase
+PhaseSkewer0:Out -> Combinor0:In1
+PhaseSkewer1:Out -> Mixer(4)0:In2
+PhaseSkewer1:Out -> Combinor0:In2
+SimpleOscillator0:Out -> Mixer(4)0:In0
+SimpleOscillator0:Out -> PhaseSkewer0:Phase
+Combinor0:Out -> Mixer(4)0:In3
+StepSequencer0:Freq -> SimpleOscillator0:Freq
+StepSequencer0:TriggerOut -> SimpleOscillator0:Sync
+PeriodicTrigger0:Trigger -> StepSequencer0:TriggerIn
+
+</Connections>
+<Parameters>
+Combinor0/Select 0 3 0
+ControllerBank(4)0/0/Value 0 0 109
+LFOBank(4)0/0/Frequency 0 0 0.19
+LFOBank(4)0/0/Select 0 3 0
+LFOBank(4)0/1/Frequency 0 0 0.2
+LFOBank(4)0/1/Select 0 2 0
+LFOBank(4)0/2/Select 0 3 0
+LFOBank(4)0/3/Select 0 3 0
+Mixer(4)0/0/Volume 0 0 0.05
+Mixer(4)0/1/Volume 0 0 0.07
+Mixer(4)0/2/Volume 0 0 0.09
+Mixer(4)0/3/Volume 0 0 0.14
+Mixer(4)0/MasterVolume 0 0 0.6
+PeriodicTrigger0/BeatsPerBar 0 2 0
+PeriodicTrigger0/Duration 0 90 0
+SimpleOscillator0/Select 0 8 0
+StepSequencer0/IsActive 1 0 0
+StepSequencer0/NumSteps 0 9 0
+StepSequencer0/Step/0/Active 1 0 0
+StepSequencer0/Step/0/Octave 0 3 0
+StepSequencer0/Step/0/Status 0 0 0
+StepSequencer0/Step/1/Active 1 0 0
+StepSequencer0/Step/1/Note 0 7 0
+StepSequencer0/Step/1/Octave 0 2 0
+StepSequencer0/Step/1/Status 0 0 0
+StepSequencer0/Step/2/Active 1 0 0
+StepSequencer0/Step/2/Note 0 6 0
+StepSequencer0/Step/2/Octave 0 2 0
+StepSequencer0/Step/2/Status 0 0 0
+StepSequencer0/Step/3/Active 1 0 0
+StepSequencer0/Step/3/Status 0 0 0
+StepSequencer0/Step/4/Active 1 0 0
+StepSequencer0/Step/4/Note 0 0 0
+StepSequencer0/Step/4/Octave 0 3 0
+StepSequencer0/Step/4/Status 0 0 0
+StepSequencer0/Step/5/Active 1 0 0
+StepSequencer0/Step/5/Note 0 2 0
+StepSequencer0/Step/5/Octave 0 3 0
+StepSequencer0/Step/5/Status 0 0 0
+StepSequencer0/Step/6/Active 1 0 0
+StepSequencer0/Step/6/Note 0 9 0
+StepSequencer0/Step/6/Octave 0 1 0
+StepSequencer0/Step/6/Status 0 0 0
+StepSequencer0/Step/7/Active 1 0 0
+StepSequencer0/Step/7/Note 0 8 0
+StepSequencer0/Step/7/Status 0 0 0
+StepSequencer0/Step/8/Active 1 0 0
+StepSequencer0/Step/8/Note 0 10 0
+StepSequencer0/Step/8/Status 1 0 0
+StepSequencer0/StepSize 0 7 0
+
+</Parameters>
+</xml>
