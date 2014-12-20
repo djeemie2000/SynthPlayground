@@ -55,23 +55,6 @@ void QModularManagerWidget::on_pushButton_Remove_clicked()
     UpdateNames();
 }
 
-void QModularManagerWidget::on_pushButton_Capture_clicked()
-{
-    if(std::shared_ptr<CModular1Controller> Controller = m_Controller.lock())
-    {
-        Controller->Capture();
-    }
-}
-
-void QModularManagerWidget::on_pushButton_Restore_clicked()
-{
-    if(std::shared_ptr<CModular1Controller> Controller = m_Controller.lock())
-    {
-        Controller->Restore();
-    }
-    UpdateNames();
-}
-
 void QModularManagerWidget::UpdateNames()
 {
     ui->listWidget_ModuleNames->clear();
@@ -123,5 +106,14 @@ void QModularManagerWidget::on_pushButton_Load_clicked()
             Controller->Load(Path.toStdString());
         }
         UpdateNames();
+    }
+}
+
+void QModularManagerWidget::on_listWidget_ModuleNames_itemSelectionChanged()
+{
+    if(std::shared_ptr<CModular1Controller> Controller = m_Controller.lock())
+    {
+        std::string Name = ui->listWidget_ModuleNames->currentItem()->text().toStdString();
+        Controller->Show(Name);
     }
 }

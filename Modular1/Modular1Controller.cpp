@@ -6,9 +6,11 @@
 #include "ModuleGuiFactory.h"
 #include "JackConnectionManager.h"
 #include "tinyxml2.h"
+#include <QStackedWidget>
 
-CModular1Controller::CModular1Controller(QTabWidget *TabWidget)
- : m_CommandStackController()
+CModular1Controller::CModular1Controller(QStackedWidget *Parent)
+ : m_Parent(Parent)
+ , m_CommandStackController()
  , m_ModuleManager()
  , m_ConnectionManager()
  , m_CapturedConnections()
@@ -16,7 +18,7 @@ CModular1Controller::CModular1Controller(QTabWidget *TabWidget)
 {
     m_CommandStackController.reset(new CCommandStackController());
     std::shared_ptr<IModuleFactory> Factory(new CModuleFactory(m_CommandStackController));
-    std::shared_ptr<CGuiModuleFactory> GuiFactory(new CGuiModuleFactory(Factory, m_CommandStackController, TabWidget));
+    std::shared_ptr<CGuiModuleFactory> GuiFactory(new CGuiModuleFactory(Factory, m_CommandStackController, Parent));
     m_ModuleManager.reset(new CModuleManager(GuiFactory));
     m_ConnectionManager.reset(new CJackConnectionManager());
 
@@ -111,4 +113,21 @@ bool CModular1Controller::Load(const string &Path)
         return true;
     }
     return false;
+}
+
+bool CModular1Controller::Show(const string &Name)
+{
+    bool Shown = false;
+    if(m_Parent)
+    {
+        for(int index = 0; !Shown && index<m_Parent->count(); ++index)
+        {
+            Shown = (QString::fromStdString(Name) == m_Parent->widget(index)->windowTitle());
+            if(Shown)
+            {
+                m_Parent->setCurrentIndex(index);
+            }
+        }
+    }
+    return Shown;
 }

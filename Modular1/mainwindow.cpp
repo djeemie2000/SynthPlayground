@@ -14,9 +14,9 @@ MainWindow::MainWindow(QWidget *parent)
   , m_Controller()
 {
     ui->setupUi(this);
-    ui->tabWidget->clear();
+//    ui->stackedWidget->
 
-    m_Controller.reset(new CModular1Controller(ui->tabWidget));
+    m_Controller.reset(new CModular1Controller(ui->stackedWidget));
 
     QModularManagerWidget* ModularManagerWidget = new QModularManagerWidget(m_Controller, this);//check destructor/use weak_ptr?
     ui->centralWidget->layout()->addWidget(ModularManagerWidget);

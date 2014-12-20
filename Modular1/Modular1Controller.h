@@ -6,7 +6,7 @@
 #include <memory>
 
 class QMainWindow;
-class QTabWidget;
+class QStackedWidget;
 class CCommandStackController;
 class CModuleManager;
 class CJackConnectionManager;
@@ -14,7 +14,7 @@ class CJackConnectionManager;
 class CModular1Controller
 {
 public:
-    CModular1Controller(QTabWidget* TabWidget);
+    CModular1Controller(QStackedWidget* Parent);
 
     bool Create(const std::string& Type, const std::string& Name);
     bool Remove(const std::string& Name);
@@ -28,7 +28,10 @@ public:
     bool Save(const std::string& Path);
     bool Load(const std::string& Path);
 
+    bool Show(const std::string& Name);
+
 private:
+    QStackedWidget* m_Parent;
     std::shared_ptr<CCommandStackController> m_CommandStackController;
     std::shared_ptr<CModuleManager> m_ModuleManager;
     std::shared_ptr<CJackConnectionManager> m_ConnectionManager;

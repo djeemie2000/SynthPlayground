@@ -1,13 +1,13 @@
 #include "ModuleGuiFactory.h"
 #include "ModuleFactoryI.h"
 #include "GuiModuleDecorator.h"
-#include <QTabWidget>
+#include <QStackedWidget>
 #include <QLayout>
 #include "QGenericModuleWidget.h"
 
 CGuiModuleFactory::CGuiModuleFactory(std::shared_ptr<IModuleFactory> Factory,
                                      std::shared_ptr<CCommandStackController> CommandStackController,
-                                     QTabWidget *Parent)
+                                     QStackedWidget *Parent)
  : m_Parent(Parent)
  , m_Factory(Factory)
  , m_CommandStackController(CommandStackController)

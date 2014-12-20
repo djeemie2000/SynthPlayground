@@ -6,12 +6,12 @@
 #include "ModularModuleI.h"
 
 class QWidget;
-class QTabWidget;
+class QStackedWidget;
 
 class CGuiModuleDecorator : public IModularModule
 {
 public:
-    CGuiModuleDecorator(std::shared_ptr<IModularModule> Module, QTabWidget* Parent, QWidget* Widget);
+    CGuiModuleDecorator(std::shared_ptr<IModularModule> Module, QStackedWidget* Parent, QWidget* Widget);
     ~CGuiModuleDecorator();
 
     std::string GetName() const override;
@@ -22,7 +22,7 @@ public:
 
 private:
     std::shared_ptr<IModularModule> m_Module;
-    QTabWidget* m_Parent;
+    QStackedWidget* m_Parent;
     QWidget* m_Widget;
 };
 

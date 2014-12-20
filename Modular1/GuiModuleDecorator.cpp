@@ -1,9 +1,9 @@
 #include "GuiModuleDecorator.h"
 #include "CountModuleParameterVisitor.h"
-#include <QTabWidget>
+#include <QStackedWidget>
 
 CGuiModuleDecorator::CGuiModuleDecorator(std::shared_ptr<IModularModule> Module,
-                                         QTabWidget *Parent,
+                                         QStackedWidget *Parent,
                                          QWidget* Widget)
  : m_Module(Module)
  , m_Parent(Parent)
@@ -14,18 +14,15 @@ CGuiModuleDecorator::CGuiModuleDecorator(std::shared_ptr<IModularModule> Module,
     m_Module->Accept(Visitor);
     if(0<Visitor.GetParameterCount())
     {
-        m_Parent->addTab(m_Widget, QString::fromStdString(GetName()));
+        m_Parent->addWidget(m_Widget);
+        m_Parent->setCurrentWidget(m_Widget);//???
     }
 }
 
 CGuiModuleDecorator::~CGuiModuleDecorator()
 {
-    int Index = m_Parent->indexOf(m_Widget);
-    if(-1!=Index)
-    {
-        m_Parent->removeTab(Index);
-    }
-    delete m_Widget;//ownership of widget here!
+    m_Parent->removeWidget(m_Widget);
+    delete m_Widget;//ownership of widget here! ?
 }
 
 std::string CGuiModuleDecorator::GetName() const

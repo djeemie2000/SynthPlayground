@@ -6,19 +6,19 @@
 #include <string>
 #include "ModuleFactoryI.h"
 
-class QTabWidget;
+class QStackedWidget;
 class CCommandStackController;
 
 class CGuiModuleFactory : public IModuleFactory
 {
 public:
-    CGuiModuleFactory(std::shared_ptr<IModuleFactory> Factory, std::shared_ptr<CCommandStackController> CommandStackController, QTabWidget* Parent);
+    CGuiModuleFactory(std::shared_ptr<IModuleFactory> Factory, std::shared_ptr<CCommandStackController> CommandStackController, QStackedWidget* Parent);
 
     std::shared_ptr<IModularModule> Create(const std::string& Type, const std::string& Name) override;
     std::vector<std::string> GetSupportedTypes() const override;
 
 private:
-    QTabWidget* m_Parent;
+    QStackedWidget* m_Parent;
     std::shared_ptr<IModuleFactory> m_Factory;
     std::shared_ptr<CCommandStackController> m_CommandStackController;
 };
