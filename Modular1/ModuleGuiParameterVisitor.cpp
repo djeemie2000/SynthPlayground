@@ -59,11 +59,19 @@ void CGuiModuleParameterVisitor::SelectionParameter(const std::string &Parameter
 
 void CGuiModuleParameterVisitor::BooleanParameter(const std::string &ParameterName, const std::string &Name, bool Default)
 {
+    if(!Name.empty())
+    {
+        guiutils::AddLabel(m_Layout, m_Parent, m_Pos++, m_Line, Name);
+    }
     guiutils::AddCheckableSmallButton(m_Layout, m_Parent, m_Pos++, m_Line, Name, ParameterName, Default, m_CommandStackController);
 }
 
-void CGuiModuleParameterVisitor::BooleanStatus(const std::string &ParameterName, const std::string &/*Name*/, bool /*Default*/)
+void CGuiModuleParameterVisitor::BooleanStatus(const std::string &ParameterName, const std::string &Name, bool /*Default*/)
 {
+    if(!Name.empty())
+    {
+        guiutils::AddLabel(m_Layout, m_Parent, m_Pos++, m_Line, Name);
+    }
     guiutils::AddStatusLed(m_Layout, m_Parent, m_Pos++, m_Line, ParameterName, m_CommandStackController);
 }
 

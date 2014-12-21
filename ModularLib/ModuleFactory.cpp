@@ -34,6 +34,7 @@
 #include "DelayLineModule.h"
 #include "StereoMixerModule.h"
 #include "AsymmetricAmpModule.h"
+#include "MultiStepSequencerModule.h"
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -192,6 +193,10 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CAsymmetricAmpModule(Name, *m_CommandStackController));
     }
+    else if(Type == "MultiStepSequencer")
+    {
+        Module.reset(new CMultiStepSequencerModule(Name, *m_CommandStackController));
+    }
 
     return Module;
 }
@@ -235,6 +240,7 @@ std::vector<string> CModuleFactory::GetSupportedTypes() const
         "EnvelopeFollower",
         "DelayLine",
         "StereoMixer(4)",
-        "AsymmetricAmp"
+        "AsymmetricAmp",
+        "MultiStepSequencer"
     };
 }

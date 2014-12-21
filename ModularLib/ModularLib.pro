@@ -75,7 +75,9 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Modules/MidiLoggerModule.cpp \
     Filters/AsymmetricAmpFilter.cpp \
     Modules/AsymmetricAmpModule.cpp \
-    CountModuleParameterVisitor.cpp
+    CountModuleParameterVisitor.cpp \
+    Modules/MultiStepSequencerModule.cpp \
+    Filters/MultiStepSequencerFilter.cpp
 
 HEADERS += Filters/ControllerBankFilter.h \
     Filters/PhasorFilter.h \
@@ -152,7 +154,9 @@ HEADERS += Filters/ControllerBankFilter.h \
     Modules/MidiLoggerModule.h \
     Filters/AsymmetricAmpFilter.h \
     Modules/AsymmetricAmpModule.h \
-    CountModuleParameterVisitor.h
+    CountModuleParameterVisitor.h \
+    Modules/MultiStepSequencerModule.h \
+    Filters/MultiStepSequencerFilter.h
 
 INCLUDEPATH += ./Filters
 INCLUDEPATH += ./Modules
