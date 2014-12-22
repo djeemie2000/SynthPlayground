@@ -52,7 +52,12 @@ public:
     void SetStepSize(int StepSize);// advance 1, 2, 3, ... steps
 
     void AdvanceClock();//TODO???? return action: new note on (which freq/velocity???)/current note off/do nothing
-    // GetFrequency(), GetVelocity(), GetGate(), GetTrigger()??, GetMidiNote(), GetNote(), GetOctave()??
+
+    T GetGate() const   {   return m_Gate;  }
+    T GetFrequency() const  {   return m_Frequency;  }
+    T GetVelocity() const   {   return m_Velocity;  }
+    // GetMidiNote(), GetNote(), GetOctave() can be implemented similar to above
+    // Trigger = curr Gate - prev Gate
 
     // feedback to gui
     int GetMaxNumSteps() const;
@@ -70,6 +75,12 @@ private:
     int m_StepIntervalLength;
     int m_StepIntervalBegin;
     int m_IntervalStep;
+
+    int m_ClockCounter;
+
+    T m_Gate;
+    T m_Frequency;
+    T m_Velocity;
 };
 
 template<class T, int N>
@@ -93,8 +104,15 @@ CMultiStepSequencer<T,N>::CMultiStepSequencer()
  , m_StepIntervalLength(N)
  , m_StepIntervalBegin(0)
  , m_IntervalStep(0)
- {
+ , m_ClockCounter(0)
+ , m_Gate(1)
+ , m_Frequency(0)
+ , m_Velocity(0)
+{
     m_Steps.fill(SStep());
+
+    m_Frequency = CPitch()(m_Steps[m_CurrentStep].s_Note, m_Steps[m_CurrentStep].s_Octave);
+    m_Velocity = m_Steps[m_CurrentStep].s_Velocity/static_cast<T>(m_ClockSubDivision);
 }
 
 template<class T, int N>
@@ -102,15 +120,6 @@ int CMultiStepSequencer<T,N>::GetMaxNumSteps() const
 {
     return N;
 }
-
-//template<class T, int N>
-//void CMultiStepSequencer<T,N>::SetActive(int Step, bool IsActive)
-//{
-//    if(StepExists(Step))
-//    {
-//        m_Steps[Step].s_IsActive = IsActive;
-//    }
-//}
 
 template<class T, int N>
 void CMultiStepSequencer<T,N>::SetStepMode(int Step, EStepMode Mode)
@@ -196,10 +205,36 @@ void CMultiStepSequencer<T,N>::SetStepIntervalLength(int Length)
 template<class T, int N>
 void CMultiStepSequencer<T,N>::AdvanceClock()
 {
-    //adv clock cntr
-    // => note off in substep? => gate off?
-    // advance to next substep?
-    // advance to next step?
+    ++m_ClockCounter;
+    if(m_ClockSubDivision<=m_ClockCounter)
+    {
+        m_ClockCounter = 0;
+        ++m_CurrentSubStep;
+        if(m_Steps[m_CurrentStep].s_NumSubSteps<=m_CurrentSubStep)
+        {
+            m_CurrentSubStep = 0;
+            AdvanceStep();
+            // frequency and velocity only change upon beginning of a new step
+            m_Frequency = CPitch()(m_Steps[m_CurrentStep].s_Note, m_Steps[m_CurrentStep].s_Octave);
+            m_Velocity = m_Steps[m_CurrentStep].s_Velocity/static_cast<T>(m_ClockSubDivision);
+        }
+    }
+    // gate changes upon clock, depending on gate mode
+    if(m_Steps[m_CurrentStep].s_SubStepGateMode == ESubStepGateMode::Repeat)
+    {
+        m_Gate = m_ClockCounter<m_Steps[m_CurrentStep].s_Duration ? 1 : 0;//gate mode = Repeat
+    }
+    else if(m_Steps[m_CurrentStep].s_SubStepGateMode == ESubStepGateMode::Single)
+    {
+        m_Gate = (m_CurrentSubStep==0 && m_ClockCounter<m_Steps[m_CurrentStep].s_Duration) ? 1 : 0;//gate mode = Single
+    }
+    else if(m_Steps[m_CurrentStep].s_SubStepGateMode == ESubStepGateMode::Length)
+    {
+        int CurrentLength = m_CurrentSubStep*m_ClockSubDivision + m_ClockCounter;
+        int StepLength = m_Steps[m_CurrentStep].s_NumSubSteps * m_ClockSubDivision;
+        int GateLength = m_Steps[m_CurrentStep].s_Duration * StepLength / m_ClockSubDivision;
+        m_Gate = CurrentLength<GateLength ? 1 : 0;//gate mode = Length
+    }
 }
 
 template<class T, int N>
