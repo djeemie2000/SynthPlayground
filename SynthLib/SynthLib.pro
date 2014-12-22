@@ -145,7 +145,8 @@ HEADERS += StepSequencer.h \
     GlitchOperator.h \
     EnvelopeFollower.h \
     DelayLine2.h \
-    AsymmetricAmp.h
+    AsymmetricAmp.h \
+    MultiStepSequencer.h
 
 
 INCLUDEPATH += ./../MidiLib

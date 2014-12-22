@@ -22,7 +22,8 @@ SOURCES += main.cpp \
     TestDetune.cpp \
     TestWaveFolder2.cpp \
     TestNoise.cpp \
-    TestGlitchOperator.cpp
+    TestGlitchOperator.cpp \
+    TestMultiStepSequencer.cpp
 
 unix {
     target.path = /usr/lib
