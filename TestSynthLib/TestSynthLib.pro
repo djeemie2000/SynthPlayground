@@ -23,7 +23,8 @@ SOURCES += main.cpp \
     TestWaveFolder2.cpp \
     TestNoise.cpp \
     TestGlitchOperator.cpp \
-    TestMultiStepSequencer.cpp
+    TestMultiStepSequencer.cpp \
+    TestTrigger.cpp
 
 unix {
     target.path = /usr/lib
