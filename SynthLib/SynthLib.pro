@@ -148,7 +148,8 @@ HEADERS += StepSequencer.h \
     AsymmetricAmp.h \
     MultiStepSequencer.h \
     Trigger.h \
-    DecayEnvelope.h
+    DecayEnvelope.h \
+    ClockPulse.h
 
 
 INCLUDEPATH += ./../MidiLib
