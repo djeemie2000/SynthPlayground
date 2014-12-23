@@ -35,6 +35,7 @@
 #include "StereoMixerModule.h"
 #include "AsymmetricAmpModule.h"
 #include "MultiStepSequencerModule.h"
+#include "ClockModule.h"
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -197,6 +198,10 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CMultiStepSequencerModule(Name, *m_CommandStackController));
     }
+    else if(Type == "Clock")
+    {
+        Module.reset(new CClockModule(Name, *m_CommandStackController));
+    }
 
     return Module;
 }
@@ -241,6 +246,7 @@ std::vector<string> CModuleFactory::GetSupportedTypes() const
         "DelayLine",
         "StereoMixer(4)",
         "AsymmetricAmp",
-        "MultiStepSequencer"
+        "MultiStepSequencer",
+        "Clock"
     };
 }

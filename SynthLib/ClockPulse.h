@@ -22,7 +22,7 @@ public:
 
     bool FallingEdge(T ClockPulse)
     {
-        bool Edge = (0<m_Prev<0 && ClockPulse<0);
+        bool Edge = (0<m_Prev && ClockPulse<0);
         m_Prev = ClockPulse;
         return Edge;
     }
@@ -57,13 +57,13 @@ public:
         m_PhaseStep.SetFrequency(Frequency);
     }
 
-    void SetBpm(int Bpm)
+    void SetBeatsPerMinute(int Bpm)
     {
         m_Bpm = Bpm;
         SetFrequency(CalcFrequency());
     }
 
-    void SetBpb(int Bpb)
+    void SetBarsPerBeat(int Bpb)
     {
         m_Bpb = Bpb;
         SetFrequency(CalcFrequency());
