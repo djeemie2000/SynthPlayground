@@ -87,6 +87,58 @@ TEST(StepSubSteps)
 
 // TODO gate mode single + one/multiple substeps
 // TODO gate mode length + one/multiple substeps
-// TODO different note, octave, velocity per step
+
+TEST(StepFrequencyVelocity)
+{
+    CMultiStepSequencer<float, 8> Sequencer;
+
+    Sequencer.SetNote(0, ENote::C);
+    Sequencer.SetOctave(0, EOctave::Octave0);
+    Sequencer.SetVelocity(0, 127);
+
+
+    Sequencer.SetNote(1, ENote::D);
+    Sequencer.SetOctave(1, EOctave::Octave5);
+    Sequencer.SetVelocity(1, 16);
+
+    for(int ClockPulse = 0; ClockPulse<128; ++ClockPulse)
+    {
+        float ExpectedFrequency = 16.35f;
+        CHECK_CLOSE(ExpectedFrequency, Sequencer.GetFrequency(), 0.0001);
+        float ExpectedVelocity = 127/128.0f;
+        CHECK_CLOSE(ExpectedVelocity, Sequencer.GetVelocity(), 0.0001);
+        Sequencer.AdvanceClock();
+    }
+
+    for(int ClockPulse = 0; ClockPulse<128; ++ClockPulse)
+    {
+        float ExpectedFrequency = 587.33f;
+        CHECK_CLOSE(ExpectedFrequency, Sequencer.GetFrequency(), 0.0001);
+        float ExpectedVelocity = 16/128.0f;
+        CHECK_CLOSE(ExpectedVelocity, Sequencer.GetVelocity(), 0.0001);
+        Sequencer.AdvanceClock();
+    }
+
+    for(int Step = 2; Step<8; ++Step)
+    {
+        for(int ClockPulse = 0; ClockPulse<128; ++ClockPulse)
+        {
+            float ExpectedFrequency = 110.0f;
+            CHECK_CLOSE(ExpectedFrequency, Sequencer.GetFrequency(), 0.0001);
+            float ExpectedVelocity = 92/128.0f;
+            CHECK_CLOSE(ExpectedVelocity, Sequencer.GetVelocity(), 0.0001);
+            Sequencer.AdvanceClock();
+        }
+    }
+
+    for(int ClockPulse = 0; ClockPulse<128; ++ClockPulse)
+    {
+        float ExpectedFrequency = 16.35f;
+        CHECK_CLOSE(ExpectedFrequency, Sequencer.GetFrequency(), 0.0001);
+        float ExpectedVelocity = 127/128.0f;
+        CHECK_CLOSE(ExpectedVelocity, Sequencer.GetVelocity(), 0.0001);
+        Sequencer.AdvanceClock();
+    }
+}
 
 }
