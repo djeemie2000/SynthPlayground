@@ -24,7 +24,8 @@ SOURCES += main.cpp \
     TestNoise.cpp \
     TestGlitchOperator.cpp \
     TestMultiStepSequencer.cpp \
-    TestTrigger.cpp
+    TestTrigger.cpp \
+    TestDecayEnvelope.cpp
 
 unix {
     target.path = /usr/lib

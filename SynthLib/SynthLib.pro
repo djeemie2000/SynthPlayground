@@ -147,7 +147,8 @@ HEADERS += StepSequencer.h \
     DelayLine2.h \
     AsymmetricAmp.h \
     MultiStepSequencer.h \
-    Trigger.h
+    Trigger.h \
+    DecayEnvelope.h
 
 
 INCLUDEPATH += ./../MidiLib
