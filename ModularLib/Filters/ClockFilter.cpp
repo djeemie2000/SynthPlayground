@@ -38,8 +38,12 @@ int CClockFilter::OnProcess(const std::vector<void *> &/*SourceBuffers*/,
     float* ClockBuffer = (float*)(DestinationBuffers[0]);
     if(ClockBuffer)
     {
-        *ClockBuffer = m_Clock();
-        ++ClockBuffer;
+        float* Clock = ClockBuffer;
+        while(Clock<ClockBuffer+NumFrames)
+        {
+            *Clock = m_Clock();
+            ++Clock;
+        }
     }
 
     return 0;
