@@ -32,8 +32,13 @@ public:
     void SetNote(int Step, ENote Note);
     void SetOctave(int Step, EOctave Octave);
     void SetStepMode(int Step, int Mode);
+    void SetVelocity(int Step, int Velocity);
+    void SetDuration(int Step, int Duration);
+    void SetNumSubSteps(int Step, int NumSubSteps);
+    void SetSubStepMode(int Step, int Mode);
 
     void SetStepSize(int StepSize);
+    void SetStepIntervalBegin(int Step);
     void SetStepIntervalLength(int Length);
 
     void SetActive(bool Active);

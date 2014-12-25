@@ -46,33 +46,54 @@ int CMultiStepSequencerFilter::OnProcess(const std::vector<void *> &SourceBuffer
     float* TriggerOutBuffer = (float*)(DestinationBuffers[2]);
     float* GateOutBuffer = (float*)(DestinationBuffers[3]);
 
-    if(ClockInBuffer && GateOutBuffer && FreqOutBuffer && TriggerOutBuffer)
+    if(ClockInBuffer)
     {
-        const float* ClockInBufferEnd = ClockInBuffer + NumFrames;
-        while(ClockInBuffer<ClockInBufferEnd)
+        if(GateOutBuffer && FreqOutBuffer && TriggerOutBuffer)
         {
-            if(m_ClockIn.RisingEdge(*ClockInBuffer))
+            const float* ClockInBufferEnd = ClockInBuffer + NumFrames;
+            while(ClockInBuffer<ClockInBufferEnd)
             {
-                m_MultiStepSequencer.AdvanceClock();
-                // these values can only change upon advance clock of the sequencer!
-                m_Frequency = m_MultiStepSequencer.GetFrequency();
-                m_Velocity = m_MultiStepSequencer.GetVelocity();
-                m_Gate = m_MultiStepSequencer.GetGate();
+                if(m_ClockIn.RisingEdge(*ClockInBuffer))
+                {
+                    m_MultiStepSequencer.AdvanceClock();
+                    // these values can only change upon advance clock of the sequencer!
+                    m_Frequency = m_MultiStepSequencer.GetFrequency();
+                    m_Velocity = m_MultiStepSequencer.GetVelocity();
+                    m_Gate = m_MultiStepSequencer.GetGate();
+                }
+
+                *FreqOutBuffer = m_Frequency;
+                *VelocityOutBuffer = m_Velocity;
+                *GateOutBuffer = m_Gate;
+                *TriggerOutBuffer = m_GateToTrigger(m_Gate);
+
+                ++ClockInBuffer;
+                ++FreqOutBuffer;
+                ++VelocityOutBuffer;
+                ++GateOutBuffer;
+                ++TriggerOutBuffer;
             }
-
-            *FreqOutBuffer = m_Frequency;
-            *VelocityOutBuffer = m_Velocity;
-            *GateOutBuffer = m_Gate;
-            *TriggerOutBuffer = m_GateToTrigger(m_Gate);
-
-            ++ClockInBuffer;
-            ++FreqOutBuffer;
-            ++VelocityOutBuffer;
-            ++GateOutBuffer;
-            ++TriggerOutBuffer;
         }
     }
-
+    else
+    { // no clock in => no change
+        if(FreqOutBuffer)
+        {
+            std::fill(FreqOutBuffer, FreqOutBuffer+NumFrames, m_Frequency);
+        }
+        if(VelocityOutBuffer)
+        {
+            std::fill(VelocityOutBuffer, VelocityOutBuffer+NumFrames, m_Velocity);
+        }
+        if(GateOutBuffer)
+        {
+            std::fill(GateOutBuffer, GateOutBuffer+NumFrames, m_Gate);
+        }
+        if(TriggerOutBuffer)
+        {
+            std::fill(TriggerOutBuffer, TriggerOutBuffer+NumFrames, 0);
+        }
+    }
     return 0;
 }
 
@@ -92,6 +113,27 @@ void CMultiStepSequencerFilter::SetStepMode(int Step, int Mode)
     m_MultiStepSequencer.SetStepMode(Step, StepMode);
 }
 
+void CMultiStepSequencerFilter::SetVelocity(int Step, int Velocity)
+{
+    m_MultiStepSequencer.SetVelocity(Step, Velocity);
+}
+
+void CMultiStepSequencerFilter::SetDuration(int Step, int Duration)
+{
+    m_MultiStepSequencer.SetDuration(Step, Duration);
+}
+
+void CMultiStepSequencerFilter::SetNumSubSteps(int Step, int NumSubSteps)
+{
+    m_MultiStepSequencer.SetNumSubSteps(Step, NumSubSteps);
+}
+
+void CMultiStepSequencerFilter::SetSubStepMode(int Step, int Mode)
+{
+    CMultiStepSequencer<float, NumSequencerSteps>::ESubStepGateMode StepMode = static_cast< CMultiStepSequencer<float, NumSequencerSteps>::ESubStepGateMode >(Mode);
+    m_MultiStepSequencer.SetSubStepMode(Step, StepMode);
+}
+
 void CMultiStepSequencerFilter::SetNote(int Step, ENote Note)
 {
     m_MultiStepSequencer.SetNote(Step, Note);
@@ -100,6 +142,11 @@ void CMultiStepSequencerFilter::SetNote(int Step, ENote Note)
 void CMultiStepSequencerFilter::SetStepSize(int StepSize)
 {
     m_MultiStepSequencer.SetStepSize(StepSize);
+}
+
+void CMultiStepSequencerFilter::SetStepIntervalBegin(int Step)
+{
+    m_MultiStepSequencer.SetStepIntervalBegin(Step);
 }
 
 void CMultiStepSequencerFilter::SetActive(bool /*Active*/)
