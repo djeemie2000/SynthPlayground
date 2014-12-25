@@ -26,7 +26,8 @@ SOURCES += main.cpp \
     TestMultiStepSequencer.cpp \
     TestTrigger.cpp \
     TestDecayEnvelope.cpp \
-    TestClockPulse.cpp
+    TestClockPulse.cpp \
+    TestPitch.cpp
 
 unix {
     target.path = /usr/lib
@@ -38,16 +39,18 @@ INCLUDEPATH += ./../SynthLib/Controllers
 INCLUDEPATH += ./../MidiLib
 INCLUDEPATH += ./../UnitTest
 
-LIBS += -lSynthLib -lUnitTest
+LIBS += -lSynthLib -lUnitTest -lModularLib
 
 CONFIG(debug, debug|release) {
     LIBS += -L./../build-dir/Debug/SynthLib
     LIBS += -L./../build-dir/Debug/UnitTest
+    LIBS += -L./../build-dir/Debug/ModularLib
     DESTDIR = ../build-dir/Debug/TestSynthLib
 }
 CONFIG(release, debug|release) {
     LIBS += -L./../build-dir/Release/SynthLib
     LIBS += -L./../build-dir/Release/UnitTest
+    LIBS += -L./../build-dir/Release/ModularLib
     DESTDIR = ../build-dir/Release/TestSynthLib
 }
 

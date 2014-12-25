@@ -3,7 +3,9 @@
 
 #include <functional>
 #include "AudioFilterI.h"
-#include "StepSequencer2.h"
+#include "MultiStepSequencer.h"
+#include "ClockPulse.h"
+#include "Trigger.h"
 
 class CMultiStepSequencerFilter : public IAudioFilter
 {
@@ -26,19 +28,23 @@ public:
                   std::uint32_t TimeStamp) override;
 
     int GetMaxNumSteps() const;
-    void SetActive(int Step, bool IsActive);
-    void SetOctave(int Step, EOctave Octave);
+
     void SetNote(int Step, ENote Note);
+    void SetOctave(int Step, EOctave Octave);
+    void SetStepMode(int Step, int Mode);
+
     void SetStepSize(int StepSize);
+    void SetStepIntervalLength(int Length);
+
     void SetActive(bool Active);
-    void SetNumSteps(int NumSteps);
 
 private:
-    CStepSequencer2<float, NumSequencerSteps>          m_MultiStepSequencer;
-    CStepSequencer2<float, NumSequencerSteps>::SStep   m_CurrentStep;
-    bool    m_IsActive;
-    int     m_StepSize;
+    CClockPulseIn<float>                            m_ClockIn;
+    CMultiStepSequencer<float, NumSequencerSteps>   m_MultiStepSequencer;
+    CGateToTrigger<float>                           m_GateToTrigger;
+    float   m_Gate;
     float   m_Frequency;
+    float   m_Velocity;
     CurrentStepCallbackType m_Callback;
 };
 

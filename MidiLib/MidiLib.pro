@@ -27,7 +27,6 @@ HEADERS += \
     MultiMidiHandler.h \
     RawMidiParser.h
 
-INCLUDEPATH += ./../SynthLib
 INCLUDEPATH += ./../CommandStackLib
 
 unix {

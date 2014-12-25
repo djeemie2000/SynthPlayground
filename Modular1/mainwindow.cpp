@@ -8,13 +8,19 @@
 #include "QModularManagerWidget.h"
 #include "Modular1Controller.h"
 
+#include "Pitch.h"
+
+void DoInstantiations()
+{
+    CPitch Pitch;
+}
+
 MainWindow::MainWindow(QWidget *parent)
   : QMainWindow(parent)
   , ui(new Ui::MainWindow)
   , m_Controller()
 {
     ui->setupUi(this);
-//    ui->stackedWidget->
 
     m_Controller.reset(new CModular1Controller(ui->stackedWidget));
 

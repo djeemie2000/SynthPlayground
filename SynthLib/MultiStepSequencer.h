@@ -69,6 +69,9 @@ private:
     void AdvanceStep();//?????
 
     const int m_ClockSubDivision;
+
+    CPitch  m_Pitch;
+
     std::array<SStep, N> m_Steps;
     int m_CurrentStep;
     int m_CurrentSubStep;
@@ -98,6 +101,7 @@ CMultiStepSequencer<T,N>::SStep::SStep()
 template<class T, int N>
 CMultiStepSequencer<T,N>::CMultiStepSequencer()
  : m_ClockSubDivision(128)
+ , m_Pitch()
  , m_Steps()
  , m_CurrentStep(0)
  , m_CurrentSubStep(0)
@@ -111,7 +115,7 @@ CMultiStepSequencer<T,N>::CMultiStepSequencer()
 {
     m_Steps.fill(SStep());
 
-    m_Frequency = CPitch()(m_Steps[m_CurrentStep].s_Note, m_Steps[m_CurrentStep].s_Octave);
+    m_Frequency = m_Pitch(m_Steps[m_CurrentStep].s_Note, m_Steps[m_CurrentStep].s_Octave);
     m_Velocity = m_Steps[m_CurrentStep].s_Velocity/static_cast<T>(m_ClockSubDivision);
 }
 
@@ -203,6 +207,13 @@ void CMultiStepSequencer<T,N>::SetStepIntervalLength(int Length)
 }
 
 template<class T, int N>
+void CMultiStepSequencer<T,N>::SetStepSize(int StepSize)
+{
+    //TODO
+    int bs = StepSize;
+}
+
+template<class T, int N>
 void CMultiStepSequencer<T,N>::AdvanceClock()
 {
     ++m_ClockCounter;
@@ -215,7 +226,7 @@ void CMultiStepSequencer<T,N>::AdvanceClock()
             m_CurrentSubStep = 0;
             AdvanceStep();
             // frequency and velocity only change upon beginning of a new step
-            m_Frequency = CPitch()(m_Steps[m_CurrentStep].s_Note, m_Steps[m_CurrentStep].s_Octave);
+            m_Frequency = m_Pitch(m_Steps[m_CurrentStep].s_Note, m_Steps[m_CurrentStep].s_Octave);
             m_Velocity = m_Steps[m_CurrentStep].s_Velocity/static_cast<T>(m_ClockSubDivision);
         }
     }

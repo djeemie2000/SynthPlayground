@@ -16,11 +16,11 @@ CMultiStepSequencerModule::CMultiStepSequencerModule(const std::string& Name, CC
     // commandstack!!
     int MaxNumSteps = CMultiStepSequencerFilter::NumSequencerSteps;
     m_CommandStackController.AddCommand({m_Name+"/IsActive", false, 0, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetActive(Item.s_BoolValue); });
-    m_CommandStackController.AddCommand({m_Name+"/NumSteps", false, MaxNumSteps, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetNumSteps(Item.s_IntValue); });
+    m_CommandStackController.AddCommand({m_Name+"/StepIntervalLength", false, MaxNumSteps, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetStepIntervalLength(Item.s_IntValue); });
     m_CommandStackController.AddCommand({m_Name+"/StepSize", false, 1, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetStepSize(Item.s_IntValue); });
     for(int idx = 0; idx<MaxNumSteps; ++idx)
     {
-        m_CommandStackController.AddCommand({m_Name+"/Step/"+std::to_string(idx)+"/Active", false, 0, 0.0f}, [idx,this](const SCmdStackItem& Item) { m_Filter->SetActive(idx, Item.s_BoolValue); });
+        m_CommandStackController.AddCommand({m_Name+"/Step/"+std::to_string(idx)+"/Mode", false, 0, 0.0f}, [idx,this](const SCmdStackItem& Item) { m_Filter->SetStepMode(idx, Item.s_IntValue); });
         m_CommandStackController.AddCommand({m_Name+"/Step/"+std::to_string(idx)+"/Octave", false, 3, 0.0f}, [idx,this](const SCmdStackItem& Item) { m_Filter->SetOctave(idx, static_cast<EOctave>(Item.s_IntValue)); });
         m_CommandStackController.AddCommand({m_Name+"/Step/"+std::to_string(idx)+"/Note", false, static_cast<int>(ENote::A), 0.0f}, [idx,this](const SCmdStackItem& Item) { m_Filter->SetNote(idx, static_cast<ENote>(Item.s_IntValue)); });
     }
@@ -29,7 +29,7 @@ CMultiStepSequencerModule::CMultiStepSequencerModule(const std::string& Name, CC
 
 CMultiStepSequencerModule::~CMultiStepSequencerModule()
 {
-    // TODO commandstack!!
+    // TODO remove from commandstack!!
     Close();
 }
 

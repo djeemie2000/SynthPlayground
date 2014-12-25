@@ -167,7 +167,6 @@ INCLUDEPATH += ./Modules
 INCLUDEPATH += ./MidiHandlers
 INCLUDEPATH += ./../CommandStackLib
 INCLUDEPATH += ./../JackLib
-INCLUDEPATH += ./../MidiLib
 INCLUDEPATH += ./../SynthLib
 INCLUDEPATH += ./../SynthLib/Interfaces
 INCLUDEPATH += ./../MidiLib
