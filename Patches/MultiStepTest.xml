@@ -1,0 +1,96 @@
+<xml>
+<Modules>
+Amp0 --- Amp
+Clock0 --- Clock
+LPF0 --- LPF
+Mixer(4)0 --- Mixer(4)
+MultiStepSequencer0 --- MultiStepSequencer
+SimpleOscillator0 --- SimpleOscillator
+
+</Modules>
+<Connections>
+Amp0:Out -> Mixer(4)0:In0
+Amp0:Out -> LPF0:In
+Clock0:Clock -> MultiStepSequencer0:Clock
+LPF0:Out -> Mixer(4)0:In2
+Mixer(4)0:Out -> system:playback_1
+Mixer(4)0:Out -> system:playback_2
+MultiStepSequencer0:Vel -> LPF0:CutOff
+MultiStepSequencer0:Freq -> SimpleOscillator0:Freq
+MultiStepSequencer0:Gate -> Amp0:Ampl
+SimpleOscillator0:Out -> Mixer(4)0:In1
+SimpleOscillator0:Out -> Amp0:In
+
+</Connections>
+<Parameters>
+Clock0/BeatsPerBar 0 2 0
+LPF0/Poles 0 16 0
+LPF0/Resonance 0 0 1.3
+Mixer(4)0/0/Volume 0 0 0
+Mixer(4)0/1/Volume 0 0 0
+Mixer(4)0/2/Volume 0 0 0.4
+Mixer(4)0/MasterVolume 0 0 0.4
+MultiStepSequencer0/Step/0/Duration 0 50 0
+MultiStepSequencer0/Step/0/Mode 0 1 0
+MultiStepSequencer0/Step/0/NumSubSteps 0 5 0
+MultiStepSequencer0/Step/0/Octave 0 1 0
+MultiStepSequencer0/Step/0/RepeatMode 0 0 0
+MultiStepSequencer0/Step/0/RepeatValue 0 4 0
+MultiStepSequencer0/Step/0/Status 0 0 0
+MultiStepSequencer0/Step/0/SubStepMode 0 0 0
+MultiStepSequencer0/Step/0/Velocity 0 50 0
+MultiStepSequencer0/Step/1/Duration 0 108 0
+MultiStepSequencer0/Step/1/Mode 0 1 0
+MultiStepSequencer0/Step/1/NumSubSteps 0 2 0
+MultiStepSequencer0/Step/1/Octave 0 2 0
+MultiStepSequencer0/Step/1/RepeatMode 0 1 0
+MultiStepSequencer0/Step/1/Status 0 0 0
+MultiStepSequencer0/Step/1/Velocity 0 84 0
+MultiStepSequencer0/Step/2/Duration 0 48 0
+MultiStepSequencer0/Step/2/Mode 0 1 0
+MultiStepSequencer0/Step/2/Octave 0 1 0
+MultiStepSequencer0/Step/2/RepeatMode 0 1 0
+MultiStepSequencer0/Step/2/Status 0 0 0
+MultiStepSequencer0/Step/2/Velocity 0 67 0
+MultiStepSequencer0/Step/3/Duration 0 108 0
+MultiStepSequencer0/Step/3/Mode 0 1 0
+MultiStepSequencer0/Step/3/NumSubSteps 0 4 0
+MultiStepSequencer0/Step/3/Octave 0 2 0
+MultiStepSequencer0/Step/3/RepeatMode 0 1 0
+MultiStepSequencer0/Step/3/Status 1 0 0
+MultiStepSequencer0/Step/3/SubStepMode 0 2 0
+MultiStepSequencer0/Step/3/Velocity 0 82 0
+MultiStepSequencer0/Step/4/Duration 0 48 0
+MultiStepSequencer0/Step/4/Mode 0 1 0
+MultiStepSequencer0/Step/4/NumSubSteps 0 2 0
+MultiStepSequencer0/Step/4/Octave 0 1 0
+MultiStepSequencer0/Step/4/RepeatMode 0 1 0
+MultiStepSequencer0/Step/4/Status 0 0 0
+MultiStepSequencer0/Step/4/Velocity 0 96 0
+MultiStepSequencer0/Step/5/Duration 0 107 0
+MultiStepSequencer0/Step/5/Mode 0 1 0
+MultiStepSequencer0/Step/5/NumSubSteps 0 3 0
+MultiStepSequencer0/Step/5/Octave 0 2 0
+MultiStepSequencer0/Step/5/RepeatMode 0 1 0
+MultiStepSequencer0/Step/5/Status 0 0 0
+MultiStepSequencer0/Step/5/SubStepMode 0 0 0
+MultiStepSequencer0/Step/5/Velocity 0 47 0
+MultiStepSequencer0/Step/6/Duration 0 48 0
+MultiStepSequencer0/Step/6/Mode 0 1 0
+MultiStepSequencer0/Step/6/NumSubSteps 0 2 0
+MultiStepSequencer0/Step/6/Octave 0 4 0
+MultiStepSequencer0/Step/6/RepeatMode 0 1 0
+MultiStepSequencer0/Step/6/Status 0 0 0
+MultiStepSequencer0/Step/6/SubStepMode 0 0 0
+MultiStepSequencer0/Step/6/Velocity 0 52 0
+MultiStepSequencer0/Step/7/Duration 0 107 0
+MultiStepSequencer0/Step/7/Mode 0 1 0
+MultiStepSequencer0/Step/7/Octave 0 1 0
+MultiStepSequencer0/Step/7/RepeatMode 0 1 0
+MultiStepSequencer0/Step/7/Status 0 0 0
+MultiStepSequencer0/Step/7/SubStepMode 0 0 0
+MultiStepSequencer0/Step/7/Velocity 0 99 0
+SimpleOscillator0/Select 0 0 0
+
+</Parameters>
+</xml>

@@ -43,36 +43,46 @@ int CMultiStepSequencerFilter::OnProcess(const std::vector<void *> &SourceBuffer
     const float* ClockInBuffer = (const float*)(SourceBuffers[0]);
     float* VelocityOutBuffer = (float*)(DestinationBuffers[0]);
     float* FreqOutBuffer = (float*)(DestinationBuffers[1]);
-    float* TriggerOutBuffer = (float*)(DestinationBuffers[2]);
-    float* GateOutBuffer = (float*)(DestinationBuffers[3]);
+    float* GateOutBuffer = (float*)(DestinationBuffers[2]);
+    float* TriggerOutBuffer = (float*)(DestinationBuffers[3]);
 
     if(ClockInBuffer)
     {
-        if(GateOutBuffer && FreqOutBuffer && TriggerOutBuffer)
+        const float* ClockInBufferEnd = ClockInBuffer + NumFrames;
+        while(ClockInBuffer<ClockInBufferEnd)
         {
-            const float* ClockInBufferEnd = ClockInBuffer + NumFrames;
-            while(ClockInBuffer<ClockInBufferEnd)
+            if(m_ClockIn.RisingEdge(*ClockInBuffer))
             {
-                if(m_ClockIn.RisingEdge(*ClockInBuffer))
-                {
-                    m_MultiStepSequencer.AdvanceClock();
-                    // these values can only change upon advance clock of the sequencer!
-                    m_Frequency = m_MultiStepSequencer.GetFrequency();
-                    m_Velocity = m_MultiStepSequencer.GetVelocity();
-                    m_Gate = m_MultiStepSequencer.GetGate();
-                }
+                m_MultiStepSequencer.AdvanceClock();
+                // these values can only change upon advance clock of the sequencer!
+                m_Frequency = m_MultiStepSequencer.GetFrequency();
+                m_Velocity = m_MultiStepSequencer.GetVelocity();
+                m_Gate = m_MultiStepSequencer.GetGate();
+            }
 
+            // this is not the optimal way, but works correctly
+            if(FreqOutBuffer)
+            {
                 *FreqOutBuffer = m_Frequency;
-                *VelocityOutBuffer = m_Velocity;
-                *GateOutBuffer = m_Gate;
-                *TriggerOutBuffer = m_GateToTrigger(m_Gate);
-
-                ++ClockInBuffer;
                 ++FreqOutBuffer;
+            }
+            if(VelocityOutBuffer)
+            {
+                *VelocityOutBuffer = m_Velocity;
                 ++VelocityOutBuffer;
+            }
+            if(GateOutBuffer)
+            {
+                *GateOutBuffer = m_Gate;
                 ++GateOutBuffer;
+            }
+            if(TriggerOutBuffer)
+            {
+                *TriggerOutBuffer = m_GateToTrigger(m_Gate);
                 ++TriggerOutBuffer;
             }
+
+            ++ClockInBuffer;
         }
     }
     else
@@ -94,6 +104,10 @@ int CMultiStepSequencerFilter::OnProcess(const std::vector<void *> &SourceBuffer
             std::fill(TriggerOutBuffer, TriggerOutBuffer+NumFrames, 0);
         }
     }
+
+    //?? here ??
+    m_Callback(m_MultiStepSequencer.GetCurrentStep());
+
     return 0;
 }
 

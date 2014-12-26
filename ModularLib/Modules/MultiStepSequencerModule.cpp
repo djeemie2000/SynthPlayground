@@ -20,9 +20,13 @@ CMultiStepSequencerModule::CMultiStepSequencerModule(const std::string& Name, CC
     m_CommandStackController.AddCommand({m_Name+"/StepSize", false, 1, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetStepSize(Item.s_IntValue); });
     for(int idx = 0; idx<MaxNumSteps; ++idx)
     {
-        m_CommandStackController.AddCommand({m_Name+"/Step/"+std::to_string(idx)+"/Mode", false, 0, 0.0f}, [idx,this](const SCmdStackItem& Item) { m_Filter->SetStepMode(idx, Item.s_IntValue); });
-        m_CommandStackController.AddCommand({m_Name+"/Step/"+std::to_string(idx)+"/Octave", false, 3, 0.0f}, [idx,this](const SCmdStackItem& Item) { m_Filter->SetOctave(idx, static_cast<EOctave>(Item.s_IntValue)); });
+        m_CommandStackController.AddCommand({m_Name+"/Step/"+std::to_string(idx)+"/Velocity", false, 0, 0.0f}, [idx,this](const SCmdStackItem& Item) { m_Filter->SetVelocity(idx, Item.s_IntValue); });
+        m_CommandStackController.AddCommand({m_Name+"/Step/"+std::to_string(idx)+"/Duration", false, 0, 0.0f}, [idx,this](const SCmdStackItem& Item) { m_Filter->SetDuration(idx, Item.s_IntValue); });
+        m_CommandStackController.AddCommand({m_Name+"/Step/"+std::to_string(idx)+"/NumSubSteps", false, 0, 0.0f}, [idx,this](const SCmdStackItem& Item) { m_Filter->SetNumSubSteps(idx, Item.s_IntValue); });
+        m_CommandStackController.AddCommand({m_Name+"/Step/"+std::to_string(idx)+"/SubStepMode", false, 0, 0.0f}, [idx,this](const SCmdStackItem& Item) { m_Filter->SetSubStepMode(idx, Item.s_IntValue); });
         m_CommandStackController.AddCommand({m_Name+"/Step/"+std::to_string(idx)+"/Note", false, static_cast<int>(ENote::A), 0.0f}, [idx,this](const SCmdStackItem& Item) { m_Filter->SetNote(idx, static_cast<ENote>(Item.s_IntValue)); });
+        m_CommandStackController.AddCommand({m_Name+"/Step/"+std::to_string(idx)+"/Octave", false, 3, 0.0f}, [idx,this](const SCmdStackItem& Item) { m_Filter->SetOctave(idx, static_cast<EOctave>(Item.s_IntValue)); });
+        m_CommandStackController.AddCommand({m_Name+"/Step/"+std::to_string(idx)+"/Mode", false, 0, 0.0f}, [idx,this](const SCmdStackItem& Item) { m_Filter->SetStepMode(idx, Item.s_IntValue); });
     }
 
 }
@@ -82,14 +86,14 @@ void CMultiStepSequencerModule::Accept(IModuleParameterVisitor &ParameterVisitor
     ParameterVisitor.StartLine();
     for(int idx = 0; idx<MaxNumSteps; ++idx)
     {
-        ParameterVisitor.SelectionParameter(m_Name+"/Step/"+std::to_string(idx)+"/RepeatMode", (idx==0 ? "RMode" : ""), 0, { "----", "-_-_", "-___"});
+        ParameterVisitor.SelectionParameter(m_Name+"/Step/"+std::to_string(idx)+"/SubStepMode", (idx==0 ? "RMode" : ""), 0, { "-___", "-_-_", "----"});
     }
     ParameterVisitor.FinishLine();
 
     ParameterVisitor.StartLine();
     for(int idx = 0; idx<MaxNumSteps; ++idx)
     {
-        ParameterVisitor.IntegerParameter(m_Name+"/Step/"+std::to_string(idx)+"/RepeatValue", (idx == 0 ? "R/L" : ""), 1, 1, 16, 1);
+        ParameterVisitor.IntegerParameter(m_Name+"/Step/"+std::to_string(idx)+"/NumSubSteps", (idx == 0 ? "R/L" : ""), 1, 1, 16, 1);
     }
     ParameterVisitor.FinishLine();
 
