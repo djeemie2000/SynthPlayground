@@ -1,0 +1,103 @@
+<xml>
+<Modules>
+ADSREnvelopeBank(4)0 --- ADSREnvelopeBank(4)
+Amp0 --- Amp
+AsymmetricAmp0 --- AsymmetricAmp
+Clock0 --- Clock
+Combinor0 --- Combinor
+ControllerBank(4)0 --- ControllerBank(4)
+LPF0 --- LPF
+Mixer(4)0 --- Mixer(4)
+MultiStepSequencer0 --- MultiStepSequencer
+Noise0 --- Noise
+PeriodicSync0 --- PeriodicSync
+SampleAndHold0 --- SampleAndHold
+SimpleOscillator0 --- SimpleOscillator
+StereoDelay0 --- StereoDelay
+
+</Modules>
+<Connections>
+MultiStepSequencer0:Vel -> LPF0:CutOff
+MultiStepSequencer0:Trigger -> ADSREnvelopeBank(4)0:Trigger0
+Noise0:Out -> SampleAndHold0:In
+SampleAndHold0:Out -> LPF0:In
+Mixer(4)0:Out -> StereoDelay0:InLeft
+Mixer(4)0:Out -> StereoDelay0:InRight
+AsymmetricAmp0:Out -> Mixer(4)0:In2
+StereoDelay0:OutLeft -> system:playback_1
+StereoDelay0:OutRight -> system:playback_2
+Clock0:Clock -> MultiStepSequencer0:Clock
+LPF0:Out -> Combinor0:In1
+LPF0:Out -> Amp0:In
+PeriodicSync0:Sync -> SampleAndHold0:Trigger
+ControllerBank(4)0:Contr0 -> PeriodicSync0:Freq
+ControllerBank(4)0:Contr1 -> SimpleOscillator0:Freq
+Amp0:Out -> Mixer(4)0:In3
+ADSREnvelopeBank(4)0:Envelope0 -> Amp0:Ampl
+SimpleOscillator0:Out -> Combinor0:In2
+Combinor0:Out -> AsymmetricAmp0:In
+
+</Connections>
+<Parameters>
+ADSREnvelopeBank(4)0/0/Attack 0 0 30
+ADSREnvelopeBank(4)0/0/Decay 0 0 70
+ADSREnvelopeBank(4)0/0/Release 0 0 100
+ADSREnvelopeBank(4)0/0/Sustain 0 0 0.5
+AsymmetricAmp0/AmpPos 0 0 0
+AsymmetricAmp0/OffsetLockMode 1 0 0
+Clock0/BeatsPerBar 0 1 0
+Combinor0/Select 0 3 0
+ControllerBank(4)0/0/Value 0 0 880
+ControllerBank(4)0/1/Value 0 0 110.009
+LPF0/Poles 0 19 0
+LPF0/Resonance 0 0 1.35
+Mixer(4)0/0/Volume 0 0 0
+Mixer(4)0/1/Volume 0 0 0
+Mixer(4)0/2/Volume 0 0 0.1
+Mixer(4)0/3/Volume 0 0 0
+Mixer(4)0/MasterVolume 0 0 0.6
+MultiStepSequencer0/IsActive 1 0 0
+MultiStepSequencer0/NumSteps 0 8 0
+MultiStepSequencer0/Step/0/Duration 0 64 0
+MultiStepSequencer0/Step/0/Mode 0 1 0
+MultiStepSequencer0/Step/0/NumSubSteps 0 3 0
+MultiStepSequencer0/Step/0/Status 1 0 0
+MultiStepSequencer0/Step/0/SubStepMode 0 2 0
+MultiStepSequencer0/Step/0/Velocity 0 80 0
+MultiStepSequencer0/Step/1/Duration 0 64 0
+MultiStepSequencer0/Step/1/Mode 0 1 0
+MultiStepSequencer0/Step/1/Status 0 0 0
+MultiStepSequencer0/Step/1/Velocity 0 52 0
+MultiStepSequencer0/Step/2/Duration 0 64 0
+MultiStepSequencer0/Step/2/Mode 0 1 0
+MultiStepSequencer0/Step/2/Status 0 0 0
+MultiStepSequencer0/Step/2/Velocity 0 52 0
+MultiStepSequencer0/Step/3/Duration 0 64 0
+MultiStepSequencer0/Step/3/Mode 0 1 0
+MultiStepSequencer0/Step/3/NumSubSteps 0 2 0
+MultiStepSequencer0/Step/3/Status 0 0 0
+MultiStepSequencer0/Step/3/SubStepMode 0 2 0
+MultiStepSequencer0/Step/3/Velocity 0 42 0
+MultiStepSequencer0/Step/4/Duration 0 64 0
+MultiStepSequencer0/Step/4/Mode 0 1 0
+MultiStepSequencer0/Step/4/Status 0 0 0
+MultiStepSequencer0/Step/4/Velocity 0 72 0
+MultiStepSequencer0/Step/5/Duration 0 64 0
+MultiStepSequencer0/Step/5/Mode 0 1 0
+MultiStepSequencer0/Step/5/Status 0 0 0
+MultiStepSequencer0/Step/5/Velocity 0 52 0
+MultiStepSequencer0/Step/6/Duration 0 64 0
+MultiStepSequencer0/Step/6/Mode 0 1 0
+MultiStepSequencer0/Step/6/Status 0 0 0
+MultiStepSequencer0/Step/6/Velocity 0 42 0
+MultiStepSequencer0/Step/7/Duration 0 64 0
+MultiStepSequencer0/Step/7/Mode 0 1 0
+MultiStepSequencer0/Step/7/Status 0 0 0
+SimpleOscillator0/Select 0 3 0
+StereoDelay0/Left/Bypass 0 0 0
+StereoDelay0/Left/WetDry 0 0 0.2
+StereoDelay0/Right/Bypass 0 0 0
+StereoDelay0/Right/WetDry 0 0 0.2
+
+</Parameters>
+</xml>
