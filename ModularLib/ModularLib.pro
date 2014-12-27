@@ -79,7 +79,9 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Modules/MultiStepSequencerModule.cpp \
     Filters/MultiStepSequencerFilter.cpp \
     Filters/ClockFilter.cpp \
-    Modules/ClockModule.cpp
+    Modules/ClockModule.cpp \
+    Filters/FMFilter.cpp \
+    Modules/FMModule.cpp
 
 HEADERS += Filters/ControllerBankFilter.h \
     Filters/PhasorFilter.h \
@@ -160,7 +162,9 @@ HEADERS += Filters/ControllerBankFilter.h \
     Modules/MultiStepSequencerModule.h \
     Filters/MultiStepSequencerFilter.h \
     Filters/ClockFilter.h \
-    Modules/ClockModule.h
+    Modules/ClockModule.h \
+    Filters/FMFilter.h \
+    Modules/FMModule.h
 
 INCLUDEPATH += ./Filters
 INCLUDEPATH += ./Modules

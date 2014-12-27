@@ -6,6 +6,11 @@
 #include "PhaseGenerator.h"
 #include "Conversions.h"// limit
 
+/*!
+ * Note:
+ * This is not a FM operator, but a (sort of) phase modulator
+ */
+
 template<class T>
 class CFMOperatorStage
 {

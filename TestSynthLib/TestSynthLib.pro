@@ -27,7 +27,8 @@ SOURCES += main.cpp \
     TestTrigger.cpp \
     TestDecayEnvelope.cpp \
     TestClockPulse.cpp \
-    TestPitch.cpp
+    TestPitch.cpp \
+    TestFMFrequencyModulator.cpp
 
 unix {
     target.path = /usr/lib
