@@ -1,0 +1,42 @@
+<xml>
+<Modules>
+Amp0 --- Amp
+Amp1 --- Amp
+Combinor0 --- Combinor
+ControllerBank(4)0 --- ControllerBank(4)
+LFOBank(4)0 --- LFOBank(4)
+Mixer(4)0 --- Mixer(4)
+SimpleOscillator0 --- SimpleOscillator
+SimpleOscillator1 --- SimpleOscillator
+
+</Modules>
+<Connections>
+ControllerBank(4)0:Contr0 -> Amp0:In
+ControllerBank(4)0:Contr0 -> Combinor0:In1
+ControllerBank(4)0:Contr1 -> Amp0:Ampl
+ControllerBank(4)0:Contr2 -> Amp1:Ampl
+Amp0:Out -> SimpleOscillator0:Freq
+SimpleOscillator0:Out -> Amp1:In
+SimpleOscillator1:Out -> Mixer(4)0:In0
+SimpleOscillator1:Out -> Scope:In
+Combinor0:Out -> SimpleOscillator1:Freq
+Mixer(4)0:Out -> system:playback_1
+Mixer(4)0:Out -> system:playback_2
+Amp1:Out -> Combinor0:In2
+LFOBank(4)0:LFO0 -> Amp1:Ampl
+
+</Connections>
+<Parameters>
+Combinor0/Select 0 14 0
+ControllerBank(4)0/0/Value 0 0 220
+ControllerBank(4)0/1/Value 0 0 4
+ControllerBank(4)0/2/Value 0 0 0
+LFOBank(4)0/0/Frequency 0 0 1
+LFOBank(4)0/0/Select 0 5 0
+Mixer(4)0/0/Volume 0 0 0.1
+Mixer(4)0/MasterVolume 0 0 0.5
+SimpleOscillator0/Select 0 3 0
+SimpleOscillator1/Select 0 3 0
+
+</Parameters>
+</xml>

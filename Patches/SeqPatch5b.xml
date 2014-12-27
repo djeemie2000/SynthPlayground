@@ -1,0 +1,65 @@
+<xml>
+<Modules>
+ADSREnvelopeBank(4)0 --- ADSREnvelopeBank(4)
+Amp0 --- Amp
+Mixer(4)0 --- Mixer(4)
+Operator0 --- Operator
+PeriodicTrigger0 --- PeriodicTrigger
+SimpleOscillator0 --- SimpleOscillator
+StepSequencer0 --- StepSequencer
+
+</Modules>
+<Connections>
+ADSREnvelopeBank(4)0:Envelope0 -> Scope:In
+ADSREnvelopeBank(4)0:Envelope0 -> Amp0:Ampl
+Amp0:Out -> Mixer(4)0:In0
+Mixer(4)0:Out -> system:playback_1
+Mixer(4)0:Out -> system:playback_2
+Operator0:Out -> Amp0:In
+PeriodicTrigger0:Trigger -> StepSequencer0:TriggerIn
+SimpleOscillator0:Out -> Operator0:Phase
+StepSequencer0:Freq -> SimpleOscillator0:Freq
+StepSequencer0:TriggerOut -> ADSREnvelopeBank(4)0:Trigger0
+
+</Connections>
+<Parameters>
+ADSREnvelopeBank(4)0/0/Attack 0 0 30
+ADSREnvelopeBank(4)0/0/Decay 0 0 50
+ADSREnvelopeBank(4)0/0/Release 0 0 60
+ADSREnvelopeBank(4)0/0/Sustain 0 0 0.3
+Mixer(4)0/0/Volume 0 0 0.2
+Mixer(4)0/MasterVolume 0 0 0.3
+Operator0/Select 0 3 0
+PeriodicTrigger0/BeatsPerBar 0 4 0
+PeriodicTrigger0/BeatsPerMinute 0 120 0
+PeriodicTrigger0/Duration 0 50 0
+SimpleOscillator0/Select 0 2 0
+StepSequencer0/IsActive 1 0 0
+StepSequencer0/NumSteps 0 10 0
+StepSequencer0/Step/0/Active 1 0 0
+StepSequencer0/Step/0/Note 0 0 0
+StepSequencer0/Step/0/Octave 0 3 0
+StepSequencer0/Step/1/Active 1 0 0
+StepSequencer0/Step/1/Note 0 2 0
+StepSequencer0/Step/1/Octave 0 3 0
+StepSequencer0/Step/2/Active 1 0 0
+StepSequencer0/Step/2/Note 0 4 0
+StepSequencer0/Step/2/Octave 0 3 0
+StepSequencer0/Step/3/Active 1 0 0
+StepSequencer0/Step/3/Note 0 5 0
+StepSequencer0/Step/3/Octave 0 3 0
+StepSequencer0/Step/4/Active 1 0 0
+StepSequencer0/Step/4/Note 0 7 0
+StepSequencer0/Step/4/Octave 0 3 0
+StepSequencer0/Step/5/Active 1 0 0
+StepSequencer0/Step/5/Note 0 9 0
+StepSequencer0/Step/5/Octave 0 3 0
+StepSequencer0/Step/6/Active 1 0 0
+StepSequencer0/Step/6/Note 0 11 0
+StepSequencer0/Step/7/Active 1 0 0
+StepSequencer0/Step/7/Note 0 0 0
+StepSequencer0/Step/7/Octave 0 4 0
+StepSequencer0/StepSize 0 7 0
+
+</Parameters>
+</xml>

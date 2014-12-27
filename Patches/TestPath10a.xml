@@ -1,0 +1,82 @@
+<xml>
+<Modules>
+ADSREnvelopeBank(4)0 --- ADSREnvelopeBank(4)
+Amp0 --- Amp
+ControllerBank(4)0 --- ControllerBank(4)
+CrossMixer0 --- CrossMixer
+LFOBank(4)0 --- LFOBank(4)
+LPF0 --- LPF
+MidiNote0 --- MidiNote
+Mixer(4)0 --- Mixer(4)
+Modulator0 --- Modulator
+Modulator1 --- Modulator
+Noise0 --- Noise
+PeriodicSync0 --- PeriodicSync
+SampleAndHold0 --- SampleAndHold
+SimpleOscillator0 --- SimpleOscillator
+SimpleOscillator1 --- SimpleOscillator
+StereoDelay0 --- StereoDelay
+
+</Modules>
+<Connections>
+a2j_bridge:capture -> MidiNote0:MidiIn
+ADSREnvelopeBank(4)0:Envelope0 -> Amp0:Ampl
+Amp0:Out -> Scope:In
+Amp0:Out -> LPF0:In
+CrossMixer0:Out -> Amp0:In
+LFOBank(4)0:LFO0 -> Modulator0:ModIn0
+LFOBank(4)0:LFO1 -> Modulator0:ModIn1
+MidiNote0:Freq -> SimpleOscillator0:Freq
+MidiNote0:Freq -> SimpleOscillator1:Freq
+MidiNote0:Trigger -> ADSREnvelopeBank(4)0:Trigger0
+Mixer(4)0:Out -> StereoDelay0:InLeft
+Mixer(4)0:Out -> StereoDelay0:InRight
+Modulator0:Out -> CrossMixer0:Mix
+SimpleOscillator0:Out -> CrossMixer0:In1
+SimpleOscillator1:Out -> CrossMixer0:In2
+StereoDelay0:OutLeft -> system:playback_1
+StereoDelay0:OutRight -> system:playback_2
+LPF0:Out -> Mixer(4)0:In0
+Noise0:Out -> SampleAndHold0:In
+SampleAndHold0:Out -> Modulator1:ModIn0
+Modulator1:Out -> LPF0:CutOff
+PeriodicSync0:Sync -> SampleAndHold0:Trigger
+ControllerBank(4)0:Contr0 -> PeriodicSync0:Freq
+
+</Connections>
+<Parameters>
+ADSREnvelopeBank(4)0/0/Attack 0 0 600
+ADSREnvelopeBank(4)0/0/Decay 0 0 100
+ADSREnvelopeBank(4)0/0/Release 0 0 1000
+ADSREnvelopeBank(4)0/0/Sustain 0 0 0.89
+ADSREnvelopeBank(4)0/1/Attack 0 0 200
+ADSREnvelopeBank(4)0/1/Decay 0 0 50
+ADSREnvelopeBank(4)0/1/Release 0 0 100
+ADSREnvelopeBank(4)0/1/Sustain 0 0 0.99
+ControllerBank(4)0/0/Value 0 0 8
+LFOBank(4)0/0/Frequency 0 0 0.2
+LFOBank(4)0/0/Select 0 3 0
+LFOBank(4)0/1/Frequency 0 0 0.72
+LFOBank(4)0/1/Select 0 2 0
+LPF0/Poles 0 24 0
+LPF0/Resonance 0 0 1.3
+Mixer(4)0/0/Volume 0 0 0.3
+Mixer(4)0/1/Volume 0 0 0.5
+Mixer(4)0/MasterVolume 0 0 0.4
+Modulator0/0/ModAmt 0 0 0.6
+Modulator0/1/ModAmt 0 0 -0.46
+Modulator0/LimitMode 0 2 0
+Modulator0/Offset 0 0 -0
+Modulator1/0/ModAmt 0 0 0.4
+Modulator1/LimitMode 0 2 0
+Modulator1/Offset 0 0 0.5
+PosNegShaper0/DerectifierMode 0 2 0
+PosNegShaper0/Invert 0 0 0
+PosNegShaper0/InverterMode 0 1 0
+SimpleOscillator0/Select 0 9 0
+SimpleOscillator1/Select 0 6 0
+StereoDelay0/Left/Bypass 0 0 0
+StereoDelay0/Right/Bypass 0 0 0
+
+</Parameters>
+</xml>

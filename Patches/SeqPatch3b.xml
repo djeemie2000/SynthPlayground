@@ -1,0 +1,69 @@
+<xml>
+<Modules>
+ControllerBank(4)0 --- ControllerBank(4)
+MidiNote0 --- MidiNote
+Mixer(4)0 --- Mixer(4)
+Operator0 --- Operator
+PeriodicSync0 --- PeriodicSync
+Phasor0 --- Phasor
+SimpleOscillator0 --- SimpleOscillator
+StepSequencer0 --- StepSequencer
+StereoDelay0 --- StereoDelay
+
+</Modules>
+<Connections>
+ControllerBank(4)0:Contr0 -> PeriodicSync0:Freq
+MidiNote0:Freq -> Phasor0:Freq
+Operator0:Out -> Mixer(4)0:In0
+PeriodicSync0:Sync -> StepSequencer0:Trigger
+Phasor0:Phase -> Operator0:Phase
+StepSequencer0:MidiOut -> MidiNote0:MidiIn
+StereoDelay0:OutLeft -> system:playback_1
+StereoDelay0:OutRight -> system:playback_2
+Mixer(4)0:Out -> StereoDelay0:InLeft
+Mixer(4)0:Out -> StereoDelay0:InRight
+
+</Connections>
+<Parameters>
+ControllerBank(4)0/0/Value 0 0 4
+ControllerBank(4)0/1/Value 0 0 220
+Mixer(4)0/0/Volume 0 0 0.9
+Mixer(4)0/MasterVolume 0 0 0.6
+Operator0/Select 0 4 0
+SimpleOscillator0/Select 0 3 0
+StepSequencer0/IsActive 1 0 0
+StepSequencer0/NumSteps 0 8 0
+StepSequencer0/Step/0/Active 1 0 0
+StepSequencer0/Step/0/Octave 0 1 0
+StepSequencer0/Step/1/Active 1 0 0
+StepSequencer0/Step/1/Note 0 4 0
+StepSequencer0/Step/1/Octave 0 2 0
+StepSequencer0/Step/2/Active 1 0 0
+StepSequencer0/Step/2/Note 0 7 0
+StepSequencer0/Step/2/Octave 0 2 0
+StepSequencer0/Step/3/Active 1 0 0
+StepSequencer0/Step/3/Note 0 4 0
+StepSequencer0/Step/3/Octave 0 2 0
+StepSequencer0/Step/4/Active 1 0 0
+StepSequencer0/Step/4/Note 0 9 0
+StepSequencer0/Step/4/Octave 0 2 0
+StepSequencer0/Step/5/Active 1 0 0
+StepSequencer0/Step/5/Note 0 4 0
+StepSequencer0/Step/5/Octave 0 2 0
+StepSequencer0/Step/6/Active 1 0 0
+StepSequencer0/Step/6/Note 0 7 0
+StepSequencer0/Step/6/Octave 0 2 0
+StepSequencer0/Step/7/Active 1 0 0
+StepSequencer0/Step/7/Octave 0 2 0
+StepSequencer0/StepSize 0 1 0
+StereoDelay0/Left/Bypass 1 0 0
+StereoDelay0/Left/DelayMilliSeconds 0 0 380
+StereoDelay0/Left/Feedback 0 0 0.5
+StereoDelay0/Left/WetDry 0 0 0.4
+StereoDelay0/Right/Bypass 1 0 0
+StereoDelay0/Right/DelayMilliSeconds 0 0 360
+StereoDelay0/Right/Feedback 0 0 0.5
+StereoDelay0/Right/WetDry 0 0 0.4
+
+</Parameters>
+</xml>

@@ -1,0 +1,62 @@
+<xml>
+<Modules>
+Distortion10 --- Distortion1
+Distortion11 --- Distortion1
+EnvelopeFollower0 --- EnvelopeFollower
+LFOBank(4)0 --- LFOBank(4)
+LPF0 --- LPF
+Mixer(4)0 --- Mixer(4)
+Modulator0 --- Modulator
+StereoDelay0 --- StereoDelay
+StereoDelay1 --- StereoDelay
+
+</Modules>
+<Connections>
+alsa_in:capture_2 -> EnvelopeFollower0:In
+alsa_in:capture_2 -> Distortion10:In
+EnvelopeFollower0:Env -> Scope:In
+EnvelopeFollower0:Env -> Modulator0:ModIn0
+Mixer(4)0:Out -> StereoDelay0:InLeft
+Mixer(4)0:Out -> StereoDelay0:InRight
+Modulator0:Out -> LPF0:CutOff
+LPF0:Out -> Distortion11:In
+Distortion10:Out -> LPF0:In
+StereoDelay0:OutLeft -> StereoDelay1:InLeft
+StereoDelay0:OutRight -> StereoDelay1:InRight
+Distortion11:Out -> Mixer(4)0:In2
+LFOBank(4)0:LFO0 -> Modulator0:ModIn1
+LFOBank(4)0:LFO1 -> Modulator0:ModIn0
+StereoDelay1:OutLeft -> system:playback_1
+StereoDelay1:OutRight -> system:playback_2
+
+</Connections>
+<Parameters>
+Distortion10/Drive 0 0 0.85
+Distortion11/Drive 0 0 0.6
+EnvelopeFollower0/AttackMilliSeconds 0 0 100.1
+EnvelopeFollower0/ReleaseMilliSeconds 0 0 3000
+LFOBank(4)0/0/Frequency 0 0 0.2
+LFOBank(4)0/0/Select 0 2 0
+LFOBank(4)0/1/Frequency 0 0 2.1
+LFOBank(4)0/1/Select 0 4 0
+LPF0/Poles 0 24 0
+LPF0/Resonance 0 0 1.25
+Mixer(4)0/0/Volume 0 0 0
+Mixer(4)0/1/Volume 0 0 0
+Mixer(4)0/2/Volume 0 0 0.6
+Mixer(4)0/MasterVolume 0 0 0.3
+Modulator0/0/ModAmt 0 0 0.1
+Modulator0/1/ModAmt 0 0 0.13
+Modulator0/LimitMode 0 2 0
+Modulator0/Offset 0 0 0.65
+StereoDelay0/Left/Bypass 0 0 0
+StereoDelay0/Left/DelayMilliSeconds 0 0 240
+StereoDelay0/Right/Bypass 0 0 0
+StereoDelay0/Right/DelayMilliSeconds 0 0 259
+StereoDelay1/Left/Bypass 0 0 0
+StereoDelay1/Left/DelayMilliSeconds 0 0 367
+StereoDelay1/Right/Bypass 0 0 0
+StereoDelay1/Right/DelayMilliSeconds 0 0 343
+
+</Parameters>
+</xml>

@@ -1,0 +1,32 @@
+<xml>
+<Modules>
+AsymmetricAmp0 --- AsymmetricAmp
+ControllerBank(4)0 --- ControllerBank(4)
+Mixer(4)0 --- Mixer(4)
+SimpleOscillator0 --- SimpleOscillator
+StereoDelay0 --- StereoDelay
+
+</Modules>
+<Connections>
+Mixer(4)0:Out -> StereoDelay0:InLeft
+Mixer(4)0:Out -> StereoDelay0:InRight
+SimpleOscillator0:Out -> Mixer(4)0:In0
+SimpleOscillator0:Out -> AsymmetricAmp0:In
+AsymmetricAmp0:Out -> Mixer(4)0:In1
+AsymmetricAmp0:Out -> Scope:In
+StereoDelay0:OutLeft -> system:playback_1
+StereoDelay0:OutRight -> system:playback_2
+ControllerBank(4)0:Contr0 -> SimpleOscillator0:Freq
+
+</Connections>
+<Parameters>
+AsymmetricAmp0/AmpNeg 0 0 1
+AsymmetricAmp0/AmpOffset 0 0 0
+AsymmetricAmp0/AmpPos 0 0 1
+AsymmetricAmp0/OffsetLockMode 0 0 0
+ControllerBank(4)0/0/Value 0 0 220
+Mixer(4)0/1/Volume 0 0 0.6
+SimpleOscillator0/Select 0 3 0
+
+</Parameters>
+</xml>

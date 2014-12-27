@@ -1,0 +1,43 @@
+<xml>
+<Modules>
+ControllerBank(4)0 --- ControllerBank(4)
+MidiNote0 --- MidiNote
+Operator0 --- Operator
+PeriodicSync0 --- PeriodicSync
+Phasor0 --- Phasor
+SimpleOscillator0 --- SimpleOscillator
+StepSequencer0 --- StepSequencer
+
+</Modules>
+<Connections>
+ControllerBank(4)0:Contr0 -> PeriodicSync0:Freq
+MidiNote0:Freq -> Phasor0:Freq
+PeriodicSync0:Sync -> StepSequencer0:Trigger
+PeriodicSync0:Sync -> Phasor0:Sync
+StepSequencer0:MidiOut -> MidiNote0:MidiIn
+Phasor0:Phase -> Operator0:Phase
+Operator0:Out -> system:playback_1
+Operator0:Out -> system:playback_2
+
+</Connections>
+<Parameters>
+ControllerBank(4)0/0/Value 0 0 1.01
+ControllerBank(4)0/1/Value 0 0 220
+Operator0/Select 0 4 0
+SimpleOscillator0/Select 0 3 0
+StepSequencer0/IsActive 1 0 0
+StepSequencer0/NumSteps 0 1 0
+StepSequencer0/Step/0/Active 1 0 0
+StepSequencer0/Step/0/Octave 0 2 0
+StepSequencer0/Step/1/Active 1 0 0
+StepSequencer0/Step/1/Note 0 7 0
+StepSequencer0/Step/2/Active 1 0 0
+StepSequencer0/Step/2/Note 0 5 0
+StepSequencer0/Step/2/Octave 0 2 0
+StepSequencer0/Step/3/Active 0 0 0
+StepSequencer0/Step/3/Note 0 4 0
+StepSequencer0/Step/3/Octave 0 2 0
+StepSequencer0/StepSize 0 3 0
+
+</Parameters>
+</xml>

@@ -1,0 +1,36 @@
+<xml>
+<Modules>
+PeriodicTrigger0 --- PeriodicTrigger
+SimpleOscillator0 --- SimpleOscillator
+StepSequencer0 --- StepSequencer
+
+</Modules>
+<Connections>
+PeriodicTrigger0:Trigger -> StepSequencer0:TriggerIn
+StepSequencer0:Freq -> SimpleOscillator0:Freq
+StepSequencer0:TriggerOut -> SimpleOscillator0:Sync
+
+</Connections>
+<Parameters>
+PeriodicTrigger0/BeatsPerBar 0 2 0
+PeriodicTrigger0/Duration 0 60 0
+StepSequencer0/IsActive 1 0 0
+StepSequencer0/Step/0/Status 1 0 0
+StepSequencer0/Step/1/Status 1 0 0
+StepSequencer0/Step/10/Status 1 0 0
+StepSequencer0/Step/11/Status 1 0 0
+StepSequencer0/Step/12/Status 1 0 0
+StepSequencer0/Step/13/Status 1 0 0
+StepSequencer0/Step/14/Status 1 0 0
+StepSequencer0/Step/15/Status 1 0 0
+StepSequencer0/Step/2/Status 1 0 0
+StepSequencer0/Step/3/Status 1 0 0
+StepSequencer0/Step/4/Status 1 0 0
+StepSequencer0/Step/5/Status 1 0 0
+StepSequencer0/Step/6/Status 1 0 0
+StepSequencer0/Step/7/Status 1 0 0
+StepSequencer0/Step/8/Status 1 0 0
+StepSequencer0/Step/9/Status 1 0 0
+
+</Parameters>
+</xml>

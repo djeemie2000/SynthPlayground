@@ -1,0 +1,53 @@
+<xml>
+<Modules>
+DelayLine0 --- DelayLine
+DelayLine1 --- DelayLine
+LFOBank(4)0 --- LFOBank(4)
+Mixer(4)0 --- Mixer(4)
+Mixer(4)1 --- Mixer(4)
+Modulator0 --- Modulator
+Modulator1 --- Modulator
+
+</Modules>
+<Connections>
+alsa_in:capture_2 -> DelayLine0:In
+alsa_in:capture_2 -> Mixer(4)0:In0
+alsa_in:capture_2 -> DelayLine1:In
+alsa_in:capture_2 -> Mixer(4)1:In0
+Mixer(4)0:Out -> system:playback_1
+DelayLine0:Delayed -> Mixer(4)0:In1
+Modulator0:Out -> DelayLine0:Delay
+LFOBank(4)0:LFO0 -> Modulator0:ModIn0
+LFOBank(4)0:LFO0 -> Modulator1:ModIn0
+LFOBank(4)0:LFO1 -> Modulator1:ModIn1
+LFOBank(4)0:LFO1 -> Modulator0:ModIn1
+DelayLine1:Delayed -> Mixer(4)1:In1
+Modulator1:Out -> DelayLine1:Delay
+Mixer(4)1:Out -> system:playback_2
+
+</Connections>
+<Parameters>
+DelayLine0/DelayRangeMilliSeconds 0 5 0
+DelayLine1/DelayRangeMilliSeconds 0 5 0
+LFOBank(4)0/0/Frequency 0 0 0.69
+LFOBank(4)0/0/Select 0 3 0
+LFOBank(4)0/1/Frequency 0 0 0.3
+LFOBank(4)0/1/Select 0 3 0
+Mixer(4)0/0/Volume 0 0 0.5
+Mixer(4)0/1/Volume 0 0 0.5
+Mixer(4)0/2/Volume 0 0 0
+Mixer(4)0/MasterVolume 0 0 0.5
+Mixer(4)1/0/Volume 0 0 0.5
+Mixer(4)1/1/Volume 0 0 0.5
+Mixer(4)1/MasterVolume 0 0 0.5
+Modulator0/0/ModAmt 0 0 0.3
+Modulator0/1/ModAmt 0 0 0.1
+Modulator0/LimitMode 0 2 0
+Modulator0/Offset 0 0 0.7
+Modulator1/0/ModAmt 0 0 -0.3
+Modulator1/1/ModAmt 0 0 0.1
+Modulator1/LimitMode 0 2 0
+Modulator1/Offset 0 0 0.7
+
+</Parameters>
+</xml>

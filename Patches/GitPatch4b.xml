@@ -1,0 +1,64 @@
+<xml>
+<Modules>
+ControllerBank(4)0 --- ControllerBank(4)
+LPF0 --- LPF
+Mixer(4)0 --- Mixer(4)
+MultiStageWaveFolder0 --- MultiStageWaveFolder
+Operator0 --- Operator
+Operator1 --- Operator
+Operator2 --- Operator
+Operator3 --- Operator
+StereoDelay0 --- StereoDelay
+StereoDelay1 --- StereoDelay
+WaveFolder0 --- WaveFolder
+
+</Modules>
+<Connections>
+alsa_in:capture_2 -> MultiStageWaveFolder0:In
+alsa_in:capture_2 -> WaveFolder0:In
+alsa_in:capture_2 -> Operator0:Phase
+alsa_in:capture_2 -> Mixer(4)0:In3
+Mixer(4)0:Out -> StereoDelay0:InLeft
+Mixer(4)0:Out -> StereoDelay0:InRight
+MultiStageWaveFolder0:Out -> LPF0:In
+ControllerBank(4)0:Contr0 -> MultiStageWaveFolder0:Fold
+ControllerBank(4)0:Contr1 -> LPF0:CutOff
+ControllerBank(4)0:Contr2 -> WaveFolder0:Fold
+LPF0:Out -> Mixer(4)0:In0
+LPF0:Out -> Scope:In
+StereoDelay0:OutLeft -> StereoDelay1:InLeft
+StereoDelay0:OutRight -> StereoDelay1:InRight
+StereoDelay1:OutLeft -> system:playback_1
+StereoDelay1:OutRight -> system:playback_2
+WaveFolder0:Out -> Mixer(4)0:In1
+Operator0:Out -> Operator2:Phase
+Operator2:Out -> Operator3:Phase
+Operator3:Out -> Mixer(4)0:In2
+
+</Connections>
+<Parameters>
+ControllerBank(4)0/0/Value 0 0 0.8
+ControllerBank(4)0/1/Value 0 0 0.906
+ControllerBank(4)0/2/Value 0 0 0.948
+LPF0/Poles 0 12 0
+Mixer(4)0/0/Volume 0 0 0
+Mixer(4)0/1/Volume 0 0 0
+Mixer(4)0/2/Volume 0 0 0.2
+Mixer(4)0/3/Volume 0 0 0
+Mixer(4)0/MasterVolume 0 0 0.2
+MultiStageWaveFolder0/NumStages 0 8 0
+Operator0/Select 0 3 0
+Operator1/Select 0 3 0
+Operator2/Select 0 3 0
+Operator3/Select 0 3 0
+StereoDelay0/Left/Bypass 1 0 0
+StereoDelay0/Right/Bypass 1 0 0
+StereoDelay1/Left/Bypass 1 0 0
+StereoDelay1/Left/DelayMilliSeconds 0 0 167
+StereoDelay1/Left/WetDry 0 0 0.2
+StereoDelay1/Right/Bypass 1 0 0
+StereoDelay1/Right/DelayMilliSeconds 0 0 143
+StereoDelay1/Right/WetDry 0 0 0.2
+
+</Parameters>
+</xml>

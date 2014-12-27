@@ -1,0 +1,41 @@
+<xml>
+<Modules>
+Mixer(4)0 --- Mixer(4)
+PosNegShaper0 --- PosNegShaper
+StereoDelay0 --- StereoDelay
+StereoDelay1 --- StereoDelay
+
+</Modules>
+<Connections>
+alsa_in:capture_2 -> Mixer(4)0:In0
+alsa_in:capture_2 -> PosNegShaper0:In
+Mixer(4)0:Out -> StereoDelay0:InLeft
+Mixer(4)0:Out -> StereoDelay0:InRight
+PosNegShaper0:Out -> Scope:In
+PosNegShaper0:Out -> Mixer(4)0:In1
+StereoDelay0:OutLeft -> StereoDelay1:InLeft
+StereoDelay0:OutRight -> StereoDelay1:InRight
+StereoDelay1:OutLeft -> system:playback_1
+StereoDelay1:OutRight -> system:playback_2
+
+</Connections>
+<Parameters>
+Mixer(4)0/0/Volume 0 0 0
+Mixer(4)0/1/Volume 0 0 0.2
+Mixer(4)0/MasterVolume 0 0 0.4
+PosNegShaper0/DerectifierMode 0 4 0
+PosNegShaper0/Invert 0 0 0
+PosNegShaper0/InverterMode 0 1 0
+StereoDelay0/Left/Bypass 0 0 0
+StereoDelay0/Left/WetDry 0 0 0.2
+StereoDelay0/Right/Bypass 0 0 0
+StereoDelay0/Right/WetDry 0 0 0.2
+StereoDelay1/Left/Bypass 0 0 0
+StereoDelay1/Left/DelayMilliSeconds 0 0 367
+StereoDelay1/Left/WetDry 0 0 0.2
+StereoDelay1/Right/Bypass 0 0 0
+StereoDelay1/Right/DelayMilliSeconds 0 0 333
+StereoDelay1/Right/WetDry 0 0 0.2
+
+</Parameters>
+</xml>

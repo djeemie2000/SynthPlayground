@@ -1,0 +1,65 @@
+<xml>
+<Modules>
+ADSREnvelopeBank(4)0 --- ADSREnvelopeBank(4)
+Amp0 --- Amp
+CrossMixer0 --- CrossMixer
+LFOBank(4)0 --- LFOBank(4)
+MidiNote0 --- MidiNote
+Mixer(4)0 --- Mixer(4)
+Modulator0 --- Modulator
+Modulator1 --- Modulator
+Operator0 --- Operator
+Operator1 --- Operator
+PhaseSkewer0 --- PhaseSkewer
+Phasor0 --- Phasor
+StereoDelay0 --- StereoDelay
+
+</Modules>
+<Connections>
+StepSequencer:MidiOut -> MidiNote0:MidiIn
+Modulator0:Out -> CrossMixer0:Mix
+CrossMixer0:Out -> Amp0:In
+LFOBank(4)0:LFO0 -> Modulator0:ModIn0
+LFOBank(4)0:LFO1 -> Modulator0:ModIn1
+LFOBank(4)0:LFO2 -> Modulator1:ModIn0
+MidiNote0:Freq -> Phasor0:Freq
+MidiNote0:Trigger -> ADSREnvelopeBank(4)0:Trigger0
+StereoDelay0:OutLeft -> system:playback_1
+StereoDelay0:OutRight -> system:playback_2
+Mixer(4)0:Out -> StereoDelay0:InLeft
+Mixer(4)0:Out -> StereoDelay0:InRight
+Amp0:Out -> Mixer(4)0:In0
+ADSREnvelopeBank(4)0:Envelope0 -> Amp0:Ampl
+Modulator1:Out -> PhaseSkewer0:Skew
+Phasor0:Phase -> PhaseSkewer0:Phase
+Operator0:Out -> CrossMixer0:In1
+Operator1:Out -> CrossMixer0:In2
+PhaseSkewer0:Out -> Operator0:Phase
+PhaseSkewer0:Out -> Operator1:Phase
+
+</Connections>
+<Parameters>
+ADSREnvelopeBank(4)0/0/Attack 0 0 600
+ADSREnvelopeBank(4)0/0/Decay 0 0 100
+ADSREnvelopeBank(4)0/0/Release 0 0 1000
+LFOBank(4)0/0/Frequency 0 0 0.2
+LFOBank(4)0/0/Select 0 3 0
+LFOBank(4)0/1/Frequency 0 0 0.72
+LFOBank(4)0/1/Select 0 2 0
+LFOBank(4)0/2/Frequency 0 0 0.3
+LFOBank(4)0/2/Select 0 3 0
+Mixer(4)0/0/Volume 0 0 0.5
+Mixer(4)0/MasterVolume 0 0 0.4
+Modulator0/0/ModAmt 0 0 0.6
+Modulator0/1/ModAmt 0 0 -0.46
+Modulator0/Offset 0 0 -0
+Modulator1/0/ModAmt 0 0 0.68
+Operator0/Select 0 2 0
+Operator1/Select 0 3 0
+SimpleOscillator0/Select 0 3 0
+SimpleOscillator1/Select 0 2 0
+StereoDelay0/Left/Bypass 0 0 0
+StereoDelay0/Right/Bypass 0 0 0
+
+</Parameters>
+</xml>

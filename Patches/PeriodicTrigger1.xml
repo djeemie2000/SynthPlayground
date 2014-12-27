@@ -1,0 +1,16 @@
+<xml>
+<Modules>
+PeriodicTrigger0 --- PeriodicTrigger
+
+</Modules>
+<Connections>
+PeriodicTrigger0:Trigger -> Scope:In
+
+</Connections>
+<Parameters>
+PeriodicTrigger0/BeatsPerBar 0 16 0
+PeriodicTrigger0/BeatsPerMinute 0 240 0
+PeriodicTrigger0/Duration 0 50 0
+
+</Parameters>
+</xml>

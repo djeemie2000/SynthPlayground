@@ -1,0 +1,46 @@
+<xml>
+<Modules>
+ADSREnvelopeBank(4)0 --- ADSREnvelopeBank(4)
+Amp0 --- Amp
+MidiNote0 --- MidiNote
+Mixer(4)0 --- Mixer(4)
+Modulator0 --- Modulator
+SimpleOscillator0 --- SimpleOscillator
+WaveFolder0 --- WaveFolder
+
+</Modules>
+<Connections>
+MidiNote0:Freq -> SimpleOscillator0:Freq
+MidiNote0:Trigger -> ADSREnvelopeBank(4)0:Trigger0
+MidiNote0:Trigger -> ADSREnvelopeBank(4)0:Trigger1
+SimpleOscillator0:Out -> Amp0:In
+Amp0:Out -> WaveFolder0:In
+Amp0:Out -> Mixer(4)0:In0
+ADSREnvelopeBank(4)0:Envelope0 -> Amp0:Ampl
+a2j_bridge:capture -> MidiNote0:MidiIn
+ADSREnvelopeBank(4)0:Envelope1 -> Modulator0:ModIn0
+Mixer(4)0:Out -> system:playback_1
+Mixer(4)0:Out -> system:playback_2
+WaveFolder0:Out -> Mixer(4)0:In1
+WaveFolder0:Out -> Scope:In
+Modulator0:Out -> WaveFolder0:Fold
+
+</Connections>
+<Parameters>
+ADSREnvelopeBank(4)0/0/Attack 0 0 50
+ADSREnvelopeBank(4)0/0/Decay 0 0 50
+ADSREnvelopeBank(4)0/0/Release 0 0 600
+ADSREnvelopeBank(4)0/1/Attack 0 0 200
+ADSREnvelopeBank(4)0/1/Decay 0 0 50
+ADSREnvelopeBank(4)0/1/Release 0 0 100
+ADSREnvelopeBank(4)0/1/Sustain 0 0 0.99
+Mixer(4)0/0/Volume 0 0 0
+Mixer(4)0/1/Volume 0 0 0.5
+Mixer(4)0/MasterVolume 0 0 0.5
+Modulator0/0/ModAmt 0 0 -0.21
+Modulator0/LimitMode 0 2 0
+Modulator0/Offset 0 0 0.55
+SimpleOscillator0/Select 0 3 0
+
+</Parameters>
+</xml>

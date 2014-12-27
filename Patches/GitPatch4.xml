@@ -1,0 +1,43 @@
+<xml>
+<Modules>
+ControllerBank(4)0 --- ControllerBank(4)
+LPF0 --- LPF
+Mixer(4)0 --- Mixer(4)
+MultiStageWaveFolder0 --- MultiStageWaveFolder
+StereoDelay0 --- StereoDelay
+StereoDelay1 --- StereoDelay
+
+</Modules>
+<Connections>
+alsa_in:capture_2 -> MultiStageWaveFolder0:In
+Mixer(4)0:Out -> StereoDelay0:InLeft
+Mixer(4)0:Out -> StereoDelay0:InRight
+MultiStageWaveFolder0:Out -> LPF0:In
+ControllerBank(4)0:Contr0 -> MultiStageWaveFolder0:Fold
+ControllerBank(4)0:Contr1 -> LPF0:CutOff
+LPF0:Out -> Mixer(4)0:In0
+LPF0:Out -> Scope:In
+StereoDelay0:OutLeft -> StereoDelay1:InLeft
+StereoDelay0:OutRight -> StereoDelay1:InRight
+StereoDelay1:OutLeft -> system:playback_1
+StereoDelay1:OutRight -> system:playback_2
+
+</Connections>
+<Parameters>
+ControllerBank(4)0/0/Value 0 0 0.5
+ControllerBank(4)0/1/Value 0 0 0.906
+LPF0/Poles 0 12 0
+Mixer(4)0/0/Volume 0 0 0.5
+Mixer(4)0/MasterVolume 0 0 0.2
+MultiStageWaveFolder0/NumStages 0 8 0
+StereoDelay0/Left/Bypass 0 0 0
+StereoDelay0/Right/Bypass 0 0 0
+StereoDelay1/Left/Bypass 0 0 0
+StereoDelay1/Left/DelayMilliSeconds 0 0 167
+StereoDelay1/Left/WetDry 0 0 0.2
+StereoDelay1/Right/Bypass 0 0 0
+StereoDelay1/Right/DelayMilliSeconds 0 0 143
+StereoDelay1/Right/WetDry 0 0 0.2
+
+</Parameters>
+</xml>

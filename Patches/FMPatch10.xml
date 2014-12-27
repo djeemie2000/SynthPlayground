@@ -1,0 +1,71 @@
+<xml>
+<Modules>
+ADSREnvelopeBank(4)0 --- ADSREnvelopeBank(4)
+Amp0 --- Amp
+Amp1 --- Amp
+Amp2 --- Amp
+AsymmetricAmp0 --- AsymmetricAmp
+Combinor0 --- Combinor
+ControllerBank(4)0 --- ControllerBank(4)
+LFOBank(4)0 --- LFOBank(4)
+MidiNote0 --- MidiNote
+Mixer(4)0 --- Mixer(4)
+Modulator0 --- Modulator
+Operator0 --- Operator
+PeriodicSync0 --- PeriodicSync
+SimpleOscillator0 --- SimpleOscillator
+SimpleOscillator1 --- SimpleOscillator
+
+</Modules>
+<Connections>
+ADSREnvelopeBank(4)0:Envelope0 -> Amp2:In
+Amp0:Out -> SimpleOscillator0:Freq
+Amp1:Out -> Combinor0:In2
+Combinor0:Out -> SimpleOscillator1:Freq
+ControllerBank(4)0:Contr1 -> Amp0:Ampl
+ControllerBank(4)0:Contr2 -> Amp2:Ampl
+ControllerBank(4)0:Contr3 -> PeriodicSync0:Freq
+Mixer(4)0:Out -> system:playback_1
+Mixer(4)0:Out -> system:playback_2
+Modulator0:Out -> Amp1:Ampl
+SimpleOscillator0:Out -> Amp1:In
+SimpleOscillator1:Out -> Mixer(4)0:In0
+SimpleOscillator1:Out -> AsymmetricAmp0:In
+Amp2:Out -> Modulator0:ModIn1
+AsymmetricAmp0:Out -> Mixer(4)0:In1
+AsymmetricAmp0:Out -> Scope:In
+MidiNote0:Freq -> Combinor0:In1
+MidiNote0:Freq -> Amp0:In
+MidiNote0:Trigger -> ADSREnvelopeBank(4)0:Trigger0
+MidiNote0:Velocity -> Modulator0:ModIn0
+a2j_bridge:capture -> MidiNote0:MidiIn
+
+</Connections>
+<Parameters>
+ADSREnvelopeBank(4)0/0/Attack 0 0 3
+ADSREnvelopeBank(4)0/0/Decay 0 0 700
+ADSREnvelopeBank(4)0/0/Release 0 0 500
+ADSREnvelopeBank(4)0/0/Sustain 0 0 0.3
+AsymmetricAmp0/AmpOffset 0 0 0
+AsymmetricAmp0/AmpPos 0 0 1
+AsymmetricAmp0/OffsetLockMode 1 0 0
+Combinor0/Select 0 14 0
+ControllerBank(4)0/0/Value 0 0 220
+ControllerBank(4)0/1/Value 0 0 0.868
+ControllerBank(4)0/2/Value 0 0 1.335
+ControllerBank(4)0/3/Value 0 0 0.499
+LFOBank(4)0/0/Frequency 0 0 0.39
+LFOBank(4)0/0/Select 0 2 0
+Mixer(4)0/0/Volume 0 0 0
+Mixer(4)0/1/Volume 0 0 0.07
+Mixer(4)0/MasterVolume 0 0 0.5
+Modulator0/0/ModAmt 0 0 0.4
+Modulator0/1/ModAmt 0 0 0.99
+Modulator0/LimitMode 0 0 0
+Modulator0/Offset 0 0 0
+Operator0/Select 0 0 0
+SimpleOscillator0/Select 0 3 0
+SimpleOscillator1/Select 0 3 0
+
+</Parameters>
+</xml>

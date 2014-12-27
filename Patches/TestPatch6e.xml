@@ -1,0 +1,58 @@
+<xml>
+<Modules>
+ADSREnvelopeBank(4)0 --- ADSREnvelopeBank(4)
+Amp0 --- Amp
+MidiNote0 --- MidiNote
+Mixer(4)0 --- Mixer(4)
+Modulator0 --- Modulator
+Operator0 --- Operator
+Operator1 --- Operator
+SimpleOscillator0 --- SimpleOscillator
+StereoDelay0 --- StereoDelay
+WaveFolder0 --- WaveFolder
+
+</Modules>
+<Connections>
+MidiNote0:Freq -> SimpleOscillator0:Freq
+MidiNote0:Trigger -> ADSREnvelopeBank(4)0:Trigger0
+MidiNote0:Trigger -> ADSREnvelopeBank(4)0:Trigger1
+SimpleOscillator0:Out -> Amp0:In
+Amp0:Out -> Operator0:Phase
+ADSREnvelopeBank(4)0:Envelope0 -> Amp0:Ampl
+a2j_bridge:capture -> MidiNote0:MidiIn
+ADSREnvelopeBank(4)0:Envelope1 -> Modulator0:ModIn0
+Mixer(4)0:Out -> StereoDelay0:InLeft
+Mixer(4)0:Out -> StereoDelay0:InRight
+WaveFolder0:Out -> Mixer(4)0:In1
+WaveFolder0:Out -> Scope:In
+Modulator0:Out -> WaveFolder0:Fold
+StereoDelay0:OutLeft -> system:playback_1
+StereoDelay0:OutRight -> system:playback_2
+Operator0:Out -> WaveFolder0:In
+Operator0:Out -> Operator1:Phase
+Operator1:Out -> Mixer(4)0:In2
+
+</Connections>
+<Parameters>
+ADSREnvelopeBank(4)0/0/Attack 0 0 50
+ADSREnvelopeBank(4)0/0/Decay 0 0 50
+ADSREnvelopeBank(4)0/0/Release 0 0 600
+ADSREnvelopeBank(4)0/1/Attack 0 0 200
+ADSREnvelopeBank(4)0/1/Decay 0 0 50
+ADSREnvelopeBank(4)0/1/Release 0 0 100
+ADSREnvelopeBank(4)0/1/Sustain 0 0 0.99
+Mixer(4)0/0/Volume 0 0 0.3
+Mixer(4)0/1/Volume 0 0 0.5
+Mixer(4)0/2/Volume 0 0 0.3
+Mixer(4)0/MasterVolume 0 0 0.5
+Modulator0/0/ModAmt 0 0 -0.2
+Modulator0/LimitMode 0 2 0
+Modulator0/Offset 0 0 0.56
+Operator0/Select 0 3 0
+Operator1/Select 0 4 0
+SimpleOscillator0/Select 0 3 0
+StereoDelay0/Left/Bypass 1 0 0
+StereoDelay0/Right/Bypass 1 0 0
+
+</Parameters>
+</xml>

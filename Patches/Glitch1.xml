@@ -1,0 +1,31 @@
+<xml>
+<Modules>
+Glitch0 --- Glitch
+Mixer(4)0 --- Mixer(4)
+StereoDelay0 --- StereoDelay
+
+</Modules>
+<Connections>
+alsa_in:capture_1 -> Mixer(4)0:In0
+alsa_in:capture_2 -> Glitch0:In
+Mixer(4)0:Out -> StereoDelay0:InLeft
+Mixer(4)0:Out -> StereoDelay0:InRight
+StereoDelay0:OutLeft -> system:playback_1
+StereoDelay0:OutRight -> system:playback_2
+Glitch0:Out -> Scope:In
+Glitch0:Out -> Mixer(4)0:In1
+
+</Connections>
+<Parameters>
+Glitch0/GrainSizeIn 0 4 0
+Glitch0/GrainSizeOut 0 4 0
+Glitch0/OctaveShift 0 0 0
+Mixer(4)0/0/Volume 0 0 0
+Mixer(4)0/1/Volume 0 0 0.8
+Mixer(4)0/MasterVolume 0 0 0.9
+Operator0/Select 0 0 0
+StereoDelay0/Left/Bypass 0 0 0
+StereoDelay0/Right/Bypass 0 0 0
+
+</Parameters>
+</xml>

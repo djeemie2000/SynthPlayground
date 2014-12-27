@@ -1,0 +1,53 @@
+<xml>
+<Modules>
+ADSREnvelopeBank(4)0 --- ADSREnvelopeBank(4)
+Amp0 --- Amp
+Amp1 --- Amp
+Distortion10 --- Distortion1
+LPF0 --- LPF
+MidiNote0 --- MidiNote
+Mixer(4)0 --- Mixer(4)
+Noise0 --- Noise
+SimpleOscillator0 --- SimpleOscillator
+StereoDelay0 --- StereoDelay
+
+</Modules>
+<Connections>
+a2j_bridge:capture -> MidiNote0:MidiIn
+MidiNote0:Freq -> SimpleOscillator0:Freq
+MidiNote0:Trigger -> ADSREnvelopeBank(4)0:Trigger0
+MidiNote0:Trigger -> ADSREnvelopeBank(4)0:Trigger1
+MidiNote0:Velocity -> LPF0:CutOff
+LPF0:Out -> Amp0:In
+Mixer(4)0:Out -> StereoDelay0:InLeft
+SimpleOscillator0:Out -> Distortion10:In
+ADSREnvelopeBank(4)0:Envelope0 -> Amp0:Ampl
+ADSREnvelopeBank(4)0:Envelope1 -> Amp1:Ampl
+Amp0:Out -> Mixer(4)0:In0
+Distortion10:Out -> LPF0:In
+Noise0:Out -> Amp1:In
+Amp1:Out -> Distortion10:In
+StereoDelay0:OutLeft -> system:playback_1
+StereoDelay0:OutRight -> system:playback_2
+
+</Connections>
+<Parameters>
+ADSREnvelopeBank(4)0/0/Attack 0 0 11
+ADSREnvelopeBank(4)0/0/Release 0 0 100
+ADSREnvelopeBank(4)0/0/Sustain 0 0 0.64
+ADSREnvelopeBank(4)0/1/Release 0 0 400
+ADSREnvelopeBank(4)0/1/Sustain 0 0 0.47
+Distortion10/Drive 0 0 0.96
+LPF0/Poles 0 16 0
+LPF0/Resonance 0 0 1.2
+Mixer(4)0/0/Volume 0 0 0.8
+Mixer(4)0/1/Volume 0 0 0
+Mixer(4)0/MasterVolume 0 0 0.6
+SimpleOscillator0/Select 0 4 0
+StereoDelay0/Left/Bypass 0 0 0
+StereoDelay0/Left/WetDry 0 0 0.1
+StereoDelay0/Right/Bypass 0 0 0
+StereoDelay0/Right/WetDry 0 0 0.1
+
+</Parameters>
+</xml>
