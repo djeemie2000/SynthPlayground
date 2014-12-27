@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <QWidget>
+#include <QString>
 
 class CModular1Controller;
 
@@ -36,6 +37,7 @@ private:
 
     Ui::QModularManagerWidget *ui;
     std::weak_ptr<CModular1Controller> m_Controller;
+    QString m_Path;
 };
 
 #endif // MODULARFACTORYWIDGET_H

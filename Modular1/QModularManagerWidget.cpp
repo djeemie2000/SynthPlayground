@@ -8,6 +8,7 @@ QModularManagerWidget::QModularManagerWidget(std::weak_ptr<CModular1Controller> 
      : QWidget(parent)
      , ui(new Ui::QModularManagerWidget)
      , m_Controller(Controller)
+     , m_Path()
 {
     ui->setupUi(this);
 
@@ -86,25 +87,27 @@ void QModularManagerWidget::on_pushButton_Default_clicked()
 
 void QModularManagerWidget::on_pushButton_Save_clicked()
 {
-    QString Path = QFileDialog::getSaveFileName(this, "Save Patch", "", "Patch (*.xml);;All Files (*)");
+    QString Path = QFileDialog::getSaveFileName(this, "Save Patch", m_Path, "Patch (*.xml);;All Files (*)");
     if(!Path.isEmpty())
     {
         if(std::shared_ptr<CModular1Controller> Controller = m_Controller.lock())
         {
             Controller->Save(Path.toStdString());
         }
+        m_Path = Path;
     }
 }
 
 void QModularManagerWidget::on_pushButton_Load_clicked()
 {
-    QString Path = QFileDialog::getOpenFileName(this, "Load Patch", "", "Patch (*.xml);;All Files (*)");
+    QString Path = QFileDialog::getOpenFileName(this, "Load Patch", m_Path, "Patch (*.xml);;All Files (*)");
     if(!Path.isEmpty())
     {
         if(std::shared_ptr<CModular1Controller> Controller = m_Controller.lock())
         {
             Controller->Load(Path.toStdString());
         }
+        m_Path = Path;
         UpdateNames();
     }
 }
