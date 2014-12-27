@@ -1,0 +1,45 @@
+<xml>
+<Modules>
+ADSREnvelopeBank(4)0 --- ADSREnvelopeBank(4)
+ControllerBank(4)0 --- ControllerBank(4)
+FM0 --- FM
+FM1 --- FM
+LFOBank(4)0 --- LFOBank(4)
+MidiNote0 --- MidiNote
+Mixer(4)0 --- Mixer(4)
+SimpleOscillator0 --- SimpleOscillator
+
+</Modules>
+<Connections>
+a2j_bridge:capture -> MidiNote0:MidiIn
+ADSREnvelopeBank(4)0:Envelope0 -> FM0:ModAmpl
+ControllerBank(4)0:Contr0 -> FM0:ModFreqMult
+ControllerBank(4)0:Contr1 -> FM1:ModFreqMult
+FM0:FMFreq -> FM1:CarrierFreq
+MidiNote0:Freq -> FM0:CarrierFreq
+MidiNote0:Trigger -> ADSREnvelopeBank(4)0:Trigger0
+MidiNote0:Trigger -> ADSREnvelopeBank(4)0:Trigger1
+Mixer(4)0:Out -> system:playback_1
+Mixer(4)0:Out -> system:playback_2
+SimpleOscillator0:Out -> Mixer(4)0:In0
+FM1:FMFreq -> SimpleOscillator0:Freq
+LFOBank(4)0:LFO0 -> FM1:ModAmpl
+
+</Connections>
+<Parameters>
+ADSREnvelopeBank(4)0/0/Decay 0 0 800
+ADSREnvelopeBank(4)0/0/Release 0 0 100
+ADSREnvelopeBank(4)0/0/Sustain 0 0 0.2
+ADSREnvelopeBank(4)0/1/Attack 0 0 300
+ADSREnvelopeBank(4)0/1/Decay 0 0 10
+ADSREnvelopeBank(4)0/1/Release 0 0 300
+ADSREnvelopeBank(4)0/1/Sustain 0 0 0.5
+ControllerBank(4)0/0/Value 0 0 1.507
+ControllerBank(4)0/1/Value 0 0 0.753
+LFOBank(4)0/0/Select 0 3 0
+Mixer(4)0/0/Volume 0 0 0.08
+Mixer(4)0/MasterVolume 0 0 0.5
+SimpleOscillator0/Select 0 3 0
+
+</Parameters>
+</xml>
