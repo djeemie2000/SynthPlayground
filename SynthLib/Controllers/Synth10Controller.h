@@ -12,7 +12,7 @@
 #include "StepSequencerI.h"
 #include "NoteHandlerI.h"
 #include "LPFilterI.h"
-#include "MidiInputHandlerI.h"
+#include "MidiHandlerI.h"
 #include "LFOBankI.h"
 #include "LFO.h"
 #include "FeedbackDelay.h"

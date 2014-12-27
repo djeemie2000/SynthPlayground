@@ -3,7 +3,7 @@
 #include <string>
 #include <memory>
 #include <alsa/asoundlib.h>
-#include "MidiInputHandlerI.h"
+#include "MidiHandlerI.h"
 
 class CAlsaMidiOutput : public IMidiHandler
 {

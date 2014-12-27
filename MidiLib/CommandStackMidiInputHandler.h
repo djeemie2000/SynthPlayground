@@ -4,7 +4,7 @@
 #include <string>
 #include <functional>
 #include <map>
-#include "MidiInputHandlerI.h"
+#include "MidiHandlerI.h"
 #include "MidiControllerHandlerI.h"
 
 class CCommandStackController;

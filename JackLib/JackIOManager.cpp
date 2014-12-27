@@ -2,7 +2,7 @@
 #include "JackIOManager.h"
 #include "AudioSource2I.h"
 #include "AudioRendererI.h"
-#include "MidiInputHandlerI.h"
+#include "MidiHandlerI.h"
 #include "MidiSourceI.h"
 #include "AudioFilterI.h"
 #include <jack/midiport.h>

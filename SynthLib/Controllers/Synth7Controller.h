@@ -23,7 +23,7 @@
 #include "NonLinearShaperI.h"
 #include "CombinedOperatorStageI.h"
 #include "AudioSourceI.h"
-#include "MidiInputHandlerI.h"
+#include "MidiHandlerI.h"
 
 class IInt16Scope;
 

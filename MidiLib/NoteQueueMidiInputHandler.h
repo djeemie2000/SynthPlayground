@@ -5,7 +5,7 @@
 #include <list>
 #include <utility>
 #include <memory>
-#include "MidiInputHandlerI.h"
+#include "MidiHandlerI.h"
 
 class CNoteQueueMidiInputHandler : public IMidiHandler
 {

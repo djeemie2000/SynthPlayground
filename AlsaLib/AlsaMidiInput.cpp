@@ -1,6 +1,6 @@
 #include <iostream>
 #include "AlsaMidiInput.h"
-#include "MidiInputHandlerI.h"
+#include "MidiHandlerI.h"
 #include "PeriodicThreadRunner.h"
 
 namespace

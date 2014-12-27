@@ -1,7 +1,7 @@
 #ifndef SYNTH12CONTROLLER_H
 #define SYNTH12CONTROLLER_H
 
-#include "MidiInputHandlerI.h"
+#include "MidiHandlerI.h"
 #include "WaveTable.h"
 #include "PhaseGenerator.h"
 #include "AudioSource2I.h"

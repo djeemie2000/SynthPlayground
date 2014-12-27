@@ -1,7 +1,7 @@
 #ifndef JACKMIDIHANDLER_H
 #define JACKMIDIHANDLER_H
 
-#include "MidiInputHandlerI.h"
+#include "MidiHandlerI.h"
 
 class CJackMidiHandler : public IMidiHandler
 {

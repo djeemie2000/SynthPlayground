@@ -10,7 +10,7 @@
 #include "PeriodicTicker.h"
 #include "NoteHandlerI.h"
 #include "LPFilterI.h"
-#include "MidiInputHandlerI.h"
+#include "MidiHandlerI.h"
 #include "LFO.h"
 #include "FeedbackDelay.h"
 #include "FeedbackDelayI.h"

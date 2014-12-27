@@ -1,6 +1,6 @@
 #include "StepSequencerController.h"
 #include "MidiNoteConverter.h"
-#include "MidiInputHandlerI.h"
+#include "MidiHandlerI.h"
 
 CStepSequencerController::CStepSequencerController(int SamplingFrequency, std::shared_ptr<IMidiHandler> MidiInputHandler, std::shared_ptr<IMidiSource> MidiSource)
     : m_MidiInputHandler(MidiInputHandler)

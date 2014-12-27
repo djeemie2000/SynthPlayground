@@ -14,7 +14,7 @@ SOURCES += \
     RawMidiParser.cpp
 
 HEADERS += \
-    MidiInputHandlerI.h \
+    MidiHandlerI.h \
     LogMidiInputHandler.h \
     NoteQueueMidiInputHandler.h \
     NoteCountMidiHandler.h \

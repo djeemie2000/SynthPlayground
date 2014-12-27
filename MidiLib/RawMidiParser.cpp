@@ -1,5 +1,5 @@
 #include "RawMidiParser.h"
-#include "MidiInputHandlerI.h"
+#include "MidiHandlerI.h"
 
 CRawMidiParser::CRawMidiParser(IMidiHandler &MidiHandler)
     : m_MidiHandler(MidiHandler)

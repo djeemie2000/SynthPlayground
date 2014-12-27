@@ -18,7 +18,7 @@
 #include "LPFilterI.h"
 #include "NonLinearShaperI.h"
 #include "CombinedFoldedOperatorStageI.h"
-#include "MidiInputHandlerI.h"
+#include "MidiHandlerI.h"
 #include "LFOBankI.h"
 #include "LFO.h"
 #include "FeedbackDelay.h"

@@ -6,7 +6,7 @@
 #include <vector>
 #include <memory>
 #include "AudioFilterI.h"
-#include "MidiInputHandlerI.h"
+#include "MidiHandlerI.h"
 
 class CTriggerMidiNoteHandler;
 

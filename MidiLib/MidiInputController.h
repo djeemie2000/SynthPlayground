@@ -2,7 +2,7 @@
 #define MIDIINPUTCONTROLLER_H
 
 #include <memory>
-#include "MidiInputHandlerI.h"
+#include "MidiHandlerI.h"
 #include "MidiControllerHandlerI.h"
 
 class CCommandStackController;

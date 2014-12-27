@@ -3,7 +3,7 @@
 
 #include <vector>
 #include "MidiSourceI.h"
-#include "MidiInputHandlerI.h"
+#include "MidiHandlerI.h"
 #include <jack/ringbuffer.h>
 
 class CJackMidiSource : public IMidiSource,

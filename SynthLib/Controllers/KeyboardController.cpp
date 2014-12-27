@@ -1,5 +1,5 @@
 #include "KeyboardController.h"
-#include "MidiInputHandlerI.h"
+#include "MidiHandlerI.h"
 #include "MidiNoteConverter.h"
 
 CKeyboardController::CKeyboardController(std::shared_ptr<IMidiHandler> Handler)

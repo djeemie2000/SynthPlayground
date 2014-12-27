@@ -40,18 +40,18 @@ INCLUDEPATH += ./../SynthLib/Controllers
 INCLUDEPATH += ./../MidiLib
 INCLUDEPATH += ./../UnitTest
 
-LIBS += -lSynthLib -lUnitTest -lModularLib
+LIBS += -lSynthLib -lUnitTest #-lModularLib
 
 CONFIG(debug, debug|release) {
     LIBS += -L./../build-dir/Debug/SynthLib
     LIBS += -L./../build-dir/Debug/UnitTest
-    LIBS += -L./../build-dir/Debug/ModularLib
+#    LIBS += -L./../build-dir/Debug/ModularLib
     DESTDIR = ../build-dir/Debug/TestSynthLib
 }
 CONFIG(release, debug|release) {
     LIBS += -L./../build-dir/Release/SynthLib
     LIBS += -L./../build-dir/Release/UnitTest
-    LIBS += -L./../build-dir/Release/ModularLib
+#    LIBS += -L./../build-dir/Release/ModularLib
     DESTDIR = ../build-dir/Release/TestSynthLib
 }
 

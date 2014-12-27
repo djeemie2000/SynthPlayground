@@ -1,7 +1,7 @@
 #ifndef TRIGGERMIDINOTEHANDLER_H
 #define TRIGGERMIDINOTEHANDLER_H
 
-#include "MidiInputHandlerI.h"
+#include "MidiHandlerI.h"
 
 class CTriggerMidiNoteHandler : public IMidiHandler
 {

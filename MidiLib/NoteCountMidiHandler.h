@@ -2,7 +2,7 @@
 #define NOTECOUNTMIDIINPUTHANDLER_H
 
 #include <memory>
-#include "MidiInputHandlerI.h"
+#include "MidiHandlerI.h"
 
 class CNoteCountMidiInputHandler : public IMidiHandler
 {

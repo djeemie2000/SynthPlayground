@@ -1,6 +1,6 @@
 #include <algorithm>
 #include "MidiStepSequencerFilter.h"
-#include "MidiInputHandlerI.h"
+#include "MidiHandlerI.h"
 #include "MidiNoteConverter.h"
 
 CMidiStepSequencerFilter::CMidiStepSequencerFilter(int SamplingFrequency)

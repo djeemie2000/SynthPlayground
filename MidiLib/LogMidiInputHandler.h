@@ -1,7 +1,7 @@
 #ifndef LOGMIDIINPUTHANDLER_H
 #define LOGMIDIINPUTHANDLER_H
 
-#include "MidiInputHandlerI.h"
+#include "MidiHandlerI.h"
 
 class CLogMidiInputHandler : public IMidiHandler
 {

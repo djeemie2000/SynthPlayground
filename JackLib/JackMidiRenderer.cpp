@@ -1,5 +1,5 @@
 #include "JackMidiRenderer.h"
-#include "MidiInputHandlerI.h"
+#include "MidiHandlerI.h"
 #include <jack/midiport.h>
 
 CJackMidiRenderer::CJackMidiRenderer(void *SrcBuffer)

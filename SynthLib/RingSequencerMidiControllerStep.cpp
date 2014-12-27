@@ -1,5 +1,5 @@
 #include "RingSequencerMidiControllerStep.h"
-#include "MidiInputHandlerI.h"
+#include "MidiHandlerI.h"
 
 namespace
 {

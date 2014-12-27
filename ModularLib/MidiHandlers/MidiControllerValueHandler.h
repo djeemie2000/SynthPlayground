@@ -1,7 +1,7 @@
 #ifndef MidiControllerValueHANDLER_H
 #define MidiControllerValueHANDLER_H
 
-#include "MidiInputHandlerI.h"
+#include "MidiHandlerI.h"
 
 class CMidiControllerValueHandler : public IMidiHandler
 {

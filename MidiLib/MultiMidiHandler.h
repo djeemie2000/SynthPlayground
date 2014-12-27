@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <memory>
-#include "MidiInputHandlerI.h"
+#include "MidiHandlerI.h"
 
 class CMultiMidiHandler : public IMidiHandler
 {
