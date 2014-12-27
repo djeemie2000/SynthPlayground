@@ -16,6 +16,7 @@ CMultiStepSequencerModule::CMultiStepSequencerModule(const std::string& Name, CC
     // commandstack!!
     int MaxNumSteps = CMultiStepSequencerFilter::NumSequencerSteps;
     m_CommandStackController.AddCommand({m_Name+"/IsActive", false, 0, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetActive(Item.s_BoolValue); });
+    m_CommandStackController.AddCommand({m_Name+"/StepIntervalBegin", false, 0, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetStepIntervalBegin(Item.s_IntValue); });
     m_CommandStackController.AddCommand({m_Name+"/StepIntervalLength", false, MaxNumSteps, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetStepIntervalLength(Item.s_IntValue); });
     m_CommandStackController.AddCommand({m_Name+"/StepSize", false, 1, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetStepSize(Item.s_IntValue); });
     for(int idx = 0; idx<MaxNumSteps; ++idx)
@@ -64,8 +65,8 @@ void CMultiStepSequencerModule::Accept(IModuleParameterVisitor &ParameterVisitor
 
     ParameterVisitor.StartLine();
     ParameterVisitor.BooleanParameter(m_Name+"/IsActive", "Go", false);
-    ParameterVisitor.IntegerParameter(m_Name+"/BeginStep", "Begin", 1, 1, MaxNumSteps-1, 1);
-    ParameterVisitor.IntegerParameter(m_Name+"/NumSteps", "#Steps", MaxNumSteps, 1, MaxNumSteps, 1);
+    ParameterVisitor.IntegerParameter(m_Name+"/StepIntervalBegin", "Begin", 0, 0, MaxNumSteps-1, 1);
+    ParameterVisitor.IntegerParameter(m_Name+"/StepIntervalLength", "#Steps", MaxNumSteps, 1, MaxNumSteps, 1);
     ParameterVisitor.IntegerParameter(m_Name+"/StepSize", "Step", 1, 1, MaxNumSteps, 1);
     ParameterVisitor.FinishLine();
 
