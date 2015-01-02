@@ -10,7 +10,7 @@ class CClockPulseIn
 {
 public:
     CClockPulseIn()
-     : m_Prev()
+     : m_Prev(-1)
     {}
 
     bool RisingEdge(T ClockPulse)
@@ -29,7 +29,7 @@ public:
 
     bool AnyEdge(T ClockPulse)
     {
-        bool Edge = ((m_Prev<0) != (0<ClockPulse));
+        bool Edge = ((m_Prev<0) == (0<ClockPulse));
         m_Prev = ClockPulse;
         return Edge;
     }
