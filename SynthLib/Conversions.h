@@ -1,8 +1,8 @@
 #ifndef CONVERSIONS_H
 #define CONVERSIONS_H
 
-//#include <cstdlib>
 #include <cstdint>
+#include <vector>
 
 template<class T>
 T UnsignedToSigned(T Unsigned)
