@@ -81,7 +81,9 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Filters/ClockFilter.cpp \
     Modules/ClockModule.cpp \
     Filters/FMFilter.cpp \
-    Modules/FMModule.cpp
+    Modules/FMModule.cpp \
+    Filters/RandomGateFilter.cpp \
+    Modules/RandomGateModule.cpp
 
 HEADERS += Filters/ControllerBankFilter.h \
     Filters/PhasorFilter.h \
@@ -164,7 +166,9 @@ HEADERS += Filters/ControllerBankFilter.h \
     Filters/ClockFilter.h \
     Modules/ClockModule.h \
     Filters/FMFilter.h \
-    Modules/FMModule.h
+    Modules/FMModule.h \
+    Filters/RandomGateFilter.h \
+    Modules/RandomGateModule.h
 
 INCLUDEPATH += ./Filters
 INCLUDEPATH += ./Modules

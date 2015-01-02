@@ -37,6 +37,7 @@
 #include "MultiStepSequencerModule.h"
 #include "ClockModule.h"
 #include "FMModule.h"
+#include "RandomGateModule.h"
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -207,6 +208,10 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CFMModule(Name, *m_CommandStackController));
     }
+    else if(Type == "RandomGate")
+    {
+        Module.reset(new CRandomGateModule(Name, *m_CommandStackController));
+    }
 
     return Module;
 }
@@ -253,6 +258,7 @@ std::vector<string> CModuleFactory::GetSupportedTypes() const
         "AsymmetricAmp",
         "MultiStepSequencer",
         "Clock",
-        "FM"
+        "FM",
+        "RandomGate"
     };
 }
