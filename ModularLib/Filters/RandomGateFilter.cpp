@@ -1,4 +1,3 @@
-#include <algorithm>
 #include "RandomGateFilter.h"
 
 CRandomGateFilter::CRandomGateFilter()
@@ -8,12 +7,12 @@ CRandomGateFilter::CRandomGateFilter()
 
 std::vector<std::string> CRandomGateFilter::GetInputNames() const
 {
-    return { "OCentr", "OVar", "CCentr", "CVar" };
+    return { "OpenCentr", "CloseCentr" };
 }
 
 std::vector<std::string> CRandomGateFilter::GetOutputNames() const
 {
-    return { "Gate" };
+    return { "Gate", "Trigger" };
 }
 
 std::vector<std::string> CRandomGateFilter::GetMidiInputNames() const
@@ -35,16 +34,52 @@ int CRandomGateFilter::OnProcess(const std::vector<void *> &SourceBuffers,
 {
 //    const float* InBuffer = static_cast<const float*>(SourceBuffers[0]);
     float* GateBuffer = static_cast<float*>(DestinationBuffers[0]);
-    if(GateBuffer)
+    float* TriggerBuffer = static_cast<float*>(DestinationBuffers[1]);
+    const float* GateOpenCenterBuffer = static_cast<const float*>(SourceBuffers[0]);
+    const float* GateCloseCenterBuffer = static_cast<const float*>(SourceBuffers[1]);
+
+    if(!GateOpenCenterBuffer || !GateCloseCenterBuffer)
     {
-        const float* GateBufferEnd = GateBuffer+NumFrames;
-        while(GateBuffer<GateBufferEnd)
+        int idx = 0;
+        while(idx<NumFrames)
         {
-            *GateBuffer = m_Gate();
-            ++GateBuffer;
+            float Gate = m_Gate();
+            float Trigger = m_Trigger(Gate);
+
+            if(GateBuffer)
+            {
+                *(GateBuffer+idx) = Gate;
+            }
+            if(TriggerBuffer)
+            {
+                *(TriggerBuffer+idx) = Trigger;
+            }
+
+            ++idx;
         }
     }
+    else
+    {
+        int idx = 0;
+        while(idx<NumFrames)
+        {
+            float Gate = m_Gate(*GateOpenCenterBuffer, *GateCloseCenterBuffer);
+            float Trigger = m_Trigger(Gate);
 
+            if(GateBuffer)
+            {
+                *(GateBuffer+idx) = Gate;
+            }
+            if(TriggerBuffer)
+            {
+                *(TriggerBuffer+idx) = Trigger;
+            }
+
+            ++idx;
+            ++GateOpenCenterBuffer;
+            ++GateCloseCenterBuffer;
+        }
+    }
     return 0;
 }
 

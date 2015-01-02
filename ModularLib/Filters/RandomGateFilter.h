@@ -3,6 +3,7 @@
 
 #include "AudioFilterI.h"
 #include "RandomGate.h"
+#include "Trigger.h"
 
 class CRandomGateFilter : public IAudioFilter
 {
@@ -29,6 +30,7 @@ public:
 
 private:
     CRandomGate<float> m_Gate;
+    CGateToTrigger<float> m_Trigger;
 };
 
 #endif // RandomGateFILTER_H
