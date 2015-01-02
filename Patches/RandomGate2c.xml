@@ -1,0 +1,51 @@
+<xml>
+<Modules>
+Amp0 --- Amp
+Combinor0 --- Combinor
+ControllerBank(4)0 --- ControllerBank(4)
+LFOBank(4)0 --- LFOBank(4)
+Mixer(4)0 --- Mixer(4)
+Noise0 --- Noise
+RandomGate0 --- RandomGate
+SimpleOscillator0 --- SimpleOscillator
+StereoDelay0 --- StereoDelay
+
+</Modules>
+<Connections>
+Mixer(4)0:Out -> StereoDelay0:InLeft
+Mixer(4)0:Out -> StereoDelay0:InRight
+SimpleOscillator0:Out -> Amp0:In
+ControllerBank(4)0:Contr0 -> Combinor0:In1
+Amp0:Out -> Mixer(4)0:In0
+RandomGate0:Gate -> Amp0:Ampl
+Noise0:Out -> Amp0:In
+StereoDelay0:OutLeft -> system:playback_1
+StereoDelay0:OutRight -> system:playback_2
+Combinor0:Out -> SimpleOscillator0:Freq
+LFOBank(4)0:LFO0 -> Combinor0:In2
+
+</Connections>
+<Parameters>
+Combinor0/Select 0 14 0
+ControllerBank(4)0/0/Value 0 0 1760
+ControllerBank(4)0/1/Value 0 0 1
+LFOBank(4)0/0/Frequency 0 0 0.26
+LFOBank(4)0/0/Select 0 2 0
+Mixer(4)0/0/Volume 0 0 0.4
+Mixer(4)0/MasterVolume 0 0 0.5
+RandomGate0/GateCloseCenter 0 0 0.56
+RandomGate0/GateCloseScale 0 13 0
+RandomGate0/GateCloseVariation 0 0 0.96
+RandomGate0/GateOpenCenter 0 0 0.35
+RandomGate0/GateOpenScale 0 12 0
+RandomGate0/GateOpenVariation 0 0 0.81
+SimpleOscillator0/Select 0 8 0
+StereoDelay0/Left/Bypass 0 0 0
+StereoDelay0/Left/DelayMilliSeconds 0 0 347
+StereoDelay0/Left/Feedback 0 0 0.6
+StereoDelay0/Right/Bypass 0 0 0
+StereoDelay0/Right/DelayMilliSeconds 0 0 363
+StereoDelay0/Right/Feedback 0 0 0.6
+
+</Parameters>
+</xml>
