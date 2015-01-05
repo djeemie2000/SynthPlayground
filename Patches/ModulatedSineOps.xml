@@ -1,0 +1,61 @@
+<xml>
+<Modules>
+ControllerBank(4)0 --- ControllerBank(4)
+LFOBank(4)0 --- LFOBank(4)
+LPF0 --- LPF
+Mixer(4)0 --- Mixer(4)
+Modulator0 --- Modulator
+Operator0 --- Operator
+Operator1 --- Operator
+Operator2 --- Operator
+Operator3 --- Operator
+Operator4 --- Operator
+Operator5 --- Operator
+Phasor0 --- Phasor
+StereoDelay0 --- StereoDelay
+
+</Modules>
+<Connections>
+ControllerBank(4)0:Contr0 -> Phasor0:Freq
+Phasor0:Phase -> Operator0:Phase
+Operator0:Out -> Operator1:Phase
+Operator1:Out -> Operator2:Phase
+Operator2:Out -> Operator3:Phase
+Operator3:Out -> Operator4:Phase
+Operator3:Out -> Mixer(4)0:In1
+Operator4:Out -> Operator5:Phase
+Operator5:Out -> Mixer(4)0:In0
+Mixer(4)0:Out -> LPF0:In
+StereoDelay0:OutLeft -> system:playback_1
+StereoDelay0:OutRight -> system:playback_2
+LPF0:Out -> StereoDelay0:InLeft
+LPF0:Out -> StereoDelay0:InRight
+LFOBank(4)0:LFO0 -> Modulator0:ModIn0
+LFOBank(4)0:LFO1 -> Modulator0:ModIn1
+Modulator0:Out -> LPF0:CutOff
+
+</Connections>
+<Parameters>
+ControllerBank(4)0/0/Value 0 0 55
+ControllerBank(4)0/1/Value 0 0 0.6
+LFOBank(4)0/1/Frequency 0 0 0.12
+LFOBank(4)0/1/Select 0 3 0
+LPF0/Poles 0 20 0
+Mixer(4)0/0/Volume 0 0 0.36
+Mixer(4)0/1/Volume 0 0 0.3
+Mixer(4)0/MasterVolume 0 0 0.5
+Modulator0/0/ModAmt 0 0 0.13
+Modulator0/1/ModAmt 0 0 0.16
+Modulator0/LimitMode 0 2 0
+Modulator0/Offset 0 0 0.5
+Operator0/Select 0 3 0
+Operator1/Select 0 3 0
+Operator2/Select 0 3 0
+Operator3/Select 0 3 0
+Operator4/Select 0 3 0
+Operator5/Select 0 3 0
+StereoDelay0/Left/Bypass 0 0 0
+StereoDelay0/Right/Bypass 0 0 0
+
+</Parameters>
+</xml>

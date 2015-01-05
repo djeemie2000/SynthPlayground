@@ -1,0 +1,98 @@
+<xml>
+<Modules>
+ControllerBank(4)0 --- ControllerBank(4)
+LFOBank(4)0 --- LFOBank(4)
+LPF0 --- LPF
+LPF1 --- LPF
+LPF2 --- LPF
+Mixer(4)0 --- Mixer(4)
+Mixer(4)1 --- Mixer(4)
+Modulator0 --- Modulator
+Modulator1 --- Modulator
+Modulator2 --- Modulator
+Operator0 --- Operator
+Operator1 --- Operator
+Operator2 --- Operator
+Operator3 --- Operator
+Operator4 --- Operator
+Operator5 --- Operator
+Phasor0 --- Phasor
+StereoDelay0 --- StereoDelay
+
+</Modules>
+<Connections>
+ControllerBank(4)0:Contr0 -> Phasor0:Freq
+LFOBank(4)0:LFO0 -> Modulator0:ModIn0
+LFOBank(4)0:LFO1 -> Modulator0:ModIn1
+LFOBank(4)0:LFO2 -> Modulator1:ModIn0
+LFOBank(4)0:LFO2 -> Modulator2:ModIn1
+LFOBank(4)0:LFO3 -> Modulator2:ModIn0
+LPF0:Out -> Mixer(4)1:In0
+LPF1:Out -> Mixer(4)1:In1
+LPF2:Out -> Mixer(4)1:In2
+Mixer(4)0:Out -> LPF0:In
+Mixer(4)0:Out -> LPF1:In
+Mixer(4)0:Out -> LPF2:In
+Mixer(4)1:Out -> StereoDelay0:InLeft
+Mixer(4)1:Out -> StereoDelay0:InRight
+Modulator0:Out -> LPF0:CutOff
+Modulator1:Out -> LPF1:CutOff
+Modulator2:Out -> LPF2:CutOff
+Operator0:Out -> Operator1:Phase
+Operator1:Out -> Operator2:Phase
+Operator2:Out -> Operator3:Phase
+Operator2:Out -> Mixer(4)0:In2
+Operator3:Out -> Operator4:Phase
+Operator3:Out -> Mixer(4)0:In1
+Operator4:Out -> Operator5:Phase
+Operator5:Out -> Mixer(4)0:In0
+Phasor0:Phase -> Operator0:Phase
+StereoDelay0:OutLeft -> system:playback_1
+StereoDelay0:OutRight -> system:playback_2
+
+</Connections>
+<Parameters>
+ControllerBank(4)0/0/Value 0 0 40
+ControllerBank(4)0/1/Value 0 0 0.6
+LFOBank(4)0/1/Frequency 0 0 0.12
+LFOBank(4)0/1/Select 0 3 0
+LFOBank(4)0/2/Frequency 0 0 0.11
+LFOBank(4)0/2/Select 0 2 0
+LFOBank(4)0/3/Frequency 0 0 14.65
+LFOBank(4)0/3/Select 0 4 0
+LPF0/Poles 0 20 0
+LPF0/Resonance 0 0 0.9
+LPF1/Poles 0 16 0
+LPF1/Resonance 0 0 0.01
+LPF2/Poles 0 20 0
+LPF2/Resonance 0 0 1.29
+Mixer(4)0/0/Volume 0 0 0.36
+Mixer(4)0/1/Volume 0 0 0.3
+Mixer(4)0/2/Volume 0 0 0.1
+Mixer(4)0/MasterVolume 0 0 0.5
+Mixer(4)1/0/Volume 0 0 0.46
+Mixer(4)1/1/Volume 0 0 0.55
+Mixer(4)1/2/Volume 0 0 0.1
+Mixer(4)1/MasterVolume 0 0 0.9
+Modulator0/0/ModAmt 0 0 0.13
+Modulator0/1/ModAmt 0 0 0.16
+Modulator0/LimitMode 0 2 0
+Modulator0/Offset 0 0 0.4
+Modulator1/0/ModAmt 0 0 0.2
+Modulator1/LimitMode 0 2 0
+Modulator1/Offset 0 0 0.4
+Modulator2/0/ModAmt 0 0 0.27
+Modulator2/1/ModAmt 0 0 -0.07
+Modulator2/LimitMode 0 2 0
+Modulator2/Offset 0 0 0.39
+Operator0/Select 0 3 0
+Operator1/Select 0 3 0
+Operator2/Select 0 3 0
+Operator3/Select 0 3 0
+Operator4/Select 0 3 0
+Operator5/Select 0 3 0
+StereoDelay0/Left/Bypass 0 0 0
+StereoDelay0/Right/Bypass 0 0 0
+
+</Parameters>
+</xml>
