@@ -18,7 +18,8 @@ public:
     bool Remove(const std::string& Name);
     bool RemoveAll();
     std::vector<std::string> GetNames() const;
-    std::vector<std::string> GetSupportedTypes() const;
+    std::vector<std::string> GetSupportedTypes(const std::string& Category) const;
+    std::vector<std::string> GetSupportedCategories() const;
     void Capture();//!< capture current module state
     void Restore(); //!< restore grabbed state
     void Export(std::string& Content); //!< save current state

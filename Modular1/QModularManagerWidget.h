@@ -29,8 +29,8 @@ private slots:
     void on_pushButton_Default_clicked();
     void on_pushButton_Save_clicked();
     void on_pushButton_Load_clicked();
-
     void on_listWidget_ModuleNames_itemSelectionChanged();
+    void on_listWidget_ModuleCategories_currentTextChanged(const QString &currentText);
 
 private:
     void UpdateNames();

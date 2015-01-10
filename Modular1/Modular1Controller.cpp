@@ -50,9 +50,14 @@ std::vector<string> CModular1Controller::GetNames() const
     return m_ModuleManager->GetNames();
 }
 
-std::vector<string> CModular1Controller::GetSupportedTypes() const
+std::vector<string> CModular1Controller::GetSupportedTypes(const std::string& Category) const
 {
-    return m_ModuleManager->GetSupportedTypes();
+    return m_ModuleManager->GetSupportedTypes(Category);
+}
+
+std::vector<string> CModular1Controller::GetSupportedCategories() const
+{
+    return m_ModuleManager->GetSupportedCategories();
 }
 
 void CModular1Controller::Capture()

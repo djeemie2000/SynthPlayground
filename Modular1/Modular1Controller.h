@@ -21,7 +21,8 @@ public:
     bool RemoveAll();
     bool Default(); //!< all existing modules to default parameters
     std::vector<std::string> GetNames() const;
-    std::vector<std::string> GetSupportedTypes() const;
+    std::vector<std::string> GetSupportedTypes(const std::string& Category) const;
+    std::vector<std::string> GetSupportedCategories() const;
 
     void Capture();//!< capture current module/connections/parameters state
     void Restore(); //!< restore grabbed state

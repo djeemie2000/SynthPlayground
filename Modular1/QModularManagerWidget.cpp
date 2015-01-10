@@ -12,12 +12,12 @@ QModularManagerWidget::QModularManagerWidget(std::weak_ptr<CModular1Controller> 
 {
     ui->setupUi(this);
 
-    ui->listWidget_ModuleTypes->clear();
+    ui->listWidget_ModuleCategories->clear();
     if(std::shared_ptr<CModular1Controller> Controller = m_Controller.lock())
     {
-        for(auto& Name : Controller->GetSupportedTypes())
+        for(auto& Category : Controller->GetSupportedCategories())
         {
-            ui->listWidget_ModuleTypes->addItem(QString::fromStdString(Name));
+            ui->listWidget_ModuleCategories->addItem(QString::fromStdString(Category));
         }
     }
 }
@@ -118,5 +118,18 @@ void QModularManagerWidget::on_listWidget_ModuleNames_itemSelectionChanged()
     {
         std::string Name = ui->listWidget_ModuleNames->currentItem()->text().toStdString();
         Controller->Show(Name);
+    }
+}
+
+void QModularManagerWidget::on_listWidget_ModuleCategories_currentTextChanged(const QString &currentText)
+{
+    // show types of the selected category in the types list widget
+    ui->listWidget_ModuleTypes->clear();
+    if(std::shared_ptr<CModular1Controller> Controller = m_Controller.lock())
+    {
+        for(auto& Type : Controller->GetSupportedTypes(currentText.toStdString()))
+        {
+            ui->listWidget_ModuleTypes->addItem(QString::fromStdString(Type));
+        }
     }
 }

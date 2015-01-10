@@ -55,9 +55,14 @@ std::vector<std::string> CModuleManager::GetNames() const
     return AllNames;
 }
 
-std::vector<std::string> CModuleManager::GetSupportedTypes() const
+std::vector<std::string> CModuleManager::GetSupportedTypes(const std::string& Category) const
 {
-    return m_Factory->GetSupportedTypes();
+    return m_Factory->GetSupportedTypes(Category);
+}
+
+std::vector<std::string> CModuleManager::GetSupportedCategories() const
+{
+    return m_Factory->GetSupportedCategories();
 }
 
 void CModuleManager::Capture()

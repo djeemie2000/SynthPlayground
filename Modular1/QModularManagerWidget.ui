@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>302</width>
-    <height>292</height>
+    <width>304</width>
+    <height>362</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -58,7 +58,24 @@
        </widget>
       </item>
       <item>
-       <widget class="QListWidget" name="listWidget_ModuleTypes"/>
+       <widget class="QListWidget" name="listWidget_ModuleCategories">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QListWidget" name="listWidget_ModuleTypes">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>3</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QPushButton" name="pushButton_Default">

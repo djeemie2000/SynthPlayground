@@ -26,8 +26,13 @@ std::shared_ptr<IModularModule> CGuiModuleFactory::Create(const std::string &Typ
     return nullptr;
 }
 
-std::vector<std::string> CGuiModuleFactory::GetSupportedTypes() const
+std::vector<std::string> CGuiModuleFactory::GetSupportedTypes(const std::string &Category) const
 {
-    return m_Factory->GetSupportedTypes();
+    return m_Factory->GetSupportedTypes(Category);
+}
+
+std::vector<std::string> CGuiModuleFactory::GetSupportedCategories() const
+{
+    return m_Factory->GetSupportedCategories();
 }
 

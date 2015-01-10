@@ -15,7 +15,8 @@ public:
     CGuiModuleFactory(std::shared_ptr<IModuleFactory> Factory, std::shared_ptr<CCommandStackController> CommandStackController, QStackedWidget* Parent);
 
     std::shared_ptr<IModularModule> Create(const std::string& Type, const std::string& Name) override;
-    std::vector<std::string> GetSupportedTypes() const override;
+    std::vector<std::string> GetSupportedTypes(const std::string& Category) const override;
+    std::vector<std::string> GetSupportedCategories() const override;
 
 private:
     QStackedWidget* m_Parent;

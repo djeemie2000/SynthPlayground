@@ -216,49 +216,125 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     return Module;
 }
 
-std::vector<string> CModuleFactory::GetSupportedTypes() const
+std::vector<string> CModuleFactory::GetSupportedTypes(const std::string &Category) const
+{
+    if(Category=="Envelope")
+    {
+        return {
+            "ADSREnvelopeBank(4)",
+            "ADSREnvelopeBank(8)",
+            "EnvelopeFollower"
+        };
+    }
+
+    if(Category=="CV")
+    {
+        return {
+            "ControllerBank(4)",
+            "ControllerBank(8)",
+            "LFOBank(4)",
+            "LFOBank(8)",
+        };
+    }
+
+    if(Category=="Modulate")
+    {
+        return {
+            "Amp",
+            "LFOBank(4)",
+            "LFOBank(8)",
+            "Combinor",
+            "CrossMixer",
+            "Modulator",
+            "Detuner(3)",
+            "FM"
+        };
+    }
+
+    if(Category=="Oscillate")
+    {
+        return {
+            "Operator",
+            "Phasor",
+            "SimpleOscillator",
+            "LinSegOperator",
+            "Noise"
+        };
+    }
+
+    if(Category=="Modify")
+    {
+        return {
+            "Amp",
+            "LPF",
+            "PhaseSkewer",
+            "Combinor",
+            "WaveFolder",
+            "PosNegShaper",
+            "MultiStageWaveFolder",
+            "SampleAndHold",
+            "AsymmetricAmp",
+            "FM"
+        };
+    }
+
+    if(Category=="Control")
+    {
+        return {
+            "Amp",
+            "Mixer(4)",
+            "Mixer(8)",
+            "PeriodicSync",
+            "StepSequencer",
+            "PeriodicTrigger",
+            "MultiStepSequencer",
+            "Clock",
+            "RandomGate",
+            "StereoMixer(4)"
+        };
+    }
+
+    if(Category=="Effects")
+    {
+        return {
+            "StereoDelay",
+            "Distortion1",
+            "Glitch",
+            "EnvelopeFollower",
+            "DelayLine"
+        };
+    }
+
+    if(Category=="Midi")
+    {
+        return {
+            "MidiNote",
+            "MidiStepSequencer",
+            "MidiControllerBank(4)",
+        };
+    }
+
+    if(Category=="Other")
+    {
+        return {
+
+        };
+    }
+
+    return {};
+}
+
+std::vector<string> CModuleFactory::GetSupportedCategories() const
 {
     return {
-        "Amp",
-        "ControllerBank(4)",
-        "ControllerBank(8)",
-        "Operator",
-        "Phasor",
-        "MidiNote",
-        "LPF",
-        "LFOBank(4)",
-        "LFOBank(8)",
-        "SimpleOscillator",
-        "StereoDelay",
-        "ADSREnvelopeBank(4)",
-        "ADSREnvelopeBank(8)",
-        "Mixer(4)",
-        "Mixer(8)",
-        "PhaseSkewer",
-        "Combinor",
-        "CrossMixer",
-        "Modulator",
-        "WaveFolder",
-        "PosNegShaper",
-        "LinSegOperator",
-        "Detuner(3)",
-        "MultiStageWaveFolder",
-        "PeriodicSync",
-        "Distortion1",
-        "Noise",
-        "SampleAndHold",
-        "Glitch",
-        "MidiStepSequencer",
-        "StepSequencer",
-        "PeriodicTrigger",
-        "MidiControllerBank(4)",
-        "EnvelopeFollower",
-        "DelayLine",
-        "StereoMixer(4)",
-        "AsymmetricAmp",
-        "MultiStepSequencer",
-        "Clock",
-        "FM",
-        "RandomGate"
+        "Envelope",
+        "CV",
+        "Modulate",
+        "Oscillate",
+        "Modify",
+        "Control",
+        "Effects",
+        "Midi",
+        "Other"
     };
 }
