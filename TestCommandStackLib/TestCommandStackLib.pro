@@ -3,7 +3,8 @@ TEMPLATE = app
 CONFIG += c++11 (Qt5)
 
 SOURCES += main.cpp \ 
-    TestCommandStackDistributor.cpp
+    TestCommandStackDistributor.cpp \
+    TestCommandStackItem.cpp
 
 unix {
     target.path = /usr/lib

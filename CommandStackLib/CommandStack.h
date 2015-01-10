@@ -17,6 +17,7 @@ struct SCmdStackItem
     float s_FloatValue{-1.0f};
     std::uint32_t s_TimeStamp{0};
     bool s_HasTimeStamp{false};
+    std::string s_TextValue{};
 
     SCmdStackItem();
 
@@ -29,12 +30,14 @@ struct SCmdStackItem
     SCmdStackItem &IntValue(int Value);
     SCmdStackItem &FloatValue(float Value);
     SCmdStackItem &TimeStamp(std::uint32_t TimeStamp);
+    SCmdStackItem &TextValue(const std::string& TextValue);
 
     const std::string& Name() const;
     bool BoolValue() const;
     int IntValue() const;
     float FloatValue() const;
     std::uint32_t TimeStamp() const;
+    const std::string& TextValue() const;
 };
 
 typedef std::deque<SCmdStackItem> CmdStack;

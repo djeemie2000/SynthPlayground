@@ -67,6 +67,12 @@ SCmdStackItem &SCmdStackItem::TimeStamp(std::uint32_t TimeStamp)
     return *this;
 }
 
+SCmdStackItem &SCmdStackItem::TextValue(const string &TextValue)
+{
+    s_TextValue = TextValue;
+    return *this;
+}
+
 const string &SCmdStackItem::Name() const
 {
     return s_Name;
@@ -90,4 +96,9 @@ float SCmdStackItem::FloatValue() const
 std::uint32_t SCmdStackItem::TimeStamp() const
 {
     return s_TimeStamp;
+}
+
+const string &SCmdStackItem::TextValue() const
+{
+    return s_TextValue;
 }
