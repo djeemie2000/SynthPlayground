@@ -40,6 +40,8 @@
 #include "RandomGateModule.h"
 #include "ExtendedModulatorModule.h"
 #include "LimiterModule.h"
+#include "BipolarLimiterModule.h"
+#include "UnipolarLimiterModule.h"
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -222,6 +224,14 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CLimiterModule(Name));
     }
+    else if(Type == "UnipolarLimiter")
+    {
+        Module.reset(new CUnipolarLimiterModule(Name));
+    }
+    else if(Type == "BipolarLimiter")
+    {
+        Module.reset(new CBipolarLimiterModule(Name));
+    }
 
     return Module;
 }
@@ -286,7 +296,9 @@ std::vector<string> CModuleFactory::GetSupportedTypes(const std::string &Categor
             "SampleAndHold",
             "AsymmetricAmp",
             "FM",
-            "Limiter"
+            "Limiter",
+            "UnipolarLimiter",
+            "BipolarLimiter"
         };
     }
 

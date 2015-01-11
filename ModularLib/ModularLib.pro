@@ -87,7 +87,11 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Filters/ExtendedModulatorFilter.cpp \
     Modules/ExtendedModulatorModule.cpp \
     Filters/LimiterFilter.cpp \
-    Modules/LimiterModule.cpp
+    Modules/LimiterModule.cpp \
+    Filters/BipolarLimiterFilter.cpp \
+    Filters/UnipolarLimiterFilter.cpp \
+    Modules/BipolarLimiterModule.cpp \
+    Modules/UnipolarLimiterModule.cpp
 
 HEADERS += Filters/ControllerBankFilter.h \
     Filters/PhasorFilter.h \
@@ -176,7 +180,11 @@ HEADERS += Filters/ControllerBankFilter.h \
     Filters/ExtendedModulatorFilter.h \
     Modules/ExtendedModulatorModule.h \
     Filters/LimiterFilter.h \
-    Modules/LimiterModule.h
+    Modules/LimiterModule.h \
+    Filters/BipolarLimiterFilter.h \
+    Filters/UnipolarLimiterFilter.h \
+    Modules/UnipolarLimiterModule.h \
+    Modules/BipolarLimiterModule.h
 
 INCLUDEPATH += ./Filters
 INCLUDEPATH += ./Modules
