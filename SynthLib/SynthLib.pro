@@ -151,7 +151,8 @@ HEADERS += StepSequencer.h \
     DecayEnvelope.h \
     ClockPulse.h \
     FMFrequencyModulator.h \
-    RandomGate.h
+    RandomGate.h \
+    Limiter.h
 
 
 INCLUDEPATH += ./../MidiLib

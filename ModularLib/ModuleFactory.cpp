@@ -39,6 +39,7 @@
 #include "FMModule.h"
 #include "RandomGateModule.h"
 #include "ExtendedModulatorModule.h"
+#include "LimiterModule.h"
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -217,6 +218,10 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CExtendedModulatorModule(Name, 3));
     }
+    else if(Type == "Limiter")
+    {
+        Module.reset(new CLimiterModule(Name));
+    }
 
     return Module;
 }
@@ -280,7 +285,8 @@ std::vector<string> CModuleFactory::GetSupportedTypes(const std::string &Categor
             "MultiStageWaveFolder",
             "SampleAndHold",
             "AsymmetricAmp",
-            "FM"
+            "FM",
+            "Limiter"
         };
     }
 
