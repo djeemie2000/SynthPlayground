@@ -83,7 +83,9 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Filters/FMFilter.cpp \
     Modules/FMModule.cpp \
     Filters/RandomGateFilter.cpp \
-    Modules/RandomGateModule.cpp
+    Modules/RandomGateModule.cpp \
+    Filters/ExtendedModulatorFilter.cpp \
+    Modules/ExtendedModulatorModule.cpp
 
 HEADERS += Filters/ControllerBankFilter.h \
     Filters/PhasorFilter.h \
@@ -168,7 +170,9 @@ HEADERS += Filters/ControllerBankFilter.h \
     Filters/FMFilter.h \
     Modules/FMModule.h \
     Filters/RandomGateFilter.h \
-    Modules/RandomGateModule.h
+    Modules/RandomGateModule.h \
+    Filters/ExtendedModulatorFilter.h \
+    Modules/ExtendedModulatorModule.h
 
 INCLUDEPATH += ./Filters
 INCLUDEPATH += ./Modules

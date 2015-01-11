@@ -38,6 +38,7 @@
 #include "ClockModule.h"
 #include "FMModule.h"
 #include "RandomGateModule.h"
+#include "ExtendedModulatorModule.h"
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -212,6 +213,10 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CRandomGateModule(Name, *m_CommandStackController));
     }
+    else if(Type == "ModulatorExt")
+    {
+        Module.reset(new CExtendedModulatorModule(Name, 3));
+    }
 
     return Module;
 }
@@ -246,6 +251,7 @@ std::vector<string> CModuleFactory::GetSupportedTypes(const std::string &Categor
             "Combinor",
             "CrossMixer",
             "Modulator",
+            "ModulatorExt",
             "Detuner(3)",
             "FM"
         };
