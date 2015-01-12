@@ -1,0 +1,36 @@
+<xml>
+<Modules>
+1V/Oct0 --- 1V/Oct
+BipolarLimiter0 --- BipolarLimiter
+ControllerBank(4)0 --- ControllerBank(4)
+LFOBank(4)0 --- LFOBank(4)
+Mixer(4)0 --- Mixer(4)
+Modulator0 --- Modulator
+SimpleOscillator0 --- SimpleOscillator
+
+</Modules>
+<Connections>
+Mixer(4)0:Out -> BipolarLimiter0:In
+BipolarLimiter0:Out -> system:playback_1
+BipolarLimiter0:Out -> system:playback_2
+SimpleOscillator0:Out -> Mixer(4)0:In0
+1V/Oct0:Freq -> SimpleOscillator0:Freq
+ControllerBank(4)0:Contr0 -> Modulator0:ModIn1
+Modulator0:Out -> 1V/Oct0:CV
+LFOBank(4)0:LFO0 -> Modulator0:ModIn0
+
+</Connections>
+<Parameters>
+ControllerBank(4)0/0/Value 0 0 2
+LFOBank(4)0/0/Frequency 0 0 0.2
+LFOBank(4)0/0/Select 0 0 0
+Mixer(4)0/0/Volume 0 0 0.1
+Mixer(4)0/MasterVolume 0 0 0.5
+Modulator0/0/ModAmt 0 0 0.08
+Modulator0/1/ModAmt 0 0 1
+Modulator0/LimitMode 0 0 0
+Modulator0/Offset 0 0 0
+SimpleOscillator0/Select 0 4 0
+
+</Parameters>
+</xml>
