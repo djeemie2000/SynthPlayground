@@ -29,7 +29,8 @@ SOURCES += main.cpp \
     TestClockPulse.cpp \
     TestPitch.cpp \
     TestFMFrequencyModulator.cpp \
-    TestRandomGate.cpp
+    TestRandomGate.cpp \
+    TestSlewLimiter.cpp
 
 unix {
     target.path = /usr/lib
