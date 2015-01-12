@@ -153,7 +153,8 @@ HEADERS += StepSequencer.h \
     FMFrequencyModulator.h \
     RandomGate.h \
     Limiter.h \
-    SlewLimiter.h
+    SlewLimiter.h \
+    OneVoltPerOctave.h
 
 
 INCLUDEPATH += ./../MidiLib
