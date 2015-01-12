@@ -42,6 +42,8 @@
 #include "LimiterModule.h"
 #include "BipolarLimiterModule.h"
 #include "UnipolarLimiterModule.h"
+#include "SlewLimiterModule.h"
+#include "OneVoltPerOctaveModule.h"
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -232,6 +234,15 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CBipolarLimiterModule(Name));
     }
+    else if(Type == "SlewLimiter")
+    {
+        Module.reset(new CSlewLimiterModule(Name));
+    }
+    else if(Type == "1V/Oct")
+    {
+        Module.reset(new COneVoltPerOctaveModule(Name));
+    }
+
 
     return Module;
 }
@@ -254,6 +265,7 @@ std::vector<string> CModuleFactory::GetSupportedTypes(const std::string &Categor
             "ControllerBank(8)",
             "LFOBank(4)",
             "LFOBank(8)",
+            "1V/Oct"
         };
     }
 
@@ -268,7 +280,8 @@ std::vector<string> CModuleFactory::GetSupportedTypes(const std::string &Categor
             "Modulator",
             "ModulatorExt",
             "Detuner(3)",
-            "FM"
+            "FM",
+            "SlewLimiter"
         };
     }
 
@@ -298,7 +311,8 @@ std::vector<string> CModuleFactory::GetSupportedTypes(const std::string &Categor
             "FM",
             "Limiter",
             "UnipolarLimiter",
-            "BipolarLimiter"
+            "BipolarLimiter",
+            "SlewLimiter"
         };
     }
 

@@ -93,7 +93,9 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Modules/BipolarLimiterModule.cpp \
     Modules/UnipolarLimiterModule.cpp \
     Filters/SlewLimiterFilter.cpp \
-    Modules/SlewLimiterModule.cpp
+    Modules/SlewLimiterModule.cpp \
+    Filters/OneVoltPerOctaveFilter.cpp \
+    Modules/OneVoltPerOctaveModule.cpp
 
 HEADERS += Filters/ControllerBankFilter.h \
     Filters/PhasorFilter.h \
@@ -188,7 +190,9 @@ HEADERS += Filters/ControllerBankFilter.h \
     Modules/UnipolarLimiterModule.h \
     Modules/BipolarLimiterModule.h \
     Filters/SlewLimiterFilter.h \
-    Modules/SlewLimiterModule.h
+    Modules/SlewLimiterModule.h \
+    Filters/OneVoltPerOctaveFilter.h \
+    Modules/OneVoltPerOctaveModule.h
 
 INCLUDEPATH += ./Filters
 INCLUDEPATH += ./Modules
