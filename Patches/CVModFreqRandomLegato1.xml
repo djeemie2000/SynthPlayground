@@ -1,0 +1,48 @@
+<xml>
+<Modules>
+1V/Oct0 --- 1V/Oct
+BipolarLimiter0 --- BipolarLimiter
+ControllerBank(4)0 --- ControllerBank(4)
+LFOBank(4)0 --- LFOBank(4)
+Mixer(4)0 --- Mixer(4)
+Modulator0 --- Modulator
+Noise0 --- Noise
+PeriodicSync0 --- PeriodicSync
+SampleAndHold0 --- SampleAndHold
+SimpleOscillator0 --- SimpleOscillator
+SlewLimiter0 --- SlewLimiter
+
+</Modules>
+<Connections>
+Mixer(4)0:Out -> BipolarLimiter0:In
+BipolarLimiter0:Out -> system:playback_1
+BipolarLimiter0:Out -> system:playback_2
+SimpleOscillator0:Out -> Mixer(4)0:In0
+1V/Oct0:Freq -> SimpleOscillator0:Freq
+ControllerBank(4)0:Contr0 -> Modulator0:ModIn1
+ControllerBank(4)0:Contr1 -> PeriodicSync0:Freq
+ControllerBank(4)0:Contr2 -> SlewLimiter0:Slew+
+ControllerBank(4)0:Contr2 -> SlewLimiter0:Slew-
+Modulator0:Out -> 1V/Oct0:CV
+Noise0:Out -> SampleAndHold0:In
+SampleAndHold0:Out -> SlewLimiter0:In
+PeriodicSync0:Sync -> SampleAndHold0:Trigger
+SlewLimiter0:Out -> Modulator0:ModIn0
+
+</Connections>
+<Parameters>
+ControllerBank(4)0/0/Value 0 0 2
+ControllerBank(4)0/1/Value 0 0 4
+ControllerBank(4)0/2/Value 0 0 0.0004
+LFOBank(4)0/0/Frequency 0 0 0.2
+LFOBank(4)0/0/Select 0 0 0
+Mixer(4)0/0/Volume 0 0 0.1
+Mixer(4)0/MasterVolume 0 0 0.5
+Modulator0/0/ModAmt 0 0 0.4
+Modulator0/1/ModAmt 0 0 1
+Modulator0/LimitMode 0 0 0
+Modulator0/Offset 0 0 0
+SimpleOscillator0/Select 0 9 0
+
+</Parameters>
+</xml>
