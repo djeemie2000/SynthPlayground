@@ -16,13 +16,13 @@ public:
 
     T operator()(T In, T SlewPos, T SlewNeg)
     {
-        if(In+SlewNeg<m_Value)
+        if(In+SlewNeg*SlewNeg<m_Value)
         {
-            m_Value -= SlewNeg;
+            m_Value -= SlewNeg*SlewNeg;
         }
-        else if(m_Value+SlewPos<In)
+        else if(m_Value+SlewPos*SlewPos<In)
         {
-            m_Value += SlewPos;
+            m_Value += SlewPos*SlewPos;
         }
         else
         {
