@@ -44,6 +44,7 @@
 #include "UnipolarLimiterModule.h"
 #include "SlewLimiterModule.h"
 #include "OneVoltPerOctaveModule.h"
+#include "HpfModule.h"
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -81,6 +82,10 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     else if(Type == "LPF")
     {
         Module.reset(new CLpfModule(Name, *m_CommandStackController));
+    }
+    else if(Type == "HPF")
+    {
+        Module.reset(new CHpfModule(Name, *m_CommandStackController));
     }
     else if(Type == "LFOBank(4)")
     {
@@ -301,6 +306,7 @@ std::vector<string> CModuleFactory::GetSupportedTypes(const std::string &Categor
         return {
             "Amp",
             "LPF",
+            "HPF",
             "PhaseSkewer",
             "Combinor",
             "WaveFolder",

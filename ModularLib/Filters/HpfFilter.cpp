@@ -1,32 +1,32 @@
 #include <algorithm>
-#include "LpfFilter.h"
+#include "HpfFilter.h"
 
-CLpfFilter::CLpfFilter()
- : m_LPFilter()
+CHpfFilter::CHpfFilter()
+ : m_Hpfilter()
 {
 }
 
-std::vector<std::string> CLpfFilter::GetInputNames() const
+std::vector<std::string> CHpfFilter::GetInputNames() const
 {
     return { "In", "CutOff", "Res" };
 }
 
-std::vector<std::string> CLpfFilter::GetOutputNames() const
+std::vector<std::string> CHpfFilter::GetOutputNames() const
 {
     return { "Out" };
 }
 
-std::vector<std::string> CLpfFilter::GetMidiInputNames() const
+std::vector<std::string> CHpfFilter::GetMidiInputNames() const
 {
     return {};
 }
 
-std::vector<std::string> CLpfFilter::GetMidiOutputNames() const
+std::vector<std::string> CHpfFilter::GetMidiOutputNames() const
 {
     return {};
 }
 
-int CLpfFilter::OnProcess(const std::vector<void *> &SourceBuffers,
+int CHpfFilter::OnProcess(const std::vector<void *> &SourceBuffers,
                           const std::vector<void *> &DestinationBuffers,
                           const std::vector<std::shared_ptr<IMidiRenderer>> /*MidiRenderers*/,
                           const std::vector<std::shared_ptr<IMidiHandler> > /*MidiHandlers*/,
@@ -44,7 +44,7 @@ int CLpfFilter::OnProcess(const std::vector<void *> &SourceBuffers,
             const float* InBufferEnd = InBuffer+NumFrames;
             while(InBuffer<InBufferEnd)
             {
-                *OutBuffer = m_LPFilter(*InBuffer, *CutoffBuffer, *ResBuffer);
+                *OutBuffer = m_Hpfilter(*InBuffer, *CutoffBuffer, *ResBuffer);
                 ++InBuffer;
                 ++CutoffBuffer;
                 ++ResBuffer;
@@ -56,7 +56,7 @@ int CLpfFilter::OnProcess(const std::vector<void *> &SourceBuffers,
             const float* InBufferEnd = InBuffer+NumFrames;
             while(InBuffer<InBufferEnd)
             {
-                *OutBuffer = m_LPFilter(*InBuffer, *CutoffBuffer);
+                *OutBuffer = m_Hpfilter(*InBuffer, *CutoffBuffer);
                 ++InBuffer;
                 ++CutoffBuffer;
                 ++OutBuffer;
@@ -71,12 +71,12 @@ int CLpfFilter::OnProcess(const std::vector<void *> &SourceBuffers,
     return 0;
 }
 
-void CLpfFilter::SetPoles(int Poles)
+void CHpfFilter::SetPoles(int Poles)
 {
-    m_LPFilter.SetStages(Poles);
+    m_Hpfilter.SetStages(Poles);
 }
 
-void CLpfFilter::SetResonance(float Resonance)
+void CHpfFilter::SetResonance(float Resonance)
 {
-    m_LPFilter.SetFeedback(Resonance);
+    m_Hpfilter.SetFeedback(Resonance);
 }

@@ -41,6 +41,33 @@ private:
     T m_B1;
 };
 
+template<class T>
+class COnePoleHighPassFilter
+{
+public:
+    COnePoleHighPassFilter()
+        : m_PrevOut(0)
+        , m_PrevIn(0)
+    {}
+
+    T operator()(T In, T Parameter)
+    {
+        // http://www.dspguide.com/ch19/2.htm
+        // http://www.dspguide.com/ch19/1.htm
+        T Param = Parameter*Parameter;
+        T A0 = (1+Param)/2;
+        T A1 = -A0;
+        T B1 = Param;
+        m_PrevOut = A0*In + A1*m_PrevIn + B1*m_PrevOut;
+        m_PrevIn = In;
+        return m_PrevOut;
+    }
+
+private:
+    T m_PrevOut;
+    T m_PrevIn;
+};
+
 template<class T, class FilterType, int N>
 class CMultiStageFilter
 {
@@ -89,6 +116,19 @@ public:
     T operator()(T In, T Parameter)
     {
         T Out = In - m_Feedback*m_PrevOut;
+        int Stage = 0;
+        while(Stage<m_Stages)
+        {
+            Out = m_Filter[Stage](Out, Parameter);
+            ++Stage;
+        }
+        m_PrevOut = Out;//HardLimitSigned(Out);//TODO more efficient?
+        return m_PrevOut;
+    }
+
+    T operator()(T In, T Parameter, T Feedback)
+    {
+        T Out = In - Feedback*m_PrevOut;
         int Stage = 0;
         while(Stage<m_Stages)
         {
