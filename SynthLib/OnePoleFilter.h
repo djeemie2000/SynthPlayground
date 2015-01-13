@@ -3,7 +3,6 @@
 
 #include <cstdlib>
 #include <array>
-#include "Conversions.h"
 
 template<class T>
 class COnePoleLowPassFilter
@@ -21,21 +20,19 @@ public:
         // parameter is 1 => no filtering
         // parameter is 0 => lowest cutoff
         m_A0 = Parameter*Parameter;
-        m_B1 = 1-Parameter*Parameter;
+        m_B1 = 1-m_A0;
     }
 
     T operator()(T In)
     {
-        T Out = m_A0*In + m_B1*m_PrevOut;
-        m_PrevOut = Out;
-        return Out;
+        m_PrevOut = m_A0*In + m_B1*m_PrevOut;
+        return m_PrevOut;
     }
 
     T operator()(T In, T Parameter)
     {
-        T Out = Parameter*Parameter*In + (1-Parameter*Parameter)*m_PrevOut;
-        m_PrevOut = Out;
-        return Out;
+        m_PrevOut = Parameter*Parameter*In + (1-Parameter*Parameter)*m_PrevOut;
+        return m_PrevOut;
     }
 
 private:

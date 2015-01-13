@@ -31,7 +31,8 @@ SOURCES += main.cpp \
     TestFMFrequencyModulator.cpp \
     TestRandomGate.cpp \
     TestSlewLimiter.cpp \
-    TestOneVoltPerOctave.cpp
+    TestOneVoltPerOctave.cpp \
+    TestOnePoleFilter.cpp
 
 unix {
     target.path = /usr/lib
