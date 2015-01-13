@@ -1,0 +1,38 @@
+<xml>
+<Modules>
+1V/Oct0 --- 1V/Oct
+ControllerBank(4)0 --- ControllerBank(4)
+HPF0 --- HPF
+LPF0 --- LPF
+Mixer(4)0 --- Mixer(4)
+SimpleOscillator0 --- SimpleOscillator
+
+</Modules>
+<Connections>
+ControllerBank(4)0:Contr0 -> 1V/Oct0:CV
+ControllerBank(4)0:Contr1 -> LPF0:CutOff
+ControllerBank(4)0:Contr2 -> HPF0:CutOff
+1V/Oct0:Freq -> SimpleOscillator0:Freq
+SimpleOscillator0:Out -> LPF0:In
+SimpleOscillator0:Out -> HPF0:In
+SimpleOscillator0:Out -> Mixer(4)0:In0
+Mixer(4)0:Out -> system:playback_1
+Mixer(4)0:Out -> system:playback_2
+LPF0:Out -> Mixer(4)0:In1
+HPF0:Out -> Mixer(4)0:In2
+
+</Connections>
+<Parameters>
+ControllerBank(4)0/0/Value 0 0 1
+ControllerBank(4)0/1/Value 0 0 0.546
+ControllerBank(4)0/2/Value 0 0 0.487
+HPF0/Poles 0 12 0
+LPF0/Poles 0 12 0
+Mixer(4)0/0/Volume 0 0 0.2
+Mixer(4)0/1/Volume 0 0 0
+Mixer(4)0/2/Volume 0 0 0
+Mixer(4)0/MasterVolume 0 0 0.5
+SimpleOscillator0/Select 0 0 0
+
+</Parameters>
+</xml>
