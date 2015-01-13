@@ -54,7 +54,7 @@ public:
     {
         // http://www.dspguide.com/ch19/2.htm
         // http://www.dspguide.com/ch19/1.htm
-        T Param = Parameter*Parameter;
+        T Param = Parameter;//*Parameter;
         T A0 = (1+Param)/2;
         T A1 = -A0;
         T B1 = Param;
