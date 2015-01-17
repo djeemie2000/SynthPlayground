@@ -10,7 +10,7 @@ public:
 
     void Sync()
     {
-        m_Cntr = 1<<30;
+        m_Cntr = 1<<30;//trigger at initial call, provided density is smaller
     }
 
     bool operator()(int Density)

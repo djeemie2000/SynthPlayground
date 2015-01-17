@@ -97,7 +97,9 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Filters/OneVoltPerOctaveFilter.cpp \
     Modules/OneVoltPerOctaveModule.cpp \
     Filters/HpfFilter.cpp \
-    Modules/HpfModule.cpp
+    Modules/HpfModule.cpp \
+    Filters/GranularFilter.cpp \
+    Modules/GranularModule.cpp
 
 HEADERS += Filters/ControllerBankFilter.h \
     Filters/PhasorFilter.h \
@@ -196,7 +198,10 @@ HEADERS += Filters/ControllerBankFilter.h \
     Filters/OneVoltPerOctaveFilter.h \
     Modules/OneVoltPerOctaveModule.h \
     Filters/HpfFilter.h \
-    Modules/HpfModule.h
+    Modules/HpfModule.h \
+    Filters/GranularFilter.h \
+    Modules/GranularModule.h
+
 
 INCLUDEPATH += ./Filters
 INCLUDEPATH += ./Modules
@@ -205,6 +210,7 @@ INCLUDEPATH += ./../CommandStackLib
 INCLUDEPATH += ./../JackLib
 INCLUDEPATH += ./../SynthLib
 INCLUDEPATH += ./../SynthLib/Interfaces
+INCLUDEPATH += ./../SynthLib/Granular
 INCLUDEPATH += ./../MidiLib
 
 win32 {

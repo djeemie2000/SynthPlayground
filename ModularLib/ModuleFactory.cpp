@@ -45,6 +45,7 @@
 #include "SlewLimiterModule.h"
 #include "OneVoltPerOctaveModule.h"
 #include "HpfModule.h"
+#include "GranularModule.h"
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -247,7 +248,10 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new COneVoltPerOctaveModule(Name));
     }
-
+    else if(Type == "Granular")
+    {
+        Module.reset(new CGranularModule(Name, *m_CommandStackController));
+    }
 
     return Module;
 }
@@ -345,7 +349,8 @@ std::vector<string> CModuleFactory::GetSupportedTypes(const std::string &Categor
             "Distortion1",
             "Glitch",
             "EnvelopeFollower",
-            "DelayLine"
+            "DelayLine",
+            "Granular"
         };
     }
 

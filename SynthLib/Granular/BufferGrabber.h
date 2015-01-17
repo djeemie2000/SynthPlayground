@@ -55,6 +55,11 @@ public:
         return m_Buffer;
     }
 
+    int GetCapacity() const
+    {
+        return m_Capacity;
+    }
+
 private:
     const int m_Capacity;
     BufferType m_Buffer;
