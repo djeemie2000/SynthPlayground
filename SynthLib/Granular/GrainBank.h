@@ -30,10 +30,11 @@ public:
         }
 
         // add all grain's output
+        CHammingGrainWindow<T> Window;
         T Out = 0;
         for(auto& Grain : m_Grain)
         {
-            Out += Grain(Buffer, BufferSize);
+            Out += Grain(Buffer, BufferSize, Window);
         }
 
         return Out;

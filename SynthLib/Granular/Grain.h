@@ -49,6 +49,26 @@ public:
         return 0;
     }
 
+    template<class WindowType>
+    T operator()(const T* Buffer, int BufferSize, WindowType& Window)
+    {
+        if(m_Cntr<m_Size)
+        {
+            // TODO handle cases where speed is negative
+            // TODO check index wrt buffer size and zero => wrap around!
+            int Index = m_Position + (m_Cntr*m_Speed>>SpeedScale);
+            ++m_Cntr;
+            if(0<=Index && Index<BufferSize)
+            {
+                // using window!
+                return m_Amplitude*Window(m_Cntr, m_Size)*Buffer[Index];
+                // return m_Amplitude*Buffer[Index];
+            }
+        }
+
+        return 0;
+    }
+
 private:
     int m_Cntr;
     int m_Position;

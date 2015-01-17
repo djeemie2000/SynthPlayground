@@ -61,7 +61,7 @@ void CGranularModule::Accept(IModuleParameterVisitor &ParameterVisitor) const
     ParameterVisitor.IntegerParameter(m_Name+"/SampleSize", "SampleSize", 17, 10, 17, 1);
     ParameterVisitor.FinishLine();
     ParameterVisitor.StartLine();
-    ParameterVisitor.IntegerParameter(m_Name+"/GrainSize", "GrainSize", 12, 10, 16, 1);
+    ParameterVisitor.IntegerParameter(m_Name+"/GrainSize", "GrainSize", 12, 8, 16, 1);
     ParameterVisitor.IntegerParameter(m_Name+"/GrainDensity", "GrainDensity", 11, 4, 18, 1);
     ParameterVisitor.IntegerParameter(m_Name+"/GrainSpeed", "GrainSpeed", 1<<CGrain<float>::SpeedScale, 1, 8*(1<<CGrain<float>::SpeedScale), 1);
     ParameterVisitor.FinishLine();
