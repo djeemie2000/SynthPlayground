@@ -101,12 +101,13 @@ TEST(StepFrequencyVelocity)
     Sequencer.SetOctave(1, EOctave::Octave5);
     Sequencer.SetVelocity(1, 16);
 
+    CHECK(false);//the following will fail!!!
     for(int ClockPulse = 0; ClockPulse<128; ++ClockPulse)
     {
-        float ExpectedFrequency = 16.35f;
-        CHECK_CLOSE(ExpectedFrequency, Sequencer.GetFrequency(), 0.0001);
-        float ExpectedVelocity = 127/128.0f;
-        CHECK_CLOSE(ExpectedVelocity, Sequencer.GetVelocity(), 0.0001);
+//        float ExpectedFrequency = 16.35f;
+//        CHECK_CLOSE(ExpectedFrequency, Sequencer.GetFrequency(), 0.0001);
+//        float ExpectedVelocity = 127/128.0f;
+//        CHECK_CLOSE(ExpectedVelocity, Sequencer.GetVelocity(), 0.0001);
         Sequencer.AdvanceClock();
     }
 
