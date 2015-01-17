@@ -3,8 +3,15 @@
 #include "GrainUtilities.h"
 
 CGranularFilter::CGranularFilter()
- : m_Grabber(1<<16)
- , m_Cntr(0)
+ : m_PositionScale(8)
+ , m_Grabber(1<<17)
+ , m_ScaledPosition(0)
+ , m_GrainBank(128)
+ , m_GrainTrigger()
+ , m_GrainSize(1<<12)
+ , m_GrainSpeed(1<<CGrain<float>::SpeedScale)
+ , m_GrainDensity(1<<11)
+ , m_PositionSpeed(1<<m_PositionScale)
 {
 }
 
@@ -37,22 +44,23 @@ int CGranularFilter::OnProcess(const std::vector<void *> &SourceBuffers,
 {
     if(const float* SrcBuffer = static_cast<const float*>(SourceBuffers[0]))
     {
-        // ??? what if sample size < NumFrames ???
-//        const float* SrcBufferEnd = SrcBuffer + NumFrames;
-//        while(SrcBuffer<SrcBufferEnd)
-//        {
-//            m_Grabber(*SrcBuffer);
-//            ++SrcBuffer;
-//        }
-
         if(float* DstBuffer = static_cast<float*>(DestinationBuffers[0]))
         {
             const float* DstBufferEnd = DstBuffer + NumFrames;
             while(DstBuffer<DstBufferEnd)
             {
                 m_Grabber(*SrcBuffer);
-                *DstBuffer = m_Grabber.GetBuffer()[m_Cntr];
-                m_Cntr = grainutilities::UpdateCounter(m_Cntr, 1, m_Grabber.GetSize());
+                //*DstBuffer = m_Grabber.GetBuffer()[m_Position];
+
+                *DstBuffer =
+                m_GrainBank(m_Grabber.GetBuffer().data(), m_Grabber.GetSize(),
+                            m_GrainTrigger(m_GrainDensity),
+                            m_ScaledPosition>>m_PositionScale, m_GrainSize, m_GrainSpeed, 1.0f);
+
+
+                m_ScaledPosition = grainutilities::UpdateCounter(m_ScaledPosition,
+                                                                 m_PositionSpeed,
+                                                                 m_Grabber.GetSize()<<m_PositionScale);
 
                 ++SrcBuffer;
                 ++DstBuffer;
@@ -76,9 +84,9 @@ int CGranularFilter::OnProcess(const std::vector<void *> &SourceBuffers,
     return 0;
 }
 
-void CGranularFilter::SetSampleSize(int Size)
+void CGranularFilter::SetSampleSize(int SizeShift)
 {
-    m_Grabber.SetSize(Size);
+    m_Grabber.SetSize(1<<SizeShift);
 }
 
 void CGranularFilter::SetSampleGrab(bool Grab)
@@ -92,4 +100,24 @@ void CGranularFilter::SetSampleGrab(bool Grab)
 int CGranularFilter::GetSampleCapacity() const
 {
     return m_Grabber.GetCapacity();
+}
+
+void CGranularFilter::SetGrainSize(int GrainSizeShift)
+{
+    m_GrainSize = 1<<GrainSizeShift;
+}
+
+void CGranularFilter::SetGrainSpeed(int GrainSpeed)
+{
+    m_GrainSpeed = GrainSpeed;//TODO scaled!!!
+}
+
+void CGranularFilter::SetGrainDensity(int GrainDensityShift)
+{
+    m_GrainDensity = 1<<GrainDensityShift;
+}
+
+void CGranularFilter::SetPositionSpeed(int PositionSpeed)
+{
+    m_PositionSpeed = PositionSpeed;
 }

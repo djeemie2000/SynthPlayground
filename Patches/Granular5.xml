@@ -1,0 +1,46 @@
+<xml>
+<Modules>
+ControllerBank(4)0 --- ControllerBank(4)
+Granular0 --- Granular
+LPF0 --- LPF
+Mixer(4)0 --- Mixer(4)
+StereoDelay0 --- StereoDelay
+
+</Modules>
+<Connections>
+Granular0:Out -> LPF0:In
+Mixer(4)0:Out -> StereoDelay0:InLeft
+Mixer(4)0:Out -> StereoDelay0:InRight
+audacious-jack_9821_000:out_0 -> Granular0:In
+audacious-jack_9821_000:out_0 -> Mixer(4)0:In1
+StereoDelay0:OutLeft -> system:playback_1
+StereoDelay0:OutRight -> system:playback_2
+LPF0:Out -> Mixer(4)0:In0
+ControllerBank(4)0:Contr0 -> LPF0:CutOff
+
+</Connections>
+<Parameters>
+ControllerBank(4)0/0/Value 0 0 0.92
+Granular0/GrainDensity 0 9 0
+Granular0/GrainSize 0 11 0
+Granular0/GrainSpeed 0 64 0
+Granular0/PositionSpeed 0 128 0
+Granular0/SampleGrab 0 0 0
+Granular0/SampleSize 0 17 0
+LPF0/Poles 0 18 0
+Mixer(4)0/0/Volume 0 0 0.6
+Mixer(4)0/1/Volume 0 0 0
+Mixer(4)0/2/Volume 0 0 0
+Mixer(4)0/3/Volume 0 0 0
+Mixer(4)0/MasterVolume 0 0 0.7
+StereoDelay0/Left/Bypass 0 0 0
+StereoDelay0/Left/DelayMilliSeconds 0 0 247
+StereoDelay0/Left/Feedback 0 0 0.5
+StereoDelay0/Left/WetDry 0 0 0.4
+StereoDelay0/Right/Bypass 0 0 0
+StereoDelay0/Right/DelayMilliSeconds 0 0 253
+StereoDelay0/Right/Feedback 0 0 0.5
+StereoDelay0/Right/WetDry 0 0 0.4
+
+</Parameters>
+</xml>

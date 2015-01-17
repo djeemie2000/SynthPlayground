@@ -14,7 +14,11 @@ CGranularModule::CGranularModule(const std::string& Name, CCommandStackControlle
     Open();
     // command stack stuff for filter
     m_CommandStackController.AddCommand({m_Name+"/SampleGrab", false, 0, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetSampleGrab(Item.BoolValue()); });
-    m_CommandStackController.AddCommand({m_Name+"/SampleSize", false, 1<<15, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetSampleSize(Item.IntValue()); });
+    m_CommandStackController.AddCommand({m_Name+"/SampleSize", false, 15, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetSampleSize(Item.IntValue()); });
+    m_CommandStackController.AddCommand({m_Name+"/GrainSize", false, 12, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetGrainSize(Item.IntValue()); });
+    m_CommandStackController.AddCommand({m_Name+"/GrainDensity", false, 11, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetGrainDensity(Item.IntValue()); });
+    m_CommandStackController.AddCommand({m_Name+"/GrainSpeed", false, 1<<CGrain<float>::SpeedScale, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetGrainSpeed(Item.IntValue()); });
+    m_CommandStackController.AddCommand({m_Name+"/PositionSpeed", false, 256, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetPositionSpeed(Item.IntValue()); });
 }
 
 CGranularModule::~CGranularModule()
@@ -22,6 +26,10 @@ CGranularModule::~CGranularModule()
     // remove from command stack
     m_CommandStackController.RemoveCommand(m_Name+"/SampleGrab");
     m_CommandStackController.RemoveCommand(m_Name+"/SampleSize");
+    m_CommandStackController.RemoveCommand(m_Name+"/GrainSize");
+    m_CommandStackController.RemoveCommand(m_Name+"/GrainDensity");
+    m_CommandStackController.RemoveCommand(m_Name+"/GrainSpeed");
+    m_CommandStackController.RemoveCommand(m_Name+"/PositionSpeed");
     Close();
 }
 
@@ -50,7 +58,15 @@ void CGranularModule::Accept(IModuleParameterVisitor &ParameterVisitor) const
     ParameterVisitor.Start();
     ParameterVisitor.StartLine();
     ParameterVisitor.BooleanParameter(m_Name+"/SampleGrab", "SampleGrab", false);
-    ParameterVisitor.IntegerParameter(m_Name+"/SampleSize", "SampleSize", m_Filter->GetSampleCapacity(), 1<<10, m_Filter->GetSampleCapacity(), 1);
+    ParameterVisitor.IntegerParameter(m_Name+"/SampleSize", "SampleSize", 17, 10, 17, 1);
+    ParameterVisitor.FinishLine();
+    ParameterVisitor.StartLine();
+    ParameterVisitor.IntegerParameter(m_Name+"/GrainSize", "GrainSize", 12, 10, 16, 1);
+    ParameterVisitor.IntegerParameter(m_Name+"/GrainDensity", "GrainDensity", 11, 4, 18, 1);
+    ParameterVisitor.IntegerParameter(m_Name+"/GrainSpeed", "GrainSpeed", 1<<CGrain<float>::SpeedScale, 1, 8*(1<<CGrain<float>::SpeedScale), 1);
+    ParameterVisitor.FinishLine();
+    ParameterVisitor.StartLine();
+    ParameterVisitor.IntegerParameter(m_Name+"/PositionSpeed", "PositionSpeed", 256, 1, 256*16, 1);
     ParameterVisitor.FinishLine();
     ParameterVisitor.Finish();
 }

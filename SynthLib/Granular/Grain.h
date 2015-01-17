@@ -7,11 +7,12 @@ template<class T>
 class CGrain
 {
 public:
+    static const int SpeedScale = 8;
     CGrain()
         : m_Cntr(1<<8)
         , m_Position(0)
         , m_Size(m_Cntr)
-        , m_Speed(1)
+        , m_Speed(1<<SpeedScale)
         , m_Amplitude(1)
     {}
 
@@ -34,8 +35,9 @@ public:
         if(m_Cntr<m_Size)
         {
             // TODO handle cases where speed is negative
-            int Index = m_Position + m_Cntr;
-            m_Cntr += m_Speed;
+            // TODO check index wrt buffer size and zero => wrap around!
+            int Index = m_Position + (m_Cntr*m_Speed>>SpeedScale);
+            ++m_Cntr;
             if(0<=Index && Index<BufferSize)
             {
                 // using window!

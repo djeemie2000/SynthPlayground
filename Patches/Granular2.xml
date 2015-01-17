@@ -13,10 +13,13 @@ audacious-jack_9821_000:out_0 -> Mixer(4)0:In1
 
 </Connections>
 <Parameters>
+Granular0/GrainDensity 0 8 0
+Granular0/GrainSize 0 10 0
+Granular0/GrainSpeed 0 2 0
 Granular0/SampleGrab 0 0 0
-Granular0/SampleSize 0 14 0
-Mixer(4)0/0/Volume 0 0 0.8
-Mixer(4)0/1/Volume 0 0 0.2
+Granular0/SampleSize 0 16 0
+Mixer(4)0/0/Volume 0 0 0.27
+Mixer(4)0/1/Volume 0 0 0
 Mixer(4)0/MasterVolume 0 0 0.6
 
 </Parameters>

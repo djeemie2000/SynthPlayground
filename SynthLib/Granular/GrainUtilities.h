@@ -4,7 +4,8 @@
 namespace grainutilities
 {
 
-int UpdateCounter(int Counter, int Step, int MaxCounter)
+template<class T>
+int UpdateCounter(T Counter, T Step, T MaxCounter)
 {
     return (Counter+Step)%MaxCounter;//TODO in cpp
 }

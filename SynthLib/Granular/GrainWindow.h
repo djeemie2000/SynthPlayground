@@ -2,7 +2,7 @@
 #define GRAINWINDOW_H
 
 template<class T>
-class CTriangularGrainWindow//TODO rename to CTriangularGrainWindow
+class CTriangularGrainWindow
 {
 public:
     CTriangularGrainWindow(){}
