@@ -24,7 +24,8 @@ SOURCES += StepSequencer.cpp \
     Controllers/Synth12Controller.cpp \
     WavFileReader.cpp \
     ReadWavFile.cpp \
-    MidiNoteConverter.cpp
+    MidiNoteConverter.cpp \
+    Granular/GrainUtilities.cpp
 
 HEADERS += StepSequencer.h \
     Notes.h \
@@ -154,7 +155,13 @@ HEADERS += StepSequencer.h \
     RandomGate.h \
     Limiter.h \
     SlewLimiter.h \
-    OneVoltPerOctave.h
+    OneVoltPerOctave.h \
+    Granular/Grain.h \
+    Granular/GrainBank.h \
+    Granular/GrainTrigger.h \
+    Granular/BufferGrabber.h \
+    Granular/GrainWindow.h \
+    Granular/GrainUtilities.h
 
 
 INCLUDEPATH += ./../MidiLib

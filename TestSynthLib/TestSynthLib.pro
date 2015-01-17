@@ -32,7 +32,9 @@ SOURCES += main.cpp \
     TestRandomGate.cpp \
     TestSlewLimiter.cpp \
     TestOneVoltPerOctave.cpp \
-    TestOnePoleFilter.cpp
+    TestOnePoleFilter.cpp \
+    TestBufferGrabber.cpp \
+    TestGrainBank.cpp
 
 unix {
     target.path = /usr/lib
@@ -41,6 +43,7 @@ unix {
 
 INCLUDEPATH += ./../SynthLib
 INCLUDEPATH += ./../SynthLib/Controllers
+INCLUDEPATH += ./../SynthLib/Granular
 INCLUDEPATH += ./../MidiLib
 INCLUDEPATH += ./../UnitTest
 
