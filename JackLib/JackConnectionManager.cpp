@@ -103,7 +103,7 @@ CJackConnectionManager::ConnectionsType CJackConnectionManager::GetConnections()
     PortNamesType OutputPortNames = GetOutputPorts();
     for(auto& PortName : OutputPortNames)
     {
-        PortNamesType ConnectedPortNames = GetConnectedPorts(m_Client, PortName);
+        PortNamesType ConnectedPortNames = ::GetConnectedPorts(m_Client, PortName);
         for(auto& ConnectedPortName : ConnectedPortNames)
         {
             Connections.push_back({PortName, ConnectedPortName});
@@ -111,6 +111,11 @@ CJackConnectionManager::ConnectionsType CJackConnectionManager::GetConnections()
     }
 
     return Connections;
+}
+
+CJackConnectionManager::PortNamesType CJackConnectionManager::GetConnectedPorts(const std::string &PortName) const
+{
+    return ::GetConnectedPorts(m_Client, PortName);
 }
 
 bool CJackConnectionManager::Connect(const std::string &OutputPortName, const std::string &InputPortName)

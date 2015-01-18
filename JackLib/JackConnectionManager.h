@@ -30,6 +30,7 @@ public:
     PortNamesType GetOutputPorts() const;
 
     ConnectionsType GetConnections() const;
+    PortNamesType GetConnectedPorts(const std::string& PortName) const;
     bool Connect(const std::string& OutputPortName, const std::string& InputPortName);
     bool Disconnect(const std::string& OutputPortName, const std::string& InputPortName);
 
