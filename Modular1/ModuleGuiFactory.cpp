@@ -7,10 +7,12 @@
 
 CGuiModuleFactory::CGuiModuleFactory(std::shared_ptr<IModuleFactory> Factory,
                                      std::shared_ptr<CCommandStackController> CommandStackController,
+                                     std::shared_ptr<CJackConnectionManager> ConnectionManager,
                                      QStackedWidget *Parent)
  : m_Parent(Parent)
  , m_Factory(Factory)
  , m_CommandStackController(CommandStackController)
+ , m_ConnectionManager(ConnectionManager)
 {
 }
 
@@ -18,7 +20,7 @@ std::shared_ptr<IModularModule> CGuiModuleFactory::Create(const std::string &Typ
 {
     if(auto Module = m_Factory->Create(Type, Name))
     {
-        QGenericModuleWidget* Widget = new QGenericModuleWidget(*Module, *m_CommandStackController, m_Parent);
+        QGenericModuleWidget* Widget = new QGenericModuleWidget(Module, *m_CommandStackController, m_Parent);
 
         return std::shared_ptr<IModularModule>(new CGuiModuleDecorator(Module, m_Parent, Widget));
     }

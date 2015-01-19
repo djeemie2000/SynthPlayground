@@ -16,13 +16,13 @@ CModular1Controller::CModular1Controller(QStackedWidget *Parent)
  , m_CapturedConnections()
  , m_CapturedParameters()
 {
+    m_ConnectionManager.reset(new CJackConnectionManager());
+    m_ConnectionManager->OpenClient("ConnectionMgr");
+
     m_CommandStackController.reset(new CCommandStackController());
     std::shared_ptr<IModuleFactory> Factory(new CModuleFactory(m_CommandStackController));
-    std::shared_ptr<CGuiModuleFactory> GuiFactory(new CGuiModuleFactory(Factory, m_CommandStackController, Parent));
+    std::shared_ptr<CGuiModuleFactory> GuiFactory(new CGuiModuleFactory(Factory, m_CommandStackController, m_ConnectionManager, Parent));
     m_ModuleManager.reset(new CModuleManager(GuiFactory));
-    m_ConnectionManager.reset(new CJackConnectionManager());
-
-    m_ConnectionManager->OpenClient("ConnectionMgr");
 }
 
 bool CModular1Controller::Create(const string &Type, const string &Name)
