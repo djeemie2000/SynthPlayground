@@ -2,8 +2,20 @@
 #include <iostream>
 #include "JackConnectionManager.h"
 
+namespace
+{
+
+void JackPortConnectFunction(jack_port_id_t a, jack_port_id_t b, int connect, void *arg)
+{
+    // callback when port a is (dis)connected to port b
+    ((CJackConnectionManager*)arg)->OnConnectionChanged(a, b, connect);
+}
+
+}
+
 CJackConnectionManager::CJackConnectionManager()
  : m_Client(0)
+ , m_Listeners()
 {
 }
 
@@ -16,6 +28,8 @@ bool CJackConnectionManager::OpenClient(const std::string &ClientName)
 {
     // open client with requested name. No further options are needed
     m_Client = jack_client_open(ClientName.c_str(), JackNullOption, 0);
+    jack_set_port_connect_callback(m_Client, JackPortConnectFunction, this);
+    jack_activate(m_Client);//if not activated => no callbacks
     return ClientIsOpen();
 }
 
@@ -171,6 +185,17 @@ void CJackConnectionManager::CloseClient()
         jack_client_close(m_Client);
         // make sure we know we are closed
         m_Client = 0;
+    }
+}
+
+void CJackConnectionManager::OnConnectionChanged(jack_port_id_t a, jack_port_id_t b, int Connect)
+{
+    // retrieve port names
+    std::string OutputPortName = jack_port_name( jack_port_by_id(m_Client, a) );//free???
+    std::string InputPortName = jack_port_name( jack_port_by_id(m_Client, b) );//free???
+    for(auto& Listener: m_Listeners)
+    {
+        Listener->OnConnectionChanged(OutputPortName, InputPortName, 0!=Connect);
     }
 }
 

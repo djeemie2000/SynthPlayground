@@ -16,7 +16,8 @@ HEADERS += \
     JackConnectionManager.h \
     JackMidiRenderer.h \
     JackMidiHandler.h \
-    JackWin32Port.h
+    JackWin32Port.h \
+    IConnectionChangedListener.h
 
 INCLUDEPATH += ./../SynthLib
 INCLUDEPATH += ./../MidiLib

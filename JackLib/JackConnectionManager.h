@@ -3,8 +3,13 @@
 
 #include <string>
 #include <vector>
+#include <list>
+#include <memory>
+#include "IConnectionChangedListener.h"
 #include "JackWin32Port.h"
 #include <jack/jack.h>
+
+class IConnectionChangedListener;
 
 class CJackConnectionManager
 {
@@ -36,10 +41,16 @@ public:
 
     std::string GetPortDescription(const std::string& PortName) const;
 
+    void Register(SPConnectionChangedListener Listener);
+    void Unregister(SPConnectionChangedListener Listener);
+
     void CloseClient();
+
+    void OnConnectionChanged(jack_port_id_t a, jack_port_id_t b, int Connect);
 
 private:
     jack_client_t*  m_Client;
+    std::list<SPConnectionChangedListener> m_Listeners;
 };
 
 std::string ConnectionsToString(const CJackConnectionManager& Manager);
