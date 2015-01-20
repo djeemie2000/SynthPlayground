@@ -15,7 +15,8 @@ SOURCES += main.cpp\
     QModularManagerWidget.cpp \
     GuiModuleDecorator.cpp \
     ModuleGuiParameterVisitor.cpp \
-    Modular1Controller.cpp
+    Modular1Controller.cpp \
+    QConnectionChangedListener.cpp
 
 HEADERS  += mainwindow.h \
     ModuleGuiFactory.h \
@@ -23,7 +24,8 @@ HEADERS  += mainwindow.h \
     QModularManagerWidget.h \
     GuiModuleDecorator.h \
     ModuleGuiParameterVisitor.h \
-    Modular1Controller.h
+    Modular1Controller.h \
+    QConnectionChangedListener.h
 
 FORMS    += mainwindow.ui \
     QGenericModuleWidget.ui \

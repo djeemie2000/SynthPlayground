@@ -7,26 +7,20 @@
 #include <QSpacerItem>
 
 QGenericModuleWidget::QGenericModuleWidget(std::weak_ptr<IModularModule> Module,
+                                           std::weak_ptr<CJackConnectionManager> ConnectionManager,
                                            CCommandStackController &CommandStackController,
                                            QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::QGenericModuleWidget)
     , m_Module(Module)
+    , m_ConnectionManager(ConnectionManager)
 {
     ui->setupUi(this);
 
-    if(std::shared_ptr<IModularModule> SPModule = m_Module.lock())
-    {
-        setWindowTitle(QString::fromStdString(SPModule->GetName()));
-        ui->groupBox_Parameters->setTitle(QString::fromStdString(SPModule->GetName()));
+    AddParameters(CommandStackController);
+    AddOutputs();
 
-        // module accepts parameter visitor around our parameters groupbox
-        CGuiModuleParameterVisitor ParameterVisitor(ui->groupBox_Parameters, this, CommandStackController);
-        SPModule->Accept(ParameterVisitor);
-    }
-
-    // list outputs
-    OnUpdateConnections();
+    ui->groupBox_Outputs->setHidden(true);
 }
 
 QGenericModuleWidget::~QGenericModuleWidget()
@@ -39,7 +33,20 @@ QGroupBox *QGenericModuleWidget::GetParametersGroupBox()
     return ui->groupBox_Parameters;
 }
 
-void QGenericModuleWidget::OnUpdateConnections()
+void QGenericModuleWidget::AddParameters(CCommandStackController& CommandStackController)
+{
+    if(std::shared_ptr<IModularModule> SPModule = m_Module.lock())
+    {
+        setWindowTitle(QString::fromStdString(SPModule->GetName()));
+        ui->groupBox_Parameters->setTitle(QString::fromStdString(SPModule->GetName()));
+
+        // module accepts parameter visitor around our parameters groupbox
+        CGuiModuleParameterVisitor ParameterVisitor(ui->groupBox_Parameters, this, CommandStackController);
+        SPModule->Accept(ParameterVisitor);
+    }
+}
+
+void QGenericModuleWidget::AddOutputs()
 {
     if(std::shared_ptr<IModularModule> SPModule = m_Module.lock())
     {
@@ -50,7 +57,7 @@ void QGenericModuleWidget::OnUpdateConnections()
         for(auto& OutputName : SPModule->GetOutputNames())
         {
             OutputsLayout->addWidget(new QLabel(QString::fromStdString(OutputName), this), Row, 0);
-            OutputsLayout->addWidget(new QLabel("TBD:TBD", this), Row, 1);
+            OutputsLayout->addWidget(new QLabel("-", this), Row, 1);
             ++Row;
         }
     }

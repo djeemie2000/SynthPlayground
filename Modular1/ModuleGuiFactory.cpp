@@ -20,7 +20,7 @@ std::shared_ptr<IModularModule> CGuiModuleFactory::Create(const std::string &Typ
 {
     if(auto Module = m_Factory->Create(Type, Name))
     {
-        QGenericModuleWidget* Widget = new QGenericModuleWidget(Module, *m_CommandStackController, m_Parent);
+        QGenericModuleWidget* Widget = new QGenericModuleWidget(Module, m_ConnectionManager, *m_CommandStackController, m_Parent);
 
         return std::shared_ptr<IModularModule>(new CGuiModuleDecorator(Module, m_Parent, Widget));
     }
@@ -37,4 +37,3 @@ std::vector<std::string> CGuiModuleFactory::GetSupportedCategories() const
 {
     return m_Factory->GetSupportedCategories();
 }
-
