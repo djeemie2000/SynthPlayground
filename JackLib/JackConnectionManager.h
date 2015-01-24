@@ -57,4 +57,7 @@ std::string ConnectionsToString(const CJackConnectionManager& Manager);
 bool StringToConnections(CJackConnectionManager& Manager, const std::string& ConnectionsString);
 bool DisconnectAll(CJackConnectionManager& Manager);
 
+std::string PortNameToClientName(const std::string& FullPortName);
+std::string PortNameToInOutName(const std::string& FullPortName);
+
 #endif // JACKCONNECTIONMANAGER_H

@@ -264,3 +264,21 @@ bool StringToConnections(CJackConnectionManager &Manager, const std::string &Con
 
     return AllConnected;
 }
+
+
+std::string PortNameToClientName(const std::string &FullPortName)
+{
+    // full port name is clientname:inputoutputname
+    return FullPortName.substr(0,FullPortName.find(':'));
+}
+
+std::string PortNameToInOutName(const std::string &FullPortName)
+{
+    // full port name is clientname:inputoutputname
+    std::size_t Pos = FullPortName.find(':');
+    if(Pos==std::string::npos || Pos==FullPortName.size())
+    {
+        return FullPortName;
+    }
+    return FullPortName.substr(Pos+1);
+}
