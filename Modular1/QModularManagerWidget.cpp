@@ -12,12 +12,19 @@ QModularManagerWidget::QModularManagerWidget(std::weak_ptr<CModular1Controller> 
 {
     ui->setupUi(this);
 
-    ui->listWidget_ModuleCategories->clear();
+    ui->toolBox_Modules->removeItem(1);
+    ui->toolBox_Modules->removeItem(0);
+
     if(std::shared_ptr<CModular1Controller> Controller = m_Controller.lock())
     {
         for(auto& Category : Controller->GetSupportedCategories())
         {
-            ui->listWidget_ModuleCategories->addItem(QString::fromStdString(Category));
+            QListWidget* ListWidget = new QListWidget(this);
+            for(auto& Type : Controller->GetSupportedTypes(Category))
+            {
+                ListWidget->addItem(QString::fromStdString(Type));
+            }
+            ui->toolBox_Modules->addItem(ListWidget, QString::fromStdString(Category));
         }
     }
 }
@@ -32,7 +39,8 @@ void QModularManagerWidget::on_pushButton_Create_clicked()
 {
     if(std::shared_ptr<CModular1Controller> Controller = m_Controller.lock())
     {
-        QList<QListWidgetItem*> Selected = ui->listWidget_ModuleTypes->selectedItems();
+        QListWidget* ListWidget = dynamic_cast<QListWidget*>(ui->toolBox_Modules->currentWidget());
+        QList<QListWidgetItem*> Selected = ListWidget->selectedItems();//ui->listWidget_ModuleTypes->selectedItems();
         QListWidgetItem* Item = 0;
         foreach(Item , Selected)
         {
@@ -121,15 +129,3 @@ void QModularManagerWidget::on_listWidget_ModuleNames_itemSelectionChanged()
     }
 }
 
-void QModularManagerWidget::on_listWidget_ModuleCategories_currentTextChanged(const QString &currentText)
-{
-    // show types of the selected category in the types list widget
-    ui->listWidget_ModuleTypes->clear();
-    if(std::shared_ptr<CModular1Controller> Controller = m_Controller.lock())
-    {
-        for(auto& Type : Controller->GetSupportedTypes(currentText.toStdString()))
-        {
-            ui->listWidget_ModuleTypes->addItem(QString::fromStdString(Type));
-        }
-    }
-}
