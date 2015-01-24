@@ -5,6 +5,10 @@
 #include <QLabel>
 #include <QGridLayout>
 #include <QSpacerItem>
+#include "JackConnectionManager.h"
+#include "QConnectionChangedListener.h"
+
+#include <iostream>
 
 QGenericModuleWidget::QGenericModuleWidget(std::weak_ptr<IModularModule> Module,
                                            std::weak_ptr<CJackConnectionManager> ConnectionManager,
@@ -19,6 +23,7 @@ QGenericModuleWidget::QGenericModuleWidget(std::weak_ptr<IModularModule> Module,
 
     AddParameters(CommandStackController);
     AddOutputs();
+    AddConnectionListener();
 
     ui->groupBox_Outputs->setHidden(true);
 }
@@ -31,6 +36,37 @@ QGenericModuleWidget::~QGenericModuleWidget()
 QGroupBox *QGenericModuleWidget::GetParametersGroupBox()
 {
     return ui->groupBox_Parameters;
+}
+
+void QGenericModuleWidget::OnConnectionChanged(QString OutputPortName, QString InputPortName, bool Connect)
+{
+    // check if output is of our module
+    // if so,
+    //      update connected inputs
+    // TODO handle multiple connected outputs
+    if(std::shared_ptr<IModularModule> SPModule = m_Module.lock())
+    {
+        std::string OutModuleName = PortNameToClientName(OutputPortName.toStdString());
+        if(OutModuleName==SPModule->GetName())
+        {
+            std::string OutputName = PortNameToInOutName(OutputPortName.toStdString());
+
+            // debug:
+            std::cout << SPModule->GetName() << " : " << (Connect?"Connecting":"Disconnecting") << OutputName<< " -> " << InputPortName.toStdString() << std::endl;
+
+            if(QLabel* Label = m_OutputConnectionLabel[OutputName])
+            {
+                if(Connect)
+                {
+                    Label->setText(InputPortName);
+                }
+                else
+                {
+                    Label->setText("-");
+                }
+            }
+        }
+    }
 }
 
 void QGenericModuleWidget::AddParameters(CCommandStackController& CommandStackController)
@@ -57,9 +93,21 @@ void QGenericModuleWidget::AddOutputs()
         for(auto& OutputName : SPModule->GetOutputNames())
         {
             OutputsLayout->addWidget(new QLabel(QString::fromStdString(OutputName), this), Row, 0);
-            OutputsLayout->addWidget(new QLabel("-", this), Row, 1);
+            QLabel* Label = new QLabel("-", this);
+            m_OutputConnectionLabel[OutputName] = Label;
+            OutputsLayout->addWidget(Label, Row, 1);
             ++Row;
         }
+    }
+}
+
+void QGenericModuleWidget::AddConnectionListener()
+{
+    if(std::shared_ptr<CJackConnectionManager> ConnectionManager = m_ConnectionManager.lock())
+    {
+        QConnectionChangedListener* Listener = new QConnectionChangedListener();
+        connect(Listener, SIGNAL(SignalConnectionChanged(QString,QString,bool)), this, SLOT(OnConnectionChanged(QString,QString,bool)));
+        ConnectionManager->Register(std::shared_ptr<IConnectionChangedListener>(Listener));
     }
 }
 

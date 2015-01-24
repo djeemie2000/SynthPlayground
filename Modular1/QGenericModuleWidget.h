@@ -2,6 +2,7 @@
 #define QGENERICMODULEWIDGET_H
 
 #include <memory>
+#include <map>
 #include <QWidget>
 
 class IModularModule;
@@ -13,6 +14,7 @@ class QGenericModuleWidget;
 }
 
 class QGroupBox;
+class QLabel;
 
 class QGenericModuleWidget : public QWidget
 {
@@ -27,17 +29,23 @@ public:
 
     QGroupBox* GetParametersGroupBox();
 
+public slots:
+    void OnConnectionChanged(QString OutputPortName, QString InputPortName, bool Connect);
+
 private slots:
     void on_checkBox_Outputs_clicked(bool checked);
 
 private:
     void AddParameters(CCommandStackController& CommandStackController);
     void AddOutputs();
+    void AddConnectionListener();
 
     Ui::QGenericModuleWidget *ui;
 
     std::weak_ptr<IModularModule> m_Module;
     std::weak_ptr<CJackConnectionManager> m_ConnectionManager;
+
+    std::map<std::string, QLabel*> m_OutputConnectionLabel;
 };
 
 #endif // QGENERICMODULEWIDGET_H
