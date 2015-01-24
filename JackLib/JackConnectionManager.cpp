@@ -177,6 +177,17 @@ std::string CJackConnectionManager::GetPortDescription(const std::string &PortNa
     return "";
 }
 
+void CJackConnectionManager::Register(SPConnectionChangedListener Listener)
+{
+    m_Listeners.push_back(Listener);
+    m_Listeners.unique();
+}
+
+void CJackConnectionManager::Unregister(SPConnectionChangedListener Listener)
+{
+    m_Listeners.remove(Listener);
+}
+
 void CJackConnectionManager::CloseClient()
 {
     if(m_Client)
