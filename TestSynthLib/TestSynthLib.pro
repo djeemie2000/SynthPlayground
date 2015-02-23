@@ -34,7 +34,8 @@ SOURCES += main.cpp \
     TestOneVoltPerOctave.cpp \
     TestOnePoleFilter.cpp \
     TestBufferGrabber.cpp \
-    TestGrainBank.cpp
+    TestGrainBank.cpp \
+    TestPhaseShifter.cpp
 
 unix {
     target.path = /usr/lib

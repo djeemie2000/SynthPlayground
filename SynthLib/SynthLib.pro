@@ -161,7 +161,8 @@ HEADERS += StepSequencer.h \
     Granular/GrainTrigger.h \
     Granular/BufferGrabber.h \
     Granular/GrainWindow.h \
-    Granular/GrainUtilities.h
+    Granular/GrainUtilities.h \
+    PhaseShifter.h
 
 
 INCLUDEPATH += ./../MidiLib

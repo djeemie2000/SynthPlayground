@@ -99,7 +99,9 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Filters/HpfFilter.cpp \
     Modules/HpfModule.cpp \
     Filters/GranularFilter.cpp \
-    Modules/GranularModule.cpp
+    Modules/GranularModule.cpp \
+    Modules/PhaseShifterModule.cpp \
+    Filters/PhaseShifterFilter.cpp
 
 HEADERS += Filters/ControllerBankFilter.h \
     Filters/PhasorFilter.h \
@@ -200,7 +202,9 @@ HEADERS += Filters/ControllerBankFilter.h \
     Filters/HpfFilter.h \
     Modules/HpfModule.h \
     Filters/GranularFilter.h \
-    Modules/GranularModule.h
+    Modules/GranularModule.h \
+    Modules/PhaseShifterModule.h \
+    Filters/PhaseShifterFilter.h
 
 
 INCLUDEPATH += ./Filters

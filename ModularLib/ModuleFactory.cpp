@@ -46,6 +46,7 @@
 #include "OneVoltPerOctaveModule.h"
 #include "HpfModule.h"
 #include "GranularModule.h"
+#include "PhaseShifterModule.h"
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -252,6 +253,10 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CGranularModule(Name, *m_CommandStackController));
     }
+    else if(Type == "PhaseShifter")
+    {
+        Module.reset(new CPhaseShifterModule(Name));
+    }
 
     return Module;
 }
@@ -312,6 +317,7 @@ std::vector<string> CModuleFactory::GetSupportedTypes(const std::string &Categor
             "LPF",
             "HPF",
             "PhaseSkewer",
+            "PhaseShifter",
             "Combinor",
             "WaveFolder",
             "PosNegShaper",
