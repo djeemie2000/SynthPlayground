@@ -101,7 +101,9 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Filters/GranularFilter.cpp \
     Modules/GranularModule.cpp \
     Modules/PhaseShifterModule.cpp \
-    Filters/PhaseShifterFilter.cpp
+    Filters/PhaseShifterFilter.cpp \
+    Filters/WaveTableFilter.cpp \
+    Modules/WaveTableModule.cpp
 
 HEADERS += Filters/ControllerBankFilter.h \
     Filters/PhasorFilter.h \
@@ -204,7 +206,9 @@ HEADERS += Filters/ControllerBankFilter.h \
     Filters/GranularFilter.h \
     Modules/GranularModule.h \
     Modules/PhaseShifterModule.h \
-    Filters/PhaseShifterFilter.h
+    Filters/PhaseShifterFilter.h \
+    Filters/WaveTableFilter.h \
+    Modules/WaveTableModule.h
 
 
 INCLUDEPATH += ./Filters

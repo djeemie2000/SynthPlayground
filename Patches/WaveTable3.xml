@@ -1,0 +1,42 @@
+<xml>
+<Modules>
+ControllerBank(4)0 --- ControllerBank(4)
+LFOBank(4)0 --- LFOBank(4)
+LPF0 --- LPF
+Mixer(4)0 --- Mixer(4)
+Modulator0 --- Modulator
+Phasor0 --- Phasor
+WaveTable0 --- WaveTable
+
+</Modules>
+<Connections>
+ControllerBank(4)0:Contr0 -> Phasor0:Freq
+ControllerBank(4)0:Contr2 -> WaveTable0:Length
+ControllerBank(4)0:Contr3 -> LPF0:CutOff
+Mixer(4)0:Out -> system:playback_1
+Mixer(4)0:Out -> system:playback_2
+Phasor0:Phase -> WaveTable0:Phase
+WaveTable0:Out -> LPF0:In
+LPF0:Out -> Mixer(4)0:In0
+LPF0:Out -> Scope:In
+LFOBank(4)0:LFO0 -> Modulator0:ModIn0
+Modulator0:Out -> WaveTable0:Begin
+
+</Connections>
+<Parameters>
+ControllerBank(4)0/0/Value 0 0 28
+ControllerBank(4)0/1/Value 0 0 0
+ControllerBank(4)0/2/Value 0 0 -0
+ControllerBank(4)0/3/Value 0 0 0.799
+LFOBank(4)0/0/Frequency 0 0 0.08
+LFOBank(4)0/0/Select 0 4 0
+LPF0/Poles 0 12 0
+LPF0/Resonance 0 0 0
+Mixer(4)0/0/Volume 0 0 0.47
+Mixer(4)0/MasterVolume 0 0 0.5
+Modulator0/0/ModAmt 0 0 0.25
+Modulator0/LimitMode 0 2 0
+Modulator0/Offset 0 0 0.74
+
+</Parameters>
+</xml>

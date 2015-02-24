@@ -35,7 +35,8 @@ SOURCES += main.cpp \
     TestOnePoleFilter.cpp \
     TestBufferGrabber.cpp \
     TestGrainBank.cpp \
-    TestPhaseShifter.cpp
+    TestPhaseShifter.cpp \
+    TestWaveTable2.cpp
 
 unix {
     target.path = /usr/lib

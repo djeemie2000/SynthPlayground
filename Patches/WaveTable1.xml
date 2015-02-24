@@ -1,0 +1,28 @@
+<xml>
+<Modules>
+ControllerBank(4)0 --- ControllerBank(4)
+Mixer(4)0 --- Mixer(4)
+Phasor0 --- Phasor
+WaveTable0 --- WaveTable
+
+</Modules>
+<Connections>
+ControllerBank(4)0:Contr0 -> Phasor0:Freq
+ControllerBank(4)0:Contr1 -> WaveTable0:Begin
+ControllerBank(4)0:Contr2 -> WaveTable0:Length
+Phasor0:Phase -> WaveTable0:Phase
+WaveTable0:Out -> Mixer(4)0:In0
+WaveTable0:Out -> Scope:In
+Mixer(4)0:Out -> system:playback_1
+Mixer(4)0:Out -> system:playback_2
+
+</Connections>
+<Parameters>
+ControllerBank(4)0/0/Value 0 0 160
+ControllerBank(4)0/1/Value 0 0 0
+ControllerBank(4)0/2/Value 0 0 -0
+Mixer(4)0/0/Volume 0 0 0.47
+Mixer(4)0/MasterVolume 0 0 0.5
+
+</Parameters>
+</xml>

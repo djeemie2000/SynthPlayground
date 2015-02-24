@@ -47,6 +47,7 @@
 #include "HpfModule.h"
 #include "GranularModule.h"
 #include "PhaseShifterModule.h"
+#include "WaveTableModule.h"
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -257,6 +258,10 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CPhaseShifterModule(Name));
     }
+    else if(Type == "WaveTable")
+    {
+        Module.reset(new CWaveTableModule(Name, *m_CommandStackController));
+    }
 
     return Module;
 }
@@ -306,7 +311,8 @@ std::vector<string> CModuleFactory::GetSupportedTypes(const std::string &Categor
             "Phasor",
             "SimpleOscillator",
             "LinSegOperator",
-            "Noise"
+            "Noise",
+            "WaveTable"
         };
     }
 

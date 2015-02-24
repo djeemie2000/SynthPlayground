@@ -162,7 +162,9 @@ HEADERS += StepSequencer.h \
     Granular/BufferGrabber.h \
     Granular/GrainWindow.h \
     Granular/GrainUtilities.h \
-    PhaseShifter.h
+    PhaseShifter.h \
+    wavetable2.h \
+    WaveTables/WaveTableData.h
 
 
 INCLUDEPATH += ./../MidiLib
