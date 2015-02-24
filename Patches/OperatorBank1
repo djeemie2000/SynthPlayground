@@ -1,0 +1,76 @@
+<xml>
+<Modules>
+Amp0 --- Amp
+Amp1 --- Amp
+Amp2 --- Amp
+Amp3 --- Amp
+Amp4 --- Amp
+Amp5 --- Amp
+Amp6 --- Amp
+Amp7 --- Amp
+MidiControllerBank(4)0 --- MidiControllerBank(4)
+MidiControllerBank(4)1 --- MidiControllerBank(4)
+MidiNote0 --- MidiNote
+Mixer(8)0 --- Mixer(8)
+Operator0 --- Operator
+Operator1 --- Operator
+Operator2 --- Operator
+Operator3 --- Operator
+Phasor0 --- Phasor
+
+</Modules>
+<Connections>
+MidiControllerBank(4)0:Contr0 -> Amp0:Ampl
+MidiControllerBank(4)0:Contr1 -> Amp1:Ampl
+MidiControllerBank(4)0:Contr2 -> Amp2:Ampl
+MidiControllerBank(4)0:Contr3 -> Amp3:Ampl
+a2j_bridge:capture -> MidiControllerBank(4)0:MidiIn
+a2j_bridge:capture -> MidiNote0:MidiIn
+a2j_bridge:capture -> MidiControllerBank(4)1:MidiIn
+MidiNote0:Freq -> Phasor0:Freq
+Phasor0:Phase -> Amp0:In
+Operator0:Out -> Amp1:In
+Operator0:Out -> Amp4:In
+Operator1:Out -> Amp2:In
+Operator1:Out -> Amp5:In
+Operator2:Out -> Amp3:In
+Operator2:Out -> Amp6:In
+Operator3:Out -> Amp7:In
+Mixer(8)0:Out -> Scope:In
+Mixer(8)0:Out -> system:playback_1
+Mixer(8)0:Out -> system:playback_2
+Amp0:Out -> Operator0:Phase
+Amp1:Out -> Operator1:Phase
+Amp2:Out -> Operator2:Phase
+Amp3:Out -> Operator3:Phase
+MidiControllerBank(4)1:Contr0 -> Amp4:Ampl
+MidiControllerBank(4)1:Contr1 -> Amp5:Ampl
+MidiControllerBank(4)1:Contr2 -> Amp6:Ampl
+MidiControllerBank(4)1:Contr3 -> Amp7:Ampl
+Amp4:Out -> Mixer(8)0:In0
+Amp5:Out -> Mixer(8)0:In1
+Amp6:Out -> Mixer(8)0:In2
+Amp7:Out -> Mixer(8)0:In3
+
+</Connections>
+<Parameters>
+MidiControllerBank(4)0/0/Parameter 0 73 0
+MidiControllerBank(4)0/1/Parameter 0 75 0
+MidiControllerBank(4)0/2/Parameter 0 72 0
+MidiControllerBank(4)0/3/Parameter 0 74 0
+MidiControllerBank(4)1/0/Parameter 0 79 0
+MidiControllerBank(4)1/1/Parameter 0 84 0
+MidiControllerBank(4)1/2/Parameter 0 91 0
+MidiControllerBank(4)1/3/Parameter 0 93 0
+Mixer(8)0/0/Volume 0 0 0.2
+Mixer(8)0/1/Volume 0 0 0.2
+Mixer(8)0/2/Volume 0 0 0.2
+Mixer(8)0/3/Volume 0 0 0.2
+Mixer(8)0/MasterVolume 0 0 0.8
+Operator0/Select 0 2 0
+Operator1/Select 0 3 0
+Operator2/Select 0 3 0
+Operator3/Select 0 4 0
+
+</Parameters>
+</xml>

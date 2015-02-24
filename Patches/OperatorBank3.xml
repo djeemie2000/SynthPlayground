@@ -1,0 +1,82 @@
+<xml>
+<Modules>
+Amp4 --- Amp
+Amp5 --- Amp
+Amp6 --- Amp
+Amp7 --- Amp
+ControllerBank(4)0 --- ControllerBank(4)
+ControllerBank(8)0 --- ControllerBank(8)
+MidiNote0 --- MidiNote
+Mixer(8)0 --- Mixer(8)
+Operator0 --- Operator
+Operator1 --- Operator
+Operator2 --- Operator
+Operator3 --- Operator
+PhaseShifter0 --- PhaseShifter
+PhaseShifter1 --- PhaseShifter
+PhaseShifter2 --- PhaseShifter
+PhaseShifter3 --- PhaseShifter
+Phasor0 --- Phasor
+
+</Modules>
+<Connections>
+PhaseShifter2:Out -> Operator2:Phase
+PhaseShifter3:Out -> Operator3:Phase
+Amp4:Out -> Mixer(8)0:In0
+Amp5:Out -> Mixer(8)0:In1
+Amp6:Out -> Mixer(8)0:In2
+Amp7:Out -> Mixer(8)0:In3
+Mixer(8)0:Out -> system:playback_1
+Mixer(8)0:Out -> system:playback_2
+Mixer(8)0:Out -> Scope:In
+Operator0:Out -> Amp4:In
+Operator0:Out -> PhaseShifter1:Phase
+Operator1:Out -> Amp5:In
+Operator1:Out -> PhaseShifter2:Phase
+Operator2:Out -> Amp6:In
+Operator2:Out -> PhaseShifter3:Phase
+Operator3:Out -> Amp7:In
+Phasor0:Phase -> PhaseShifter0:Phase
+ControllerBank(8)0:Contr0 -> PhaseShifter0:Shift
+ControllerBank(8)0:Contr1 -> PhaseShifter1:Shift
+ControllerBank(8)0:Contr2 -> PhaseShifter2:Shift
+ControllerBank(8)0:Contr3 -> PhaseShifter3:Shift
+ControllerBank(8)0:Contr4 -> Amp4:Ampl
+ControllerBank(8)0:Contr5 -> Amp5:Ampl
+ControllerBank(8)0:Contr6 -> Amp6:Ampl
+ControllerBank(8)0:Contr7 -> Amp7:Ampl
+ControllerBank(4)0:Contr0 -> Phasor0:Freq
+PhaseShifter0:Out -> Operator0:Phase
+PhaseShifter1:Out -> Operator1:Phase
+
+</Connections>
+<Parameters>
+ControllerBank(4)0/0/Value 0 0 60
+ControllerBank(8)0/0/Value 0 0 -0
+ControllerBank(8)0/1/Value 0 0 -0.242
+ControllerBank(8)0/2/Value 0 0 0.106
+ControllerBank(8)0/3/Value 0 0 -0.592
+ControllerBank(8)0/4/Value 0 0 1
+ControllerBank(8)0/5/Value 0 0 1
+ControllerBank(8)0/6/Value 0 0 1
+ControllerBank(8)0/7/Value 0 0 1
+MidiControllerBank(4)0/0/Parameter 0 73 0
+MidiControllerBank(4)0/1/Parameter 0 75 0
+MidiControllerBank(4)0/2/Parameter 0 72 0
+MidiControllerBank(4)0/3/Parameter 0 74 0
+MidiControllerBank(4)1/0/Parameter 0 79 0
+MidiControllerBank(4)1/1/Parameter 0 84 0
+MidiControllerBank(4)1/2/Parameter 0 91 0
+MidiControllerBank(4)1/3/Parameter 0 93 0
+Mixer(8)0/0/Volume 0 0 0.2
+Mixer(8)0/1/Volume 0 0 0.2
+Mixer(8)0/2/Volume 0 0 0.2
+Mixer(8)0/3/Volume 0 0 0.2
+Mixer(8)0/MasterVolume 0 0 0.8
+Operator0/Select 0 3 0
+Operator1/Select 0 3 0
+Operator2/Select 0 3 0
+Operator3/Select 0 3 0
+
+</Parameters>
+</xml>
