@@ -49,8 +49,11 @@ public:
     PlaybackType operator()(PhaseType Phase, int Begin, int Length)
     {
         // Phase is [-1,+1]
-        int Index = (Begin + Length*(1+Phase)/2);
-        return m_Data[Index%m_Size];
+        PhaseType RealIndex = (Begin + Length*(1+Phase)/2);
+        int Index = RealIndex;
+        // interpolation
+        PhaseType Mix = RealIndex - Index;
+        return (1-Mix)*m_Data[Index%m_Size] + Mix*m_Data[(Index+1)%m_Size];
     }
 
 private:
@@ -72,7 +75,7 @@ public:
 
     PlaybackType operator()(PhaseType Phase, PhaseType Begin, PhaseType Length)
     {
-        int NumSingleWaves = m_WaveTableSize/m_SingleWaveSize;
+        int NumSingleWaves = GetNumSingleWaves();
 
         // Begin [0,1] to nearest SingleWave begin (at SingleWaveSize multiple)
         int BeginSamples = int(Begin*NumSingleWaves)*m_SingleWaveSize;
