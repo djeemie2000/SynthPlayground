@@ -1,0 +1,64 @@
+<xml>
+<Modules>
+1V/Oct0 --- 1V/Oct
+1V/Oct1 --- 1V/Oct
+1V/Oct2 --- 1V/Oct
+Combinor0 --- Combinor
+Combinor1 --- Combinor
+ControllerBank(4)0 --- ControllerBank(4)
+MidiControllerBank(4)0 --- MidiControllerBank(4)
+Mixer(4)0 --- Mixer(4)
+SimpleOscillator0 --- SimpleOscillator
+SimpleOscillator1 --- SimpleOscillator
+SimpleOscillator2 --- SimpleOscillator
+StereoDelay0 --- StereoDelay
+
+</Modules>
+<Connections>
+1V/Oct0:Freq -> SimpleOscillator0:Freq
+1V/Oct1:Freq -> SimpleOscillator1:Freq
+1V/Oct2:Freq -> SimpleOscillator2:Freq
+Combinor0:Out -> Mixer(4)0:In2
+Combinor0:Out -> Combinor1:In1
+Combinor1:Out -> Mixer(4)0:In3
+Mixer(4)0:Out -> StereoDelay0:InLeft
+Mixer(4)0:Out -> StereoDelay0:InRight
+SimpleOscillator0:Out -> Mixer(4)0:In0
+SimpleOscillator0:Out -> Combinor0:In1
+SimpleOscillator1:Out -> Mixer(4)0:In1
+SimpleOscillator1:Out -> Combinor0:In2
+SimpleOscillator2:Out -> Combinor1:In2
+StereoDelay0:OutLeft -> system:playback_1
+StereoDelay0:OutRight -> system:playback_2
+ControllerBank(4)0:Contr0 -> 1V/Oct0:CV
+ControllerBank(4)0:Contr1 -> 1V/Oct1:CV
+ControllerBank(4)0:Contr2 -> 1V/Oct2:CV
+
+</Connections>
+<Parameters>
+Combinor0/Select 0 15 0
+Combinor1/Select 0 15 0
+ControllerBank(4)0/0/Value 0 0 1.024
+ControllerBank(4)0/1/Value 0 0 1.021
+ControllerBank(4)0/2/Value 0 0 0.78
+MidiControllerBank(4)0/0/Max 0 0 2
+MidiControllerBank(4)0/0/Min 0 0 0
+MidiControllerBank(4)0/0/Parameter 0 73 0
+MidiControllerBank(4)0/1/Max 0 0 2
+MidiControllerBank(4)0/1/Parameter 0 75 0
+MidiControllerBank(4)0/2/Max 0 0 2
+MidiControllerBank(4)0/2/Min 0 0 1
+MidiControllerBank(4)0/2/Parameter 0 79 0
+Mixer(4)0/0/Volume 0 0 0
+Mixer(4)0/1/Volume 0 0 0
+Mixer(4)0/2/Volume 0 0 0
+Mixer(4)0/3/Volume 0 0 0.7
+Mixer(4)0/MasterVolume 0 0 0.5
+SimpleOscillator0/Select 0 3 0
+SimpleOscillator1/Select 0 4 0
+SimpleOscillator2/Select 0 3 0
+StereoDelay0/Left/Bypass 0 0 0
+StereoDelay0/Right/Bypass 0 0 0
+
+</Parameters>
+</xml>

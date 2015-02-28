@@ -1,0 +1,40 @@
+<xml>
+<Modules>
+ADSREnvelopeBank(4)0 --- ADSREnvelopeBank(4)
+Amp0 --- Amp
+ControllerBank(4)0 --- ControllerBank(4)
+LPF0 --- LPF
+MidiNote0 --- MidiNote
+Mixer(4)0 --- Mixer(4)
+Phasor0 --- Phasor
+WaveTable0 --- WaveTable
+
+</Modules>
+<Connections>
+a2j_bridge:capture -> MidiNote0:MidiIn
+WaveTable0:Out -> LPF0:In
+Phasor0:Phase -> WaveTable0:Phase
+MidiNote0:Freq -> Phasor0:Freq
+MidiNote0:Trigger -> ADSREnvelopeBank(4)0:Trigger0
+Amp0:Out -> Mixer(4)0:In0
+Mixer(4)0:Out -> system:playback_1
+Mixer(4)0:Out -> system:playback_2
+ADSREnvelopeBank(4)0:Envelope0 -> Amp0:Ampl
+ControllerBank(4)0:Contr0 -> WaveTable0:Begin
+ControllerBank(4)0:Contr1 -> WaveTable0:Length
+ControllerBank(4)0:Contr2 -> LPF0:CutOff
+LPF0:Out -> Amp0:In
+
+</Connections>
+<Parameters>
+ADSREnvelopeBank(4)0/0/Attack 0 0 20
+ADSREnvelopeBank(4)0/0/Release 0 0 100
+ControllerBank(4)0/0/Value 0 0 0.999
+ControllerBank(4)0/1/Value 0 0 0.006
+ControllerBank(4)0/2/Value 0 0 0.8
+LPF0/Poles 0 12 0
+Mixer(4)0/0/Volume 0 0 0.5
+Mixer(4)0/MasterVolume 0 0 0.5
+
+</Parameters>
+</xml>

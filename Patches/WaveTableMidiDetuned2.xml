@@ -1,0 +1,65 @@
+<xml>
+<Modules>
+ADSREnvelopeBank(4)0 --- ADSREnvelopeBank(4)
+Amp0 --- Amp
+ControllerBank(4)0 --- ControllerBank(4)
+Detuner(3)0 --- Detuner(3)
+LPF0 --- LPF
+MidiNote0 --- MidiNote
+Mixer(4)0 --- Mixer(4)
+MultiStageWaveFolder0 --- MultiStageWaveFolder
+Phasor0 --- Phasor
+Phasor1 --- Phasor
+Phasor2 --- Phasor
+WaveFolder0 --- WaveFolder
+WaveTable0 --- WaveTable
+WaveTable1 --- WaveTable
+WaveTable2 --- WaveTable
+
+</Modules>
+<Connections>
+a2j_bridge:capture -> MidiNote0:MidiIn
+WaveTable0:Out -> LPF0:In
+Phasor0:Phase -> WaveTable0:Phase
+MidiNote0:Freq -> Detuner(3)0:Freq
+MidiNote0:Trigger -> ADSREnvelopeBank(4)0:Trigger0
+Amp0:Out -> Mixer(4)0:In0
+Mixer(4)0:Out -> WaveFolder0:In
+ADSREnvelopeBank(4)0:Envelope0 -> Amp0:Ampl
+ControllerBank(4)0:Contr0 -> WaveTable0:Begin
+ControllerBank(4)0:Contr0 -> WaveTable1:Begin
+ControllerBank(4)0:Contr0 -> WaveTable2:Begin
+ControllerBank(4)0:Contr1 -> WaveTable0:Length
+ControllerBank(4)0:Contr1 -> WaveTable1:Length
+ControllerBank(4)0:Contr1 -> WaveTable2:Length
+ControllerBank(4)0:Contr2 -> LPF0:CutOff
+ControllerBank(4)0:Contr3 -> WaveFolder0:Fold
+LPF0:Out -> Amp0:In
+Detuner(3)0:Freq0 -> Phasor0:Freq
+Detuner(3)0:Freq1 -> Phasor1:Freq
+Detuner(3)0:Freq2 -> Phasor2:Freq
+WaveTable1:Out -> LPF0:In
+Phasor1:Phase -> WaveTable1:Phase
+Phasor2:Phase -> WaveTable2:Phase
+WaveTable2:Out -> LPF0:In
+WaveFolder0:Out -> system:playback_1
+WaveFolder0:Out -> system:playback_2
+
+</Connections>
+<Parameters>
+ADSREnvelopeBank(4)0/0/Attack 0 0 20
+ADSREnvelopeBank(4)0/0/Release 0 0 100
+ControllerBank(4)0/0/Value 0 0 0
+ControllerBank(4)0/1/Value 0 0 0.006
+ControllerBank(4)0/2/Value 0 0 0.727
+ControllerBank(4)0/3/Value 0 0 0.511
+Detuner(3)0/0/Detune 0 0 0.228
+Detuner(3)0/1/Detune 0 0 -0.003
+Detuner(3)0/2/OctaveShift 0 -1 0
+LPF0/Poles 0 18 0
+Mixer(4)0/0/Volume 0 0 0.5
+Mixer(4)0/MasterVolume 0 0 0.5
+MultiStageWaveFolder0/NumStages 0 2 0
+
+</Parameters>
+</xml>
