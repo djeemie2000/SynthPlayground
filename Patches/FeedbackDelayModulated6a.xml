@@ -1,0 +1,63 @@
+<xml>
+<Modules>
+1V/Oct0 --- 1V/Oct
+Combinor0 --- Combinor
+ControllerBank(4)0 --- ControllerBank(4)
+DelayLine0 --- DelayLine
+LFOBank(4)0 --- LFOBank(4)
+LPF0 --- LPF
+Mixer(4)0 --- Mixer(4)
+Modulator0 --- Modulator
+Noise0 --- Noise
+SimpleOscillator0 --- SimpleOscillator
+StereoDelay0 --- StereoDelay
+
+</Modules>
+<Connections>
+ControllerBank(4)0:Contr0 -> 1V/Oct0:CV
+ControllerBank(4)0:Contr1 -> LPF0:CutOff
+1V/Oct0:Freq -> SimpleOscillator0:Freq
+SimpleOscillator0:Out -> Combinor0:In2
+Mixer(4)0:Out -> StereoDelay0:InLeft
+Mixer(4)0:Out -> StereoDelay0:InRight
+Combinor0:Out -> Mixer(4)0:In0
+Combinor0:Out -> DelayLine0:In
+LFOBank(4)0:LFO0 -> Modulator0:ModIn0
+LFOBank(4)0:LFO1 -> Modulator0:ModIn1
+DelayLine0:Delayed -> LPF0:In
+Modulator0:Out -> DelayLine0:Delay
+LPF0:Out -> Combinor0:In1
+StereoDelay0:OutLeft -> system:playback_1
+StereoDelay0:OutRight -> system:playback_2
+
+</Connections>
+<Parameters>
+Combinor0/Select 0 0 0
+ControllerBank(4)0/0/Value 0 0 1.534
+ControllerBank(4)0/1/Value 0 0 0.574
+DelayLine0/DelayRangeMilliSeconds 0 20 0
+Granular0/GrainDensity 0 9 0
+Granular0/GrainSize 0 11 0
+Granular0/GrainSpeed 0 217 0
+Granular0/PositionSpeed 0 128 0
+Granular0/SampleGrab 0 0 0
+Granular0/SampleSize 0 10 0
+LFOBank(4)0/0/Frequency 0 0 0.27
+LFOBank(4)0/0/Select 0 3 0
+LFOBank(4)0/1/Frequency 0 0 0.97
+LFOBank(4)0/1/Select 0 3 0
+LPF0/Poles 0 18 0
+LPF0/Resonance 0 0 0.89
+Mixer(4)0/0/Volume 0 0 0.51
+Mixer(4)0/1/Volume 0 0 0
+Mixer(4)0/MasterVolume 0 0 0.5
+Modulator0/0/ModAmt 0 0 0.15
+Modulator0/1/ModAmt 0 0 0.03
+Modulator0/LimitMode 0 1 0
+Modulator0/Offset 0 0 0.23
+SimpleOscillator0/Select 0 7 0
+StereoDelay0/Left/Bypass 0 0 0
+StereoDelay0/Right/Bypass 0 0 0
+
+</Parameters>
+</xml>
