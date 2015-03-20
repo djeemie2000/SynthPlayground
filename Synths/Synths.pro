@@ -17,19 +17,9 @@ SUBDIRS += \
     ../GuiLib \             # a 'lib' project
     ../ModularLib \         # a 'lib' project
     ../TestModularLib \     # an 'app' project
-    #../Synth7  \           # an  'app' project
-    ../Synth8 \             # an  'app' project
-    ../Synth9 \             # an  'app' project
     ../Scope \              # an  'app' project
-    ../Keyboard \           # an  'app' project
-    ../Synth10 \            # an  'app' project
-    ../Synth11 \            # an  'app' project
-    ../EffectsApp \         # an  'app' project
-    ../StepSequencer \      # an  'app' project
     ../JackConnectionTool \ # an  'app' project
     ../JackMidiLoggerTool \ # an  'app' project
     ../AlsaMidiLoggerTool \ # an  'app' project
     ../Serial2AlsaMidiTool \ # an  'app' project
-    ../RingSequencer \      # an  'app' project
-    ../Synth12 \            # an  'app' project
     ../Modular1             # an  'app' project
