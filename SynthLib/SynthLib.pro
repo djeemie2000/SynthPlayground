@@ -5,23 +5,13 @@ CONFIG += c++11 (Qt5)
 
 SOURCES += StepSequencer.cpp \
     Notes.cpp \
-    Controllers/Synth7Controller.cpp \
-    Controllers/Synth8Controller.cpp \
-    Controllers/Synth9Controller.cpp \
     Pitch.cpp \
     SelectableCombinorFactory.cpp \
     SelectableOperatorFactory.cpp \
     StepSequencer2.cpp \
     Controllers/ScopeController.cpp \
     periodicsamplegrabberproxy.cpp \
-    Controllers/Synth10Controller.cpp \
-    Controllers/KeyboardController.cpp \
-    Controllers/EffectsAppController.cpp \
-    Controllers/StepSequencerController.cpp \
-    Controllers/Synth11Controller.cpp \
     RingSequencerMidiControllerStep.cpp \
-    Controllers/RingSequencerController.cpp \
-    Controllers/Synth12Controller.cpp \
     WavFileReader.cpp \
     ReadWavFile.cpp \
     MidiNoteConverter.cpp \
@@ -37,9 +27,6 @@ HEADERS += StepSequencer.h \
     ClockUtilities.h \
     Combinor.h \
     ConstGenerator.h \
-    Controllers/Synth7Controller.h \
-    Controllers/Synth8Controller.h \
-    Controllers/Synth9Controller.h \
     Conversions.h \
     CrossFader.h \
     DetunedSelectableOscillator.h \
@@ -109,30 +96,23 @@ HEADERS += StepSequencer.h \
     periodicsamplegrabberproxy.h \
     FMOperatorStage.h \
     FMOperatorStageI.h \
-    Controllers/Synth10Controller.h \
     SkewedInterpolatingOperator.h \
     InterpolatingOperatorI.h \
     PhaseSkewer.h \
-    Controllers/KeyboardController.h \
     DCOperator.h \
     RampUpDown.h \
     SquareQuadratic.h \
     IntegerPowerShaper.h \
     AudioFilterI.h \
-    Controllers/EffectsAppController.h \
-    Controllers/StepSequencerController.h \
     PowerLawDistortion.h \
     ASREnvelope.h \
     ADEnvelope.h \
-    Controllers/Synth11Controller.h \
     Inverter.h \
     ADSREnvelope.h \
     RingSequencerMidiControllerStep.h \
-    Controllers/RingSequencerController.h \
     BpmPeriod.h \
     PosNegShaper.h \
     WaveTable.h \
-    Controllers/Synth12Controller.h \
     WavFileReader.h \
     MidiNoteConverter.h \
     SimpleOscillator.h \
