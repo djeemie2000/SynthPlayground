@@ -7,7 +7,6 @@
 #include "JackWin32Port.h"
 #include <jack/jack.h>
 
-class IAudioSource2;
 class IAudioRenderer;
 class IMidiHandler;
 class IMidiSource;
@@ -31,7 +30,6 @@ public:
     int SamplingFrequency() const;
     bool ClientIsOpen() const;
 
-    bool OpenAudioOutput(const std::string& Name, std::shared_ptr<IAudioSource2> AudioSource);
     bool OpenAudioInput(const std::string& Name, std::shared_ptr<IAudioRenderer> AudioRenderer);
     // idem for midi -> midi handler => generic midi stuff into MidiLib => MidiLib separately
     bool OpenMidiInput(const std::string& Name, std::shared_ptr<IMidiHandler> MidiHandler);
@@ -48,9 +46,6 @@ public:
 private:
     jack_client_t*  m_Client;
     jack_nframes_t  m_SamplingFrequency;
-
-    jack_port_t*   m_AudioOutputPort;
-    std::shared_ptr<IAudioSource2>   m_AudioSource;
 
     jack_port_t*    m_AudioInputPort;
     std::shared_ptr<IAudioRenderer> m_AudioRenderer;

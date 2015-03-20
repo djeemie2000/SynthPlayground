@@ -17,7 +17,6 @@ SOURCES += main.cpp \
     TestFMOperatorStage.cpp \
     TestADSREnvelope.cpp \
     TestPosNegShaper.cpp \
-    TestSynth12Controller.cpp \
     TestLinSegOperator.cpp \
     TestDetune.cpp \
     TestWaveFolder2.cpp \

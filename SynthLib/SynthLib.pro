@@ -3,8 +3,7 @@ TEMPLATE = lib
 CONFIG += staticlib
 CONFIG += c++11 (Qt5)
 
-SOURCES += StepSequencer.cpp \
-    Notes.cpp \
+SOURCES += Notes.cpp \
     Pitch.cpp \
     SelectableCombinorFactory.cpp \
     SelectableOperatorFactory.cpp \
@@ -17,8 +16,7 @@ SOURCES += StepSequencer.cpp \
     MidiNoteConverter.cpp \
     Granular/GrainUtilities.cpp
 
-HEADERS += StepSequencer.h \
-    Notes.h \
+HEADERS += Notes.h \
     PeriodicThreadRunner.h \
     ContinuousThreadRunner.h \
     8BitFX.h \
@@ -68,42 +66,24 @@ HEADERS += StepSequencer.h \
     StepSequencer2.h \
     PeriodicTicker.h \
     SampleGrabberI.h \
-    StepSequencerI.h \
-    BitFxI.h \
-    WaveFolderI.h \
-    NoteHandlerI.h \
-    LPFilterI.h \
-    NonLinearShaperI.h \
-    CombinedOperatorStageI.h \
-    CombinedFoldedOperatorStageI.h \
-    AudioSourceI.h \
     Amp.h \
     Modulator.h \
     LFO.h \
-    LFOBankI.h \
     DelayLine.h \
     FeedbackDelay.h \
     AREnvelope.h \
     ConstNumSamplesGenerator.h \
-    FeedbackDelayI.h \
-    AREnvelopeI.h \
-    MasterVolumeI.h \
     PeriodicSampleGrabber.h \
     Controllers/ScopeController.h \
-    AudioSource2I.h \
-    AudioRendererI.h \
     PeriodicSampleGrabberI.h \
     periodicsamplegrabberproxy.h \
     FMOperatorStage.h \
-    FMOperatorStageI.h \
     SkewedInterpolatingOperator.h \
-    InterpolatingOperatorI.h \
     PhaseSkewer.h \
     DCOperator.h \
     RampUpDown.h \
     SquareQuadratic.h \
     IntegerPowerShaper.h \
-    AudioFilterI.h \
     PowerLawDistortion.h \
     ASREnvelope.h \
     ADEnvelope.h \

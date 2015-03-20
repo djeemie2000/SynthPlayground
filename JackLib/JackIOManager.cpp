@@ -1,6 +1,5 @@
 #include <iostream>
 #include "JackIOManager.h"
-#include "AudioSource2I.h"
 #include "AudioRendererI.h"
 #include "MidiHandlerI.h"
 #include "MidiSourceI.h"
@@ -27,8 +26,6 @@ void JackShutdownFunction(void* arg)
 CJackIOManager::CJackIOManager()
  : m_Client(0)
  , m_SamplingFrequency(-1)
- , m_AudioOutputPort(0)
- , m_AudioSource()
  , m_AudioInputPort(0)
  , m_AudioRenderer()
  , m_MidiInputPort(0)
@@ -79,23 +76,6 @@ bool CJackIOManager::OpenClient(const std::string &ClientName)
         CloseClient();
     }
 
-    return Success;
-}
-
-bool CJackIOManager::OpenAudioOutput(const std::string &Name, std::shared_ptr<IAudioSource2> AudioSource)
-{
-    bool Success = false;
-    if(m_Client)
-    {
-        // create one output port. Use default audio type, which is mono float 32 bits.
-        // it is adviced to use 'terminal' option for audio synthesizers.
-        m_AudioOutputPort = jack_port_register(m_Client, Name.c_str(), JACK_DEFAULT_AUDIO_TYPE, JackPortIsOutput|JackPortIsTerminal, 0);
-        if(m_AudioOutputPort)
-        {
-            m_AudioSource = AudioSource;
-            Success = true;
-        }
-    }
     return Success;
 }
 
@@ -182,13 +162,6 @@ void CJackIOManager::CloseClient()
 {
     if(m_Client)
     {
-        // audio out
-        if(m_AudioOutputPort)
-        {
-            jack_port_unregister(m_Client, m_AudioOutputPort);
-            m_AudioOutputPort = 0;
-        }
-        m_AudioSource.reset();
         // audio in
         if(m_AudioInputPort)
         {
@@ -284,18 +257,7 @@ int CJackIOManager::OnProcess(jack_nframes_t NumFrames)
             jack_midi_clear_buffer(DstBuffer);
             m_MidiSource->OnRead(DstBuffer, NumFrames, TimeStamp);
         }
-    }
-    // generating audio
-    if(m_AudioOutputPort && m_AudioSource)
-    {
-        int NumConnected = jack_port_connected(m_AudioOutputPort);
-        if(0<NumConnected)
-        {
-            void* DstBuffer = jack_port_get_buffer(m_AudioOutputPort, NumFrames);
-            // should return 0 upon succes, non-zero error code upon failure
-            ReturnValue = m_AudioSource->OnRead(DstBuffer, NumFrames, TimeStamp);
-        }
-    }
+    }    
     // handle incoming audio
     if(m_AudioInputPort && m_AudioRenderer)
     {

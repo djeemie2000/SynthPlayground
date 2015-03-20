@@ -13,9 +13,6 @@ SOURCES += GuiUtilities.cpp \
     GuiItems.cpp \
     QScope.cpp \
     QScopeWidget.cpp \
-    QKeyboardWidget.cpp \
-    QAudioIoDevice.cpp \
-    QAudioDeviceWidget.cpp \
     QCommandSender.cpp \
     QCommandStackHandler.cpp \
     GuiCommandStack.cpp \
@@ -28,9 +25,6 @@ HEADERS += GuiUtilities.h \
     GuiItems.h \
     QScope.h \
     QScopeWidget.h \
-    QKeyboardWidget.h \
-    QAudioIoDevice.h \
-    QAudioDeviceWidget.h \
     QCommandSender.h \
     QCommandStackHandler.h \
     GuiCommandStack.h \
@@ -40,8 +34,6 @@ HEADERS += GuiUtilities.h \
 
 FORMS += \
     QScopeWidget.ui \
-    QKeyboardWidget.ui \
-    QAudioDeviceWidget.ui \
     QPatchManagerWidget.ui \
     QScopeWidget2.ui
 
