@@ -20,7 +20,6 @@ HEADERS += Notes.h \
     PeriodicThreadRunner.h \
     ContinuousThreadRunner.h \
     8BitFX.h \
-    BasicEnvelope.h \
     CenteredShaper.h \
     ClockUtilities.h \
     Combinor.h \
@@ -61,7 +60,6 @@ HEADERS += Notes.h \
     ScopeI.h \
     WaveFolder.h \
     WriteWavFile.h \
-    TriangularLFO.h \
     PeriodicConstGenerator.h \
     StepSequencer2.h \
     PeriodicTicker.h \
