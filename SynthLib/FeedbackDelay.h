@@ -51,38 +51,6 @@ public:
             return m_Wet*m_PrevDelayLineOutput + (1-m_Wet)*In;
         }
         return In;
-//        U WetMix = m_Wet;
-//        U DryMix = (1-m_Wet);
-//        T InInternal = In/2;
-
-//        T DelayLineOut = m_DelayLine();
-//        T Out = DryMix*InInternal + WetMix*DelayLineOut;
-//        T DelayLineIn = InInternal + m_Feedback*DelayLineOut;
-//        m_DelayLine(DelayLineIn);
-//        return Out;
-
-        //T PrevIn = m_PrevIn;
-//        T DelayLineInput = (1-m_Feedback)*m_PrevIn + m_Feedback*m_PrevDelayLineOutput;
-//        m_PrevIn = In;
-
-//        T DelayLineOutput = m_DelayLine(DelayLineInput);
-//        m_PrevDelayLineOutput = DelayLineOutput;
-
-//        T OutWet = m_Wet*DelayLineOutput;
-//        T OutDry = (1-m_Wet)*In;
-
-//        T OutMix = OutWet + OutDry; //m_Wet*DelayLineOutput + (1-m_Wet)*In;
-
-////        std::cout << In << " "
-////                  << PrevIn << " "
-////                  << DelayLineInput << " "
-////                  << DelayLineOutput << " "
-////                  << OutWet << " "
-////                  << OutDry << " "
-////                  << OutMix << std::endl;
-
-//        return OutMix;
-
     }
 
 private:

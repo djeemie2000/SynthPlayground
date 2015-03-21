@@ -10,7 +10,6 @@ SOURCES += Notes.cpp \
     StepSequencer2.cpp \
     Controllers/ScopeController.cpp \
     periodicsamplegrabberproxy.cpp \
-    RingSequencerMidiControllerStep.cpp \
     WavFileReader.cpp \
     ReadWavFile.cpp \
     MidiNoteConverter.cpp \
@@ -19,28 +18,21 @@ SOURCES += Notes.cpp \
 HEADERS += Notes.h \
     PeriodicThreadRunner.h \
     ContinuousThreadRunner.h \
-    8BitFX.h \
-    CenteredShaper.h \
     ClockUtilities.h \
     Combinor.h \
     ConstGenerator.h \
     Conversions.h \
     CrossFader.h \
-    DetunedSelectableOscillator.h \
     FeedbackOperator.h \
     FlipOperator.h \
     FullPseudoSin.h \
-    GranularSamplePlayer.h \
     HardKneeShaper.h \
     InvSquare.h \
     MirrorOperator.h \
     NonLinearShaper.h \
     NoOp.h \
     OnePoleFilter.h \
-    CombinedOperatorStage.h \
-    CombinedFoldedOperatorStage.h \
     PhaseDecreaseCondition.h \
-    PhaseGenerator.h \
     PhaseStep.h \
     Pitch.h \
     PseudoSin.h \
@@ -52,7 +44,6 @@ HEADERS += Notes.h \
     SelectableCombinorFactory.h \
     SelectableOperator.h \
     SelectableOperatorFactory.h \
-    Smoother.h \
     Square.h \
     SquareWave.h \
     SymmetricalOperator.h \
@@ -63,7 +54,6 @@ HEADERS += Notes.h \
     PeriodicConstGenerator.h \
     StepSequencer2.h \
     PeriodicTicker.h \
-    SampleGrabberI.h \
     Amp.h \
     Modulator.h \
     LFO.h \
@@ -76,7 +66,6 @@ HEADERS += Notes.h \
     PeriodicSampleGrabberI.h \
     periodicsamplegrabberproxy.h \
     FMOperatorStage.h \
-    SkewedInterpolatingOperator.h \
     PhaseSkewer.h \
     DCOperator.h \
     RampUpDown.h \
@@ -87,7 +76,6 @@ HEADERS += Notes.h \
     ADEnvelope.h \
     Inverter.h \
     ADSREnvelope.h \
-    RingSequencerMidiControllerStep.h \
     BpmPeriod.h \
     PosNegShaper.h \
     WaveTable.h \
@@ -122,7 +110,8 @@ HEADERS += Notes.h \
     Granular/GrainUtilities.h \
     PhaseShifter.h \
     wavetable2.h \
-    WaveTables/WaveTableData.h
+    WaveTables/WaveTableData.h \
+    PhaseAccumulator.h
 
 
 INCLUDEPATH += ./../MidiLib

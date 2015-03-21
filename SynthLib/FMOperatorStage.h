@@ -3,7 +3,7 @@
 
 #include "SelectableOperator.h"
 #include "PhaseStep.h"
-#include "PhaseGenerator.h"
+#include "PhaseAccumulator.h"
 #include "Conversions.h"// limit
 
 /*!

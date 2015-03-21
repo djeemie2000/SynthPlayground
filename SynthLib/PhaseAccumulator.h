@@ -1,5 +1,5 @@
-#ifndef PHASEGENERATOR_H
-#define PHASEGENERATOR_H
+#ifndef PHASEACCUMULATOR_H
+#define PHASEACCUMULATOR_H
 
 template<class T, int Min = -1, int Max = 1>
 class CPhaseAccumulator
@@ -45,4 +45,4 @@ private:
 };
 
 
-#endif // PHASEGENERATOR_H
+#endif // PHASEACCUMULATOR_H
