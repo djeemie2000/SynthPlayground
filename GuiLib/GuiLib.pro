@@ -10,39 +10,23 @@ CONFIG   += c++11 (Qt5)
 
 SOURCES += GuiUtilities.cpp \
     QGuiCallbacks.cpp \
-    GuiItems.cpp \
     QScope.cpp \
-    QScopeWidget.cpp \
-    QKeyboardWidget.cpp \
-    QAudioIoDevice.cpp \
-    QAudioDeviceWidget.cpp \
     QCommandSender.cpp \
     QCommandStackHandler.cpp \
     GuiCommandStack.cpp \
-    QPatchManagerWidget.cpp \
     QScopeWidget2.cpp \
     QStatusLedWidget.cpp
 
 HEADERS += GuiUtilities.h \
     QGuiCallbacks.h \
-    GuiItems.h \
     QScope.h \
-    QScopeWidget.h \
-    QKeyboardWidget.h \
-    QAudioIoDevice.h \
-    QAudioDeviceWidget.h \
     QCommandSender.h \
     QCommandStackHandler.h \
     GuiCommandStack.h \
-    QPatchManagerWidget.h \
     QScopeWidget2.h \
     QStatusLedWidget.h
 
 FORMS += \
-    QScopeWidget.ui \
-    QKeyboardWidget.ui \
-    QAudioDeviceWidget.ui \
-    QPatchManagerWidget.ui \
     QScopeWidget2.ui
 
 INCLUDEPATH += ./../SynthLib

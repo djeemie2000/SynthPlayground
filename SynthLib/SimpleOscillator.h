@@ -2,7 +2,7 @@
 #define SIMPLEOSCILLATOR_H
 
 #include "PhaseStep.h"
-#include "PhaseGenerator.h"
+#include "PhaseAccumulator.h"
 #include "SelectableOperator.h"
 #include "SelectableOperatorFactory.h"
 

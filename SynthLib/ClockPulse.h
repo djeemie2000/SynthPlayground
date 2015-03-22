@@ -1,7 +1,7 @@
 #ifndef CLOCKPULSE_H
 #define CLOCKPULSE_H
 
-#include "PhaseGenerator.h"
+#include "PhaseAccumulator.h"
 #include "PhaseStep.h"
 #include "SquareWave.h"
 
