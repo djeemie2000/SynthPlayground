@@ -103,7 +103,9 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Modules/PhaseShifterModule.cpp \
     Filters/PhaseShifterFilter.cpp \
     Filters/WaveTableFilter.cpp \
-    Modules/WaveTableModule.cpp
+    Modules/WaveTableModule.cpp \
+    Filters/KarplusStrongFilter.cpp \
+    Modules/KarplusStrongModule.cpp
 
 HEADERS += Filters/ControllerBankFilter.h \
     Filters/PhasorFilter.h \
@@ -208,7 +210,10 @@ HEADERS += Filters/ControllerBankFilter.h \
     Modules/PhaseShifterModule.h \
     Filters/PhaseShifterFilter.h \
     Filters/WaveTableFilter.h \
-    Modules/WaveTableModule.h
+    Modules/WaveTableModule.h \
+    Filters/KarplusStrongFilter.h \
+    Modules/KarplusStrongModule.h \
+
 
 
 INCLUDEPATH += ./Filters

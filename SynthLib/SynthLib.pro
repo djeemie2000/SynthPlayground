@@ -164,7 +164,8 @@ HEADERS += StepSequencer.h \
     Granular/GrainUtilities.h \
     PhaseShifter.h \
     wavetable2.h \
-    WaveTables/WaveTableData.h
+    WaveTables/WaveTableData.h \
+    karplusstrong.h
 
 
 INCLUDEPATH += ./../MidiLib

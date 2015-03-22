@@ -36,7 +36,8 @@ SOURCES += main.cpp \
     TestBufferGrabber.cpp \
     TestGrainBank.cpp \
     TestPhaseShifter.cpp \
-    TestWaveTable2.cpp
+    TestWaveTable2.cpp \
+    testkarplusstrong.cpp
 
 unix {
     target.path = /usr/lib

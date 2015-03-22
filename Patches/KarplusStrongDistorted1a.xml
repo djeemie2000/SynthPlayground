@@ -1,0 +1,40 @@
+<xml>
+<Modules>
+ControllerBank(4)0 --- ControllerBank(4)
+Distortion10 --- Distortion1
+KarplusStrong0 --- KarplusStrong
+LPF0 --- LPF
+Mixer(4)0 --- Mixer(4)
+PeriodicTrigger0 --- PeriodicTrigger
+
+</Modules>
+<Connections>
+ControllerBank(4)0:Contr0 -> KarplusStrong0:Freq
+ControllerBank(4)0:Contr1 -> KarplusStrong0:CutOff
+ControllerBank(4)0:Contr2 -> Distortion10:Drive
+ControllerBank(4)0:Contr3 -> LPF0:CutOff
+KarplusStrong0:Out -> Mixer(4)0:In0
+KarplusStrong0:Out -> LPF0:In
+Mixer(4)0:Out -> system:playback_1
+Mixer(4)0:Out -> system:playback_2
+PeriodicTrigger0:Trigger -> KarplusStrong0:Trigger
+Distortion10:Out -> Mixer(4)0:In1
+LPF0:Out -> Distortion10:In
+
+</Connections>
+<Parameters>
+ControllerBank(4)0/0/Value 0 0 80
+ControllerBank(4)0/1/Value 0 0 0.358
+ControllerBank(4)0/2/Value 0 0 0.897
+ControllerBank(4)0/3/Value 0 0 0.64
+LPF0/Poles 0 12 0
+LPF0/Resonance 0 0 0
+Mixer(4)0/0/Volume 0 0 0
+Mixer(4)0/1/Volume 0 0 0.17
+Mixer(4)0/MasterVolume 0 0 0.5
+PeriodicTrigger0/BeatsPerBar 0 4 0
+PeriodicTrigger0/BeatsPerMinute 0 60 0
+PeriodicTrigger0/Duration 0 100 0
+
+</Parameters>
+</xml>

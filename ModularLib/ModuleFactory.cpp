@@ -48,6 +48,7 @@
 #include "GranularModule.h"
 #include "PhaseShifterModule.h"
 #include "WaveTableModule.h"
+#include "KarplusStrongModule.h"
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -262,6 +263,10 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CWaveTableModule(Name, *m_CommandStackController));
     }
+    else if(Type == "KarplusStrong")
+    {
+        Module.reset(new CKarplusStrongModule(Name, *m_CommandStackController));
+    }
 
     return Module;
 }
@@ -312,7 +317,8 @@ std::vector<string> CModuleFactory::GetSupportedTypes(const std::string &Categor
             "SimpleOscillator",
             "LinSegOperator",
             "Noise",
-            "WaveTable"
+            "WaveTable",
+            "KarplusStrong"
         };
     }
 
