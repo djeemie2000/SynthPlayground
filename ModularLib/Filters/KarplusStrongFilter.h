@@ -20,6 +20,8 @@ public:
                   int NumFrames,
                   std::uint32_t TimeStamp) override;
 
+    void SetPoles(int Poles);
+
 private:
     CKarplusStrong<float> m_KarplusStrong;
 };

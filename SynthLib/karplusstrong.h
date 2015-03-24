@@ -17,7 +17,10 @@ public:
         , m_Noise()
         , m_DelayLine(m_Period, 0)//capacity of delayline determined by lowest frequency
         , m_Trigger()
-    {}
+        , m_LPF()
+    {
+        m_LPF.SetStages(1);
+    }
 
     T operator()(T Trigger, T Frequency, T Cutoff)
     {
@@ -37,6 +40,30 @@ public:
         return WriteValue;//???m_DelayLine.Read(m_Period);
     }
 
+    T operator()(T Trigger, T Frequency, T Cutoff, T Exite)
+    {
+        if(m_Trigger.IsTriggerOn(Trigger))
+        {
+            Excite(Frequency);
+        }
+
+        T Period = m_SamplingFrequency/Frequency;
+
+        T WriteValue = 0<m_Cntr ? Exite : m_LPF(m_DelayLine.Read(Period), Cutoff);
+        m_DelayLine.Write(WriteValue);
+        if(m_Cntr)
+        {
+            --m_Cntr;
+        }
+
+        return WriteValue;//???m_DelayLine.Read(m_Period);
+    }
+
+    void SetPoles(int Poles)
+    {
+        m_LPF.SetStages(Poles);
+    }
+
 private:
     void Excite(T Frequency)
     {
@@ -50,7 +77,8 @@ private:
     CNoise<T> m_Noise;
     CDelayLine2<T> m_DelayLine;//used as circular buffer
     CTriggerIn<T> m_Trigger;
-    COnePoleLowPassFilter<T> m_LPF;
+//    COnePoleLowPassFilter<T> m_LPF;
+    CMultiStageFilter<float, COnePoleLowPassFilter<float>, 24> m_LPF;
 };
 
 #endif // KARPLUSSTRONG

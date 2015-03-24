@@ -12,6 +12,7 @@ CKarplusStrongModule::CKarplusStrongModule(const std::string& Name, CCommandStac
  , m_IOManager(new CJackIOManager())
 {
     // command stack stuff for filter
+    m_CommandStackController.AddCommand({m_Name+"/Poles", false, 0, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetPoles(Item.IntValue()); });
     // Open here?
     Open();
 }
@@ -19,6 +20,7 @@ CKarplusStrongModule::CKarplusStrongModule(const std::string& Name, CCommandStac
 CKarplusStrongModule::~CKarplusStrongModule()
 {
     // remove from command stack
+    m_CommandStackController.RemoveCommand(m_Name+"/Poles");
     Close();
 }
 
@@ -45,6 +47,9 @@ IModularModule::Names CKarplusStrongModule::GetMidiInputNames() const
 void CKarplusStrongModule::Accept(IModuleParameterVisitor &ParameterVisitor) const
 {
     ParameterVisitor.Start();
+    ParameterVisitor.StartLine();
+    ParameterVisitor.IntegerParameter(m_Name+"/Poles", "Poles", 1, 1, 24, 1);
+    ParameterVisitor.FinishLine();
     ParameterVisitor.Finish();
 }
 

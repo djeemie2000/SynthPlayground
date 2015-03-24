@@ -8,7 +8,7 @@ CKarplusStrongFilter::CKarplusStrongFilter(int SamplingFrequency)
 
 std::vector<std::string> CKarplusStrongFilter::GetInputNames() const
 {
-    return { "Trigger", "Freq", "CutOff" };
+    return { "Trigger", "Freq", "CutOff", "Excite" };
 }
 
 std::vector<std::string> CKarplusStrongFilter::GetOutputNames() const
@@ -39,7 +39,21 @@ int CKarplusStrongFilter::OnProcess(const std::vector<void *> &SourceBuffers,
         const float* TriggerBuffer = static_cast<const float*>(SourceBuffers[0]);
         const float* FreqBuffer = static_cast<const float*>(SourceBuffers[1]);
         const float* CutoffBuffer = static_cast<const float*>(SourceBuffers[2]);
-        if(TriggerBuffer && CutoffBuffer && FreqBuffer)
+        const float* ExciteBuffer = static_cast<const float*>(SourceBuffers[3]);
+        if(TriggerBuffer && CutoffBuffer && FreqBuffer && ExciteBuffer)
+        {
+            const float* InBufferEnd = TriggerBuffer+NumFrames;
+            while(TriggerBuffer<InBufferEnd)
+            {
+                *OutBuffer = m_KarplusStrong(*TriggerBuffer, *FreqBuffer, *CutoffBuffer, *ExciteBuffer);
+                ++TriggerBuffer;
+                ++FreqBuffer;
+                ++CutoffBuffer;
+                ++ExciteBuffer;
+                ++OutBuffer;
+            }
+        }
+        else if(TriggerBuffer && CutoffBuffer && FreqBuffer)
         {
             const float* InBufferEnd = TriggerBuffer+NumFrames;
             while(TriggerBuffer<InBufferEnd)
@@ -62,3 +76,7 @@ int CKarplusStrongFilter::OnProcess(const std::vector<void *> &SourceBuffers,
     return 0;
 }
 
+void CKarplusStrongFilter::SetPoles(int Poles)
+{
+    m_KarplusStrong.SetPoles(Poles);
+}
