@@ -1,0 +1,61 @@
+<xml>
+<Modules>
+Amp0 --- Amp
+ControllerBank(4)0 --- ControllerBank(4)
+FM0 --- FM
+KarplusStrong0 --- KarplusStrong
+LFOBank(4)0 --- LFOBank(4)
+LPF0 --- LPF
+Mixer(4)0 --- Mixer(4)
+Modulator0 --- Modulator
+Noise0 --- Noise
+PeriodicTrigger0 --- PeriodicTrigger
+SimpleOscillator0 --- SimpleOscillator
+StereoDelay0 --- StereoDelay
+
+</Modules>
+<Connections>
+Amp0:Out -> KarplusStrong0:Freq
+ControllerBank(4)0:Contr0 -> Amp0:In
+ControllerBank(4)0:Contr1 -> KarplusStrong0:CutOff
+ControllerBank(4)0:Contr2 -> LPF0:CutOff
+ControllerBank(4)0:Contr3 -> SimpleOscillator0:Freq
+KarplusStrong0:Out -> Mixer(4)0:In0
+LFOBank(4)0:LFO0 -> Modulator0:ModIn0
+LPF0:Out -> Mixer(4)0:In1
+LPF0:Out -> KarplusStrong0:Excite
+Mixer(4)0:Out -> StereoDelay0:InLeft
+Mixer(4)0:Out -> StereoDelay0:InRight
+Modulator0:Out -> Amp0:Ampl
+Noise0:Out -> LPF0:In
+PeriodicTrigger0:Trigger -> KarplusStrong0:Trigger
+StereoDelay0:OutLeft -> system:playback_1
+StereoDelay0:OutRight -> system:playback_2
+
+</Connections>
+<Parameters>
+ControllerBank(4)0/0/Value 0 0 60
+ControllerBank(4)0/1/Value 0 0 0.907
+ControllerBank(4)0/2/Value 0 0 0.5
+ControllerBank(4)0/3/Value 0 0 1308
+KarplusStrong0/Poles 0 1 0
+LFOBank(4)0/0/Frequency 0 0 1.649
+LFOBank(4)0/0/Select 0 2 0
+LPF0/Poles 0 8 0
+LPF0/Resonance 0 0 0
+Mixer(4)0/0/Volume 0 0 0.62
+Mixer(4)0/1/Volume 0 0 0
+Mixer(4)0/2/Volume 0 0 0
+Mixer(4)0/MasterVolume 0 0 0.6
+Modulator0/0/ModAmt 0 0 0.01
+Modulator0/LimitMode 0 0 0
+Modulator0/Offset 0 0 1
+PeriodicTrigger0/BeatsPerBar 0 1 0
+PeriodicTrigger0/BeatsPerMinute 0 10 0
+PeriodicTrigger0/Duration 0 100 0
+SimpleOscillator0/Select 0 0 0
+StereoDelay0/Left/Bypass 0 0 0
+StereoDelay0/Right/Bypass 0 0 0
+
+</Parameters>
+</xml>
