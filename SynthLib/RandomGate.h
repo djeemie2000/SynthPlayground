@@ -126,7 +126,7 @@ private:
         // - duration is random in [Center-Variation/2, Center+Variation/2)
         // - crop to [0,1]
         // then rescale using scale
-        T Duration = HardLimitUnsigned(Center + Random*Variation/2);
+        T Duration = HardLimitUnipolar(Center + Random*Variation/2);
         return (1<<Scale)*Duration;
     }
 

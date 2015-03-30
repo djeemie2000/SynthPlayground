@@ -5,21 +5,7 @@
 #include <vector>
 
 template<class T>
-T UnsignedToSigned(T Unsigned)
-{
-    // [0,1] to [-0.5,0.5]
-    return Unsigned - 0.5;
-}
-
-template<class T>
-T SignedToUnsigned(T Signed)
-{
-    // [-0.5,0.5] to [0,1]
-    return Signed + 0.5;
-}
-
-template<class T>
-T HardLimitUnsigned(T In)
+T HardLimitUnipolar(T In)
 {
     if(In<0)
     {
@@ -33,7 +19,7 @@ T HardLimitUnsigned(T In)
 }
 
 template<class T>
-T HardLimitSigned(T In)
+T HardLimitBipolar(T In)
 {
     if(In<-1)
     {
@@ -73,22 +59,23 @@ void CropUnsigned(T& In)
 }
 
 template<class T>
-T SignedFullToUnsigned(T In)
+T BipolarToUnipolar(T In)
 {
     // [-1,+1] to [0,1]
     return (1 + In) / 2;
 }
 
-//template<class To, class From>
-//To SignedToInteger(From /*In*/)
-//{
-//    return 0;
-//}
+template<class T>
+T UnipolarToBipolar(T In)
+{
+    // [0,1] to [-1,+1]
+    return 2*In -1;
+}
 
 template<class From>
 std::uint8_t SignedToUint8(From In)
 {
-    return 128+127*In;//SignedFullToUnsigned(In)*255;
+    return 128+127*In;
 }
 
 template<class From>

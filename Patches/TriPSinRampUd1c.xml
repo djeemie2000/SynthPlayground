@@ -1,0 +1,47 @@
+<xml>
+<Modules>
+1V/Oct0 --- 1V/Oct
+Combinor0 --- Combinor
+ControllerBank(4)0 --- ControllerBank(4)
+Detuner(3)0 --- Detuner(3)
+LPF0 --- LPF
+Mixer(4)0 --- Mixer(4)
+PeriodicTrigger0 --- PeriodicTrigger
+SimpleOscillator0 --- SimpleOscillator
+SimpleOscillator1 --- SimpleOscillator
+
+</Modules>
+<Connections>
+1V/Oct0:Freq -> Detuner(3)0:Freq
+Combinor0:Out -> LPF0:In
+ControllerBank(4)0:Contr0 -> 1V/Oct0:CV
+ControllerBank(4)0:Contr1 -> LPF0:CutOff
+Detuner(3)0:Freq0 -> SimpleOscillator0:Freq
+Detuner(3)0:Freq1 -> SimpleOscillator1:Freq
+LPF0:Out -> Mixer(4)0:In0
+LPF0:Out -> Scope:In
+Mixer(4)0:Out -> system:playback_1
+Mixer(4)0:Out -> system:playback_2
+PeriodicTrigger0:Trigger -> SimpleOscillator0:Sync
+PeriodicTrigger0:Trigger -> SimpleOscillator1:Sync
+SimpleOscillator0:Out -> Combinor0:In1
+SimpleOscillator1:Out -> Combinor0:In2
+
+</Connections>
+<Parameters>
+Combinor0/Select 0 19 0
+ControllerBank(4)0/0/Value 0 0 0.5
+ControllerBank(4)0/1/Value 0 0 0.807
+Detuner(3)0/0/OctaveShift 0 0 0
+Detuner(3)0/1/Detune 0 0 -0.421
+Detuner(3)0/1/OctaveShift 0 2 0
+LPF0/Poles 0 4 0
+Mixer(4)0/0/Volume 0 0 0.5
+Mixer(4)0/MasterVolume 0 0 0.39
+PeriodicTrigger0/BeatsPerBar 0 1 0
+PeriodicTrigger0/BeatsPerMinute 0 10 0
+SimpleOscillator0/Select 0 9 0
+SimpleOscillator1/Select 0 4 0
+
+</Parameters>
+</xml>

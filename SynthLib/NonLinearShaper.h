@@ -41,8 +41,8 @@ public:
 
     T operator()(T In) const
     {
-        In = HardLimitUnsigned(m_PreGain * In);// limit to [0,1] !
-        return HardLimitUnsigned(((m_A*In + m_B) * In + m_C)*In);
+        In = HardLimitUnipolar(m_PreGain * In);// limit to [0,1] !
+        return HardLimitUnipolar(((m_A*In + m_B) * In + m_C)*In);
     }
 
 private:

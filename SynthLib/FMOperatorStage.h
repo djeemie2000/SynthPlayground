@@ -94,7 +94,7 @@ public:
         T Phase = m_Carrier(m_CarrierPhaseGen()) + m_ModulatorAmplitude*m_Modulator(m_ModulatorPhaseGen());
         // we can hard limit the phase or the oscillator output.
         // which one sounds most interesting?
-        return m_Oscillator(HardLimitSigned(Phase));
+        return m_Oscillator(HardLimitBipolar(Phase));
     }
 
     T operator()(T ModIn)
@@ -103,7 +103,7 @@ public:
         T Phase = m_Carrier(m_CarrierPhaseGen(m_CarrierPhaseStep())) + ModulatorAmplitude*m_Modulator(m_ModulatorPhaseGen(m_ModulatorPhaseStep()));
         // we can hard limit the modulator amplitude, the phase or the oscillator output.
         // which one sounds most interesting?
-        return m_Oscillator(HardLimitSigned(Phase));
+        return m_Oscillator(HardLimitBipolar(Phase));
     }
 
 private:

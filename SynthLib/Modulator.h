@@ -12,7 +12,7 @@ public:
 
     T operator()(T In, T ModIn, T ModAmount) const
     {
-        return HardLimitSigned(In + ModIn*ModAmount);
+        return HardLimitBipolar(In + ModIn*ModAmount);
     }
 };
 
@@ -31,12 +31,12 @@ public:
 
     T operator()(T In, T ModIn) const
     {
-        return HardLimitUnsigned(In + ModIn*m_ModAmt);
+        return HardLimitUnipolar(In + ModIn*m_ModAmt);
     }
 
     T operator()(T In, T ModIn, T ModAmount) const
     {
-        return HardLimitUnsigned(In + ModIn*ModAmount);
+        return HardLimitUnipolar(In + ModIn*ModAmount);
     }
 
 private:
@@ -58,12 +58,12 @@ public:
 
     T operator()(T In, T ModIn) const
     {
-        return HardLimitSigned(In + ModIn*m_ModAmt);
+        return HardLimitBipolar(In + ModIn*m_ModAmt);
     }
 
     T operator()(T In, T ModIn, T ModAmount) const
     {
-        return HardLimitSigned(In + ModIn*ModAmount);
+        return HardLimitBipolar(In + ModIn*ModAmount);
     }
 
 private:
@@ -90,42 +90,42 @@ public:
 
     T operator()(T In, T ModIn0) const
     {
-        return HardLimitSigned(In + ModIn0*m_ModAmt[0]);
+        return HardLimitBipolar(In + ModIn0*m_ModAmt[0]);
     }
 
     T operator()(T In, T ModIn0, T ModIn1) const
     {
-        return HardLimitSigned(In + ModIn0*m_ModAmt[0] + ModIn1*m_ModAmt[1]);
+        return HardLimitBipolar(In + ModIn0*m_ModAmt[0] + ModIn1*m_ModAmt[1]);
     }
 
     T operator()(T In, T ModIn0, T ModIn1, T ModIn2) const
     {
-        return HardLimitSigned(In + ModIn0*m_ModAmt[0] + ModIn1*m_ModAmt[1] + ModIn2*m_ModAmt[2]);
+        return HardLimitBipolar(In + ModIn0*m_ModAmt[0] + ModIn1*m_ModAmt[1] + ModIn2*m_ModAmt[2]);
     }
 
     T operator()(T In, T ModIn0, T ModIn1, T ModIn2, T ModIn3) const
     {
-        return HardLimitSigned(In + ModIn0*m_ModAmt[0] + ModIn1*m_ModAmt[1] + ModIn2*m_ModAmt[2] + ModIn3*m_ModAmt[3]);
+        return HardLimitBipolar(In + ModIn0*m_ModAmt[0] + ModIn1*m_ModAmt[1] + ModIn2*m_ModAmt[2] + ModIn3*m_ModAmt[3]);
     }
 
     T operator()(T In, T ModIn0, T ModIn1, T ModIn2, T ModIn3, T ModIn4) const
     {
-        return HardLimitSigned(In + ModIn0*m_ModAmt[0] + ModIn1*m_ModAmt[1] + ModIn2*m_ModAmt[2] + ModIn3*m_ModAmt[3] + ModIn4*m_ModAmt[4]);
+        return HardLimitBipolar(In + ModIn0*m_ModAmt[0] + ModIn1*m_ModAmt[1] + ModIn2*m_ModAmt[2] + ModIn3*m_ModAmt[3] + ModIn4*m_ModAmt[4]);
     }
 
     T operator()(T In, T ModIn0, T ModIn1, T ModIn2, T ModIn3, T ModIn4, T ModIn5) const
     {
-        return HardLimitSigned(In + ModIn0*m_ModAmt[0] + ModIn1*m_ModAmt[1] + ModIn2*m_ModAmt[2] + ModIn3*m_ModAmt[3] + ModIn4*m_ModAmt[4] + ModIn5*m_ModAmt[5]);
+        return HardLimitBipolar(In + ModIn0*m_ModAmt[0] + ModIn1*m_ModAmt[1] + ModIn2*m_ModAmt[2] + ModIn3*m_ModAmt[3] + ModIn4*m_ModAmt[4] + ModIn5*m_ModAmt[5]);
     }
 
     T operator()(T In, T ModIn0, T ModIn1, T ModIn2, T ModIn3, T ModIn4, T ModIn5, T ModIn6) const
     {
-        return HardLimitSigned(In + ModIn0*m_ModAmt[0] + ModIn1*m_ModAmt[1] + ModIn2*m_ModAmt[2] + ModIn3*m_ModAmt[3] + ModIn4*m_ModAmt[4] + ModIn5*m_ModAmt[5] + ModIn6*m_ModAmt[6]);
+        return HardLimitBipolar(In + ModIn0*m_ModAmt[0] + ModIn1*m_ModAmt[1] + ModIn2*m_ModAmt[2] + ModIn3*m_ModAmt[3] + ModIn4*m_ModAmt[4] + ModIn5*m_ModAmt[5] + ModIn6*m_ModAmt[6]);
     }
 
     T operator()(T In, T ModIn0, T ModIn1, T ModIn2, T ModIn3, T ModIn4, T ModIn5, T ModIn6, T ModIn7) const
     {
-        return HardLimitSigned(In + ModIn0*m_ModAmt[0] + ModIn1*m_ModAmt[1] + ModIn2*m_ModAmt[2] + ModIn3*m_ModAmt[3] + ModIn4*m_ModAmt[4] + ModIn5*m_ModAmt[5] + ModIn6*m_ModAmt[6] + ModIn7*m_ModAmt[7]);
+        return HardLimitBipolar(In + ModIn0*m_ModAmt[0] + ModIn1*m_ModAmt[1] + ModIn2*m_ModAmt[2] + ModIn3*m_ModAmt[3] + ModIn4*m_ModAmt[4] + ModIn5*m_ModAmt[5] + ModIn6*m_ModAmt[6] + ModIn7*m_ModAmt[7]);
     }
 
 private:

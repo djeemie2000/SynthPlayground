@@ -19,7 +19,7 @@ public:
 
     T operator()(T In, T DCOffset)
     {
-        return HardLimitSigned(m_PreGain*In+DCOffset);
+        return HardLimitBipolar(m_PreGain*In+DCOffset);
     }
 
 private:

@@ -9,11 +9,9 @@
 class CSelectableCombinorFactory
 {
 public:
-    //CSelectableCombinorFactory();
-
     static std::vector<std::string> SelectionList()
     {
-        return {"+L", "*1", "*2", "*", "-L", "-||", "M||", "m||", "M", "m", "P+N", "N+P", "R1", "R2", "1+1*2", "2+2*1", "DivA", "DivB", "DivC" };
+        return {"+L", "*1", "*2", "*", "-L", "-||", "M||", "m||", "M", "m", "P+N", "N+P", "R1", "R2", "1+1*2", "2+2*1", "DivA", "DivB", "DivC", "*U" };
     }
 
     static CSelectableCombinor<float> Create()
@@ -47,15 +45,12 @@ public:
         Combinor.Add(CDividerB<float>());
         Combinor.Add(CDividerC<float>());
 
+        Combinor.Add(CMultUnipolar<float>());
+
         Combinor.Select(0);
 
         return Combinor;
     }
 };
-
-//std::vector<std::string> CSelectableCombinorFactory::SelectionList()
-//{
-//    return {"+L", "*1", "*2", "*", "-L", "-||", "M||", "m||", "M", "m", "P+N", "N+P", "DivA", "DivB", "DivC" };
-//}
 
 #endif // SELECTABLECOMBINORFACTORY_H

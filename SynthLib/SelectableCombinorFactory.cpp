@@ -1,13 +1,10 @@
 #include "SelectableCombinorFactory.h"
 #include "Combinor.h"
 
-//CSelectableCombinorFactory::CSelectableCombinorFactory()
-//{
-//}
 
 //std::vector<std::string> CSelectableCombinorFactory::SelectionList()
 //{
-//    return {"+L", "*1", "*2", "*", "-L", "-||", "M||", "m||", "M", "m", "P+N", "N+P", "R1", "R2", "DivA", "DivB", "DivC" };
+//    return {"+L", "*1", "*2", "*", "-L", "-||", "M||", "m||", "M", "m", "P+N", "N+P", "R1", "R2", "1+1*2", "2+2*1", "DivA", "DivB", "DivC", "*U" };
 //}
 
 //CSelectableCombinor<float> CSelectableCombinorFactory::Create()

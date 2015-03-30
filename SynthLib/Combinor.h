@@ -13,7 +13,7 @@ public:
 
     T operator()(const T& In1, const T& In2) const
     {
-        return HardLimitSigned(In1 + In2);// hard limited to 1
+        return HardLimitBipolar(In1 + In2);// hard limited to 1
     }
 };
 
@@ -28,6 +28,18 @@ public:
         // this in fact is amplitude modulation
         // as opposed to ring modulation below
         return In1 * In2;
+    }
+};
+
+template<class T>
+class CMultUnipolar
+{
+public:
+    CMultUnipolar(){}
+
+    T operator()(const T& In1, const T& In2) const
+    {
+        return UnipolarToBipolar( BipolarToUnipolar(In1) * BipolarToUnipolar(In2) );
     }
 };
 
@@ -89,7 +101,7 @@ public:
 
     T operator()(const T& In1, const T& In2) const
     {
-        return HardLimitSigned(In1 - In2);
+        return HardLimitBipolar(In1 - In2);
     }
 };
 
