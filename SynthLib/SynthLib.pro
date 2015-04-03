@@ -111,7 +111,8 @@ HEADERS += Notes.h \
     PhaseShifter.h \
     wavetable2.h \
     WaveTables/WaveTableData.h \
-    karplusstrong.h
+    karplusstrong.h \
+    ToggleGate.h
     PhaseAccumulator.h
 
 
