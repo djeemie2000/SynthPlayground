@@ -4,7 +4,7 @@ CONFIG += ordered
 CONFIG += c++11 (Qt5)
 
 SUBDIRS += \
-    ../UnitTest \           #a "lib' project
+    ../UnitTest \           # a "lib' project
     ../TinyXml2 \           # a 'lib' project
     ../SynthLib \           # a 'lib' project
     ../TestSynthLib \       # an 'app' project
@@ -15,4 +15,5 @@ SUBDIRS += \
     ../GuiLib \             # a 'lib' project
     ../ModularLib \         # a 'lib' project
     ../TestModularLib \     # an 'app' project
-    ../Modular1            # an  'app' project
+    ../Modular1 \           # an  'app' project
+    ../ModularHeadless      # an  'app' project
