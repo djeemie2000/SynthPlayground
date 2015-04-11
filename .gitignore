@@ -1,8 +1,10 @@
 *.pro.user
 build-*
+*build*
 *.o
 *.a
 *.exe
 Makefile
 *.Debug
 *.Release
+*.user
