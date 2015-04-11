@@ -7,9 +7,9 @@
 #include "tinyxml2.h"
 
 CModularHeadlessController::CModularHeadlessController()
- : m_CommandStackController()
+ : m_ConnectionManager()
+ , m_CommandStackController()
  , m_ModuleManager()
- , m_ConnectionManager()
  , m_CapturedConnections()
  , m_CapturedParameters()
 {
@@ -19,6 +19,14 @@ CModularHeadlessController::CModularHeadlessController()
     m_CommandStackController.reset(new CCommandStackController());
     std::shared_ptr<IModuleFactory> Factory(new CModuleFactory(m_CommandStackController));
     m_ModuleManager.reset(new CModuleManager(Factory));
+}
+
+CModularHeadlessController::~CModularHeadlessController()
+{
+    RemoveAll();
+    m_ModuleManager.reset();
+    m_CommandStackController.reset();
+    m_ConnectionManager.reset();
 }
 
 //bool CModularHeadlessController::Create(const string &Type, const string &Name)

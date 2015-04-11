@@ -15,6 +15,7 @@ class CModular1Controller
 {
 public:
     CModular1Controller(QStackedWidget* Parent);
+    ~CModular1Controller();
 
     bool Create(const std::string& Type, const std::string& Name);
     bool Remove(const std::string& Name);
@@ -33,9 +34,9 @@ public:
 
 private:
     QStackedWidget* m_Parent;
+    std::shared_ptr<CJackConnectionManager> m_ConnectionManager;
     std::shared_ptr<CCommandStackController> m_CommandStackController;
     std::shared_ptr<CModuleManager> m_ModuleManager;
-    std::shared_ptr<CJackConnectionManager> m_ConnectionManager;
     std::string m_CapturedConnections;
     std::string m_CapturedParameters;
 };

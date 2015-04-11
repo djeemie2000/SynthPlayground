@@ -10,9 +10,9 @@
 
 CModular1Controller::CModular1Controller(QStackedWidget *Parent)
  : m_Parent(Parent)
+ , m_ConnectionManager()
  , m_CommandStackController()
  , m_ModuleManager()
- , m_ConnectionManager()
  , m_CapturedConnections()
  , m_CapturedParameters()
 {
@@ -23,6 +23,14 @@ CModular1Controller::CModular1Controller(QStackedWidget *Parent)
     std::shared_ptr<IModuleFactory> Factory(new CModuleFactory(m_CommandStackController));
     std::shared_ptr<CGuiModuleFactory> GuiFactory(new CGuiModuleFactory(Factory, m_CommandStackController, m_ConnectionManager, Parent));
     m_ModuleManager.reset(new CModuleManager(GuiFactory));
+}
+
+CModular1Controller::~CModular1Controller()
+{
+    RemoveAll();
+    m_ModuleManager.reset();
+    m_CommandStackController.reset();
+    m_ConnectionManager.reset();
 }
 
 bool CModular1Controller::Create(const string &Type, const string &Name)

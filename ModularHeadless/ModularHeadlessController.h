@@ -12,6 +12,7 @@ class CModularHeadlessController
 {
 public:
     CModularHeadlessController();
+    ~CModularHeadlessController();
 
     //bool Create(const std::string& Type, const std::string& Name);
     //bool Remove(const std::string& Name);
@@ -27,9 +28,9 @@ public:
     bool Load(const std::string& Path);
 
 private:
+    std::shared_ptr<CJackConnectionManager> m_ConnectionManager;
     std::shared_ptr<CCommandStackController> m_CommandStackController;
     std::shared_ptr<CModuleManager> m_ModuleManager;
-    std::shared_ptr<CJackConnectionManager> m_ConnectionManager;
     std::string m_CapturedConnections;
     std::string m_CapturedParameters;
 };
