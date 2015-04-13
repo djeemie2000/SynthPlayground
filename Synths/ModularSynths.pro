@@ -15,5 +15,6 @@ SUBDIRS += \
     ../GuiLib \             # a 'lib' project
     ../ModularLib \         # a 'lib' project
     ../TestModularLib \     # an 'app' project
+    ../Mongoose \           # a 'lib' project
     ../Modular1 \           # an  'app' project
     ../ModularHeadless      # an  'app' project

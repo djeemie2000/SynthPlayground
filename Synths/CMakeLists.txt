@@ -1,33 +1,40 @@
 cmake_minimum_required (VERSION 2.6)
 project(ModularSynths)
 ADD_DEFINITIONS(
-	-std=c++11 # or -std=c++0x
+        #-std=c++11 # or -std=c++0x
 	# other flags
 )
 
-add_subdirectory(../UnitTest ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE}/UnitTest)
-add_subdirectory(../TinyXml2 ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE}/TinyXml2)
-add_subdirectory(../SerialLib ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE}/SerialLib)
+#set(BUILD_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE}")
+set(BUILD_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}")
+MESSAGE(STATUS "BUILD_DIRECTORY : ${BUILD_DIRECTORY}")
 
-add_subdirectory(../JackLib ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE}/JackLib)
-add_subdirectory(../AlsaLib ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE}/AlsaLib)
-add_subdirectory(../SynthLib ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE}/SynthLib)
-add_subdirectory(../ModularLib ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE}/ModularLib)
-add_subdirectory(../CommandStackLib ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE}/CommandStackLib)
-add_subdirectory(../MidiLib ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE}/MidiLib)
+add_subdirectory(../UnitTest ${BUILD_DIRECTORY}/UnitTest)
+add_subdirectory(../TinyXml2 ${BUILD_DIRECTORY}/TinyXml2)
+add_subdirectory(../Mongoose ${BUILD_DIRECTORY}/Mongoose)
 
-add_subdirectory(../TestCommandStackLib ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE}/TestCommandStackLib)
-add_subdirectory(../TestSynthLib ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE}/TestSynthLib)
-add_subdirectory(../TestModularLib ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE}/TestModularLib)
+add_subdirectory(../SerialLib ${BUILD_DIRECTORY}/SerialLib)
 
-add_subdirectory(../Serial2AlsaMidiTool ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE}/Serial2AlsaMidiTool)
-add_subdirectory(../AlsaMidiLoggerTool ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE}/AlsaMidiLoggerTool)
-add_subdirectory(../JackMidiLoggerTool ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE}/JackMidiLoggerTool)
-add_subdirectory(../JackConnectionTool ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE}/JackConnectionTool)
+add_subdirectory(../JackLib ${BUILD_DIRECTORY}/JackLib)
+add_subdirectory(../AlsaLib ${BUILD_DIRECTORY}/AlsaLib)
+add_subdirectory(../SynthLib ${BUILD_DIRECTORY}/SynthLib)
+add_subdirectory(../ModularLib ${BUILD_DIRECTORY}/ModularLib)
+add_subdirectory(../CommandStackLib ${BUILD_DIRECTORY}/CommandStackLib)
+add_subdirectory(../MidiLib ${BUILD_DIRECTORY}/MidiLib)
 
-add_subdirectory(../ModularHeadless ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE}/ModularHeadless)
+add_subdirectory(../TestCommandStackLib ${BUILD_DIRECTORY}/TestCommandStackLib)
+add_subdirectory(../TestSynthLib ${BUILD_DIRECTORY}/TestSynthLib)
+add_subdirectory(../TestModularLib ${BUILD_DIRECTORY}/TestModularLib)
 
-MESSAGE(STATUS "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE}")
+add_subdirectory(../Serial2AlsaMidiTool ${BUILD_DIRECTORY}/Serial2AlsaMidiTool)
+add_subdirectory(../AlsaMidiLoggerTool ${BUILD_DIRECTORY}/AlsaMidiLoggerTool)
+add_subdirectory(../JackMidiLoggerTool ${BUILD_DIRECTORY}/JackMidiLoggerTool)
+add_subdirectory(../JackConnectionTool ${BUILD_DIRECTORY}/JackConnectionTool)
 
-#MESSAGE(STATUS "${PROJECT_SOURCE_DIR}/../SerialLib")
-#MESSAGE(STATUS "${CMAKE_CURRENT_BINARY_DIR}/SerialLib")
+add_subdirectory(../ModularHeadless ${BUILD_DIRECTORY}/ModularHeadless)
+
+MESSAGE(STATUS "PROJECT_BINARY_DIR : ${PROJECT_BINARY_DIR}")
+MESSAGE(STATUS "CMAKE_BINARY_DIR : ${CMAKE_BINARY_DIR}")
+MESSAGE(STATUS "CMAKE_SOURCE_DIR : ${CMAKE_SOURCE_DIR}")
+MESSAGE(STATUS "PROJECT_SOURCE_DIR: ${PROJECT_SOURCE_DIR}")
+MESSAGE(STATUS "PROJECT_NAME : ${PROJECT_NAME}")
