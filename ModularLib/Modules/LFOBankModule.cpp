@@ -59,7 +59,7 @@ void CLFOBankModule::Accept(IModuleParameterVisitor &ParameterVisitor) const
     for(int idx = 0; idx<m_Size; ++idx)
     {
         ParameterVisitor.StartLine();
-        ParameterVisitor.FloatParameter(m_Name+"/"+std::to_string(idx)+"/Frequency", "Frequency"+std::to_string(idx), 1.0f, 0.0001f, 100000.0f, 0.01, 4);
+        ParameterVisitor.FloatParameter(m_Name+"/"+std::to_string(idx)+"/Frequency", "Frequency"+std::to_string(idx), 1.0f, 0.01f, 100000.0f, 0.01f, 4);
         ParameterVisitor.SelectionParameter(m_Name+"/"+std::to_string(idx)+"/Select", "Waveform"+std::to_string(idx), 0, CSelectableOperatorFactory::SelectionList());
         ParameterVisitor.FinishLine();
     }

@@ -24,6 +24,7 @@ CModularWebController::CModularWebController()
     m_ModuleManager.reset(new CModuleManager(Factory));
 
     UpdateModuleTypesPage(*m_ModuleManager, *m_WebPageManager);
+    UpdateCommandsPage(*m_WebPageManager);
 }
 
 CModularWebController::~CModularWebController()
@@ -41,6 +42,11 @@ string CModularWebController::HandleWebRequest(const string &Uri)
         bool Succeeded = RemoveAll();
         return Succeeded ? "RemoveAll done!" : "RemoveAll failed!";
         //??? TODO some decent response in web page manager
+    }
+    else if(Uri == "/Commands/Default")
+    {
+        bool Succeeded = Default();
+        return Succeeded ? "Default done!" : "Default failed!";
     }
 
     return m_WebPageManager->Get(Uri);
