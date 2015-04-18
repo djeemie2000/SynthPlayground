@@ -1,8 +1,8 @@
 #include <iostream>
 #include <string>
+#include <csignal>
 #include "Pitch.h"
 #include "ModularWebController.h"
-
 #include "mongoose.h"
 #include "WebPageManager.h"
 
@@ -14,13 +14,14 @@ void DoInstantiations()
     CPitch Pitch;
 }
 
+volatile std::sig_atomic_t gSignalStatus = 0;
+
 }
 
 void Usage()
 {
     std::cout << "exe path_to_patch" << std::endl;
 }
-
 
 static int ev_handler(struct mg_connection *conn, enum mg_event ev)
 {
@@ -36,6 +37,10 @@ static int ev_handler(struct mg_connection *conn, enum mg_event ev)
         CModularWebController* Controller = (CModularWebController*)conn->server_param;
         std::string Page = Controller->HandleWebRequest(conn->uri);
         mg_printf_data(conn, "%s", Page.c_str());
+
+        std::cout << "Request=" << std::endl
+                  << conn->content << std::endl;
+
         RetVal =  MG_TRUE;
     }
         break;
@@ -46,6 +51,10 @@ static int ev_handler(struct mg_connection *conn, enum mg_event ev)
     return RetVal;
 }
 
+void signal_handler(int Signal)
+{
+    gSignalStatus = Signal;
+}
 
 int main(int argc, const char* argv[])
 {
@@ -59,6 +68,9 @@ int main(int argc, const char* argv[])
 
         if(true)
         {
+            std::signal(SIGINT, signal_handler);
+            std::signal(SIGTERM, signal_handler);
+
             struct mg_server *server;
 
             // Create and configure the server
@@ -67,11 +79,14 @@ int main(int argc, const char* argv[])
 
             // Serve request. Hit Ctrl-C to terminate the program
             printf("Starting on port %s\n", mg_get_option(server, "listening_port"));
-            for (;;)
+
+            // detect ctrl-C or other signals
+            while(gSignalStatus==0)
             {
                 mg_poll_server(server, 1000);
-                // can we detect keypressed or ctrl-C here?????
             }
+
+            std::cout << "Captured signal " << gSignalStatus << std::endl;
 
             // Cleanup, and free server instance
             std::cout << "Destroying server" << std::endl;
