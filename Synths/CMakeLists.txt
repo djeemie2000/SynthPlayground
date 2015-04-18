@@ -32,6 +32,7 @@ add_subdirectory(../JackMidiLoggerTool ${BUILD_DIRECTORY}/JackMidiLoggerTool)
 add_subdirectory(../JackConnectionTool ${BUILD_DIRECTORY}/JackConnectionTool)
 
 add_subdirectory(../ModularHeadless ${BUILD_DIRECTORY}/ModularHeadless)
+add_subdirectory(../ModularWeb ${BUILD_DIRECTORY}/ModularWeb)
 
 MESSAGE(STATUS "PROJECT_BINARY_DIR : ${PROJECT_BINARY_DIR}")
 MESSAGE(STATUS "CMAKE_BINARY_DIR : ${CMAKE_BINARY_DIR}")

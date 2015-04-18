@@ -1,5 +1,5 @@
 #include <fstream>
-#include "ModularHeadlessController.h"
+#include "ModularWebController.h"
 #include "CommandStackController.h"
 #include "ModuleManager.h"
 #include "ModuleFactory.h"
@@ -29,15 +29,15 @@ CModularWebController::~CModularWebController()
     m_ConnectionManager.reset();
 }
 
-//bool CModularHeadlessController::Create(const string &Type, const string &Name)
-//{
-//    return m_ModuleManager->Create(Type, Name);
-//}
+bool CModularWebController::Create(const string &Type, const string &Name)
+{
+    return m_ModuleManager->Create(Type, Name);
+}
 
-//bool CModularHeadlessController::Remove(const string &Name)
-//{
-//    return m_ModuleManager->Remove(Name);
-//}
+bool CModularWebController::Remove(const string &Name)
+{
+    return m_ModuleManager->Remove(Name);
+}
 
 bool CModularWebController::RemoveAll()
 {
@@ -49,40 +49,40 @@ bool CModularWebController::Default()
     return m_CommandStackController->Default();
 }
 
-//std::vector<string> CModularHeadlessController::GetNames() const
-//{
-//    return m_ModuleManager->GetNames();
-//}
+std::vector<string> CModularWebController::GetNames() const
+{
+    return m_ModuleManager->GetNames();
+}
 
-//std::vector<string> CModularHeadlessController::GetSupportedTypes(const std::string& Category) const
-//{
-//    return m_ModuleManager->GetSupportedTypes(Category);
-//}
+std::vector<string> CModularWebController::GetSupportedTypes(const std::string& Category) const
+{
+    return m_ModuleManager->GetSupportedTypes(Category);
+}
 
-//std::vector<string> CModularHeadlessController::GetSupportedCategories() const
-//{
-//    return m_ModuleManager->GetSupportedCategories();
-//}
+std::vector<string> CModularWebController::GetSupportedCategories() const
+{
+    return m_ModuleManager->GetSupportedCategories();
+}
 
-//void CModularHeadlessController::Capture()
-//{
-//    // capture modules (names, types)
-//    m_ModuleManager->Capture();
-//    // capture connections
-//    m_CapturedConnections = ConnectionsToString(*m_ConnectionManager);
-//    // capture parameters
-//    m_CommandStackController->ExportToString(m_CapturedParameters);
-//}
+void CModularWebController::Capture()
+{
+    // capture modules (names, types)
+    m_ModuleManager->Capture();
+    // capture connections
+    m_CapturedConnections = ConnectionsToString(*m_ConnectionManager);
+    // capture parameters
+    m_CommandStackController->ExportToString(m_CapturedParameters);
+}
 
-//void CModularHeadlessController::Restore()
-//{
-//    // restore captured modules
-//    m_ModuleManager->Restore();
-//    // restore captured connections
-//    StringToConnections(*m_ConnectionManager, m_CapturedConnections);
-//    // restore captured parameters
-//    m_CommandStackController->ImportFromString(m_CapturedParameters);
-//}
+void CModularWebController::Restore()
+{
+    // restore captured modules
+    m_ModuleManager->Restore();
+    // restore captured connections
+    StringToConnections(*m_ConnectionManager, m_CapturedConnections);
+    // restore captured parameters
+    m_CommandStackController->ImportFromString(m_CapturedParameters);
+}
 
 bool CModularWebController::Save(const string &Path)
 {
