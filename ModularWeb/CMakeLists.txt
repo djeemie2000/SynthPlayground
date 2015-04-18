@@ -14,6 +14,8 @@ add_executable(ModularWeb
     ModularWebController.h
     WebPageManager.cpp
     WebPageManager.h
+    WebPageHelpers.cpp
+    WebPageHelpers.h
 )
 
 target_link_libraries(ModularWeb ModularLib SynthLib JackLib MidiLib CommandStackLib TinyXml2 Mongoose jack)

@@ -5,6 +5,8 @@
 #include "ModuleFactory.h"
 #include "JackConnectionManager.h"
 #include "tinyxml2.h"
+#include "WebPageManager.h"
+#include "WebPageHelpers.h"
 
 CModularWebController::CModularWebController()
  : m_ConnectionManager()
@@ -12,6 +14,7 @@ CModularWebController::CModularWebController()
  , m_ModuleManager()
  , m_CapturedConnections()
  , m_CapturedParameters()
+ , m_WebPageManager(new CWebPageManager())
 {
     m_ConnectionManager.reset(new CJackConnectionManager());
     m_ConnectionManager->OpenClient("ConnectionMgr");
@@ -19,6 +22,8 @@ CModularWebController::CModularWebController()
     m_CommandStackController.reset(new CCommandStackController());
     std::shared_ptr<IModuleFactory> Factory(new CModuleFactory(m_CommandStackController));
     m_ModuleManager.reset(new CModuleManager(Factory));
+
+    UpdateModuleTypesPage(*m_ModuleManager, *m_WebPageManager);
 }
 
 CModularWebController::~CModularWebController()
@@ -27,6 +32,17 @@ CModularWebController::~CModularWebController()
     m_ModuleManager.reset();
     m_CommandStackController.reset();
     m_ConnectionManager.reset();
+}
+
+string CModularWebController::HandleWebRequest(const string &Uri)
+{
+    if(Uri == "/Commands/RemoveAll")
+    {
+        RemoveAll();
+        return "RemoveAll done!";//??? TODO some decent response in web page manager
+    }
+
+    return m_WebPageManager->Get(Uri);
 }
 
 bool CModularWebController::Create(const string &Type, const string &Name)
@@ -41,27 +57,14 @@ bool CModularWebController::Remove(const string &Name)
 
 bool CModularWebController::RemoveAll()
 {
-    return m_ModuleManager->RemoveAll();
+    bool RetVal = m_ModuleManager->RemoveAll();
+    UpdateModulesPage(*m_ModuleManager, *m_WebPageManager);
+    return RetVal;
 }
 
 bool CModularWebController::Default()
 {
     return m_CommandStackController->Default();
-}
-
-std::vector<string> CModularWebController::GetNames() const
-{
-    return m_ModuleManager->GetNames();
-}
-
-std::vector<string> CModularWebController::GetSupportedTypes(const std::string& Category) const
-{
-    return m_ModuleManager->GetSupportedTypes(Category);
-}
-
-std::vector<string> CModularWebController::GetSupportedCategories() const
-{
-    return m_ModuleManager->GetSupportedCategories();
 }
 
 void CModularWebController::Capture()
@@ -132,6 +135,9 @@ bool CModularWebController::Load(const string &Path)
         m_ModuleManager->Import(Modules);
         StringToConnections(*m_ConnectionManager, Connections);
         m_CommandStackController->ImportFromString(Parameters);
+
+        //TODO?
+        UpdateModulesPage(*m_ModuleManager, *m_WebPageManager);
 
         return true;
     }

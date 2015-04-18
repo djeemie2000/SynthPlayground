@@ -13,15 +13,15 @@ void CWebPageManager::Clear()
     m_Pages.clear();
 }
 
-void CWebPageManager::Add(const std::string &Path, const std::string &Content)
+void CWebPageManager::Add(const std::string &Uri, const std::string &Content)
 {
-    m_Pages[Path] = Content;
+    m_Pages[Uri] = Content;
 }
 
-std::string CWebPageManager::Get(const std::string &Path)
+std::string CWebPageManager::Get(const std::string &Uri)
 {
-    std::string DefaultContent = "Request uri was " + Path;
+    std::string DefaultContent = "Request uri was " + Uri;
 
-    auto itPage = m_Pages.find(Path);
+    auto itPage = m_Pages.find(Uri);
     return itPage != m_Pages.end() ? itPage->second : DefaultContent;
 }

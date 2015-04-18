@@ -7,6 +7,7 @@
 class CCommandStackController;
 class CModuleManager;
 class CJackConnectionManager;
+class CWebPageManager;
 
 class CModularWebController
 {
@@ -14,13 +15,10 @@ public:
     CModularWebController();
     ~CModularWebController();
 
+    std::string HandleWebRequest(const std::string& Uri);
+
     bool Create(const std::string& Type, const std::string& Name);
     bool Remove(const std::string& Name);
-    bool RemoveAll();
-    bool Default(); //!< all existing modules to default parameters
-    std::vector<std::string> GetNames() const;
-    std::vector<std::string> GetSupportedTypes(const std::string& Category) const;
-    std::vector<std::string> GetSupportedCategories() const;
 
     void Capture();//!< capture current module/connections/parameters state
     void Restore(); //!< restore grabbed state
@@ -28,9 +26,14 @@ public:
     bool Load(const std::string& Path);
 
 private:
+    bool RemoveAll();
+    bool Default(); //!< all existing modules to default parameters
+
     std::shared_ptr<CJackConnectionManager> m_ConnectionManager;
     std::shared_ptr<CCommandStackController> m_CommandStackController;
     std::shared_ptr<CModuleManager> m_ModuleManager;
     std::string m_CapturedConnections;
     std::string m_CapturedParameters;
+
+    std::shared_ptr<CWebPageManager> m_WebPageManager;
 };
