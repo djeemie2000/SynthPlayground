@@ -38,8 +38,9 @@ string CModularWebController::HandleWebRequest(const string &Uri)
 {
     if(Uri == "/Commands/RemoveAll")
     {
-        RemoveAll();
-        return "RemoveAll done!";//??? TODO some decent response in web page manager
+        bool Succeeded = RemoveAll();
+        return Succeeded ? "RemoveAll done!" : "RemoveAll failed!";
+        //??? TODO some decent response in web page manager
     }
 
     return m_WebPageManager->Get(Uri);
@@ -47,12 +48,16 @@ string CModularWebController::HandleWebRequest(const string &Uri)
 
 bool CModularWebController::Create(const string &Type, const string &Name)
 {
-    return m_ModuleManager->Create(Type, Name);
+    bool RetVal = m_ModuleManager->Create(Type, Name);
+    UpdateModulesPage(*m_ModuleManager, *m_WebPageManager);
+    return RetVal;
 }
 
 bool CModularWebController::Remove(const string &Name)
 {
-    return m_ModuleManager->Remove(Name);
+    bool RetVal = m_ModuleManager->Remove(Name);
+    UpdateModulesPage(*m_ModuleManager, *m_WebPageManager);
+    return RetVal;
 }
 
 bool CModularWebController::RemoveAll()
@@ -85,6 +90,9 @@ void CModularWebController::Restore()
     StringToConnections(*m_ConnectionManager, m_CapturedConnections);
     // restore captured parameters
     m_CommandStackController->ImportFromString(m_CapturedParameters);
+
+    //
+    UpdateModulesPage(*m_ModuleManager, *m_WebPageManager);
 }
 
 bool CModularWebController::Save(const string &Path)
@@ -136,7 +144,6 @@ bool CModularWebController::Load(const string &Path)
         StringToConnections(*m_ConnectionManager, Connections);
         m_CommandStackController->ImportFromString(Parameters);
 
-        //TODO?
         UpdateModulesPage(*m_ModuleManager, *m_WebPageManager);
 
         return true;
