@@ -55,6 +55,26 @@ void UpdateModulesPage(const CModularWebController& Controller, CWebPageManager&
     WebPageManager.Add("/Modules", Content);
 }
 
+void UpdateModuleTypesPage(const CModularWebController& Controller, CWebPageManager& WebPageManager)
+{
+    std::string Content;
+    Content += "<h3>Supported Modules</h3>";
+    auto ModuleCategories = Controller.GetSupportedCategories();
+    for(const auto& Category : ModuleCategories)
+    {
+        Content += "<h4>";
+        Content += Category;
+        Content += "</h4>";
+
+        auto ModuleTypes = Controller.GetSupportedTypes(Category);
+        for(const auto& Type : ModuleTypes)
+        {
+            Content += Type;
+            Content += "<br>";
+        }
+    }
+    WebPageManager.Add("/SupportedModules", Content);
+}
 
 int main(int argc, const char* argv[])
 {
@@ -69,6 +89,7 @@ int main(int argc, const char* argv[])
 
         CWebPageManager WebPageManager;
         UpdateModulesPage(Controller, WebPageManager);
+        UpdateModuleTypesPage(Controller, WebPageManager);
 
         if(true)
         {
@@ -80,8 +101,10 @@ int main(int argc, const char* argv[])
 
             // Serve request. Hit Ctrl-C to terminate the program
             printf("Starting on port %s\n", mg_get_option(server, "listening_port"));
-            for (;;) {
+            for (;;)
+            {
                 mg_poll_server(server, 1000);
+                // can we detect keypressed or ctrl-C here?????
             }
 
             // Cleanup, and free server instance
