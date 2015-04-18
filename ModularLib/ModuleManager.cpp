@@ -132,6 +132,12 @@ void CModuleManager::Import(const std::string &Content)
     Restore(LoadedState);
 }
 
+std::weak_ptr<IModularModule> CModuleManager::GetModule(const std::string &Name) const
+{
+    auto itModule = m_Modules.find(Name);
+    return itModule != m_Modules.end() ? itModule->second : std::weak_ptr<IModularModule>();
+}
+
 std::string CModuleManager::GenerateUniqueName(const std::string &Type)
 {
     // try Type0, Type1, Type2, ... until it is does not exist in the current list

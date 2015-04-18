@@ -92,6 +92,11 @@ void CModularWebController::Restore()
     m_CommandStackController->ImportFromString(m_CapturedParameters);
 
     //
+    UpdateModuleWebPages();
+}
+
+void CModularWebController::UpdateModuleWebPages()
+{
     UpdateModulesPage(*m_ModuleManager, *m_WebPageManager);
 }
 

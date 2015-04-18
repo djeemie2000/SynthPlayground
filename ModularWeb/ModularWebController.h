@@ -30,6 +30,8 @@ private:
     void Capture();//!< capture current module/connections/parameters state
     void Restore(); //!< restore grabbed state
 
+    void UpdateModuleWebPages();
+
     std::shared_ptr<CJackConnectionManager> m_ConnectionManager;
     std::shared_ptr<CCommandStackController> m_CommandStackController;
     std::shared_ptr<CModuleManager> m_ModuleManager;

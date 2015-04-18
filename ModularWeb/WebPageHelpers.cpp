@@ -1,6 +1,7 @@
 #include "WebPageHelpers.h"
 #include "WebPageManager.h"
 #include "ModuleManager.h"
+#include "ModularModuleI.h"
 
 void UpdateModulesPage(const CModuleManager& ModuleManager, CWebPageManager& WebPageManager)
 {
@@ -13,6 +14,39 @@ void UpdateModulesPage(const CModuleManager& ModuleManager, CWebPageManager& Web
         Content += "<br>";
     }
     WebPageManager.Add("/Modules", Content);
+
+    //add individual module pages
+    for(const auto& Name : ModuleNames)
+    {
+        std::string ModuleContent;
+        ModuleContent += "<h3>" + Name + "</h3>";
+
+        if(std::shared_ptr<IModularModule> Module = ModuleManager.GetModule(Name).lock())
+        {
+            ModuleContent += "<h4>Inputs</h4>";
+            for(const auto& Input : Module->GetInputNames())
+            {
+                ModuleContent += Input;
+                ModuleContent += "<br>";
+            }
+            ModuleContent += "<h4>MidiInputs</h4>";
+            for(const auto& Input : Module->GetMidiInputNames())
+            {
+                ModuleContent += Input;
+                ModuleContent += "<br>";
+            }
+            ModuleContent += "<h4>Outputs</h4>";
+            for(const auto& Input : Module->GetOutputNames())
+            {
+                ModuleContent += Input;
+                ModuleContent += "<br>";
+            }
+
+            // TODO parameter visitor
+
+        }
+        WebPageManager.Add("/Module/"+Name, ModuleContent);
+    }
 }
 
 void UpdateModuleTypesPage(const CModuleManager& ModuleManager, CWebPageManager& WebPageManager)

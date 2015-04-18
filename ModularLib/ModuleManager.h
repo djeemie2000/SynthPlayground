@@ -25,6 +25,8 @@ public:
     void Export(std::string& Content); //!< save current state
     void Import(const std::string& Content); //!< load state
 
+    std::weak_ptr<IModularModule> GetModule(const std::string& Name) const;
+
 private:
     typedef std::map<std::string, std::string> ModuleState; //! module state (Name, Type)
     typedef std::map<std::string, std::shared_ptr<IModularModule>> ModuleMap;
