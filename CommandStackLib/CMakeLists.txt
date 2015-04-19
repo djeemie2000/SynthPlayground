@@ -17,9 +17,7 @@ add_library(CommandStackLib
     CommandStack.h
     CommandStackController.h
     CommandStackHandlerI.h
-    ImporterI.h
     LogCommandStackHandler.h
-    ExporterI.h
     ExportCommandStackHandler.h
     CommandStackImporter.h
     ExecuteCommandStackHandler.h

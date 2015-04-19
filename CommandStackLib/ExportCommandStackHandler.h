@@ -3,16 +3,15 @@
 
 #include "CommandStack.h"
 #include "CommandStackHandlerI.h"
-#include "ExporterI.h"
 
-class CExportCommandStackHandler : public ICommandStackHandler, public IExporter
+class CExportCommandStackHandler : public ICommandStackHandler
 {
 public:
     CExportCommandStackHandler();
 
     void Handle(const SCmdStackItem& Item) override;
-    bool Export(const std::string& Path) override;
 
+    bool ExportToFile(const std::string& Path);
     bool ExportToString(std::string& Content);
 
 private:

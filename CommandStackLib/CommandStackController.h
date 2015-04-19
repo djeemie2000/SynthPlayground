@@ -6,8 +6,6 @@
 #include "CommandStackHandlerI.h"
 
 class ICommandStackHandler;
-class IExporter;
-class IImporter;
 class IRegisterNamedCommandStackHandler;
 
 class CLogCommandStackHandler;
@@ -37,7 +35,7 @@ private:
     std::shared_ptr<CExecuteCommandStackHandler> m_Executor;
     std::shared_ptr<CExportCommandStackHandler> m_Exporter;
     std::shared_ptr<CCommandStackDistributor> m_Distributor;
-    std::shared_ptr<ICommandStackHandler> m_ImportHandler;
+    std::shared_ptr<ICommandStackHandler> m_Handler;
     std::shared_ptr<CCommandStackImporter> m_Importer;
 };
 

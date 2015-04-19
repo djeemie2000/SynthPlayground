@@ -84,7 +84,7 @@ bool ExportCurrentStackToString(const CmdStack& CurrentStack, std::string& Conte
 
 }
 
-bool CExportCommandStackHandler::Export(const string &Path)
+bool CExportCommandStackHandler::ExportToFile(const string &Path)
 {
     CmdStack CurrentStack;
     ExtractCurrentStack(m_Current, CurrentStack);

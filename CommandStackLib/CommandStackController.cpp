@@ -11,7 +11,7 @@ CCommandStackController::CCommandStackController(const CmdFunctionMap &FunctionM
  , m_Executor(new CExecuteCommandStackHandler(FunctionMap))
  , m_Exporter(new CExportCommandStackHandler())
  , m_Distributor(new CCommandStackDistributor())
- , m_ImportHandler()
+ , m_Handler()
  , m_Importer()
 {
     std::shared_ptr<CMultiCommandStackHandler> MultiHandler(new CMultiCommandStackHandler());
@@ -19,10 +19,10 @@ CCommandStackController::CCommandStackController(const CmdFunctionMap &FunctionM
     MultiHandler->Register(m_Exporter);
     MultiHandler->Register(m_Executor);
     MultiHandler->Register(m_Distributor);
-    m_ImportHandler = MultiHandler;
+    m_Handler = MultiHandler;
 
     // importer (loads a patch from file)
-    m_Importer.reset(new CCommandStackImporter(m_ImportHandler, Defaults));
+    m_Importer.reset(new CCommandStackImporter(m_Handler, Defaults));
 }
 
 CCommandStackController::CCommandStackController()
@@ -30,7 +30,7 @@ CCommandStackController::CCommandStackController()
     , m_Executor(new CExecuteCommandStackHandler(CmdFunctionMap()))
     , m_Exporter(new CExportCommandStackHandler())
     , m_Distributor(new CCommandStackDistributor())
-    , m_ImportHandler()
+    , m_Handler()
     , m_Importer()
 {
     std::shared_ptr<CMultiCommandStackHandler> MultiHandler(new CMultiCommandStackHandler());
@@ -38,10 +38,10 @@ CCommandStackController::CCommandStackController()
     MultiHandler->Register(m_Exporter);
     MultiHandler->Register(m_Executor);
     MultiHandler->Register(m_Distributor);
-    m_ImportHandler = MultiHandler;
+    m_Handler = MultiHandler;
 
     // importer (loads a patch from file)
-    m_Importer.reset(new CCommandStackImporter(m_ImportHandler, CmdStack()));
+    m_Importer.reset(new CCommandStackImporter(m_Handler, CmdStack()));
 }
 
 bool CCommandStackController::Import(const string &Path)
@@ -56,12 +56,12 @@ bool CCommandStackController::Default()
 
 bool CCommandStackController::Export(const string &Path)
 {
-    return m_Exporter->Export(Path);
+    return m_Exporter->ExportToFile(Path);
 }
 
 void CCommandStackController::Handle(const SCmdStackItem &Item)
 {
-    m_ImportHandler->Handle(Item);
+    m_Handler->Handle(Item);
 }
 
 void CCommandStackController::Register(const string &CommandName, SPCommandStackHandler Handler)

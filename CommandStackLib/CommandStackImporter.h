@@ -3,16 +3,15 @@
 
 #include <string>
 #include "CommandStack.h"
-#include "ImporterI.h"
 #include "CommandStackHandlerI.h"
 
-class CCommandStackImporter : public IImporter
+class CCommandStackImporter
 {
 public:
     CCommandStackImporter(SPCommandStackHandler Handler, const CmdStack& Defaults);
 
-    bool Import(const std::string &Path) override;
-    bool Default() override;
+    bool Import(const std::string &Path);
+    bool Default();
 
     void AddDefault(const SCmdStackItem& Default);
     void RemoveDefault(const std::string& CommandName);
