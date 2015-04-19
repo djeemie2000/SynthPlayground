@@ -5,6 +5,9 @@
 #include "ModularWebController.h"
 #include "mongoose.h"
 #include "WebPageManager.h"
+#include "WebRequest.h"
+
+#include <cstring>
 
 namespace
 {
@@ -35,11 +38,14 @@ static int ev_handler(struct mg_connection *conn, enum mg_event ev)
     case MG_REQUEST:
     {
         CModularWebController* Controller = (CModularWebController*)conn->server_param;
-        std::string Page = Controller->HandleWebRequest(conn->uri);
-        mg_printf_data(conn, "%s", Page.c_str());
 
-        std::cout << "Request=" << std::endl
-                  << conn->content << std::endl;
+        SWebRequest Request = CreateWebRequest(conn);
+
+        std::string Page = Controller->HandleWebRequest(Request.s_Uri);
+        mg_printf_data(conn, "%s", Page.c_str());//reply
+
+        // debug:
+        LogWebRequest(Request, std::cout);
 
         RetVal =  MG_TRUE;
     }
@@ -70,6 +76,8 @@ int main(int argc, const char* argv[])
         {
             std::signal(SIGINT, signal_handler);
             std::signal(SIGTERM, signal_handler);
+            std::signal(SIGILL, signal_handler);
+            std::signal(SIGSEGV, signal_handler);
 
             struct mg_server *server;
 
@@ -94,7 +102,7 @@ int main(int argc, const char* argv[])
         }
         else
         {
-            std::cout << "Opened patch " << Path << std::endl;
+            // TODO capture ctrl-C or sleep
             std::cout << "Press 'q' to exit" << std::endl;
             // wait for key 'q'
             char Key = ' ';
