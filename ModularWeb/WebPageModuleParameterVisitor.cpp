@@ -9,6 +9,7 @@ void CWebPageModuleParameterVisitor::Start()
 {
     // TODO clear
     m_Content << "<h3>Parameters</h3>";
+    m_Content << R"(<form action="SetParameters" >)";
 }
 
 void CWebPageModuleParameterVisitor::StartLine()
@@ -74,6 +75,7 @@ void CWebPageModuleParameterVisitor::FinishLine()
 
 void CWebPageModuleParameterVisitor::Finish()
 {
+    m_Content << R"(<br><input type="submit" value="Submit">)";
     m_Content << "</form>";
 }
 
