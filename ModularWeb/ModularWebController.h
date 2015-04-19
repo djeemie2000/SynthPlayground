@@ -8,14 +8,16 @@ class CCommandStackController;
 class CModuleManager;
 class CJackConnectionManager;
 class CWebPageManager;
+class CPatchManager;
+struct SWebRequest;
 
 class CModularWebController
 {
 public:
-    CModularWebController();
+    CModularWebController(const std::string& PatchDirectory);
     ~CModularWebController();
 
-    std::string HandleWebRequest(const std::string& Uri);
+    std::string HandleWebRequest(const SWebRequest& Request);
 
     bool Save(const std::string& Path);
     bool Load(const std::string& Path);
@@ -32,6 +34,9 @@ private:
 
     void UpdateModuleWebPages();
 
+    bool LoadPatch(const std::string& PatchName);
+
+    std::shared_ptr<CPatchManager> m_PatchManager;
     std::shared_ptr<CJackConnectionManager> m_ConnectionManager;
     std::shared_ptr<CCommandStackController> m_CommandStackController;
     std::shared_ptr<CModuleManager> m_ModuleManager;

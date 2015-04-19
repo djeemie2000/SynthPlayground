@@ -20,6 +20,10 @@ add_executable(ModularWeb
     WebPageModuleParameterVisitor.h
     WebRequest.cpp
     WebRequest.h
+    FileSystemHelpers.cpp
+    FileSystemHelpers.h
+    PatchManager.cpp
+    PatchManager.h
 )
 
 target_link_libraries(ModularWeb ModularLib SynthLib JackLib MidiLib CommandStackLib TinyXml2 Mongoose jack)

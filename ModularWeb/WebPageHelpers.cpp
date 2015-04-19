@@ -4,12 +4,13 @@
 #include "ModuleManager.h"
 #include "ModularModuleI.h"
 #include "WebPageModuleParameterVisitor.h"
+#include "PatchManager.h"
 
 void UpdateModulesPage(const CModuleManager& ModuleManager, CWebPageManager& WebPageManager)
 {
     {
         std::ostringstream Content;
-        Content << "<!DOCTYPE html><html><head><title>Page Title</title></head><body>";
+        Content << "<!DOCTYPE html><html><head><title>Modules</title></head><body>";
 
         Content << "<h3>Modules</h3>";
         auto ModuleNames = ModuleManager.GetNames();
@@ -30,7 +31,7 @@ void UpdateModulesPage(const CModuleManager& ModuleManager, CWebPageManager& Web
             if(std::shared_ptr<IModularModule> Module = ModuleManager.GetModule(Name).lock())
             {
                 std::ostringstream ModuleContent;
-                ModuleContent << "<!DOCTYPE html><html><head><title>Page Title</title></head><body>";
+                ModuleContent << "<!DOCTYPE html><html><head><title>" << Name << "</title></head><body>";
                 ModuleContent << "<h3>" << Name << "</h3>";
 
                 ModuleContent << "<h4>Inputs</h4>";
@@ -67,7 +68,7 @@ void UpdateModulesPage(const CModuleManager& ModuleManager, CWebPageManager& Web
 void UpdateModuleTypesPage(const CModuleManager& ModuleManager, CWebPageManager& WebPageManager)
 {
     std::string Content;
-    Content += "<!DOCTYPE html><html><head><title>Page Title</title></head><body>";
+    Content += "<!DOCTYPE html><html><head><title>SupportedModules</title></head><body>";
     Content += "<h3>Supported Modules</h3>";
     auto ModuleCategories = ModuleManager.GetSupportedCategories();
     for(const auto& Category : ModuleCategories)
@@ -91,9 +92,22 @@ void UpdateModuleTypesPage(const CModuleManager& ModuleManager, CWebPageManager&
 void UpdateCommandsPage(CWebPageManager &WebPageManager)
 {
     std::ostringstream Content;
-    Content << "<!DOCTYPE html><html><head><title>Page Title</title></head><body>";
+    Content << "<!DOCTYPE html><html><head><title>Commands</title></head><body>";
     Content << "<a href=\"/Commands/RemoveAll\" >RemoveAll</a><br>";
     Content << "<a href=\"/Commands/Default\" >Default</a><br>";
     Content << "</body></html>";
     WebPageManager.Add("/Commands", Content.str());
+}
+
+
+void UpdatePatchesPage(CPatchManager &PatchManager, CWebPageManager &WebPageManager)
+{
+    std::ostringstream Content;
+    Content << "<!DOCTYPE html><html><head><title>Patches</title></head><body><h3>Patches</h3><table border=\"1\"><tr><th>Patch</th><th>Load</th><th>Path</th></tr>";
+    for(const std::string& Patch : PatchManager.GetPatchNames())
+    {
+        Content << "<tr><td>" << Patch << "</td><td><a href=\"/Commands/Load/" << Patch << "\" >Load</a></td><td>" << PatchManager.GetPath(Patch) << "</td></tr>";
+    }
+    Content << "</table></body></html>";
+    WebPageManager.Add("/Patches", Content.str());
 }

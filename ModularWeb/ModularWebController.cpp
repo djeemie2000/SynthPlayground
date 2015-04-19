@@ -7,9 +7,12 @@
 #include "tinyxml2.h"
 #include "WebPageManager.h"
 #include "WebPageHelpers.h"
+#include "PatchManager.h"
+#include "WebRequest.h"
 
-CModularWebController::CModularWebController()
- : m_ConnectionManager()
+CModularWebController::CModularWebController(const std::string& PatchDirectory)
+ : m_PatchManager(new CPatchManager(PatchDirectory))
+ , m_ConnectionManager()
  , m_CommandStackController()
  , m_ModuleManager()
  , m_CapturedConnections()
@@ -25,6 +28,7 @@ CModularWebController::CModularWebController()
 
     UpdateModuleTypesPage(*m_ModuleManager, *m_WebPageManager);
     UpdateCommandsPage(*m_WebPageManager);
+    UpdatePatchesPage(*m_PatchManager, *m_WebPageManager);
 }
 
 CModularWebController::~CModularWebController()
@@ -35,21 +39,27 @@ CModularWebController::~CModularWebController()
     m_ConnectionManager.reset();
 }
 
-string CModularWebController::HandleWebRequest(const string &Uri)
+string CModularWebController::HandleWebRequest(const SWebRequest &Request)
 {
-    if(Uri == "/Commands/RemoveAll")
+    if(Request.s_Uri == "/Commands/RemoveAll")
     {
         bool Succeeded = RemoveAll();
         return Succeeded ? "RemoveAll done!" : "RemoveAll failed!";
         //??? TODO some decent response in web page manager
     }
-    else if(Uri == "/Commands/Default")
+    else if(Request.s_Uri == "/Commands/Default")
     {
         bool Succeeded = Default();
         return Succeeded ? "Default done!" : "Default failed!";
     }
+    else if(Request.s_Uri.find("/Commands/Load/")==0)//starts with
+    {
+        std::string Patch = Request.s_Uri.substr(15);//length of starts with
+        bool Succeeded = LoadPatch(Patch);
+        return Succeeded ? "Loaded patch!" : "Load patch failed!";
+    }
 
-    return m_WebPageManager->Get(Uri);
+    return m_WebPageManager->Get(Request.s_Uri);
 }
 
 bool CModularWebController::Create(const string &Type, const string &Name)
@@ -104,6 +114,18 @@ void CModularWebController::Restore()
 void CModularWebController::UpdateModuleWebPages()
 {
     UpdateModulesPage(*m_ModuleManager, *m_WebPageManager);
+}
+
+bool CModularWebController::LoadPatch(const string &PatchName)
+{
+    bool Succeeded = false;
+    std::string Path = m_PatchManager->GetPath(PatchName);
+    if(!Path.empty())
+    {
+        Succeeded = Load(Path);
+    }
+    return Succeeded;
+
 }
 
 bool CModularWebController::Save(const string &Path)

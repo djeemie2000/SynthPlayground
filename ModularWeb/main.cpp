@@ -41,7 +41,7 @@ static int ev_handler(struct mg_connection *conn, enum mg_event ev)
 
         SWebRequest Request = CreateWebRequest(conn);
 
-        std::string Page = Controller->HandleWebRequest(Request.s_Uri);
+        std::string Page = Controller->HandleWebRequest(Request);
         mg_printf_data(conn, "%s", Page.c_str());//reply
 
         // debug:
@@ -66,11 +66,11 @@ int main(int argc, const char* argv[])
 {
     if(2<=argc)
     {
-        std::string Path(argv[1]);
-        CModularWebController Controller;
+        std::string PatchesDirectory(argv[1]);
+        CModularWebController Controller(PatchesDirectory);
 
-        Controller.Load(Path);
-        std::cout << "Opened patch " << Path << std::endl;
+        //Controller.Load(PatchesDirectory);
+        //std::cout << "Opened patch " << PatchesDirectory << std::endl;
 
         if(true)
         {
