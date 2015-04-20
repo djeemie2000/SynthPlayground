@@ -105,7 +105,9 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Filters/WaveTableFilter.cpp \
     Modules/WaveTableModule.cpp \
     Filters/KarplusStrongFilter.cpp \
-    Modules/KarplusStrongModule.cpp
+    Modules/KarplusStrongModule.cpp \
+    Filters/DecayEnvelopeFilter.cpp \
+    Modules/DecayEnvelopeModule.cpp
 
 HEADERS += Filters/ControllerBankFilter.h \
     Filters/PhasorFilter.h \
@@ -213,6 +215,8 @@ HEADERS += Filters/ControllerBankFilter.h \
     Modules/WaveTableModule.h \
     Filters/KarplusStrongFilter.h \
     Modules/KarplusStrongModule.h \
+    Filters/DecayEnvelopeFilter.h \
+    Modules/DecayEnvelopeModule.h
 
 
 

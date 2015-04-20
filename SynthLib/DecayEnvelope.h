@@ -1,6 +1,8 @@
 #ifndef DECAYENVELOPE_H
 #define DECAYENVELOPE_H
 
+#include "Trigger.h"
+
 template<class T>
 class CDecayEnvelope
 {
@@ -36,6 +38,13 @@ public:
     T operator()()
     {
         m_Envelope*=m_Multiplier;
+        return m_Envelope;
+    }
+
+    T operator()(T Trigger, T Decay)
+    {
+        T Multiplier = 1-Decay*Decay;
+        m_Envelope = CTriggerIn<T>().IsTriggerOn(Trigger) ? 1 : m_Envelope*Multiplier;
         return m_Envelope;
     }
 

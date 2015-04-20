@@ -49,6 +49,7 @@
 #include "PhaseShifterModule.h"
 #include "WaveTableModule.h"
 #include "KarplusStrongModule.h"
+#include "DecayEnvelopeModule.h"
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -267,6 +268,10 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CKarplusStrongModule(Name, *m_CommandStackController));
     }
+    else if(Type == "DecayEnvelope")
+    {
+        Module.reset(new CDecayEnvelopeModule(Name));
+    }
 
     return Module;
 }
@@ -278,7 +283,8 @@ std::vector<string> CModuleFactory::GetSupportedTypes(const std::string &Categor
         return {
             "ADSREnvelopeBank(4)",
             "ADSREnvelopeBank(8)",
-            "EnvelopeFollower"
+            "EnvelopeFollower",
+            "DecayEnvelope"
         };
     }
 

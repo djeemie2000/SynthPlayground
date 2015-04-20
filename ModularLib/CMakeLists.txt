@@ -229,4 +229,9 @@ add_library(ModularLib
     Modules/WaveTableModule.h
     Filters/KarplusStrongFilter.h
     Modules/KarplusStrongModule.h
+    Filters/DecayEnvelopeFilter.cpp
+    Filters/DecayEnvelopeFilter.h
+    Modules/DecayEnvelopeModule.cpp
+    Modules/DecayEnvelopeModule.h
+
 )
