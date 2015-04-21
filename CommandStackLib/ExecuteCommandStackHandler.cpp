@@ -1,8 +1,8 @@
 #include <iostream>
 #include "ExecuteCommandStackHandler.h"
 
-CExecuteCommandStackHandler::CExecuteCommandStackHandler(const CmdFunctionMap &FunctionMap)
- : m_FunctionMap(FunctionMap)
+CExecuteCommandStackHandler::CExecuteCommandStackHandler()
+ : m_FunctionMap()
 {
 }
 
@@ -29,13 +29,13 @@ void CExecuteCommandStackHandler::Handle(const SCmdStackItem &Item)
     ExecuteCmdStackItem(Item, m_FunctionMap);
 }
 
-void CExecuteCommandStackHandler::Add(const string &Name, const CmdFunction &Function)
+void CExecuteCommandStackHandler::AddCommandFunction(const string &Name, const CmdFunction &Function)
 {
     m_FunctionMap[Name] = Function;
     // check for overwrites?
 }
 
-void CExecuteCommandStackHandler::Remove(const string &Name)
+void CExecuteCommandStackHandler::RemoveCommandFunction(const string &Name)
 {
     m_FunctionMap.erase(Name);
 }

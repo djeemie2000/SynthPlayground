@@ -2,18 +2,18 @@
 #define EXECUTECOMMANDSTACKHANDLER_H
 
 #include <string>
-#include "CommandStack.h"
+#include "CommandStackItem.h"
 #include "CommandStackHandlerI.h"
 
 class CExecuteCommandStackHandler : public ICommandStackHandler
 {
 public:
-    CExecuteCommandStackHandler(const CmdFunctionMap& FunctionMap);
+    CExecuteCommandStackHandler();
 
     void Handle(const SCmdStackItem& Item) override;
 
-    void Add(const std::string& Name, const CmdFunction& Function);
-    void Remove(const std::string& Name);
+    void AddCommandFunction(const std::string& Name, const CmdFunction& Function);
+    void RemoveCommandFunction(const std::string& Name);
 
 private:
     CmdFunctionMap m_FunctionMap;

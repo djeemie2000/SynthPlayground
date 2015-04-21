@@ -2,24 +2,18 @@
 #define COMMANDSTACKIMPORTER_H
 
 #include <string>
-#include "CommandStack.h"
+#include "CommandStackItem.h"
 #include "CommandStackHandlerI.h"
+
+class CCommandStack;
 
 class CCommandStackImporter
 {
 public:
-    CCommandStackImporter(SPCommandStackHandler Handler, const CmdStack& Defaults);
+    CCommandStackImporter();
 
-    bool Import(const std::string &Path);
-    bool Default();
-
-    void AddDefault(const SCmdStackItem& Default);
-    void RemoveDefault(const std::string& CommandName);
-    bool ImportFromString(const std::string& Content);
-
-private:
-    SPCommandStackHandler m_Handler;
-    CmdStack m_DefaultStack;
+    bool ImportFromString(const std::string& Content, ICommandStackHandler& Handler);
+    bool ImportFromString(const std::string& Content, CCommandStack& CommandStack);
 };
 
 #endif // COMMANDSTACKIMPORTER_H

@@ -2,7 +2,7 @@
 #define COMMANDSTACKHANDLERI_H
 
 #include <memory>
-#include "CommandStack.h"
+#include "CommandStackItem.h"
 
 class ICommandStackHandler
 {

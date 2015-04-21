@@ -1,104 +1,57 @@
-#include <iostream>
-#include <fstream>
 #include "CommandStack.h"
+#include "CommandStackHandlerI.h"
 
-SCmdStackItem::SCmdStackItem()
-    : s_Name()
-    , s_BoolValue(false)
-    , s_IntValue(-1)
-    , s_FloatValue(-1.0f)
+
+
+CCommandStack::CCommandStack()
+ : m_Stack()
 {
 }
 
-SCmdStackItem::SCmdStackItem(const string &Name, bool BoolValue, int IntValue, float FloatValue)
-    : s_Name(Name)
-    , s_BoolValue(BoolValue)
-    , s_IntValue(IntValue)
-    , s_FloatValue(FloatValue)
-    , s_TimeStamp(0)
-    , s_HasTimeStamp(false)
+void CCommandStack::AddItem(const SCmdStackItem &Item)
 {
+    // add or overwrite
+    m_Stack[Item.s_Name] = Item;
 }
 
-SCmdStackItem::SCmdStackItem(const std::string& Name, bool BoolValue, int IntValue, float FloatValue, std::uint32_t TimeStamp)
-    : s_Name(Name)
-    , s_BoolValue(BoolValue)
-    , s_IntValue(IntValue)
-    , s_FloatValue(FloatValue)
-    , s_TimeStamp(TimeStamp)
-    , s_HasTimeStamp(true)
+void CCommandStack::RemoveItem(const string &CommandName)
 {
+    m_Stack.erase(CommandName);
 }
 
-SCmdStackItem::SCmdStackItem(const string &Name)
-    : s_Name(Name)
-    // other members use member value initialisation
+void CCommandStack::Clear()
 {
+    m_Stack.clear();
 }
 
-SCmdStackItem &SCmdStackItem::Name(const string &Name)
+SCmdStackItem CCommandStack::GetItem(const string &CommandName) const
 {
-    s_Name = Name;
-    return *this;
+    auto itItem = m_Stack.find(CommandName);
+    return (itItem == m_Stack.end()) ? itItem->second : SCmdStackItem();
 }
 
-SCmdStackItem &SCmdStackItem::BoolValue(bool Value)
+void CCommandStack::Apply(ICommandStackHandler &Handler) const
 {
-    s_BoolValue = Value;
-    return *this;
+    for(const auto& Item : m_Stack)
+    {
+        Handler.Handle(Item.second);
+    }
 }
 
-SCmdStackItem &SCmdStackItem::IntValue(int Value)
+void CCommandStack::AddItems(const CCommandStack &OtherStack)
 {
-    s_IntValue = Value;
-    return *this;
+    for(const auto& Item : OtherStack.m_Stack)
+    {
+        AddItem(Item.second);
+    }
 }
 
-SCmdStackItem &SCmdStackItem::FloatValue(float Value)
+CmdStack CCommandStack::GetStack() const
 {
-    s_FloatValue = Value;
-    return *this;
-}
-
-SCmdStackItem &SCmdStackItem::TimeStamp(std::uint32_t TimeStamp)
-{
-    s_TimeStamp = TimeStamp;
-    s_HasTimeStamp = true;
-    return *this;
-}
-
-SCmdStackItem &SCmdStackItem::TextValue(const string &TextValue)
-{
-    s_TextValue = TextValue;
-    return *this;
-}
-
-const string &SCmdStackItem::Name() const
-{
-    return s_Name;
-}
-
-bool SCmdStackItem::BoolValue() const
-{
-    return s_BoolValue;
-}
-
-int SCmdStackItem::IntValue() const
-{
-    return s_IntValue;
-}
-
-float SCmdStackItem::FloatValue() const
-{
-    return s_FloatValue;
-}
-
-std::uint32_t SCmdStackItem::TimeStamp() const
-{
-    return s_TimeStamp;
-}
-
-const string &SCmdStackItem::TextValue() const
-{
-    return s_TextValue;
+    CmdStack Stack;
+    for(auto& Item : m_Stack)
+    {
+        Stack.push_back(Item.second);
+    }
+    return Stack;
 }

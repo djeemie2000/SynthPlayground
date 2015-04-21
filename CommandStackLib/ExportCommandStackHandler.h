@@ -1,7 +1,7 @@
 #ifndef EXPORTCOMMANDSTACKHANDLER_H
 #define EXPORTCOMMANDSTACKHANDLER_H
 
-#include "CommandStack.h"
+#include "CommandStackItem.h"
 #include "CommandStackHandlerI.h"
 
 class CExportCommandStackHandler : public ICommandStackHandler
@@ -11,7 +11,6 @@ public:
 
     void Handle(const SCmdStackItem& Item) override;
 
-    bool ExportToFile(const std::string& Path);
     bool ExportToString(std::string& Content);
 
 private:

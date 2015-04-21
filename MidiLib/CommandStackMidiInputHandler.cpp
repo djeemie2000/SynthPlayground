@@ -1,6 +1,6 @@
 #include "CommandStackMidiInputHandler.h"
 #include "CommandStackController.h"
-#include "CommandStack.h"
+#include "CommandStackItem.h"
 
 CCommandStackMidiInputHandler::CCommandStackMidiInputHandler(CCommandStackController &CommandStackHandler)
  : m_CommandStackHandler(CommandStackHandler)

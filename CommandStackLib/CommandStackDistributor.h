@@ -2,7 +2,7 @@
 #define COMMANDSTACKDISTRIBUTOR_H
 
 #include <string>
-#include "CommandStack.h"
+#include "CommandStackItem.h"
 #include "CommandStackHandlerI.h"
 #include "RegisterNamedCommandStackHandlerI.h"
 

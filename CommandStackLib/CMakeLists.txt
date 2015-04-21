@@ -6,22 +6,25 @@ ADD_DEFINITIONS(
 )
 
 add_library(CommandStackLib
-    CommandStack.cpp
+    CommandStackItem.cpp
+    CommandStackItem.h
     CommandStackController.cpp
-    LogCommandStackHandler.cpp
-    ExportCommandStackHandler.cpp
-    CommandStackImporter.cpp
-    ExecuteCommandStackHandler.cpp
-    MultiCommandStackHandler.cpp
-    CommandStackDistributor.cpp
-    CommandStack.h
     CommandStackController.h
     CommandStackHandlerI.h
+    LogCommandStackHandler.cpp
     LogCommandStackHandler.h
+    ExportCommandStackHandler.cpp
     ExportCommandStackHandler.h
+    CommandStackImporter.cpp
     CommandStackImporter.h
+    ExecuteCommandStackHandler.cpp
     ExecuteCommandStackHandler.h
+    MultiCommandStackHandler.cpp
     MultiCommandStackHandler.h
     RegisterNamedCommandStackHandlerI.h
-    CommandStackDistributor.h)
+    CommandStackDistributor.cpp
+    CommandStackDistributor.h
+    CommandStack.cpp
+    CommandStack.h
+)
 
