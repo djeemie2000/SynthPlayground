@@ -1,11 +1,11 @@
 #include <algorithm>
 #include "MultiStepSequencerFilter.h"
+#include "Pitch.h"
 
 CMultiStepSequencerFilter::CMultiStepSequencerFilter(int SamplingFrequency, CurrentStepCallbackType Callback)
     : m_ClockIn()
-    , m_MultiStepSequencer()
+    , m_MultiStepSequencer(NumSequencerSteps)
     , m_GateToTrigger()
-//    , m_IsActive(false)
     , m_Gate(0.0f)
     , m_Frequency(110.0f)
     , m_Velocity(1.0f)
@@ -123,7 +123,7 @@ void CMultiStepSequencerFilter::SetOctave(int Step, EOctave Octave)
 
 void CMultiStepSequencerFilter::SetStepMode(int Step, int Mode)
 {
-    CMultiStepSequencer<float, NumSequencerSteps>::EStepMode StepMode = static_cast< CMultiStepSequencer<float, NumSequencerSteps>::EStepMode >(Mode);
+    CMultiStepSequencer::EStepMode StepMode = static_cast< CMultiStepSequencer::EStepMode >(Mode);
     m_MultiStepSequencer.SetStepMode(Step, StepMode);
 }
 
@@ -144,7 +144,7 @@ void CMultiStepSequencerFilter::SetNumSubSteps(int Step, int NumSubSteps)
 
 void CMultiStepSequencerFilter::SetSubStepMode(int Step, int Mode)
 {
-    CMultiStepSequencer<float, NumSequencerSteps>::ESubStepGateMode StepMode = static_cast< CMultiStepSequencer<float, NumSequencerSteps>::ESubStepGateMode >(Mode);
+    CMultiStepSequencer::ESubStepGateMode StepMode = static_cast< CMultiStepSequencer::ESubStepGateMode >(Mode);
     m_MultiStepSequencer.SetSubStepMode(Step, StepMode);
 }
 

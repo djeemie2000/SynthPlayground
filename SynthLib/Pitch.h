@@ -1,5 +1,4 @@
-#ifndef PITCH_H
-#define PITCH_H
+#pragma once
 
 #include "Notes.h"
 
@@ -10,5 +9,3 @@ public:
 
     float operator()(ENote Note, EOctave Octave);
 };
-
-#endif // PITCH_H

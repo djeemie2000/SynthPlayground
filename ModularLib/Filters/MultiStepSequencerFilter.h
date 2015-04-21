@@ -44,9 +44,9 @@ public:
     void SetActive(bool Active);
 
 private:
-    CClockPulseIn<float>                            m_ClockIn;
-    CMultiStepSequencer<float, NumSequencerSteps>   m_MultiStepSequencer;
-    CGateToTrigger<float>                           m_GateToTrigger;
+    CClockPulseIn<float>    m_ClockIn;
+    CMultiStepSequencer     m_MultiStepSequencer;
+    CGateToTrigger<float>   m_GateToTrigger;
     float   m_Gate;
     float   m_Frequency;
     float   m_Velocity;

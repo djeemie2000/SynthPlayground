@@ -6,7 +6,7 @@ namespace
 
 TEST(Constructor)
 {
-    CMultiStepSequencer<float, 8> Sequencer;
+    CMultiStepSequencer Sequencer(8);
     CHECK_EQUAL(0, Sequencer.GetCurrentStep());
     CHECK_EQUAL(0, Sequencer.GetCurrentSubStep());
     CHECK_EQUAL(8, Sequencer.GetMaxNumSteps());
@@ -16,7 +16,7 @@ TEST(Constructor)
 
 TEST(StepDefaults)
 {
-    CMultiStepSequencer<float, 8> Sequencer;
+    CMultiStepSequencer Sequencer(8);
 
     for(int Step = 0; Step<20; ++Step)
     {
@@ -35,7 +35,7 @@ TEST(StepDefaults)
 TEST(StepSubSteps)
 {
     const int DefaultDuration = 64;
-    CMultiStepSequencer<float, 8> Sequencer;
+    CMultiStepSequencer Sequencer(8);
 
     Sequencer.SetNumSubSteps(3, 2);
     Sequencer.SetNumSubSteps(7, 4);
@@ -90,7 +90,7 @@ TEST(StepSubSteps)
 
 TEST(StepFrequencyVelocity)
 {
-    CMultiStepSequencer<float, 8> Sequencer;
+    CMultiStepSequencer Sequencer(8);
 
     Sequencer.SetNote(0, ENote::C);
     Sequencer.SetOctave(0, EOctave::Octave0);

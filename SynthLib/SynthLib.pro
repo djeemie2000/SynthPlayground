@@ -13,7 +13,8 @@ SOURCES += Notes.cpp \
     WavFileReader.cpp \
     ReadWavFile.cpp \
     MidiNoteConverter.cpp \
-    Granular/GrainUtilities.cpp
+    Granular/GrainUtilities.cpp \
+    MultiStepSequencer.cpp
 
 HEADERS += Notes.h \
     PeriodicThreadRunner.h \

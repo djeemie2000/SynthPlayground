@@ -3,18 +3,8 @@
 #include "Pitch.h"
 #include "ModularHeadlessController.h"
 
-namespace
-{
-
-void DoInstantiations()
-{
-    CPitch Pitch;
-}
-
 void Usage()
 {
-
-}
 
 }
 

@@ -9,16 +9,6 @@
 
 #include "Pitch.h"
 
-namespace
-{
-
-void DoInstantiations()
-{
-    CPitch Pitch;
-}
-
-}
-
 MainWindow::MainWindow(QWidget *parent)
   : QMainWindow(parent)
   , ui(new Ui::MainWindow)

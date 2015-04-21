@@ -11,8 +11,6 @@ void DoInstantiation()
 
 TEST(InputOutputNames)
 {
-    CPitch Pitch;//why is this needed for compilation???????????
-
     CMultiStepSequencerFilter::CurrentStepCallbackType Callback;
     CMultiStepSequencerFilter Filter(44100, Callback);
 
@@ -29,8 +27,6 @@ TEST(InputOutputNames)
 
 TEST(MaxNumSteps)
 {
-//    CPitch Pitch;//why is this needed for compilation???????????
-
     CMultiStepSequencerFilter::CurrentStepCallbackType Callback;
     CMultiStepSequencerFilter Filter(44100, Callback);
 

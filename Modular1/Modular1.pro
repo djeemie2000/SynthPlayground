@@ -75,10 +75,10 @@ CONFIG(release, debug|release) {
     PRE_TARGETDEPS += ./../build-dir/Release/TinyXml2/libTinyXml2.a
 }
 
-LIBS += -lSynthLib
-LIBS += -lCommandStackLib
 LIBS += -lModularLib
+LIBS += -lSynthLib
 LIBS += -lGuiLib
+LIBS += -lCommandStackLib
 LIBS += -lMidiLib
 LIBS += -lJackLib
 LIBS += -lTinyXml2

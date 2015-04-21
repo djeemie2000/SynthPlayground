@@ -24,5 +24,5 @@ float NotePitch[][NumNotesInOctave] =
 
 float CPitch::operator()(ENote Note, EOctave Octave)
 {
-    return NotePitch[static_cast<int>(Octave)][static_cast<int>(Note)];
+    return ::NotePitch[static_cast<int>(Octave)][static_cast<int>(Note)];
 }

@@ -19,7 +19,7 @@ INCLUDEPATH += ./../ModularLib/Modules
 INCLUDEPATH += ./../MidiLib
 INCLUDEPATH += ./../UnitTest
 
-LIBS += -lSynthLib -lModularLib -lUnitTest
+LIBS += -lModularLib -lSynthLib -lUnitTest
 
 CONFIG(debug, debug|release) {
     LIBS += -L./../build-dir/Debug/SynthLib
