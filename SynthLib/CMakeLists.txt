@@ -123,5 +123,6 @@ add_library(SynthLib
     karplusstrong.h
     ToggleGate.h
     PhaseAccumulator.h
+    MultiStepSequencer.cpp
 )
 
