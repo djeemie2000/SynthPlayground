@@ -1,0 +1,32 @@
+<xml>
+<Modules>
+Amp0 --- Amp
+Combinor0 --- Combinor
+ControllerBank(4)0 --- ControllerBank(4)
+DecayEnvelope0 --- DecayEnvelope
+PeriodicTrigger0 --- PeriodicTrigger
+SimpleOscillator0 --- SimpleOscillator
+
+</Modules>
+<Connections>
+PeriodicTrigger0:Trigger -> DecayEnvelope0:Trigger
+DecayEnvelope0:Out -> Amp0:Ampl
+DecayEnvelope0:Out -> Combinor0:In2
+SimpleOscillator0:Out -> Amp0:In
+ControllerBank(4)0:Contr0 -> Combinor0:In1
+ControllerBank(4)0:Contr1 -> DecayEnvelope0:Decay
+Amp0:Out -> system:playback_1
+Amp0:Out -> system:playback_2
+Combinor0:Out -> SimpleOscillator0:Freq
+
+</Connections>
+<Parameters>
+Combinor0/Select 0 14 0
+ControllerBank(4)0/0/Value 0 0 45
+ControllerBank(4)0/1/Value 0 0 0.013
+ControllerBank(4)0/2/Value 0 0 0.094
+PeriodicTrigger0/BeatsPerBar 0 1 0
+SimpleOscillator0/Select 0 3 0
+
+</Parameters>
+</xml>
