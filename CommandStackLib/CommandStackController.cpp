@@ -17,10 +17,10 @@ CCommandStackController::CCommandStackController()
     , m_CurrentStack(new CCommandStack())
 {
     std::shared_ptr<CMultiCommandStackHandler> MultiHandler(new CMultiCommandStackHandler());
+    MultiHandler->Register(SPCommandStackHandler(new CStackCommandStackHandler(m_CurrentStack)));
     MultiHandler->Register(m_Logger);
     MultiHandler->Register(m_Executor);
     MultiHandler->Register(m_Distributor);
-    MultiHandler->Register(SPCommandStackHandler(new CStackCommandStackHandler(m_CurrentStack)));
     m_Handler = MultiHandler;
 }
 
