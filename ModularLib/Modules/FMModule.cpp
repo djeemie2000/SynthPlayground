@@ -11,10 +11,10 @@ CFMModule::CFMModule(const std::string& Name, CCommandStackController& CommandSt
  , m_Filter()
  , m_IOManager(new CJackIOManager())
 {
-    // command stack stuff for filter
-    m_CommandStackController.AddCommand({m_Name+"/ModWaveform", false, 3, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SelectModulatorWaveform(Item.s_IntValue); });
     // Open here?
     Open();
+    // command stack stuff for filter
+    m_CommandStackController.AddCommand({m_Name+"/ModWaveform", false, 3, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SelectModulatorWaveform(Item.s_IntValue); });
 }
 
 CFMModule::~CFMModule()

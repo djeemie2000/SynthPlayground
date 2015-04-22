@@ -10,6 +10,8 @@ CRandomGateModule::CRandomGateModule(const std::string& Name, CCommandStackContr
  , m_Filter(new CRandomGateFilter())
  , m_IOManager(new CJackIOManager())
 {
+    // Open here?
+    Open();
     // command stack stuff for filter
     m_CommandStackController.AddCommand({m_Name+"/GateOpenScale", false, 14, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetGateOpenScale(Item.s_IntValue); });
     m_CommandStackController.AddCommand({m_Name+"/GateOpenCenter", false, 0, 0.5f}, [this](const SCmdStackItem& Item) { m_Filter->SetGateOpenCenter(Item.s_FloatValue); });
@@ -17,8 +19,6 @@ CRandomGateModule::CRandomGateModule(const std::string& Name, CCommandStackContr
     m_CommandStackController.AddCommand({m_Name+"/GateCloseScale", false, 14, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetGateCloseScale(Item.s_IntValue); });
     m_CommandStackController.AddCommand({m_Name+"/GateCloseCenter", false, 0, 0.5f}, [this](const SCmdStackItem& Item) { m_Filter->SetGateCloseCenter(Item.s_FloatValue); });
     m_CommandStackController.AddCommand({m_Name+"/GateCloseVariation", false, 0, 1.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetGateCloseVariation(Item.s_FloatValue); });
-    // Open here?
-    Open();
 }
 
 CRandomGateModule::~CRandomGateModule()

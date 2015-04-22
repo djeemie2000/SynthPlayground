@@ -11,13 +11,13 @@ CAsymmetricAmpModule::CAsymmetricAmpModule(const std::string& Name, CCommandStac
  , m_Filter(new CAsymmetricAmpFilter())
  , m_IOManager(new CJackIOManager())
 {
+    // Open here?
+    Open();
     // command stack stuff for filter
     m_CommandStackController.AddCommand({m_Name+"/AmpPos", false, 0, 1.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetAmpPos(Item.s_FloatValue); });
     m_CommandStackController.AddCommand({m_Name+"/AmpNeg", false, 0, 1.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetAmpNeg(Item.s_FloatValue); });
     m_CommandStackController.AddCommand({m_Name+"/AmpOffset", false, 0, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetAmpOffset(Item.s_FloatValue); });
     m_CommandStackController.AddCommand({m_Name+"/OffsetLockMode", false, 0, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetOffsetLockMode(Item.s_BoolValue); });
-    // Open here?
-    Open();
 }
 
 CAsymmetricAmpModule::~CAsymmetricAmpModule()

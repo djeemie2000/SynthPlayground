@@ -11,11 +11,11 @@ CLpfModule::CLpfModule(const std::string& Name, CCommandStackController& Command
  , m_Filter(new CLpfFilter())
  , m_IOManager(new CJackIOManager())
 {
+    // Open here?
+    Open();
     // command stack stuff for filter
     m_CommandStackController.AddCommand({m_Name+"/Resonance", false, 0, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetResonance(Item.s_FloatValue); });
     m_CommandStackController.AddCommand({m_Name+"/Poles", false, 0, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetPoles(Item.s_IntValue); });
-    // Open here?
-    Open();
 }
 
 CLpfModule::~CLpfModule()
