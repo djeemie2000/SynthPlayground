@@ -6,6 +6,7 @@
 #include "ExportCommandStackHandler.h"
 #include "CommandStackDistributor.h"
 #include "CommandStack.h"
+#include "StackCommandStackHandler.h"
 
 CCommandStackController::CCommandStackController()
     : m_Logger(new CLogCommandStackHandler())
@@ -19,6 +20,7 @@ CCommandStackController::CCommandStackController()
     MultiHandler->Register(m_Logger);
     MultiHandler->Register(m_Executor);
     MultiHandler->Register(m_Distributor);
+    MultiHandler->Register(SPCommandStackHandler(new CStackCommandStackHandler(m_CurrentStack)));
     m_Handler = MultiHandler;
 }
 
@@ -31,7 +33,6 @@ bool CCommandStackController::Default()
 void CCommandStackController::Handle(const SCmdStackItem &Item)
 {
     m_Handler->Handle(Item);
-    m_CurrentStack->AddItem(Item);
 }
 
 void CCommandStackController::Register(const string &CommandName, SPCommandStackHandler Handler)
@@ -43,7 +44,8 @@ void CCommandStackController::AddCommand(const SCmdStackItem &Default, CmdFuncti
 {
     m_Executor->AddCommandFunction(Default.s_Name, Function);
     m_DefaultStack->AddItem(Default);
-    m_CurrentStack->AddItem(Default);
+    m_Handler->Handle(Default);
+    //m_CurrentStack->AddItem(Default);// ??? or: apply added command default
 }
 
 void CCommandStackController::RemoveCommand(const string &CommandName)
@@ -59,15 +61,13 @@ bool CCommandStackController::ImportFromString(const string &Content)
     CCommandStackImporter Importer;
     CCommandStack ImportedStack;
     if(Importer.ImportFromString(Content, ImportedStack))
-    {
-        // if succeeded:
-        // reset current stack to default
-        *m_CurrentStack = *m_DefaultStack;//?????????????
-        // apply imported stack to current stack
-        m_CurrentStack->AddItems(ImportedStack);
-        // -> now the current stack is up to date with the defaults modified by the imported
-        // finally, apply current stack to handler
-        m_CurrentStack->Apply(*m_Handler);
+    { // if succeeded:
+        // clear current stack
+        m_CurrentStack->Clear();
+        // apply defaults (includes applying default to current stack)
+        m_DefaultStack->Apply(*m_Handler);
+        // apply imported stack (includes applying to current stack)
+        ImportedStack.Apply(*m_Handler);
 
         return true;
     }

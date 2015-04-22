@@ -26,5 +26,7 @@ add_library(CommandStackLib
     CommandStackDistributor.h
     CommandStack.cpp
     CommandStack.h
+    StackCommandStackHandler.cpp
+    StackCommandStackHandler.h
 )
 

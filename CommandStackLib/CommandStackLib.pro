@@ -11,7 +11,8 @@ SOURCES += CommandStack.cpp \
     ExecuteCommandStackHandler.cpp \
     MultiCommandStackHandler.cpp \
     CommandStackDistributor.cpp \
-    CommandStackItem.cpp
+    CommandStackItem.cpp \
+    StackCommandStackHandler.cpp
 
 HEADERS += CommandStack.h \
     CommandStackController.h \
@@ -25,7 +26,8 @@ HEADERS += CommandStack.h \
     MultiCommandStackHandler.h \
     RegisterNamedCommandStackHandlerI.h \
     CommandStackDistributor.h \
-    CommandStackItem.h
+    CommandStackItem.h \
+    StackCommandStackHandler.h
 
 unix {
     target.path = /usr/lib
