@@ -44,8 +44,8 @@ void CCommandStackController::AddCommand(const SCmdStackItem &Default, CmdFuncti
 {
     m_Executor->AddCommandFunction(Default.s_Name, Function);
     m_DefaultStack->AddItem(Default);
-    m_Handler->Handle(Default);
-    //m_CurrentStack->AddItem(Default);// ??? or: apply added command default
+    //m_Handler->Handle(Default);
+    m_CurrentStack->AddItem(Default);// ??? or: apply added command default
 }
 
 void CCommandStackController::RemoveCommand(const string &CommandName)
