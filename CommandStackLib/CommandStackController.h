@@ -30,6 +30,8 @@ public:
 
     void Handle(const SCmdStackItem& Item); //!< handle commands
 
+    SCmdStackItem GetCurrent(const std::string& CommandName) const;
+
 private:
     std::shared_ptr<CLogCommandStackHandler> m_Logger;
     std::shared_ptr<CExecuteCommandStackHandler> m_Executor;
