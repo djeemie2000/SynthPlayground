@@ -11,7 +11,8 @@ class CKarplusStrong
 {
 public:
     CKarplusStrong(int SamplingFrequency, T MinFrequency)
-        : m_SamplingFrequency(SamplingFrequency)
+        : m_MinFrequency(MinFrequency)
+        , m_SamplingFrequency(SamplingFrequency)
         , m_Period(m_SamplingFrequency/MinFrequency)
         , m_Cntr(0)// not excited
         , m_Noise()
@@ -47,7 +48,7 @@ public:
             Excite(Frequency);
         }
 
-        T Period = m_SamplingFrequency/Frequency;
+        T Period = m_MinFrequency<Frequency ? m_SamplingFrequency/Frequency : m_SamplingFrequency/m_MinFrequency;// 1Hz
 
         T WriteValue = 0<m_Cntr ? Exite : m_LPF(m_DelayLine.Read(Period), Cutoff);
         m_DelayLine.Write(WriteValue);
@@ -71,13 +72,13 @@ private:
         m_Cntr = m_Period;
     }
 
+    const T m_MinFrequency;
     int m_SamplingFrequency;
     int m_Period;
     int m_Cntr;
     CNoise<T> m_Noise;
     CDelayLine2<T> m_DelayLine;//used as circular buffer
     CTriggerIn<T> m_Trigger;
-//    COnePoleLowPassFilter<T> m_LPF;
     CMultiStageFilter<float, COnePoleLowPassFilter<float>, 24> m_LPF;
 };
 
