@@ -20,15 +20,10 @@ void UpdateModulePage(const CModuleManager& ModuleManager, const std::string& Na
         auto t1 = Module->GetInputNames();
         Column1.insert(Column1.end(), t1.begin(), t1.end());
 
-        Column1.push_back("--Midi--");
-        auto t2 = Module->GetMidiInputNames();
-        Column1.insert(Column1.end(), t2.begin(), t2.end());
-
         std::vector<std::string> Column2;
         Column2.push_back("--------");
         auto t3 = Module->GetOutputNames();
         Column2.insert(Column2.end(), t3.begin(), t3.end());
-        Column2.push_back("--Midi--");
 
         if(Column1.size()<Column2.size())
         {
@@ -38,6 +33,14 @@ void UpdateModulePage(const CModuleManager& ModuleManager, const std::string& Na
         {
             Column2.resize(Column1.size());
         }
+
+        Column1.push_back("--Midi--");
+        auto t2 = Module->GetMidiInputNames();
+        Column1.insert(Column1.end(), t2.begin(), t2.end());
+
+        Column2.push_back("--Midi--");
+
+        Column2.resize(Column1.size());
 
         ModuleContent << "<table border=\"1\"><tr><th>Inputs</th><th>Outputs</th></tr>";
         for(std::size_t idx = 0; idx<Column1.size(); ++idx)
