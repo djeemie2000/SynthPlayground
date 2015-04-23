@@ -2,6 +2,7 @@
 #include "ui_QModularManagerWidget.h"
 #include <QFileDialog>
 #include "Modular1Controller.h"
+#include <QSettings>
 
 QModularManagerWidget::QModularManagerWidget(std::weak_ptr<CModular1Controller> Controller,
                                              QWidget *parent)
@@ -14,6 +15,10 @@ QModularManagerWidget::QModularManagerWidget(std::weak_ptr<CModular1Controller> 
 
     ui->toolBox_Modules->removeItem(1);
     ui->toolBox_Modules->removeItem(0);
+
+    // load path from registry
+    QSettings Settings("djeemie2000", "Modular1");
+    m_Path = Settings.value("Path").toString();
 
     if(std::shared_ptr<CModular1Controller> Controller = m_Controller.lock())
     {
@@ -32,6 +37,11 @@ QModularManagerWidget::QModularManagerWidget(std::weak_ptr<CModular1Controller> 
 QModularManagerWidget::~QModularManagerWidget()
 {
     m_Controller.reset();
+
+    // save path to registry
+    QSettings Settings("djeemie2000", "Modular1");
+    Settings.setValue("Path", m_Path);
+
     delete ui;
 }
 
