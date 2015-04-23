@@ -124,5 +124,7 @@ add_library(SynthLib
     ToggleGate.h
     PhaseAccumulator.h
     MultiStepSequencer.cpp
+    ToggleGate.h
+    RingSequencer.h
 )
 

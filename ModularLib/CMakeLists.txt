@@ -233,5 +233,8 @@ add_library(ModularLib
     Filters/DecayEnvelopeFilter.h
     Modules/DecayEnvelopeModule.cpp
     Modules/DecayEnvelopeModule.h
-
+    Filters/ToggleGateFilter.cpp
+    Filters/ToggleGateFilter.h
+    Modules/ToggleGateModule.cpp
+    Modules/ToggleGateModule.h
 )
