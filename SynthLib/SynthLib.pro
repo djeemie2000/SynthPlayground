@@ -113,7 +113,8 @@ HEADERS += Notes.h \
     wavetable2.h \
     WaveTables/WaveTableData.h \
     karplusstrong.h \
-    ToggleGate.h
+    ToggleGate.h \
+    RingSequencer.h
     PhaseAccumulator.h
 
 
