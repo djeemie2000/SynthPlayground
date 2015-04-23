@@ -50,6 +50,7 @@
 #include "WaveTableModule.h"
 #include "KarplusStrongModule.h"
 #include "DecayEnvelopeModule.h"
+#include "ToggleGateModule.h"
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -272,6 +273,10 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CDecayEnvelopeModule(Name));
     }
+    else if(Type == "ToggleGate")
+    {
+        Module.reset(new CToggleGateModule(Name));
+    }
 
     return Module;
 }
@@ -362,7 +367,8 @@ std::vector<string> CModuleFactory::GetSupportedTypes(const std::string &Categor
             "MultiStepSequencer",
             "Clock",
             "RandomGate",
-            "StereoMixer(4)"
+            "StereoMixer(4)",
+            "ToggleGate"
         };
     }
 

@@ -107,7 +107,9 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Filters/KarplusStrongFilter.cpp \
     Modules/KarplusStrongModule.cpp \
     Filters/DecayEnvelopeFilter.cpp \
-    Modules/DecayEnvelopeModule.cpp
+    Modules/DecayEnvelopeModule.cpp \
+    Filters/ToggleGateFilter.cpp \
+    Modules/ToggleGateModule.cpp
 
 HEADERS += Filters/ControllerBankFilter.h \
     Filters/PhasorFilter.h \
@@ -216,7 +218,9 @@ HEADERS += Filters/ControllerBankFilter.h \
     Filters/KarplusStrongFilter.h \
     Modules/KarplusStrongModule.h \
     Filters/DecayEnvelopeFilter.h \
-    Modules/DecayEnvelopeModule.h
+    Modules/DecayEnvelopeModule.h \
+    Filters/ToggleGateFilter.h \
+    Modules/ToggleGateModule.h
 
 
 
