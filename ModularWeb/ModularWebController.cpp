@@ -11,13 +11,13 @@
 #include "WebRequest.h"
 
 CModularWebController::CModularWebController(const std::string& PatchDirectory)
- : m_PatchManager(new CPatchManager(PatchDirectory))
- , m_ConnectionManager()
- , m_CommandStackController()
- , m_ModuleManager()
- , m_CapturedConnections()
- , m_CapturedParameters()
- , m_WebPageManager(new CWebPageManager())
+    : m_PatchManager(new CPatchManager(PatchDirectory))
+    , m_ConnectionManager()
+    , m_CommandStackController()
+    , m_ModuleManager()
+    , m_CapturedConnections()
+    , m_CapturedParameters()
+    , m_WebPageManager(new CWebPageManager())
 {
     m_ConnectionManager.reset(new CJackConnectionManager());
     m_ConnectionManager->OpenClient("ConnectionMgr");
@@ -41,22 +41,24 @@ CModularWebController::~CModularWebController()
 
 string CModularWebController::HandleWebRequest(const SWebRequest &Request)
 {
-    if(Request.s_Uri == "/Commands/RemoveAll")
+    if(Request.s_Uri == "/Commands")
     {
-        bool Succeeded = RemoveAll();
-        return Succeeded ? "RemoveAll done!" : "RemoveAll failed!";
+        std::string Command = GetQuery("Command", Request);
+        if(Command==std::string("RemoveAll"))
+        {
+            RemoveAll();
+        }
+        else if(Command==std::string("Default"))
+        {
+            Default();
+        }
         //??? TODO some decent response in web page manager
-    }
-    else if(Request.s_Uri == "/Commands/Default")
-    {
-        bool Succeeded = Default();
-        return Succeeded ? "Default done!" : "Default failed!";
     }
     else if(Request.s_Uri.find("/Commands/Load/")==0)//starts with
     {
         std::string Patch = Request.s_Uri.substr(15);//length of starts with
-        bool Succeeded = LoadPatch(Patch);
-        return Succeeded ? "Loaded patch!" : "Load patch failed!";
+        LoadPatch(Patch);
+        //return Succeeded ? "Loaded patch!" : "Load patch failed!";
     }
 
     return m_WebPageManager->Get(Request.s_Uri);

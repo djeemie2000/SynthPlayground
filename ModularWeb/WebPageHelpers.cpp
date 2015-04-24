@@ -15,13 +15,13 @@ void UpdateModulePage(const CModuleManager& ModuleManager, const std::string& Na
         ModuleContent << "<h3>" << Name << "</h3>";
 
         std::vector<std::string> Column1;
-        Column1.push_back("--------");
+        Column1.push_back("--Audio-");
 
         auto t1 = Module->GetInputNames();
         Column1.insert(Column1.end(), t1.begin(), t1.end());
 
         std::vector<std::string> Column2;
-        Column2.push_back("--------");
+        Column2.push_back("--Audio-");
         auto t3 = Module->GetOutputNames();
         Column2.insert(Column2.end(), t3.begin(), t3.end());
 
@@ -112,8 +112,8 @@ void UpdateCommandsPage(CWebPageManager &WebPageManager)
 {
     std::ostringstream Content;
     Content << "<!DOCTYPE html><html><head><title>Commands</title></head><body>";
-    Content << "<a href=\"/Commands/RemoveAll\" >RemoveAll</a><br>";
-    Content << "<a href=\"/Commands/Default\" >Default</a><br>";
+    Content << R"(<form ><input type="submit" name="Command" value="RemoveAll" ></form>)";
+    Content << R"(<form ><input type="submit" name="Command" value="Default" ></form>)";
     Content << "</body></html>";
     WebPageManager.Add("/Commands", Content.str());
 }
