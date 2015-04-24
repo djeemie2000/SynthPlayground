@@ -14,3 +14,4 @@ struct SWebRequest
 
 SWebRequest CreateWebRequest(mg_connection* conn);
 void LogWebRequest(const SWebRequest& Request, std::ostream& Oss);
+std::string GetQuery(const std::string& Key, const SWebRequest& Request);
