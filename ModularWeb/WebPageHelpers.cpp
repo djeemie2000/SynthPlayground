@@ -122,10 +122,12 @@ void UpdateCommandsPage(CWebPageManager &WebPageManager)
 void UpdatePatchesPage(CPatchManager &PatchManager, CWebPageManager &WebPageManager)
 {
     std::ostringstream Content;
-    Content << "<!DOCTYPE html><html><head><title>Patches</title></head><body><h3>Patches</h3><table border=\"1\"><tr><th>Patch</th><th>Load</th><th>Path</th></tr>";
+    Content << "<!DOCTYPE html><html><head><title>Patches</title></head><body><h3>Patches</h3><table border=\"1\"><tr><th>Patch</th><th>Load</th><th>Load</th><th>Path</th></tr>";
     for(const std::string& Patch : PatchManager.GetPatchNames())
     {
-        Content << "<tr><td>" << Patch << "</td><td><a href=\"/Commands/Load/" << Patch << "\" >Load</a></td><td>" << PatchManager.GetPath(Patch) << "</td></tr>";
+        Content << "<tr><td>" << Patch << "</td>"
+                << R"(<td><form ><input type="submit" name="LoadPatch" value=")" << Patch << R"(" ></form></td>)"
+                << "<td>" << PatchManager.GetPath(Patch) << "</td></tr>";
     }
     Content << "</table></body></html>";
     WebPageManager.Add("/Patches", Content.str());

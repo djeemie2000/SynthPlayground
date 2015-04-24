@@ -54,11 +54,13 @@ string CModularWebController::HandleWebRequest(const SWebRequest &Request)
         }
         //??? TODO some decent response in web page manager
     }
-    else if(Request.s_Uri.find("/Commands/Load/")==0)//starts with
+    else if(Request.s_Uri =="/Patches")
     {
-        std::string Patch = Request.s_Uri.substr(15);//length of starts with
-        LoadPatch(Patch);
-        //return Succeeded ? "Loaded patch!" : "Load patch failed!";
+        std::string PatchName = GetQuery("LoadPatch", Request);
+        if(!PatchName.empty())
+        {
+            LoadPatch(PatchName);
+        }
     }
 
     return m_WebPageManager->Get(Request.s_Uri);
