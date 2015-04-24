@@ -65,10 +65,14 @@ void UpdateModuleOverviewPage(const CModuleManager& ModuleManager, CWebPageManag
     Content << "<!DOCTYPE html><html><head><title>Modules</title></head><body>";
 
     Content << "<h3>Modules</h3><table border=\"1\" >";
+    Content << "<tr><th>Module</th><th>Remove</th></tr>";
     auto ModuleNames = ModuleManager.GetNames();
     for(const auto& Name : ModuleNames)
     {
-        Content << "<tr><td><a href=\"/Module/" << Name << "\" >" << Name << "</a></td></tr>";
+        Content << "<tr>"
+                << "<td><a href=\"/Module/" << Name << "\" >" << Name << "</a></td>"
+                << R"(<td><form ><input type="submit" name="Remove" value=")" << Name << R"(" ></form></td>)"
+                << "</tr>";
     }
     Content << "</table></body></html>";
     WebPageManager.Add("/Modules", Content.str());
@@ -100,7 +104,7 @@ void UpdateModuleTypesPage(const CModuleManager& ModuleManager, CWebPageManager&
         auto ModuleTypes = ModuleManager.GetSupportedTypes(Category);
         for(const auto& Type : ModuleTypes)
         {
-            Content << "<tr><td>" << Type << "</td></tr>";
+            Content << R"(<tr><td><form ><input type="submit" name="Create" value=")" << Type << R"(" ></form></td></tr>)";
         }
     }
     Content << "</table></body></html>";
@@ -122,11 +126,11 @@ void UpdateCommandsPage(CWebPageManager &WebPageManager)
 void UpdatePatchesPage(CPatchManager &PatchManager, CWebPageManager &WebPageManager)
 {
     std::ostringstream Content;
-    Content << "<!DOCTYPE html><html><head><title>Patches</title></head><body><h3>Patches</h3><table border=\"1\"><tr><th>Patch</th><th>Load</th><th>Load</th><th>Path</th></tr>";
+    Content << "<!DOCTYPE html><html><head><title>Patches</title></head><body><h3>Patches</h3><table border=\"1\"><tr><th>Patch</th><th>Load</th><th>Path</th></tr>";
     for(const std::string& Patch : PatchManager.GetPatchNames())
     {
         Content << "<tr><td>" << Patch << "</td>"
-                << R"(<td><form ><input type="submit" name="LoadPatch" value=")" << Patch << R"(" ></form></td>)"
+                << R"(<td><form ><input type="submit" name="Load" value=")" << Patch << R"(" ></form></td>)"
                 << "<td>" << PatchManager.GetPath(Patch) << "</td></tr>";
     }
     Content << "</table></body></html>";

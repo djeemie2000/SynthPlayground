@@ -54,12 +54,28 @@ string CModularWebController::HandleWebRequest(const SWebRequest &Request)
         }
         //??? TODO some decent response in web page manager
     }
-    else if(Request.s_Uri =="/Patches")
+    else if(Request.s_Uri == "/Patches")
     {
-        std::string PatchName = GetQuery("LoadPatch", Request);
+        std::string PatchName = GetQuery("Load", Request);
         if(!PatchName.empty())
         {
             LoadPatch(PatchName);
+        }
+    }
+    else if(Request.s_Uri == "/SupportedModules")
+    {
+        std::string ModuleType = GetQuery("Create", Request);
+        if(!ModuleType.empty())
+        {
+            Create(ModuleType, "");
+        }
+    }
+    else if(Request.s_Uri == "/Modules")
+    {
+        std::string ModuleName = GetQuery("Remove", Request);
+        if(!ModuleName.empty())
+        {
+            Remove(ModuleName);
         }
     }
 
