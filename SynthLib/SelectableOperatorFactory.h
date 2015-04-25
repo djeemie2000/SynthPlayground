@@ -41,6 +41,8 @@ public:
         Op.Add(CRampUpDown<float>());
         Op.Add(CNoOp<float>());
 
+        Op.Select(0);
+
         return Op;
     }
 
