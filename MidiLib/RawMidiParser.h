@@ -12,6 +12,8 @@ public:
     CRawMidiParser(IMidiHandler& MidiHandler);
 
     void Parse(const std::vector<std::uint8_t>& RawMidiData);
+    void Parse(const std::vector<std::uint8_t>& RawMidiData, IMidiHandler& MidiHandler);
+
 
 private:
     IMidiHandler& m_MidiHandler;

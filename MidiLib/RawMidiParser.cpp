@@ -47,7 +47,15 @@ const std::uint8_t SystemCommand = 0xF0;
 
 }
 
+
+
 void CRawMidiParser::Parse(const std::vector<std::uint8_t> &RawMidiData)
+{
+    Parse(RawMidiData, m_MidiHandler);
+}
+
+
+void CRawMidiParser::Parse(const std::vector<std::uint8_t>& RawMidiData, IMidiHandler& MidiHandler)
 {
     // append to buffer
     m_RawMidiDataBuffer.insert(m_RawMidiDataBuffer.end(), RawMidiData.begin(), RawMidiData.end());
@@ -74,7 +82,7 @@ void CRawMidiParser::Parse(const std::vector<std::uint8_t> &RawMidiData)
                     int Note = m_RawMidiDataBuffer[1];
                     int Velocity = m_RawMidiDataBuffer[2];
                     ParsedSize = 3;
-                    m_MidiHandler.OnNoteOff(Note, Velocity, 0);
+                    MidiHandler.OnNoteOff(Note, Velocity, 0);
                 }
             }
             else if(Command == NoteOnCommand)
@@ -84,7 +92,7 @@ void CRawMidiParser::Parse(const std::vector<std::uint8_t> &RawMidiData)
                     int Note = m_RawMidiDataBuffer[1];
                     int Velocity = m_RawMidiDataBuffer[2];
                     ParsedSize = 3;
-                    m_MidiHandler.OnNoteOn(Note, Velocity, 0);
+                    MidiHandler.OnNoteOn(Note, Velocity, 0);
                     // note: note on with velocity zero to be handled as note off?
                 }
             }
@@ -93,7 +101,7 @@ void CRawMidiParser::Parse(const std::vector<std::uint8_t> &RawMidiData)
                 if(3<=BufferSize)
                 {
                     ParsedSize = 3;
-                    m_MidiHandler.OnUnknown(0);
+                    MidiHandler.OnUnknown(0);
                 }
             }
             else if(Command == ControlChangeCommand)
@@ -103,7 +111,7 @@ void CRawMidiParser::Parse(const std::vector<std::uint8_t> &RawMidiData)
                     int Parameter = m_RawMidiDataBuffer[1];
                     int Value = m_RawMidiDataBuffer[2];
                     ParsedSize = 3;
-                    m_MidiHandler.OnController(Parameter, Value, 0);
+                    MidiHandler.OnController(Parameter, Value, 0);
                 }
             }
             else if(Command == ProgramChangedCommand)
@@ -111,7 +119,7 @@ void CRawMidiParser::Parse(const std::vector<std::uint8_t> &RawMidiData)
                 if(2<=BufferSize)
                 {
                     ParsedSize = 2;
-                    m_MidiHandler.OnUnknown(0);
+                    MidiHandler.OnUnknown(0);
                 }
             }
             else if(Command == MonoKeyPressureCommand)
@@ -119,7 +127,7 @@ void CRawMidiParser::Parse(const std::vector<std::uint8_t> &RawMidiData)
                 if(2<=BufferSize)
                 {
                     ParsedSize = 2;
-                    m_MidiHandler.OnUnknown(0);
+                    MidiHandler.OnUnknown(0);
                 }
             }
             else if(Command == PitchBendCommand)
@@ -128,7 +136,7 @@ void CRawMidiParser::Parse(const std::vector<std::uint8_t> &RawMidiData)
                 {
                     int PitchBend = m_RawMidiDataBuffer[1];//????
                     ParsedSize = 3;
-                    m_MidiHandler.OnPitchbend(PitchBend, 0);
+                    MidiHandler.OnPitchbend(PitchBend, 0);
                 }
             }
             else if(Command == SystemCommand)
@@ -136,7 +144,7 @@ void CRawMidiParser::Parse(const std::vector<std::uint8_t> &RawMidiData)
                 if(3<=BufferSize)
                 {
                     ParsedSize = 3;
-                    m_MidiHandler.OnUnknown(0);
+                    MidiHandler.OnUnknown(0);
                 }
             }
             else
