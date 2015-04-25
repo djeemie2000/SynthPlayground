@@ -14,38 +14,35 @@ void UpdateModulePage(const CModuleManager& ModuleManager, const std::string& Na
         ModuleContent << "<!DOCTYPE html><html><head><title>" << Name << "</title></head><body>";
         ModuleContent << "<h3>" << Name << "</h3>";
 
-        std::vector<std::string> Column1;
-        Column1.push_back("--Audio-");
+        std::vector<std::string> Column0;
+        Column0.push_back("Audio/Control");
 
-        auto t1 = Module->GetInputNames();
+        auto Column1 = Module->GetInputNames();
+
+        auto Column2 = Module->GetOutputNames();
+
+        std::size_t MaxSize = std::max(Column0.size(), std::max(Column1.size(), Column2.size()));
+        Column0.resize(MaxSize);
+        Column1.resize(MaxSize);
+        Column2.resize(MaxSize);
+
+        Column0.push_back("Midi");
+
+        auto t1 = Module->GetMidiInputNames();
         Column1.insert(Column1.end(), t1.begin(), t1.end());
 
-        std::vector<std::string> Column2;
-        Column2.push_back("--Audio-");
-        auto t3 = Module->GetOutputNames();
-        Column2.insert(Column2.end(), t3.begin(), t3.end());
+        MaxSize = std::max(Column0.size(), std::max(Column1.size(), Column2.size()));
+        Column0.resize(MaxSize);
+        Column1.resize(MaxSize);
+        Column2.resize(MaxSize);
 
-        if(Column1.size()<Column2.size())
-        {
-            Column1.resize(Column2.size());
-        }
-        else
-        {
-            Column2.resize(Column1.size());
-        }
-
-        Column1.push_back("--Midi--");
-        auto t2 = Module->GetMidiInputNames();
-        Column1.insert(Column1.end(), t2.begin(), t2.end());
-
-        Column2.push_back("--Midi--");
-
-        Column2.resize(Column1.size());
-
-        ModuleContent << "<table border=\"1\"><tr><th>Inputs</th><th>Outputs</th></tr>";
+        ModuleContent << "<table border=\"1\"><tr><th></th><th>Inputs</th><th>Outputs</th></tr>";
         for(std::size_t idx = 0; idx<Column1.size(); ++idx)
         {
-            ModuleContent << "<tr><td>" << Column1[idx] << "</td><td>" << Column2[idx] << "</td></tr>";
+            ModuleContent << "<tr><td>" << Column0.at(idx)
+                          << "</td><td>" << Column1.at(idx)
+                          << "</td><td>"<< Column2.at(idx)
+                          << "</td></tr>";
         }
         ModuleContent << "</table>";
 
