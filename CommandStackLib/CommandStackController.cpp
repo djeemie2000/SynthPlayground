@@ -37,7 +37,7 @@ void CCommandStackController::Handle(const SCmdStackItem &Item)
 
 SCmdStackItem CCommandStackController::GetCurrent(const string &CommandName) const
 {
-    m_CurrentStack->GetItem(CommandName);
+    return m_CurrentStack->GetItem(CommandName);
 }
 
 void CCommandStackController::Register(const string &CommandName, SPCommandStackHandler Handler)

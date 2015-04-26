@@ -3,8 +3,9 @@
 class CModuleManager;
 class CWebPageManager;
 class CPatchManager;
+class CCommandStackController;
 
-void UpdateModulePages(const CModuleManager& ModuleManager, CWebPageManager& WebPageManager);
+void UpdateModulePages(const CModuleManager& ModuleManager, CWebPageManager& WebPageManager, CCommandStackController& CommandStackController);
 
 void UpdateModuleTypesPage(const CModuleManager& ModuleManager, CWebPageManager& WebPageManager);
 

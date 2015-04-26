@@ -27,7 +27,7 @@ void CCommandStack::Clear()
 SCmdStackItem CCommandStack::GetItem(const string &CommandName) const
 {
     auto itItem = m_Stack.find(CommandName);
-    return (itItem == m_Stack.end()) ? itItem->second : SCmdStackItem();
+    return (itItem != m_Stack.end()) ? itItem->second : SCmdStackItem();
 }
 
 void CCommandStack::Apply(ICommandStackHandler &Handler) const

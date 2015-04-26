@@ -86,21 +86,21 @@ string CModularWebController::HandleWebRequest(const SWebRequest &Request)
 bool CModularWebController::Create(const string &Type, const string &Name)
 {
     bool RetVal = m_ModuleManager->Create(Type, Name);
-    UpdateModulePages(*m_ModuleManager, *m_WebPageManager);
+    UpdateModuleWebPages();
     return RetVal;
 }
 
 bool CModularWebController::Remove(const string &Name)
 {
     bool RetVal = m_ModuleManager->Remove(Name);
-    UpdateModulePages(*m_ModuleManager, *m_WebPageManager);
+    UpdateModuleWebPages();
     return RetVal;
 }
 
 bool CModularWebController::RemoveAll()
 {
     bool RetVal = m_ModuleManager->RemoveAll();
-    UpdateModulePages(*m_ModuleManager, *m_WebPageManager);
+    UpdateModuleWebPages();
     return RetVal;
 }
 
@@ -134,7 +134,7 @@ void CModularWebController::Restore()
 
 void CModularWebController::UpdateModuleWebPages()
 {
-    UpdateModulePages(*m_ModuleManager, *m_WebPageManager);
+    UpdateModulePages(*m_ModuleManager, *m_WebPageManager, *m_CommandStackController);
 }
 
 bool CModularWebController::LoadPatch(const string &PatchName)
@@ -198,7 +198,7 @@ bool CModularWebController::Load(const string &Path)
         StringToConnections(*m_ConnectionManager, Connections);
         m_CommandStackController->ImportFromString(Parameters);
 
-        UpdateModulePages(*m_ModuleManager, *m_WebPageManager);
+        UpdateModuleWebPages();
 
         return true;
     }

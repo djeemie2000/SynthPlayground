@@ -6,7 +6,7 @@
 #include "WebPageModuleParameterVisitor.h"
 #include "PatchManager.h"
 
-void UpdateModulePage(const CModuleManager& ModuleManager, const std::string& Name, CWebPageManager& WebPageManager)
+void UpdateModulePage(const CModuleManager& ModuleManager, const std::string& Name, CWebPageManager& WebPageManager, CCommandStackController &CommandStackController)
 {
     if(std::shared_ptr<IModularModule> Module = ModuleManager.GetModule(Name).lock())
     {
@@ -31,6 +31,10 @@ void UpdateModulePage(const CModuleManager& ModuleManager, const std::string& Na
         auto t1 = Module->GetMidiInputNames();
         Column1.insert(Column1.end(), t1.begin(), t1.end());
 
+        // TODO modules should support MidiOutput
+        //auto t2 = Module.GetMidiOutputnames();
+        //Column2.insert(Column2.end(), t2.begin(), t2.end());
+
         MaxSize = std::max(Column0.size(), std::max(Column1.size(), Column2.size()));
         Column0.resize(MaxSize);
         Column1.resize(MaxSize);
@@ -46,7 +50,7 @@ void UpdateModulePage(const CModuleManager& ModuleManager, const std::string& Na
         }
         ModuleContent << "</table>";
 
-        CWebPageModuleParameterVisitor Visitor;
+        CWebPageModuleParameterVisitor Visitor(CommandStackController);
         Module->Accept(Visitor);
         ModuleContent << Visitor.GetContent();
 
@@ -75,7 +79,7 @@ void UpdateModuleOverviewPage(const CModuleManager& ModuleManager, CWebPageManag
     WebPageManager.Add("/Modules", Content.str());
 }
 
-void UpdateModulePages(const CModuleManager& ModuleManager, CWebPageManager& WebPageManager)
+void UpdateModulePages(const CModuleManager& ModuleManager, CWebPageManager& WebPageManager, CCommandStackController &CommandStackController)
 {
     UpdateModuleOverviewPage(ModuleManager, WebPageManager);
 
@@ -83,7 +87,7 @@ void UpdateModulePages(const CModuleManager& ModuleManager, CWebPageManager& Web
     auto ModuleNames = ModuleManager.GetNames();
     for(const auto& Name : ModuleNames)
     {
-        UpdateModulePage(ModuleManager, Name, WebPageManager);
+        UpdateModulePage(ModuleManager, Name, WebPageManager, CommandStackController);
     }
 }
 

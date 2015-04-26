@@ -4,10 +4,12 @@
 #include <sstream>
 #include "ModuleParameterVisitorI.h"
 
+class CCommandStackController;
+
 class CWebPageModuleParameterVisitor : public IModuleParameterVisitor
 {
 public:
-    CWebPageModuleParameterVisitor();
+    CWebPageModuleParameterVisitor(CCommandStackController &CommandStackController);
 
     void Start() override;
     void StartLine() override;
@@ -22,5 +24,6 @@ public:
     std::string GetContent() const;
 
 private:
+    CCommandStackController& m_CommandStackController;
     std::ostringstream m_Content;
 };
