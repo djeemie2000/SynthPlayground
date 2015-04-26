@@ -114,9 +114,10 @@ HEADERS += Notes.h \
     WaveTables/WaveTableData.h \
     karplusstrong.h \
     ToggleGate.h \
-    RingSequencer.h
-    PhaseAccumulator.h
-
+    RingSequencer.h \
+    PhaseAccumulator.h \
+    ControllerChange.h \
+    Scaler.h	
 
 INCLUDEPATH += ./../MidiLib
 

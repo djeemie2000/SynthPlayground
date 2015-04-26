@@ -51,6 +51,8 @@
 #include "KarplusStrongModule.h"
 #include "DecayEnvelopeModule.h"
 #include "ToggleGateModule.h"
+#include "ScalerModule.h"
+#include "ControllerChangeModule.h"
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -277,6 +279,14 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CToggleGateModule(Name));
     }
+    else if(Type == "Scaler")
+    {
+        Module.reset(new CScalerModule(Name));
+    }
+    else if(Type == "ControllerChange")
+    {
+        Module.reset(new CControllerChangeModule(Name));
+    }
 
     return Module;
 }
@@ -300,7 +310,9 @@ std::vector<string> CModuleFactory::GetSupportedTypes(const std::string &Categor
             "ControllerBank(8)",
             "LFOBank(4)",
             "LFOBank(8)",
-            "1V/Oct"
+            "1V/Oct",
+            "Scaler",
+            "ControllerChange"
         };
     }
 

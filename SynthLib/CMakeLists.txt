@@ -126,5 +126,7 @@ add_library(SynthLib
     MultiStepSequencer.cpp
     ToggleGate.h
     RingSequencer.h
+    ControllerChange.h
+    Scaler.h
 )
 

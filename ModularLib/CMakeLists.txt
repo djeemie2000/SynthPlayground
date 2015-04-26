@@ -237,4 +237,12 @@ add_library(ModularLib
     Filters/ToggleGateFilter.h
     Modules/ToggleGateModule.cpp
     Modules/ToggleGateModule.h
+    Filters/ScalerFilter.cpp
+    Filters/ScalerFilter.h
+    Modules/ScalerModule.cpp
+    Modules/ScalerModule.h
+    Filters/ControllerChangeFilter.cpp
+    Filters/ControllerChangeFilter.h
+    Modules/ControllerChangeModule.cpp
+    Modules/ControllerChangeModule.h
 )

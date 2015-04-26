@@ -109,7 +109,11 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Filters/DecayEnvelopeFilter.cpp \
     Modules/DecayEnvelopeModule.cpp \
     Filters/ToggleGateFilter.cpp \
-    Modules/ToggleGateModule.cpp
+    Modules/ToggleGateModule.cpp \
+    Filters/ScalerFilter.cpp \
+    Modules/ScalerModule.cpp \
+    Filters/ControllerChangeFilter.cpp \
+    Modules/ControllerChangeModule.cpp
 
 HEADERS += Filters/ControllerBankFilter.h \
     Filters/PhasorFilter.h \
@@ -220,8 +224,11 @@ HEADERS += Filters/ControllerBankFilter.h \
     Filters/DecayEnvelopeFilter.h \
     Modules/DecayEnvelopeModule.h \
     Filters/ToggleGateFilter.h \
-    Modules/ToggleGateModule.h
-
+    Modules/ToggleGateModule.h \
+    Filters/ScalerFilter.h \
+    Modules/ScalerModule.h \
+    Filters/ControllerChangeFilter.h \
+    Modules/ControllerChangeModule.h
 
 
 INCLUDEPATH += ./Filters
