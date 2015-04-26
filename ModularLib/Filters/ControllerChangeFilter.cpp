@@ -2,8 +2,12 @@
 #include "ControllerChangeFilter.h"
 #include "ControllerChange.h"
 
-CControllerChangeFilter::CControllerChangeFilter()
- : m_ControllerChange()
+CControllerChangeFilter::CControllerChangeFilter(int SamplingFrequency)
+    : m_DefaultRateValue(1.0f/SamplingFrequency)
+    , m_ControllerChange()
+    , m_DefaultRate()
+    , m_DefaultIncr()
+    , m_DefaultDecr()
 {
 }
 
@@ -28,64 +32,45 @@ std::vector<std::string> CControllerChangeFilter::GetMidiOutputNames() const
 }
 
 int CControllerChangeFilter::OnProcess(const std::vector<void *> &SourceBuffers,
-                          const std::vector<void *> &DestinationBuffers,
-                          const std::vector<std::shared_ptr<IMidiRenderer>> /*MidiRenderers*/,
-                          const std::vector<std::shared_ptr<IMidiHandler> > /*MidiHandlers*/,
-                          int NumFrames,
-                          std::uint32_t /*TimeStamp*/)
+                                       const std::vector<void *> &DestinationBuffers,
+                                       const std::vector<std::shared_ptr<IMidiRenderer>> /*MidiRenderers*/,
+                                       const std::vector<std::shared_ptr<IMidiHandler> > /*MidiHandlers*/,
+                                       int NumFrames,
+                                       std::uint32_t /*TimeStamp*/)
 {
     float* OutBuffer = static_cast<float*>(DestinationBuffers[0]);
     if(OutBuffer)
     {
-        const float* IncrBuffer = static_cast<const float*>(SourceBuffers[0]);
-        const float* RateBuffer = static_cast<const float*>(SourceBuffers[1]);
-        const float* DecrBuffer = static_cast<const float*>(SourceBuffers[2]);
-        if(IncrBuffer && RateBuffer && DecrBuffer)
+        if(static_cast<int>(m_DefaultDecr.size())<NumFrames)
         {
-            const float* IncrBufferEnd = IncrBuffer + NumFrames;
-            while(IncrBuffer<IncrBufferEnd)
-            {
-                *OutBuffer = m_ControllerChange(*IncrBuffer, *DecrBuffer, *RateBuffer);
-                ++IncrBuffer;
-                ++RateBuffer;
-                ++DecrBuffer;
-                ++OutBuffer;
-            }
+            const float DefaultDecr = 0.0f;
+            m_DefaultDecr.assign(NumFrames, DefaultDecr);
         }
-        else if(IncrBuffer && RateBuffer)
+        if(static_cast<int>(m_DefaultIncr.size())<NumFrames)
         {
-            const float* IncrBufferEnd = IncrBuffer + NumFrames;
-            while(IncrBuffer<IncrBufferEnd)
-            {
-                *OutBuffer = m_ControllerChange(*IncrBuffer, 0.0f, *RateBuffer);
-                ++IncrBuffer;
-                ++RateBuffer;
-                ++OutBuffer;
-            }
+            const float DefaultIncr = 0.0f;
+            m_DefaultIncr.assign(NumFrames, DefaultIncr);
         }
-        else if(DecrBuffer && RateBuffer)
+        if(static_cast<int>(m_DefaultRate.size())<NumFrames)
         {
-            const float* DecrBufferEnd = DecrBuffer + NumFrames;
-            while(DecrBuffer<DecrBufferEnd)
-            {
-                *OutBuffer = m_ControllerChange(0.0f, *DecrBuffer, *RateBuffer);
-                ++DecrBuffer;
-                ++RateBuffer;
-                ++OutBuffer;
-            }
+            // rate = 1/samplingfreq => 1 second needed to go from min to max
+            m_DefaultRate.assign(NumFrames, 0.5);
         }
-        else // only IncrBuffer or only DecrBuffer or only RateBuffer => constant value
+
+        const float* IncrBuffer = SourceBuffers[0] ? static_cast<const float*>(SourceBuffers[0]) : m_DefaultIncr.data();
+        const float* RateBuffer = SourceBuffers[1] ? static_cast<const float*>(SourceBuffers[1]) : m_DefaultRate.data();
+        const float* DecrBuffer = SourceBuffers[2] ? static_cast<const float*>(SourceBuffers[2]) : m_DefaultDecr.data();
+
+        const float* IncrBufferEnd = IncrBuffer + NumFrames;
+        while(IncrBuffer<IncrBufferEnd)
         {
-            const float* OutBufferEnd = OutBuffer + NumFrames;
-            while(OutBuffer<OutBufferEnd)
-            {
-                *OutBuffer = m_ControllerChange(0.0f, 0.0f, 0.0f);
-                ++OutBuffer;
-            }
+            *OutBuffer = m_ControllerChange(*IncrBuffer, *DecrBuffer, *RateBuffer*m_DefaultRateValue);
+            ++IncrBuffer;
+            ++RateBuffer;
+            ++DecrBuffer;
+            ++OutBuffer;
         }
-        // TODO use default rate when rate is not connected?
-        // rate = n/samplingfreq => 1/n second needed to go from min to max
-        // TODO use default buffers for incr, decr, rate to simplify code (use default buffer when no source buffer)
+
     }
 
     return 0;

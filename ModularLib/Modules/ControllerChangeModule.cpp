@@ -4,7 +4,7 @@
 
 CControllerChangeModule::CControllerChangeModule(const std::string& Name)
  : m_Name(Name)
- , m_Filter(new CControllerChangeFilter())
+ , m_Filter()
  , m_IOManager(new CJackIOManager())
 {
     // Open here?
@@ -42,9 +42,13 @@ void CControllerChangeModule::Accept(IModuleParameterVisitor &/*ParameterVisitor
 
 bool CControllerChangeModule::Open()
 {
-    return m_IOManager->OpenClient(m_Name)
-            && m_IOManager->OpenAudioFilter(m_Filter)
+    if(m_IOManager->OpenClient(m_Name))
+    {
+        m_Filter.reset(new CControllerChangeFilter(m_IOManager->SamplingFrequency()));
+        return m_IOManager->OpenAudioFilter(m_Filter)
             && m_IOManager->ActivateClient();
+    }
+    return false;
 }
 
 bool CControllerChangeModule::Close()
