@@ -26,9 +26,10 @@ CModularWebController::CModularWebController(const std::string& PatchDirectory)
     std::shared_ptr<IModuleFactory> Factory(new CModuleFactory(m_CommandStackController));
     m_ModuleManager.reset(new CModuleManager(Factory));
 
-    UpdateModuleTypesPage(*m_ModuleManager, *m_WebPageManager);
+    UpdateMainPage(*m_WebPageManager);
     UpdateCommandsPage(*m_WebPageManager);
     UpdatePatchesPage(*m_PatchManager, *m_WebPageManager);
+    UpdateModuleTypesPage(*m_ModuleManager, *m_WebPageManager);
 }
 
 CModularWebController::~CModularWebController()

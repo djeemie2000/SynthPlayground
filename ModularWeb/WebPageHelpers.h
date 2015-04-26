@@ -11,3 +11,5 @@ void UpdateModuleTypesPage(const CModuleManager& ModuleManager, CWebPageManager&
 void UpdateCommandsPage(CWebPageManager& WebPageManager);
 
 void UpdatePatchesPage(CPatchManager& PatchManager, CWebPageManager& WebPageManager);
+
+void UpdateMainPage(CWebPageManager& WebPageManager);

@@ -133,3 +133,16 @@ void UpdatePatchesPage(CPatchManager &PatchManager, CWebPageManager &WebPageMana
     Content << "</table></body></html>";
     WebPageManager.Add("/Patches", Content.str());
 }
+
+
+void UpdateMainPage(CWebPageManager &WebPageManager)
+{
+    std::ostringstream Content;
+    Content << "<!DOCTYPE html><html><head><title>WebModular</title></head><body><h3>WebModular</h3>";
+    Content << "<a href=\"/Patches\" >Patches</a><br>";
+    Content << "<a href=\"/Commands\" >Commands</a><br>";
+    Content << "<a href=\"/SupportedModules\" >Supported modules</a><br>";
+    Content << "<a href=\"/Modules\" >Current modules</a><br>";
+    WebPageManager.Add("/", Content.str());
+    WebPageManager.Add("/index", Content.str());
+}
