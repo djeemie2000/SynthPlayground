@@ -1,0 +1,28 @@
+<xml>
+<Modules>
+Amp0 --- Amp
+ControllerBank(4)0 --- ControllerBank(4)
+MidiControllerBank(4)0 --- MidiControllerBank(4)
+SimpleOscillator0 --- SimpleOscillator
+ToggleGate0 --- ToggleGate
+
+</Modules>
+<Connections>
+ControllerBank(4)0:Contr0 -> SimpleOscillator0:Freq
+ToggleGate0:Gate -> Amp0:Ampl
+MidiControllerBank(4)0:Contr0 -> ToggleGate0:Toggle
+MidiControllerBank(4)0:Contr1 -> Amp0:Ampl
+SimpleOscillator0:Out -> Amp0:In
+Amp0:Out -> system:playback_2
+Amp0:Out -> system:playback_1
+a2j_bridge:capture -> MidiControllerBank(4)0:MidiIn
+
+</Connections>
+<Parameters>
+ControllerBank(4)0/0/Value 0 0 180
+MidiControllerBank(4)0/0/Parameter 0 77 0
+MidiControllerBank(4)0/1/Parameter 0 70 0
+SimpleOscillator0/Select 0 4 0
+
+</Parameters>
+</xml>
