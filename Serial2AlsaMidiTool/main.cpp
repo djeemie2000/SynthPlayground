@@ -8,7 +8,7 @@
 #include "AlsaMidiOutput.h"
 #include "RawMidiParser.h"
 #include "ContinuousThreadRunner.h"
-
+#include "PeriodicThreadRunner.h"
 #include "LogMidiInputHandler.h"
 
 
@@ -149,7 +149,8 @@ int main(int argc, const char* argv[])
     bool Verbose = ParseVerbose(argc, argv);
 
     CSerial2AlsaMidi Controller(Verbose);
-    CContinuousThreadRunner<CSerial2AlsaMidi> ThreadRunner(Controller);
+    //CContinuousThreadRunner<CSerial2AlsaMidi> ThreadRunner(Controller);
+    CPeriodicThreadRunner<CSerial2AlsaMidi> ThreadRunner(Controller);
 
     if(Controller.Open(Port, Baudrate))
     {
