@@ -1,9 +1,9 @@
 #include <iostream>
 #include <string>
-
 #include <thread>
 #include <chrono>
-
+#include <csignal>
+#include <thread>
 #include "LinuxSerialPort.h"
 #include "AlsaMidiOutput.h"
 #include "RawMidiParser.h"
@@ -13,6 +13,13 @@
 
 
 using namespace std;
+
+volatile std::sig_atomic_t gSignalStatus = 0;
+
+void signal_handler(int Signal)
+{
+    gSignalStatus = Signal;
+}
 
 void About()
 {
@@ -151,15 +158,28 @@ int main(int argc, const char* argv[])
     CSerial2AlsaMidi Controller(Verbose);
     //CContinuousThreadRunner<CSerial2AlsaMidi> ThreadRunner(Controller);
     CPeriodicThreadRunner<CSerial2AlsaMidi> ThreadRunner(Controller);
+    ThreadRunner.SetPeriod(5);//5 milliseconds?
+
+    std::signal(SIGINT, signal_handler);
+    std::signal(SIGTERM, signal_handler);
+    std::signal(SIGILL, signal_handler);
+    std::signal(SIGSEGV, signal_handler);
+    std::signal(SIGFPE, signal_handler);
+    std::signal(SIGABRT, signal_handler);
 
     if(Controller.Open(Port, Baudrate))
     {
         ThreadRunner.Start();
     }
 
-    // wait untill keypressed
-    char bs = std::getchar();
+    // detect ctrl-C or other signals
+    while(gSignalStatus==0)
+    {
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    }
+    std::cout << "Captured signal " << gSignalStatus << std::endl;
 
+    // Cleanup
     ThreadRunner.Stop();
     Controller.Close();
 
