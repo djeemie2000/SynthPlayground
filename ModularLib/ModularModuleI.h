@@ -18,6 +18,7 @@ public:
     virtual Names GetInputNames() const =0;
     virtual Names GetOutputNames() const =0;
     virtual Names GetMidiInputNames() const =0;
+    virtual Names GetMidiOutputNames() const =0;
 
     virtual void Accept(IModuleParameterVisitor& ParameterVisitor) const =0;
 };
