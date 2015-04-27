@@ -245,4 +245,8 @@ add_library(ModularLib
     Filters/ControllerChangeFilter.h
     Modules/ControllerChangeModule.cpp
     Modules/ControllerChangeModule.h
+    Filters/RingSequencerFilter.cpp
+    Filters/RingSequencerFilter.h
+    Modules/RingSequencerModule.cpp
+    Modules/RingSequencerModule.h
 )
