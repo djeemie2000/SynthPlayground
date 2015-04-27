@@ -1,14 +1,14 @@
-#ifndef ControllerChangeFILTER_H
-#define ControllerChangeFILTER_H
+#ifndef RingSequencerFILTER_H
+#define RingSequencerFILTER_H
 
 #include <vector>
 #include "AudioFilterI.h"
-#include "ControllerChange.h"
+#include "RingSequencer.h"
 
-class CControllerChangeFilter : public IAudioFilter
+class CRingSequencerFilter : public IAudioFilter
 {
 public:
-    CControllerChangeFilter(int SamplingFrequency);
+    CRingSequencerFilter();
 
     std::vector<std::string> GetInputNames() const override;
     std::vector<std::string> GetOutputNames() const override;
@@ -22,11 +22,9 @@ public:
                   std::uint32_t TimeStamp) override;
 
 private:
-    const float m_DefaultRateValue;
-    CControllerChange<float> m_ControllerChange;
-    std::vector<float> m_DefaultRate;
-    std::vector<float> m_DefaultIncr;
-    std::vector<float> m_DefaultDecr;
+    CRingSequencer<float> m_RingSequencer;
+    std::vector<float> m_DefaultTrigger;
+    std::vector<float> m_DefaultStep;
 };
 
-#endif // ControllerChangeFILTER_H
+#endif // RingSequencerFILTER_H

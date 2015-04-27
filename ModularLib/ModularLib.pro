@@ -113,7 +113,9 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Filters/ScalerFilter.cpp \
     Modules/ScalerModule.cpp \
     Filters/ControllerChangeFilter.cpp \
-    Modules/ControllerChangeModule.cpp
+    Modules/ControllerChangeModule.cpp \
+    Filters/RingSequencerFilter.cpp \
+    Modules/RingSequencerModule.cpp
 
 HEADERS += Filters/ControllerBankFilter.h \
     Filters/PhasorFilter.h \
@@ -228,8 +230,9 @@ HEADERS += Filters/ControllerBankFilter.h \
     Filters/ScalerFilter.h \
     Modules/ScalerModule.h \
     Filters/ControllerChangeFilter.h \
-    Modules/ControllerChangeModule.h
-
+    Modules/ControllerChangeModule.h \
+    Filters/RingSequencerFilter.h \
+    Modules/RingSequencerModule.h
 
 INCLUDEPATH += ./Filters
 INCLUDEPATH += ./Modules

@@ -53,6 +53,7 @@
 #include "ToggleGateModule.h"
 #include "ScalerModule.h"
 #include "ControllerChangeModule.h"
+#include "RingSequencerModule.h"
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -287,6 +288,10 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CControllerChangeModule(Name));
     }
+    else if(Type == "RingSequencer")
+    {
+        Module.reset(new CRingSequencerModule(Name));
+    }
 
     return Module;
 }
@@ -312,7 +317,8 @@ std::vector<string> CModuleFactory::GetSupportedTypes(const std::string &Categor
             "LFOBank(8)",
             "1V/Oct",
             "Scaler",
-            "ControllerChange"
+            "ControllerChange",
+            "RingSequencer"
         };
     }
 
@@ -328,7 +334,8 @@ std::vector<string> CModuleFactory::GetSupportedTypes(const std::string &Categor
             "ModulatorExt",
             "Detuner(3)",
             "FM",
-            "SlewLimiter"
+            "SlewLimiter",
+            "RingSequencer"
         };
     }
 
@@ -380,7 +387,8 @@ std::vector<string> CModuleFactory::GetSupportedTypes(const std::string &Categor
             "Clock",
             "RandomGate",
             "StereoMixer(4)",
-            "ToggleGate"
+            "ToggleGate",
+            "RingSequencer"
         };
     }
 

@@ -1,35 +1,34 @@
-#ifndef EnvelopeFollowerMODULE_H
-#define EnvelopeFollowerMODULE_H
+#ifndef RingSequencerMODULE_H
+#define RingSequencerMODULE_H
 
 #include <string>
 #include <memory>
 #include "ModularModuleI.h"
 
-class CEnvelopeFollowerFilter;
+class IAudioFilter;
 class CJackIOManager;
-class CCommandStackController;
 
-class CEnvelopeFollowerModule : public IModularModule
+class CRingSequencerModule : public IModularModule
 {
 public:
-    CEnvelopeFollowerModule(const std::string& Name, CCommandStackController& CommandStackController);
-    ~CEnvelopeFollowerModule();
+    CRingSequencerModule(const std::string& Name);
+    ~CRingSequencerModule();
 
     std::string GetName() const override;
     Names GetInputNames() const override;
     Names GetOutputNames() const override;
     Names GetMidiInputNames() const override;
     Names GetMidiOutputNames() const override {  return {};  }
+
     void Accept(IModuleParameterVisitor& ParameterVisitor) const override;
 
 private:
     bool Open();
     bool Close();
 
-    CCommandStackController& m_CommandStackController;
     std::string m_Name;
-    std::shared_ptr<CEnvelopeFollowerFilter> m_Filter;
+    std::shared_ptr<IAudioFilter> m_Filter;
     std::unique_ptr<CJackIOManager> m_IOManager;
 };
 
-#endif // EnvelopeFollowerMODULE_H
+#endif // RingSequencerMODULE_H

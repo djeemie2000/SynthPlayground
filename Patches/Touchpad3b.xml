@@ -1,0 +1,90 @@
+<xml>
+<Modules>
+1V/Oct0 --- 1V/Oct
+ADSREnvelopeBank(4)0 --- ADSREnvelopeBank(4)
+Amp0 --- Amp
+ControllerBank(4)0 --- ControllerBank(4)
+ControllerChange0 --- ControllerChange
+MidiControllerBank(4)0 --- MidiControllerBank(4)
+Scaler0 --- Scaler
+SimpleOscillator0 --- SimpleOscillator
+StereoDelay0 --- StereoDelay
+StereoDelay1 --- StereoDelay
+ToggleGate0 --- ToggleGate
+
+</Modules>
+<Connections>
+1V/Oct0:Freq -> SimpleOscillator0:Freq
+ADSREnvelopeBank(4)0:Envelope0 -> Amp0:Ampl
+a2j_bridge:capture -> MidiControllerBank(4)0:MidiIn
+Amp0:Out -> StereoDelay1:InLeft
+Amp0:Out -> StereoDelay1:InRight
+ControllerBank(4)0:Contr0 -> ControllerChange0:Rate
+ControllerBank(4)0:Contr2 -> Scaler0:Offset
+ControllerBank(4)0:Contr3 -> Scaler0:Scale
+ControllerChange0:CV -> Scaler0:In
+MidiControllerBank(4)0:Contr1 -> ToggleGate0:Toggle
+MidiControllerBank(4)0:Contr2 -> ControllerChange0:Decr
+MidiControllerBank(4)0:Contr3 -> ControllerChange0:Incr
+Scaler0:Out -> 1V/Oct0:CV
+SimpleOscillator0:Out -> Amp0:In
+ToggleGate0:Trigger -> ADSREnvelopeBank(4)0:Trigger0
+StereoDelay0:OutLeft -> system:playback_1
+StereoDelay0:OutRight -> system:playback_2
+StereoDelay1:OutLeft -> StereoDelay0:InRight
+StereoDelay1:OutRight -> StereoDelay0:InLeft
+
+</Connections>
+<Parameters>
+ADSREnvelopeBank(4)0/0/Attack 0 0 77
+ADSREnvelopeBank(4)0/0/Decay 0 0 87
+ADSREnvelopeBank(4)0/0/Release 0 0 2500
+ADSREnvelopeBank(4)0/0/Sustain 0 0 0.6
+ADSREnvelopeBank(4)0/1/Attack 0 0 10
+ADSREnvelopeBank(4)0/1/Decay 0 0 10
+ADSREnvelopeBank(4)0/1/Release 0 0 10
+ADSREnvelopeBank(4)0/1/Sustain 0 0 1
+ADSREnvelopeBank(4)0/2/Attack 0 0 10
+ADSREnvelopeBank(4)0/2/Decay 0 0 10
+ADSREnvelopeBank(4)0/2/Release 0 0 10
+ADSREnvelopeBank(4)0/2/Sustain 0 0 1
+ADSREnvelopeBank(4)0/3/Attack 0 0 10
+ADSREnvelopeBank(4)0/3/Decay 0 0 10
+ADSREnvelopeBank(4)0/3/Release 0 0 10
+ADSREnvelopeBank(4)0/3/Sustain 0 0 1
+ControllerBank(4)0/0/Value 0 0 0.2
+ControllerBank(4)0/1/Value 0 0 0
+ControllerBank(4)0/2/Value 0 0 0
+ControllerBank(4)0/3/Value 0 0 5
+MidiControllerBank(4)0/0/Max 0 0 1
+MidiControllerBank(4)0/0/Min 0 0 0
+MidiControllerBank(4)0/0/Parameter 0 70 0
+MidiControllerBank(4)0/1/Max 0 0 1
+MidiControllerBank(4)0/1/Min 0 0 0
+MidiControllerBank(4)0/1/Parameter 0 77 0
+MidiControllerBank(4)0/2/Max 0 0 1
+MidiControllerBank(4)0/2/Min 0 0 0
+MidiControllerBank(4)0/2/Parameter 0 80 0
+MidiControllerBank(4)0/3/Max 0 0 1
+MidiControllerBank(4)0/3/Min 0 0 0
+MidiControllerBank(4)0/3/Parameter 0 81 0
+SimpleOscillator0/Select 0 2 0
+StereoDelay0/Left/Bypass 0 0 0
+StereoDelay0/Left/DelayMilliSeconds 0 0 247
+StereoDelay0/Left/Feedback 0 0 0.5
+StereoDelay0/Left/WetDry 0 0 0.4
+StereoDelay0/Right/Bypass 0 0 0
+StereoDelay0/Right/DelayMilliSeconds 0 0 253
+StereoDelay0/Right/Feedback 0 0 0.5
+StereoDelay0/Right/WetDry 0 0 0.4
+StereoDelay1/Left/Bypass 0 0 0
+StereoDelay1/Left/DelayMilliSeconds 0 0 327
+StereoDelay1/Left/Feedback 0 0 0.5
+StereoDelay1/Left/WetDry 0 0 0.4
+StereoDelay1/Right/Bypass 0 0 0
+StereoDelay1/Right/DelayMilliSeconds 0 0 353
+StereoDelay1/Right/Feedback 0 0 0.5
+StereoDelay1/Right/WetDry 0 0 0.4
+
+</Parameters>
+</xml>

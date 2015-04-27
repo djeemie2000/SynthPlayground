@@ -1,0 +1,64 @@
+<xml>
+<Modules>
+1V/Oct0 --- 1V/Oct
+ADSREnvelopeBank(4)0 --- ADSREnvelopeBank(4)
+Amp0 --- Amp
+ControllerBank(4)0 --- ControllerBank(4)
+ControllerChange0 --- ControllerChange
+MidiControllerBank(4)0 --- MidiControllerBank(4)
+SimpleOscillator0 --- SimpleOscillator
+ToggleGate0 --- ToggleGate
+
+</Modules>
+<Connections>
+1V/Oct0:Freq -> SimpleOscillator0:Freq
+ADSREnvelopeBank(4)0:Envelope0 -> Amp0:Ampl
+a2j_bridge:capture -> MidiControllerBank(4)0:MidiIn
+Amp0:Out -> system:playback_1
+Amp0:Out -> system:playback_2
+ControllerBank(4)0:Contr1 -> 1V/Oct0:CV
+ControllerChange0:CV -> 1V/Oct0:CV
+MidiControllerBank(4)0:Contr1 -> ToggleGate0:Toggle
+MidiControllerBank(4)0:Contr2 -> ControllerChange0:Decr
+MidiControllerBank(4)0:Contr3 -> ControllerChange0:Incr
+SimpleOscillator0:Out -> Amp0:In
+ToggleGate0:Trigger -> ADSREnvelopeBank(4)0:Trigger0
+
+</Connections>
+<Parameters>
+ADSREnvelopeBank(4)0/0/Attack 0 0 77
+ADSREnvelopeBank(4)0/0/Decay 0 0 87
+ADSREnvelopeBank(4)0/0/Release 0 0 2500
+ADSREnvelopeBank(4)0/0/Sustain 0 0 0.6
+ADSREnvelopeBank(4)0/1/Attack 0 0 10
+ADSREnvelopeBank(4)0/1/Decay 0 0 10
+ADSREnvelopeBank(4)0/1/Release 0 0 10
+ADSREnvelopeBank(4)0/1/Sustain 0 0 1
+ADSREnvelopeBank(4)0/2/Attack 0 0 10
+ADSREnvelopeBank(4)0/2/Decay 0 0 10
+ADSREnvelopeBank(4)0/2/Release 0 0 10
+ADSREnvelopeBank(4)0/2/Sustain 0 0 1
+ADSREnvelopeBank(4)0/3/Attack 0 0 10
+ADSREnvelopeBank(4)0/3/Decay 0 0 10
+ADSREnvelopeBank(4)0/3/Release 0 0 10
+ADSREnvelopeBank(4)0/3/Sustain 0 0 1
+ControllerBank(4)0/0/Value 0 0 240
+ControllerBank(4)0/1/Value 0 0 2
+ControllerBank(4)0/2/Value 0 0 0.0001
+ControllerBank(4)0/3/Value 0 0 0.004
+MidiControllerBank(4)0/0/Max 0 0 1
+MidiControllerBank(4)0/0/Min 0 0 0
+MidiControllerBank(4)0/0/Parameter 0 70 0
+MidiControllerBank(4)0/1/Max 0 0 1
+MidiControllerBank(4)0/1/Min 0 0 0
+MidiControllerBank(4)0/1/Parameter 0 77 0
+MidiControllerBank(4)0/2/Max 0 0 1
+MidiControllerBank(4)0/2/Min 0 0 0
+MidiControllerBank(4)0/2/Parameter 0 80 0
+MidiControllerBank(4)0/3/Max 0 0 1
+MidiControllerBank(4)0/3/Min 0 0 0
+MidiControllerBank(4)0/3/Parameter 0 81 0
+SimpleOscillator0/Select 0 4 0
+
+</Parameters>
+</xml>

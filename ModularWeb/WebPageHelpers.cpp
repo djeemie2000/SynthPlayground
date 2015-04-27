@@ -31,9 +31,8 @@ void UpdateModulePage(const CModuleManager& ModuleManager, const std::string& Na
         auto t1 = Module->GetMidiInputNames();
         Column1.insert(Column1.end(), t1.begin(), t1.end());
 
-        // TODO modules should support MidiOutput
-        //auto t2 = Module.GetMidiOutputnames();
-        //Column2.insert(Column2.end(), t2.begin(), t2.end());
+        auto t2 = Module->GetMidiOutputNames();
+        Column2.insert(Column2.end(), t2.begin(), t2.end());
 
         MaxSize = std::max(Column0.size(), std::max(Column1.size(), Column2.size()));
         Column0.resize(MaxSize);
