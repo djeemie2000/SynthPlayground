@@ -1,0 +1,46 @@
+<xml>
+<Modules>
+1V/Oct0 --- 1V/Oct
+ControllerBank(4)0 --- ControllerBank(4)
+Mixer(4)0 --- Mixer(4)
+PeriodicTrigger0 --- PeriodicTrigger
+RingSequencer0 --- RingSequencer
+Scaler0 --- Scaler
+SimpleOscillator0 --- SimpleOscillator
+StereoDelay0 --- StereoDelay
+
+</Modules>
+<Connections>
+1V/Oct0:Freq -> SimpleOscillator0:Freq
+ControllerBank(4)0:Contr0 -> RingSequencer0:Step
+ControllerBank(4)0:Contr1 -> Scaler0:Scale
+ControllerBank(4)0:Contr2 -> Scaler0:Offset
+Mixer(4)0:Out -> StereoDelay0:InLeft
+Mixer(4)0:Out -> StereoDelay0:InRight
+PeriodicTrigger0:Trigger -> RingSequencer0:Trigger
+RingSequencer0:CV -> Scaler0:In
+Scaler0:Out -> 1V/Oct0:CV
+SimpleOscillator0:Out -> Mixer(4)0:In0
+StereoDelay0:OutLeft -> system:playback_1
+StereoDelay0:OutRight -> system:playback_2
+
+</Connections>
+<Parameters>
+ControllerBank(4)0/0/Value 0 0 0.298
+ControllerBank(4)0/1/Value 0 0 4
+ControllerBank(4)0/2/Value 0 0 2
+Mixer(4)0/0/Volume 0 0 0.25
+Mixer(4)0/MasterVolume 0 0 0.5
+PeriodicTrigger0/BeatsPerBar 0 4 0
+SimpleOscillator0/Select 0 9 0
+StereoDelay0/Left/Bypass 0 0 0
+StereoDelay0/Left/DelayMilliSeconds 0 0 347
+StereoDelay0/Left/Feedback 0 0 0.75
+StereoDelay0/Left/WetDry 0 0 0.4
+StereoDelay0/Right/Bypass 0 0 0
+StereoDelay0/Right/DelayMilliSeconds 0 0 253
+StereoDelay0/Right/Feedback 0 0 0.91
+StereoDelay0/Right/WetDry 0 0 0.4
+
+</Parameters>
+</xml>
