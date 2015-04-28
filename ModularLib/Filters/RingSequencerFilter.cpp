@@ -62,6 +62,7 @@ int CRingSequencerFilter::OnProcess(const std::vector<void *> &SourceBuffers,
             *OutBuffer = m_RingSequencer(TriggerIn.IsTriggerOn(*TriggerBuffer), *StepBuffer);
             ++TriggerBuffer;
             ++StepBuffer;
+            ++OutBuffer;
         }
     }
 
