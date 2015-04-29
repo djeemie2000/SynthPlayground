@@ -1,0 +1,56 @@
+<xml>
+<Modules>
+1V/Oct0 --- 1V/Oct
+ControllerBank(4)0 --- ControllerBank(4)
+FM0 --- FM
+LFOBank(4)0 --- LFOBank(4)
+Mixer(4)0 --- Mixer(4)
+Modulator0 --- Modulator
+SimpleOscillator0 --- SimpleOscillator
+StereoDelay0 --- StereoDelay
+
+</Modules>
+<Connections>
+1V/Oct0:Freq -> FM0:CarrierFreq
+ControllerBank(4)0:Contr0 -> 1V/Oct0:CV
+ControllerBank(4)0:Contr2 -> FM0:ModFreqMult
+FM0:FMFreq -> SimpleOscillator0:Freq
+LFOBank(4)0:LFO0 -> Modulator0:ModIn0
+LFOBank(4)0:LFO1 -> Modulator0:ModIn1
+Mixer(4)0:Out -> StereoDelay0:InLeft
+Mixer(4)0:Out -> StereoDelay0:InRight
+Modulator0:Out -> FM0:ModAmpl
+SimpleOscillator0:Out -> Mixer(4)0:In1
+StereoDelay0:OutLeft -> system:playback_1
+StereoDelay0:OutRight -> system:playback_2
+
+</Connections>
+<Parameters>
+ControllerBank(4)0/0/Value 0 0 2
+ControllerBank(4)0/1/Value 0 0 0.987
+ControllerBank(4)0/2/Value 0 0 0.246
+ControllerBank(4)0/3/Value 0 0 0.105
+Distortion10/Drive 0 0 0.6
+FM0/ModWaveform 0 3 0
+LFOBank(4)0/0/Frequency 0 0 0.31
+LFOBank(4)0/0/Select 0 3 0
+LFOBank(4)0/1/Frequency 0 0 2.6
+LFOBank(4)0/1/Select 0 3 0
+LFOBank(4)0/2/Frequency 0 0 0.46
+LFOBank(4)0/2/Select 0 1 0
+LFOBank(4)0/3/Frequency 0 0 0.16
+LFOBank(4)0/3/Select 0 3 0
+Mixer(4)0/0/Volume 0 0 0
+Mixer(4)0/1/Volume 0 0 0.25
+Mixer(4)0/MasterVolume 0 0 0.5
+Modulator0/0/ModAmt 0 0 0.6
+Modulator0/1/ModAmt 0 0 -0.31
+Modulator0/LimitMode 0 0 0
+Modulator0/Offset 0 0 0.66
+Operator0/Select 0 4 0
+SimpleOscillator0/Select 0 3 0
+StereoDelay0/Left/Bypass 0 0 0
+StereoDelay0/Right/Bypass 0 0 0
+
+</Parameters>
+</xml>
