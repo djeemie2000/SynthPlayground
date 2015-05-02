@@ -30,6 +30,7 @@ CModularWebController::CModularWebController(const std::string& PatchDirectory)
     UpdateCommandsPage(*m_WebPageManager);
     UpdatePatchesPage(*m_PatchManager, *m_WebPageManager);
     UpdateModuleTypesPage(*m_ModuleManager, *m_WebPageManager);
+    UpdateTestPage(*m_WebPageManager);
 }
 
 CModularWebController::~CModularWebController()

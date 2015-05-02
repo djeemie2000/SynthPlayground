@@ -149,3 +149,29 @@ void UpdateMainPage(CWebPageManager &WebPageManager)
     WebPageManager.Add("/", Content.str());
     WebPageManager.Add("/index", Content.str());
 }
+
+
+void UpdateTestPage(CWebPageManager &WebPageManager)
+{
+    std::ostringstream Content;
+
+    Content << R"(<!DOCTYPE html>
+                 <html>
+                 <body>
+
+                 <form>
+                 <select name="ParameterName">
+                 <option value="0">Volvo</option>
+                 <option value="1" selected>Saab</option>
+                 <option value="2">Fiat</option>
+                 <option value="3">Audi</option>
+                 </select>
+                 <br><br>
+                 <input type="submit">
+                 </form>
+
+                 </body>
+                 </html>)";
+
+    WebPageManager.Add("/test", Content.str());
+}

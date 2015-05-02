@@ -50,21 +50,17 @@ void CWebPageModuleParameterVisitor::SelectionParameter(const std::string &Param
 {
     SCmdStackItem Item = m_CommandStackController.GetCurrent(ParameterName);
 
-    m_Content << "<input list=\"" << ParameterName << "\" name=\"" << ParameterName << "\" value=\"" << Selections[Item.IntValue()] << "\" >";
-    m_Content << "<datalist id=\"" << ParameterName <<"\">";
-    for(const auto& Selection : Selections)
+    m_Content << "<select name=\"" << ParameterName << "\" >";
+    for(std::size_t idx = 0; idx<Selections.size(); ++idx)
     {
-        m_Content << "<option value=\"" << Selection << "\" >";
+        m_Content << "<option value=\"" << idx << "\" ";
+        if(idx == Item.IntValue())
+        {
+            m_Content << "selected ";
+        }
+        m_Content << " >" << Selections[idx] << "</option>";
     }
-    m_Content << "</datalist>";
-
-
-//    m_Content << "<select name=\"" << ParameterName << "\" value=\"" << Selections[Item.IntValue()] << "\" >";
-//    for(const auto& Selection : Selections)
-//    {
-//        m_Content << "<option value=\"" << Selection << "\" >" << Selection << "</option>";
-//    }
-//    m_Content << "</select>" << Name;
+    m_Content << "</select>" << Name;
 }
 
 void CWebPageModuleParameterVisitor::BooleanParameter(const std::string &ParameterName, const std::string &Name, bool Default)

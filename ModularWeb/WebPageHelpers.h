@@ -14,3 +14,5 @@ void UpdateCommandsPage(CWebPageManager& WebPageManager);
 void UpdatePatchesPage(CPatchManager& PatchManager, CWebPageManager& WebPageManager);
 
 void UpdateMainPage(CWebPageManager& WebPageManager);
+
+void UpdateTestPage(CWebPageManager& WebPageManager);
