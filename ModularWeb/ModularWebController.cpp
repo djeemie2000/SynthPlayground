@@ -79,6 +79,22 @@ string CModularWebController::HandleWebRequest(const SWebRequest &Request)
             Remove(ModuleName);
         }
     }
+    else if(Request.s_Uri.substr(0, 7) == "/Module")// /Module/NameOfModule
+    {
+        // Queries are of the form
+        //  ParameterName = string value
+
+        // in order to correctly apply the parameter, first retrieve the current
+        // then update current (which knows the correct type) from string value
+        // then apply it
+
+        for(auto itQuery : Request.s_Query)
+        {
+            SCmdStackItem Item = m_CommandStackController->GetCurrent(itQuery.first);
+            Item.ValueFromString(itQuery.second);
+            m_CommandStackController->Handle(Item);
+        }
+    }
 
     return m_WebPageManager->Get(Request.s_Uri);
 }
