@@ -34,9 +34,6 @@ unix {
     INSTALLS += target
 }
 
-#debug:LIBS += -L./../build-dir/Debug/SynthLib
-#release:LIBS += -L./../build-dir/Release/SynthLib
-
 CONFIG(debug, debug|release) {
     DESTDIR = ../build-dir/Debug/CommandStackLib
 }

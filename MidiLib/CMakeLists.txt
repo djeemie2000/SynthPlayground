@@ -5,14 +5,10 @@ ADD_DEFINITIONS(
 	# other flags
 )
 
-include_directories(./../CommandStackLib)
-
 add_library(MidiLib
     LogMidiInputHandler.cpp
     NoteQueueMidiInputHandler.cpp
     NoteCountMidiHandler.cpp
-    CommandStackMidiInputHandler.cpp
-    MidiInputController.cpp
     MidiNotePitch.cpp
     MultiMidiHandler.cpp
     RawMidiParser.cpp
@@ -20,12 +16,9 @@ add_library(MidiLib
     LogMidiInputHandler.h
     NoteQueueMidiInputHandler.h
     NoteCountMidiHandler.h
-    CommandStackMidiInputHandler.h
-    MidiInputController.h
-    MidiControllerHandlerI.h
     MidiSourceI.h
     MidiRendererI.h
     MidiNotePitch.h
     MultiMidiHandler.h
-    RawMidiParser.h)
-
+    RawMidiParser.h
+)
