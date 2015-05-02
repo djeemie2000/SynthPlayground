@@ -23,27 +23,22 @@ struct SCmdStackItem
     float s_FloatValue{-1.0f};
     std::string s_TextValue{};
     int s_Type{UnknownType};
-    std::uint32_t s_TimeStamp{0};
-    bool s_HasTimeStamp{false};
 
     SCmdStackItem();
 
     SCmdStackItem(const std::string& Name, bool BoolValue, int IntValue, float FloatValue);
-    SCmdStackItem(const std::string& Name, bool BoolValue, int IntValue, float FloatValue, std::uint32_t TimeStamp);
     explicit SCmdStackItem(const std::string& Name);
 
     SCmdStackItem &Name(const std::string& Name);
     SCmdStackItem &BoolValue(bool Value);
     SCmdStackItem &IntValue(int Value);
     SCmdStackItem &FloatValue(float Value);
-    SCmdStackItem &TimeStamp(std::uint32_t TimeStamp);
     SCmdStackItem &TextValue(const std::string& TextValue);
 
     const std::string& Name() const;
     bool BoolValue() const;
     int IntValue() const;
     float FloatValue() const;
-    std::uint32_t TimeStamp() const;
     const std::string& TextValue() const;
 
     SCmdStackItem &ValueFromString(const std::string& String);

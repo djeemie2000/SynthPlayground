@@ -15,20 +15,18 @@ SCmdStackItem::SCmdStackItem(const string &Name, bool BoolValue, int IntValue, f
     , s_BoolValue(BoolValue)
     , s_IntValue(IntValue)
     , s_FloatValue(FloatValue)
-    , s_TimeStamp(0)
-    , s_HasTimeStamp(false)
 {
 }
 
-SCmdStackItem::SCmdStackItem(const std::string& Name, bool BoolValue, int IntValue, float FloatValue, std::uint32_t TimeStamp)
-    : s_Name(Name)
-    , s_BoolValue(BoolValue)
-    , s_IntValue(IntValue)
-    , s_FloatValue(FloatValue)
-    , s_TimeStamp(TimeStamp)
-    , s_HasTimeStamp(true)
-{
-}
+//SCmdStackItem::SCmdStackItem(const std::string& Name, bool BoolValue, int IntValue, float FloatValue, std::uint32_t TimeStamp)
+//    : s_Name(Name)
+//    , s_BoolValue(BoolValue)
+//    , s_IntValue(IntValue)
+//    , s_FloatValue(FloatValue)
+//    , s_TimeStamp(TimeStamp)
+//    , s_HasTimeStamp(true)
+//{
+//}
 
 SCmdStackItem::SCmdStackItem(const string &Name)
     : s_Name(Name)
@@ -63,13 +61,6 @@ SCmdStackItem &SCmdStackItem::FloatValue(float Value)
     return *this;
 }
 
-SCmdStackItem &SCmdStackItem::TimeStamp(std::uint32_t TimeStamp)
-{
-    s_TimeStamp = TimeStamp;
-    s_HasTimeStamp = true;
-    return *this;
-}
-
 SCmdStackItem &SCmdStackItem::TextValue(const string &TextValue)
 {
     s_TextValue = TextValue;
@@ -95,11 +86,6 @@ int SCmdStackItem::IntValue() const
 float SCmdStackItem::FloatValue() const
 {
     return s_FloatValue;
-}
-
-std::uint32_t SCmdStackItem::TimeStamp() const
-{
-    return s_TimeStamp;
 }
 
 const string &SCmdStackItem::TextValue() const

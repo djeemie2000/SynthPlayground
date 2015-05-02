@@ -11,7 +11,6 @@ TEST(DefaultConstructor)
     CHECK_EQUAL(false, Item.BoolValue());
     CHECK_EQUAL(-1, Item.IntValue());
     CHECK_CLOSE(-1.0f, Item.FloatValue(), 0.0001);
-    CHECK_EQUAL(0u, Item.TimeStamp());
     CHECK_EQUAL("", Item.TextValue());
 }
 
@@ -37,12 +36,11 @@ TEST(Constructors)
 
 TEST(Setters)
 {
-    SCmdStackItem Item = SCmdStackItem().TextValue("Text").BoolValue(true).FloatValue(123.45f).IntValue(123).TimeStamp(56789);
+    SCmdStackItem Item = SCmdStackItem().TextValue("Text").BoolValue(true).FloatValue(123.45f).IntValue(123);
 
     CHECK_EQUAL(true, Item.BoolValue());
     CHECK_EQUAL(123, Item.IntValue());
     CHECK_CLOSE(123.45f, Item.FloatValue(), 0.0001);
-    CHECK_EQUAL(56789u, Item.TimeStamp());
     CHECK_EQUAL("Text", Item.TextValue());
 }
 
@@ -55,7 +53,6 @@ TEST(BoolValueFromString)
     CHECK_EQUAL(true, Item2.BoolValue());
     CHECK_EQUAL(-1, Item2.IntValue());
     CHECK_CLOSE(-1.0f, Item.FloatValue(), 0.0001);
-    CHECK_EQUAL(0u, Item.TimeStamp());
     CHECK_EQUAL("", Item.TextValue());
 }
 
@@ -68,7 +65,6 @@ TEST(IntValueFromString)
     CHECK_EQUAL(false, Item2.BoolValue());
     CHECK_EQUAL(12345678, Item2.IntValue());
     CHECK_CLOSE(-1.0f, Item.FloatValue(), 0.0001);
-    CHECK_EQUAL(0u, Item.TimeStamp());
     CHECK_EQUAL("", Item.TextValue());
 }
 
@@ -81,7 +77,6 @@ TEST(FloatValueFromString)
     CHECK_EQUAL(false, Item2.BoolValue());
     CHECK_EQUAL(-1, Item2.IntValue());
     CHECK_CLOSE(98.765f, Item.FloatValue(), 0.0001);
-    CHECK_EQUAL(0u, Item.TimeStamp());
     CHECK_EQUAL("", Item.TextValue());
 }
 
@@ -94,7 +89,6 @@ TEST(TextValueFromString)
     CHECK_EQUAL(false, Item2.BoolValue());
     CHECK_EQUAL(-1, Item2.IntValue());
     CHECK_CLOSE(-1.0f, Item.FloatValue(), 0.0001);
-    CHECK_EQUAL(0u, Item.TimeStamp());
     CHECK_EQUAL("defghij", Item.TextValue());
 }
 
@@ -107,7 +101,6 @@ TEST(TextValueFromFloatFailed)
     CHECK_EQUAL(false, Item2.BoolValue());
     CHECK_EQUAL(-1, Item2.IntValue());
     CHECK_CLOSE(1.23f, Item.FloatValue(), 0.0001);
-    CHECK_EQUAL(0u, Item.TimeStamp());
     CHECK_EQUAL("", Item.TextValue());
 }
 
