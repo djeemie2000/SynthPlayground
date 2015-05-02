@@ -94,6 +94,8 @@ string CModularWebController::HandleWebRequest(const SWebRequest &Request)
             Item.ValueFromString(itQuery.second);
             m_CommandStackController->Handle(Item);
         }
+
+        UpdateModuleWebPages();
     }
 
     return m_WebPageManager->Get(Request.s_Uri);

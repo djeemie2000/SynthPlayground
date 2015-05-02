@@ -65,7 +65,7 @@ bool CCommandStackController::ImportFromString(const string &Content)
     // read imported stack from string
     CCommandStackImporter Importer;
     CCommandStack ImportedStack;
-    if(Importer.ImportFromString(Content, ImportedStack))
+    if(Importer.ImportFromString(Content, *m_DefaultStack, ImportedStack))
     { // if succeeded:
         // clear current stack
         m_CurrentStack->Clear();

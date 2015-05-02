@@ -14,6 +14,7 @@ public:
 
     bool ImportFromString(const std::string& Content, ICommandStackHandler& Handler);
     bool ImportFromString(const std::string& Content, CCommandStack& CommandStack);
+    bool ImportFromString(const std::string& Content, const CCommandStack& DefaultCommandStack, CCommandStack& CommandStack);
 };
 
 #endif // COMMANDSTACKIMPORTER_H

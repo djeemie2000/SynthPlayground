@@ -73,3 +73,25 @@ bool CCommandStackImporter::ImportFromString(const string &Content, CCommandStac
     }
     return false;
 }
+
+bool CCommandStackImporter::ImportFromString(const string &Content, const CCommandStack &DefaultCommandStack, CCommandStack &CommandStack)
+{
+    CmdStack ImportedStack;
+    if(ImportCurrentStackFromString(ImportedStack, Content))
+    {
+        CommandStack.Clear();
+        for(auto& ImportedItem : ImportedStack)
+        {
+            // use default stack because this knows the correct type
+            SCmdStackItem Item = DefaultCommandStack.GetItem(ImportedItem.Name());
+            Item.Name(ImportedItem.Name());// in case was not part of defaults
+            // do no use BoolValue(..), ... because this will change the type
+            Item.s_BoolValue = ImportedItem.s_BoolValue;
+            Item.s_IntValue = ImportedItem.s_IntValue;
+            Item.s_FloatValue = ImportedItem.s_FloatValue;
+            CommandStack.AddItem(Item);
+        }
+        return true;
+    }
+    return false;
+}
