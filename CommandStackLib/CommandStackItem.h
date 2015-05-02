@@ -11,13 +11,20 @@ using namespace std;
 
 struct SCmdStackItem
 {
+    static const int UnknownType = 0;
+    static const int BoolType = 1;
+    static const int IntType = 2;
+    static const int FloatType = 3;
+    static const int TextType = 4;
+
     std::string s_Name{};
     bool s_BoolValue{false};
     int s_IntValue{-1};
     float s_FloatValue{-1.0f};
+    std::string s_TextValue{};
+    int s_Type{UnknownType};
     std::uint32_t s_TimeStamp{0};
     bool s_HasTimeStamp{false};
-    std::string s_TextValue{};
 
     SCmdStackItem();
 
@@ -38,6 +45,8 @@ struct SCmdStackItem
     float FloatValue() const;
     std::uint32_t TimeStamp() const;
     const std::string& TextValue() const;
+
+    SCmdStackItem &ValueFromString(const std::string& String);
 };
 
 typedef std::deque<SCmdStackItem> CmdStack;

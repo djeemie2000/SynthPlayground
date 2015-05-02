@@ -45,18 +45,21 @@ SCmdStackItem &SCmdStackItem::Name(const string &Name)
 SCmdStackItem &SCmdStackItem::BoolValue(bool Value)
 {
     s_BoolValue = Value;
+    s_Type = BoolType;
     return *this;
 }
 
 SCmdStackItem &SCmdStackItem::IntValue(int Value)
 {
     s_IntValue = Value;
+    s_Type = IntType;
     return *this;
 }
 
 SCmdStackItem &SCmdStackItem::FloatValue(float Value)
 {
     s_FloatValue = Value;
+    s_Type = FloatType;
     return *this;
 }
 
@@ -70,6 +73,7 @@ SCmdStackItem &SCmdStackItem::TimeStamp(std::uint32_t TimeStamp)
 SCmdStackItem &SCmdStackItem::TextValue(const string &TextValue)
 {
     s_TextValue = TextValue;
+    s_Type = TextType;
     return *this;
 }
 
@@ -101,4 +105,44 @@ std::uint32_t SCmdStackItem::TimeStamp() const
 const string &SCmdStackItem::TextValue() const
 {
     return s_TextValue;
+}
+
+SCmdStackItem &SCmdStackItem::ValueFromString(const string &String)
+{
+    if(s_Type==BoolType)
+    {
+        try
+        {
+            s_BoolValue = (0!=std::stoi(String));
+        }
+        catch(...)
+        {
+        }
+    }
+    else if(s_Type == IntType)
+    {
+        try
+        {
+            s_IntValue = std::stoi(String);
+        }
+        catch(...)
+        {
+        }
+    }
+    else if(s_Type == FloatType)
+    {
+        try
+        {
+            s_FloatValue = std::stof(String);
+        }
+        catch(...)
+        {
+        }
+    }
+    else if(s_Type == TextType)
+    {
+        s_TextValue = String;
+    }
+
+    return *this;
 }
