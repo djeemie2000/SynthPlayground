@@ -17,11 +17,11 @@ TEST(DefaultConstructor)
 TEST(Constructors)
 {
     std::string ExpectedName;
-    bool ExpectedBool = true;
-    int ExpectedInt = 12345;
-    float ExpectedFloat = 56.789f;
+    bool ExpectedBool = false;
+    int ExpectedInt = -1;
+    float ExpectedFloat = -1.0f;
 
-    SCmdStackItem Item1(ExpectedName, ExpectedBool, ExpectedInt, ExpectedFloat);
+    SCmdStackItem Item1(ExpectedName);
     CHECK_EQUAL(ExpectedName, Item1.Name());
     CHECK_EQUAL(ExpectedBool, Item1.BoolValue());
     CHECK_EQUAL(ExpectedInt, Item1.IntValue());

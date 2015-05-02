@@ -14,7 +14,7 @@ CMultiStageWaveFolderModule::CMultiStageWaveFolderModule(const std::string& Name
     // Open here?
     Open();
     // command stack stuff for filter
-    m_CommandStackController.AddCommand({m_Name+"/NumStages", false, 1, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetNumStages(Item.s_IntValue); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/NumStages").IntValue(1), [this](const SCmdStackItem& Item) { m_Filter->SetNumStages(Item.s_IntValue); });
 }
 
 CMultiStageWaveFolderModule::~CMultiStageWaveFolderModule()

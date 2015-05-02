@@ -24,9 +24,8 @@ struct SCmdStackItem
     std::string s_TextValue{};
     int s_Type{UnknownType};
 
+public:
     SCmdStackItem();
-
-    SCmdStackItem(const std::string& Name, bool BoolValue, int IntValue, float FloatValue);
     explicit SCmdStackItem(const std::string& Name);
 
     SCmdStackItem &Name(const std::string& Name);

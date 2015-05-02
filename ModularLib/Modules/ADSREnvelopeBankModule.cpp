@@ -16,10 +16,10 @@ CADSREnvelopeBankModule::CADSREnvelopeBankModule(const std::string& Name, int Si
     // command stack stuff for filter
     for(int idx = 0; idx<m_Size; ++idx)
     {
-        m_CommandStackController.AddCommand({m_Name+"/"+std::to_string(idx)+"/Attack", false, 0, 10.0f}, [idx,this](const SCmdStackItem& Item) { m_Filter->SetAttackMilliSeconds(idx, Item.s_FloatValue); });
-        m_CommandStackController.AddCommand({m_Name+"/"+std::to_string(idx)+"/Decay", false, 0, 10.0f}, [idx,this](const SCmdStackItem& Item) { m_Filter->SetDecayMilliSeconds(idx, Item.s_FloatValue); });
-        m_CommandStackController.AddCommand({m_Name+"/"+std::to_string(idx)+"/Sustain", false, 0, 1.0f}, [idx,this](const SCmdStackItem& Item) { m_Filter->SetSustain(idx, Item.s_FloatValue); });
-        m_CommandStackController.AddCommand({m_Name+"/"+std::to_string(idx)+"/Release", false, 0, 10.0f}, [idx,this](const SCmdStackItem& Item) { m_Filter->SetReleaseMilliSeconds(idx, Item.s_FloatValue); });
+        m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/"+std::to_string(idx)+"/Attack").FloatValue(10.0f), [idx,this](const SCmdStackItem& Item) { m_Filter->SetAttackMilliSeconds(idx, Item.s_FloatValue); });
+        m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/"+std::to_string(idx)+"/Decay").FloatValue(10.0f), [idx,this](const SCmdStackItem& Item) { m_Filter->SetDecayMilliSeconds(idx, Item.s_FloatValue); });
+        m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/"+std::to_string(idx)+"/Sustain").FloatValue(1.0f), [idx,this](const SCmdStackItem& Item) { m_Filter->SetSustain(idx, Item.s_FloatValue); });
+        m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/"+std::to_string(idx)+"/Release").FloatValue(10.0f), [idx,this](const SCmdStackItem& Item) { m_Filter->SetReleaseMilliSeconds(idx, Item.s_FloatValue); });
     }
 }
 

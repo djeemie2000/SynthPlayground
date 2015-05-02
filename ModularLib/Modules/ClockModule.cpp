@@ -13,9 +13,9 @@ CClockModule::CClockModule(const std::string& Name, CCommandStackController &Com
     // Open here?
     Open();
     // commandstack!!
-    m_CommandStackController.AddCommand({m_Name+"/BeatsPerMinute", false, 120, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetBeatsPerMinute(Item.s_IntValue); });
-    m_CommandStackController.AddCommand({m_Name+"/BeatsPerBar", false, 1, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetBeatsPerBar(Item.s_IntValue); });
-    m_CommandStackController.AddCommand({m_Name+"/SubDivision", false, 128, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetSubDivision(Item.s_IntValue); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/BeatsPerMinute").IntValue(120), [this](const SCmdStackItem& Item) { m_Filter->SetBeatsPerMinute(Item.s_IntValue); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/BeatsPerBar").IntValue(1), [this](const SCmdStackItem& Item) { m_Filter->SetBeatsPerBar(Item.s_IntValue); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/SubDivision").IntValue(128), [this](const SCmdStackItem& Item) { m_Filter->SetSubDivision(Item.s_IntValue); });
 }
 
 CClockModule::~CClockModule()

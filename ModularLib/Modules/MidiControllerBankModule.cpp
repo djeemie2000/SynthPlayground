@@ -16,9 +16,9 @@ CMidiControllerBankModule::CMidiControllerBankModule(const std::string& Name, in
     // command stack stuff for filter
     for(int idx = 0; idx<m_Size; ++idx)
     {
-        m_CommandStackController.AddCommand({m_Name+"/"+std::to_string(idx)+"/Parameter", false, -1, 0.0f}, [idx,this](const SCmdStackItem& Item) { m_Filter->SetParam(idx, Item.s_IntValue); });
-        m_CommandStackController.AddCommand({m_Name+"/"+std::to_string(idx)+"/Min", false, 0, 0.0f}, [idx,this](const SCmdStackItem& Item) { m_Filter->SetMin(idx, Item.s_FloatValue); });
-        m_CommandStackController.AddCommand({m_Name+"/"+std::to_string(idx)+"/Max", false, 0, 1.0f}, [idx,this](const SCmdStackItem& Item) { m_Filter->SetMax(idx, Item.s_FloatValue); });
+        m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/"+std::to_string(idx)+"/Parameter").IntValue(-1), [idx,this](const SCmdStackItem& Item) { m_Filter->SetParam(idx, Item.s_IntValue); });
+        m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/"+std::to_string(idx)+"/Min").FloatValue(0.0f), [idx,this](const SCmdStackItem& Item) { m_Filter->SetMin(idx, Item.s_FloatValue); });
+        m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/"+std::to_string(idx)+"/Max").FloatValue(1.0f), [idx,this](const SCmdStackItem& Item) { m_Filter->SetMax(idx, Item.s_FloatValue); });
     }
 }
 

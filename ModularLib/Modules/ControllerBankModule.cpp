@@ -16,7 +16,7 @@ CControllerBankModule::CControllerBankModule(const std::string& Name, int Size, 
     // command stack stuff for filter
     for(int idx = 0; idx<m_Size; ++idx)
     {
-        m_CommandStackController.AddCommand({m_Name+"/"+std::to_string(idx)+"/Value", false, 0, 0.0f}, [idx,this](const SCmdStackItem& Item) { m_Filter->Set(idx, Item.s_FloatValue); });
+        m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/"+std::to_string(idx)+"/Value").FloatValue(0.0f), [idx,this](const SCmdStackItem& Item) { m_Filter->Set(idx, Item.s_FloatValue); });
     }
 }
 

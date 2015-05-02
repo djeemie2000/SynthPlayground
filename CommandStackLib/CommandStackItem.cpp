@@ -10,24 +10,6 @@ SCmdStackItem::SCmdStackItem()
 {
 }
 
-SCmdStackItem::SCmdStackItem(const string &Name, bool BoolValue, int IntValue, float FloatValue)
-    : s_Name(Name)
-    , s_BoolValue(BoolValue)
-    , s_IntValue(IntValue)
-    , s_FloatValue(FloatValue)
-{
-}
-
-//SCmdStackItem::SCmdStackItem(const std::string& Name, bool BoolValue, int IntValue, float FloatValue, std::uint32_t TimeStamp)
-//    : s_Name(Name)
-//    , s_BoolValue(BoolValue)
-//    , s_IntValue(IntValue)
-//    , s_FloatValue(FloatValue)
-//    , s_TimeStamp(TimeStamp)
-//    , s_HasTimeStamp(true)
-//{
-//}
-
 SCmdStackItem::SCmdStackItem(const string &Name)
     : s_Name(Name)
     // other members use member value initialisation

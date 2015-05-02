@@ -17,8 +17,8 @@ CLFOBankModule::CLFOBankModule(const std::string& Name, int Size, CCommandStackC
     // command stack stuff for filter
     for(int idx = 0; idx<m_Size; ++idx)
     {
-        m_CommandStackController.AddCommand({m_Name+"/"+std::to_string(idx)+"/Select", false, 0, 0.0f}, [idx,this](const SCmdStackItem& Item) { m_Filter->Select(idx, Item.s_IntValue); });
-        m_CommandStackController.AddCommand({m_Name+"/"+std::to_string(idx)+"/Frequency", false, 0, 1.0f}, [idx,this](const SCmdStackItem& Item) { m_Filter->SetFrequency(idx, Item.s_FloatValue); });
+        m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/"+std::to_string(idx)+"/Select").IntValue(0), [idx,this](const SCmdStackItem& Item) { m_Filter->Select(idx, Item.s_IntValue); });
+        m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/"+std::to_string(idx)+"/Frequency").FloatValue(1.0f), [idx,this](const SCmdStackItem& Item) { m_Filter->SetFrequency(idx, Item.s_FloatValue); });
     }
 }
 

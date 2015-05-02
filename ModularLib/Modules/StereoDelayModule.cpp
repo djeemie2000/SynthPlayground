@@ -25,15 +25,15 @@ CStereoDelayModule::CStereoDelayModule(const std::string& Name, CCommandStackCon
     m_Filter->OnDelayFeedback(1, 0.5f);
 
     // command stack stuff for filter
-    m_CommandStackController.AddCommand({m_Name+"/Left/Bypass", true, 0, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->OnDelayBypass(0, Item.s_BoolValue); });
-    m_CommandStackController.AddCommand({m_Name+"/Left/WetDry", false, 0, 0.4f}, [this](const SCmdStackItem& Item) { m_Filter->OnDelayWetDry(0, Item.s_FloatValue); });
-    m_CommandStackController.AddCommand({m_Name+"/Left/Feedback", false, 0, 0.5f}, [this](const SCmdStackItem& Item) { m_Filter->OnDelayFeedback(0, Item.s_FloatValue); });
-    m_CommandStackController.AddCommand({m_Name+"/Left/DelayMilliSeconds", false, 0, 247.0f}, [this](const SCmdStackItem& Item) { m_Filter->OnDelayMilliSeconds(0, Item.s_FloatValue); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/Left/Bypass").BoolValue(true), [this](const SCmdStackItem& Item) { m_Filter->OnDelayBypass(0, Item.s_BoolValue); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/Left/WetDry").FloatValue(0.4f), [this](const SCmdStackItem& Item) { m_Filter->OnDelayWetDry(0, Item.s_FloatValue); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/Left/Feedback").FloatValue(0.5f), [this](const SCmdStackItem& Item) { m_Filter->OnDelayFeedback(0, Item.s_FloatValue); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/Left/DelayMilliSeconds").FloatValue(247.0f), [this](const SCmdStackItem& Item) { m_Filter->OnDelayMilliSeconds(0, Item.s_FloatValue); });
 
-    m_CommandStackController.AddCommand({m_Name+"/Right/Bypass", true, 0, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->OnDelayBypass(1, Item.s_BoolValue); });
-    m_CommandStackController.AddCommand({m_Name+"/Right/WetDry", false, 0, 0.4f}, [this](const SCmdStackItem& Item) { m_Filter->OnDelayWetDry(1, Item.s_FloatValue); });
-    m_CommandStackController.AddCommand({m_Name+"/Right/Feedback", false, 0, 0.5f}, [this](const SCmdStackItem& Item) { m_Filter->OnDelayFeedback(1, Item.s_FloatValue); });
-    m_CommandStackController.AddCommand({m_Name+"/Right/DelayMilliSeconds", false, 0, 253.0f}, [this](const SCmdStackItem& Item) { m_Filter->OnDelayMilliSeconds(1, Item.s_FloatValue); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/Right/Bypass").BoolValue(true), [this](const SCmdStackItem& Item) { m_Filter->OnDelayBypass(1, Item.s_BoolValue); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/Right/WetDry").FloatValue(0.4f), [this](const SCmdStackItem& Item) { m_Filter->OnDelayWetDry(1, Item.s_FloatValue); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/Right/Feedback").FloatValue(0.5f), [this](const SCmdStackItem& Item) { m_Filter->OnDelayFeedback(1, Item.s_FloatValue); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/Right/DelayMilliSeconds").FloatValue(253.0f), [this](const SCmdStackItem& Item) { m_Filter->OnDelayMilliSeconds(1, Item.s_FloatValue); });
 }
 
 CStereoDelayModule::~CStereoDelayModule()

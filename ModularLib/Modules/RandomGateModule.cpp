@@ -13,12 +13,12 @@ CRandomGateModule::CRandomGateModule(const std::string& Name, CCommandStackContr
     // Open here?
     Open();
     // command stack stuff for filter
-    m_CommandStackController.AddCommand({m_Name+"/GateOpenScale", false, 14, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetGateOpenScale(Item.s_IntValue); });
-    m_CommandStackController.AddCommand({m_Name+"/GateOpenCenter", false, 0, 0.5f}, [this](const SCmdStackItem& Item) { m_Filter->SetGateOpenCenter(Item.s_FloatValue); });
-    m_CommandStackController.AddCommand({m_Name+"/GateOpenVariation", false, 0, 1.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetGateOpenVariation(Item.s_FloatValue); });
-    m_CommandStackController.AddCommand({m_Name+"/GateCloseScale", false, 14, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetGateCloseScale(Item.s_IntValue); });
-    m_CommandStackController.AddCommand({m_Name+"/GateCloseCenter", false, 0, 0.5f}, [this](const SCmdStackItem& Item) { m_Filter->SetGateCloseCenter(Item.s_FloatValue); });
-    m_CommandStackController.AddCommand({m_Name+"/GateCloseVariation", false, 0, 1.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetGateCloseVariation(Item.s_FloatValue); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/GateOpenScale").IntValue(14), [this](const SCmdStackItem& Item) { m_Filter->SetGateOpenScale(Item.s_IntValue); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/GateOpenCenter").FloatValue(0.5f), [this](const SCmdStackItem& Item) { m_Filter->SetGateOpenCenter(Item.s_FloatValue); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/GateOpenVariation").FloatValue(1.0f), [this](const SCmdStackItem& Item) { m_Filter->SetGateOpenVariation(Item.s_FloatValue); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/GateCloseScale").IntValue(14), [this](const SCmdStackItem& Item) { m_Filter->SetGateCloseScale(Item.s_IntValue); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/GateCloseCenter").FloatValue(0.5f), [this](const SCmdStackItem& Item) { m_Filter->SetGateCloseCenter(Item.s_FloatValue); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/GateCloseVariation").FloatValue(1.0f), [this](const SCmdStackItem& Item) { m_Filter->SetGateCloseVariation(Item.s_FloatValue); });
 }
 
 CRandomGateModule::~CRandomGateModule()

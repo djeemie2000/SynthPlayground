@@ -18,7 +18,7 @@ CDelayLineModule::CDelayLineModule(const std::string& Name, CCommandStackControl
     m_Filter->SetDelayRange(100);
 
     // command stack stuff for filter
-    m_CommandStackController.AddCommand({m_Name+"/DelayRangeMilliSeconds", true, 100, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetDelayRange(Item.s_IntValue); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/DelayRangeMilliSeconds").IntValue(100), [this](const SCmdStackItem& Item) { m_Filter->SetDelayRange(Item.s_IntValue); });
 }
 
 CDelayLineModule::~CDelayLineModule()

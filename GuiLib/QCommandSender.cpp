@@ -11,20 +11,20 @@ QCommandSender::QCommandSender(const std::string &Name, CCommandStackController&
 
 void QCommandSender::OnBoolChanged(bool Value)
 {
-    m_Handler.Handle({m_Name, Value, 0, 0.0f});
+    m_Handler.Handle(SCmdStackItem(m_Name).BoolValue(Value));
 }
 
 void QCommandSender::OnIntChanged(int Value)
 {
-    m_Handler.Handle({m_Name, false, Value, 0.0f});
+    m_Handler.Handle(SCmdStackItem(m_Name).IntValue(Value));
 }
 
 void QCommandSender::OnDoubleChanged(double Value)
 {
-    m_Handler.Handle({m_Name, false, 0, static_cast<float>(Value)});
+    m_Handler.Handle(SCmdStackItem(m_Name).FloatValue(static_cast<float>(Value)));
 }
 
 void QCommandSender::OnChanged()
 {
-    m_Handler.Handle({m_Name, false, 0, 0.0f});
+    m_Handler.Handle(SCmdStackItem(m_Name));
 }

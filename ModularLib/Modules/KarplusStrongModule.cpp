@@ -14,7 +14,7 @@ CKarplusStrongModule::CKarplusStrongModule(const std::string& Name, CCommandStac
     // Open here?
     Open();
     // command stack stuff for filter
-    m_CommandStackController.AddCommand({m_Name+"/Poles", false, 1, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetPoles(Item.IntValue()); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/Poles").IntValue(1), [this](const SCmdStackItem& Item) { m_Filter->SetPoles(Item.IntValue()); });
 }
 
 CKarplusStrongModule::~CKarplusStrongModule()

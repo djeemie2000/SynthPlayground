@@ -13,8 +13,8 @@ CEnvelopeFollowerModule::CEnvelopeFollowerModule(const std::string& Name, CComma
     // Open here?
     Open();
     // command stack stuff for filter
-    m_CommandStackController.AddCommand({m_Name+"/AttackMilliSeconds", false, 0, 1.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetAttack(Item.s_FloatValue); });
-    m_CommandStackController.AddCommand({m_Name+"/ReleaseMilliSeconds", false, 0, 1.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetRelease(Item.s_FloatValue); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/AttackMilliSeconds").FloatValue(1.0f), [this](const SCmdStackItem& Item) { m_Filter->SetAttack(Item.s_FloatValue); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/ReleaseMilliSeconds").FloatValue(1.0f), [this](const SCmdStackItem& Item) { m_Filter->SetRelease(Item.s_FloatValue); });
 }
 
 CEnvelopeFollowerModule::~CEnvelopeFollowerModule()

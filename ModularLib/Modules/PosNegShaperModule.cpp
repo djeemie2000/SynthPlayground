@@ -11,9 +11,9 @@ CPosNegShaperModule::CPosNegShaperModule(const std::string& Name, CCommandStackC
  , m_IOManager(new CJackIOManager())
 {
     // command stack stuff for filter
-    m_CommandStackController.AddCommand({m_Name+"/Invert", false, 0, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetInvert(Item.s_BoolValue); });
-    m_CommandStackController.AddCommand({m_Name+"/InverterMode", false, 1, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetInverterMode(Item.s_IntValue); });
-    m_CommandStackController.AddCommand({m_Name+"/DerectifierMode", false, 1, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetDerectifierMode(Item.s_IntValue); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/Invert").BoolValue(false), [this](const SCmdStackItem& Item) { m_Filter->SetInvert(Item.s_BoolValue); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/InverterMode").IntValue(1), [this](const SCmdStackItem& Item) { m_Filter->SetInverterMode(Item.s_IntValue); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/DerectifierMode").IntValue(1), [this](const SCmdStackItem& Item) { m_Filter->SetDerectifierMode(Item.s_IntValue); });
     // Open here?
     Open();
 }

@@ -14,9 +14,9 @@ CGlitchModule::CGlitchModule(const std::string& Name, CCommandStackController& C
     // Open here?
     Open();
     // command stack stuff for filter
-    m_CommandStackController.AddCommand({m_Name+"/OctaveShift", false, 0, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetOctaveShift(Item.s_IntValue); });
-    m_CommandStackController.AddCommand({m_Name+"/GrainSizeOut", false, 0, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetGrainSizeOut(Item.s_IntValue); });
-    m_CommandStackController.AddCommand({m_Name+"/GrainSizeIn", false, 0, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetGrainSizeIn(Item.s_IntValue); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/OctaveShift").IntValue(0), [this](const SCmdStackItem& Item) { m_Filter->SetOctaveShift(Item.s_IntValue); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/GrainSizeOut").IntValue(0), [this](const SCmdStackItem& Item) { m_Filter->SetGrainSizeOut(Item.s_IntValue); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/GrainSizeIn").IntValue(0), [this](const SCmdStackItem& Item) { m_Filter->SetGrainSizeIn(Item.s_IntValue); });
 }
 
 CGlitchModule::~CGlitchModule()

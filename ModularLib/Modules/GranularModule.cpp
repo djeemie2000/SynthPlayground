@@ -13,12 +13,12 @@ CGranularModule::CGranularModule(const std::string& Name, CCommandStackControlle
     // Open here?
     Open();
     // command stack stuff for filter
-    m_CommandStackController.AddCommand({m_Name+"/SampleGrab", false, 0, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetSampleGrab(Item.BoolValue()); });
-    m_CommandStackController.AddCommand({m_Name+"/SampleSize", false, 15, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetSampleSize(Item.IntValue()); });
-    m_CommandStackController.AddCommand({m_Name+"/GrainSize", false, 12, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetGrainSize(Item.IntValue()); });
-    m_CommandStackController.AddCommand({m_Name+"/GrainDensity", false, 11, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetGrainDensity(Item.IntValue()); });
-    m_CommandStackController.AddCommand({m_Name+"/GrainSpeed", false, 1<<CGrain<float>::SpeedScale, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetGrainSpeed(Item.IntValue()); });
-    m_CommandStackController.AddCommand({m_Name+"/PositionSpeed", false, 256, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetPositionSpeed(Item.IntValue()); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/SampleGrab").BoolValue(false), [this](const SCmdStackItem& Item) { m_Filter->SetSampleGrab(Item.BoolValue()); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/SampleSize").IntValue(15), [this](const SCmdStackItem& Item) { m_Filter->SetSampleSize(Item.IntValue()); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/GrainSize").IntValue(12), [this](const SCmdStackItem& Item) { m_Filter->SetGrainSize(Item.IntValue()); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/GrainDensity").IntValue(11), [this](const SCmdStackItem& Item) { m_Filter->SetGrainDensity(Item.IntValue()); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/GrainSpeed").IntValue(1<<CGrain<float>::SpeedScale), [this](const SCmdStackItem& Item) { m_Filter->SetGrainSpeed(Item.IntValue()); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/PositionSpeed").IntValue(256), [this](const SCmdStackItem& Item) { m_Filter->SetPositionSpeed(Item.IntValue()); });
 }
 
 CGranularModule::~CGranularModule()

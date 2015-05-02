@@ -17,8 +17,8 @@ CDetunerModule::CDetunerModule(const std::string& Name, int Size, CCommandStackC
     // command stack stuff for filter
     for(int idx = 0; idx<m_Size; ++idx)
     {
-        m_CommandStackController.AddCommand({m_Name+"/"+std::to_string(idx)+"/Detune", false, 0, 0.0f}, [idx,this](const SCmdStackItem& Item) { m_Filter->SetDetune(idx, Item.s_FloatValue); });
-        m_CommandStackController.AddCommand({m_Name+"/"+std::to_string(idx)+"/OctaveShift", false, 0, 0.0f}, [idx,this](const SCmdStackItem& Item) { m_Filter->SetOctaveShift(idx, Item.s_IntValue); });
+        m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/"+std::to_string(idx)+"/Detune").FloatValue(0.0f), [idx,this](const SCmdStackItem& Item) { m_Filter->SetDetune(idx, Item.s_FloatValue); });
+        m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/"+std::to_string(idx)+"/OctaveShift").IntValue(0), [idx,this](const SCmdStackItem& Item) { m_Filter->SetOctaveShift(idx, Item.s_IntValue); });
     }
 }
 

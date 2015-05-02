@@ -17,9 +17,9 @@ CMixerModule::CMixerModule(const std::string& Name, int Size, CCommandStackContr
     // command stack stuff for filter
     for(int idx = 0; idx<m_Size; ++idx)
     {
-        m_CommandStackController.AddCommand({m_Name+"/"+std::to_string(idx)+"/Volume", false, 0, 0.25f}, [idx,this](const SCmdStackItem& Item) { m_Filter->SetVolume(idx, Item.s_FloatValue); });
+        m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/"+std::to_string(idx)+"/Volume").FloatValue(0.25f), [idx,this](const SCmdStackItem& Item) { m_Filter->SetVolume(idx, Item.s_FloatValue); });
     }
-    m_CommandStackController.AddCommand({m_Name+"/MasterVolume", false, 0, 0.5f}, [this](const SCmdStackItem& Item) { m_Filter->SetMasterVolume(Item.s_FloatValue); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/MasterVolume").FloatValue(0.5f), [this](const SCmdStackItem& Item) { m_Filter->SetMasterVolume(Item.s_FloatValue); });
 }
 
 CMixerModule::~CMixerModule()

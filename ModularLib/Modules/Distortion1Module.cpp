@@ -13,7 +13,7 @@ CDistortion1Module::CDistortion1Module(const std::string& Name, CCommandStackCon
     // Open here?
     Open();
     // command stack stuff for filter
-    m_CommandStackController.AddCommand({m_Name+"/Drive", false, 0, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetDrive(Item.s_FloatValue); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/Drive").FloatValue(0.0f), [this](const SCmdStackItem& Item) { m_Filter->SetDrive(Item.s_FloatValue); });
 }
 
 CDistortion1Module::~CDistortion1Module()

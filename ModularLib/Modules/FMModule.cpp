@@ -14,14 +14,13 @@ CFMModule::CFMModule(const std::string& Name, CCommandStackController& CommandSt
     // Open here?
     Open();
     // command stack stuff for filter
-    m_CommandStackController.AddCommand({m_Name+"/ModWaveform", false, 3, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SelectModulatorWaveform(Item.s_IntValue); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/ModWaveform").IntValue(3), [this](const SCmdStackItem& Item) { m_Filter->SelectModulatorWaveform(Item.s_IntValue); });
 }
 
 CFMModule::~CFMModule()
 {
     // remove from command stack
-    m_CommandStackController.RemoveCommand(m_Name+"/Resonance");
-    m_CommandStackController.RemoveCommand(m_Name+"/Poles");
+    m_CommandStackController.RemoveCommand(m_Name+"/ModWaveform");
     Close();
 }
 

@@ -14,7 +14,7 @@ COperatorModule::COperatorModule(const std::string& Name, CCommandStackControlle
     // Open here?
     Open();
     // command stack stuff for filter
-    m_CommandStackController.AddCommand({m_Name+"/Select", false, 0, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->Select(Item.s_IntValue); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/Select").IntValue(0), [this](const SCmdStackItem& Item) { m_Filter->Select(Item.s_IntValue); });
 }
 
 COperatorModule::~COperatorModule()

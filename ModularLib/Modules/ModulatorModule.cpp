@@ -16,10 +16,10 @@ CModulatorModule::CModulatorModule(const std::string& Name, int Size, CCommandSt
     // command stack stuff for filter
     for(int idx = 0; idx<m_Size; ++idx)
     {
-        m_CommandStackController.AddCommand({m_Name+"/"+std::to_string(idx)+"/ModAmt", false, 0, 0.0f}, [idx,this](const SCmdStackItem& Item) { m_Filter->SetModAmt(idx, Item.s_FloatValue); });
+        m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/"+std::to_string(idx)+"/ModAmt").FloatValue(0.0f), [idx,this](const SCmdStackItem& Item) { m_Filter->SetModAmt(idx, Item.s_FloatValue); });
     }
-    m_CommandStackController.AddCommand({m_Name+"/Offset", false, 0, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetOffset(Item.s_FloatValue); });
-    m_CommandStackController.AddCommand({m_Name+"/LimitMode", false, 1, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetLimitMode(Item.s_IntValue); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/Offset").FloatValue(0.0f), [this](const SCmdStackItem& Item) { m_Filter->SetOffset(Item.s_FloatValue); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/LimitMode").IntValue(1), [this](const SCmdStackItem& Item) { m_Filter->SetLimitMode(Item.s_IntValue); });
 }
 
 CModulatorModule::~CModulatorModule()

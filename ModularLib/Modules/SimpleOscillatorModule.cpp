@@ -14,7 +14,7 @@ CSimpleOscillatorModule::CSimpleOscillatorModule(const std::string& Name, CComma
     // Open here?
     Open();
     // command stack stuff for filter
-    m_CommandStackController.AddCommand({m_Name+"/Select", false, 0, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SelectWaveform(Item.s_IntValue); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/Select").IntValue(0), [this](const SCmdStackItem& Item) { m_Filter->SelectWaveform(Item.s_IntValue); });
 }
 
 CSimpleOscillatorModule::~CSimpleOscillatorModule()

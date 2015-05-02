@@ -14,16 +14,15 @@ CStepSequencerModule::CStepSequencerModule(const std::string& Name, CCommandStac
     // Open here?
     Open();
     // commandstack!!
-    m_CommandStackController.AddCommand({m_Name+"/IsActive", false, 0, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetActive(Item.s_BoolValue); });
-    m_CommandStackController.AddCommand({m_Name+"/NumSteps", false, CStepSequencerFilter::NumSequencerSteps, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetNumSteps(Item.s_IntValue); });
-    m_CommandStackController.AddCommand({m_Name+"/StepSize", false, 1, 0.0f}, [this](const SCmdStackItem& Item) { m_Filter->SetStepSize(Item.s_IntValue); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/IsActive").BoolValue(false), [this](const SCmdStackItem& Item) { m_Filter->SetActive(Item.s_BoolValue); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/NumSteps").IntValue(CStepSequencerFilter::NumSequencerSteps), [this](const SCmdStackItem& Item) { m_Filter->SetNumSteps(Item.s_IntValue); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/StepSize").IntValue(1), [this](const SCmdStackItem& Item) { m_Filter->SetStepSize(Item.s_IntValue); });
     for(int idx = 0; idx<CStepSequencerFilter::NumSequencerSteps; ++idx)
     {
-        m_CommandStackController.AddCommand({m_Name+"/Step/"+std::to_string(idx)+"/Active", false, 0, 0.0f}, [idx,this](const SCmdStackItem& Item) { m_Filter->SetActive(idx, Item.s_BoolValue); });
-        m_CommandStackController.AddCommand({m_Name+"/Step/"+std::to_string(idx)+"/Octave", false, 3, 0.0f}, [idx,this](const SCmdStackItem& Item) { m_Filter->SetOctave(idx, static_cast<EOctave>(Item.s_IntValue)); });
-        m_CommandStackController.AddCommand({m_Name+"/Step/"+std::to_string(idx)+"/Note", false, static_cast<int>(ENote::A), 0.0f}, [idx,this](const SCmdStackItem& Item) { m_Filter->SetNote(idx, static_cast<ENote>(Item.s_IntValue)); });
+        m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/Step/"+std::to_string(idx)+"/Active").BoolValue(false), [idx,this](const SCmdStackItem& Item) { m_Filter->SetActive(idx, Item.s_BoolValue); });
+        m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/Step/"+std::to_string(idx)+"/Octave").IntValue(3), [idx,this](const SCmdStackItem& Item) { m_Filter->SetOctave(idx, static_cast<EOctave>(Item.s_IntValue)); });
+        m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/Step/"+std::to_string(idx)+"/Note").IntValue(static_cast<int>(ENote::A)), [idx,this](const SCmdStackItem& Item) { m_Filter->SetNote(idx, static_cast<ENote>(Item.s_IntValue)); });
     }
-
 }
 
 CStepSequencerModule::~CStepSequencerModule()
@@ -108,8 +107,8 @@ bool CStepSequencerModule::Close()
 void CStepSequencerModule::SetCurrentStepIndex(int Index)
 {
     // switch off previous step
-    m_CommandStackController.Handle({m_Name+"/Step/"+std::to_string(m_CurrentStep)+"/Status", false, 0, 0.0f});
+    m_CommandStackController.Handle(SCmdStackItem(m_Name+"/Step/"+std::to_string(m_CurrentStep)+"/Status").BoolValue(false));
     // switch on current step
     m_CurrentStep = Index;
-    m_CommandStackController.Handle({m_Name+"/Step/"+std::to_string(m_CurrentStep)+"/Status", true, 0, 0.0f});
+    m_CommandStackController.Handle(SCmdStackItem(m_Name+"/Step/"+std::to_string(m_CurrentStep)+"/Status").BoolValue(true));
 }
