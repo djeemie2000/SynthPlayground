@@ -54,6 +54,7 @@
 #include "ScalerModule.h"
 #include "ControllerChangeModule.h"
 #include "RingSequencerModule.h"
+#include "MidiOctaveGateModule.h"
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -292,6 +293,10 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CRingSequencerModule(Name));
     }
+    else if(Type == "MidiOctaveGate")
+    {
+        Module.reset(new CMidiOctaveGateModule(Name, *m_CommandStackController));
+    }
 
     return Module;
 }
@@ -410,6 +415,7 @@ std::vector<string> CModuleFactory::GetSupportedTypes(const std::string &Categor
             "MidiNote",
             "MidiStepSequencer",
             "MidiControllerBank(4)",
+            "MidiOctaveGate"
         };
     }
 

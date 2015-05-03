@@ -249,4 +249,8 @@ add_library(ModularLib
     Filters/RingSequencerFilter.h
     Modules/RingSequencerModule.cpp
     Modules/RingSequencerModule.h
+    Filters/MidiOctaveGateFilter.cpp
+    Filters/MidiOctaveGateFilter.h
+    Modules/MidiOctaveGateModule.cpp
+    Modules/MidiOctaveGateModule.h
 )

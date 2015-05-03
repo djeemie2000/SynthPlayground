@@ -9,7 +9,8 @@ SOURCES += \
     NoteCountMidiHandler.cpp \
     MidiNotePitch.cpp \
     MultiMidiHandler.cpp \
-    RawMidiParser.cpp
+    RawMidiParser.cpp \
+    NoteActiveMidiHandler.cpp
 
 HEADERS += \
     MidiHandlerI.h \
@@ -20,7 +21,8 @@ HEADERS += \
     MidiRendererI.h \
     MidiNotePitch.h \
     MultiMidiHandler.h \
-    RawMidiParser.h
+    RawMidiParser.h \
+    NoteActiveMidiHandler.h
 
 unix {
     target.path = /usr/lib

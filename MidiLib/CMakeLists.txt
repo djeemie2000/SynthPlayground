@@ -21,4 +21,6 @@ add_library(MidiLib
     MidiNotePitch.h
     MultiMidiHandler.h
     RawMidiParser.h
+    NoteActiveMidiHandler.cpp
+    NoteActiveMidiHandler.h
 )

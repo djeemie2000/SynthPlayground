@@ -115,7 +115,9 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Filters/ControllerChangeFilter.cpp \
     Modules/ControllerChangeModule.cpp \
     Filters/RingSequencerFilter.cpp \
-    Modules/RingSequencerModule.cpp
+    Modules/RingSequencerModule.cpp \
+    Filters/MidiOctaveGateFilter.cpp \
+    Modules/MidiOctaveGateModule.cpp
 
 HEADERS += Filters/ControllerBankFilter.h \
     Filters/PhasorFilter.h \
@@ -232,7 +234,9 @@ HEADERS += Filters/ControllerBankFilter.h \
     Filters/ControllerChangeFilter.h \
     Modules/ControllerChangeModule.h \
     Filters/RingSequencerFilter.h \
-    Modules/RingSequencerModule.h
+    Modules/RingSequencerModule.h \
+    Filters/MidiOctaveGateFilter.h \
+    Modules/MidiOctaveGateModule.h
 
 INCLUDEPATH += ./Filters
 INCLUDEPATH += ./Modules
