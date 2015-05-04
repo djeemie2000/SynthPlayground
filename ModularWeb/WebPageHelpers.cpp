@@ -6,6 +6,62 @@
 #include "WebPageModuleParameterVisitor.h"
 #include "PatchManager.h"
 
+namespace
+{
+
+std::string GetCommonBegin()
+{
+    return R"(
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+              <title>ModularWeb</title>
+              <meta charset="utf-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1">
+              <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+              <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+              <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+            </head>
+            <body>
+
+            <div class="row bg-primary">
+            <div class="page-header text-center">
+            <h1>WebModular</h1>
+            </div>
+            </div>
+            <!end of header row>
+
+            <div class="row">
+            <div class="col-sm-12">
+            <ul class="pagination">
+                <li><a href="Patches">Patches</a></li>
+                <li><a href="Modules.html">CurrentModules</a></li>
+                <li><a href="ModuleCreation.html">ModuleManagement</a></li>
+                <li><a href="Connections.html">Connections</a></li>
+            </ul>
+            </div>
+            </div>
+            <!end of navigation row>
+           )";
+}
+
+std::string GetCommonEnd()
+{
+    return R"(
+            <div class="row">
+            <div class="col-sm-12 text-center bg-primary">
+            ...TODO...
+            </div>
+            </div>
+            <!end of footer row>
+
+            </body>
+            </html>
+           )";
+}
+
+}//namespace
+
 void UpdateModulePage(const CModuleManager& ModuleManager, const std::string& Name, CWebPageManager& WebPageManager, CCommandStackController &CommandStackController)
 {
     if(std::shared_ptr<IModularModule> Module = ModuleManager.GetModule(Name).lock())
@@ -126,29 +182,50 @@ void UpdateCommandsPage(CWebPageManager &WebPageManager)
 void UpdatePatchesPage(CPatchManager &PatchManager, CWebPageManager &WebPageManager)
 {
     std::ostringstream Content;
-    Content << "<!DOCTYPE html><html><head><title>Patches</title></head><body><h3>Patches</h3><table border=\"1\"><tr><th>Patch</th><th>Load</th><th>Path</th></tr>";
-    for(const std::string& Patch : PatchManager.GetPatchNames())
+    Content << R"(
+               <div class="row">
+               <div class="col-sm-12">
+               <form>
+               <div class="btn-group">
+               <input type="submit" class="btn btn-info" name="Command" value="Load" >
+               <input type="submit" class="btn btn-info" name="Command" value="Save" >
+               <input type="submit" class="btn btn-info" name="Command" value="Clear" >
+               <input type="submit" class="btn btn-info" name="Command" value="SaveAs" >
+               </div>
+               <input type="text" name="PatchName" >
+               <div class="container">
+            )";
+
+    auto PatchNames = PatchManager.GetPatchNames();
+    std::size_t ColumnSize = PatchNames.size()/4;
+    for(std::size_t idx = 0; idx<PatchNames.size(); ++idx)
     {
-        Content << "<tr><td>" << Patch << "</td>"
-                << R"(<td><form ><input type="submit" name="Load" value=")" << Patch << R"(" ></form></td>)"
-                << "<td>" << PatchManager.GetPath(Patch) << "</td></tr>";
+        if(idx%ColumnSize==0)
+        {
+            if(idx!=0)
+            {
+                Content << R"(</div><div class="col-sm-3">)";
+            }
+            else
+            {
+                Content << R"(<div class="col-sm-2">)";
+            }
+        }
+        Content << R"(<input type="radio" name="SelectedPatch" value=")" << PatchNames[idx] << R"(" >)" << PatchNames[idx] << "<br>";
     }
-    Content << "</table></body></html>";
-    WebPageManager.AddPage("/Patches", Content.str());
+    Content << "</div>";
+
+    Content << R"(
+               </div>
+               </form>
+               </div>
+               </div>
+               <!end of patches row>
+               )";
+
+
+    WebPageManager.AddPage("/Patches", GetCommonBegin()+Content.str()+GetCommonEnd());
 }
-
-
-void UpdateMainPage(CWebPageManager &WebPageManager)
-{
-    std::ostringstream Content;
-    Content << "<!DOCTYPE html><html><head><title>WebModular</title></head><body><h3>WebModular</h3>";
-    Content << "<a href=\"/Patches\" >Patches</a><br>";
-    Content << "<a href=\"/Commands\" >Commands</a><br>";
-    Content << "<a href=\"/SupportedModules\" >Supported modules</a><br>";
-    Content << "<a href=\"/Modules\" >Current modules</a><br>";
-    WebPageManager.AddPage("/index", Content.str());
-}
-
 
 void UpdateTestPage(CWebPageManager &WebPageManager)
 {
@@ -175,56 +252,6 @@ void UpdateTestPage(CWebPageManager &WebPageManager)
     WebPageManager.AddPage("/test", Content.str());
 }
 
-std::string GetCommonBegin()
-{
-    return R"(
-            <!DOCTYPE html>
-            <html lang="en">
-            <head>
-              <title>ModularWeb</title>
-              <meta charset="utf-8">
-              <meta name="viewport" content="width=device-width, initial-scale=1">
-              <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-              <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-              <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-            </head>
-            <body>
-
-            <div class="row bg-primary">
-            <div class="page-header text-center">
-            <h1>WebModular</h1>
-            </div>
-            </div>
-            <!end of header row>
-
-            <div class="row">
-            <div class="col-sm-12">
-            <ul class="pagination">
-                <li><a href="Patches">Patches</a></li>
-                <li><a href="Modules.html">CurrentModules</a></li>
-                <li><a href="ModuleCreation.html">ModuleManagement</a></li>
-                <li><a href="Connections.html">Connections</a></li>
-            </ul>
-            </div>
-            </div>
-            <!end of navigation row>
-           )";
-}
-
-std::string GetCommonEnd()
-{
-    return R"(
-            <div class="row">
-            <div class="col-sm-12 text-center bg-primary">
-            ...TODO...
-            </div>
-            </div>
-            <!end of footer row>
-
-            </body>
-            </html>
-           )";
-}
 
 void AddDefaultPage(CWebPageManager& WebPageManager)
 {

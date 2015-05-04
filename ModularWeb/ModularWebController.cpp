@@ -26,7 +26,6 @@ CModularWebController::CModularWebController(const std::string& PatchDirectory)
     std::shared_ptr<IModuleFactory> Factory(new CModuleFactory(m_CommandStackController));
     m_ModuleManager.reset(new CModuleManager(Factory));
 
-    UpdateMainPage(*m_WebPageManager);
     UpdateCommandsPage(*m_WebPageManager);
     UpdatePatchesPage(*m_PatchManager, *m_WebPageManager);
     UpdateModuleTypesPage(*m_ModuleManager, *m_WebPageManager);
@@ -45,25 +44,36 @@ CModularWebController::~CModularWebController()
 
 string CModularWebController::HandleWebRequest(const SWebRequest &Request)
 {
-    if(Request.s_Uri == "/Commands")
+    if(Request.s_Uri == "/Patches")
     {
         std::string Command = GetQuery("Command", Request);
-        if(Command==std::string("RemoveAll"))
+        std::string SelectedPatchName = GetQuery("SelectedPatch", Request);
+        std::string NewPatchName = GetQuery("PatchName", Request);
+        if(!SelectedPatchName.empty())
         {
-            RemoveAll();
-        }
-        else if(Command==std::string("Default"))
-        {
-            Default();
-        }
-        //??? TODO some decent response in web page manager
-    }
-    else if(Request.s_Uri == "/Patches")
-    {
-        std::string PatchName = GetQuery("Load", Request);
-        if(!PatchName.empty())
-        {
-            LoadPatch(PatchName);
+            if(Command=="Load")
+            {
+                LoadPatch(SelectedPatchName);
+            }
+            else if(Command=="Save")
+            {
+                //Save current patch as SelectedPatchName
+                SavePatch(SelectedPatchName);
+            }
+            else if(Command=="Clear")
+            {
+                RemoveAll();
+            }
+            else if(Command=="SaveAs")
+            {
+                //Save current patch as NewPatchName (if it is not empty)
+                if(!NewPatchName.empty())
+                {
+                    SavePatch(NewPatchName);
+                    //
+                    UpdatePatchesPage(*m_PatchManager, *m_WebPageManager);
+                }
+            }
         }
     }
     else if(Request.s_Uri == "/SupportedModules")
@@ -168,6 +178,17 @@ bool CModularWebController::LoadPatch(const string &PatchName)
     }
     return Succeeded;
 
+}
+
+bool CModularWebController::SavePatch(const string &PatchName)
+{
+    bool Succeeded = false;
+    std::string Path = m_PatchManager->GetPath(PatchName);
+    if(!Path.empty())
+    {
+        Succeeded = Save(Path);
+    }
+    return Succeeded;
 }
 
 bool CModularWebController::Save(const string &Path)

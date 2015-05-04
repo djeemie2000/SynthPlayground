@@ -35,6 +35,7 @@ private:
     void UpdateModuleWebPages();
 
     bool LoadPatch(const std::string& PatchName);
+    bool SavePatch(const std::string& PatchName);
 
     std::shared_ptr<CPatchManager> m_PatchManager;
     std::shared_ptr<CJackConnectionManager> m_ConnectionManager;
