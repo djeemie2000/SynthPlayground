@@ -8,6 +8,7 @@ class CPatchManager
 public:
     CPatchManager(const std::string& PatchDirectory);
 
+    void Update();
     std::vector<std::string> GetPatchNames() const;
     std::string GetPath(const std::string& PatchName) const;
 

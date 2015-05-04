@@ -55,7 +55,7 @@ void UpdateModulePage(const CModuleManager& ModuleManager, const std::string& Na
 
         ModuleContent << "</body></html>";
 
-        WebPageManager.Add("/Module/"+Name, ModuleContent.str());
+        WebPageManager.AddPage("/Module/"+Name, ModuleContent.str());
     }
 }
 
@@ -75,7 +75,7 @@ void UpdateModuleOverviewPage(const CModuleManager& ModuleManager, CWebPageManag
                 << "</tr>";
     }
     Content << "</table></body></html>";
-    WebPageManager.Add("/Modules", Content.str());
+    WebPageManager.AddPage("/Modules", Content.str());
 }
 
 void UpdateModulePages(const CModuleManager& ModuleManager, CWebPageManager& WebPageManager, CCommandStackController &CommandStackController)
@@ -108,7 +108,7 @@ void UpdateModuleTypesPage(const CModuleManager& ModuleManager, CWebPageManager&
         }
     }
     Content << "</table></body></html>";
-    WebPageManager.Add("/SupportedModules", Content.str());
+    WebPageManager.AddPage("/SupportedModules", Content.str());
 }
 
 
@@ -119,7 +119,7 @@ void UpdateCommandsPage(CWebPageManager &WebPageManager)
     Content << R"(<form ><input type="submit" name="Command" value="RemoveAll" ></form>)";
     Content << R"(<form ><input type="submit" name="Command" value="Default" ></form>)";
     Content << "</body></html>";
-    WebPageManager.Add("/Commands", Content.str());
+    WebPageManager.AddPage("/Commands", Content.str());
 }
 
 
@@ -134,7 +134,7 @@ void UpdatePatchesPage(CPatchManager &PatchManager, CWebPageManager &WebPageMana
                 << "<td>" << PatchManager.GetPath(Patch) << "</td></tr>";
     }
     Content << "</table></body></html>";
-    WebPageManager.Add("/Patches", Content.str());
+    WebPageManager.AddPage("/Patches", Content.str());
 }
 
 
@@ -146,8 +146,7 @@ void UpdateMainPage(CWebPageManager &WebPageManager)
     Content << "<a href=\"/Commands\" >Commands</a><br>";
     Content << "<a href=\"/SupportedModules\" >Supported modules</a><br>";
     Content << "<a href=\"/Modules\" >Current modules</a><br>";
-    WebPageManager.Add("/", Content.str());
-    WebPageManager.Add("/index", Content.str());
+    WebPageManager.AddPage("/index", Content.str());
 }
 
 
@@ -173,5 +172,76 @@ void UpdateTestPage(CWebPageManager &WebPageManager)
                  </body>
                  </html>)";
 
-    WebPageManager.Add("/test", Content.str());
+    WebPageManager.AddPage("/test", Content.str());
+}
+
+std::string GetCommonBegin()
+{
+    return R"(
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+              <title>ModularWeb</title>
+              <meta charset="utf-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1">
+              <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+              <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+              <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+            </head>
+            <body>
+
+            <div class="row bg-primary">
+            <div class="page-header text-center">
+            <h1>WebModular</h1>
+            </div>
+            </div>
+            <!end of header row>
+
+            <div class="row">
+            <div class="col-sm-12">
+            <ul class="pagination">
+                <li><a href="Patches">Patches</a></li>
+                <li><a href="Modules.html">CurrentModules</a></li>
+                <li><a href="ModuleCreation.html">ModuleManagement</a></li>
+                <li><a href="Connections.html">Connections</a></li>
+            </ul>
+            </div>
+            </div>
+            <!end of navigation row>
+           )";
+}
+
+std::string GetCommonEnd()
+{
+    return R"(
+            <div class="row">
+            <div class="col-sm-12 text-center bg-primary">
+            ...TODO...
+            </div>
+            </div>
+            <!end of footer row>
+
+            </body>
+            </html>
+           )";
+}
+
+void AddDefaultPage(CWebPageManager& WebPageManager)
+{
+    std::string Default = R"(
+            <div class="row">
+            <div class="col-sm-12 text-center">
+            <div class="jumbotron bg-warning"
+            <h3>Unknown page</h3>
+            </div>
+            </div>
+            </div>
+            <!end of default row>
+            )";
+    WebPageManager.AddDefaultPage(GetCommonBegin()+Default+GetCommonEnd());
+}
+
+void CreatePages(CWebPageManager &WebPageManager)
+{
+    AddDefaultPage(WebPageManager);
 }

@@ -5,6 +5,12 @@ class CWebPageManager;
 class CPatchManager;
 class CCommandStackController;
 
+void CreatePages(CWebPageManager& WebPageManager);
+
+void UpdatePages(const CModuleManager& ModuleManager, CWebPageManager& WebPageManager, CCommandStackController& CommandStackController);
+
+// TODO private:
+
 void UpdateModulePages(const CModuleManager& ModuleManager, CWebPageManager& WebPageManager, CCommandStackController& CommandStackController);
 
 void UpdateModuleTypesPage(const CModuleManager& ModuleManager, CWebPageManager& WebPageManager);

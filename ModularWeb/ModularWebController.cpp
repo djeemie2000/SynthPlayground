@@ -31,6 +31,8 @@ CModularWebController::CModularWebController(const std::string& PatchDirectory)
     UpdatePatchesPage(*m_PatchManager, *m_WebPageManager);
     UpdateModuleTypesPage(*m_ModuleManager, *m_WebPageManager);
     UpdateTestPage(*m_WebPageManager);
+
+    CreatePages(*m_WebPageManager);
 }
 
 CModularWebController::~CModularWebController()
@@ -99,7 +101,7 @@ string CModularWebController::HandleWebRequest(const SWebRequest &Request)
         UpdateModuleWebPages();
     }
 
-    return m_WebPageManager->Get(Request.s_Uri);
+    return m_WebPageManager->GetPage(Request.s_Uri);
 }
 
 bool CModularWebController::Create(const string &Type, const string &Name)

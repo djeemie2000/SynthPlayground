@@ -6,8 +6,15 @@ CPatchManager::CPatchManager(const std::string &PatchDirectory)
  : m_PatchDirectory(PatchDirectory)
  , m_PatchNames()
 {
+    Update();
+}
+
+void CPatchManager::Update()
+{
+    m_PatchNames.clear();
+
     std::vector<std::string> FileNames;
-    if(ListDirectory(PatchDirectory, FileNames))
+    if(ListDirectory(m_PatchDirectory, FileNames))
     {
         // Patch filename = somename.xml <=> patch name = somename
         for(const auto& FileName : FileNames)
