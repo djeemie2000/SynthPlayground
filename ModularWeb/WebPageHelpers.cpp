@@ -35,9 +35,9 @@ std::string GetCommonBegin()
             <div class="col-sm-12">
             <ul class="pagination">
                 <li><a href="Patches">Patches</a></li>
-                <li><a href="Modules.html">CurrentModules</a></li>
-                <li><a href="ModuleCreation.html">ModuleManagement</a></li>
-                <li><a href="Connections.html">Connections</a></li>
+                <li><a href="Modules">CurrentModules</a></li>
+                <li><a href="ModuleCreation">ModuleManagement</a></li>
+                <li><a href="Connections">Connections</a></li>
             </ul>
             </div>
             </div>
@@ -115,36 +115,81 @@ void UpdateModulePage(const CModuleManager& ModuleManager, const std::string& Na
     }
 }
 
-void UpdateModuleOverviewPage(const CModuleManager& ModuleManager, CWebPageManager& WebPageManager)
-{
-    std::ostringstream Content;
-    Content << "<!DOCTYPE html><html><head><title>Modules</title></head><body>";
+//void UpdateModuleOverviewPage(const CModuleManager& ModuleManager, CWebPageManager& WebPageManager)
+//{
+//    std::ostringstream Content;
+//    Content << "<!DOCTYPE html><html><head><title>Modules</title></head><body>";
 
-    Content << "<h3>Modules</h3><table border=\"1\" >";
-    Content << "<tr><th>Module</th><th>Remove</th></tr>";
-    auto ModuleNames = ModuleManager.GetNames();
-    for(const auto& Name : ModuleNames)
-    {
-        Content << "<tr>"
-                << "<td><a href=\"/Module/" << Name << "\" >" << Name << "</a></td>"
-                << R"(<td><form ><input type="submit" name="Remove" value=")" << Name << R"(" ></form></td>)"
-                << "</tr>";
-    }
-    Content << "</table></body></html>";
-    WebPageManager.AddPage("/Modules", Content.str());
-}
+//    Content << "<h3>Modules</h3><table border=\"1\" >";
+//    Content << "<tr><th>Module</th><th>Remove</th></tr>";
+//    auto ModuleNames = ModuleManager.GetNames();
+//    for(const auto& Name : ModuleNames)
+//    {
+//        Content << "<tr>"
+//                << "<td><a href=\"/Module/" << Name << "\" >" << Name << "</a></td>"
+//                << R"(<td><form ><input type="submit" name="Remove" value=")" << Name << R"(" ></form></td>)"
+//                << "</tr>";
+//    }
+//    Content << "</table></body></html>";
+
 
 void UpdateModulePages(const CModuleManager& ModuleManager, CWebPageManager& WebPageManager, CCommandStackController &CommandStackController)
 {
-    UpdateModuleOverviewPage(ModuleManager, WebPageManager);
-
-    //add individual module pages
     auto ModuleNames = ModuleManager.GetNames();
+
+    std::ostringstream Content;
+    Content << R"(
+   <div class="row">
+
+   <div class="col-sm-2">
+   <form>
+   <div class="btn-group-vertical">
+   <input type="submit" class="btn btn-info" name="Command" value="RemoveAll" >
+   <input type="submit" class="btn btn-info" name="Command" value="DefaultAll" >
+   <input type="submit" class="btn btn-info" name="Command" value="Remove" >
+   <input type="submit" class="btn btn-info" name="Command" value="Default" >
+   </div>
+   <div class ="container">
+   )";
+
     for(const auto& Name : ModuleNames)
     {
-        UpdateModulePage(ModuleManager, Name, WebPageManager, CommandStackController);
+        Content << R"( <input type="radio" name="SelectedModule" value=")" << Name << R"(" >)" << Name << "<br>";
     }
+    Content << R"(
+   </div>
+   </form>
+   </div>
+   <div class="col-sm-10">
+    )";
+
+    for(const auto& Name : ModuleNames)
+    {
+        Content << R"(<div class="panel panel-default"><div class="panel-heading">)" << Name << R"(</div><div class="panel-body">)";
+        if(std::shared_ptr<IModularModule> Module = ModuleManager.GetModule(Name).lock())
+        {
+            CWebPageModuleParameterVisitor Visitor(CommandStackController);
+            Module->Accept(Visitor);
+            Content << Visitor.GetContent();
+        }
+        Content << "</div></div>";
+    }
+    Content << "</div></div>";
+
+    WebPageManager.AddPage("/Modules", GetCommonBegin()+Content.str()+GetCommonEnd());
 }
+
+//void UpdateModulePages(const CModuleManager& ModuleManager, CWebPageManager& WebPageManager, CCommandStackController &CommandStackController)
+//{
+//    UpdateModuleOverviewPage(ModuleManager, WebPageManager);
+
+//    //add individual module pages
+//    auto ModuleNames = ModuleManager.GetNames();
+//    for(const auto& Name : ModuleNames)
+//    {
+//        UpdateModulePage(ModuleManager, Name, WebPageManager, CommandStackController);
+//    }
+//}
 
 void UpdateModuleTypesPage(const CModuleManager& ModuleManager, CWebPageManager& WebPageManager)
 {

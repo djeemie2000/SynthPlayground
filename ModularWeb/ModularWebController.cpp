@@ -86,26 +86,45 @@ string CModularWebController::HandleWebRequest(const SWebRequest &Request)
     }
     else if(Request.s_Uri == "/Modules")
     {
-        std::string ModuleName = GetQuery("Remove", Request);
-        if(!ModuleName.empty())
+        std::string Command = GetQuery("Command", Request);
+        std::string SelectedModule = GetQuery("SelectedModule", Request);
+        if(Command=="RemoveAll")
         {
-            Remove(ModuleName);
+            RemoveAll();
         }
-    }
-    else if(Request.s_Uri.substr(0, 7) == "/Module")// /Module/NameOfModule
-    {
-        // Queries are of the form
-        //  ParameterName = string value
-
-        // in order to correctly apply the parameter, first retrieve the current
-        // then update current (which knows the correct type) from string value
-        // then apply it
-
-        for(auto itQuery : Request.s_Query)
+        else if(Command=="DefaultAll")
         {
-            SCmdStackItem Item = m_CommandStackController->GetCurrent(itQuery.first);
-            Item.ValueFromString(itQuery.second);
-            m_CommandStackController->Handle(Item);
+            Default();
+        }
+        else if(Command=="Default")
+        {
+            // TODO defaults on selected module only
+        }
+        else if(Command=="Remove")
+        {
+            if(!SelectedModule.empty())
+            {
+                m_ModuleManager->Remove(SelectedModule);
+            }
+        }
+        else if(Command=="Edit")
+        {
+            // Queries are of the form
+            //  ParameterName = string value
+
+            // in order to correctly apply the parameter, first retrieve the current
+            // then update current (which knows the correct type) from string value
+            // then apply it
+
+            for(auto itQuery : Request.s_Query)
+            {
+                if(itQuery.first!="Command" && itQuery.first!="SelectedModule")
+                {
+                    SCmdStackItem Item = m_CommandStackController->GetCurrent(itQuery.first);
+                    Item.ValueFromString(itQuery.second);
+                    m_CommandStackController->Handle(Item);
+                }
+            }
         }
 
         UpdateModuleWebPages();

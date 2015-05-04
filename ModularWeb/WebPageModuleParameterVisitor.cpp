@@ -14,7 +14,6 @@ void CWebPageModuleParameterVisitor::Start()
     m_Content.str("");
 
     // start
-    m_Content << "<h3>Parameters</h3>";
     m_Content << R"(<form>)"; // action on page itself
 }
 
@@ -85,7 +84,7 @@ void CWebPageModuleParameterVisitor::FinishLine()
 
 void CWebPageModuleParameterVisitor::Finish()
 {
-    m_Content << R"(<br><input type="submit" value="Submit">)";
+    m_Content << R"(<br><input type="submit" name="Command" value="Edit">)";
     m_Content << "</form>";
 }
 
