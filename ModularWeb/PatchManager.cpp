@@ -41,8 +41,13 @@ std::string CPatchManager::GetPath(const std::string &PatchName) const
 {
     if(std::find(m_PatchNames.begin(), m_PatchNames.end(), PatchName)!=m_PatchNames.end())
     {
-        // Patch filename = somename.xml <=> patch name = somename
-        return m_PatchDirectory + "/" + PatchName + ".xml";
+        return CreatePath(PatchName);
     }
     return std::string();
+}
+
+std::string CPatchManager::CreatePath(const std::string &PatchName) const
+{
+    // Patch filename = somename.xml <=> patch name = somename
+    return m_PatchDirectory + "/" + PatchName + ".xml";
 }

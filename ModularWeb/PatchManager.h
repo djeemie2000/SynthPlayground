@@ -11,6 +11,7 @@ public:
     void Update();
     std::vector<std::string> GetPatchNames() const;
     std::string GetPath(const std::string& PatchName) const;
+    std::string CreatePath(const std::string& PatchName) const;
 
 private:
     const std::string m_PatchDirectory;

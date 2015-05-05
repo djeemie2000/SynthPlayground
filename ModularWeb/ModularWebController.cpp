@@ -26,10 +26,8 @@ CModularWebController::CModularWebController(const std::string& PatchDirectory)
     std::shared_ptr<IModuleFactory> Factory(new CModuleFactory(m_CommandStackController));
     m_ModuleManager.reset(new CModuleManager(Factory));
 
-    UpdateCommandsPage(*m_WebPageManager);
     UpdatePatchesPage(*m_PatchManager, *m_WebPageManager);
-    UpdateModuleTypesPage(*m_ModuleManager, *m_WebPageManager);
-    UpdateTestPage(*m_WebPageManager);
+    UpdateModuleCreationPage(*m_ModuleManager, *m_WebPageManager);
 
     CreatePages(*m_WebPageManager);
 }
@@ -49,39 +47,44 @@ string CModularWebController::HandleWebRequest(const SWebRequest &Request)
         std::string Command = GetQuery("Command", Request);
         std::string SelectedPatchName = GetQuery("SelectedPatch", Request);
         std::string NewPatchName = GetQuery("PatchName", Request);
-        if(!SelectedPatchName.empty())
+
+        if(Command=="Load")
         {
-            if(Command=="Load")
+            if(!SelectedPatchName.empty())
             {
                 LoadPatch(SelectedPatchName);
             }
-            else if(Command=="Save")
+        }
+        else if(Command=="Save")
+        {
+            if(!SelectedPatchName.empty())
             {
                 //Save current patch as SelectedPatchName
                 SavePatch(SelectedPatchName);
             }
-            else if(Command=="Clear")
-            {
-                RemoveAll();
-            }
-            else if(Command=="SaveAs")
+        }
+        else if(Command=="Clear")
+        {
+            RemoveAll();
+        }
+        else if(Command=="SaveAs")
+        {
+            if(!NewPatchName.empty())
             {
                 //Save current patch as NewPatchName (if it is not empty)
-                if(!NewPatchName.empty())
-                {
-                    SavePatch(NewPatchName);
-                    //
-                    UpdatePatchesPage(*m_PatchManager, *m_WebPageManager);
-                }
+                SavePatch(NewPatchName);
+                //
+                UpdatePatchesPage(*m_PatchManager, *m_WebPageManager);
             }
         }
     }
-    else if(Request.s_Uri == "/SupportedModules")
+    else if(Request.s_Uri == "/ModuleCreation")
     {
-        std::string ModuleType = GetQuery("Create", Request);
-        if(!ModuleType.empty())
+        std::string Command = GetQuery("Command", Request);
+        std::string ModuleType = GetQuery("SelectedModule", Request);
+        if(Command=="Create" && !ModuleType.empty())
         {
-            Create(ModuleType, "");
+            Create(ModuleType, "");//auto name creation
         }
     }
     else if(Request.s_Uri == "/Modules")
@@ -202,7 +205,7 @@ bool CModularWebController::LoadPatch(const string &PatchName)
 bool CModularWebController::SavePatch(const string &PatchName)
 {
     bool Succeeded = false;
-    std::string Path = m_PatchManager->GetPath(PatchName);
+    std::string Path = m_PatchManager->CreatePath(PatchName);
     if(!Path.empty())
     {
         Succeeded = Save(Path);

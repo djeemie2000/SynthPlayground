@@ -13,10 +13,6 @@ void UpdatePages(const CModuleManager& ModuleManager, CWebPageManager& WebPageMa
 
 void UpdateModulePages(const CModuleManager& ModuleManager, CWebPageManager& WebPageManager, CCommandStackController& CommandStackController);
 
-void UpdateModuleTypesPage(const CModuleManager& ModuleManager, CWebPageManager& WebPageManager);
-
-void UpdateCommandsPage(CWebPageManager& WebPageManager);
+void UpdateModuleCreationPage(const CModuleManager& ModuleManager, CWebPageManager& WebPageManager);
 
 void UpdatePatchesPage(CPatchManager& PatchManager, CWebPageManager& WebPageManager);
-
-void UpdateTestPage(CWebPageManager& WebPageManager);
