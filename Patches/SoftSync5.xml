@@ -1,0 +1,46 @@
+<xml>
+<Modules>
+ControllerBank(4)0 --- ControllerBank(4)
+Detuner(3)0 --- Detuner(3)
+Mixer(4)0 --- Mixer(4)
+Operator0 --- Operator
+PeriodicSync0 --- PeriodicSync
+PeriodicSync1 --- PeriodicSync
+Phasor0 --- Phasor
+Phasor1 --- Phasor
+
+</Modules>
+<Connections>
+ControllerBank(4)0:Contr0 -> Detuner(3)0:Freq
+Detuner(3)0:Freq0 -> Phasor1:Freq
+Detuner(3)0:Freq1 -> PeriodicSync0:Freq
+Detuner(3)0:Freq2 -> PeriodicSync1:Freq
+Mixer(4)0:Out -> system:playback_1
+Mixer(4)0:Out -> system:playback_2
+Operator0:Out -> Mixer(4)0:In0
+Operator0:Out -> Scope:In
+PeriodicSync0:Sync -> Phasor1:SoftSync
+Phasor1:Phase -> Operator0:Phase
+PeriodicSync1:Sync -> Phasor1:Sync
+
+</Connections>
+<Parameters>
+ControllerBank(4)0/0/Value 0 -1 150
+ControllerBank(4)0/1/Value 0 -1 0
+ControllerBank(4)0/2/Value 0 -1 0
+ControllerBank(4)0/3/Value 0 -1 0
+Detuner(3)0/0/Detune 0 -1 0.68
+Detuner(3)0/0/OctaveShift 0 1 -1
+Detuner(3)0/1/Detune 0 -1 0.001
+Detuner(3)0/1/OctaveShift 0 -1 -1
+Detuner(3)0/2/Detune 0 -1 -0
+Detuner(3)0/2/OctaveShift 0 0 -1
+Mixer(4)0/0/Volume 0 -1 0.25
+Mixer(4)0/1/Volume 0 -1 0.25
+Mixer(4)0/2/Volume 0 -1 0.25
+Mixer(4)0/3/Volume 0 -1 0.25
+Mixer(4)0/MasterVolume 0 -1 0.5
+Operator0/Select 0 3 -1
+
+</Parameters>
+</xml>
