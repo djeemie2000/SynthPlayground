@@ -31,10 +31,15 @@ public:
 
     T operator()(const T& PhaseStep)
     {
+        // PhaseStep can be positive or negative!
         m_Phase += PhaseStep;
         if(MaxPhase < m_Phase)
         {
             m_Phase -= PhaseRange;
+        }
+        else if(m_Phase<MinPhase)
+        {
+            m_Phase += PhaseRange;
         }
         return m_Phase;
     }

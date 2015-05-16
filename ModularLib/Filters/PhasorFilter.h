@@ -1,6 +1,7 @@
 #ifndef PHASORFILTER_H
 #define PHASORFILTER_H
 
+#include <vector>
 #include "AudioFilterI.h"
 #include "PhaseStep.h"
 #include "PhaseAccumulator.h"
@@ -23,7 +24,11 @@ public:
 
 private:
     CPhaseStep<float> m_PhaseStep;
-    CPhaseAccumulator<float> m_PhaseGenerator;
+    CPhaseAccumulator<float> m_PhaseAccumulator;
+    float m_PhaseStepSign;
+    std::vector<float> m_DefaultFreq;
+    std::vector<float> m_DefaultSync;
+    std::vector<float> m_DefaultSoftSync;
 };
 
 #endif // PHASORFILTER_H
