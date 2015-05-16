@@ -78,6 +78,7 @@ int CPhasorFilter::OnProcess(const std::vector<void *> &SourceBuffers,
             *PhaseBuffer = m_PhaseAccumulator(m_PhaseStepSign*m_PhaseStep(*FreqBuffer));
             ++FreqBuffer;
             ++SyncBuffer;
+            ++SoftSyncBuffer;
             ++PhaseBuffer;
         }
     }
