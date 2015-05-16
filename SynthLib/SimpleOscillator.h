@@ -14,6 +14,7 @@ public:
      : m_PhaseStep(SamplingFrequency)
      , m_PhaseGen()
      , m_Operator(CSelectableOperatorFactory::Create())
+     , m_PhaseStepSign(1)
     {
         m_Operator.Select(0);
         m_PhaseStep.SetFrequency(440.0f);
@@ -24,6 +25,11 @@ public:
         m_PhaseGen.Sync();
     }
 
+    void SoftSync()
+    {
+        m_PhaseStepSign = -m_PhaseStepSign;
+    }
+
     void SelectWaveform(int Selection)
     {
         m_Operator.Select(Selection);
@@ -31,13 +37,14 @@ public:
 
     T operator()(T Frequency)
     {
-        return m_Operator(m_PhaseGen(m_PhaseStep(Frequency)));
+        return m_Operator(m_PhaseGen(m_PhaseStepSign*m_PhaseStep(Frequency)));
     }
 
 private:
     CPhaseStep<T> m_PhaseStep;
     CPhaseAccumulator<T> m_PhaseGen;
     CSelectableOperator<T> m_Operator;
+    T m_PhaseStepSign;
 };
 
 #endif // SIMPLEOSCILLATOR_H

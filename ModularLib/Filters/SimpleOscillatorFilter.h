@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vector>
 #include "AudioFilterI.h"
 #include "PhaseStep.h"
 #include "SimpleOscillator.h"
@@ -24,4 +25,7 @@ public:
 
 private:
     CSimpleOscillator<float> m_Oscillator;
+    std::vector<float> m_DefaultFreq;
+    std::vector<float> m_DefaultSync;
+    std::vector<float> m_DefaultSoftSync;
 };
