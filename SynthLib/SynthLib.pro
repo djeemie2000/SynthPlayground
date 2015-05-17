@@ -117,7 +117,9 @@ HEADERS += Notes.h \
     RingSequencer.h \
     PhaseAccumulator.h \
     ControllerChange.h \
-    Scaler.h	
+    Scaler.h \	
+    Looper/LoopRecorder.h \
+    Looper/LoopPlayer.h
 
 INCLUDEPATH += ./../MidiLib
 
