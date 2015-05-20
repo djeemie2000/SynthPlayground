@@ -1,0 +1,20 @@
+<xml>
+<Modules>
+BasicSampler0 --- BasicSampler
+ControllerBank(4)0 --- ControllerBank(4)
+
+</Modules>
+<Connections>
+BasicSampler0:OutL -> system:playback_1
+BasicSampler0:OutR -> system:playback_2
+ControllerBank(4)0:Contr0 -> BasicSampler0:Gate
+
+</Connections>
+<Parameters>
+ControllerBank(4)0/0/Value 0 -1 1
+ControllerBank(4)0/1/Value 0 -1 0
+ControllerBank(4)0/2/Value 0 -1 0
+ControllerBank(4)0/3/Value 0 -1 0
+
+</Parameters>
+</xml>
