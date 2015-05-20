@@ -1,0 +1,101 @@
+<xml>
+<Modules>
+ADSREnvelopeBank(4)0 --- ADSREnvelopeBank(4)
+BipolarLimiter0 --- BipolarLimiter
+Combinor0 --- Combinor
+ControllerBank(4)0 --- ControllerBank(4)
+DelayLine0 --- DelayLine
+Distortion10 --- Distortion1
+LFOBank(4)0 --- LFOBank(4)
+LPF0 --- LPF
+Modulator0 --- Modulator
+Noise0 --- Noise
+Operator0 --- Operator
+PeriodicTrigger0 --- PeriodicTrigger
+StereoDelay0 --- StereoDelay
+StereoMixer(4)0 --- StereoMixer(4)
+
+</Modules>
+<Connections>
+alsa_in:capture_1 -> Distortion10:In
+StereoMixer(4)0:OutL -> StereoDelay0:InLeft
+StereoMixer(4)0:OutR -> StereoDelay0:InRight
+StereoDelay0:OutLeft -> system:playback_1
+StereoDelay0:OutRight -> system:playback_2
+DelayLine0:Delayed -> StereoMixer(4)0:In1
+ADSREnvelopeBank(4)0:Envelope0 -> Modulator0:ModIn0
+Modulator0:Out -> DelayLine0:Delay
+PeriodicTrigger0:Trigger -> ADSREnvelopeBank(4)0:Trigger0
+Distortion10:Out -> StereoMixer(4)0:In0
+Distortion10:Out -> Combinor0:In1
+Distortion10:Out -> DelayLine0:In
+LFOBank(4)0:LFO0 -> Modulator0:ModIn1
+Noise0:Out -> Operator0:Phase
+Combinor0:Out -> LPF0:In
+Operator0:Out -> Combinor0:In2
+LPF0:Out -> StereoMixer(4)0:In2
+ControllerBank(4)0:Contr0 -> LPF0:CutOff
+
+</Connections>
+<Parameters>
+ADSREnvelopeBank(4)0/0/Attack 0 -1 400
+ADSREnvelopeBank(4)0/0/Decay 0 -1 300
+ADSREnvelopeBank(4)0/0/Release 0 -1 10
+ADSREnvelopeBank(4)0/0/Sustain 0 -1 0
+ADSREnvelopeBank(4)0/1/Attack 0 -1 10
+ADSREnvelopeBank(4)0/1/Decay 0 -1 10
+ADSREnvelopeBank(4)0/1/Release 0 -1 10
+ADSREnvelopeBank(4)0/1/Sustain 0 -1 1
+ADSREnvelopeBank(4)0/2/Attack 0 -1 10
+ADSREnvelopeBank(4)0/2/Decay 0 -1 10
+ADSREnvelopeBank(4)0/2/Release 0 -1 10
+ADSREnvelopeBank(4)0/2/Sustain 0 -1 1
+ADSREnvelopeBank(4)0/3/Attack 0 -1 10
+ADSREnvelopeBank(4)0/3/Decay 0 -1 10
+ADSREnvelopeBank(4)0/3/Release 0 -1 10
+ADSREnvelopeBank(4)0/3/Sustain 0 -1 1
+Combinor0/Select 0 14 -1
+ControllerBank(4)0/0/Value 0 -1 0.917
+ControllerBank(4)0/1/Value 0 -1 0
+ControllerBank(4)0/2/Value 0 -1 0
+ControllerBank(4)0/3/Value 0 -1 0
+DelayLine0/DelayRangeMilliSeconds 0 70 -1
+Distortion10/Drive 0 -1 0.77
+LFOBank(4)0/0/Frequency 0 -1 1
+LFOBank(4)0/0/Select 0 3 -1
+LFOBank(4)0/1/Frequency 0 -1 1
+LFOBank(4)0/1/Select 0 0 -1
+LFOBank(4)0/2/Frequency 0 -1 1
+LFOBank(4)0/2/Select 0 0 -1
+LFOBank(4)0/3/Frequency 0 -1 1
+LFOBank(4)0/3/Select 0 0 -1
+LPF0/Poles 0 12 -1
+LPF0/Resonance 0 -1 0
+Modulator0/0/ModAmt 0 -1 0
+Modulator0/1/ModAmt 0 -1 0.09
+Modulator0/LimitMode 0 2 -1
+Modulator0/Offset 0 -1 0
+Operator0/Select 0 3 -1
+PeriodicTrigger0/BeatsPerBar 0 1 -1
+PeriodicTrigger0/BeatsPerMinute 0 30 -1
+PeriodicTrigger0/Duration 0 90 -1
+StereoDelay0/Left/Bypass 0 -1 -1
+StereoDelay0/Left/DelayMilliSeconds 0 -1 247
+StereoDelay0/Left/Feedback 0 -1 0.5
+StereoDelay0/Left/WetDry 0 -1 0.4
+StereoDelay0/Right/Bypass 0 -1 -1
+StereoDelay0/Right/DelayMilliSeconds 0 -1 253
+StereoDelay0/Right/Feedback 0 -1 0.5
+StereoDelay0/Right/WetDry 0 -1 0.4
+StereoMixer(4)0/0/Pan 0 -1 -0.13
+StereoMixer(4)0/0/Volume 0 -1 0.08
+StereoMixer(4)0/1/Pan 0 -1 -0.05
+StereoMixer(4)0/1/Volume 0 -1 0.17
+StereoMixer(4)0/2/Pan 0 -1 0.3
+StereoMixer(4)0/2/Volume 0 -1 0.09
+StereoMixer(4)0/3/Pan 0 -1 0
+StereoMixer(4)0/3/Volume 0 -1 0.25
+StereoMixer(4)0/MasterVolume 0 -1 0.4
+
+</Parameters>
+</xml>
