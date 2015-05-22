@@ -37,7 +37,8 @@ SOURCES += main.cpp \
     TestPhaseShifter.cpp \
     TestWaveTable2.cpp \
     testkarplusstrong.cpp \
-    TestToggleGate.cpp
+    TestToggleGate.cpp \
+    TestWavFileReader.cpp
 
 unix {
     target.path = /usr/lib

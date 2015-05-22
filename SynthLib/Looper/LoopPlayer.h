@@ -73,7 +73,7 @@ public:
         {
             int IntegerIndex = Index;
             T Mix = Index - IntegerIndex;
-            return (1-Mix)*Buffer[Index%BufferSize] + Mix*Buffer[(Index+1)%BufferSize];
+            return (1-Mix)*Buffer[IntegerIndex] + Mix*Buffer[IntegerIndex+1];
         }
 
         return 0;

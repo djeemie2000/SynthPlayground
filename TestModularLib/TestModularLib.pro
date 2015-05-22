@@ -4,7 +4,8 @@ CONFIG += c++11 (Qt5)
 
 SOURCES += main.cpp \ 
     TestPhasorFilter.cpp \
-    TestMultiStepSequencerFilter.cpp
+    TestMultiStepSequencerFilter.cpp \
+    TestBasicSamplerFilter.cpp
 
 unix {
     target.path = /usr/lib
@@ -13,6 +14,7 @@ unix {
 
 INCLUDEPATH += ./../SynthLib
 INCLUDEPATH += ./../SynthLib/Controllers
+INCLUDEPATH += ./../SynthLib/Looper
 INCLUDEPATH += ./../ModularLib
 INCLUDEPATH += ./../ModularLib/Filters
 INCLUDEPATH += ./../ModularLib/Modules

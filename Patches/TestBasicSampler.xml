@@ -2,19 +2,31 @@
 <Modules>
 BasicSampler0 --- BasicSampler
 ControllerBank(4)0 --- ControllerBank(4)
+StereoMixer(4)0 --- StereoMixer(4)
 
 </Modules>
 <Connections>
-BasicSampler0:OutL -> system:playback_1
-BasicSampler0:OutR -> system:playback_2
+BasicSampler0:OutL -> StereoMixer(4)0:In0
+BasicSampler0:OutR -> StereoMixer(4)0:In1
 ControllerBank(4)0:Contr0 -> BasicSampler0:Gate
+StereoMixer(4)0:OutL -> system:playback_1
+StereoMixer(4)0:OutR -> system:playback_2
 
 </Connections>
 <Parameters>
-ControllerBank(4)0/0/Value 0 -1 1
+ControllerBank(4)0/0/Value 0 -1 0
 ControllerBank(4)0/1/Value 0 -1 0
 ControllerBank(4)0/2/Value 0 -1 0
 ControllerBank(4)0/3/Value 0 -1 0
+StereoMixer(4)0/0/Pan 0 -1 -1
+StereoMixer(4)0/0/Volume 0 -1 0.25
+StereoMixer(4)0/1/Pan 0 -1 1
+StereoMixer(4)0/1/Volume 0 -1 0.25
+StereoMixer(4)0/2/Pan 0 -1 0
+StereoMixer(4)0/2/Volume 0 -1 0.25
+StereoMixer(4)0/3/Pan 0 -1 0
+StereoMixer(4)0/3/Volume 0 -1 0.25
+StereoMixer(4)0/MasterVolume 0 -1 0.5
 
 </Parameters>
 </xml>
