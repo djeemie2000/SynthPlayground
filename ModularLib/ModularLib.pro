@@ -118,7 +118,10 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Modules/RingSequencerModule.cpp \
     Filters/MidiOctaveGateFilter.cpp \
     Modules/MidiOctaveGateModule.cpp \
-    Filters/SimpleLooperFilter.cpp
+    Filters/SimpleLooperFilter.cpp \
+    Filters/BasicSamplerFilter.cpp \
+    Modules/BasicSamplerModule.cpp
+
 
 HEADERS += Filters/ControllerBankFilter.h \
     Filters/PhasorFilter.h \
@@ -238,7 +241,9 @@ HEADERS += Filters/ControllerBankFilter.h \
     Modules/RingSequencerModule.h \
     Filters/MidiOctaveGateFilter.h \
     Modules/MidiOctaveGateModule.h \
-    Filters/SimpleLooperFilter.h
+    Filters/SimpleLooperFilter.h \
+    Filters/BasicSamplerFilter.h \
+    Modules/BasicSamplerModule.h
 
 
 INCLUDEPATH += ./Filters

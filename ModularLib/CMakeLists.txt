@@ -16,7 +16,8 @@ include_directories(
 	./../SynthLib
 	./../SynthLib/Interfaces
 	./../SynthLib/Granular
-	./../MidiLib)
+        ./../SynthLib/Looper
+        ./../MidiLib)
 #todo if win32 include path to jack!
 
 add_library(ModularLib
@@ -253,4 +254,8 @@ add_library(ModularLib
     Filters/MidiOctaveGateFilter.h
     Modules/MidiOctaveGateModule.cpp
     Modules/MidiOctaveGateModule.h
+    Filters/BasicSamplerFilter.cpp
+    Filters/BasicSamplerFilter.h
+    Modules/BasicSamplerModule.cpp
+    Modules/BasicSamplerModule.h
 )
