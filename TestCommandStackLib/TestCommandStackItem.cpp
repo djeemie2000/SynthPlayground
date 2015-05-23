@@ -104,4 +104,46 @@ TEST(TextValueFromFloatFailed)
     CHECK_EQUAL("", Item.TextValue());
 }
 
+TEST(CreateFromStringBool)
+{
+    SCmdStackItem Item("MyName", "Boolean", "1");
+    CHECK_EQUAL("MyName", Item.Name());
+    CHECK_EQUAL(true, Item.BoolValue());
+    CHECK_EQUAL(-1, Item.IntValue());
+    CHECK_CLOSE(-1.0f, Item.FloatValue(), 0.0001);
+    CHECK_EQUAL("", Item.TextValue());
+}
+
+TEST(CreateFromStringInteger)
+{
+    SCmdStackItem Item("MyName", "Integer", "12345");
+    CHECK_EQUAL("MyName", Item.Name());
+    CHECK_EQUAL(false, Item.BoolValue());
+    CHECK_EQUAL(12345, Item.IntValue());
+    CHECK_CLOSE(-1.0f, Item.FloatValue(), 0.0001);
+    CHECK_EQUAL("", Item.TextValue());
+}
+
+TEST(CreateFromStringFloat)
+{
+    SCmdStackItem Item("Name", "Float", "-3.215");
+    CHECK_EQUAL("Name", Item.Name());
+    CHECK_EQUAL(false, Item.BoolValue());
+    CHECK_EQUAL(-1, Item.IntValue());
+    CHECK_CLOSE(-3.215f, Item.FloatValue(), 0.0001);
+    CHECK_EQUAL("", Item.TextValue());
+}
+
+TEST(CreateFromStringText)
+{
+    SCmdStackItem Item("Name", "Text", "-3.215");
+    CHECK_EQUAL("Name", Item.Name());
+    CHECK_EQUAL(false, Item.BoolValue());
+    CHECK_EQUAL(-1, Item.IntValue());
+    CHECK_CLOSE(-1.0f, Item.FloatValue(), 0.0001);
+    CHECK_EQUAL("-3.215", Item.TextValue());
+    CHECK_EQUAL("Text", Item.Type());
+    CHECK_EQUAL("-3.215", Item.Value());
+}
+
 }

@@ -138,6 +138,16 @@ std::weak_ptr<IModularModule> CModuleManager::GetModule(const std::string &Name)
     return itModule != m_Modules.end() ? itModule->second : std::weak_ptr<IModularModule>();
 }
 
+const CModuleManager::ModuleState &CModuleManager::GetModuleState() const
+{
+    return m_CurrentState;
+}
+
+void CModuleManager::ApplyModuleState(const CModuleManager::ModuleState &ModuleState)
+{
+    Restore(ModuleState);
+}
+
 std::string CModuleManager::GenerateUniqueName(const std::string &Type)
 {
     // try Type0, Type1, Type2, ... until it is does not exist in the current list

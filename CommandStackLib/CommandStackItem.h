@@ -27,6 +27,7 @@ struct SCmdStackItem
 public:
     SCmdStackItem();
     explicit SCmdStackItem(const std::string& Name);
+    SCmdStackItem(const std::string& Name, const std::string& Type, const std::string& Value);
 
     SCmdStackItem &Name(const std::string& Name);
     SCmdStackItem &BoolValue(bool Value);
@@ -41,6 +42,12 @@ public:
     const std::string& TextValue() const;
 
     SCmdStackItem &ValueFromString(const std::string& String);
+
+    std::string Value() const;
+    std::string Type() const;
+
+private:
+    void TypeFromString(const std::string& Type);
 };
 
 typedef std::deque<SCmdStackItem> CmdStack;

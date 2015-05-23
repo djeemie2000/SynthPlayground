@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <map>
 #include "CommandStackItem.h"
 
 SCmdStackItem::SCmdStackItem()
@@ -14,6 +15,14 @@ SCmdStackItem::SCmdStackItem(const string &Name)
     : s_Name(Name)
     // other members use member value initialisation
 {
+}
+
+SCmdStackItem::SCmdStackItem(const std::string& Name, const std::string& Type, const std::string& Value)
+ : s_Name(Name)
+ // other members use member value initialisation
+{
+    TypeFromString(Type);
+    ValueFromString(Value);
 }
 
 SCmdStackItem &SCmdStackItem::Name(const string &Name)
@@ -113,4 +122,70 @@ SCmdStackItem &SCmdStackItem::ValueFromString(const string &String)
     }
 
     return *this;
+}
+
+string SCmdStackItem::Value() const
+{
+    if(s_Type==BoolType)
+    {
+        return std::to_string(s_BoolValue);
+    }
+    else if(s_Type==IntType)
+    {
+        return std::to_string(s_IntValue);
+    }
+    else if(s_Type==FloatType)
+    {
+        return std::to_string(s_FloatValue);
+    }
+    else if(s_Type == TextType)
+    {
+        return s_TextValue;
+    }
+    return "";
+}
+
+string SCmdStackItem::Type() const
+{
+    if(s_Type==BoolType)
+    {
+        return "Boolean";
+    }
+    else if(s_Type==IntType)
+    {
+        return "Integer";
+    }
+    else if(s_Type==FloatType)
+    {
+        return "Float";
+    }
+    else if(s_Type == TextType)
+    {
+        return "Text";
+    }
+    return "";
+}
+
+void SCmdStackItem::TypeFromString(const std::string &Type)
+{
+    if(Type == "Boolean")
+    {
+        s_Type = BoolType;
+    }
+    else if(Type == "Integer")
+    {
+        s_Type = IntType;
+    }
+    else if(Type == "Float")
+    {
+        s_Type = FloatType;
+    }
+    else if(Type == "Text")
+    {
+        s_Type = TextType;
+    }
+    else
+    {
+        s_Type = UnknownType;
+    }
 }

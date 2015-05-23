@@ -12,9 +12,11 @@ SUBDIRS += \
     ../JackLib \            # a 'lib' project
     ../CommandStackLib \    # a 'lib' project
     ../TestCommandStackLib \ # an 'app' project
+    ../PatchLib \           # a 'lib' project
     ../GuiLib \             # a 'lib' project
     ../ModularLib \         # a 'lib' project
     ../TestModularLib \     # an 'app' project
     ../Mongoose \           # a 'lib' project
     ../Modular1 \           # an  'app' project
-    ../ModularHeadless      # an  'app' project
+    ../ModularHeadless \    # an  'app' project
+    ../ModularWeb           # an  'app' project

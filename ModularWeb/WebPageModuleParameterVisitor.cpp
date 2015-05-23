@@ -69,6 +69,11 @@ void CWebPageModuleParameterVisitor::BooleanParameter(const std::string &Paramet
     m_Content << "<input type=\"checkbox\" name=\"" << ParameterName << "\" value=\"" << Item.BoolValue() << "\" >" << Name;
 }
 
+void CWebPageModuleParameterVisitor::FilePathParameter(const string &ParameterName, const string &Name, const string &Extensions)
+{
+    //TODO
+}
+
 void CWebPageModuleParameterVisitor::BooleanStatus(const std::string &ParameterName, const std::string &Name, bool Default)
 {
     SCmdStackItem Item = m_CommandStackController.GetCurrent(ParameterName);

@@ -12,6 +12,8 @@ class IModuleFactory;
 class CModuleManager
 {
 public:
+    typedef std::map<std::string, std::string> ModuleState; //! module state (Name, Type), note that Name should be unique
+
     CModuleManager(std::shared_ptr<IModuleFactory> Factory);
 
     bool Create(const std::string& Type, const std::string& Name);
@@ -26,9 +28,10 @@ public:
     void Import(const std::string& Content); //!< load state
 
     std::weak_ptr<IModularModule> GetModule(const std::string& Name) const;
+    const ModuleState& GetModuleState() const;
+    void ApplyModuleState(const ModuleState& ModuleState);
 
 private:
-    typedef std::map<std::string, std::string> ModuleState; //! module state (Name, Type)
     typedef std::map<std::string, std::shared_ptr<IModularModule>> ModuleMap;
 
     std::string GenerateUniqueName(const std::string& Type);

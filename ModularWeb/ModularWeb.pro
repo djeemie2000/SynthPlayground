@@ -2,17 +2,29 @@ QT       += core
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets multimedia
 
-TARGET = ModularHeadless
+TARGET = ModularWeb
 TEMPLATE = app
 CONFIG += console
 CONFIG   += c++11 (Qt5)
 
 SOURCES += \
     main.cpp \
-    ModularHeadlessController.cpp
+    ModularWebController.cpp \
+    WebPageManager.cpp \
+    WebPageHelpers.cpp \
+    WebPageModuleParameterVisitor.cpp \
+    WebRequest.cpp \
+    FileSystemHelpers.cpp \
+    PatchManager.cpp
 
 HEADERS += \
-    ModularHeadlessController.h
+    ModularWebController.h \
+    WebPageManager.h \
+    WebPageHelpers.h \
+    WebPageModuleParameterVisitor.h \
+    WebRequest.h \
+    FileSystemHelpers.h \
+    PatchManager.h
 
 INCLUDEPATH += ./../SynthLib
 INCLUDEPATH += ./../SynthLib/Controllers
@@ -24,6 +36,7 @@ INCLUDEPATH += ./../GuiLib
 INCLUDEPATH += ./../MidiLib
 INCLUDEPATH += ./../JackLib
 INCLUDEPATH += ./../TinyXml2
+INCLUDEPATH += ./../Mongoose
 
 CONFIG(debug, debug|release) {
     LIBS += -L./../build-dir/Debug/SynthLib
@@ -40,6 +53,8 @@ CONFIG(debug, debug|release) {
     PRE_TARGETDEPS += ./../build-dir/Debug/JackLib/libJackLib.a
     LIBS += -L./../build-dir/Debug/TinyXml2
     PRE_TARGETDEPS += ./../build-dir/Debug/TinyXml2/libTinyXml2.a
+    LIBS += -L./../build-dir/Debug/Mongoose
+    PRE_TARGETDEPS += ./../build-dir/Debug/Mongoose/libMongoose.a
 }
 CONFIG(release, debug|release) {
     LIBS += -L./../build-dir/Release/SynthLib
@@ -56,15 +71,18 @@ CONFIG(release, debug|release) {
     PRE_TARGETDEPS += ./../build-dir/Release/JackLib/libJackLib.a
     LIBS += -L./../build-dir/Release/TinyXml2
     PRE_TARGETDEPS += ./../build-dir/Release/TinyXml2/libTinyXml2.a
+    LIBS += -L./../build-dir/Release/Mongoose
+    PRE_TARGETDEPS += ./../build-dir/Release/TinyXml2/libMongoose.a
 }
 
-LIBS += -lSynthLib
-LIBS += -lCommandStackLib
 LIBS += -lModularLib
 LIBS += -lGuiLib
+LIBS += -lCommandStackLib
+LIBS += -lSynthLib
 LIBS += -lMidiLib
 LIBS += -lJackLib
 LIBS += -lTinyXml2
+LIBS += -lMongoose
 
 win32 {
     INCLUDEPATH += "C:/Program Files (x86)/Jack/includes"
@@ -75,10 +93,10 @@ unix {
 }
 
 CONFIG(debug, debug|release) {
-    DESTDIR = ../build-dir/Debug/ModularHeadless
+    DESTDIR = ../build-dir/Debug/ModularWeb
 }
 CONFIG(release, debug|release) {
-    DESTDIR = ../build-dir/Release/ModularHeadless
+    DESTDIR = ../build-dir/Release/ModularWeb
 }
 
 OBJECTS_DIR = $$DESTDIR
