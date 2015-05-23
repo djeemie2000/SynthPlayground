@@ -4,10 +4,12 @@ CONFIG += staticlib
 CONFIG   += c++11 (Qt5)
 
 SOURCES += PatchReader.cpp \
-    PatchWriter.cpp 
+    PatchWriter.cpp \
+    PatchManager.cpp
     
 HEADERS += PatchReader.h \
-    PatchWriter.h 
+    PatchWriter.h \
+    PatchManager.h
 
 unix {
     target.path = /usr/lib
@@ -15,6 +17,7 @@ unix {
 }
 
 INCLUDEPATH += ./../TinyXml2
+INCLUDEPATH += ./../Utilities
 INCLUDEPATH += ./../JackLib
 INCLUDEPATH += ./../CommandStackLib
 INCLUDEPATH += ./../ModularLib

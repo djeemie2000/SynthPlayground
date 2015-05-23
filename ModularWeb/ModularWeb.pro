@@ -13,17 +13,16 @@ SOURCES += \
     WebPageManager.cpp \
     WebPageHelpers.cpp \
     WebPageModuleParameterVisitor.cpp \
-    WebRequest.cpp \
-    PatchManager.cpp
+    WebRequest.cpp
 
 HEADERS += \
     ModularWebController.h \
     WebPageManager.h \
     WebPageHelpers.h \
     WebPageModuleParameterVisitor.h \
-    WebRequest.h \
-    PatchManager.h
+    WebRequest.h
 
+INCLUDEPATH += ./../PatchLib
 INCLUDEPATH += ./../SynthLib
 INCLUDEPATH += ./../SynthLib/Controllers
 INCLUDEPATH += ./../CommandStackLib
@@ -51,6 +50,12 @@ CONFIG(debug, debug|release) {
     PRE_TARGETDEPS += ./../build-dir/Debug/JackLib/libJackLib.a
     LIBS += -L./../build-dir/Debug/TinyXml2
     PRE_TARGETDEPS += ./../build-dir/Debug/TinyXml2/libTinyXml2.a
+    LIBS += -L./../build-dir/Debug/PatchLib
+    PRE_TARGETDEPS += ./../build-dir/Debug/PatchLib/libPatchLib.a
+    LIBS += -L./../build-dir/Debug/PatchLib
+    PRE_TARGETDEPS += ./../build-dir/Debug/PatchLib/libPatchLib.a
+    LIBS += -L./../build-dir/Debug/Utilities
+    PRE_TARGETDEPS += ./../build-dir/Debug/Utilities/libUtilities.a
     LIBS += -L./../build-dir/Debug/Mongoose
     PRE_TARGETDEPS += ./../build-dir/Debug/Mongoose/libMongoose.a
 }
@@ -69,6 +74,10 @@ CONFIG(release, debug|release) {
     PRE_TARGETDEPS += ./../build-dir/Release/JackLib/libJackLib.a
     LIBS += -L./../build-dir/Release/TinyXml2
     PRE_TARGETDEPS += ./../build-dir/Release/TinyXml2/libTinyXml2.a
+    LIBS += -L./../build-dir/Release/PatchLib
+    PRE_TARGETDEPS += ./../build-dir/Release/PatchLib/libPatchLib.a
+    LIBS += -L./../build-dir/Release/Utilities
+    PRE_TARGETDEPS += ./../build-dir/Release/Utilities/libUtilities.a
     LIBS += -L./../build-dir/Release/Mongoose
     PRE_TARGETDEPS += ./../build-dir/Release/Mongoose/libMongoose.a
 }
@@ -78,7 +87,9 @@ LIBS += -lGuiLib
 LIBS += -lCommandStackLib
 LIBS += -lSynthLib
 LIBS += -lMidiLib
+LIBS += -lPatchLib
 LIBS += -lJackLib
+LIBS += -lUtilities
 LIBS += -lTinyXml2
 LIBS += -lMongoose
 

@@ -5,13 +5,14 @@ ADD_DEFINITIONS(
 	# other flags
 )
 
-include_directories(./../ModularLib ./../CommandStackLib ./../JackLib ./../TinyXml2)
-
+include_directories(./../ModularLib ./../CommandStackLib ./../JackLib ./../Utilities ./../TinyXml2)
 
 add_library(PatchLib
     PatchReader.cpp
     PatchReader.h
     PatchWriter.cpp
     PatchWriter.h
+    PatchManager.cpp
+    PatchManager.h
 )
 
