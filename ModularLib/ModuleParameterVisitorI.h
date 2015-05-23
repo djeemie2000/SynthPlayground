@@ -16,7 +16,7 @@ public:
     virtual void SelectionParameter(const std::string& ParameterName, const std::string& Name, int Default, const std::vector<std::string>& Selections) =0;
     virtual void BooleanParameter(const std::string& ParameterName, const std::string& Name, bool Default) =0;
 //    virtual void TriggeredParameter(const std::string& ParameterName, const std::string& Name) =0;
-//    virtual void FilePathParameter(const std::string& ParameterName, const std::string& Name, const std::string& Extensions) =0;
+    virtual void FilePathParameter(const std::string& ParameterName, const std::string& Name, const std::string& Extensions) =0;
     virtual void BooleanStatus(const std::string& ParameterName, const std::string& Name, bool Default) =0;
     virtual void FinishLine() =0;
     virtual void Finish() =0;

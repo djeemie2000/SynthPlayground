@@ -35,6 +35,11 @@ void CCountModuleParameterVisitor::BooleanParameter(const std::string &Parameter
     ++m_ParameterCount;
 }
 
+void CCountModuleParameterVisitor::FilePathParameter(const std::string &/*ParameterName*/, const std::string &/*Name*/, const std::string &/*Extensions*/)
+{
+    ++m_ParameterCount;
+}
+
 void CCountModuleParameterVisitor::BooleanStatus(const std::string &ParameterName, const std::string &Name, bool Default)
 {
     ++m_ParameterCount;
