@@ -72,7 +72,7 @@ CONFIG(release, debug|release) {
     LIBS += -L./../build-dir/Release/TinyXml2
     PRE_TARGETDEPS += ./../build-dir/Release/TinyXml2/libTinyXml2.a
     LIBS += -L./../build-dir/Release/Mongoose
-    PRE_TARGETDEPS += ./../build-dir/Release/TinyXml2/libMongoose.a
+    PRE_TARGETDEPS += ./../build-dir/Release/Mongoose/libMongoose.a
 }
 
 LIBS += -lModularLib

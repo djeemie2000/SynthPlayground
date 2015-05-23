@@ -6,6 +6,7 @@ CONFIG += c++11 (Qt5)
 SUBDIRS += \
     ../UnitTest \           # a "lib' project
     ../TinyXml2 \           # a 'lib' project
+    ../Mongoose \           # a 'lib' project
     ../SynthLib \           # a 'lib' project
     ../TestSynthLib \       # an 'app' project
     ../MidiLib \            # a 'lib' project
@@ -16,7 +17,6 @@ SUBDIRS += \
     ../GuiLib \             # a 'lib' project
     ../ModularLib \         # a 'lib' project
     ../TestModularLib \     # an 'app' project
-    ../Mongoose \           # a 'lib' project
     ../Modular1 \           # an  'app' project
     ../ModularHeadless \    # an  'app' project
     ../ModularWeb           # an  'app' project
