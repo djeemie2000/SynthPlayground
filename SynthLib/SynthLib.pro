@@ -17,9 +17,6 @@ SOURCES += Notes.cpp \
     MultiStepSequencer.cpp
 
 HEADERS += Notes.h \
-    PeriodicThreadRunner.h \
-    ContinuousThreadRunner.h \
-    ClockUtilities.h \
     Combinor.h \
     ConstGenerator.h \
     Conversions.h \

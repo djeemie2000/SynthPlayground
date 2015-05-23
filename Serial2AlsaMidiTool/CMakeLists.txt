@@ -5,7 +5,7 @@ ADD_DEFINITIONS(
 	# other flags
 )
 
-include_directories(./../SerialLib ./../AlsaLib ./../MidiLib ./../SynthLib)
+include_directories(./../SerialLib ./../AlsaLib ./../MidiLib ./../SynthLib ./../Utilities)
 
 add_executable(Serial2AlsaMidiTool
     main.cpp)

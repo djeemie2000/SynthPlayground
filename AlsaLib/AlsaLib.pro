@@ -11,6 +11,7 @@ HEADERS += AlsaMidiInput.h \
 
 INCLUDEPATH += ./../SynthLib
 INCLUDEPATH += ./../MidiLib
+INCLUDEPATH += ./../Utilities
 
 LIBS += -lasound
 

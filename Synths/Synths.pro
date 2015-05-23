@@ -7,6 +7,7 @@ SUBDIRS += \
     ../UnitTest \           #a "lib' project
     ../TinyXml2 \           # a 'lib' project
     ../Mongoose \           # a 'lib' project
+    ../Utilities \          # a 'lib' project
     ../SynthLib \           # a 'lib' project
     ../TestSynthLib \       # an 'app' project
     ../MidiLib \            # a 'lib' project

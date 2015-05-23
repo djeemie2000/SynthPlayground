@@ -10,6 +10,7 @@ INCLUDEPATH += ./../AlsaLib
 INCLUDEPATH += ./../MidiLib
 INCLUDEPATH += ./../SerialLib
 INCLUDEPATH += ./../SynthLib
+INCLUDEPATH += ./../Utilities
 
 CONFIG(debug, debug|release) {
     LIBS += -L./../build-dir/Debug/AlsaLib
@@ -18,6 +19,8 @@ CONFIG(debug, debug|release) {
     PRE_TARGETDEPS += ./../build-dir/Debug/MidiLib/libMidiLib.a
     LIBS += -L./../build-dir/Debug/SerialLib
     PRE_TARGETDEPS += ./../build-dir/Debug/SerialLib/libSerialLib.a
+    LIBS += -L./../build-dir/Debug/Utilities
+    PRE_TARGETDEPS += ./../build-dir/Debug/Utilities/libUtilities.a
 }
 CONFIG(release, debug|release) {
     LIBS += -L./../build-dir/Release/AlsaLib
@@ -26,11 +29,14 @@ CONFIG(release, debug|release) {
     PRE_TARGETDEPS += ./../build-dir/Release/MidiLib/libMidiLib.a
     LIBS += -L./../build-dir/Release/SerialLib
     PRE_TARGETDEPS += ./../build-dir/Release/SerialLib/libSerialLib.a
+    LIBS += -L./../build-dir/Release/Utilities
+    PRE_TARGETDEPS += ./../build-dir/Release/Utilities/libUtilities.a
 }
 
 LIBS += -lMidiLib
 LIBS += -lAlsaLib
 LIBS += -lSerialLib
+LIBS += -lUtilities
 
 win32 {
 }

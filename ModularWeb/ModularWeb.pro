@@ -14,7 +14,6 @@ SOURCES += \
     WebPageHelpers.cpp \
     WebPageModuleParameterVisitor.cpp \
     WebRequest.cpp \
-    FileSystemHelpers.cpp \
     PatchManager.cpp
 
 HEADERS += \
@@ -23,7 +22,6 @@ HEADERS += \
     WebPageHelpers.h \
     WebPageModuleParameterVisitor.h \
     WebRequest.h \
-    FileSystemHelpers.h \
     PatchManager.h
 
 INCLUDEPATH += ./../SynthLib

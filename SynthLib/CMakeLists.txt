@@ -25,9 +25,6 @@ add_library(SynthLib
     MidiNoteConverter.cpp
     Granular/GrainUtilities.cpp
     Notes.h
-    PeriodicThreadRunner.h
-    ContinuousThreadRunner.h
-    ClockUtilities.h
     Combinor.h
     ConstGenerator.h
     Conversions.h

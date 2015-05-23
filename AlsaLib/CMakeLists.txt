@@ -5,7 +5,7 @@ ADD_DEFINITIONS(
 	# other flags
 )
 
-include_directories(./../SynthLib ./../MidiLib)
+include_directories(./../SynthLib ./../MidiLib ./../Utilities)
 
 add_library(AlsaLib
     AlsaMidiInput.cpp
