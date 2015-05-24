@@ -25,6 +25,7 @@ add_subdirectory(../MidiLib ${BUILD_DIRECTORY}/MidiLib)
 add_subdirectory(../PatchLib ${BUILD_DIRECTORY}/PatchLib)
 
 add_subdirectory(../TestCommandStackLib ${BUILD_DIRECTORY}/TestCommandStackLib)
+add_subdirectory(../TestPatchLib ${BUILD_DIRECTORY}/TestPatchLib)
 add_subdirectory(../TestSynthLib ${BUILD_DIRECTORY}/TestSynthLib)
 add_subdirectory(../TestModularLib ${BUILD_DIRECTORY}/TestModularLib)
 
