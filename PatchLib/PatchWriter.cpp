@@ -17,6 +17,12 @@ bool CPatchWriter::WritePatch(const std::string &Path,
     Doc.InsertEndChild(Doc.NewElement("xml"));
     if(tinyxml2::XMLElement* RootEl = Doc.RootElement())
     {
+        // patch 'header
+        if(tinyxml2::XMLElement* PatchEl = Doc.NewElement("Patch"))
+        {
+            PatchEl->SetAttribute("Version", "2");
+            RootEl->InsertEndChild(PatchEl);
+        }
         // modules
         if(tinyxml2::XMLElement* ModulesEl = Doc.NewElement("Modules"))
         {
