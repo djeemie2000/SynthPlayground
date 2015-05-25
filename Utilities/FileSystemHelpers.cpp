@@ -5,11 +5,16 @@ bool ListDirectory(const std::string& DirectoryPath, std::vector<std::string>& F
 {
     DIR* dir = opendir(DirectoryPath.c_str());
 
-    while(dirent* entry = readdir(dir))
+    if(dir)
     {
-        Files.push_back(entry->d_name);//zero terminated char[]
+        while(dirent* entry = readdir(dir))
+        {
+            Files.push_back(entry->d_name);//zero terminated char[]
+        }
+        //delete entry?
+        closedir(dir);
+        return true;
     }
-    //delete entry?
-    closedir(dir);
-    return true;//???
+
+    return false;
 }
