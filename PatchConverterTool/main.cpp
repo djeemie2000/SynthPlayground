@@ -60,13 +60,12 @@ int main(int argc, const char* argv[])
         std::shared_ptr<CModuleManager> ModuleManager(new CModuleManager(ModuleFactory));
 
         auto PatchNames = SrcPatchManager.GetPatchNames();
-        //for(const auto& PatchName : SrcPatchManager.GetPatchNames())
-        for(std::size_t idx = 40; idx<PatchNames.size(); ++idx)
+        for(std::size_t idx = 0; idx<PatchNames.size(); ++idx)
         {
             auto PatchName = PatchNames[idx];
             std::cout << "Converting " << idx << "/" << PatchNames.size() << " : " << PatchName << "..." << std::endl;
 
-            // TODO parse patch into 3 strings:
+            // parse patch into 3 strings:
             tinyxml2::XMLDocument Doc;
             if(tinyxml2::XML_NO_ERROR == Doc.LoadFile(SrcPatchManager.GetPath(PatchName).c_str()))
             {
