@@ -277,26 +277,26 @@ int CJackIOManager::OnProcess(jack_nframes_t NumFrames)
         for(auto& InputPort : m_AudioFilter.s_InputPorts)
         {
             int NumConnected = jack_port_connected(InputPort);
-            void* SrcBuffer = jack_port_get_buffer(InputPort, NumFrames);
+            void* SrcBuffer = InputPort ? jack_port_get_buffer(InputPort, NumFrames) : 0;
             SourceBuffers.push_back(0<NumConnected ? SrcBuffer : 0);
         }
         std::vector<void*> DestinationBuffers;
         for(auto& OutputPort : m_AudioFilter.s_OutputPorts)
         {
             int NumConnected = jack_port_connected(OutputPort);
-            void* DstBuffer = jack_port_get_buffer(OutputPort, NumFrames);
+            void* DstBuffer = OutputPort ? jack_port_get_buffer(OutputPort, NumFrames) : 0;
             DestinationBuffers.push_back(0<NumConnected ? DstBuffer : 0);
         }
         std::vector<std::shared_ptr<IMidiRenderer>> MidiRenderers;
         for(auto& MidiInputPort : m_AudioFilter.s_MidiInputPorts)
         {
-            void* SrcBuffer = jack_port_get_buffer(MidiInputPort, NumFrames);
+            void* SrcBuffer = MidiInputPort ? jack_port_get_buffer(MidiInputPort, NumFrames) : 0;
             MidiRenderers.push_back(std::shared_ptr<IMidiRenderer>(new CJackMidiRenderer(SrcBuffer)));
         }
         std::vector<std::shared_ptr<IMidiHandler>> MidiHandlers;
         for(auto& MidiOutputPort : m_AudioFilter.s_MidiOutputPorts)
         {
-            void* DstBuffer = jack_port_get_buffer(MidiOutputPort, NumFrames);
+            void* DstBuffer = MidiOutputPort ? jack_port_get_buffer(MidiOutputPort, NumFrames) : 0;
             MidiHandlers.push_back(std::shared_ptr<IMidiHandler>(new CJackMidiHandler(DstBuffer)));
         }
         // should return 0 upon succes, non-zero error code upon failure
