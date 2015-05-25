@@ -120,7 +120,8 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Modules/MidiOctaveGateModule.cpp \
     Filters/SimpleLooperFilter.cpp \
     Filters/BasicSamplerFilter.cpp \
-    Modules/BasicSamplerModule.cpp
+    Modules/BasicSamplerModule.cpp \
+    FilterBuffers.h
 
 
 HEADERS += Filters/ControllerBankFilter.h \

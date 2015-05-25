@@ -1,8 +1,9 @@
 #include "StereoDelayFilter.h"
 
 CStereoDelayFilter::CStereoDelayFilter(int SamplingFrequency)
- : m_DelayTime(2, CConstNumSamplesGenerator<float>(static_cast<float>(SamplingFrequency)))
- , m_Delay(2, CFeedbackDelay<float>(5*SamplingFrequency, 0.0f))
+    : m_DelayTime(Size, CConstNumSamplesGenerator<float>(static_cast<float>(SamplingFrequency)))
+    , m_Delay(Size, CFeedbackDelay<float>(5*SamplingFrequency, 0.0f))
+    , m_Buffers({0.0f, 0.0f}, {0.0f, 0.0f})
 {
 }
 
@@ -33,25 +34,17 @@ int CStereoDelayFilter::OnProcess(const std::vector<void *> &SourceBuffers,
                                   int NumFrames,
                                   std::uint32_t /*TimeStamp*/)
 {
-    for(int idx = 0; idx<2; ++idx)
+    m_Buffers.Update(SourceBuffers, DestinationBuffers, NumFrames);
+    for(int idx = 0; idx<Size; ++idx)
     {
-        if(SourceBuffers[idx] && DestinationBuffers[idx])
+        const float* pSrc = m_Buffers.GetSourceBuffer(idx); //(const float*)SourceBuffers[idx];
+        const float* pSrcEnd = pSrc + NumFrames;
+        float* pDst = m_Buffers.GetDestinationBuffer(idx);//(float*)DestinationBuffers[idx];
+        while(pSrc<pSrcEnd)
         {
-            const float* pSrcL = (const float*)SourceBuffers[idx];
-            const float* pSrcEndL = pSrcL + NumFrames;
-            float* pDstL = (float*)DestinationBuffers[idx];
-            while(pSrcL<pSrcEndL)
-            {
-                *pDstL =  m_Delay[idx](*pSrcL);
-                ++pSrcL;
-                ++pDstL;
-            }
-        }
-        else if(DestinationBuffers[idx])
-        {
-            //if only destination buffer=> all zero output
-            float* Dst = (float*)DestinationBuffers[idx];
-            std::fill(Dst, Dst + NumFrames, 0.0f);
+            *pDst =  m_Delay[idx](*pSrc);
+            ++pSrc;
+            ++pDst;
         }
     }
 

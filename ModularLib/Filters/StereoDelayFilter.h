@@ -5,6 +5,7 @@
 #include "AudioFilterI.h"
 #include "ConstNumSamplesGenerator.h"
 #include "FeedbackDelay.h"
+#include "FilterBuffers.h"
 
 class CStereoDelayFilter : public IAudioFilter
 {
@@ -28,9 +29,10 @@ public:
     void OnDelayFeedback(int Index, float Feedback);
 
 private:
+    static const int Size = 2;
     std::vector<CConstNumSamplesGenerator<float>> m_DelayTime;
     std::vector<CFeedbackDelay<float>> m_Delay;
-
+    CFilterBuffers<float> m_Buffers;
 };
 
 #endif // STEREODELAYFILTER_H

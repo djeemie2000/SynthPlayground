@@ -258,4 +258,5 @@ add_library(ModularLib
     Filters/BasicSamplerFilter.h
     Modules/BasicSamplerModule.cpp
     Modules/BasicSamplerModule.h
+    FilterBuffers.h
 )
