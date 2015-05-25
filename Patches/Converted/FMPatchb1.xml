@@ -1,0 +1,50 @@
+<xml>
+    <Patch Version="2"/>
+    <Modules>
+        <Module Name="ADSREnvelopeBank(4)0" Type="ADSREnvelopeBank(4)"/>
+        <Module Name="ControllerBank(4)0" Type="ControllerBank(4)"/>
+        <Module Name="FM0" Type="FM"/>
+        <Module Name="MidiNote0" Type="MidiNote"/>
+        <Module Name="Mixer(4)0" Type="Mixer(4)"/>
+        <Module Name="SimpleOscillator0" Type="SimpleOscillator"/>
+    </Modules>
+    <Connections>
+        <Connection OutputPort="ADSREnvelopeBank(4)0:Envelope0" InputPort="FM0:ModAmpl"/>
+        <Connection OutputPort="ControllerBank(4)0:Contr0" InputPort="FM0:ModFreqMult"/>
+        <Connection OutputPort="FM0:FMFreq" InputPort="SimpleOscillator0:Freq"/>
+        <Connection OutputPort="MidiNote0:Freq" InputPort="FM0:CarrierFreq"/>
+        <Connection OutputPort="MidiNote0:Trigger" InputPort="ADSREnvelopeBank(4)0:Trigger0"/>
+        <Connection OutputPort="Mixer(4)0:Out" InputPort="system:playback_1"/>
+        <Connection OutputPort="Mixer(4)0:Out" InputPort="system:playback_2"/>
+        <Connection OutputPort="SimpleOscillator0:Out" InputPort="Mixer(4)0:In0"/>
+    </Connections>
+    <Parameters>
+        <Parameter Name="ADSREnvelopeBank(4)0/0/Attack" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/0/Decay" Type="Float" Value="800.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/0/Release" Type="Float" Value="100.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/0/Sustain" Type="Float" Value="0.200000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/1/Attack" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/1/Decay" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/1/Release" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/1/Sustain" Type="Float" Value="1.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/2/Attack" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/2/Decay" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/2/Release" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/2/Sustain" Type="Float" Value="1.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/3/Attack" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/3/Decay" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/3/Release" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/3/Sustain" Type="Float" Value="1.000000"/>
+        <Parameter Name="ControllerBank(4)0/0/Value" Type="Float" Value="0.200000"/>
+        <Parameter Name="ControllerBank(4)0/1/Value" Type="Float" Value="0.000000"/>
+        <Parameter Name="ControllerBank(4)0/2/Value" Type="Float" Value="0.000000"/>
+        <Parameter Name="ControllerBank(4)0/3/Value" Type="Float" Value="0.000000"/>
+        <Parameter Name="FM0/ModWaveform" Type="Integer" Value="3"/>
+        <Parameter Name="Mixer(4)0/0/Volume" Type="Float" Value="0.080000"/>
+        <Parameter Name="Mixer(4)0/1/Volume" Type="Float" Value="0.250000"/>
+        <Parameter Name="Mixer(4)0/2/Volume" Type="Float" Value="0.250000"/>
+        <Parameter Name="Mixer(4)0/3/Volume" Type="Float" Value="0.250000"/>
+        <Parameter Name="Mixer(4)0/MasterVolume" Type="Float" Value="0.500000"/>
+        <Parameter Name="SimpleOscillator0/Select" Type="Integer" Value="3"/>
+    </Parameters>
+</xml>

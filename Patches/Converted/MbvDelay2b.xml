@@ -1,0 +1,79 @@
+<xml>
+    <Patch Version="2"/>
+    <Modules>
+        <Module Name="ADSREnvelopeBank(4)0" Type="ADSREnvelopeBank(4)"/>
+        <Module Name="BipolarLimiter0" Type="BipolarLimiter"/>
+        <Module Name="DelayLine0" Type="DelayLine"/>
+        <Module Name="Distortion10" Type="Distortion1"/>
+        <Module Name="LFOBank(4)0" Type="LFOBank(4)"/>
+        <Module Name="Modulator0" Type="Modulator"/>
+        <Module Name="PeriodicTrigger0" Type="PeriodicTrigger"/>
+        <Module Name="StereoDelay0" Type="StereoDelay"/>
+        <Module Name="StereoMixer(4)0" Type="StereoMixer(4)"/>
+    </Modules>
+    <Connections>
+        <Connection OutputPort="ADSREnvelopeBank(4)0:Envelope0" InputPort="Modulator0:ModIn0"/>
+        <Connection OutputPort="DelayLine0:Delayed" InputPort="StereoMixer(4)0:In1"/>
+        <Connection OutputPort="Distortion10:Out" InputPort="DelayLine0:In"/>
+        <Connection OutputPort="Distortion10:Out" InputPort="StereoMixer(4)0:In0"/>
+        <Connection OutputPort="LFOBank(4)0:LFO0" InputPort="Modulator0:ModIn1"/>
+        <Connection OutputPort="Modulator0:Out" InputPort="DelayLine0:Delay"/>
+        <Connection OutputPort="PeriodicTrigger0:Trigger" InputPort="ADSREnvelopeBank(4)0:Trigger0"/>
+        <Connection OutputPort="StereoDelay0:OutLeft" InputPort="system:playback_1"/>
+        <Connection OutputPort="StereoDelay0:OutRight" InputPort="system:playback_2"/>
+        <Connection OutputPort="StereoMixer(4)0:OutL" InputPort="StereoDelay0:InLeft"/>
+        <Connection OutputPort="StereoMixer(4)0:OutR" InputPort="StereoDelay0:InRight"/>
+    </Connections>
+    <Parameters>
+        <Parameter Name="ADSREnvelopeBank(4)0/0/Attack" Type="Float" Value="400.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/0/Decay" Type="Float" Value="300.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/0/Release" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/0/Sustain" Type="Float" Value="0.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/1/Attack" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/1/Decay" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/1/Release" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/1/Sustain" Type="Float" Value="1.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/2/Attack" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/2/Decay" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/2/Release" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/2/Sustain" Type="Float" Value="1.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/3/Attack" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/3/Decay" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/3/Release" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/3/Sustain" Type="Float" Value="1.000000"/>
+        <Parameter Name="DelayLine0/DelayRangeMilliSeconds" Type="Integer" Value="70"/>
+        <Parameter Name="Distortion10/Drive" Type="Float" Value="0.760000"/>
+        <Parameter Name="LFOBank(4)0/0/Frequency" Type="Float" Value="1.000000"/>
+        <Parameter Name="LFOBank(4)0/0/Select" Type="Integer" Value="3"/>
+        <Parameter Name="LFOBank(4)0/1/Frequency" Type="Float" Value="1.000000"/>
+        <Parameter Name="LFOBank(4)0/1/Select" Type="Integer" Value="0"/>
+        <Parameter Name="LFOBank(4)0/2/Frequency" Type="Float" Value="1.000000"/>
+        <Parameter Name="LFOBank(4)0/2/Select" Type="Integer" Value="0"/>
+        <Parameter Name="LFOBank(4)0/3/Frequency" Type="Float" Value="1.000000"/>
+        <Parameter Name="LFOBank(4)0/3/Select" Type="Integer" Value="0"/>
+        <Parameter Name="Modulator0/0/ModAmt" Type="Float" Value="0.000000"/>
+        <Parameter Name="Modulator0/1/ModAmt" Type="Float" Value="0.090000"/>
+        <Parameter Name="Modulator0/LimitMode" Type="Integer" Value="2"/>
+        <Parameter Name="Modulator0/Offset" Type="Float" Value="0.000000"/>
+        <Parameter Name="PeriodicTrigger0/BeatsPerBar" Type="Integer" Value="1"/>
+        <Parameter Name="PeriodicTrigger0/BeatsPerMinute" Type="Integer" Value="30"/>
+        <Parameter Name="PeriodicTrigger0/Duration" Type="Integer" Value="90"/>
+        <Parameter Name="StereoDelay0/Left/Bypass" Type="Boolean" Value="0"/>
+        <Parameter Name="StereoDelay0/Left/DelayMilliSeconds" Type="Float" Value="247.000000"/>
+        <Parameter Name="StereoDelay0/Left/Feedback" Type="Float" Value="0.500000"/>
+        <Parameter Name="StereoDelay0/Left/WetDry" Type="Float" Value="0.400000"/>
+        <Parameter Name="StereoDelay0/Right/Bypass" Type="Boolean" Value="0"/>
+        <Parameter Name="StereoDelay0/Right/DelayMilliSeconds" Type="Float" Value="253.000000"/>
+        <Parameter Name="StereoDelay0/Right/Feedback" Type="Float" Value="0.500000"/>
+        <Parameter Name="StereoDelay0/Right/WetDry" Type="Float" Value="0.400000"/>
+        <Parameter Name="StereoMixer(4)0/0/Pan" Type="Float" Value="-0.130000"/>
+        <Parameter Name="StereoMixer(4)0/0/Volume" Type="Float" Value="0.110000"/>
+        <Parameter Name="StereoMixer(4)0/1/Pan" Type="Float" Value="-0.050000"/>
+        <Parameter Name="StereoMixer(4)0/1/Volume" Type="Float" Value="0.240000"/>
+        <Parameter Name="StereoMixer(4)0/2/Pan" Type="Float" Value="0.000000"/>
+        <Parameter Name="StereoMixer(4)0/2/Volume" Type="Float" Value="0.250000"/>
+        <Parameter Name="StereoMixer(4)0/3/Pan" Type="Float" Value="0.000000"/>
+        <Parameter Name="StereoMixer(4)0/3/Volume" Type="Float" Value="0.250000"/>
+        <Parameter Name="StereoMixer(4)0/MasterVolume" Type="Float" Value="0.400000"/>
+    </Parameters>
+</xml>

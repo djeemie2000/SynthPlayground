@@ -1,0 +1,46 @@
+<xml>
+    <Patch Version="2"/>
+    <Modules>
+        <Module Name="ControllerBank(4)0" Type="ControllerBank(4)"/>
+        <Module Name="Granular0" Type="Granular"/>
+        <Module Name="LPF0" Type="LPF"/>
+        <Module Name="Mixer(4)0" Type="Mixer(4)"/>
+        <Module Name="StereoDelay0" Type="StereoDelay"/>
+    </Modules>
+    <Connections>
+        <Connection OutputPort="ControllerBank(4)0:Contr0" InputPort="LPF0:CutOff"/>
+        <Connection OutputPort="Granular0:Out" InputPort="LPF0:In"/>
+        <Connection OutputPort="LPF0:Out" InputPort="Mixer(4)0:In0"/>
+        <Connection OutputPort="Mixer(4)0:Out" InputPort="StereoDelay0:InLeft"/>
+        <Connection OutputPort="Mixer(4)0:Out" InputPort="StereoDelay0:InRight"/>
+        <Connection OutputPort="StereoDelay0:OutLeft" InputPort="system:playback_1"/>
+        <Connection OutputPort="StereoDelay0:OutRight" InputPort="system:playback_2"/>
+    </Connections>
+    <Parameters>
+        <Parameter Name="ControllerBank(4)0/0/Value" Type="Float" Value="0.428000"/>
+        <Parameter Name="ControllerBank(4)0/1/Value" Type="Float" Value="0.000000"/>
+        <Parameter Name="ControllerBank(4)0/2/Value" Type="Float" Value="0.000000"/>
+        <Parameter Name="ControllerBank(4)0/3/Value" Type="Float" Value="0.000000"/>
+        <Parameter Name="Granular0/GrainDensity" Type="Integer" Value="10"/>
+        <Parameter Name="Granular0/GrainSize" Type="Integer" Value="12"/>
+        <Parameter Name="Granular0/GrainSpeed" Type="Integer" Value="98"/>
+        <Parameter Name="Granular0/PositionSpeed" Type="Integer" Value="7"/>
+        <Parameter Name="Granular0/SampleGrab" Type="Boolean" Value="0"/>
+        <Parameter Name="Granular0/SampleSize" Type="Integer" Value="16"/>
+        <Parameter Name="LPF0/Poles" Type="Integer" Value="18"/>
+        <Parameter Name="LPF0/Resonance" Type="Float" Value="0.900000"/>
+        <Parameter Name="Mixer(4)0/0/Volume" Type="Float" Value="0.600000"/>
+        <Parameter Name="Mixer(4)0/1/Volume" Type="Float" Value="0.000000"/>
+        <Parameter Name="Mixer(4)0/2/Volume" Type="Float" Value="0.000000"/>
+        <Parameter Name="Mixer(4)0/3/Volume" Type="Float" Value="0.000000"/>
+        <Parameter Name="Mixer(4)0/MasterVolume" Type="Float" Value="0.500000"/>
+        <Parameter Name="StereoDelay0/Left/Bypass" Type="Boolean" Value="0"/>
+        <Parameter Name="StereoDelay0/Left/DelayMilliSeconds" Type="Float" Value="347.000000"/>
+        <Parameter Name="StereoDelay0/Left/Feedback" Type="Float" Value="0.600000"/>
+        <Parameter Name="StereoDelay0/Left/WetDry" Type="Float" Value="0.600000"/>
+        <Parameter Name="StereoDelay0/Right/Bypass" Type="Boolean" Value="0"/>
+        <Parameter Name="StereoDelay0/Right/DelayMilliSeconds" Type="Float" Value="363.000000"/>
+        <Parameter Name="StereoDelay0/Right/Feedback" Type="Float" Value="0.600000"/>
+        <Parameter Name="StereoDelay0/Right/WetDry" Type="Float" Value="0.600000"/>
+    </Parameters>
+</xml>

@@ -1,0 +1,150 @@
+<xml>
+    <Patch Version="2"/>
+    <Modules>
+        <Module Name="ADSREnvelopeBank(4)0" Type="ADSREnvelopeBank(4)"/>
+        <Module Name="Amp0" Type="Amp"/>
+        <Module Name="AsymmetricAmp0" Type="AsymmetricAmp"/>
+        <Module Name="Clock0" Type="Clock"/>
+        <Module Name="ControllerBank(4)0" Type="ControllerBank(4)"/>
+        <Module Name="LPF0" Type="LPF"/>
+        <Module Name="Mixer(4)0" Type="Mixer(4)"/>
+        <Module Name="MultiStepSequencer0" Type="MultiStepSequencer"/>
+        <Module Name="Noise0" Type="Noise"/>
+        <Module Name="PeriodicSync0" Type="PeriodicSync"/>
+        <Module Name="SampleAndHold0" Type="SampleAndHold"/>
+        <Module Name="StereoDelay0" Type="StereoDelay"/>
+    </Modules>
+    <Connections>
+        <Connection OutputPort="ADSREnvelopeBank(4)0:Envelope0" InputPort="Amp0:Ampl"/>
+        <Connection OutputPort="Amp0:Out" InputPort="Mixer(4)0:In3"/>
+        <Connection OutputPort="AsymmetricAmp0:Out" InputPort="Mixer(4)0:In2"/>
+        <Connection OutputPort="AsymmetricAmp0:Out" InputPort="Amp0:In"/>
+        <Connection OutputPort="Clock0:Clock" InputPort="MultiStepSequencer0:Clock"/>
+        <Connection OutputPort="ControllerBank(4)0:Contr0" InputPort="PeriodicSync0:Freq"/>
+        <Connection OutputPort="LPF0:Out" InputPort="Mixer(4)0:In0"/>
+        <Connection OutputPort="LPF0:Out" InputPort="AsymmetricAmp0:In"/>
+        <Connection OutputPort="Mixer(4)0:Out" InputPort="StereoDelay0:InLeft"/>
+        <Connection OutputPort="Mixer(4)0:Out" InputPort="StereoDelay0:InRight"/>
+        <Connection OutputPort="MultiStepSequencer0:Vel" InputPort="LPF0:CutOff"/>
+        <Connection OutputPort="MultiStepSequencer0:Trigger" InputPort="ADSREnvelopeBank(4)0:Trigger0"/>
+        <Connection OutputPort="Noise0:Out" InputPort="SampleAndHold0:In"/>
+        <Connection OutputPort="PeriodicSync0:Sync" InputPort="SampleAndHold0:Trigger"/>
+        <Connection OutputPort="SampleAndHold0:Out" InputPort="Mixer(4)0:In1"/>
+        <Connection OutputPort="SampleAndHold0:Out" InputPort="LPF0:In"/>
+        <Connection OutputPort="StereoDelay0:OutLeft" InputPort="system:playback_1"/>
+        <Connection OutputPort="StereoDelay0:OutRight" InputPort="system:playback_2"/>
+    </Connections>
+    <Parameters>
+        <Parameter Name="ADSREnvelopeBank(4)0/0/Attack" Type="Float" Value="30.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/0/Decay" Type="Float" Value="70.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/0/Release" Type="Float" Value="100.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/0/Sustain" Type="Float" Value="0.200000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/1/Attack" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/1/Decay" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/1/Release" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/1/Sustain" Type="Float" Value="1.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/2/Attack" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/2/Decay" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/2/Release" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/2/Sustain" Type="Float" Value="1.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/3/Attack" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/3/Decay" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/3/Release" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/3/Sustain" Type="Float" Value="1.000000"/>
+        <Parameter Name="AsymmetricAmp0/AmpNeg" Type="Float" Value="1.000000"/>
+        <Parameter Name="AsymmetricAmp0/AmpOffset" Type="Float" Value="0.000000"/>
+        <Parameter Name="AsymmetricAmp0/AmpPos" Type="Float" Value="0.000000"/>
+        <Parameter Name="AsymmetricAmp0/OffsetLockMode" Type="Boolean" Value="1"/>
+        <Parameter Name="Clock0/BeatsPerBar" Type="Integer" Value="2"/>
+        <Parameter Name="Clock0/BeatsPerMinute" Type="Integer" Value="120"/>
+        <Parameter Name="Clock0/SubDivision" Type="Integer" Value="128"/>
+        <Parameter Name="ControllerBank(4)0/0/Value" Type="Float" Value="880.000000"/>
+        <Parameter Name="ControllerBank(4)0/1/Value" Type="Float" Value="0.000000"/>
+        <Parameter Name="ControllerBank(4)0/2/Value" Type="Float" Value="0.000000"/>
+        <Parameter Name="ControllerBank(4)0/3/Value" Type="Float" Value="0.000000"/>
+        <Parameter Name="LPF0/Poles" Type="Integer" Value="19"/>
+        <Parameter Name="LPF0/Resonance" Type="Float" Value="1.350000"/>
+        <Parameter Name="Mixer(4)0/0/Volume" Type="Float" Value="0.000000"/>
+        <Parameter Name="Mixer(4)0/1/Volume" Type="Float" Value="0.000000"/>
+        <Parameter Name="Mixer(4)0/2/Volume" Type="Float" Value="0.000000"/>
+        <Parameter Name="Mixer(4)0/3/Volume" Type="Float" Value="0.400000"/>
+        <Parameter Name="Mixer(4)0/MasterVolume" Type="Float" Value="0.600000"/>
+        <Parameter Name="MultiStepSequencer0/IsActive" Type="Boolean" Value="1"/>
+        <Parameter Name="MultiStepSequencer0/NumSteps" Type="" Value=""/>
+        <Parameter Name="MultiStepSequencer0/Step/0/Duration" Type="Integer" Value="64"/>
+        <Parameter Name="MultiStepSequencer0/Step/0/Mode" Type="Integer" Value="1"/>
+        <Parameter Name="MultiStepSequencer0/Step/0/Note" Type="Integer" Value="9"/>
+        <Parameter Name="MultiStepSequencer0/Step/0/NumSubSteps" Type="Integer" Value="3"/>
+        <Parameter Name="MultiStepSequencer0/Step/0/Octave" Type="Integer" Value="3"/>
+        <Parameter Name="MultiStepSequencer0/Step/0/Status" Type="" Value=""/>
+        <Parameter Name="MultiStepSequencer0/Step/0/SubStepMode" Type="Integer" Value="2"/>
+        <Parameter Name="MultiStepSequencer0/Step/0/Velocity" Type="Integer" Value="80"/>
+        <Parameter Name="MultiStepSequencer0/Step/1/Duration" Type="Integer" Value="64"/>
+        <Parameter Name="MultiStepSequencer0/Step/1/Mode" Type="Integer" Value="1"/>
+        <Parameter Name="MultiStepSequencer0/Step/1/Note" Type="Integer" Value="9"/>
+        <Parameter Name="MultiStepSequencer0/Step/1/NumSubSteps" Type="Integer" Value="1"/>
+        <Parameter Name="MultiStepSequencer0/Step/1/Octave" Type="Integer" Value="3"/>
+        <Parameter Name="MultiStepSequencer0/Step/1/Status" Type="" Value=""/>
+        <Parameter Name="MultiStepSequencer0/Step/1/SubStepMode" Type="Integer" Value="0"/>
+        <Parameter Name="MultiStepSequencer0/Step/1/Velocity" Type="Integer" Value="52"/>
+        <Parameter Name="MultiStepSequencer0/Step/2/Duration" Type="Integer" Value="64"/>
+        <Parameter Name="MultiStepSequencer0/Step/2/Mode" Type="Integer" Value="1"/>
+        <Parameter Name="MultiStepSequencer0/Step/2/Note" Type="Integer" Value="9"/>
+        <Parameter Name="MultiStepSequencer0/Step/2/NumSubSteps" Type="Integer" Value="1"/>
+        <Parameter Name="MultiStepSequencer0/Step/2/Octave" Type="Integer" Value="3"/>
+        <Parameter Name="MultiStepSequencer0/Step/2/Status" Type="" Value=""/>
+        <Parameter Name="MultiStepSequencer0/Step/2/SubStepMode" Type="Integer" Value="0"/>
+        <Parameter Name="MultiStepSequencer0/Step/2/Velocity" Type="Integer" Value="52"/>
+        <Parameter Name="MultiStepSequencer0/Step/3/Duration" Type="Integer" Value="64"/>
+        <Parameter Name="MultiStepSequencer0/Step/3/Mode" Type="Integer" Value="1"/>
+        <Parameter Name="MultiStepSequencer0/Step/3/Note" Type="Integer" Value="9"/>
+        <Parameter Name="MultiStepSequencer0/Step/3/NumSubSteps" Type="Integer" Value="2"/>
+        <Parameter Name="MultiStepSequencer0/Step/3/Octave" Type="Integer" Value="3"/>
+        <Parameter Name="MultiStepSequencer0/Step/3/Status" Type="" Value=""/>
+        <Parameter Name="MultiStepSequencer0/Step/3/SubStepMode" Type="Integer" Value="2"/>
+        <Parameter Name="MultiStepSequencer0/Step/3/Velocity" Type="Integer" Value="42"/>
+        <Parameter Name="MultiStepSequencer0/Step/4/Duration" Type="Integer" Value="64"/>
+        <Parameter Name="MultiStepSequencer0/Step/4/Mode" Type="Integer" Value="1"/>
+        <Parameter Name="MultiStepSequencer0/Step/4/Note" Type="Integer" Value="9"/>
+        <Parameter Name="MultiStepSequencer0/Step/4/NumSubSteps" Type="Integer" Value="1"/>
+        <Parameter Name="MultiStepSequencer0/Step/4/Octave" Type="Integer" Value="3"/>
+        <Parameter Name="MultiStepSequencer0/Step/4/Status" Type="" Value=""/>
+        <Parameter Name="MultiStepSequencer0/Step/4/SubStepMode" Type="Integer" Value="0"/>
+        <Parameter Name="MultiStepSequencer0/Step/4/Velocity" Type="Integer" Value="72"/>
+        <Parameter Name="MultiStepSequencer0/Step/5/Duration" Type="Integer" Value="64"/>
+        <Parameter Name="MultiStepSequencer0/Step/5/Mode" Type="Integer" Value="1"/>
+        <Parameter Name="MultiStepSequencer0/Step/5/Note" Type="Integer" Value="9"/>
+        <Parameter Name="MultiStepSequencer0/Step/5/NumSubSteps" Type="Integer" Value="1"/>
+        <Parameter Name="MultiStepSequencer0/Step/5/Octave" Type="Integer" Value="3"/>
+        <Parameter Name="MultiStepSequencer0/Step/5/Status" Type="" Value=""/>
+        <Parameter Name="MultiStepSequencer0/Step/5/SubStepMode" Type="Integer" Value="0"/>
+        <Parameter Name="MultiStepSequencer0/Step/5/Velocity" Type="Integer" Value="52"/>
+        <Parameter Name="MultiStepSequencer0/Step/6/Duration" Type="Integer" Value="64"/>
+        <Parameter Name="MultiStepSequencer0/Step/6/Mode" Type="Integer" Value="1"/>
+        <Parameter Name="MultiStepSequencer0/Step/6/Note" Type="Integer" Value="9"/>
+        <Parameter Name="MultiStepSequencer0/Step/6/NumSubSteps" Type="Integer" Value="1"/>
+        <Parameter Name="MultiStepSequencer0/Step/6/Octave" Type="Integer" Value="3"/>
+        <Parameter Name="MultiStepSequencer0/Step/6/Status" Type="" Value=""/>
+        <Parameter Name="MultiStepSequencer0/Step/6/SubStepMode" Type="Integer" Value="0"/>
+        <Parameter Name="MultiStepSequencer0/Step/6/Velocity" Type="Integer" Value="42"/>
+        <Parameter Name="MultiStepSequencer0/Step/7/Duration" Type="Integer" Value="64"/>
+        <Parameter Name="MultiStepSequencer0/Step/7/Mode" Type="Integer" Value="1"/>
+        <Parameter Name="MultiStepSequencer0/Step/7/Note" Type="Integer" Value="9"/>
+        <Parameter Name="MultiStepSequencer0/Step/7/NumSubSteps" Type="Integer" Value="1"/>
+        <Parameter Name="MultiStepSequencer0/Step/7/Octave" Type="Integer" Value="3"/>
+        <Parameter Name="MultiStepSequencer0/Step/7/Status" Type="" Value=""/>
+        <Parameter Name="MultiStepSequencer0/Step/7/SubStepMode" Type="Integer" Value="0"/>
+        <Parameter Name="MultiStepSequencer0/Step/7/Velocity" Type="Integer" Value="92"/>
+        <Parameter Name="MultiStepSequencer0/StepIntervalBegin" Type="Integer" Value="0"/>
+        <Parameter Name="MultiStepSequencer0/StepIntervalLength" Type="Integer" Value="8"/>
+        <Parameter Name="MultiStepSequencer0/StepSize" Type="Integer" Value="1"/>
+        <Parameter Name="StereoDelay0/Left/Bypass" Type="Boolean" Value="0"/>
+        <Parameter Name="StereoDelay0/Left/DelayMilliSeconds" Type="Float" Value="247.000000"/>
+        <Parameter Name="StereoDelay0/Left/Feedback" Type="Float" Value="0.500000"/>
+        <Parameter Name="StereoDelay0/Left/WetDry" Type="Float" Value="0.200000"/>
+        <Parameter Name="StereoDelay0/Right/Bypass" Type="Boolean" Value="0"/>
+        <Parameter Name="StereoDelay0/Right/DelayMilliSeconds" Type="Float" Value="253.000000"/>
+        <Parameter Name="StereoDelay0/Right/Feedback" Type="Float" Value="0.500000"/>
+        <Parameter Name="StereoDelay0/Right/WetDry" Type="Float" Value="0.200000"/>
+    </Parameters>
+</xml>

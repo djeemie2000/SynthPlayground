@@ -1,0 +1,34 @@
+<xml>
+    <Patch Version="2"/>
+    <Modules>
+        <Module Name="Glitch0" Type="Glitch"/>
+        <Module Name="Mixer(4)0" Type="Mixer(4)"/>
+        <Module Name="StereoDelay0" Type="StereoDelay"/>
+    </Modules>
+    <Connections>
+        <Connection OutputPort="Glitch0:Out" InputPort="Mixer(4)0:In1"/>
+        <Connection OutputPort="Mixer(4)0:Out" InputPort="StereoDelay0:InLeft"/>
+        <Connection OutputPort="Mixer(4)0:Out" InputPort="StereoDelay0:InRight"/>
+        <Connection OutputPort="StereoDelay0:OutLeft" InputPort="system:playback_1"/>
+        <Connection OutputPort="StereoDelay0:OutRight" InputPort="system:playback_2"/>
+    </Connections>
+    <Parameters>
+        <Parameter Name="Glitch0/GrainSizeIn" Type="Integer" Value="4"/>
+        <Parameter Name="Glitch0/GrainSizeOut" Type="Integer" Value="4"/>
+        <Parameter Name="Glitch0/OctaveShift" Type="Integer" Value="0"/>
+        <Parameter Name="Mixer(4)0/0/Volume" Type="Float" Value="0.000000"/>
+        <Parameter Name="Mixer(4)0/1/Volume" Type="Float" Value="0.800000"/>
+        <Parameter Name="Mixer(4)0/2/Volume" Type="Float" Value="0.250000"/>
+        <Parameter Name="Mixer(4)0/3/Volume" Type="Float" Value="0.250000"/>
+        <Parameter Name="Mixer(4)0/MasterVolume" Type="Float" Value="0.900000"/>
+        <Parameter Name="Operator0/Select" Type="" Value=""/>
+        <Parameter Name="StereoDelay0/Left/Bypass" Type="Boolean" Value="0"/>
+        <Parameter Name="StereoDelay0/Left/DelayMilliSeconds" Type="Float" Value="247.000000"/>
+        <Parameter Name="StereoDelay0/Left/Feedback" Type="Float" Value="0.500000"/>
+        <Parameter Name="StereoDelay0/Left/WetDry" Type="Float" Value="0.400000"/>
+        <Parameter Name="StereoDelay0/Right/Bypass" Type="Boolean" Value="0"/>
+        <Parameter Name="StereoDelay0/Right/DelayMilliSeconds" Type="Float" Value="253.000000"/>
+        <Parameter Name="StereoDelay0/Right/Feedback" Type="Float" Value="0.500000"/>
+        <Parameter Name="StereoDelay0/Right/WetDry" Type="Float" Value="0.400000"/>
+    </Parameters>
+</xml>

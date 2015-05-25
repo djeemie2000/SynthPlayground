@@ -1,0 +1,148 @@
+<xml>
+    <Patch Version="2"/>
+    <Modules>
+        <Module Name="ADSREnvelopeBank(4)0" Type="ADSREnvelopeBank(4)"/>
+        <Module Name="Amp0" Type="Amp"/>
+        <Module Name="ControllerBank(4)0" Type="ControllerBank(4)"/>
+        <Module Name="MidiControllerBank(4)0" Type="MidiControllerBank(4)"/>
+        <Module Name="Mixer(4)0" Type="Mixer(4)"/>
+        <Module Name="Modulator0" Type="Modulator"/>
+        <Module Name="Operator0" Type="Operator"/>
+        <Module Name="Operator1" Type="Operator"/>
+        <Module Name="Operator2" Type="Operator"/>
+        <Module Name="PeriodicTrigger0" Type="PeriodicTrigger"/>
+        <Module Name="SimpleOscillator0" Type="SimpleOscillator"/>
+        <Module Name="StepSequencer0" Type="StepSequencer"/>
+        <Module Name="StereoDelay0" Type="StereoDelay"/>
+        <Module Name="WaveFolder0" Type="WaveFolder"/>
+    </Modules>
+    <Connections>
+        <Connection OutputPort="ADSREnvelopeBank(4)0:Envelope0" InputPort="Amp0:Ampl"/>
+        <Connection OutputPort="ADSREnvelopeBank(4)0:Envelope1" InputPort="Modulator0:ModIn0"/>
+        <Connection OutputPort="Amp0:Out" InputPort="Mixer(4)0:In0"/>
+        <Connection OutputPort="ControllerBank(4)0:Contr0" InputPort="SimpleOscillator0:Freq"/>
+        <Connection OutputPort="MidiControllerBank(4)0:Contr0" InputPort="Modulator0:ModIn1"/>
+        <Connection OutputPort="Mixer(4)0:Out" InputPort="StereoDelay0:InLeft"/>
+        <Connection OutputPort="Mixer(4)0:Out" InputPort="StereoDelay0:InRight"/>
+        <Connection OutputPort="Modulator0:Out" InputPort="WaveFolder0:Fold"/>
+        <Connection OutputPort="Operator0:Out" InputPort="Operator1:Phase"/>
+        <Connection OutputPort="Operator1:Out" InputPort="Operator2:Phase"/>
+        <Connection OutputPort="Operator2:Out" InputPort="WaveFolder0:In"/>
+        <Connection OutputPort="PeriodicTrigger0:Trigger" InputPort="ADSREnvelopeBank(4)0:Trigger0"/>
+        <Connection OutputPort="PeriodicTrigger0:Trigger" InputPort="StepSequencer0:TriggerIn"/>
+        <Connection OutputPort="PeriodicTrigger0:Trigger" InputPort="ADSREnvelopeBank(4)0:Trigger1"/>
+        <Connection OutputPort="SimpleOscillator0:Out" InputPort="Operator0:Phase"/>
+        <Connection OutputPort="StereoDelay0:OutLeft" InputPort="system:playback_1"/>
+        <Connection OutputPort="StereoDelay0:OutRight" InputPort="system:playback_2"/>
+        <Connection OutputPort="WaveFolder0:Out" InputPort="Amp0:In"/>
+    </Connections>
+    <Parameters>
+        <Parameter Name="ADSREnvelopeBank(4)0/0/Attack" Type="Float" Value="100.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/0/Decay" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/0/Release" Type="Float" Value="100.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/0/Sustain" Type="Float" Value="0.500000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/1/Attack" Type="Float" Value="200.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/1/Decay" Type="Float" Value="200.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/1/Release" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/1/Sustain" Type="Float" Value="0.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/2/Attack" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/2/Decay" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/2/Release" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/2/Sustain" Type="Float" Value="1.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/3/Attack" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/3/Decay" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/3/Release" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/3/Sustain" Type="Float" Value="1.000000"/>
+        <Parameter Name="ControllerBank(4)0/0/Value" Type="Float" Value="110.000000"/>
+        <Parameter Name="ControllerBank(4)0/1/Value" Type="Float" Value="0.000000"/>
+        <Parameter Name="ControllerBank(4)0/2/Value" Type="Float" Value="0.000000"/>
+        <Parameter Name="ControllerBank(4)0/3/Value" Type="Float" Value="0.000000"/>
+        <Parameter Name="MidiControllerBank(4)0/0/Max" Type="Float" Value="1.000000"/>
+        <Parameter Name="MidiControllerBank(4)0/0/Min" Type="Float" Value="0.000000"/>
+        <Parameter Name="MidiControllerBank(4)0/0/Parameter" Type="Integer" Value="63"/>
+        <Parameter Name="MidiControllerBank(4)0/1/Max" Type="Float" Value="1.000000"/>
+        <Parameter Name="MidiControllerBank(4)0/1/Min" Type="Float" Value="0.000000"/>
+        <Parameter Name="MidiControllerBank(4)0/1/Parameter" Type="Integer" Value="-1"/>
+        <Parameter Name="MidiControllerBank(4)0/2/Max" Type="Float" Value="1.000000"/>
+        <Parameter Name="MidiControllerBank(4)0/2/Min" Type="Float" Value="0.000000"/>
+        <Parameter Name="MidiControllerBank(4)0/2/Parameter" Type="Integer" Value="-1"/>
+        <Parameter Name="MidiControllerBank(4)0/3/Max" Type="Float" Value="1.000000"/>
+        <Parameter Name="MidiControllerBank(4)0/3/Min" Type="Float" Value="0.000000"/>
+        <Parameter Name="MidiControllerBank(4)0/3/Parameter" Type="Integer" Value="-1"/>
+        <Parameter Name="Mixer(4)0/0/Volume" Type="Float" Value="0.800000"/>
+        <Parameter Name="Mixer(4)0/1/Volume" Type="Float" Value="0.000000"/>
+        <Parameter Name="Mixer(4)0/2/Volume" Type="Float" Value="0.250000"/>
+        <Parameter Name="Mixer(4)0/3/Volume" Type="Float" Value="0.250000"/>
+        <Parameter Name="Mixer(4)0/MasterVolume" Type="Float" Value="0.800000"/>
+        <Parameter Name="Modulator0/0/ModAmt" Type="Float" Value="-0.500000"/>
+        <Parameter Name="Modulator0/1/ModAmt" Type="Float" Value="-0.430000"/>
+        <Parameter Name="Modulator0/LimitMode" Type="Integer" Value="1"/>
+        <Parameter Name="Modulator0/Offset" Type="Float" Value="1.000000"/>
+        <Parameter Name="Operator0/Select" Type="Integer" Value="8"/>
+        <Parameter Name="Operator1/Select" Type="Integer" Value="4"/>
+        <Parameter Name="Operator2/Select" Type="Integer" Value="5"/>
+        <Parameter Name="PeriodicTrigger0/BeatsPerBar" Type="Integer" Value="1"/>
+        <Parameter Name="PeriodicTrigger0/BeatsPerMinute" Type="Integer" Value="120"/>
+        <Parameter Name="PeriodicTrigger0/Duration" Type="Integer" Value="40"/>
+        <Parameter Name="SimpleOscillator0/Select" Type="Integer" Value="4"/>
+        <Parameter Name="StepSequencer0/IsActive" Type="Boolean" Value="1"/>
+        <Parameter Name="StepSequencer0/NumSteps" Type="Integer" Value="8"/>
+        <Parameter Name="StepSequencer0/Step/0/Active" Type="Boolean" Value="1"/>
+        <Parameter Name="StepSequencer0/Step/0/Note" Type="Integer" Value="9"/>
+        <Parameter Name="StepSequencer0/Step/0/Octave" Type="Integer" Value="3"/>
+        <Parameter Name="StepSequencer0/Step/1/Active" Type="Boolean" Value="0"/>
+        <Parameter Name="StepSequencer0/Step/1/Note" Type="Integer" Value="9"/>
+        <Parameter Name="StepSequencer0/Step/1/Octave" Type="Integer" Value="3"/>
+        <Parameter Name="StepSequencer0/Step/10/Active" Type="Boolean" Value="0"/>
+        <Parameter Name="StepSequencer0/Step/10/Note" Type="Integer" Value="9"/>
+        <Parameter Name="StepSequencer0/Step/10/Octave" Type="Integer" Value="3"/>
+        <Parameter Name="StepSequencer0/Step/11/Active" Type="Boolean" Value="0"/>
+        <Parameter Name="StepSequencer0/Step/11/Note" Type="Integer" Value="9"/>
+        <Parameter Name="StepSequencer0/Step/11/Octave" Type="Integer" Value="3"/>
+        <Parameter Name="StepSequencer0/Step/12/Active" Type="Boolean" Value="0"/>
+        <Parameter Name="StepSequencer0/Step/12/Note" Type="Integer" Value="9"/>
+        <Parameter Name="StepSequencer0/Step/12/Octave" Type="Integer" Value="3"/>
+        <Parameter Name="StepSequencer0/Step/13/Active" Type="Boolean" Value="0"/>
+        <Parameter Name="StepSequencer0/Step/13/Note" Type="Integer" Value="9"/>
+        <Parameter Name="StepSequencer0/Step/13/Octave" Type="Integer" Value="3"/>
+        <Parameter Name="StepSequencer0/Step/14/Active" Type="Boolean" Value="0"/>
+        <Parameter Name="StepSequencer0/Step/14/Note" Type="Integer" Value="9"/>
+        <Parameter Name="StepSequencer0/Step/14/Octave" Type="Integer" Value="3"/>
+        <Parameter Name="StepSequencer0/Step/15/Active" Type="Boolean" Value="0"/>
+        <Parameter Name="StepSequencer0/Step/15/Note" Type="Integer" Value="9"/>
+        <Parameter Name="StepSequencer0/Step/15/Octave" Type="Integer" Value="3"/>
+        <Parameter Name="StepSequencer0/Step/2/Active" Type="Boolean" Value="1"/>
+        <Parameter Name="StepSequencer0/Step/2/Note" Type="Integer" Value="9"/>
+        <Parameter Name="StepSequencer0/Step/2/Octave" Type="Integer" Value="3"/>
+        <Parameter Name="StepSequencer0/Step/3/Active" Type="Boolean" Value="0"/>
+        <Parameter Name="StepSequencer0/Step/3/Note" Type="Integer" Value="9"/>
+        <Parameter Name="StepSequencer0/Step/3/Octave" Type="Integer" Value="3"/>
+        <Parameter Name="StepSequencer0/Step/4/Active" Type="Boolean" Value="1"/>
+        <Parameter Name="StepSequencer0/Step/4/Note" Type="Integer" Value="9"/>
+        <Parameter Name="StepSequencer0/Step/4/Octave" Type="Integer" Value="3"/>
+        <Parameter Name="StepSequencer0/Step/5/Active" Type="Boolean" Value="0"/>
+        <Parameter Name="StepSequencer0/Step/5/Note" Type="Integer" Value="9"/>
+        <Parameter Name="StepSequencer0/Step/5/Octave" Type="Integer" Value="3"/>
+        <Parameter Name="StepSequencer0/Step/6/Active" Type="Boolean" Value="1"/>
+        <Parameter Name="StepSequencer0/Step/6/Note" Type="Integer" Value="9"/>
+        <Parameter Name="StepSequencer0/Step/6/Octave" Type="Integer" Value="3"/>
+        <Parameter Name="StepSequencer0/Step/7/Active" Type="Boolean" Value="0"/>
+        <Parameter Name="StepSequencer0/Step/7/Note" Type="Integer" Value="9"/>
+        <Parameter Name="StepSequencer0/Step/7/Octave" Type="Integer" Value="3"/>
+        <Parameter Name="StepSequencer0/Step/8/Active" Type="Boolean" Value="0"/>
+        <Parameter Name="StepSequencer0/Step/8/Note" Type="Integer" Value="9"/>
+        <Parameter Name="StepSequencer0/Step/8/Octave" Type="Integer" Value="3"/>
+        <Parameter Name="StepSequencer0/Step/9/Active" Type="Boolean" Value="0"/>
+        <Parameter Name="StepSequencer0/Step/9/Note" Type="Integer" Value="9"/>
+        <Parameter Name="StepSequencer0/Step/9/Octave" Type="Integer" Value="3"/>
+        <Parameter Name="StepSequencer0/StepSize" Type="Integer" Value="2"/>
+        <Parameter Name="StereoDelay0/Left/Bypass" Type="Boolean" Value="0"/>
+        <Parameter Name="StereoDelay0/Left/DelayMilliSeconds" Type="Float" Value="347.000000"/>
+        <Parameter Name="StereoDelay0/Left/Feedback" Type="Float" Value="0.590000"/>
+        <Parameter Name="StereoDelay0/Left/WetDry" Type="Float" Value="0.250000"/>
+        <Parameter Name="StereoDelay0/Right/Bypass" Type="Boolean" Value="0"/>
+        <Parameter Name="StereoDelay0/Right/DelayMilliSeconds" Type="Float" Value="354.000000"/>
+        <Parameter Name="StereoDelay0/Right/Feedback" Type="Float" Value="0.590000"/>
+        <Parameter Name="StereoDelay0/Right/WetDry" Type="Float" Value="0.250000"/>
+    </Parameters>
+</xml>

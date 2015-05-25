@@ -1,0 +1,57 @@
+<xml>
+    <Patch Version="2"/>
+    <Modules>
+        <Module Name="ControllerBank(4)0" Type="ControllerBank(4)"/>
+        <Module Name="LFOBank(4)0" Type="LFOBank(4)"/>
+        <Module Name="LPF0" Type="LPF"/>
+        <Module Name="Mixer(4)0" Type="Mixer(4)"/>
+        <Module Name="Modulator0" Type="Modulator"/>
+        <Module Name="Noise0" Type="Noise"/>
+        <Module Name="StereoDelay0" Type="StereoDelay"/>
+    </Modules>
+    <Connections>
+        <Connection OutputPort="LFOBank(4)0:LFO0" InputPort="Modulator0:ModIn0"/>
+        <Connection OutputPort="LFOBank(4)0:LFO1" InputPort="Modulator0:ModIn1"/>
+        <Connection OutputPort="LPF0:Out" InputPort="Mixer(4)0:In0"/>
+        <Connection OutputPort="Mixer(4)0:Out" InputPort="StereoDelay0:InLeft"/>
+        <Connection OutputPort="Mixer(4)0:Out" InputPort="StereoDelay0:InRight"/>
+        <Connection OutputPort="Modulator0:Out" InputPort="LPF0:CutOff"/>
+        <Connection OutputPort="Noise0:Out" InputPort="LPF0:In"/>
+        <Connection OutputPort="StereoDelay0:OutLeft" InputPort="system:playback_1"/>
+        <Connection OutputPort="StereoDelay0:OutRight" InputPort="system:playback_2"/>
+    </Connections>
+    <Parameters>
+        <Parameter Name="ControllerBank(4)0/0/Value" Type="Float" Value="0.434000"/>
+        <Parameter Name="ControllerBank(4)0/1/Value" Type="Float" Value="0.000000"/>
+        <Parameter Name="ControllerBank(4)0/2/Value" Type="Float" Value="0.000000"/>
+        <Parameter Name="ControllerBank(4)0/3/Value" Type="Float" Value="0.000000"/>
+        <Parameter Name="LFOBank(4)0/0/Frequency" Type="Float" Value="12.000000"/>
+        <Parameter Name="LFOBank(4)0/0/Select" Type="Integer" Value="2"/>
+        <Parameter Name="LFOBank(4)0/1/Frequency" Type="Float" Value="0.200000"/>
+        <Parameter Name="LFOBank(4)0/1/Select" Type="Integer" Value="6"/>
+        <Parameter Name="LFOBank(4)0/2/Frequency" Type="Float" Value="1.000000"/>
+        <Parameter Name="LFOBank(4)0/2/Select" Type="Integer" Value="0"/>
+        <Parameter Name="LFOBank(4)0/3/Frequency" Type="Float" Value="1.000000"/>
+        <Parameter Name="LFOBank(4)0/3/Select" Type="Integer" Value="0"/>
+        <Parameter Name="LPF0/Poles" Type="Integer" Value="24"/>
+        <Parameter Name="LPF0/Resonance" Type="Float" Value="1.240000"/>
+        <Parameter Name="Mixer(4)0/0/Volume" Type="Float" Value="0.600000"/>
+        <Parameter Name="Mixer(4)0/1/Volume" Type="Float" Value="0.250000"/>
+        <Parameter Name="Mixer(4)0/2/Volume" Type="Float" Value="0.250000"/>
+        <Parameter Name="Mixer(4)0/3/Volume" Type="Float" Value="0.250000"/>
+        <Parameter Name="Mixer(4)0/MasterVolume" Type="Float" Value="0.400000"/>
+        <Parameter Name="Modulator0/0/ModAmt" Type="Float" Value="0.090000"/>
+        <Parameter Name="Modulator0/1/ModAmt" Type="Float" Value="0.030000"/>
+        <Parameter Name="Modulator0/LimitMode" Type="Integer" Value="2"/>
+        <Parameter Name="Modulator0/Offset" Type="Float" Value="0.600000"/>
+        <Parameter Name="Modulator1/LimitMode" Type="Integer" Value="1"/>
+        <Parameter Name="StereoDelay0/Left/Bypass" Type="Boolean" Value="0"/>
+        <Parameter Name="StereoDelay0/Left/DelayMilliSeconds" Type="Float" Value="237.000000"/>
+        <Parameter Name="StereoDelay0/Left/Feedback" Type="Float" Value="0.800000"/>
+        <Parameter Name="StereoDelay0/Left/WetDry" Type="Float" Value="0.500000"/>
+        <Parameter Name="StereoDelay0/Right/Bypass" Type="Boolean" Value="0"/>
+        <Parameter Name="StereoDelay0/Right/DelayMilliSeconds" Type="Float" Value="263.000000"/>
+        <Parameter Name="StereoDelay0/Right/Feedback" Type="Float" Value="0.800000"/>
+        <Parameter Name="StereoDelay0/Right/WetDry" Type="Float" Value="0.500000"/>
+    </Parameters>
+</xml>

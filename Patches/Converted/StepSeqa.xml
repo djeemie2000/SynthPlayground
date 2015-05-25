@@ -1,0 +1,86 @@
+<xml>
+    <Patch Version="2"/>
+    <Modules>
+        <Module Name="PeriodicTrigger0" Type="PeriodicTrigger"/>
+        <Module Name="SimpleOscillator0" Type="SimpleOscillator"/>
+        <Module Name="StepSequencer0" Type="StepSequencer"/>
+    </Modules>
+    <Connections>
+        <Connection OutputPort="PeriodicTrigger0:Trigger" InputPort="StepSequencer0:TriggerIn"/>
+        <Connection OutputPort="StepSequencer0:Freq" InputPort="SimpleOscillator0:Freq"/>
+        <Connection OutputPort="StepSequencer0:TriggerOut" InputPort="SimpleOscillator0:Sync"/>
+    </Connections>
+    <Parameters>
+        <Parameter Name="PeriodicTrigger0/BeatsPerBar" Type="Integer" Value="2"/>
+        <Parameter Name="PeriodicTrigger0/BeatsPerMinute" Type="Integer" Value="120"/>
+        <Parameter Name="PeriodicTrigger0/Duration" Type="Integer" Value="60"/>
+        <Parameter Name="SimpleOscillator0/Select" Type="Integer" Value="0"/>
+        <Parameter Name="StepSequencer0/IsActive" Type="Boolean" Value="1"/>
+        <Parameter Name="StepSequencer0/NumSteps" Type="Integer" Value="16"/>
+        <Parameter Name="StepSequencer0/Step/0/Active" Type="Boolean" Value="0"/>
+        <Parameter Name="StepSequencer0/Step/0/Note" Type="Integer" Value="9"/>
+        <Parameter Name="StepSequencer0/Step/0/Octave" Type="Integer" Value="3"/>
+        <Parameter Name="StepSequencer0/Step/0/Status" Type="" Value=""/>
+        <Parameter Name="StepSequencer0/Step/1/Active" Type="Boolean" Value="0"/>
+        <Parameter Name="StepSequencer0/Step/1/Note" Type="Integer" Value="9"/>
+        <Parameter Name="StepSequencer0/Step/1/Octave" Type="Integer" Value="3"/>
+        <Parameter Name="StepSequencer0/Step/1/Status" Type="" Value=""/>
+        <Parameter Name="StepSequencer0/Step/10/Active" Type="Boolean" Value="0"/>
+        <Parameter Name="StepSequencer0/Step/10/Note" Type="Integer" Value="9"/>
+        <Parameter Name="StepSequencer0/Step/10/Octave" Type="Integer" Value="3"/>
+        <Parameter Name="StepSequencer0/Step/10/Status" Type="" Value=""/>
+        <Parameter Name="StepSequencer0/Step/11/Active" Type="Boolean" Value="0"/>
+        <Parameter Name="StepSequencer0/Step/11/Note" Type="Integer" Value="9"/>
+        <Parameter Name="StepSequencer0/Step/11/Octave" Type="Integer" Value="3"/>
+        <Parameter Name="StepSequencer0/Step/11/Status" Type="" Value=""/>
+        <Parameter Name="StepSequencer0/Step/12/Active" Type="Boolean" Value="0"/>
+        <Parameter Name="StepSequencer0/Step/12/Note" Type="Integer" Value="9"/>
+        <Parameter Name="StepSequencer0/Step/12/Octave" Type="Integer" Value="3"/>
+        <Parameter Name="StepSequencer0/Step/12/Status" Type="" Value=""/>
+        <Parameter Name="StepSequencer0/Step/13/Active" Type="Boolean" Value="0"/>
+        <Parameter Name="StepSequencer0/Step/13/Note" Type="Integer" Value="9"/>
+        <Parameter Name="StepSequencer0/Step/13/Octave" Type="Integer" Value="3"/>
+        <Parameter Name="StepSequencer0/Step/13/Status" Type="" Value=""/>
+        <Parameter Name="StepSequencer0/Step/14/Active" Type="Boolean" Value="0"/>
+        <Parameter Name="StepSequencer0/Step/14/Note" Type="Integer" Value="9"/>
+        <Parameter Name="StepSequencer0/Step/14/Octave" Type="Integer" Value="3"/>
+        <Parameter Name="StepSequencer0/Step/14/Status" Type="" Value=""/>
+        <Parameter Name="StepSequencer0/Step/15/Active" Type="Boolean" Value="0"/>
+        <Parameter Name="StepSequencer0/Step/15/Note" Type="Integer" Value="9"/>
+        <Parameter Name="StepSequencer0/Step/15/Octave" Type="Integer" Value="3"/>
+        <Parameter Name="StepSequencer0/Step/15/Status" Type="" Value=""/>
+        <Parameter Name="StepSequencer0/Step/2/Active" Type="Boolean" Value="0"/>
+        <Parameter Name="StepSequencer0/Step/2/Note" Type="Integer" Value="9"/>
+        <Parameter Name="StepSequencer0/Step/2/Octave" Type="Integer" Value="3"/>
+        <Parameter Name="StepSequencer0/Step/2/Status" Type="" Value=""/>
+        <Parameter Name="StepSequencer0/Step/3/Active" Type="Boolean" Value="0"/>
+        <Parameter Name="StepSequencer0/Step/3/Note" Type="Integer" Value="9"/>
+        <Parameter Name="StepSequencer0/Step/3/Octave" Type="Integer" Value="3"/>
+        <Parameter Name="StepSequencer0/Step/3/Status" Type="" Value=""/>
+        <Parameter Name="StepSequencer0/Step/4/Active" Type="Boolean" Value="0"/>
+        <Parameter Name="StepSequencer0/Step/4/Note" Type="Integer" Value="9"/>
+        <Parameter Name="StepSequencer0/Step/4/Octave" Type="Integer" Value="3"/>
+        <Parameter Name="StepSequencer0/Step/4/Status" Type="" Value=""/>
+        <Parameter Name="StepSequencer0/Step/5/Active" Type="Boolean" Value="0"/>
+        <Parameter Name="StepSequencer0/Step/5/Note" Type="Integer" Value="9"/>
+        <Parameter Name="StepSequencer0/Step/5/Octave" Type="Integer" Value="3"/>
+        <Parameter Name="StepSequencer0/Step/5/Status" Type="" Value=""/>
+        <Parameter Name="StepSequencer0/Step/6/Active" Type="Boolean" Value="0"/>
+        <Parameter Name="StepSequencer0/Step/6/Note" Type="Integer" Value="9"/>
+        <Parameter Name="StepSequencer0/Step/6/Octave" Type="Integer" Value="3"/>
+        <Parameter Name="StepSequencer0/Step/6/Status" Type="" Value=""/>
+        <Parameter Name="StepSequencer0/Step/7/Active" Type="Boolean" Value="0"/>
+        <Parameter Name="StepSequencer0/Step/7/Note" Type="Integer" Value="9"/>
+        <Parameter Name="StepSequencer0/Step/7/Octave" Type="Integer" Value="3"/>
+        <Parameter Name="StepSequencer0/Step/7/Status" Type="" Value=""/>
+        <Parameter Name="StepSequencer0/Step/8/Active" Type="Boolean" Value="0"/>
+        <Parameter Name="StepSequencer0/Step/8/Note" Type="Integer" Value="9"/>
+        <Parameter Name="StepSequencer0/Step/8/Octave" Type="Integer" Value="3"/>
+        <Parameter Name="StepSequencer0/Step/8/Status" Type="" Value=""/>
+        <Parameter Name="StepSequencer0/Step/9/Active" Type="Boolean" Value="0"/>
+        <Parameter Name="StepSequencer0/Step/9/Note" Type="Integer" Value="9"/>
+        <Parameter Name="StepSequencer0/Step/9/Octave" Type="Integer" Value="3"/>
+        <Parameter Name="StepSequencer0/Step/9/Status" Type="" Value=""/>
+        <Parameter Name="StepSequencer0/StepSize" Type="Integer" Value="1"/>
+    </Parameters>
+</xml>

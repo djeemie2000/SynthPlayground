@@ -1,0 +1,29 @@
+<xml>
+    <Patch Version="2"/>
+    <Modules>
+        <Module Name="BasicSampler0" Type="BasicSampler"/>
+        <Module Name="ControllerBank(4)0" Type="ControllerBank(4)"/>
+        <Module Name="StereoMixer(4)0" Type="StereoMixer(4)"/>
+    </Modules>
+    <Connections>
+        <Connection OutputPort="BasicSampler0:OutR" InputPort="StereoMixer(4)0:In1"/>
+        <Connection OutputPort="ControllerBank(4)0:Contr0" InputPort="BasicSampler0:Gate"/>
+        <Connection OutputPort="StereoMixer(4)0:OutL" InputPort="system:playback_1"/>
+        <Connection OutputPort="StereoMixer(4)0:OutR" InputPort="system:playback_2"/>
+    </Connections>
+    <Parameters>
+        <Parameter Name="ControllerBank(4)0/0/Value" Type="Float" Value="0.000000"/>
+        <Parameter Name="ControllerBank(4)0/1/Value" Type="Float" Value="0.000000"/>
+        <Parameter Name="ControllerBank(4)0/2/Value" Type="Float" Value="0.000000"/>
+        <Parameter Name="ControllerBank(4)0/3/Value" Type="Float" Value="0.000000"/>
+        <Parameter Name="StereoMixer(4)0/0/Pan" Type="Float" Value="-1.000000"/>
+        <Parameter Name="StereoMixer(4)0/0/Volume" Type="Float" Value="0.250000"/>
+        <Parameter Name="StereoMixer(4)0/1/Pan" Type="Float" Value="1.000000"/>
+        <Parameter Name="StereoMixer(4)0/1/Volume" Type="Float" Value="0.250000"/>
+        <Parameter Name="StereoMixer(4)0/2/Pan" Type="Float" Value="0.000000"/>
+        <Parameter Name="StereoMixer(4)0/2/Volume" Type="Float" Value="0.250000"/>
+        <Parameter Name="StereoMixer(4)0/3/Pan" Type="Float" Value="0.000000"/>
+        <Parameter Name="StereoMixer(4)0/3/Volume" Type="Float" Value="0.250000"/>
+        <Parameter Name="StereoMixer(4)0/MasterVolume" Type="Float" Value="0.500000"/>
+    </Parameters>
+</xml>

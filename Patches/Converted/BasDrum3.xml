@@ -1,0 +1,34 @@
+<xml>
+    <Patch Version="2"/>
+    <Modules>
+        <Module Name="Amp0" Type="Amp"/>
+        <Module Name="Combinor0" Type="Combinor"/>
+        <Module Name="ControllerBank(4)0" Type="ControllerBank(4)"/>
+        <Module Name="DecayEnvelope0" Type="DecayEnvelope"/>
+        <Module Name="PeriodicTrigger0" Type="PeriodicTrigger"/>
+        <Module Name="SimpleOscillator0" Type="SimpleOscillator"/>
+    </Modules>
+    <Connections>
+        <Connection OutputPort="Amp0:Out" InputPort="system:playback_1"/>
+        <Connection OutputPort="Amp0:Out" InputPort="system:playback_2"/>
+        <Connection OutputPort="Combinor0:Out" InputPort="SimpleOscillator0:Freq"/>
+        <Connection OutputPort="ControllerBank(4)0:Contr0" InputPort="Combinor0:In1"/>
+        <Connection OutputPort="ControllerBank(4)0:Contr1" InputPort="DecayEnvelope0:Decay"/>
+        <Connection OutputPort="DecayEnvelope0:Out" InputPort="Amp0:Ampl"/>
+        <Connection OutputPort="DecayEnvelope0:Out" InputPort="Combinor0:In2"/>
+        <Connection OutputPort="PeriodicTrigger0:Trigger" InputPort="DecayEnvelope0:Trigger"/>
+        <Connection OutputPort="SimpleOscillator0:Out" InputPort="Amp0:In"/>
+    </Connections>
+    <Parameters>
+        <Parameter Name="Combinor0/Select" Type="Integer" Value="14"/>
+        <Parameter Name="ControllerBank(4)0/0/Value" Type="Float" Value="45.000000"/>
+        <Parameter Name="ControllerBank(4)0/1/Value" Type="Float" Value="0.013000"/>
+        <Parameter Name="ControllerBank(4)0/2/Value" Type="Float" Value="0.094000"/>
+        <Parameter Name="ControllerBank(4)0/3/Value" Type="Float" Value="0.000000"/>
+        <Parameter Name="Modulator0/LimitMode" Type="Integer" Value="1"/>
+        <Parameter Name="PeriodicTrigger0/BeatsPerBar" Type="Integer" Value="1"/>
+        <Parameter Name="PeriodicTrigger0/BeatsPerMinute" Type="Integer" Value="120"/>
+        <Parameter Name="PeriodicTrigger0/Duration" Type="Integer" Value="100"/>
+        <Parameter Name="SimpleOscillator0/Select" Type="Integer" Value="7"/>
+    </Parameters>
+</xml>

@@ -1,0 +1,68 @@
+<xml>
+    <Patch Version="2"/>
+    <Modules>
+        <Module Name="1V/Oct0" Type="1V/Oct"/>
+        <Module Name="1V/Oct1" Type="1V/Oct"/>
+        <Module Name="1V/Oct2" Type="1V/Oct"/>
+        <Module Name="Combinor0" Type="Combinor"/>
+        <Module Name="Combinor1" Type="Combinor"/>
+        <Module Name="MidiControllerBank(4)0" Type="MidiControllerBank(4)"/>
+        <Module Name="Mixer(4)0" Type="Mixer(4)"/>
+        <Module Name="SimpleOscillator0" Type="SimpleOscillator"/>
+        <Module Name="SimpleOscillator1" Type="SimpleOscillator"/>
+        <Module Name="SimpleOscillator2" Type="SimpleOscillator"/>
+        <Module Name="StereoDelay0" Type="StereoDelay"/>
+    </Modules>
+    <Connections>
+        <Connection OutputPort="1V/Oct0:Freq" InputPort="SimpleOscillator0:Freq"/>
+        <Connection OutputPort="1V/Oct1:Freq" InputPort="SimpleOscillator1:Freq"/>
+        <Connection OutputPort="1V/Oct2:Freq" InputPort="SimpleOscillator2:Freq"/>
+        <Connection OutputPort="Combinor0:Out" InputPort="Mixer(4)0:In2"/>
+        <Connection OutputPort="Combinor0:Out" InputPort="Combinor1:In1"/>
+        <Connection OutputPort="Combinor1:Out" InputPort="Mixer(4)0:In3"/>
+        <Connection OutputPort="MidiControllerBank(4)0:Contr0" InputPort="1V/Oct0:CV"/>
+        <Connection OutputPort="MidiControllerBank(4)0:Contr1" InputPort="1V/Oct1:CV"/>
+        <Connection OutputPort="MidiControllerBank(4)0:Contr2" InputPort="1V/Oct2:CV"/>
+        <Connection OutputPort="Mixer(4)0:Out" InputPort="StereoDelay0:InLeft"/>
+        <Connection OutputPort="Mixer(4)0:Out" InputPort="StereoDelay0:InRight"/>
+        <Connection OutputPort="SimpleOscillator0:Out" InputPort="Mixer(4)0:In0"/>
+        <Connection OutputPort="SimpleOscillator0:Out" InputPort="Combinor0:In1"/>
+        <Connection OutputPort="SimpleOscillator1:Out" InputPort="Mixer(4)0:In1"/>
+        <Connection OutputPort="SimpleOscillator1:Out" InputPort="Combinor0:In2"/>
+        <Connection OutputPort="SimpleOscillator2:Out" InputPort="Combinor1:In2"/>
+        <Connection OutputPort="StereoDelay0:OutLeft" InputPort="system:playback_1"/>
+        <Connection OutputPort="StereoDelay0:OutRight" InputPort="system:playback_2"/>
+    </Connections>
+    <Parameters>
+        <Parameter Name="Combinor0/Select" Type="Integer" Value="6"/>
+        <Parameter Name="Combinor1/Select" Type="Integer" Value="15"/>
+        <Parameter Name="MidiControllerBank(4)0/0/Max" Type="Float" Value="2.000000"/>
+        <Parameter Name="MidiControllerBank(4)0/0/Min" Type="Float" Value="0.000000"/>
+        <Parameter Name="MidiControllerBank(4)0/0/Parameter" Type="Integer" Value="73"/>
+        <Parameter Name="MidiControllerBank(4)0/1/Max" Type="Float" Value="2.000000"/>
+        <Parameter Name="MidiControllerBank(4)0/1/Min" Type="Float" Value="0.000000"/>
+        <Parameter Name="MidiControllerBank(4)0/1/Parameter" Type="Integer" Value="75"/>
+        <Parameter Name="MidiControllerBank(4)0/2/Max" Type="Float" Value="2.000000"/>
+        <Parameter Name="MidiControllerBank(4)0/2/Min" Type="Float" Value="1.000000"/>
+        <Parameter Name="MidiControllerBank(4)0/2/Parameter" Type="Integer" Value="79"/>
+        <Parameter Name="MidiControllerBank(4)0/3/Max" Type="Float" Value="1.000000"/>
+        <Parameter Name="MidiControllerBank(4)0/3/Min" Type="Float" Value="0.000000"/>
+        <Parameter Name="MidiControllerBank(4)0/3/Parameter" Type="Integer" Value="-1"/>
+        <Parameter Name="Mixer(4)0/0/Volume" Type="Float" Value="0.000000"/>
+        <Parameter Name="Mixer(4)0/1/Volume" Type="Float" Value="0.000000"/>
+        <Parameter Name="Mixer(4)0/2/Volume" Type="Float" Value="0.000000"/>
+        <Parameter Name="Mixer(4)0/3/Volume" Type="Float" Value="0.700000"/>
+        <Parameter Name="Mixer(4)0/MasterVolume" Type="Float" Value="0.800000"/>
+        <Parameter Name="SimpleOscillator0/Select" Type="Integer" Value="3"/>
+        <Parameter Name="SimpleOscillator1/Select" Type="Integer" Value="4"/>
+        <Parameter Name="SimpleOscillator2/Select" Type="Integer" Value="3"/>
+        <Parameter Name="StereoDelay0/Left/Bypass" Type="Boolean" Value="0"/>
+        <Parameter Name="StereoDelay0/Left/DelayMilliSeconds" Type="Float" Value="247.000000"/>
+        <Parameter Name="StereoDelay0/Left/Feedback" Type="Float" Value="0.500000"/>
+        <Parameter Name="StereoDelay0/Left/WetDry" Type="Float" Value="0.400000"/>
+        <Parameter Name="StereoDelay0/Right/Bypass" Type="Boolean" Value="0"/>
+        <Parameter Name="StereoDelay0/Right/DelayMilliSeconds" Type="Float" Value="253.000000"/>
+        <Parameter Name="StereoDelay0/Right/Feedback" Type="Float" Value="0.500000"/>
+        <Parameter Name="StereoDelay0/Right/WetDry" Type="Float" Value="0.400000"/>
+    </Parameters>
+</xml>

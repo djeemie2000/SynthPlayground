@@ -1,0 +1,79 @@
+<xml>
+    <Patch Version="2"/>
+    <Modules>
+        <Module Name="ADSREnvelopeBank(4)0" Type="ADSREnvelopeBank(4)"/>
+        <Module Name="Amp0" Type="Amp"/>
+        <Module Name="Amp1" Type="Amp"/>
+        <Module Name="Combinor0" Type="Combinor"/>
+        <Module Name="ControllerBank(4)0" Type="ControllerBank(4)"/>
+        <Module Name="LFOBank(4)0" Type="LFOBank(4)"/>
+        <Module Name="Mixer(4)0" Type="Mixer(4)"/>
+        <Module Name="Modulator0" Type="Modulator"/>
+        <Module Name="Operator0" Type="Operator"/>
+        <Module Name="PeriodicSync0" Type="PeriodicSync"/>
+        <Module Name="SimpleOscillator0" Type="SimpleOscillator"/>
+        <Module Name="SimpleOscillator1" Type="SimpleOscillator"/>
+    </Modules>
+    <Connections>
+        <Connection OutputPort="ADSREnvelopeBank(4)0:Envelope0" InputPort="Modulator0:ModIn1"/>
+        <Connection OutputPort="Amp0:Out" InputPort="SimpleOscillator0:Freq"/>
+        <Connection OutputPort="Amp1:Out" InputPort="Combinor0:In2"/>
+        <Connection OutputPort="Combinor0:Out" InputPort="SimpleOscillator1:Freq"/>
+        <Connection OutputPort="ControllerBank(4)0:Contr0" InputPort="Amp0:In"/>
+        <Connection OutputPort="ControllerBank(4)0:Contr0" InputPort="Combinor0:In1"/>
+        <Connection OutputPort="ControllerBank(4)0:Contr1" InputPort="Amp0:Ampl"/>
+        <Connection OutputPort="ControllerBank(4)0:Contr3" InputPort="PeriodicSync0:Freq"/>
+        <Connection OutputPort="LFOBank(4)0:LFO0" InputPort="Modulator0:ModIn0"/>
+        <Connection OutputPort="Mixer(4)0:Out" InputPort="system:playback_1"/>
+        <Connection OutputPort="Mixer(4)0:Out" InputPort="system:playback_2"/>
+        <Connection OutputPort="Modulator0:Out" InputPort="Amp1:Ampl"/>
+        <Connection OutputPort="Operator0:Out" InputPort="Mixer(4)0:In1"/>
+        <Connection OutputPort="PeriodicSync0:Sync" InputPort="ADSREnvelopeBank(4)0:Trigger0"/>
+        <Connection OutputPort="SimpleOscillator0:Out" InputPort="Amp1:In"/>
+        <Connection OutputPort="SimpleOscillator1:Out" InputPort="Mixer(4)0:In0"/>
+        <Connection OutputPort="SimpleOscillator1:Out" InputPort="Operator0:Phase"/>
+    </Connections>
+    <Parameters>
+        <Parameter Name="ADSREnvelopeBank(4)0/0/Attack" Type="Float" Value="93.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/0/Decay" Type="Float" Value="500.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/0/Release" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/0/Sustain" Type="Float" Value="0.150000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/1/Attack" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/1/Decay" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/1/Release" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/1/Sustain" Type="Float" Value="1.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/2/Attack" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/2/Decay" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/2/Release" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/2/Sustain" Type="Float" Value="1.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/3/Attack" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/3/Decay" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/3/Release" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/3/Sustain" Type="Float" Value="1.000000"/>
+        <Parameter Name="Combinor0/Select" Type="Integer" Value="14"/>
+        <Parameter Name="ControllerBank(4)0/0/Value" Type="Float" Value="220.000000"/>
+        <Parameter Name="ControllerBank(4)0/1/Value" Type="Float" Value="0.200000"/>
+        <Parameter Name="ControllerBank(4)0/2/Value" Type="Float" Value="0.000000"/>
+        <Parameter Name="ControllerBank(4)0/3/Value" Type="Float" Value="1.000000"/>
+        <Parameter Name="LFOBank(4)0/0/Frequency" Type="Float" Value="0.190000"/>
+        <Parameter Name="LFOBank(4)0/0/Select" Type="Integer" Value="3"/>
+        <Parameter Name="LFOBank(4)0/1/Frequency" Type="Float" Value="1.000000"/>
+        <Parameter Name="LFOBank(4)0/1/Select" Type="Integer" Value="0"/>
+        <Parameter Name="LFOBank(4)0/2/Frequency" Type="Float" Value="1.000000"/>
+        <Parameter Name="LFOBank(4)0/2/Select" Type="Integer" Value="0"/>
+        <Parameter Name="LFOBank(4)0/3/Frequency" Type="Float" Value="1.000000"/>
+        <Parameter Name="LFOBank(4)0/3/Select" Type="Integer" Value="0"/>
+        <Parameter Name="Mixer(4)0/0/Volume" Type="Float" Value="0.000000"/>
+        <Parameter Name="Mixer(4)0/1/Volume" Type="Float" Value="0.100000"/>
+        <Parameter Name="Mixer(4)0/2/Volume" Type="Float" Value="0.250000"/>
+        <Parameter Name="Mixer(4)0/3/Volume" Type="Float" Value="0.250000"/>
+        <Parameter Name="Mixer(4)0/MasterVolume" Type="Float" Value="0.500000"/>
+        <Parameter Name="Modulator0/0/ModAmt" Type="Float" Value="0.000000"/>
+        <Parameter Name="Modulator0/1/ModAmt" Type="Float" Value="1.000000"/>
+        <Parameter Name="Modulator0/LimitMode" Type="Integer" Value="0"/>
+        <Parameter Name="Modulator0/Offset" Type="Float" Value="0.000000"/>
+        <Parameter Name="Operator0/Select" Type="Integer" Value="0"/>
+        <Parameter Name="SimpleOscillator0/Select" Type="Integer" Value="3"/>
+        <Parameter Name="SimpleOscillator1/Select" Type="Integer" Value="3"/>
+    </Parameters>
+</xml>

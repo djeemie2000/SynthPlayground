@@ -1,0 +1,103 @@
+<xml>
+    <Patch Version="2"/>
+    <Modules>
+        <Module Name="ADSREnvelopeBank(4)0" Type="ADSREnvelopeBank(4)"/>
+        <Module Name="Amp0" Type="Amp"/>
+        <Module Name="CrossMixer0" Type="CrossMixer"/>
+        <Module Name="LFOBank(4)0" Type="LFOBank(4)"/>
+        <Module Name="LPF0" Type="LPF"/>
+        <Module Name="MidiNote0" Type="MidiNote"/>
+        <Module Name="Mixer(4)0" Type="Mixer(4)"/>
+        <Module Name="Modulator0" Type="Modulator"/>
+        <Module Name="Modulator1" Type="Modulator"/>
+        <Module Name="Modulator2" Type="Modulator"/>
+        <Module Name="Operator0" Type="Operator"/>
+        <Module Name="Operator1" Type="Operator"/>
+        <Module Name="PhaseSkewer0" Type="PhaseSkewer"/>
+        <Module Name="Phasor0" Type="Phasor"/>
+        <Module Name="StereoDelay0" Type="StereoDelay"/>
+    </Modules>
+    <Connections>
+        <Connection OutputPort="ADSREnvelopeBank(4)0:Envelope0" InputPort="Amp0:Ampl"/>
+        <Connection OutputPort="ADSREnvelopeBank(4)0:Envelope1" InputPort="Modulator1:ModIn1"/>
+        <Connection OutputPort="Amp0:Out" InputPort="LPF0:In"/>
+        <Connection OutputPort="CrossMixer0:Out" InputPort="Amp0:In"/>
+        <Connection OutputPort="LFOBank(4)0:LFO0" InputPort="Modulator0:ModIn0"/>
+        <Connection OutputPort="LFOBank(4)0:LFO1" InputPort="Modulator0:ModIn1"/>
+        <Connection OutputPort="LFOBank(4)0:LFO2" InputPort="Modulator1:ModIn0"/>
+        <Connection OutputPort="LFOBank(4)0:LFO3" InputPort="Modulator2:ModIn0"/>
+        <Connection OutputPort="LPF0:Out" InputPort="Mixer(4)0:In0"/>
+        <Connection OutputPort="MidiNote0:Freq" InputPort="Phasor0:Freq"/>
+        <Connection OutputPort="MidiNote0:Trigger" InputPort="ADSREnvelopeBank(4)0:Trigger0"/>
+        <Connection OutputPort="MidiNote0:Trigger" InputPort="ADSREnvelopeBank(4)0:Trigger1"/>
+        <Connection OutputPort="Mixer(4)0:Out" InputPort="StereoDelay0:InLeft"/>
+        <Connection OutputPort="Mixer(4)0:Out" InputPort="StereoDelay0:InRight"/>
+        <Connection OutputPort="Modulator0:Out" InputPort="CrossMixer0:Mix"/>
+        <Connection OutputPort="Modulator1:Out" InputPort="PhaseSkewer0:Skew"/>
+        <Connection OutputPort="Modulator2:Out" InputPort="LPF0:CutOff"/>
+        <Connection OutputPort="Operator0:Out" InputPort="CrossMixer0:In1"/>
+        <Connection OutputPort="Operator1:Out" InputPort="CrossMixer0:In2"/>
+        <Connection OutputPort="PhaseSkewer0:Out" InputPort="Operator0:Phase"/>
+        <Connection OutputPort="PhaseSkewer0:Out" InputPort="Operator1:Phase"/>
+        <Connection OutputPort="Phasor0:Phase" InputPort="PhaseSkewer0:Phase"/>
+        <Connection OutputPort="StereoDelay0:OutLeft" InputPort="system:playback_1"/>
+        <Connection OutputPort="StereoDelay0:OutRight" InputPort="system:playback_2"/>
+    </Connections>
+    <Parameters>
+        <Parameter Name="ADSREnvelopeBank(4)0/0/Attack" Type="Float" Value="48.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/0/Decay" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/0/Release" Type="Float" Value="300.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/0/Sustain" Type="Float" Value="1.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/1/Attack" Type="Float" Value="200.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/1/Decay" Type="Float" Value="200.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/1/Release" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/1/Sustain" Type="Float" Value="0.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/2/Attack" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/2/Decay" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/2/Release" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/2/Sustain" Type="Float" Value="1.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/3/Attack" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/3/Decay" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/3/Release" Type="Float" Value="10.000000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/3/Sustain" Type="Float" Value="1.000000"/>
+        <Parameter Name="LFOBank(4)0/0/Frequency" Type="Float" Value="0.200000"/>
+        <Parameter Name="LFOBank(4)0/0/Select" Type="Integer" Value="3"/>
+        <Parameter Name="LFOBank(4)0/1/Frequency" Type="Float" Value="0.720000"/>
+        <Parameter Name="LFOBank(4)0/1/Select" Type="Integer" Value="3"/>
+        <Parameter Name="LFOBank(4)0/2/Frequency" Type="Float" Value="1.123000"/>
+        <Parameter Name="LFOBank(4)0/2/Select" Type="Integer" Value="3"/>
+        <Parameter Name="LFOBank(4)0/3/Frequency" Type="Float" Value="8.000000"/>
+        <Parameter Name="LFOBank(4)0/3/Select" Type="Integer" Value="3"/>
+        <Parameter Name="LPF0/Poles" Type="Integer" Value="12"/>
+        <Parameter Name="LPF0/Resonance" Type="Float" Value="0.000000"/>
+        <Parameter Name="Mixer(4)0/0/Volume" Type="Float" Value="0.500000"/>
+        <Parameter Name="Mixer(4)0/1/Volume" Type="Float" Value="0.250000"/>
+        <Parameter Name="Mixer(4)0/2/Volume" Type="Float" Value="0.250000"/>
+        <Parameter Name="Mixer(4)0/3/Volume" Type="Float" Value="0.250000"/>
+        <Parameter Name="Mixer(4)0/MasterVolume" Type="Float" Value="0.400000"/>
+        <Parameter Name="Modulator0/0/ModAmt" Type="Float" Value="0.600000"/>
+        <Parameter Name="Modulator0/1/ModAmt" Type="Float" Value="-0.460000"/>
+        <Parameter Name="Modulator0/LimitMode" Type="Integer" Value="1"/>
+        <Parameter Name="Modulator0/Offset" Type="Float" Value="-0.000000"/>
+        <Parameter Name="Modulator1/0/ModAmt" Type="Float" Value="-0.200000"/>
+        <Parameter Name="Modulator1/1/ModAmt" Type="Float" Value="0.200000"/>
+        <Parameter Name="Modulator1/LimitMode" Type="Integer" Value="1"/>
+        <Parameter Name="Modulator1/Offset" Type="Float" Value="0.400000"/>
+        <Parameter Name="Modulator2/0/ModAmt" Type="Float" Value="0.200000"/>
+        <Parameter Name="Modulator2/1/ModAmt" Type="Float" Value="0.000000"/>
+        <Parameter Name="Modulator2/LimitMode" Type="Integer" Value="2"/>
+        <Parameter Name="Modulator2/Offset" Type="Float" Value="0.600000"/>
+        <Parameter Name="Operator0/Select" Type="Integer" Value="9"/>
+        <Parameter Name="Operator1/Select" Type="Integer" Value="7"/>
+        <Parameter Name="SimpleOscillator0/Select" Type="" Value=""/>
+        <Parameter Name="SimpleOscillator1/Select" Type="" Value=""/>
+        <Parameter Name="StereoDelay0/Left/Bypass" Type="Boolean" Value="0"/>
+        <Parameter Name="StereoDelay0/Left/DelayMilliSeconds" Type="Float" Value="337.000000"/>
+        <Parameter Name="StereoDelay0/Left/Feedback" Type="Float" Value="0.500000"/>
+        <Parameter Name="StereoDelay0/Left/WetDry" Type="Float" Value="0.300000"/>
+        <Parameter Name="StereoDelay0/Right/Bypass" Type="Boolean" Value="0"/>
+        <Parameter Name="StereoDelay0/Right/DelayMilliSeconds" Type="Float" Value="363.000000"/>
+        <Parameter Name="StereoDelay0/Right/Feedback" Type="Float" Value="0.500000"/>
+        <Parameter Name="StereoDelay0/Right/WetDry" Type="Float" Value="0.300000"/>
+    </Parameters>
+</xml>

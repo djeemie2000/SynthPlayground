@@ -1,0 +1,20 @@
+<xml>
+    <Patch Version="2"/>
+    <Modules>
+        <Module Name="Distortion10" Type="Distortion1"/>
+        <Module Name="Mixer(4)0" Type="Mixer(4)"/>
+    </Modules>
+    <Connections>
+        <Connection OutputPort="Distortion10:Out" InputPort="Mixer(4)0:In0"/>
+        <Connection OutputPort="Mixer(4)0:Out" InputPort="system:playback_1"/>
+        <Connection OutputPort="Mixer(4)0:Out" InputPort="system:playback_2"/>
+    </Connections>
+    <Parameters>
+        <Parameter Name="Distortion10/Drive" Type="Float" Value="0.520000"/>
+        <Parameter Name="Mixer(4)0/0/Volume" Type="Float" Value="0.300000"/>
+        <Parameter Name="Mixer(4)0/1/Volume" Type="Float" Value="0.250000"/>
+        <Parameter Name="Mixer(4)0/2/Volume" Type="Float" Value="0.250000"/>
+        <Parameter Name="Mixer(4)0/3/Volume" Type="Float" Value="0.250000"/>
+        <Parameter Name="Mixer(4)0/MasterVolume" Type="Float" Value="0.300000"/>
+    </Parameters>
+</xml>

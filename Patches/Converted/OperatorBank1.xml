@@ -1,0 +1,90 @@
+<xml>
+    <Patch Version="2"/>
+    <Modules>
+        <Module Name="Amp0" Type="Amp"/>
+        <Module Name="Amp1" Type="Amp"/>
+        <Module Name="Amp2" Type="Amp"/>
+        <Module Name="Amp3" Type="Amp"/>
+        <Module Name="Amp4" Type="Amp"/>
+        <Module Name="Amp5" Type="Amp"/>
+        <Module Name="Amp6" Type="Amp"/>
+        <Module Name="Amp7" Type="Amp"/>
+        <Module Name="MidiControllerBank(4)0" Type="MidiControllerBank(4)"/>
+        <Module Name="MidiControllerBank(4)1" Type="MidiControllerBank(4)"/>
+        <Module Name="MidiNote0" Type="MidiNote"/>
+        <Module Name="Mixer(8)0" Type="Mixer(8)"/>
+        <Module Name="Operator0" Type="Operator"/>
+        <Module Name="Operator1" Type="Operator"/>
+        <Module Name="Operator2" Type="Operator"/>
+        <Module Name="Operator3" Type="Operator"/>
+        <Module Name="Phasor0" Type="Phasor"/>
+    </Modules>
+    <Connections>
+        <Connection OutputPort="Amp0:Out" InputPort="Operator0:Phase"/>
+        <Connection OutputPort="Amp1:Out" InputPort="Operator1:Phase"/>
+        <Connection OutputPort="Amp2:Out" InputPort="Operator2:Phase"/>
+        <Connection OutputPort="Amp3:Out" InputPort="Operator3:Phase"/>
+        <Connection OutputPort="Amp4:Out" InputPort="Mixer(8)0:In0"/>
+        <Connection OutputPort="Amp5:Out" InputPort="Mixer(8)0:In1"/>
+        <Connection OutputPort="Amp6:Out" InputPort="Mixer(8)0:In2"/>
+        <Connection OutputPort="Amp7:Out" InputPort="Mixer(8)0:In3"/>
+        <Connection OutputPort="MidiControllerBank(4)0:Contr0" InputPort="Amp0:Ampl"/>
+        <Connection OutputPort="MidiControllerBank(4)0:Contr1" InputPort="Amp1:Ampl"/>
+        <Connection OutputPort="MidiControllerBank(4)0:Contr2" InputPort="Amp2:Ampl"/>
+        <Connection OutputPort="MidiControllerBank(4)0:Contr3" InputPort="Amp3:Ampl"/>
+        <Connection OutputPort="MidiControllerBank(4)1:Contr0" InputPort="Amp4:Ampl"/>
+        <Connection OutputPort="MidiControllerBank(4)1:Contr1" InputPort="Amp5:Ampl"/>
+        <Connection OutputPort="MidiControllerBank(4)1:Contr2" InputPort="Amp6:Ampl"/>
+        <Connection OutputPort="MidiControllerBank(4)1:Contr3" InputPort="Amp7:Ampl"/>
+        <Connection OutputPort="MidiNote0:Freq" InputPort="Phasor0:Freq"/>
+        <Connection OutputPort="Mixer(8)0:Out" InputPort="system:playback_1"/>
+        <Connection OutputPort="Mixer(8)0:Out" InputPort="system:playback_2"/>
+        <Connection OutputPort="Operator0:Out" InputPort="Amp1:In"/>
+        <Connection OutputPort="Operator0:Out" InputPort="Amp4:In"/>
+        <Connection OutputPort="Operator1:Out" InputPort="Amp2:In"/>
+        <Connection OutputPort="Operator1:Out" InputPort="Amp5:In"/>
+        <Connection OutputPort="Operator2:Out" InputPort="Amp3:In"/>
+        <Connection OutputPort="Operator2:Out" InputPort="Amp6:In"/>
+        <Connection OutputPort="Operator3:Out" InputPort="Amp7:In"/>
+        <Connection OutputPort="Phasor0:Phase" InputPort="Amp0:In"/>
+    </Connections>
+    <Parameters>
+        <Parameter Name="MidiControllerBank(4)0/0/Max" Type="Float" Value="1.000000"/>
+        <Parameter Name="MidiControllerBank(4)0/0/Min" Type="Float" Value="0.000000"/>
+        <Parameter Name="MidiControllerBank(4)0/0/Parameter" Type="Integer" Value="73"/>
+        <Parameter Name="MidiControllerBank(4)0/1/Max" Type="Float" Value="1.000000"/>
+        <Parameter Name="MidiControllerBank(4)0/1/Min" Type="Float" Value="0.000000"/>
+        <Parameter Name="MidiControllerBank(4)0/1/Parameter" Type="Integer" Value="75"/>
+        <Parameter Name="MidiControllerBank(4)0/2/Max" Type="Float" Value="1.000000"/>
+        <Parameter Name="MidiControllerBank(4)0/2/Min" Type="Float" Value="0.000000"/>
+        <Parameter Name="MidiControllerBank(4)0/2/Parameter" Type="Integer" Value="72"/>
+        <Parameter Name="MidiControllerBank(4)0/3/Max" Type="Float" Value="1.000000"/>
+        <Parameter Name="MidiControllerBank(4)0/3/Min" Type="Float" Value="0.000000"/>
+        <Parameter Name="MidiControllerBank(4)0/3/Parameter" Type="Integer" Value="74"/>
+        <Parameter Name="MidiControllerBank(4)1/0/Max" Type="Float" Value="1.000000"/>
+        <Parameter Name="MidiControllerBank(4)1/0/Min" Type="Float" Value="0.000000"/>
+        <Parameter Name="MidiControllerBank(4)1/0/Parameter" Type="Integer" Value="79"/>
+        <Parameter Name="MidiControllerBank(4)1/1/Max" Type="Float" Value="1.000000"/>
+        <Parameter Name="MidiControllerBank(4)1/1/Min" Type="Float" Value="0.000000"/>
+        <Parameter Name="MidiControllerBank(4)1/1/Parameter" Type="Integer" Value="84"/>
+        <Parameter Name="MidiControllerBank(4)1/2/Max" Type="Float" Value="1.000000"/>
+        <Parameter Name="MidiControllerBank(4)1/2/Min" Type="Float" Value="0.000000"/>
+        <Parameter Name="MidiControllerBank(4)1/2/Parameter" Type="Integer" Value="91"/>
+        <Parameter Name="MidiControllerBank(4)1/3/Max" Type="Float" Value="1.000000"/>
+        <Parameter Name="MidiControllerBank(4)1/3/Min" Type="Float" Value="0.000000"/>
+        <Parameter Name="MidiControllerBank(4)1/3/Parameter" Type="Integer" Value="93"/>
+        <Parameter Name="Mixer(8)0/0/Volume" Type="Float" Value="0.200000"/>
+        <Parameter Name="Mixer(8)0/1/Volume" Type="Float" Value="0.200000"/>
+        <Parameter Name="Mixer(8)0/2/Volume" Type="Float" Value="0.200000"/>
+        <Parameter Name="Mixer(8)0/3/Volume" Type="Float" Value="0.200000"/>
+        <Parameter Name="Mixer(8)0/4/Volume" Type="Float" Value="0.250000"/>
+        <Parameter Name="Mixer(8)0/5/Volume" Type="Float" Value="0.250000"/>
+        <Parameter Name="Mixer(8)0/6/Volume" Type="Float" Value="0.250000"/>
+        <Parameter Name="Mixer(8)0/7/Volume" Type="Float" Value="0.250000"/>
+        <Parameter Name="Mixer(8)0/MasterVolume" Type="Float" Value="0.800000"/>
+        <Parameter Name="Operator0/Select" Type="Integer" Value="2"/>
+        <Parameter Name="Operator1/Select" Type="Integer" Value="3"/>
+        <Parameter Name="Operator2/Select" Type="Integer" Value="3"/>
+        <Parameter Name="Operator3/Select" Type="Integer" Value="4"/>
+    </Parameters>
+</xml>

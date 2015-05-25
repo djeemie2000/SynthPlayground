@@ -1,0 +1,22 @@
+<xml>
+    <Patch Version="2"/>
+    <Modules>
+        <Module Name="MidiControllerBank(4)0" Type="MidiControllerBank(4)"/>
+    </Modules>
+    <Connections/>
+    <Parameters>
+        <Parameter Name="MidiControllerBank(4)0/0/Max" Type="Float" Value="1.000000"/>
+        <Parameter Name="MidiControllerBank(4)0/0/Min" Type="Float" Value="0.000000"/>
+        <Parameter Name="MidiControllerBank(4)0/0/Parameter" Type="Integer" Value="73"/>
+        <Parameter Name="MidiControllerBank(4)0/1/Max" Type="Float" Value="1.000000"/>
+        <Parameter Name="MidiControllerBank(4)0/1/Min" Type="Float" Value="0.000000"/>
+        <Parameter Name="MidiControllerBank(4)0/1/Parameter" Type="Integer" Value="-1"/>
+        <Parameter Name="MidiControllerBank(4)0/2/Max" Type="Float" Value="1.000000"/>
+        <Parameter Name="MidiControllerBank(4)0/2/Min" Type="Float" Value="0.000000"/>
+        <Parameter Name="MidiControllerBank(4)0/2/Parameter" Type="Integer" Value="-1"/>
+        <Parameter Name="MidiControllerBank(4)0/3/Max" Type="Float" Value="1.000000"/>
+        <Parameter Name="MidiControllerBank(4)0/3/Min" Type="Float" Value="0.000000"/>
+        <Parameter Name="MidiControllerBank(4)0/3/Parameter" Type="Integer" Value="-1"/>
+        <Parameter Name="Modulator0/LimitMode" Type="Integer" Value="1"/>
+    </Parameters>
+</xml>

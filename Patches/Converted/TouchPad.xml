@@ -1,0 +1,35 @@
+<xml>
+    <Patch Version="2"/>
+    <Modules>
+        <Module Name="Amp0" Type="Amp"/>
+        <Module Name="ControllerBank(4)0" Type="ControllerBank(4)"/>
+        <Module Name="MidiControllerBank(4)0" Type="MidiControllerBank(4)"/>
+        <Module Name="SimpleOscillator0" Type="SimpleOscillator"/>
+        <Module Name="ToggleGate0" Type="ToggleGate"/>
+    </Modules>
+    <Connections>
+        <Connection OutputPort="MidiControllerBank(4)0:Contr0" InputPort="ToggleGate0:Toggle"/>
+        <Connection OutputPort="MidiControllerBank(4)0:Contr1" InputPort="Amp0:Ampl"/>
+        <Connection OutputPort="SimpleOscillator0:Out" InputPort="Amp0:In"/>
+        <Connection OutputPort="ToggleGate0:Gate" InputPort="Amp0:Ampl"/>
+    </Connections>
+    <Parameters>
+        <Parameter Name="ControllerBank(4)0/0/Value" Type="Float" Value="180.000000"/>
+        <Parameter Name="ControllerBank(4)0/1/Value" Type="Float" Value="0.000000"/>
+        <Parameter Name="ControllerBank(4)0/2/Value" Type="Float" Value="0.000000"/>
+        <Parameter Name="ControllerBank(4)0/3/Value" Type="Float" Value="0.000000"/>
+        <Parameter Name="MidiControllerBank(4)0/0/Max" Type="Float" Value="1.000000"/>
+        <Parameter Name="MidiControllerBank(4)0/0/Min" Type="Float" Value="0.000000"/>
+        <Parameter Name="MidiControllerBank(4)0/0/Parameter" Type="Integer" Value="77"/>
+        <Parameter Name="MidiControllerBank(4)0/1/Max" Type="Float" Value="1.000000"/>
+        <Parameter Name="MidiControllerBank(4)0/1/Min" Type="Float" Value="0.000000"/>
+        <Parameter Name="MidiControllerBank(4)0/1/Parameter" Type="Integer" Value="70"/>
+        <Parameter Name="MidiControllerBank(4)0/2/Max" Type="Float" Value="1.000000"/>
+        <Parameter Name="MidiControllerBank(4)0/2/Min" Type="Float" Value="0.000000"/>
+        <Parameter Name="MidiControllerBank(4)0/2/Parameter" Type="Integer" Value="-1"/>
+        <Parameter Name="MidiControllerBank(4)0/3/Max" Type="Float" Value="1.000000"/>
+        <Parameter Name="MidiControllerBank(4)0/3/Min" Type="Float" Value="0.000000"/>
+        <Parameter Name="MidiControllerBank(4)0/3/Parameter" Type="Integer" Value="-1"/>
+        <Parameter Name="SimpleOscillator0/Select" Type="Integer" Value="4"/>
+    </Parameters>
+</xml>

@@ -1,0 +1,35 @@
+<xml>
+    <Patch Version="2"/>
+    <Modules>
+        <Module Name="Distortion10" Type="Distortion1"/>
+        <Module Name="EnvelopeFollower0" Type="EnvelopeFollower"/>
+        <Module Name="LPF0" Type="LPF"/>
+        <Module Name="Mixer(4)0" Type="Mixer(4)"/>
+        <Module Name="Modulator0" Type="Modulator"/>
+    </Modules>
+    <Connections>
+        <Connection OutputPort="Mixer(4)0:Out" InputPort="system:playback_1"/>
+        <Connection OutputPort="Mixer(4)0:Out" InputPort="system:playback_2"/>
+        <Connection OutputPort="Distortion10:Out" InputPort="Mixer(4)0:In2"/>
+        <Connection OutputPort="EnvelopeFollower0:Env" InputPort="Modulator0:ModIn0"/>
+        <Connection OutputPort="LPF0:Out" InputPort="Mixer(4)0:In1"/>
+        <Connection OutputPort="LPF0:Out" InputPort="Distortion10:In"/>
+        <Connection OutputPort="Modulator0:Out" InputPort="LPF0:CutOff"/>
+    </Connections>
+    <Parameters>
+        <Parameter Name="Distortion10/Drive" Type="Float" Value="0.300000"/>
+        <Parameter Name="EnvelopeFollower0/AttackMilliSeconds" Type="Float" Value="100.099998"/>
+        <Parameter Name="EnvelopeFollower0/ReleaseMilliSeconds" Type="Float" Value="1000.000000"/>
+        <Parameter Name="LPF0/Poles" Type="Integer" Value="24"/>
+        <Parameter Name="LPF0/Resonance" Type="Float" Value="1.200000"/>
+        <Parameter Name="Mixer(4)0/0/Volume" Type="Float" Value="0.000000"/>
+        <Parameter Name="Mixer(4)0/1/Volume" Type="Float" Value="0.000000"/>
+        <Parameter Name="Mixer(4)0/2/Volume" Type="Float" Value="0.600000"/>
+        <Parameter Name="Mixer(4)0/3/Volume" Type="Float" Value="0.250000"/>
+        <Parameter Name="Mixer(4)0/MasterVolume" Type="Float" Value="0.300000"/>
+        <Parameter Name="Modulator0/0/ModAmt" Type="Float" Value="1.000000"/>
+        <Parameter Name="Modulator0/1/ModAmt" Type="Float" Value="0.000000"/>
+        <Parameter Name="Modulator0/LimitMode" Type="Integer" Value="2"/>
+        <Parameter Name="Modulator0/Offset" Type="Float" Value="0.590000"/>
+    </Parameters>
+</xml>

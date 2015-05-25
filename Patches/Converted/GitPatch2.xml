@@ -1,0 +1,44 @@
+<xml>
+    <Patch Version="2"/>
+    <Modules>
+        <Module Name="Mixer(4)0" Type="Mixer(4)"/>
+        <Module Name="PosNegShaper0" Type="PosNegShaper"/>
+        <Module Name="StereoDelay0" Type="StereoDelay"/>
+        <Module Name="StereoDelay1" Type="StereoDelay"/>
+    </Modules>
+    <Connections>
+        <Connection OutputPort="Mixer(4)0:Out" InputPort="StereoDelay0:InLeft"/>
+        <Connection OutputPort="Mixer(4)0:Out" InputPort="StereoDelay0:InRight"/>
+        <Connection OutputPort="PosNegShaper0:Out" InputPort="Mixer(4)0:In1"/>
+        <Connection OutputPort="StereoDelay0:OutLeft" InputPort="StereoDelay1:InLeft"/>
+        <Connection OutputPort="StereoDelay0:OutRight" InputPort="StereoDelay1:InRight"/>
+        <Connection OutputPort="StereoDelay1:OutLeft" InputPort="system:playback_1"/>
+        <Connection OutputPort="StereoDelay1:OutRight" InputPort="system:playback_2"/>
+    </Connections>
+    <Parameters>
+        <Parameter Name="Mixer(4)0/0/Volume" Type="Float" Value="0.000000"/>
+        <Parameter Name="Mixer(4)0/1/Volume" Type="Float" Value="0.300000"/>
+        <Parameter Name="Mixer(4)0/2/Volume" Type="Float" Value="0.250000"/>
+        <Parameter Name="Mixer(4)0/3/Volume" Type="Float" Value="0.250000"/>
+        <Parameter Name="Mixer(4)0/MasterVolume" Type="Float" Value="0.400000"/>
+        <Parameter Name="PosNegShaper0/DerectifierMode" Type="Integer" Value="4"/>
+        <Parameter Name="PosNegShaper0/Invert" Type="Boolean" Value="0"/>
+        <Parameter Name="PosNegShaper0/InverterMode" Type="Integer" Value="1"/>
+        <Parameter Name="StereoDelay0/Left/Bypass" Type="Boolean" Value="0"/>
+        <Parameter Name="StereoDelay0/Left/DelayMilliSeconds" Type="Float" Value="247.000000"/>
+        <Parameter Name="StereoDelay0/Left/Feedback" Type="Float" Value="0.500000"/>
+        <Parameter Name="StereoDelay0/Left/WetDry" Type="Float" Value="0.600000"/>
+        <Parameter Name="StereoDelay0/Right/Bypass" Type="Boolean" Value="0"/>
+        <Parameter Name="StereoDelay0/Right/DelayMilliSeconds" Type="Float" Value="253.000000"/>
+        <Parameter Name="StereoDelay0/Right/Feedback" Type="Float" Value="0.500000"/>
+        <Parameter Name="StereoDelay0/Right/WetDry" Type="Float" Value="0.600000"/>
+        <Parameter Name="StereoDelay1/Left/Bypass" Type="Boolean" Value="0"/>
+        <Parameter Name="StereoDelay1/Left/DelayMilliSeconds" Type="Float" Value="367.000000"/>
+        <Parameter Name="StereoDelay1/Left/Feedback" Type="Float" Value="0.500000"/>
+        <Parameter Name="StereoDelay1/Left/WetDry" Type="Float" Value="0.600000"/>
+        <Parameter Name="StereoDelay1/Right/Bypass" Type="Boolean" Value="0"/>
+        <Parameter Name="StereoDelay1/Right/DelayMilliSeconds" Type="Float" Value="333.000000"/>
+        <Parameter Name="StereoDelay1/Right/Feedback" Type="Float" Value="0.500000"/>
+        <Parameter Name="StereoDelay1/Right/WetDry" Type="Float" Value="0.600000"/>
+    </Parameters>
+</xml>

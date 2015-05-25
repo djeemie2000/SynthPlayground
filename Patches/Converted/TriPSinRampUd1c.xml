@@ -1,0 +1,54 @@
+<xml>
+    <Patch Version="2"/>
+    <Modules>
+        <Module Name="1V/Oct0" Type="1V/Oct"/>
+        <Module Name="Combinor0" Type="Combinor"/>
+        <Module Name="ControllerBank(4)0" Type="ControllerBank(4)"/>
+        <Module Name="Detuner(3)0" Type="Detuner(3)"/>
+        <Module Name="LPF0" Type="LPF"/>
+        <Module Name="Mixer(4)0" Type="Mixer(4)"/>
+        <Module Name="PeriodicTrigger0" Type="PeriodicTrigger"/>
+        <Module Name="SimpleOscillator0" Type="SimpleOscillator"/>
+        <Module Name="SimpleOscillator1" Type="SimpleOscillator"/>
+    </Modules>
+    <Connections>
+        <Connection OutputPort="1V/Oct0:Freq" InputPort="Detuner(3)0:Freq"/>
+        <Connection OutputPort="Combinor0:Out" InputPort="LPF0:In"/>
+        <Connection OutputPort="ControllerBank(4)0:Contr0" InputPort="1V/Oct0:CV"/>
+        <Connection OutputPort="ControllerBank(4)0:Contr1" InputPort="LPF0:CutOff"/>
+        <Connection OutputPort="Detuner(3)0:Freq0" InputPort="SimpleOscillator0:Freq"/>
+        <Connection OutputPort="Detuner(3)0:Freq1" InputPort="SimpleOscillator1:Freq"/>
+        <Connection OutputPort="LPF0:Out" InputPort="Mixer(4)0:In0"/>
+        <Connection OutputPort="Mixer(4)0:Out" InputPort="system:playback_1"/>
+        <Connection OutputPort="Mixer(4)0:Out" InputPort="system:playback_2"/>
+        <Connection OutputPort="PeriodicTrigger0:Trigger" InputPort="SimpleOscillator0:Sync"/>
+        <Connection OutputPort="PeriodicTrigger0:Trigger" InputPort="SimpleOscillator1:Sync"/>
+        <Connection OutputPort="SimpleOscillator0:Out" InputPort="Combinor0:In1"/>
+        <Connection OutputPort="SimpleOscillator1:Out" InputPort="Combinor0:In2"/>
+    </Connections>
+    <Parameters>
+        <Parameter Name="Combinor0/Select" Type="Integer" Value="19"/>
+        <Parameter Name="ControllerBank(4)0/0/Value" Type="Float" Value="0.500000"/>
+        <Parameter Name="ControllerBank(4)0/1/Value" Type="Float" Value="0.807000"/>
+        <Parameter Name="ControllerBank(4)0/2/Value" Type="Float" Value="0.000000"/>
+        <Parameter Name="ControllerBank(4)0/3/Value" Type="Float" Value="0.000000"/>
+        <Parameter Name="Detuner(3)0/0/Detune" Type="Float" Value="0.000000"/>
+        <Parameter Name="Detuner(3)0/0/OctaveShift" Type="Integer" Value="0"/>
+        <Parameter Name="Detuner(3)0/1/Detune" Type="Float" Value="-0.421000"/>
+        <Parameter Name="Detuner(3)0/1/OctaveShift" Type="Integer" Value="2"/>
+        <Parameter Name="Detuner(3)0/2/Detune" Type="Float" Value="0.000000"/>
+        <Parameter Name="Detuner(3)0/2/OctaveShift" Type="Integer" Value="0"/>
+        <Parameter Name="LPF0/Poles" Type="Integer" Value="4"/>
+        <Parameter Name="LPF0/Resonance" Type="Float" Value="0.000000"/>
+        <Parameter Name="Mixer(4)0/0/Volume" Type="Float" Value="0.500000"/>
+        <Parameter Name="Mixer(4)0/1/Volume" Type="Float" Value="0.250000"/>
+        <Parameter Name="Mixer(4)0/2/Volume" Type="Float" Value="0.250000"/>
+        <Parameter Name="Mixer(4)0/3/Volume" Type="Float" Value="0.250000"/>
+        <Parameter Name="Mixer(4)0/MasterVolume" Type="Float" Value="0.390000"/>
+        <Parameter Name="PeriodicTrigger0/BeatsPerBar" Type="Integer" Value="1"/>
+        <Parameter Name="PeriodicTrigger0/BeatsPerMinute" Type="Integer" Value="10"/>
+        <Parameter Name="PeriodicTrigger0/Duration" Type="Integer" Value="100"/>
+        <Parameter Name="SimpleOscillator0/Select" Type="Integer" Value="9"/>
+        <Parameter Name="SimpleOscillator1/Select" Type="Integer" Value="4"/>
+    </Parameters>
+</xml>

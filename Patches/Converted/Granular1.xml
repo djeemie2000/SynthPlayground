@@ -1,0 +1,25 @@
+<xml>
+    <Patch Version="2"/>
+    <Modules>
+        <Module Name="Granular0" Type="Granular"/>
+        <Module Name="Mixer(4)0" Type="Mixer(4)"/>
+    </Modules>
+    <Connections>
+        <Connection OutputPort="Granular0:Out" InputPort="Mixer(4)0:In0"/>
+        <Connection OutputPort="Mixer(4)0:Out" InputPort="system:playback_2"/>
+        <Connection OutputPort="Mixer(4)0:Out" InputPort="system:playback_1"/>
+    </Connections>
+    <Parameters>
+        <Parameter Name="Granular0/GrainDensity" Type="Integer" Value="11"/>
+        <Parameter Name="Granular0/GrainSize" Type="Integer" Value="12"/>
+        <Parameter Name="Granular0/GrainSpeed" Type="Integer" Value="256"/>
+        <Parameter Name="Granular0/PositionSpeed" Type="Integer" Value="256"/>
+        <Parameter Name="Granular0/SampleGrab" Type="Boolean" Value="0"/>
+        <Parameter Name="Granular0/SampleSize" Type="Integer" Value="14"/>
+        <Parameter Name="Mixer(4)0/0/Volume" Type="Float" Value="0.800000"/>
+        <Parameter Name="Mixer(4)0/1/Volume" Type="Float" Value="0.200000"/>
+        <Parameter Name="Mixer(4)0/2/Volume" Type="Float" Value="0.250000"/>
+        <Parameter Name="Mixer(4)0/3/Volume" Type="Float" Value="0.250000"/>
+        <Parameter Name="Mixer(4)0/MasterVolume" Type="Float" Value="0.600000"/>
+    </Parameters>
+</xml>

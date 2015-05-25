@@ -1,0 +1,48 @@
+<xml>
+    <Patch Version="2"/>
+    <Modules>
+        <Module Name="1V/Oct0" Type="1V/Oct"/>
+        <Module Name="Amp0" Type="Amp"/>
+        <Module Name="ControllerBank(4)0" Type="ControllerBank(4)"/>
+        <Module Name="ControllerChange0" Type="ControllerChange"/>
+        <Module Name="MidiOctaveGate0" Type="MidiOctaveGate"/>
+        <Module Name="Scaler0" Type="Scaler"/>
+        <Module Name="SimpleOscillator0" Type="SimpleOscillator"/>
+        <Module Name="StereoDelay0" Type="StereoDelay"/>
+        <Module Name="ToggleGate0" Type="ToggleGate"/>
+    </Modules>
+    <Connections>
+        <Connection OutputPort="1V/Oct0:Freq" InputPort="SimpleOscillator0:Freq"/>
+        <Connection OutputPort="Amp0:Out" InputPort="StereoDelay0:InLeft"/>
+        <Connection OutputPort="Amp0:Out" InputPort="StereoDelay0:InRight"/>
+        <Connection OutputPort="ControllerBank(4)0:Contr1" InputPort="ControllerChange0:Rate"/>
+        <Connection OutputPort="ControllerBank(4)0:Contr2" InputPort="Scaler0:Offset"/>
+        <Connection OutputPort="ControllerBank(4)0:Contr3" InputPort="Scaler0:Scale"/>
+        <Connection OutputPort="ControllerChange0:CV" InputPort="Scaler0:In"/>
+        <Connection OutputPort="MidiOctaveGate0:Gate0" InputPort="ToggleGate0:Toggle"/>
+        <Connection OutputPort="MidiOctaveGate0:Gate2" InputPort="ControllerChange0:Decr"/>
+        <Connection OutputPort="MidiOctaveGate0:Gate4" InputPort="ControllerChange0:Incr"/>
+        <Connection OutputPort="Scaler0:Out" InputPort="1V/Oct0:CV"/>
+        <Connection OutputPort="SimpleOscillator0:Out" InputPort="Amp0:In"/>
+        <Connection OutputPort="StereoDelay0:OutLeft" InputPort="system:playback_1"/>
+        <Connection OutputPort="StereoDelay0:OutRight" InputPort="system:playback_2"/>
+        <Connection OutputPort="ToggleGate0:Gate" InputPort="Amp0:Ampl"/>
+    </Connections>
+    <Parameters>
+        <Parameter Name="ControllerBank(4)0/0/Value" Type="Float" Value="180.000000"/>
+        <Parameter Name="ControllerBank(4)0/1/Value" Type="Float" Value="0.100000"/>
+        <Parameter Name="ControllerBank(4)0/2/Value" Type="Float" Value="0.000000"/>
+        <Parameter Name="ControllerBank(4)0/3/Value" Type="Float" Value="4.000000"/>
+        <Parameter Name="MidiOctaveGate0/Octave" Type="Integer" Value="0"/>
+        <Parameter Name="Modulator0/LimitMode" Type="Integer" Value="1"/>
+        <Parameter Name="SimpleOscillator0/Select" Type="Integer" Value="4"/>
+        <Parameter Name="StereoDelay0/Left/Bypass" Type="Boolean" Value="0"/>
+        <Parameter Name="StereoDelay0/Left/DelayMilliSeconds" Type="Float" Value="247.000000"/>
+        <Parameter Name="StereoDelay0/Left/Feedback" Type="Float" Value="0.500000"/>
+        <Parameter Name="StereoDelay0/Left/WetDry" Type="Float" Value="0.400000"/>
+        <Parameter Name="StereoDelay0/Right/Bypass" Type="Boolean" Value="0"/>
+        <Parameter Name="StereoDelay0/Right/DelayMilliSeconds" Type="Float" Value="253.000000"/>
+        <Parameter Name="StereoDelay0/Right/Feedback" Type="Float" Value="0.500000"/>
+        <Parameter Name="StereoDelay0/Right/WetDry" Type="Float" Value="0.400000"/>
+    </Parameters>
+</xml>
