@@ -2,6 +2,7 @@
 #include <memory>
 #include <string>
 #include <thread>
+#include <chrono>
 #include <csignal>
 #include "PatchManager.h"
 #include "PatchWriter.h"
@@ -58,9 +59,12 @@ int main(int argc, const char* argv[])
         std::shared_ptr<IModuleFactory> ModuleFactory(new CModuleFactory(CommandStackController));
         std::shared_ptr<CModuleManager> ModuleManager(new CModuleManager(ModuleFactory));
 
-        for(const auto& PatchName : SrcPatchManager.GetPatchNames())
+        auto PatchNames = SrcPatchManager.GetPatchNames();
+        //for(const auto& PatchName : SrcPatchManager.GetPatchNames())
+        for(std::size_t idx = 40; idx<PatchNames.size(); ++idx)
         {
-            std::cout << "Converting " << PatchName << "..." << std::endl;
+            auto PatchName = PatchNames[idx];
+            std::cout << "Converting " << idx << "/" << PatchNames.size() << " : " << PatchName << "..." << std::endl;
 
             // TODO parse patch into 3 strings:
             tinyxml2::XMLDocument Doc;
@@ -72,12 +76,22 @@ int main(int argc, const char* argv[])
                 std::string Parameters = TiXmlElementToString( Doc.RootElement()->FirstChildElement("Parameters") );
 
                 ModuleManager->Import(Modules);
+                std::this_thread::sleep_for(std::chrono::milliseconds(10));
+
                 StringToConnections(ConnectionManager, Connections);
+                std::this_thread::sleep_for(std::chrono::milliseconds(10));
+
                 CommandStackController->ImportFromString(Parameters);
+                std::this_thread::sleep_for(std::chrono::milliseconds(10));
 
                 CCommandStack Tmp;
                 Tmp.AddItems(CommandStackController->GetCurrent());
                 bool Success = CPatchWriter().WritePatch(DstPatchManager.CreatePath(PatchName), Tmp, *ModuleManager, ConnectionManager);
+
+                DisconnectAll(ConnectionManager);
+                std::this_thread::sleep_for(std::chrono::milliseconds(10));
+                ModuleManager->RemoveAll();
+
                 if(Success)
                 {
                     std::cout << "Converted patch " << PatchName << std::endl;
@@ -99,8 +113,6 @@ int main(int argc, const char* argv[])
                 std::cout << "Captured signal " << gSignalStatus << std::endl;
                 break;
             }
-
-            break;//debugging!!!!
         }
 
         // cleanup
