@@ -104,6 +104,10 @@ int main(int argc, const char* argv[])
         }
 
         // cleanup
+        ModuleManager.reset();
+        ModuleFactory.reset();
+        CommandStackController.reset();
+        ConnectionManager.CloseClient();
         return 0;
     }
 

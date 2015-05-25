@@ -62,5 +62,5 @@ bool CPatchWriter::WritePatch(const std::string &Path,
         }
     }
 
-    return Doc.SaveFile(Path.c_str());
+    return (tinyxml2::XMLError::XML_SUCCESS == Doc.SaveFile(Path.c_str()));
 }
