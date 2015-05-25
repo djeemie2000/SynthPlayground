@@ -1,0 +1,31 @@
+<xml>
+<Modules>
+ADSREnvelopeBank(4)0 --- ADSREnvelopeBank(4)
+HPF0 --- HPF
+
+</Modules>
+<Connections>
+
+</Connections>
+<Parameters>
+ADSREnvelopeBank(4)0/0/Attack 0 -1 10
+ADSREnvelopeBank(4)0/0/Decay 0 -1 10
+ADSREnvelopeBank(4)0/0/Release 0 -1 10
+ADSREnvelopeBank(4)0/0/Sustain 0 -1 1
+ADSREnvelopeBank(4)0/1/Attack 0 -1 10
+ADSREnvelopeBank(4)0/1/Decay 0 -1 10
+ADSREnvelopeBank(4)0/1/Release 0 -1 10
+ADSREnvelopeBank(4)0/1/Sustain 0 -1 1
+ADSREnvelopeBank(4)0/2/Attack 0 -1 10
+ADSREnvelopeBank(4)0/2/Decay 0 -1 10
+ADSREnvelopeBank(4)0/2/Release 0 -1 10
+ADSREnvelopeBank(4)0/2/Sustain 0 -1 1
+ADSREnvelopeBank(4)0/3/Attack 0 -1 10
+ADSREnvelopeBank(4)0/3/Decay 0 -1 10
+ADSREnvelopeBank(4)0/3/Release 0 -1 10
+ADSREnvelopeBank(4)0/3/Sustain 0 -1 1
+HPF0/Poles 0 1 -1
+HPF0/Resonance 0 -1 0
+
+</Parameters>
+</xml>

@@ -40,6 +40,11 @@ SCmdStackItem CCommandStackController::GetCurrent(const string &CommandName) con
     return m_CurrentStack->GetItem(CommandName);
 }
 
+const CCommandStack &CCommandStackController::GetCurrent() const
+{
+    return *m_CurrentStack;
+}
+
 void CCommandStackController::Register(const string &CommandName, SPCommandStackHandler Handler)
 {
     m_Distributor->Register(CommandName, Handler);

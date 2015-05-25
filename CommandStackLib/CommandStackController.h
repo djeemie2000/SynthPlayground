@@ -32,6 +32,8 @@ public:
 
     SCmdStackItem GetCurrent(const std::string& CommandName) const;
 
+    const CCommandStack& GetCurrent() const;
+
 private:
     std::shared_ptr<CLogCommandStackHandler> m_Logger;
     std::shared_ptr<CExecuteCommandStackHandler> m_Executor;

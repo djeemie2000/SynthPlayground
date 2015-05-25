@@ -33,6 +33,7 @@ add_subdirectory(../Serial2AlsaMidiTool ${BUILD_DIRECTORY}/Serial2AlsaMidiTool)
 add_subdirectory(../AlsaMidiLoggerTool ${BUILD_DIRECTORY}/AlsaMidiLoggerTool)
 add_subdirectory(../JackMidiLoggerTool ${BUILD_DIRECTORY}/JackMidiLoggerTool)
 add_subdirectory(../JackConnectionTool ${BUILD_DIRECTORY}/JackConnectionTool)
+add_subdirectory(../PatchConverterTool ${BUILD_DIRECTORY}/PatchConverterTool)
 
 add_subdirectory(../ModularHeadless ${BUILD_DIRECTORY}/ModularHeadless)
 add_subdirectory(../ModularWeb ${BUILD_DIRECTORY}/ModularWeb)
