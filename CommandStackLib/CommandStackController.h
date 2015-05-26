@@ -24,6 +24,7 @@ public:
     void Register(const std::string& CommandName, SPCommandStackHandler Handler); //!< register listeners for a specific name
 
     bool ImportFromString(const std::string& Content);
+    bool ImportFromStack(const CCommandStack& ImportedStack);
     bool ExportToString(std::string& Content);
 
     bool Default(); //!< apply default settings / patch

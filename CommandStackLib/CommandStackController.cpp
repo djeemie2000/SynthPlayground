@@ -84,6 +84,18 @@ bool CCommandStackController::ImportFromString(const string &Content)
     return false;
 }
 
+bool CCommandStackController::ImportFromStack(const CCommandStack &ImportedStack)
+{
+    // clear current stack
+    m_CurrentStack->Clear();
+    // apply defaults (includes applying default to current stack)
+    m_DefaultStack->Apply(*m_Handler);
+    // apply imported stack (includes applying to current stack)
+    ImportedStack.Apply(*m_Handler);
+
+    return true;
+}
+
 bool CCommandStackController::ExportToString(string &Content)
 {
     // create Exporter

@@ -16,6 +16,7 @@ SUBDIRS += \
     ../SerialLib \          # a 'lib' project
     ../CommandStackLib \    # a 'lib' project
     ../TestCommandStackLib \ # an 'app' project
+    ../PatchLib \           # a 'lib' project
     ../GuiLib \             # a 'lib' project
     ../ModularLib \         # a 'lib' project
     ../TestModularLib \     # an 'app' project

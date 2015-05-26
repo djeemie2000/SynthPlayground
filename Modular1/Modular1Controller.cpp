@@ -6,6 +6,9 @@
 #include "ModuleGuiFactory.h"
 #include "JackConnectionManager.h"
 #include "tinyxml2.h"
+#include "PatchReader.h"
+#include "PatchWriter.h"
+#include "CommandStack.h"
 #include <QStackedWidget>
 
 CModular1Controller::CModular1Controller(QStackedWidget *Parent)
@@ -90,25 +93,29 @@ void CModular1Controller::Restore()
 
 bool CModular1Controller::Save(const string &Path)
 {
-    std::ofstream OutFile;
-    OutFile.open(Path.c_str());
-    if(OutFile.is_open())
-    {
-        std::string Modules;
-        m_ModuleManager->Export(Modules);
-        std::string Connections = ConnectionsToString(*m_ConnectionManager);
-        std::string Parameters;
-        m_CommandStackController->ExportToString(Parameters);
+    CPatchWriter Writer;
+    return Writer.WritePatch(Path, m_CommandStackController->GetCurrent(), *m_ModuleManager, *m_ConnectionManager);
 
-        OutFile << "<xml>" << std::endl
-                << "<Modules>" << std::endl << Modules << std::endl << "</Modules>" << std::endl
-                << "<Connections>" << std::endl << Connections << std::endl << "</Connections>" << std::endl
-                << "<Parameters>" << std::endl << Parameters << std::endl << "</Parameters>" << std::endl
-                << "</xml>";
 
-        return true;
-    }
-    return false;
+//    std::ofstream OutFile;
+//    OutFile.open(Path.c_str());
+//    if(OutFile.is_open())
+//    {
+//        std::string Modules;
+//        m_ModuleManager->Export(Modules);
+//        std::string Connections = ConnectionsToString(*m_ConnectionManager);
+//        std::string Parameters;
+//        m_CommandStackController->ExportToString(Parameters);
+
+//        OutFile << "<xml>" << std::endl
+//                << "<Modules>" << std::endl << Modules << std::endl << "</Modules>" << std::endl
+//                << "<Connections>" << std::endl << Connections << std::endl << "</Connections>" << std::endl
+//                << "<Parameters>" << std::endl << Parameters << std::endl << "</Parameters>" << std::endl
+//                << "</xml>";
+
+//        return true;
+//    }
+//    return false;
 }
 
 namespace
@@ -127,19 +134,24 @@ std::string TiXmlElementToString(const tinyxml2::XMLElement* Element)
 
 bool CModular1Controller::Load(const string &Path)
 {
-    tinyxml2::XMLDocument Doc;
-    if(tinyxml2::XML_NO_ERROR == Doc.LoadFile(Path.c_str()))
-    {
-        std::string Modules = TiXmlElementToString( Doc.RootElement()->FirstChildElement("Modules") );
-        std::string Connections = TiXmlElementToString( Doc.RootElement()->FirstChildElement("Connections") );
-        std::string Parameters = TiXmlElementToString( Doc.RootElement()->FirstChildElement("Parameters") );
-        m_ModuleManager->Import(Modules);
-        StringToConnections(*m_ConnectionManager, Connections);
-        m_CommandStackController->ImportFromString(Parameters);
+    CCommandStack ImportedStack;
+    CPatchReader Reader;
+    return Reader.ReadPatch(Path, ImportedStack, *m_ModuleManager, *m_ConnectionManager)
+            && m_CommandStackController->ImportFromStack(ImportedStack);
 
-        return true;
-    }
-    return false;
+//    tinyxml2::XMLDocument Doc;
+//    if(tinyxml2::XML_NO_ERROR == Doc.LoadFile(Path.c_str()))
+//    {
+//        std::string Modules = TiXmlElementToString( Doc.RootElement()->FirstChildElement("Modules") );
+//        std::string Connections = TiXmlElementToString( Doc.RootElement()->FirstChildElement("Connections") );
+//        std::string Parameters = TiXmlElementToString( Doc.RootElement()->FirstChildElement("Parameters") );
+//        m_ModuleManager->Import(Modules);
+//        StringToConnections(*m_ConnectionManager, Connections);
+//        m_CommandStackController->ImportFromString(Parameters);
+
+//        return true;
+//    }
+//    return false;
 }
 
 bool CModular1Controller::Show(const string &Name)

@@ -23,15 +23,16 @@ std::string TiXmlAttributeToString(const tinyxml2::XMLElement* Element, const st
 
 }
 
-bool CPatchReader::ReadParameters(const std::string &Path,
-                                  CCommandStack &CommandStack,
-                                  CModuleManager &ModuleManager,
-                                  CJackConnectionManager &ConnectionManager)
+bool CPatchReader::ReadPatch(const std::string &Path,
+                              CCommandStack &CommandStack,
+                              CModuleManager &ModuleManager,
+                              CJackConnectionManager &ConnectionManager)
 {
     tinyxml2::XMLDocument Doc;
     Doc.LoadFile(Path.c_str());
     if(!Doc.Error())
     {
+        bool RetVal = true;
         // modules
         if(tinyxml2::XMLElement* ModulesEl = Doc.RootElement()->FirstChildElement("Modules"))
         {
@@ -46,6 +47,10 @@ bool CPatchReader::ReadParameters(const std::string &Path,
             }
             ModuleManager.ApplyModuleState(ImportedModuleState);
         }
+        else
+        {
+            RetVal = false;
+        }
         //connections
         if(tinyxml2::XMLElement* ConnectionsEl = Doc.RootElement()->FirstChildElement("Connections"))
         {
@@ -58,6 +63,11 @@ bool CPatchReader::ReadParameters(const std::string &Path,
                 ConnectionManager.Connect(OutputPortName, InputPortName);
             }
         }
+        else
+        {
+            RetVal = false;
+        }
+
         //parameters
         if(tinyxml2::XMLElement* Parameters = Doc.RootElement()->FirstChildElement("Parameters"))
         {
@@ -71,7 +81,12 @@ bool CPatchReader::ReadParameters(const std::string &Path,
                 CommandStack.AddItem({Name, Type, Value});
             }
         }
-        // else: missing parameters
+        else        // else: missing parameters
+        {
+            RetVal = false;
+        }
+
+        return RetVal;
     }
 
     return false;
