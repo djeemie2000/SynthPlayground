@@ -30,10 +30,12 @@ CONFIG(debug, debug|release) {
     PRE_TARGETDEPS += ./../build-dir/Debug/CommandStackLib/libCommandStackLib.a
     LIBS += -L./../build-dir/Debug/ModularLib
     PRE_TARGETDEPS += ./../build-dir/Debug/ModularLib/libModularLib.a
-    LIBS += -L./../build-dir/Debug/GuiLib
-    PRE_TARGETDEPS += ./../build-dir/Debug/GuiLib/libGuiLib.a
     LIBS += -L./../build-dir/Debug/MidiLib
     PRE_TARGETDEPS += ./../build-dir/Debug/MidiLib/libMidiLib.a
+    LIBS += -L./../build-dir/Debug/PatchLib
+    PRE_TARGETDEPS += ./../build-dir/Debug/PatchLib/libPatchLib.a
+    LIBS += -L./../build-dir/Debug/Utilities
+    PRE_TARGETDEPS += ./../build-dir/Debug/Utilities/libUtilities.a
     LIBS += -L./../build-dir/Debug/JackLib
     PRE_TARGETDEPS += ./../build-dir/Debug/JackLib/libJackLib.a
     LIBS += -L./../build-dir/Debug/TinyXml2
@@ -46,10 +48,12 @@ CONFIG(release, debug|release) {
     PRE_TARGETDEPS += ./../build-dir/Release/CommandStackLib/libCommandStackLib.a
     LIBS += -L./../build-dir/Release/ModularLib
     PRE_TARGETDEPS += ./../build-dir/Release/ModularLib/libModularLib.a
-    LIBS += -L./../build-dir/Release/GuiLib
-    PRE_TARGETDEPS += ./../build-dir/Release/GuiLib/libGuiLib.a
     LIBS += -L./../build-dir/Release/MidiLib
     PRE_TARGETDEPS += ./../build-dir/Release/MidiLib/libMidiLib.a
+    LIBS += -L./../build-dir/Release/PatchLib
+    PRE_TARGETDEPS += ./../build-dir/Release/PatchLib/libPatchLib.a
+    LIBS += -L./../build-dir/Release/Utilities
+    PRE_TARGETDEPS += ./../build-dir/Release/Utilities/libUtilities.a
     LIBS += -L./../build-dir/Release/JackLib
     PRE_TARGETDEPS += ./../build-dir/Release/JackLib/libJackLib.a
     LIBS += -L./../build-dir/Release/TinyXml2
@@ -59,8 +63,9 @@ CONFIG(release, debug|release) {
 LIBS += -lModularLib
 LIBS += -lSynthLib
 LIBS += -lPatchLib
-LIBS += -lCommandStackLib
 LIBS += -lMidiLib
+LIBS += -lCommandStackLib
+LIBS += -lUtilities
 LIBS += -lJackLib
 LIBS += -lTinyXml2
 

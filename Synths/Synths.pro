@@ -25,6 +25,7 @@ SUBDIRS += \
     ../JackMidiLoggerTool \ # an  'app' project
     ../AlsaMidiLoggerTool \ # an  'app' project
     ../Serial2AlsaMidiTool \ # an  'app' project
+    ../PatchConverterTool \ # an  'app' project
     ../Modular1 \           # an  'app' project
     ../ModularHeadless \    # an  'app' project
     ../ModularWeb           # an  'app' project
