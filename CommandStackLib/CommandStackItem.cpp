@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <map>
+#include <sstream>
 #include "CommandStackItem.h"
 
 SCmdStackItem::SCmdStackItem()
@@ -108,13 +109,9 @@ SCmdStackItem &SCmdStackItem::ValueFromString(const string &String)
     }
     else if(s_Type == FloatType)
     {
-        try
-        {
-            s_FloatValue = std::stof(String);
-        }
-        catch(...)
-        {
-        }
+        // used stringstream instead of std::stof to avoid issues with . vs ,
+        std::istringstream Iss(String);
+        Iss >> s_FloatValue;
     }
     else if(s_Type == TextType)
     {
