@@ -133,7 +133,9 @@ string SCmdStackItem::Value() const
     }
     else if(s_Type==FloatType)
     {
-        return std::to_string(s_FloatValue);
+        std::ostringstream Oss;
+        Oss << s_FloatValue;
+        return Oss.str();//std::to_string(s_FloatValue);
     }
     else if(s_Type == TextType)
     {
