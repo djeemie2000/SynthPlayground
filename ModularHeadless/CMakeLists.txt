@@ -5,7 +5,7 @@ ADD_DEFINITIONS(
 	# other flags
 )
 
-include_directories(./../JackLib ./../MidiLib ./../CommandStackLib ./../SynthLib ./../SynthLib/Granular ./../ModularLib ./../ModularLib/Modules ./../ModularLib/Filters ./../TinyXml2)
+include_directories(./../JackLib ./../MidiLib ./../CommandStackLib ./../PatchLib ./../SynthLib ./../SynthLib/Granular ./../ModularLib ./../ModularLib/Modules ./../ModularLib/Filters ./../TinyXml2)
 #todo win32 support
 
 add_executable(ModularHeadLess
@@ -14,4 +14,4 @@ add_executable(ModularHeadLess
     ModularHeadlessController.h
 )
 
-target_link_libraries(ModularHeadLess ModularLib SynthLib JackLib MidiLib CommandStackLib TinyXml2 jack)
+target_link_libraries(ModularHeadLess ModularLib SynthLib JackLib MidiLib CommandStackLib PatchLib Utilities TinyXml2 jack)

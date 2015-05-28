@@ -30,7 +30,7 @@ int main(int argc, const char* argv[])
 
         // setup
         std::string Path(argv[1]);
-        CModularWebController Controller;
+        CModularHeadlessController Controller;
         Controller.Load(Path);
 
         std::cout << "Opened patch " << Path << std::endl;
