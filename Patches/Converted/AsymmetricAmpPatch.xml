@@ -9,6 +9,7 @@
     </Modules>
     <Connections>
         <Connection OutputPort="AsymmetricAmp0:Out" InputPort="Mixer(4)0:In1"/>
+        <Connection OutputPort="ControllerBank(4)0:Contr0" InputPort="SimpleOscillator0:Freq"/>
         <Connection OutputPort="Mixer(4)0:Out" InputPort="StereoDelay0:InLeft"/>
         <Connection OutputPort="Mixer(4)0:Out" InputPort="StereoDelay0:InRight"/>
         <Connection OutputPort="SimpleOscillator0:Out" InputPort="Mixer(4)0:In0"/>
