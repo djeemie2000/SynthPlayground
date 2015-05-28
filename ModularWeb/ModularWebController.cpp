@@ -4,11 +4,13 @@
 #include "ModuleManager.h"
 #include "ModuleFactory.h"
 #include "JackConnectionManager.h"
-#include "tinyxml2.h"
 #include "WebPageManager.h"
 #include "WebPageHelpers.h"
 #include "PatchManager.h"
 #include "WebRequest.h"
+#include "PatchReader.h"
+#include "PatchWriter.h"
+#include "CommandStack.h"
 
 CModularWebController::CModularWebController(const std::string& PatchDirectory)
     : m_PatchManager(new CPatchManager(PatchDirectory))
@@ -215,56 +217,14 @@ bool CModularWebController::SavePatch(const string &PatchName)
 
 bool CModularWebController::Save(const string &Path)
 {
-    std::ofstream OutFile;
-    OutFile.open(Path.c_str());
-    if(OutFile.is_open())
-    {
-        std::string Modules;
-        m_ModuleManager->Export(Modules);
-        std::string Connections = ConnectionsToString(*m_ConnectionManager);
-        std::string Parameters;
-        m_CommandStackController->ExportToString(Parameters);
-
-        OutFile << "<xml>" << std::endl
-                << "<Modules>" << std::endl << Modules << std::endl << "</Modules>" << std::endl
-                << "<Connections>" << std::endl << Connections << std::endl << "</Connections>" << std::endl
-                << "<Parameters>" << std::endl << Parameters << std::endl << "</Parameters>" << std::endl
-                << "</xml>";
-
-        return true;
-    }
-    return false;
-}
-
-namespace
-{
-
-std::string TiXmlElementToString(const tinyxml2::XMLElement* Element)
-{
-    if(Element && Element->GetText())
-    {
-        return Element->GetText();
-    }
-    return "";
-}
-
+    CPatchWriter Writer;
+    return Writer.WritePatch(Path, m_CommandStackController->GetCurrent(), *m_ModuleManager, *m_ConnectionManager);
 }
 
 bool CModularWebController::Load(const string &Path)
 {
-    tinyxml2::XMLDocument Doc;
-    if(tinyxml2::XML_NO_ERROR == Doc.LoadFile(Path.c_str()))
-    {
-        std::string Modules = TiXmlElementToString( Doc.RootElement()->FirstChildElement("Modules") );
-        std::string Connections = TiXmlElementToString( Doc.RootElement()->FirstChildElement("Connections") );
-        std::string Parameters = TiXmlElementToString( Doc.RootElement()->FirstChildElement("Parameters") );
-        m_ModuleManager->Import(Modules);
-        StringToConnections(*m_ConnectionManager, Connections);
-        m_CommandStackController->ImportFromString(Parameters);
-
-        UpdateModuleWebPages();
-
-        return true;
-    }
-    return false;
+    CCommandStack ImportedStack;
+    CPatchReader Reader;
+    return Reader.ReadPatch(Path, ImportedStack, *m_ModuleManager, *m_ConnectionManager)
+            && m_CommandStackController->ImportFromStack(ImportedStack);
 }
