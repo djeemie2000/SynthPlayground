@@ -18,6 +18,6 @@ SUBDIRS += \
     ../GuiLib \             # a 'lib' project
     ../ModularLib \         # a 'lib' project
     ../TestModularLib \     # an 'app' project
-    ../Modular1 \           # an  'app' project
+    ../ModularGui \         # an  'app' project
     ../ModularHeadless \    # an  'app' project
     ../ModularWeb           # an  'app' project

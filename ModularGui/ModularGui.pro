@@ -3,7 +3,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets multimedia
 
-TARGET = Modular
+TARGET = ModularGui
 TEMPLATE = app
 
 CONFIG   += c++11 (Qt5)
@@ -103,10 +103,10 @@ unix {
 }
 
 CONFIG(debug, debug|release) {
-    DESTDIR = ../build-dir/Debug/Modular1
+    DESTDIR = ../build-dir/Debug/ModularGui
 }
 CONFIG(release, debug|release) {
-    DESTDIR = ../build-dir/Release/Modular1
+    DESTDIR = ../build-dir/Release/ModularGui
 }
 
 OBJECTS_DIR = $$DESTDIR
