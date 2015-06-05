@@ -125,5 +125,7 @@ add_library(SynthLib
     RingSequencer.h
     ControllerChange.h
     Scaler.h
+    ReadWriteBuffer.h
+    simplereadwritebuffer.h
 )
 

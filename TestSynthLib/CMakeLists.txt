@@ -44,6 +44,8 @@ add_executable(TestSynthLib
     TestWaveTable2.cpp
     testkarplusstrong.cpp
     TestToggleGate.cpp
+    TestReadWriteBuffer.cpp
+    TestSimpleReadWriteBuffer.cpp
 )
 
 target_link_libraries(TestSynthLib SynthLib UnitTest)
