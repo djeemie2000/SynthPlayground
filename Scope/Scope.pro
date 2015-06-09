@@ -19,23 +19,30 @@ INCLUDEPATH += ./../SynthLib
 INCLUDEPATH += ./../SynthLib/Controllers
 INCLUDEPATH += ./../CommandStackLib
 INCLUDEPATH += ./../GuiLib
+INCLUDEPATH += ./../ModularLib
+INCLUDEPATH += ./../ModularLib/Filters
+INCLUDEPATH += ./../ModularLib/Modules
 INCLUDEPATH += ./../JackLib
+INCLUDEPATH += ./../Utilities
 
 CONFIG(debug, debug|release) {
     LIBS += -L./../build-dir/Debug/SynthLib
     LIBS += -L./../build-dir/Debug/CommandStackLib
+    LIBS += -L./../build-dir/Debug/ModularLib
     LIBS += -L./../build-dir/Debug/GuiLib
     LIBS += -L./../build-dir/Debug/JackLib
 }
 CONFIG(release, debug|release) {
     LIBS += -L./../build-dir/Release/SynthLib
     LIBS += -L./../build-dir/Release/CommandStackLib
+    LIBS += -L./../build-dir/Release/ModularLib
     LIBS += -L./../build-dir/Release/GuiLib
     LIBS += -L./../build-dir/Release/JackLib
 }
 
 LIBS += -lSynthLib
 LIBS += -lCommandStackLib
+LIBS += -lModularLib
 LIBS += -lGuiLib
 LIBS += -lJackLib
 

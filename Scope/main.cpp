@@ -8,6 +8,7 @@ int main(int argc, char *argv[])
     w.show();
 
     qRegisterMetaType< QVector<float> >("QVector/Float");
+    qRegisterMetaType<QVector<QPointF> >("QVector<QPointF>");
 
     return a.exec();
 }

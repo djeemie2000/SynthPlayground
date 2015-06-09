@@ -8,10 +8,9 @@ namespace Ui {
 class MainWindow;
 }
 
-class QScopeWidget2;
-class IPeriodicSampleGrabber;
-class CScopeController;
-class CJackIOManager;
+class QGraphWidget;
+class CCommandStackController;
+class IModularModule;
 
 class MainWindow : public QMainWindow
 {
@@ -26,10 +25,8 @@ private slots:
 private:
     Ui::MainWindow *ui;
 
-    std::shared_ptr<CJackIOManager>   m_JackIOManager;
-    std::shared_ptr<IPeriodicSampleGrabber> m_SampleGrabber;
-    std::shared_ptr<CScopeController>  m_Controller;
-    QScopeWidget2*       m_ScopeWidget;
+    std::shared_ptr<CCommandStackController>   m_CommandStackController;
+    std::shared_ptr<IModularModule> m_ScopeModule;
 };
 
 #endif // MAINWINDOW_H
