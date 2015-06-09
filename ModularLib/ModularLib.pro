@@ -122,7 +122,8 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Filters/BasicSamplerFilter.cpp \
     Modules/BasicSamplerModule.cpp \
     FilterBuffers.h \
-    Filters/BufferingFilter.cpp
+    Filters/BufferingFilter.cpp \
+    Modules/ScopeModule.cpp
 
 
 HEADERS += Filters/ControllerBankFilter.h \
@@ -246,7 +247,8 @@ HEADERS += Filters/ControllerBankFilter.h \
     Filters/SimpleLooperFilter.h \
     Filters/BasicSamplerFilter.h \
     Modules/BasicSamplerModule.h \
-    Filters/BufferingFilter.h
+    Filters/BufferingFilter.h \
+    Modules/ScopeModule.h
 
 INCLUDEPATH += ./Filters
 INCLUDEPATH += ./Modules

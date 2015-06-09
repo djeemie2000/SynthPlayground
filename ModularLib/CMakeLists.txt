@@ -17,7 +17,9 @@ include_directories(
 	./../SynthLib/Interfaces
 	./../SynthLib/Granular
         ./../SynthLib/Looper
-        ./../MidiLib)
+        ./../MidiLib
+        ./../Utilities
+)
 #todo if win32 include path to jack!
 
 add_library(ModularLib
@@ -261,4 +263,6 @@ add_library(ModularLib
     FilterBuffers.h
     Filters/BufferingFilter.cpp
     Filters/BufferingFilter.h
+    Modules/ScopeModule.cpp
+    Modules/ScopeModule.h
 )

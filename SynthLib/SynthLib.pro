@@ -118,7 +118,8 @@ HEADERS += Notes.h \
     Looper/LoopRecorder.h \
     Looper/LoopPlayer.h \
     ReadWriteBuffer.h \
-    simplereadwritebuffer.h
+    simplereadwritebuffer.h \
+    BufferHandlerI.h
 
 INCLUDEPATH += ./../MidiLib
 
