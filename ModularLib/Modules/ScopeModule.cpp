@@ -43,7 +43,7 @@ CScopeModule::CScopeModule(const std::string& Name, CCommandStackController& Com
  : m_Name(Name)
  , m_CommandStackController(CommandStackController)
  , m_Filter()
- , m_IOManager()
+ , m_IOManager(new CJackIOManager())
  , m_Runnable()
  , m_ThreadRunner()
 {
@@ -54,6 +54,7 @@ CScopeModule::CScopeModule(const std::string& Name, CCommandStackController& Com
     m_Runnable.reset(new CScopeRunnable(m_Filter, BufferHandler));
     m_ThreadRunner.reset(new CPeriodicThreadRunner<CScopeRunnable>(*m_Runnable));
     m_ThreadRunner->SetPeriod(100);//10 Hz
+    m_ThreadRunner->Start();
 }
 
 CScopeModule::~CScopeModule()

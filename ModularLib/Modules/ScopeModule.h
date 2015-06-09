@@ -29,8 +29,8 @@ private:
     bool Open();
     bool Close();
 
-    CCommandStackController& m_CommandStackController;
     std::string m_Name;
+    CCommandStackController& m_CommandStackController;
     std::shared_ptr<CBufferingFilter> m_Filter;
     std::unique_ptr<CJackIOManager> m_IOManager;
     std::unique_ptr<CScopeRunnable> m_Runnable;

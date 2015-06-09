@@ -260,6 +260,7 @@ INCLUDEPATH += ./../SynthLib/Interfaces
 INCLUDEPATH += ./../SynthLib/Granular
 INCLUDEPATH += ./../SynthLib/Looper
 INCLUDEPATH += ./../MidiLib
+INCLUDEPATH += ./../Utilities
 
 win32 {
     INCLUDEPATH += "C:/Program Files (x86)/Jack/includes"
