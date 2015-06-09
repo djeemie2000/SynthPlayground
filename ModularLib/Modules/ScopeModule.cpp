@@ -11,20 +11,27 @@ public:
     CScopeRunnable(std::shared_ptr<CBufferingFilter> BufferingFilter, std::shared_ptr<IBufferHandler<float>> BufferHandler)
      : m_BufferingFilter(BufferingFilter)
      , m_BufferHandler(BufferHandler)
-     , m_GrabSize(2048)
+     , m_GrabSize(4096)
+     , m_Buffer(m_GrabSize)
+     , m_NumRead(0)
     {}
 
     void OnTick()
     {
         if(m_BufferHandler)
         {
-            std::vector<float> GrabbedBuffer(m_GrabSize);
-            int NumRead = m_BufferingFilter->ReadBuffer(0, GrabbedBuffer.data(), GrabbedBuffer.size());
-            if(NumRead==GrabbedBuffer.size())
+            m_Buffer.resize(m_GrabSize);
+            bool Done = false;
+            while(!Done)
             {
-                m_BufferHandler->HandleBuffer(GrabbedBuffer.data(), GrabbedBuffer.size());
+                m_NumRead += m_BufferingFilter->ReadBuffer(0, m_Buffer.data()+m_NumRead, m_Buffer.size()-m_NumRead);
+                Done = m_NumRead<m_Buffer.size();
+                if(!Done)
+                {
+                    m_BufferHandler->HandleBuffer(m_Buffer.data(), m_Buffer.size());
+                    m_NumRead = 0;
+                }
             }
-            //TODO handle non-complete buffer
         }
     }
 
@@ -37,6 +44,8 @@ private:
     std::shared_ptr<CBufferingFilter> m_BufferingFilter;
     std::shared_ptr<IBufferHandler<float>> m_BufferHandler;
     int m_GrabSize;
+    std::vector<float> m_Buffer;
+    int m_NumRead;
 };
 
 CScopeModule::CScopeModule(const std::string& Name, CCommandStackController& CommandStackController, std::shared_ptr<IBufferHandler<float> > BufferHandler)
@@ -53,7 +62,11 @@ CScopeModule::CScopeModule(const std::string& Name, CCommandStackController& Com
     //
     m_Runnable.reset(new CScopeRunnable(m_Filter, BufferHandler));
     m_ThreadRunner.reset(new CPeriodicThreadRunner<CScopeRunnable>(*m_Runnable));
-    m_ThreadRunner->SetPeriod(100);//10 Hz
+    const int GrabFrequency = 100;//100 Hz
+    m_ThreadRunner->SetPeriod(1000/GrabFrequency);
+    const int DisplayFrequency = 10;
+    int GrabSize = m_IOManager->SamplingFrequency()/DisplayFrequency;
+    m_Runnable->SetGrabSize(GrabSize);
     m_ThreadRunner->Start();
 }
 
