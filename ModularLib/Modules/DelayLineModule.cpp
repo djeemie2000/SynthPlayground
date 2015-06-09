@@ -48,6 +48,11 @@ IModularModule::Names CDelayLineModule::GetMidiInputNames() const
     return m_Filter->GetMidiInputNames();
 }
 
+IModularModule::Names CDelayLineModule::GetMidiOutputNames() const
+{
+    return m_Filter->GetMidiOutputNames();
+}
+
 void CDelayLineModule::Accept(IModuleParameterVisitor &ParameterVisitor) const
 {
     ParameterVisitor.Start();

@@ -121,7 +121,8 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Filters/SimpleLooperFilter.cpp \
     Filters/BasicSamplerFilter.cpp \
     Modules/BasicSamplerModule.cpp \
-    FilterBuffers.h
+    FilterBuffers.h \
+    Filters/BufferingFilter.cpp
 
 
 HEADERS += Filters/ControllerBankFilter.h \
@@ -244,8 +245,8 @@ HEADERS += Filters/ControllerBankFilter.h \
     Modules/MidiOctaveGateModule.h \
     Filters/SimpleLooperFilter.h \
     Filters/BasicSamplerFilter.h \
-    Modules/BasicSamplerModule.h
-
+    Modules/BasicSamplerModule.h \
+    Filters/BufferingFilter.h
 
 INCLUDEPATH += ./Filters
 INCLUDEPATH += ./Modules
