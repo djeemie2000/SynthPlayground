@@ -89,6 +89,10 @@ string CModularWebController::HandleWebRequest(const SWebRequest &Request)
             Create(ModuleType, "");//auto name creation
         }
     }
+    else if(Request.s_Uri == "/Connections")
+    {
+        UpdateConnectionsPage(*m_ModuleManager, *m_WebPageManager);
+    }
     else if(Request.s_Uri == "/Modules")
     {
         std::string Command = GetQuery("Command", Request);

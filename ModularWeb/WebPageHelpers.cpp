@@ -211,3 +211,93 @@ void CreatePages(CWebPageManager &WebPageManager)
 {
     AddDefaultPage(WebPageManager);
 }
+
+
+void UpdateConnectionsPage(const CModuleManager &ModuleManager, CWebPageManager &WebPageManager)
+{
+    std::ostringstream Content;
+    Content << R"(
+               <div class="row">
+            )";
+
+    auto ModuleNames = ModuleManager.GetNames();
+
+    // audio outputs
+    Content << R"(<div class="col-sm-6"><h3>Outputs</h3><table class="table">)";
+    for(const auto& ModuleName : ModuleNames)
+    {
+        if(std::shared_ptr<IModularModule> Module = ModuleManager.GetModule(ModuleName).lock())
+        {
+            Content << R"(<tr class="info"><td>)" << Module->GetName() << R"(</td></tr>)";
+            auto InputNames = Module->GetInputNames();
+            auto OutputNames = Module->GetOutputNames();
+            for(std::size_t idx = 0; idx<InputNames.size() || idx<OutputNames.size(); ++idx)
+            {
+                auto Name = idx<OutputNames.size() ? OutputNames[idx] : "-";
+                Content << "<tr><td>" << Name << "</tr></td>";
+            }
+        }
+    }
+    Content << R"(</table></div>)";
+
+    // audio inputs
+    Content << R"(<div class="col-sm-6"><h3>Inputs</h3><table class="table">)";
+    for(const auto& ModuleName : ModuleNames)
+    {
+        if(std::shared_ptr<IModularModule> Module = ModuleManager.GetModule(ModuleName).lock())
+        {
+            Content << R"(<tr class="info"><td>)" << Module->GetName() << R"(</td></tr>)";
+            auto OutputNames = Module->GetOutputNames();
+            auto InputNames = Module->GetInputNames();
+            for(std::size_t idx = 0; idx<InputNames.size() || idx<OutputNames.size(); ++idx)
+            {
+                auto Name = idx<InputNames.size() ? InputNames[idx] : "-";
+                Content << "<tr><td>" << Name << "</tr></td>";
+            }
+        }
+    }
+    Content << R"(</table></div>)";
+
+    // midi outputs
+    Content << R"(<div class="col-sm-6"><h3>Midi Outputs</h3><table class="table">)";
+    for(const auto& ModuleName : ModuleNames)
+    {
+        if(std::shared_ptr<IModularModule> Module = ModuleManager.GetModule(ModuleName).lock())
+        {
+            Content << R"(<tr class="info"><td>)" << Module->GetName() << R"(</td></tr>)";
+            auto InputNames = Module->GetMidiInputNames();
+            auto OutputNames = Module->GetMidiOutputNames();
+            for(std::size_t idx = 0; idx<InputNames.size() || idx<OutputNames.size(); ++idx)
+            {
+                auto Name = idx<OutputNames.size() ? OutputNames[idx] : "-";
+                Content << "<tr><td>" << Name << "</tr></td>";
+            }
+        }
+    }
+    Content << R"(</table></div>)";
+
+    // midi inputs
+    Content << R"(<div class="col-sm-6"><h3>Midi Inputs</h3><table class="table">)";
+    for(const auto& ModuleName : ModuleNames)
+    {
+        if(std::shared_ptr<IModularModule> Module = ModuleManager.GetModule(ModuleName).lock())
+        {
+            Content << R"(<tr class="info"><td>)" << Module->GetName() << R"(</td></tr>)";
+            auto OutputNames = Module->GetMidiOutputNames();
+            auto InputNames = Module->GetMidiInputNames();
+            for(std::size_t idx = 0; idx<InputNames.size() || idx<OutputNames.size(); ++idx)
+            {
+                auto Name = idx<InputNames.size() ? InputNames[idx] : "-";
+                Content << "<tr><td>" << Name << "</tr></td>";
+            }
+        }
+    }
+    Content << R"(</table></div>)";
+
+    Content << R"(
+               </div>
+               </div>
+               )";
+
+    WebPageManager.AddPage("/Connections", GetCommonBegin()+Content.str()+GetCommonEnd());
+}

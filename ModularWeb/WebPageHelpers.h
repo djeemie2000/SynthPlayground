@@ -16,3 +16,5 @@ void UpdateModulePages(const CModuleManager& ModuleManager, CWebPageManager& Web
 void UpdateModuleCreationPage(const CModuleManager& ModuleManager, CWebPageManager& WebPageManager);
 
 void UpdatePatchesPage(CPatchManager& PatchManager, CWebPageManager& WebPageManager);
+
+void UpdateConnectionsPage(const CModuleManager& ModuleManager, CWebPageManager& WebPageManager);
