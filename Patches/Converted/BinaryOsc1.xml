@@ -1,0 +1,33 @@
+<xml>
+    <Patch Version="2"/>
+    <Modules>
+        <Module Name="BinaryOscillator0" Type="BinaryOscillator"/>
+        <Module Name="ControllerBank(4)0" Type="ControllerBank(4)"/>
+        <Module Name="Mixer(4)0" Type="Mixer(4)"/>
+        <Module Name="Operator0" Type="Operator"/>
+        <Module Name="Phasor0" Type="Phasor"/>
+    </Modules>
+    <Connections>
+        <Connection OutputPort="ControllerBank(4)0:Contr0" InputPort="Phasor0:Freq"/>
+        <Connection OutputPort="ControllerBank(4)0:Contr1" InputPort="BinaryOscillator0:Value"/>
+        <Connection OutputPort="Phasor0:Phase" InputPort="Operator0:Phase"/>
+        <Connection OutputPort="Phasor0:Phase" InputPort="BinaryOscillator0:Phase"/>
+        <Connection OutputPort="Operator0:Out" InputPort="Mixer(4)0:In0"/>
+        <Connection OutputPort="BinaryOscillator0:Out" InputPort="Mixer(4)0:In1"/>
+        <Connection OutputPort="BinaryOscillator0:Out" InputPort="Scope:In"/>
+        <Connection OutputPort="Mixer(4)0:Out" InputPort="system:playback_1"/>
+        <Connection OutputPort="Mixer(4)0:Out" InputPort="system:playback_2"/>
+    </Connections>
+    <Parameters>
+        <Parameter Name="ControllerBank(4)0/0/Value" Type="Float" Value="50"/>
+        <Parameter Name="ControllerBank(4)0/1/Value" Type="Float" Value="0.458"/>
+        <Parameter Name="ControllerBank(4)0/2/Value" Type="Float" Value="0"/>
+        <Parameter Name="ControllerBank(4)0/3/Value" Type="Float" Value="0"/>
+        <Parameter Name="Mixer(4)0/0/Volume" Type="Float" Value="0"/>
+        <Parameter Name="Mixer(4)0/1/Volume" Type="Float" Value="0.18"/>
+        <Parameter Name="Mixer(4)0/2/Volume" Type="Float" Value="0.25"/>
+        <Parameter Name="Mixer(4)0/3/Volume" Type="Float" Value="0.25"/>
+        <Parameter Name="Mixer(4)0/MasterVolume" Type="Float" Value="0.5"/>
+        <Parameter Name="Operator0/Select" Type="Integer" Value="2"/>
+    </Parameters>
+</xml>

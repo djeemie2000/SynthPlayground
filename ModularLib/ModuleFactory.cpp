@@ -56,6 +56,7 @@
 #include "RingSequencerModule.h"
 #include "MidiOctaveGateModule.h"
 #include "BasicSamplerModule.h"
+#include "BinaryOscillatorModule.h"
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -302,6 +303,10 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CBasicSamplerModule(Name, *m_CommandStackController));
     }
+    else if(Type == "BinaryOscillator")
+    {
+        Module.reset(new CBinaryOscillatorModule(Name));
+    }
 
     return Module;
 }
@@ -359,7 +364,8 @@ std::vector<string> CModuleFactory::GetSupportedTypes(const std::string &Categor
             "Noise",
             "WaveTable",
             "KarplusStrong",
-            "BasicSampler"
+            "BasicSampler",
+            "BinaryOscillator"
         };
     }
 

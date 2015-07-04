@@ -123,7 +123,9 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Modules/BasicSamplerModule.cpp \
     FilterBuffers.h \
     Filters/BufferingFilter.cpp \
-    Modules/ScopeModule.cpp
+    Modules/ScopeModule.cpp \
+    Filters/BinaryOscillatorFilter.cpp \
+    Modules/BinaryOscillatorModule.cpp
 
 
 HEADERS += Filters/ControllerBankFilter.h \
@@ -248,7 +250,9 @@ HEADERS += Filters/ControllerBankFilter.h \
     Filters/BasicSamplerFilter.h \
     Modules/BasicSamplerModule.h \
     Filters/BufferingFilter.h \
-    Modules/ScopeModule.h
+    Modules/ScopeModule.h \
+    Filters/BinaryOscillatorFilter.h \
+    Modules/BinaryOscillatorModule.h
 
 INCLUDEPATH += ./Filters
 INCLUDEPATH += ./Modules

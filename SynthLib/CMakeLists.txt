@@ -127,5 +127,6 @@ add_library(SynthLib
     Scaler.h
     ReadWriteBuffer.h
     simplereadwritebuffer.h
+    BinaryOscillator.h
 )
 
