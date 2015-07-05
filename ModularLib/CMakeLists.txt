@@ -265,4 +265,8 @@ add_library(ModularLib
     Filters/BufferingFilter.h
     Modules/ScopeModule.cpp
     Modules/ScopeModule.h
+    Filters/BinaryOscillatorFilter.cpp
+    Filters/BinaryOscillatorFilter.h
+    Modules/BinaryOscillatorModule.cpp
+    Modules/BinaryOscillatorModule.h
 )
