@@ -38,6 +38,7 @@ add_subdirectory(../PatchConverterTool ${BUILD_DIRECTORY}/PatchConverterTool)
 
 add_subdirectory(../ModularHeadless ${BUILD_DIRECTORY}/ModularHeadless)
 add_subdirectory(../ModularWeb ${BUILD_DIRECTORY}/ModularWeb)
+add_subdirectory(../ModularWebApp ${BUILD_DIRECTORY}/ModularWebApp)
 
 MESSAGE(STATUS "PROJECT_BINARY_DIR : ${PROJECT_BINARY_DIR}")
 MESSAGE(STATUS "CMAKE_BINARY_DIR : ${CMAKE_BINARY_DIR}")

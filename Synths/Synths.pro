@@ -29,4 +29,5 @@ SUBDIRS += \
     ../PatchConverterTool \ # an  'app' project
     ../ModularGui \         # an  'app' project
     ../ModularHeadless \    # an  'app' project
-    ../ModularWeb           # an  'app' project
+    ../ModularWeb \         # an  'app' project
+    ../ModularWebApp        # an  'app' project
