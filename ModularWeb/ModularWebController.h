@@ -19,10 +19,11 @@ public:
 
     std::string HandleWebRequest(const SWebRequest& Request);
 
+
+private:
     bool Save(const std::string& Path);
     bool Load(const std::string& Path);
 
-private:
     bool Create(const std::string& Type, const std::string& Name);
     bool Remove(const std::string& Name);
 

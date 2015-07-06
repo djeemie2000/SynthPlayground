@@ -12,6 +12,7 @@ MESSAGE(STATUS "BUILD_DIRECTORY : ${BUILD_DIRECTORY}")
 add_subdirectory(../UnitTest ${BUILD_DIRECTORY}/UnitTest)
 add_subdirectory(../TinyXml2 ${BUILD_DIRECTORY}/TinyXml2)
 add_subdirectory(../Mongoose ${BUILD_DIRECTORY}/Mongoose)
+add_subdirectory(../Json11 ${BUILD_DIRECTORY}/Json11)
 
 add_subdirectory(../Utilities ${BUILD_DIRECTORY}/Utilities)
 add_subdirectory(../SerialLib ${BUILD_DIRECTORY}/SerialLib)
