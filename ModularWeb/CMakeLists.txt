@@ -12,6 +12,8 @@ add_executable(ModularWeb
     main.cpp
     ModularWebController.cpp
     ModularWebController.h
+    ModularController.cpp
+    ModularController.h
     WebPageManager.cpp
     WebPageManager.h
     WebPageHelpers.cpp

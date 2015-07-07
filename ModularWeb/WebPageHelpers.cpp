@@ -144,7 +144,7 @@ void UpdateModuleCreationPage(const CModuleManager& ModuleManager, CWebPageManag
     WebPageManager.AddPage("/ModuleCreation", GetCommonBegin()+Content.str()+GetCommonEnd());
 }
 
-void UpdatePatchesPage(CPatchManager &PatchManager, CWebPageManager &WebPageManager)
+void UpdatePatchesPage(const CPatchManager &PatchManager, CWebPageManager &WebPageManager)
 {
     std::ostringstream Content;
     Content << R"(
