@@ -14,7 +14,8 @@ SOURCES += \
     WebPageManager.cpp \
     WebPageHelpers.cpp \
     WebPageModuleParameterVisitor.cpp \
-    WebRequest.cpp
+    WebRequest.cpp \
+    JsonHelpers.cpp
 
 HEADERS += \
     ModularWebController.h \
@@ -22,7 +23,8 @@ HEADERS += \
     WebPageManager.h \
     WebPageHelpers.h \
     WebPageModuleParameterVisitor.h \
-    WebRequest.h
+    WebRequest.h \
+    JsonHelpers.h
 
 INCLUDEPATH += ./../PatchLib
 INCLUDEPATH += ./../SynthLib
@@ -34,6 +36,7 @@ INCLUDEPATH += ./../ModularLib/Modules
 INCLUDEPATH += ./../GuiLib
 INCLUDEPATH += ./../MidiLib
 INCLUDEPATH += ./../JackLib
+INCLUDEPATH += ./../Json11
 INCLUDEPATH += ./../TinyXml2
 INCLUDEPATH += ./../Mongoose
 
@@ -58,6 +61,8 @@ CONFIG(debug, debug|release) {
     PRE_TARGETDEPS += ./../build-dir/Debug/PatchLib/libPatchLib.a
     LIBS += -L./../build-dir/Debug/Utilities
     PRE_TARGETDEPS += ./../build-dir/Debug/Utilities/libUtilities.a
+    LIBS += -L./../build-dir/Debug/Json11
+    PRE_TARGETDEPS += ./../build-dir/Debug/Json11/libJson11.a
     LIBS += -L./../build-dir/Debug/Mongoose
     PRE_TARGETDEPS += ./../build-dir/Debug/Mongoose/libMongoose.a
 }
@@ -80,6 +85,8 @@ CONFIG(release, debug|release) {
     PRE_TARGETDEPS += ./../build-dir/Release/PatchLib/libPatchLib.a
     LIBS += -L./../build-dir/Release/Utilities
     PRE_TARGETDEPS += ./../build-dir/Release/Utilities/libUtilities.a
+    LIBS += -L./../build-dir/Release/Json11
+    PRE_TARGETDEPS += ./../build-dir/Release/Json11/libJson11.a
     LIBS += -L./../build-dir/Release/Mongoose
     PRE_TARGETDEPS += ./../build-dir/Release/Mongoose/libMongoose.a
 }
@@ -93,6 +100,7 @@ LIBS += -lPatchLib
 LIBS += -lJackLib
 LIBS += -lUtilities
 LIBS += -lTinyXml2
+LIBS += -lJson11
 LIBS += -lMongoose
 
 win32 {

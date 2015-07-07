@@ -5,7 +5,7 @@ ADD_DEFINITIONS(
 	# other flags
 )
 
-include_directories(./../JackLib ./../MidiLib ./../CommandStackLib ./../SynthLib ./../SynthLib/Granular ./../ModularLib ./../ModularLib/Modules ./../ModularLib/Filters ./../PatchLib ./../Utilities ./../TinyXml2 ./../Mongoose)
+include_directories(./../JackLib ./../MidiLib ./../CommandStackLib ./../SynthLib ./../SynthLib/Granular ./../ModularLib ./../ModularLib/Modules ./../ModularLib/Filters ./../PatchLib ./../Utilities ./../Json11 ./../TinyXml2 ./../Mongoose)
 #todo win32 support
 
 add_executable(ModularWebApp
@@ -22,6 +22,8 @@ add_executable(ModularWebApp
     WebPageModuleParameterVisitor.h
     WebRequest.cpp
     WebRequest.h
+    JsonHelpers.cpp
+    JsonHelpers.h
 )
 
-target_link_libraries(ModularWebApp ModularLib SynthLib JackLib MidiLib CommandStackLib PatchLib Utilities TinyXml2 Mongoose jack)
+target_link_libraries(ModularWebApp ModularLib SynthLib JackLib MidiLib CommandStackLib PatchLib Utilities Json11 TinyXml2 Mongoose jack)

@@ -6,6 +6,7 @@
 #include "WebPageHelpers.h"
 #include "WebRequest.h"
 #include "CommandStack.h"
+#include "JsonHelpers.h"
 
 CModularWebController::CModularWebController(const std::string& PatchDirectory)
     : m_ModularController(new CModularController(PatchDirectory))
@@ -26,7 +27,13 @@ CModularWebController::~CModularWebController()
 
 string CModularWebController::HandleWebRequest(const SWebRequest &Request)
 {
-    if(Request.s_Uri == "/Patches")
+    if(Request.s_Uri == "/modularapi/patches/get")
+    {
+        // return json for patches
+        auto Tmp = PatchesToJson(m_ModularController->GetPatchManager());
+        return Tmp;
+    }
+    else if(Request.s_Uri == "/Patches")
     {
         std::string Command = GetQuery("Command", Request);
         std::string SelectedPatchName = GetQuery("SelectedPatch", Request);
