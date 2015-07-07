@@ -9,6 +9,7 @@ CONFIG   += c++11 (Qt5)
 
 SOURCES += \
     main.cpp \
+    ModularController.cpp \
     ModularWebController.cpp \
     WebPageManager.cpp \
     WebPageHelpers.cpp \
@@ -17,6 +18,7 @@ SOURCES += \
 
 HEADERS += \
     ModularWebController.h \
+    ModularController.h \
     WebPageManager.h \
     WebPageHelpers.h \
     WebPageModuleParameterVisitor.h \
