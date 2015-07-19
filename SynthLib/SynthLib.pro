@@ -120,7 +120,8 @@ HEADERS += Notes.h \
     ReadWriteBuffer.h \
     simplereadwritebuffer.h \
     BufferHandlerI.h \
-    BinaryOscillator.h
+    BinaryOscillator.h \
+    Pulse.h
 
 INCLUDEPATH += ./../MidiLib
 

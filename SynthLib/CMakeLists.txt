@@ -128,5 +128,6 @@ add_library(SynthLib
     ReadWriteBuffer.h
     simplereadwritebuffer.h
     BinaryOscillator.h
+    Pulse.h
 )
 
