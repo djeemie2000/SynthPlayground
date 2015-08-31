@@ -26,7 +26,7 @@ TEST(abc)
             ++cntr;
             if(10<cntr)
             {
-                std::printf("idx=%d cntr=%d \r\n", idx, cntr);
+                //std::printf("idx=%d cntr=%d \r\n", idx, cntr);
                 //break;
             }
         }

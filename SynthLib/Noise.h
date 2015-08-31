@@ -15,13 +15,13 @@ public:
 
     std::uint32_t Rand()
     {
-        m_Random = (m_Random * 196314165) + 907633515;
+        m_Random = (m_Random * 196314165u) + 907633515u;
         return m_Random;
     }
 
     T operator()()
     {
-        m_Random = (m_Random * 196314165) + 907633515;
+        m_Random = (m_Random * 196314165u) + 907633515u;
         return m_Multiplier*m_Random-1;
     }
 

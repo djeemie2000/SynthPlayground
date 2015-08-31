@@ -46,6 +46,7 @@ add_executable(TestSynthLib
     TestToggleGate.cpp
     TestReadWriteBuffer.cpp
     TestSimpleReadWriteBuffer.cpp
+    TestIntegerOnePoleFilter.cpp
 )
 
 target_link_libraries(TestSynthLib SynthLib UnitTest)
