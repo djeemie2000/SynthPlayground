@@ -122,7 +122,8 @@ HEADERS += Notes.h \
     BufferHandlerI.h \
     BinaryOscillator.h \
     Pulse.h \
-    IntOnePoleFilter.h
+    IntOnePoleFilter.h \
+    IntPhaseGenerator.h
 
 INCLUDEPATH += ./../MidiLib
 
