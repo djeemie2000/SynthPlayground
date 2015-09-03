@@ -41,8 +41,10 @@ SOURCES += main.cpp \
     TestWavFileReader.cpp \
     TestReadWriteBuffer.cpp \
     TestSimpleReadWriteBuffer.cpp \
-    TestintegerOnePoleFilter.cpp \
-    TestIntegerPhaseGenerator.cpp
+    TestIntegerOnePoleFilter.cpp \
+    TestIntegerPhaseGenerator.cpp \
+    TestIntegerOperators.cpp
+
 
 unix {
     target.path = /usr/lib

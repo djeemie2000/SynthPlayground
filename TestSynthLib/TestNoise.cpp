@@ -21,7 +21,7 @@ TEST(Test1Integer)
 {
     CNoise<int> Noise;
     std::vector<std::uint32_t> Expected = { 4009202705, 2593574640, 4225104667, 1807830018, 1807034325, 3960698500, 2844327103, 3763679990, 3389376601, 3990143448 };
-    for(int Repeat = 0; Repeat<Expected.size(); ++Repeat)
+    for(std::size_t Repeat = 0; Repeat<Expected.size(); ++Repeat)
     {
         std::uint32_t Actual = Noise.Rand();
         CHECK_EQUAL(Expected[Repeat], Actual);
