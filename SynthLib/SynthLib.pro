@@ -123,7 +123,8 @@ HEADERS += Notes.h \
     BinaryOscillator.h \
     Pulse.h \
     IntOnePoleFilter.h \
-    IntPhaseGenerator.h
+    IntPhaseGenerator.h \
+    WaveShaperA116.h
 
 INCLUDEPATH += ./../MidiLib
 

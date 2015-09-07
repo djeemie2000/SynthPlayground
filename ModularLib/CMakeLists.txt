@@ -269,4 +269,8 @@ add_library(ModularLib
     Filters/BinaryOscillatorFilter.h
     Modules/BinaryOscillatorModule.cpp
     Modules/BinaryOscillatorModule.h
+    Filters/WaveShaperA116Filter.cpp
+    Filters/WaveShaperA116Filter.h
+    Modules/WaveShaperA116Module.cpp
+    Modules/WaveShaperA116Module.h
 )

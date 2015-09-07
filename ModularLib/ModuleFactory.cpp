@@ -57,6 +57,7 @@
 #include "MidiOctaveGateModule.h"
 #include "BasicSamplerModule.h"
 #include "BinaryOscillatorModule.h"
+#include "WaveShaperA116Module.h"
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -307,6 +308,10 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CBinaryOscillatorModule(Name));
     }
+    else if(Type == "WaveShaperA116")
+    {
+        Module.reset(new CWaveShaperA116Module(Name));
+    }
 
     return Module;
 }
@@ -387,7 +392,8 @@ std::vector<string> CModuleFactory::GetSupportedTypes(const std::string &Categor
             "Limiter",
             "UnipolarLimiter",
             "BipolarLimiter",
-            "SlewLimiter"
+            "SlewLimiter",
+            "WaveShaperA116"
         };
     }
 
