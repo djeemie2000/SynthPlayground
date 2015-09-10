@@ -43,7 +43,8 @@ SOURCES += main.cpp \
     TestSimpleReadWriteBuffer.cpp \
     TestIntegerOnePoleFilter.cpp \
     TestIntegerPhaseGenerator.cpp \
-    TestIntegerOperators.cpp
+    TestIntegerOperators.cpp \
+    TestIntegerCombinors.cpp
 
 
 unix {
