@@ -40,12 +40,7 @@ SOURCES += main.cpp \
     TestToggleGate.cpp \
     TestWavFileReader.cpp \
     TestReadWriteBuffer.cpp \
-    TestSimpleReadWriteBuffer.cpp \
-    TestIntegerOnePoleFilter.cpp \
-    TestIntegerPhaseGenerator.cpp \
-    TestIntegerOperators.cpp \
-    TestIntegerCombinors.cpp
-
+    TestSimpleReadWriteBuffer.cpp
 
 unix {
     target.path = /usr/lib

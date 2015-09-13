@@ -11,6 +11,8 @@ SUBDIRS += \
     ../Utilities \          # a 'lib' project
     ../SynthLib \           # a 'lib' project
     ../TestSynthLib \       # an 'app' project
+    ../IntSynthLib \        # a 'lib' project
+    ../TestIntSynthLib \    # an 'app' project
     ../MidiLib \            # a 'lib' project
     ../JackLib \            # a 'lib' project
     ../AlsaLib \            # a 'lib' project
