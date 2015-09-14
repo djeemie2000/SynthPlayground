@@ -4,6 +4,8 @@
 namespace
 {
 
+using namespace isl;
+
 TEST(HardLimitBiPolar)
 {
     CHECK_EQUAL(127, (IntHardLimitBipolar<int, 8>(6000)));

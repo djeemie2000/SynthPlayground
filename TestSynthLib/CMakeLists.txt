@@ -46,7 +46,6 @@ add_executable(TestSynthLib
     TestToggleGate.cpp
     TestReadWriteBuffer.cpp
     TestSimpleReadWriteBuffer.cpp
-    TestIntegerOnePoleFilter.cpp
     TestWaveShaperA116.cpp
 )
 

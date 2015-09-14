@@ -10,7 +10,7 @@ include_directories(
 )
 #todo if win32 include path to jack!
 
-add_library(SynthLib
+add_library(IntSynthLib
     IntCombinors.h
     IntConversions.h
     IntEnvelope.h
@@ -19,5 +19,6 @@ add_library(SynthLib
     IntOnePoleFilter.h
     IntOperators.h
     IntPhaseGenerator.h
+    Dummy.cpp
 )
 

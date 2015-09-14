@@ -4,6 +4,8 @@
 namespace
 {
 
+using namespace isl;
+
 TEST(MinMax)
 {
     CHECK_EQUAL(128, IntMaxSigned<8>());

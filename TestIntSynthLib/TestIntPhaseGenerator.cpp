@@ -4,6 +4,8 @@
 namespace
 {
 
+using namespace isl;
+
 TEST(Constructor)
 {
     CIntegerPhaseGenerator<int, 8> PhaseGen(0);

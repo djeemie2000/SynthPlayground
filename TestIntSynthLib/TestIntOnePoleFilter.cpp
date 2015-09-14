@@ -4,6 +4,8 @@
 namespace
 {
 
+using namespace isl;
+
 TEST(LowPassIncrease)
 {
     CIntegerOnePoleLowPassFilter<int, 8> Filter(2048);

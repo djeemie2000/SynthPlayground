@@ -129,7 +129,6 @@ add_library(SynthLib
     simplereadwritebuffer.h
     BinaryOscillator.h
     Pulse.h
-    IntOnePoleFilter.h
     WaveShaperA116.h
 )
 

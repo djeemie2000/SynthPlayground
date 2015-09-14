@@ -19,6 +19,7 @@ add_subdirectory(../SerialLib ${BUILD_DIRECTORY}/SerialLib)
 
 add_subdirectory(../JackLib ${BUILD_DIRECTORY}/JackLib)
 add_subdirectory(../AlsaLib ${BUILD_DIRECTORY}/AlsaLib)
+add_subdirectory(../IntSynthLib ${BUILD_DIRECTORY}/IntSynthLib)
 add_subdirectory(../SynthLib ${BUILD_DIRECTORY}/SynthLib)
 add_subdirectory(../ModularLib ${BUILD_DIRECTORY}/ModularLib)
 add_subdirectory(../CommandStackLib ${BUILD_DIRECTORY}/CommandStackLib)
@@ -27,6 +28,7 @@ add_subdirectory(../PatchLib ${BUILD_DIRECTORY}/PatchLib)
 
 add_subdirectory(../TestCommandStackLib ${BUILD_DIRECTORY}/TestCommandStackLib)
 add_subdirectory(../TestPatchLib ${BUILD_DIRECTORY}/TestPatchLib)
+add_subdirectory(../TestIntSynthLib ${BUILD_DIRECTORY}/TestIntSynthLib)
 add_subdirectory(../TestSynthLib ${BUILD_DIRECTORY}/TestSynthLib)
 add_subdirectory(../TestModularLib ${BUILD_DIRECTORY}/TestModularLib)
 

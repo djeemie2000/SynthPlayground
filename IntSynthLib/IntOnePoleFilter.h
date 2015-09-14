@@ -3,15 +3,24 @@
 #include <cstdlib>
 #include <array>
 
+namespace isl
+{
+
 template<class T, int Scale = 8>
 class CIntegerOnePoleLowPassFilter
 {
-public:    
+public:
     CIntegerOnePoleLowPassFilter(T Initial)
         : m_PrevOut(Initial)
         , m_A0(1<<Scale)
         , m_B1(0)
     {}
+
+    CIntegerOnePoleLowPassFilter()
+          : m_PrevOut(0)
+          , m_A0(1<<Scale)
+          , m_B1(0)
+      {}
 
     void SetParameter(T Parameter)
     {
@@ -38,6 +47,33 @@ private:
     T m_PrevOut;
     T m_A0;
     T m_B1;
+};
+
+template<class T, int Scale>
+class CIntegerFeedbackOperator
+{
+public:
+  CIntegerFeedbackOperator()
+   : m_PrevOut(0)
+   , m_Feedback(0)
+  {}
+
+    void SetFeedback(T Feedback)
+    {
+      // feedback should be in 0, 2^Scale]
+        m_Feedback = Feedback;
+    }
+
+    template<class OperatorType>
+    T operator()(T In, OperatorType& Operator)
+    {
+      m_PrevOut = Operator( ((In<<Scale) - m_Feedback * m_PrevOut) >> Scale );
+      return m_PrevOut;
+    }
+
+private:
+  T m_PrevOut;
+  T m_Feedback;
 };
 
 //template<class T>
@@ -67,81 +103,44 @@ private:
 //    T m_PrevIn;
 //};
 
-//template<class T, class FilterType, int N>
-//class CMultiStageFilter
-//{
-//public:
-//    CMultiStageFilter()
-//        : m_Filter()
-//        , m_Stages(1)
-//        , m_Feedback(0)
-//        , m_PrevOut(0)
-//    {
-//        m_Filter.fill(FilterType());
-//    }
+template<class T, class FilterType, int N>
+class CIntegerMultiStageFilter
+{
+public:
+    CIntegerMultiStageFilter()
+        : m_Filter()
+        , m_Stages(1)
+    {
+    }
 
-//    void SetStages(int Stages)
-//    {
-//        m_Stages = Stages;
-//    }
+    void SetStages(int Stages)
+    {
+        m_Stages = Stages;
+    }
 
-//    void SetParameter(T Parameter)
-//    {
-//        for(auto& Filter : m_Filter)
-//        {
-//            Filter.SetParameter(Parameter);
-//        }
-//    }
+    void SetParameter(T Parameter)
+    {
+        for(int idx; idx<N; ++idx)
+        {
+            m_Filter[idx].SetParameter(Parameter);
+        }
+    }
 
-//    void SetFeedback(T Feedback)
-//    {
-//        // expected to be in [0,1]
-//        m_Feedback = Feedback;
-//    }
+    T operator()(T In)
+    {
+        T Out = In;// - m_Feedback*m_PrevOut;
+        int Stage = 0;
+        while(Stage<m_Stages)
+        {
+            Out = m_Filter[Stage](Out);
+            ++Stage;
+        }
+          return Out;
+    }
 
-//    T operator()(T In)
-//    {
-//        T Out = In - m_Feedback*m_PrevOut;
-//        int Stage = 0;
-//        while(Stage<m_Stages)
-//        {
-//            Out = m_Filter[Stage](Out);
-//            ++Stage;
-//        }
-//        m_PrevOut = Out;//HardLimitSigned(Out);//TODO more efficient?
-//        return m_PrevOut;
-//    }
+private:
+    FilterType m_Filter[N];
+    int m_Stages;
+};
 
-//    T operator()(T In, T Parameter)
-//    {
-//        T Out = In - m_Feedback*m_PrevOut;
-//        int Stage = 0;
-//        while(Stage<m_Stages)
-//        {
-//            Out = m_Filter[Stage](Out, Parameter);
-//            ++Stage;
-//        }
-//        m_PrevOut = Out;//HardLimitSigned(Out);//TODO more efficient?
-//        return m_PrevOut;
-//    }
-
-//    T operator()(T In, T Parameter, T Feedback)
-//    {
-//        T Out = In - Feedback*m_PrevOut;
-//        int Stage = 0;
-//        while(Stage<m_Stages)
-//        {
-//            Out = m_Filter[Stage](Out, Parameter);
-//            ++Stage;
-//        }
-//        m_PrevOut = Out;//HardLimitSigned(Out);//TODO more efficient?
-//        return m_PrevOut;
-//    }
-
-//private:
-//    std::array<FilterType, N> m_Filter;
-//    int m_Stages;
-//    T m_Feedback;
-//    T m_PrevOut;
-
-//};
+}
