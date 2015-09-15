@@ -19,6 +19,7 @@ add_library(IntSynthLib
     IntOnePoleFilter.h
     IntOperators.h
     IntPhaseGenerator.h
+    IntCombinedOperator.h
     Dummy.cpp
 )
 

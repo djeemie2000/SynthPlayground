@@ -8,6 +8,10 @@ namespace isl
 
 typedef int(*IntCombinor)(int, int);
 
+//typedef
+//template<class T>
+//T(*TemplatedIntCombinor)(T, T);
+
 
 template<class T, int Scale>
 T IntHardLimitBipolar(T In)

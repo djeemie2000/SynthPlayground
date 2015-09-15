@@ -4,6 +4,8 @@
 namespace
 {
 
+using namespace isl;
+
 TEST(BipolarToUnipolar)
 {
     // [-1,1] to [0,1] or [-2^N, 2^N] to [0, 2^N]

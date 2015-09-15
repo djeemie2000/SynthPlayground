@@ -4,6 +4,8 @@
 namespace
 {
 
+using namespace isl;
+
 TEST(ConstructorAllZeroShift)
 {
     const int NumSaws = 8;
