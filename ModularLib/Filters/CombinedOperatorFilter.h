@@ -23,6 +23,8 @@ public:
     void SelectOperatorA(int Selected);
     void SelectOperatorB(int Selected);
     void SelectCombinor(int Selected);
+    void SelectOperatorC(int Selected);
+    void SelectCombinor2(int Selected);
 
 private:
     CFilterBuffers<float> m_Buffers;

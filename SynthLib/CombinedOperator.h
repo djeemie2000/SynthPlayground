@@ -30,60 +30,18 @@ public:
         , m_PhaseShifterB()
         , m_OperatorB()
         , m_Combinor()
+        , m_PhaseStepC(SamplingFrequency)
+        , m_PhaseAccumulatorC()
+        , m_PhaseShifterC()
+        , m_OperatorC()
+        , m_Combinor2()
     {
-        // factory for operators and combinor: add and select default
-        m_Combinor.Add(CAdd<T>());// +
-        m_Combinor.Add(CHardLimitAdd<T>());// +L
+        CreateCombinor(m_Combinor);
+        CreateCombinor(m_Combinor2);
 
-        m_Combinor.Add(CMultFirst<T>());//*A
-        m_Combinor.Add(CMultSecond<T>());//*B
-        m_Combinor.Add(CMult<T>());//*
-
-        m_Combinor.Add(CHardLimitDiff<float>());//-L
-        m_Combinor.Add(CDiffAbs<float>());//-||
-
-        m_Combinor.Add(CMaxAbs<float>());//M||
-        m_Combinor.Add(CMinAbs<float>());//m||
-        m_Combinor.Add(CMax<float>());//M
-        m_Combinor.Add(CMin<float>());//m
-
-        m_Combinor.Add(CPosNegAdd<float>());//P+N
-        m_Combinor.Add(CNegPosAdd<float>());//N+P
-
-        m_Combinor.Add(CRingModFirst<float>());//RA
-        m_Combinor.Add(CRingModSecond<float>());//RB
-
-        m_Combinor.Add(CMultMod1<float>());//A*(1+B)
-        m_Combinor.Add(CMultMod2<float>());//B*(1+A)
-
-        m_Combinor.Add(CMultUnipolar<float>());//*U
-
-        m_Combinor.Select(0);//default
-
-
-        //
-        m_OperatorA.Add(CTriangle<float>());
-        m_OperatorA.Add(CFullPseudoSin<float>());
-        m_OperatorA.Add(CPseudoSin<float>());
-        m_OperatorA.Add(CRampUp<float>());
-        m_OperatorA.Add(CRampDown<float>());
-        m_OperatorA.Add(CPulsePos<float>());
-        m_OperatorA.Add(CPulseNeg<float>());
-        m_OperatorA.Add(CNoOp<float>());
-
-        m_OperatorA.Select(0);//default
-
-        m_OperatorB.Add(CTriangle<float>());
-        m_OperatorB.Add(CFullPseudoSin<float>());
-        m_OperatorB.Add(CPseudoSin<float>());
-        m_OperatorB.Add(CRampUp<float>());
-        m_OperatorB.Add(CRampDown<float>());
-        m_OperatorB.Add(CPulsePos<float>());
-        m_OperatorB.Add(CPulseNeg<float>());
-        m_OperatorB.Add(CNoOp<float>());
-
-        m_OperatorB.Select(0);//default
-
+        CreateOperator(m_OperatorA);
+        CreateOperator(m_OperatorB);
+        CreateOperator(m_OperatorC);
     }
 
     // names for combinors
@@ -107,18 +65,86 @@ public:
         m_OperatorB.Select(Selected);
     }
 
+    void SelectOperatorC(int Selected)
+    {
+        m_OperatorC.Select(Selected);
+    }
+
     void SelectCombinor(int Selected)
     {
         m_Combinor.Select(Selected);
     }
 
-    float operator()(T Frequency, T FrequencyMultiplierA, T PhaseShiftA, T FrequencyMultiplierB, T PhaseShiftB)
+    void SelectCombinor2(int Selected)
+    {
+        m_Combinor2.Select(Selected);
+    }
+
+    float operator()(T Frequency,
+                     T FrequencyMultiplierA, T PhaseShiftA,
+                     T FrequencyMultiplierB, T PhaseShiftB)
     {
         return m_Combinor( m_OperatorA(m_PhaseShifterA(m_PhaseAccumulatorA(m_PhaseStepA(Frequency*FrequencyMultiplierA)), PhaseShiftA)),
                            m_OperatorB(m_PhaseShifterB(m_PhaseAccumulatorB(m_PhaseStepB(Frequency*FrequencyMultiplierB)), PhaseShiftB)) );
     }
 
+    float operator()(T Frequency,
+                     T FrequencyMultiplierA, T PhaseShiftA,
+                     T FrequencyMultiplierB, T PhaseShiftB,
+                     T FrequencyMultiplierC, T PhaseShiftC)
+    {
+        return m_Combinor2(m_Combinor( m_OperatorA(m_PhaseShifterA(m_PhaseAccumulatorA(m_PhaseStepA(Frequency*FrequencyMultiplierA)), PhaseShiftA)),
+                                       m_OperatorB(m_PhaseShifterB(m_PhaseAccumulatorB(m_PhaseStepB(Frequency*FrequencyMultiplierB)), PhaseShiftB)) ),
+                           m_OperatorC(m_PhaseShifterC(m_PhaseAccumulatorC(m_PhaseStepC(Frequency*FrequencyMultiplierC)), PhaseShiftC)) );
+    }
+
 private:
+    void CreateCombinor(CSelectableCombinor<T>& Combinor)
+    {
+        // factory for operators and combinor: add and select default
+        Combinor.Add(CAdd<T>());// +
+        Combinor.Add(CHardLimitAdd<T>());// +L
+
+        Combinor.Add(CMultFirst<T>());//*A
+        Combinor.Add(CMultSecond<T>());//*B
+        Combinor.Add(CMult<T>());//*
+
+        Combinor.Add(CHardLimitDiff<float>());//-L
+        Combinor.Add(CDiffAbs<float>());//-||
+
+        Combinor.Add(CMaxAbs<float>());//M||
+        Combinor.Add(CMinAbs<float>());//m||
+        Combinor.Add(CMax<float>());//M
+        Combinor.Add(CMin<float>());//m
+
+        Combinor.Add(CPosNegAdd<float>());//P+N
+        Combinor.Add(CNegPosAdd<float>());//N+P
+
+        Combinor.Add(CRingModFirst<float>());//RA
+        Combinor.Add(CRingModSecond<float>());//RB
+
+        Combinor.Add(CMultMod1<float>());//A*(1+B)
+        Combinor.Add(CMultMod2<float>());//B*(1+A)
+
+        Combinor.Add(CMultUnipolar<float>());//*U
+
+        Combinor.Select(0);//default
+    }
+
+    void CreateOperator(CSelectableOperator<T>& Operator)
+    {
+        Operator.Add(CTriangle<float>());
+        Operator.Add(CFullPseudoSin<float>());
+        Operator.Add(CPseudoSin<float>());
+        Operator.Add(CRampUp<float>());
+        Operator.Add(CRampDown<float>());
+        Operator.Add(CPulsePos<float>());
+        Operator.Add(CPulseNeg<float>());
+        Operator.Add(CNoOp<float>());
+
+        Operator.Select(0);//default
+    }
+
     CPhaseStep<T> m_PhaseStepA;
     CPhaseAccumulator<T> m_PhaseAccumulatorA;
     CPhaseShifter<T> m_PhaseShifterA;
@@ -130,4 +156,11 @@ private:
     CSelectableOperator<T> m_OperatorB;
 
     CSelectableCombinor<T> m_Combinor;
+
+    CPhaseStep<T> m_PhaseStepC;
+    CPhaseAccumulator<T> m_PhaseAccumulatorC;
+    CPhaseShifter<T> m_PhaseShifterC;
+    CSelectableOperator<T> m_OperatorC;
+
+    CSelectableCombinor<T> m_Combinor2;
 };

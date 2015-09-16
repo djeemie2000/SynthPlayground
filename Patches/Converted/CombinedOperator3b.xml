@@ -7,6 +7,7 @@
     </Modules>
     <Connections>
         <Connection OutputPort="CombinedOperator0:Out" InputPort="Mixer(4)0:In0"/>
+        <Connection OutputPort="CombinedOperator0:Out" InputPort="Scope:In"/>
         <Connection OutputPort="ControllerBank(8)0:Contr0" InputPort="CombinedOperator0:Freq"/>
         <Connection OutputPort="ControllerBank(8)0:Contr1" InputPort="CombinedOperator0:DetuneA"/>
         <Connection OutputPort="ControllerBank(8)0:Contr2" InputPort="CombinedOperator0:ShiftA"/>
@@ -18,17 +19,17 @@
         <Connection OutputPort="Mixer(4)0:Out" InputPort="system:playback_2"/>
     </Connections>
     <Parameters>
-        <Parameter Name="CombinedOperator0/SelectCombinor" Type="Integer" Value="0"/>
-        <Parameter Name="CombinedOperator0/SelectCombinor2" Type="Integer" Value="0"/>
-        <Parameter Name="CombinedOperator0/SelectOperatorA" Type="Integer" Value="7"/>
-        <Parameter Name="CombinedOperator0/SelectOperatorB" Type="Integer" Value="7"/>
-        <Parameter Name="CombinedOperator0/SelectOperatorC" Type="Integer" Value="0"/>
-        <Parameter Name="ControllerBank(8)0/0/Value" Type="Float" Value="110"/>
-        <Parameter Name="ControllerBank(8)0/1/Value" Type="Float" Value="1"/>
+        <Parameter Name="CombinedOperator0/SelectCombinor" Type="Integer" Value="4"/>
+        <Parameter Name="CombinedOperator0/SelectCombinor2" Type="Integer" Value="3"/>
+        <Parameter Name="CombinedOperator0/SelectOperatorA" Type="Integer" Value="0"/>
+        <Parameter Name="CombinedOperator0/SelectOperatorB" Type="Integer" Value="2"/>
+        <Parameter Name="CombinedOperator0/SelectOperatorC" Type="Integer" Value="6"/>
+        <Parameter Name="ControllerBank(8)0/0/Value" Type="Float" Value="140"/>
+        <Parameter Name="ControllerBank(8)0/1/Value" Type="Float" Value="2.602"/>
         <Parameter Name="ControllerBank(8)0/2/Value" Type="Float" Value="-0.087"/>
-        <Parameter Name="ControllerBank(8)0/3/Value" Type="Float" Value="1"/>
+        <Parameter Name="ControllerBank(8)0/3/Value" Type="Float" Value="1.243"/>
         <Parameter Name="ControllerBank(8)0/4/Value" Type="Float" Value="-0"/>
-        <Parameter Name="ControllerBank(8)0/5/Value" Type="Float" Value="1"/>
+        <Parameter Name="ControllerBank(8)0/5/Value" Type="Float" Value="0.997"/>
         <Parameter Name="ControllerBank(8)0/6/Value" Type="Float" Value="0"/>
         <Parameter Name="ControllerBank(8)0/7/Value" Type="Float" Value="0"/>
         <Parameter Name="Mixer(4)0/0/Volume" Type="Float" Value="0.25"/>

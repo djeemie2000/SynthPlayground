@@ -1,14 +1,14 @@
 #include "CombinedOperatorFilter.h"
 
 CCombinedOperatorFilter::CCombinedOperatorFilter(int SamplingFrequency)
-    : m_Buffers({220.0f, 1.0f, 0.0f, 1.0f, 0.0f},{0.0f})
+    : m_Buffers({220.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f},{0.0f})
     , m_CombinedOperator(SamplingFrequency)
 {
 }
 
 std::vector<std::string> CCombinedOperatorFilter::GetInputNames() const
 {
-    return { "Freq", "DetuneA", "ShiftA", "DetuneB", "ShiftB" };
+    return { "Freq", "DetuneA", "ShiftA", "DetuneB", "ShiftB", "DetuneC", "ShiftC" };
 }
 
 std::vector<std::string> CCombinedOperatorFilter::GetOutputNames() const
@@ -40,19 +40,25 @@ int CCombinedOperatorFilter::OnProcess(const std::vector<void *> &SourceBuffers,
     const float* ShiftABuffer = m_Buffers.GetSourceBuffer(2);
     const float* DetuneBBuffer = m_Buffers.GetSourceBuffer(3);
     const float* ShiftBBuffer = m_Buffers.GetSourceBuffer(4);
+    const float* DetuneCBuffer = m_Buffers.GetSourceBuffer(5);
+    const float* ShiftCBuffer = m_Buffers.GetSourceBuffer(6);
     float* OutBuffer = m_Buffers.GetDestinationBuffer(0);
     const float* OutBufferEnd = OutBuffer + NumFrames;
     while(OutBuffer<OutBufferEnd)
     {
-        *OutBuffer = m_CombinedOperator(*FreqBuffer, *DetuneABuffer, *ShiftABuffer, *DetuneBBuffer, *ShiftBBuffer);
+        *OutBuffer = m_CombinedOperator(*FreqBuffer,
+                                        *DetuneABuffer, *ShiftABuffer,
+                                        *DetuneBBuffer, *ShiftBBuffer,
+                                        *DetuneCBuffer, *ShiftCBuffer);
         ++FreqBuffer;
         ++DetuneABuffer;
         ++ShiftABuffer;
         ++DetuneBBuffer;
         ++ShiftBBuffer;
+        ++DetuneCBuffer;
+        ++ShiftCBuffer;
         ++OutBuffer;
     }
-
 
     return 0;
 }
@@ -67,7 +73,17 @@ void CCombinedOperatorFilter::SelectOperatorB(int Selected)
     m_CombinedOperator.SelectOperatorB(Selected);
 }
 
+void CCombinedOperatorFilter::SelectOperatorC(int Selected)
+{
+    m_CombinedOperator.SelectOperatorC(Selected);
+}
+
 void CCombinedOperatorFilter::SelectCombinor(int Selected)
 {
     m_CombinedOperator.SelectCombinor(Selected);
+}
+
+void CCombinedOperatorFilter::SelectCombinor2(int Selected)
+{
+    m_CombinedOperator.SelectCombinor2(Selected);
 }

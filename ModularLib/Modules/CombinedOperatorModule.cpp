@@ -17,10 +17,14 @@ CCombinedOperatorModule::CCombinedOperatorModule(const std::string& Name, CComma
     m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/SelectCombinor").IntValue(0), [this](const SCmdStackItem& Item) { m_Filter->SelectCombinor(Item.IntValue()); });
     m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/SelectOperatorA").IntValue(0), [this](const SCmdStackItem& Item) { m_Filter->SelectOperatorA(Item.IntValue()); });
     m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/SelectOperatorB").IntValue(0), [this](const SCmdStackItem& Item) { m_Filter->SelectOperatorB(Item.IntValue()); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/SelectCombinor2").IntValue(0), [this](const SCmdStackItem& Item) { m_Filter->SelectCombinor2(Item.IntValue()); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/SelectOperatorC").IntValue(0), [this](const SCmdStackItem& Item) { m_Filter->SelectOperatorC(Item.IntValue()); });
 }
 
 CCombinedOperatorModule::~CCombinedOperatorModule()
 {
+    m_CommandStackController.RemoveCommand(m_Name+"/SelectOperatorC");
+    m_CommandStackController.RemoveCommand(m_Name+"/SelectCombinor2");
     m_CommandStackController.RemoveCommand(m_Name+"/SelectOperatorB");
     m_CommandStackController.RemoveCommand(m_Name+"/SelectOperatorA");
     m_CommandStackController.RemoveCommand(m_Name+"/SelectCombinor");
@@ -54,6 +58,10 @@ void CCombinedOperatorModule::Accept(IModuleParameterVisitor &ParameterVisitor) 
     ParameterVisitor.SelectionParameter(m_Name+"/SelectOperatorA", "OperatorA", 0, CCombinedOperator<float>::GetOperatorNames());
     ParameterVisitor.SelectionParameter(m_Name+"/SelectCombinor", "Combinor", 0, CCombinedOperator<float>::GetCombinorNames());
     ParameterVisitor.SelectionParameter(m_Name+"/SelectOperatorB", "OperatorB", 0, CCombinedOperator<float>::GetOperatorNames());
+    ParameterVisitor.FinishLine();
+    ParameterVisitor.StartLine();
+    ParameterVisitor.SelectionParameter(m_Name+"/SelectOperatorC", "OperatorC", 0, CCombinedOperator<float>::GetOperatorNames());
+    ParameterVisitor.SelectionParameter(m_Name+"/SelectCombinor2", "Combinor2", 0, CCombinedOperator<float>::GetCombinorNames());
     ParameterVisitor.FinishLine();
     ParameterVisitor.Finish();
 }

@@ -2,39 +2,43 @@
     <Patch Version="2"/>
     <Modules>
         <Module Name="CombinedOperator0" Type="CombinedOperator"/>
+        <Module Name="Combinor0" Type="Combinor"/>
         <Module Name="ControllerBank(8)0" Type="ControllerBank(8)"/>
         <Module Name="Mixer(4)0" Type="Mixer(4)"/>
+        <Module Name="SimpleOscillator0" Type="SimpleOscillator"/>
     </Modules>
     <Connections>
         <Connection OutputPort="CombinedOperator0:Out" InputPort="Mixer(4)0:In0"/>
+        <Connection OutputPort="CombinedOperator0:Out" InputPort="Combinor0:In2"/>
+        <Connection OutputPort="Combinor0:Out" InputPort="Mixer(4)0:In1"/>
         <Connection OutputPort="ControllerBank(8)0:Contr0" InputPort="CombinedOperator0:Freq"/>
+        <Connection OutputPort="ControllerBank(8)0:Contr0" InputPort="SimpleOscillator0:Freq"/>
         <Connection OutputPort="ControllerBank(8)0:Contr1" InputPort="CombinedOperator0:DetuneA"/>
         <Connection OutputPort="ControllerBank(8)0:Contr2" InputPort="CombinedOperator0:ShiftA"/>
         <Connection OutputPort="ControllerBank(8)0:Contr3" InputPort="CombinedOperator0:DetuneB"/>
         <Connection OutputPort="ControllerBank(8)0:Contr4" InputPort="CombinedOperator0:ShiftB"/>
-        <Connection OutputPort="ControllerBank(8)0:Contr5" InputPort="CombinedOperator0:DetuneC"/>
-        <Connection OutputPort="ControllerBank(8)0:Contr6" InputPort="CombinedOperator0:ShiftC"/>
         <Connection OutputPort="Mixer(4)0:Out" InputPort="system:playback_1"/>
         <Connection OutputPort="Mixer(4)0:Out" InputPort="system:playback_2"/>
+        <Connection OutputPort="SimpleOscillator0:Out" InputPort="Combinor0:In1"/>
     </Connections>
     <Parameters>
-        <Parameter Name="CombinedOperator0/SelectCombinor" Type="Integer" Value="0"/>
-        <Parameter Name="CombinedOperator0/SelectCombinor2" Type="Integer" Value="0"/>
-        <Parameter Name="CombinedOperator0/SelectOperatorA" Type="Integer" Value="7"/>
-        <Parameter Name="CombinedOperator0/SelectOperatorB" Type="Integer" Value="7"/>
-        <Parameter Name="CombinedOperator0/SelectOperatorC" Type="Integer" Value="0"/>
-        <Parameter Name="ControllerBank(8)0/0/Value" Type="Float" Value="110"/>
-        <Parameter Name="ControllerBank(8)0/1/Value" Type="Float" Value="1"/>
-        <Parameter Name="ControllerBank(8)0/2/Value" Type="Float" Value="-0.087"/>
-        <Parameter Name="ControllerBank(8)0/3/Value" Type="Float" Value="1"/>
-        <Parameter Name="ControllerBank(8)0/4/Value" Type="Float" Value="-0"/>
-        <Parameter Name="ControllerBank(8)0/5/Value" Type="Float" Value="1"/>
+        <Parameter Name="CombinedOperator0/SelectCombinor" Type="Integer" Value="8"/>
+        <Parameter Name="CombinedOperator0/SelectOperatorA" Type="Integer" Value="2"/>
+        <Parameter Name="CombinedOperator0/SelectOperatorB" Type="Integer" Value="1"/>
+        <Parameter Name="Combinor0/Select" Type="Integer" Value="1"/>
+        <Parameter Name="ControllerBank(8)0/0/Value" Type="Float" Value="120"/>
+        <Parameter Name="ControllerBank(8)0/1/Value" Type="Float" Value="1.991"/>
+        <Parameter Name="ControllerBank(8)0/2/Value" Type="Float" Value="-0"/>
+        <Parameter Name="ControllerBank(8)0/3/Value" Type="Float" Value="1.337"/>
+        <Parameter Name="ControllerBank(8)0/4/Value" Type="Float" Value="0"/>
+        <Parameter Name="ControllerBank(8)0/5/Value" Type="Float" Value="0"/>
         <Parameter Name="ControllerBank(8)0/6/Value" Type="Float" Value="0"/>
         <Parameter Name="ControllerBank(8)0/7/Value" Type="Float" Value="0"/>
-        <Parameter Name="Mixer(4)0/0/Volume" Type="Float" Value="0.25"/>
+        <Parameter Name="Mixer(4)0/0/Volume" Type="Float" Value="0"/>
         <Parameter Name="Mixer(4)0/1/Volume" Type="Float" Value="0.25"/>
         <Parameter Name="Mixer(4)0/2/Volume" Type="Float" Value="0.25"/>
         <Parameter Name="Mixer(4)0/3/Volume" Type="Float" Value="0.25"/>
         <Parameter Name="Mixer(4)0/MasterVolume" Type="Float" Value="0.5"/>
+        <Parameter Name="SimpleOscillator0/Select" Type="Integer" Value="4"/>
     </Parameters>
 </xml>
