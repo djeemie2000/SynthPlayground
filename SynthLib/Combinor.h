@@ -6,6 +6,18 @@
 #include "Conversions.h"
 
 template<class T>
+class CAdd
+{
+public:
+    CAdd(){}
+
+    T operator()(const T& In1, const T& In2) const
+    {
+        return In1 + In2;
+    }
+};
+
+template<class T>
 class CHardLimitAdd
 {
 public:

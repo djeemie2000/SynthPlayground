@@ -273,4 +273,8 @@ add_library(ModularLib
     Filters/WaveShaperA116Filter.h
     Modules/WaveShaperA116Module.cpp
     Modules/WaveShaperA116Module.h
+    Filters/CombinedOperatorFilter.cpp
+    Filters/CombinedOperatorFilter.h
+    Modules/CombinedOperatorModule.cpp
+    Modules/CombinedOperatorModule.h
 )

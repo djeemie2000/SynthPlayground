@@ -130,5 +130,6 @@ add_library(SynthLib
     BinaryOscillator.h
     Pulse.h
     WaveShaperA116.h
+    CombinedOperator.h
 )
 

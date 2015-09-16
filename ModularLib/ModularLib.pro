@@ -127,7 +127,9 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Filters/BinaryOscillatorFilter.cpp \
     Modules/BinaryOscillatorModule.cpp \
     Filters/WaveShaperA116Filter.cpp \
-    Modules/WaveShaperA116Module.cpp
+    Modules/WaveShaperA116Module.cpp \
+    Filters/CombinedOperatorFilter.cpp \
+    Modules/CombinedOperatorModule.cpp
 
 
 HEADERS += Filters/ControllerBankFilter.h \
@@ -256,7 +258,10 @@ HEADERS += Filters/ControllerBankFilter.h \
     Filters/BinaryOscillatorFilter.h \
     Modules/BinaryOscillatorModule.h \
     Filters/WaveShaperA116Filter.h \
-    Modules/WaveShaperA116Module.h
+    Modules/WaveShaperA116Module.h \
+    Filters/CombinedOperatorFilter.h \
+    Modules/CombinedOperatorModule.h
+
 
 INCLUDEPATH += ./Filters
 INCLUDEPATH += ./Modules

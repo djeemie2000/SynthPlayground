@@ -58,6 +58,7 @@
 #include "BasicSamplerModule.h"
 #include "BinaryOscillatorModule.h"
 #include "WaveShaperA116Module.h"
+#include "CombinedOperatorModule.h"
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -312,6 +313,10 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CWaveShaperA116Module(Name));
     }
+    else if(Type == "CombinedOperator")
+    {
+        Module.reset(new CCombinedOperatorModule(Name, *m_CommandStackController));
+    }
 
     return Module;
 }
@@ -370,7 +375,8 @@ std::vector<string> CModuleFactory::GetSupportedTypes(const std::string &Categor
             "WaveTable",
             "KarplusStrong",
             "BasicSampler",
-            "BinaryOscillator"
+            "BinaryOscillator",
+            "CombinedOperator"
         };
     }
 

@@ -47,6 +47,7 @@ add_executable(TestSynthLib
     TestReadWriteBuffer.cpp
     TestSimpleReadWriteBuffer.cpp
     TestWaveShaperA116.cpp
+    TestCombinedOperator.cpp
 )
 
 target_link_libraries(TestSynthLib SynthLib UnitTest)
