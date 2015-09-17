@@ -20,6 +20,8 @@ add_library(IntSynthLib
     IntOperators.h
     IntPhaseGenerator.h
     IntCombinedOperator.h
+    IntSimpleOscillator.h
+    IntOperatorFactory.h
     Dummy.cpp
 )
 

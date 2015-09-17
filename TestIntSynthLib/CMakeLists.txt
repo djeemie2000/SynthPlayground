@@ -14,6 +14,8 @@ add_executable(TestIntSynthLib
     TestIntOperators.cpp
     TestIntPhaseGenerator.cpp
     TestIntCombinedOperator.cpp
+    TestIntOperatorFactory.cpp
+    TestIntSimpleOscillator.cpp
 )
 
 target_link_libraries(TestIntSynthLib IntSynthLib UnitTest)

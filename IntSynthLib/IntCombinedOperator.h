@@ -12,13 +12,13 @@ template<int Scale>
 class CIntCombinedOperator
 {
 public:
-    CIntCombinedOperator()
-        : m_PhaseGenA()
+    CIntCombinedOperator(uint64_t SamplingFrequency)
+        : m_SamplingFrequencyHz(SamplingFrequency)
+        , m_PhaseGenA()
         , m_PhaseGenB()
         , m_OperatorA( IntTriangle<Scale> )
         , m_OperatorB( IntTriangle<Scale> )
         , m_Combinor( IntHardLimitAdd<int, Scale> )
-        , m_SamplingFrequency(10000)
         , m_FrequencyMilliHz(110*1000)
         , m_FrequencyMultiplierValue(1<<8)
         , m_FrequencyMultiplierScale(8)
@@ -31,9 +31,8 @@ public:
         m_PhaseGenB.Sync();
     }
 
-    void SetFrequency(uint64_t SamplingFrequency, uint64_t FrequencyMilliHz)
+    void SetFrequency(uint64_t FrequencyMilliHz)
     {
-        m_SamplingFrequency = SamplingFrequency;
         m_FrequencyMilliHz = FrequencyMilliHz;
 
         UpdateFrequency();
@@ -70,9 +69,11 @@ public:
 private:
     void UpdateFrequency()
     {
-        m_PhaseGenA.SetFrequency(m_SamplingFrequency, m_FrequencyMilliHz);
-        m_PhaseGenB.SetFrequency(m_SamplingFrequency, m_FrequencyMilliHz*m_FrequencyMultiplierValue >> m_FrequencyMultiplierScale);
+        m_PhaseGenA.SetFrequency(m_SamplingFrequencyHz, m_FrequencyMilliHz);
+        m_PhaseGenB.SetFrequency(m_SamplingFrequencyHz, m_FrequencyMilliHz*m_FrequencyMultiplierValue >> m_FrequencyMultiplierScale);
     }
+
+    const uint64_t m_SamplingFrequencyHz;
 
     CIntegerPhaseGenerator<int, Scale> m_PhaseGenA;
     CIntegerPhaseGenerator<int, Scale> m_PhaseGenB;
@@ -83,7 +84,6 @@ private:
     int m_FrequencyMultiplierValue;
     int m_FrequencyMultiplierScale;
     uint64_t m_FrequencyMilliHz;
-    uint64_t m_SamplingFrequency;
 };
 
 }//namespace isl
