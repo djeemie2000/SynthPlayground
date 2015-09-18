@@ -17,6 +17,7 @@ include_directories(
 	./../SynthLib/Interfaces
 	./../SynthLib/Granular
         ./../SynthLib/Looper
+        ./../IntSynthLib
         ./../MidiLib
         ./../Utilities
 )
@@ -277,4 +278,8 @@ add_library(ModularLib
     Filters/CombinedOperatorFilter.h
     Modules/CombinedOperatorModule.cpp
     Modules/CombinedOperatorModule.h
+    Filters/IntSimpleOscillatorFilter.cpp
+    Filters/IntSimpleOscillatorFilter.h
+    Modules/IntSimpleOscillatorModule.cpp
+    Modules/IntSimpleOscillatorModule.h
 )

@@ -129,7 +129,9 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Filters/WaveShaperA116Filter.cpp \
     Modules/WaveShaperA116Module.cpp \
     Filters/CombinedOperatorFilter.cpp \
-    Modules/CombinedOperatorModule.cpp
+    Modules/CombinedOperatorModule.cpp \
+    Filters/IntSimpleOscillatorFilter.cpp \
+    Modules/IntSimpleOscillatorModule.cpp
 
 
 HEADERS += Filters/ControllerBankFilter.h \
@@ -260,7 +262,9 @@ HEADERS += Filters/ControllerBankFilter.h \
     Filters/WaveShaperA116Filter.h \
     Modules/WaveShaperA116Module.h \
     Filters/CombinedOperatorFilter.h \
-    Modules/CombinedOperatorModule.h
+    Modules/CombinedOperatorModule.h \
+    Filters/IntSimpleOscillatorFilter.h \
+    Modules/IntSimpleOscillatorModule.h
 
 
 INCLUDEPATH += ./Filters
@@ -272,6 +276,7 @@ INCLUDEPATH += ./../SynthLib
 INCLUDEPATH += ./../SynthLib/Interfaces
 INCLUDEPATH += ./../SynthLib/Granular
 INCLUDEPATH += ./../SynthLib/Looper
+INCLUDEPATH += ./../IntSynthLib
 INCLUDEPATH += ./../MidiLib
 INCLUDEPATH += ./../Utilities
 

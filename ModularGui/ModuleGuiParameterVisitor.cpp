@@ -14,10 +14,10 @@ CGuiModuleParameterVisitor::CGuiModuleParameterVisitor(QGroupBox *GroupBox,
  , m_Pos(0)
 {
     // assumes groupbox does not have previous layout
-    if(m_GroupBox->layout())
-    {
-        int bs = 0;
-    }
+//    if(m_GroupBox->layout())
+//    {
+//        int bs = 0;
+//    }
     m_GroupBox->setLayout(m_Layout);
 }
 
@@ -66,7 +66,7 @@ void CGuiModuleParameterVisitor::BooleanParameter(const std::string &ParameterNa
     guiutils::AddCheckableSmallButton(m_Layout, m_Parent, m_Pos++, m_Line, Name, ParameterName, Default, m_CommandStackController);
 }
 
-void CGuiModuleParameterVisitor::FilePathParameter(const std::string &ParameterName, const std::string &Name, const std::string &Extensions)
+void CGuiModuleParameterVisitor::FilePathParameter(const std::string &/*ParameterName*/, const std::string &/*Name*/, const std::string &/*Extensions*/)
 {
     //TODO
 }

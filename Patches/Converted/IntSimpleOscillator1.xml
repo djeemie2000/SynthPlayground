@@ -1,0 +1,26 @@
+<xml>
+    <Patch Version="2"/>
+    <Modules>
+        <Module Name="ControllerBank(4)0" Type="ControllerBank(4)"/>
+        <Module Name="IntSimpleOscillator0" Type="IntSimpleOscillator"/>
+        <Module Name="Mixer(4)0" Type="Mixer(4)"/>
+    </Modules>
+    <Connections>
+        <Connection OutputPort="ControllerBank(4)0:Contr0" InputPort="IntSimpleOscillator0:Freq"/>
+        <Connection OutputPort="IntSimpleOscillator0:Out" InputPort="Mixer(4)0:In0"/>
+        <Connection OutputPort="Mixer(4)0:Out" InputPort="system:playback_1"/>
+        <Connection OutputPort="Mixer(4)0:Out" InputPort="Scope:In"/>
+    </Connections>
+    <Parameters>
+        <Parameter Name="ControllerBank(4)0/0/Value" Type="Float" Value="110"/>
+        <Parameter Name="ControllerBank(4)0/1/Value" Type="Float" Value="0"/>
+        <Parameter Name="ControllerBank(4)0/2/Value" Type="Float" Value="0"/>
+        <Parameter Name="ControllerBank(4)0/3/Value" Type="Float" Value="0"/>
+        <Parameter Name="IntSimpleOscillator0/Select" Type="Integer" Value="0"/>
+        <Parameter Name="Mixer(4)0/0/Volume" Type="Float" Value="0.25"/>
+        <Parameter Name="Mixer(4)0/1/Volume" Type="Float" Value="0.25"/>
+        <Parameter Name="Mixer(4)0/2/Volume" Type="Float" Value="0.25"/>
+        <Parameter Name="Mixer(4)0/3/Volume" Type="Float" Value="0.25"/>
+        <Parameter Name="Mixer(4)0/MasterVolume" Type="Float" Value="0.5"/>
+    </Parameters>
+</xml>

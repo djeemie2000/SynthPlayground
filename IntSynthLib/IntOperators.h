@@ -82,7 +82,7 @@ int IntTriangle(int Phase)
 }
 
 template<int Scale>
-int IntNoOp(int Phase)
+int IntNoOp(int /*Phase*/)
 {
     return 0;
 }
