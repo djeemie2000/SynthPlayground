@@ -131,7 +131,9 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Filters/CombinedOperatorFilter.cpp \
     Modules/CombinedOperatorModule.cpp \
     Filters/IntSimpleOscillatorFilter.cpp \
-    Modules/IntSimpleOscillatorModule.cpp
+    Modules/IntSimpleOscillatorModule.cpp \
+    Filters/IntCombinedOperatorFilter.cpp \
+    Modules/IntCombinedOperatorModule.cpp
 
 
 HEADERS += Filters/ControllerBankFilter.h \
@@ -264,7 +266,9 @@ HEADERS += Filters/ControllerBankFilter.h \
     Filters/CombinedOperatorFilter.h \
     Modules/CombinedOperatorModule.h \
     Filters/IntSimpleOscillatorFilter.h \
-    Modules/IntSimpleOscillatorModule.h
+    Modules/IntSimpleOscillatorModule.h \
+    Filters/IntCombinedOperatorFilter.h \
+    Modules/IntCombinedOperatorModule.h
 
 
 INCLUDEPATH += ./Filters

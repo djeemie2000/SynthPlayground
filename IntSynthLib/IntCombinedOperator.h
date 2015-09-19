@@ -1,9 +1,12 @@
 #pragma once
 
+#include <vector>
+#include <string>
 #include "IntConversions.h"
 #include "IntOperators.h"
 #include "IntPhaseGenerator.h"
 #include "IntCombinors.h"
+#include "IntCombinorFactory.h"
 
 namespace isl
 {
@@ -17,9 +20,9 @@ public:
         , m_PhaseGenA()
         , m_PhaseGenB()
         , m_PhaseGenC()
-        , m_OperatorA( IntTriangle<Scale> )
-        , m_OperatorB( IntTriangle<Scale> )
-        , m_OperatorC( IntTriangle<Scale> )
+        , m_OperatorA( GetOperator(0) )
+        , m_OperatorB( GetOperator(0) )
+        , m_OperatorC( GetOperator(0) )
         , m_Combinor1( IntAdd<int, Scale> )
         , m_Combinor2( IntAdd<int, Scale> )
         , m_FrequencyMilliHz(110*1000)
@@ -81,262 +84,27 @@ public:
 
     void SelectOperatorA(int Idx)
     {
-        if(Idx == 0)
-        {
-            m_OperatorA = IntTriangle<Scale>;
-        }
-        else if(Idx == 1)
-        {
-            m_OperatorA = IntFullPseudoSin<Scale>;
-        }
-        else if(Idx == 2)
-        {
-            m_OperatorA = IntSemiPseudoSin<Scale>;
-        }
-        else if(Idx == 3)
-        {
-            m_OperatorA = IntSawUp<Scale>;
-        }
-        else if(Idx == 4)
-        {
-            m_OperatorA = IntSawDown<Scale>;
-        }
-        else if(Idx == 5)
-        {
-            m_OperatorA = IntPulse<Scale>;
-        }
-        else if(Idx == 6)
-        {
-            m_OperatorA = IntQuadratic<Scale>;
-        }
-        else if(Idx == 7)
-        {
-            m_OperatorA = IntNoOp<Scale>;
-        }
+        m_OperatorA = GetOperator(Idx);
     }
 
     void SelectOperatorB(int Idx)
     {
-        if(Idx == 0)
-        {
-            m_OperatorB = IntTriangle<Scale>;
-        }
-        else if(Idx == 1)
-        {
-            m_OperatorB = IntFullPseudoSin<Scale>;
-        }
-        else if(Idx == 2)
-        {
-            m_OperatorB = IntSemiPseudoSin<Scale>;
-        }
-        else if(Idx == 3)
-        {
-            m_OperatorB = IntSawUp<Scale>;
-        }
-        else if(Idx == 4)
-        {
-            m_OperatorB = IntSawDown<Scale>;
-        }
-        else if(Idx == 5)
-        {
-            m_OperatorB = IntPulse<Scale>;
-        }
-        else if(Idx == 6)
-        {
-            m_OperatorB = IntQuadratic<Scale>;
-        }
-        else if(Idx == 7)
-        {
-            m_OperatorB = IntNoOp<Scale>;
-        }
+        m_OperatorB = GetOperator(Idx);
     }
 
     void SelectOperatorC(int Idx)
     {
-        if(Idx == 0)
-        {
-            m_OperatorC = IntTriangle<Scale>;
-        }
-        else if(Idx == 1)
-        {
-            m_OperatorC = IntFullPseudoSin<Scale>;
-        }
-        else if(Idx == 2)
-        {
-            m_OperatorC = IntSemiPseudoSin<Scale>;
-        }
-        else if(Idx == 3)
-        {
-            m_OperatorC = IntSawUp<Scale>;
-        }
-        else if(Idx == 4)
-        {
-            m_OperatorC = IntSawDown<Scale>;
-        }
-        else if(Idx == 5)
-        {
-            m_OperatorC = IntPulse<Scale>;
-        }
-        else if(Idx == 6)
-        {
-            m_OperatorC = IntQuadratic<Scale>;
-        }
-        else if(Idx == 7)
-        {
-            m_OperatorC = IntNoOp<Scale>;
-        }
+        m_OperatorC = GetOperator(Idx);
     }
 
     void SelectCombinor1(int Idx)
     {
-        if(Idx == 0)
-        {
-            m_Combinor1  = IntAdd<int, Scale>;// +
-        }
-        else if(Idx == 1)
-        {
-            m_Combinor1 = IntHardLimitAdd<int, Scale>;// +L
-        }
-        else if(Idx == 2)
-        {
-            m_Combinor1 = IntMultFirst<int, Scale>;// *A
-        }
-        else if(Idx == 3)
-        {
-            m_Combinor1 = IntMultSecond<int, Scale>;// *B
-        }
-        else if(Idx == 4)
-        {
-            m_Combinor1 = IntMult<int, Scale>;// *
-        }
-        else if(Idx == 5)
-        {
-            m_Combinor1 = IntRingModFirst<int, Scale>;// RA
-        }
-        else if(Idx == 6)
-        {
-            m_Combinor1 = IntRingModSecond<int, Scale>;// RB
-        }
-        else if(Idx == 7)
-        {
-            m_Combinor1 = IntMultUnipolar<int, Scale>;// *U
-        }
-        else if(Idx == 8)
-        {
-            m_Combinor1 = IntHardLimitDiff<int, Scale>;// -L
-        }
-        else if(Idx == 9)
-        {
-            m_Combinor1 = IntDiffAbs<int, Scale>;// -||
-        }
-        else if(Idx == 10)
-        {
-            m_Combinor1 = IntMaxAbs<int, Scale>;// M||
-        }
-        else if(Idx == 11)
-        {
-            m_Combinor1 = IntMinAbs<int, Scale>;// m||
-        }
-        else if(Idx == 12)
-        {
-            m_Combinor1 = IntMax<int, Scale>;// M
-        }
-        else if(Idx == 13)
-        {
-            m_Combinor1 = IntMin<int, Scale>;// m
-        }
-        else if(Idx == 14)
-        {
-            m_Combinor1 = IntPosNegAdd<int, Scale>;// P + N
-        }
-        else if(Idx == 15)
-        {
-            m_Combinor1 = IntNegPosAdd<int, Scale>;// N + P
-        }
-        else if(Idx == 16)
-        {
-            m_Combinor1 = IntMultMod1<int, Scale>;// A(1+B)
-        }
-        else if(Idx == 17)
-        {
-            m_Combinor1 = IntMultMod2<int, Scale>;// B(1+A)
-        }
+        m_Combinor1 = CCombinorFactory<Scale>::GetOperator(Idx);
     }
 
     void SelectCombinor2(int Idx)
     {
-        if(Idx == 0)
-        {
-            m_Combinor2  = IntAdd<int, Scale>;// +
-        }
-        else if(Idx == 1)
-        {
-            m_Combinor2 = IntHardLimitAdd<int, Scale>;// +L
-        }
-        else if(Idx == 2)
-        {
-            m_Combinor2 = IntMultFirst<int, Scale>;// *A
-        }
-        else if(Idx == 3)
-        {
-            m_Combinor2 = IntMultSecond<int, Scale>;// *B
-        }
-        else if(Idx == 4)
-        {
-            m_Combinor2 = IntMult<int, Scale>;// *
-        }
-        else if(Idx == 5)
-        {
-            m_Combinor2 = IntRingModFirst<int, Scale>;// RA
-        }
-        else if(Idx == 6)
-        {
-            m_Combinor2 = IntRingModSecond<int, Scale>;// RB
-        }
-        else if(Idx == 7)
-        {
-            m_Combinor2 = IntMultUnipolar<int, Scale>;// *U
-        }
-        else if(Idx == 8)
-        {
-            m_Combinor2 = IntHardLimitDiff<int, Scale>;// -L
-        }
-        else if(Idx == 9)
-        {
-            m_Combinor2 = IntDiffAbs<int, Scale>;// -||
-        }
-        else if(Idx == 10)
-        {
-            m_Combinor2 = IntMaxAbs<int, Scale>;// M||
-        }
-        else if(Idx == 11)
-        {
-            m_Combinor2 = IntMinAbs<int, Scale>;// m||
-        }
-        else if(Idx == 12)
-        {
-            m_Combinor2 = IntMax<int, Scale>;// M
-        }
-        else if(Idx == 13)
-        {
-            m_Combinor2 = IntMin<int, Scale>;// m
-        }
-        else if(Idx == 14)
-        {
-            m_Combinor2 = IntPosNegAdd<int, Scale>;// P + N
-        }
-        else if(Idx == 15)
-        {
-            m_Combinor2 = IntNegPosAdd<int, Scale>;// N + P
-        }
-        else if(Idx == 16)
-        {
-            m_Combinor2 = IntMultMod1<int, Scale>;// A(1+B)
-        }
-        else if(Idx == 17)
-        {
-            m_Combinor2 = IntMultMod2<int, Scale>;// B(1+A)
-        }
+        m_Combinor2 = CCombinorFactory<Scale>::GetOperator(Idx);
     }
 
     int operator()()
@@ -345,7 +113,54 @@ public:
                             m_OperatorC(m_PhaseGenC()) );
     }
 
+    static std::vector<std::string> GetOperatorNames()
+    {
+        return { "Triangle", "Sin", "Sinh", "Saw+", "Saw-", "Pulse+", "Pulse-", "Quadratic" };
+    }
+
+    static std::vector<std::string> GetCombinorNames()
+    {
+        return CCombinorFactory<Scale>::AvailableOperatorNames();
+    }
+
 private:
+    static IntOperator GetOperator(int Idx)
+    {
+        if(Idx == 0)
+        {
+            return IntTriangle<Scale>;
+        }
+        else if(Idx == 1)
+        {
+            return IntFullPseudoSin<Scale>;
+        }
+        else if(Idx == 2)
+        {
+            return IntSemiPseudoSin<Scale>;
+        }
+        else if(Idx == 3)
+        {
+            return IntSawUp<Scale>;
+        }
+        else if(Idx == 4)
+        {
+            return IntSawDown<Scale>;
+        }
+        else if(Idx == 5)
+        {
+            return IntPulsePos<Scale>;
+        }
+        else if(Idx == 6)
+        {
+            return IntPulseNeg<Scale>;
+        }
+        else if(Idx == 7)
+        {
+            return IntQuadratic<Scale>;
+        }
+        return IntNoOp<Scale>;
+    }
+
     void UpdateFrequency()
     {
         m_PhaseGenA.SetFrequency(m_SamplingFrequencyHz, m_FrequencyMilliHz*m_FrequencyMultiplierValueA >> m_FrequencyMultiplierScaleA);
