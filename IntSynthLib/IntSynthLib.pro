@@ -11,8 +11,11 @@ HEADERS += IntCombinors.h \
     IntOnePoleFilter.h \
     IntOperators.h \
     IntPhaseGenerator.h \
-    IntMultiSaw.h
-
+    IntMultiSaw.h \
+    IntoperatorFactory.h \
+    IntSimpleOscillator.h \
+    IntCombinedOperator.h \
+    IntCombinorFactory.h
 
 unix {
     target.path = /usr/lib

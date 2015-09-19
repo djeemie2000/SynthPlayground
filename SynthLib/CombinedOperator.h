@@ -47,7 +47,14 @@ public:
     // names for combinors
     static std::vector<std::string> GetCombinorNames()
     {
-        return { "+", "+L", "*A", "*B", "*", "-L", "-||", "M||", "m||", "M", "m", "P+N", "N+P", "RA", "RB", "A*(1+B)", "B*(1+A)", "*U" };
+        return { "+", "+L",
+            "*A", "*B", "*",
+            "-L", "-||",
+            "M||", "m||", "M", "m",
+            "P+N", "N+P",
+            "RA", "RB",
+            "A*(1+B)", "B*(1+A)",
+            "*U" };
     }
     // names for operators
     static std::vector<std::string> GetOperatorNames()

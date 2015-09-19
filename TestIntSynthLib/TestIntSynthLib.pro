@@ -8,7 +8,10 @@ SOURCES += main.cpp \
     TestIntOperators.cpp \
     TestIntCombinors.cpp \
     TestIntConversions.cpp \
-    TestIntMultiSaw.cpp
+    TestIntMultiSaw.cpp \
+    TestIntOperatorFactory.cpp \
+    TestIntCombinedOperator.cpp \
+    TestIntSimpleOscillator.cpp
 
 unix {
     target.path = /usr/lib

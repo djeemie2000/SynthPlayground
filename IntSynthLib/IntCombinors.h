@@ -6,11 +6,10 @@
 namespace isl
 {
 
-typedef int(*IntCombinor)(int, int);
+using std::max;
+using std::min;
 
-//typedef
-//template<class T>
-//T(*TemplatedIntCombinor)(T, T);
+typedef int(*IntCombinor)(int, int);
 
 
 template<class T, int Scale>
@@ -25,6 +24,12 @@ T IntHardLimitBipolar(T In)
         return IntMaxSigned<Scale>()-1;
     }
     return In;
+}
+
+template<class T, int Scale>
+T IntAdd(T In1, T In2)
+{
+    return In1 + In2;
 }
 
 template<class T, int Scale>
