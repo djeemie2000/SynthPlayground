@@ -29,7 +29,7 @@ T IntHardLimitBipolar(T In)
 template<class T, int Scale>
 T IntAdd(T In1, T In2)
 {
-    return In1 + In2;
+    return (In1 + In2) >> 1;
 }
 
 template<class T, int Scale>
@@ -49,7 +49,7 @@ T IntMult(T In1, T In2)
 template<class T, int Scale>
 T IntMultUnipolar(T In1, T In2)
 {
-    return IntUnipolarToBipolar<Scale>( IntBipolarToUnipolar<Scale>(In1) * IntBipolarToUnipolar<Scale>(In2) );
+    return IntUnipolarToBipolar<Scale>( IntMult<T, Scale>(IntBipolarToUnipolar<Scale>(In1), IntBipolarToUnipolar<Scale>(In2)) );
 }
 
 template<class T, int Scale>
@@ -137,14 +137,14 @@ template<class T, int Scale>
 T IntMultMod1(T In1, T In2)
 {
     // return In1*(1+In2);
-    return ( In1 * ( (1<<(Scale-1)) + In2 ) ) >> (Scale-1);
+    return ( In1 * ( (1<<(Scale-1)) + In2 ) ) >> (Scale);
 }
 
 template<class T, int Scale>
 T IntMultMod2(T In1, T In2)
 {
     //return In2*(1+In1);
-    return ( In2 * ( (1<<(Scale-1)) + In1 ) ) >> (Scale-1);
+    return ( In2 * ( (1<<(Scale-1)) + In1 ) ) >> (Scale);
 }
 
 }//namespace isl
