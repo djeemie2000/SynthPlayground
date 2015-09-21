@@ -51,7 +51,7 @@ public:
         }
         else if(Selected == 9)
         {
-            return IntDiffAbs<int, Scale>;// -||
+            return IntDiffAbs<int, Scale>;// |A|-|B|
         }
         else if(Selected == 10)
         {
@@ -85,6 +85,18 @@ public:
         {
             return IntMultMod2<int, Scale>;// B(1+A)
         }
+        else if(Selected == 18)
+        {
+            return IntMultAbs<int, Scale>;// |A|*|B|
+        }
+        else if(Selected == 19)
+        {
+            return IntMinAbsFirst<int, Scale>;// m|A|B
+        }
+        else if(Selected == 20)
+        {
+            return IntMinAbsSecond<int, Scale>;// mA|B|
+        }
         //default
         return IntAdd<int, Scale>;
     }
@@ -92,12 +104,14 @@ public:
     static std::vector<std::string> AvailableOperatorNames()
     {
         return { "+", "+L",
-            "*A", "*B", "*",
+            "A*|B|", "B*|A|", "*",
             "RA", "RB", "*U",
-            "-L", "-||",
+            "-L", "|A|-|B|",
             "M||","m||","M","m",
             "P+N", "N+P",
-            "A(1+B)", "B(1+A)" };
+            "A(1+B)", "B(1+A)",
+            "|A|*|B|",
+            "mB|A|", "mA|B|"};
     }
 };
 

@@ -53,6 +53,12 @@ T IntMultUnipolar(T In1, T In2)
 }
 
 template<class T, int Scale>
+T IntMultAbs(T In1, T In2)
+{
+    return IntUnipolarToBipolar<Scale>( IntMult<T, Scale>(abs(In1), abs(In2)) );
+}
+
+template<class T, int Scale>
 T IntMultFirst(T In1, T In2)
 {
     return ( In1 * abs(In2) ) >> (Scale-1);
@@ -117,6 +123,18 @@ template<class T, int Scale>
 T IntMin(T In1, T In2)
 {
     return min(In1, In2);
+}
+
+template<class T, int Scale>
+T IntMinAbsFirst(T In1, T In2)
+{
+    return min(abs(In1), In2);
+}
+
+template<class T, int Scale>
+T IntMinAbsSecond(T In1, T In2)
+{
+    return min(In1, abs(In2));
 }
 
 template<class T, int Scale>
