@@ -103,10 +103,10 @@ public:
 
     static std::vector<std::string> AvailableOperatorNames()
     {
-        return { "+", "+L",
+        return { "A+B", "LA+B",
             "A*|B|", "B*|A|", "*",
-            "RA", "RB", "*U",
-            "-L", "|A|-|B|",
+            "A*UB", "B*UA", "UA*UB",
+            "LA-B", "|A|-|B|",
             "M||","m||","M","m",
             "P+N", "N+P",
             "A(1+B)", "B(1+A)",
