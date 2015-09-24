@@ -27,6 +27,7 @@ SUBDIRS += \
     ../JackConnectionTool \ # an  'app' project
     ../JackMidiLoggerTool \ # an  'app' project
     ../AlsaMidiLoggerTool \ # an  'app' project
+    ../Alsa2SerialMidiTool \ # an  'app' project
     ../Serial2AlsaMidiTool \ # an  'app' project
     ../PatchConverterTool \ # an  'app' project
     ../ModularGui \         # an  'app' project
