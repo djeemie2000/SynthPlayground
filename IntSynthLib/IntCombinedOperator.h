@@ -32,6 +32,12 @@ public:
         , m_FrequencyMultiplierScaleB(8)
         , m_FrequencyMultiplierValueC(1<<8)
         , m_FrequencyMultiplierScaleC(8)
+        , m_AmplitudeValueA(1<<8)
+        , m_AmplitudeScaleA(8)
+        , m_AmplitudeValueB(1<<8)
+        , m_AmplitudeScaleB(8)
+        , m_AmplitudeValueC(1<<8)
+        , m_AmplitudeScaleC(8)
     {
         UpdateFrequency();
         SelectCombinor1(0);
@@ -82,6 +88,24 @@ public:
                                  m_FrequencyMilliHz*m_FrequencyMultiplierValueC >> m_FrequencyMultiplierScaleC);
     }
 
+    void SetAmplitudeA(int Amplitude, int AmplitudeScale)
+    {
+        m_AmplitudeValueA = Amplitude;
+        m_AmplitudeScaleA = AmplitudeScale;
+    }
+
+    void SetAmplitudeB(int Amplitude, int AmplitudeScale)
+    {
+        m_AmplitudeValueB = Amplitude;
+        m_AmplitudeScaleB = AmplitudeScale;
+    }
+
+    void SetAmplitudeC(int Amplitude, int AmplitudeScale)
+    {
+        m_AmplitudeValueC = Amplitude;
+        m_AmplitudeScaleC = AmplitudeScale;
+    }
+
     void SelectOperatorA(int Idx)
     {
         m_OperatorA = GetOperator(Idx);
@@ -109,8 +133,8 @@ public:
 
     int operator()()
     {
-        return m_Combinor2( m_Combinor1(m_OperatorA(m_PhaseGenA()), m_OperatorB(m_PhaseGenB())),
-                            m_OperatorC(m_PhaseGenC()) );
+        return m_Combinor2( m_Combinor1(m_AmplitudeValueA*m_OperatorA(m_PhaseGenA())>>m_AmplitudeScaleA, m_AmplitudeValueB*m_OperatorB(m_PhaseGenB())>>m_AmplitudeScaleB),
+                            m_AmplitudeValueC*m_OperatorC(m_PhaseGenC())>>m_AmplitudeScaleC );
     }
 
     static std::vector<std::string> GetOperatorNames()
@@ -186,6 +210,13 @@ private:
     int m_FrequencyMultiplierScaleB;
     int m_FrequencyMultiplierValueC;
     int m_FrequencyMultiplierScaleC;
+
+    int m_AmplitudeValueA;
+    int m_AmplitudeScaleA;
+    int m_AmplitudeValueB;
+    int m_AmplitudeScaleB;
+    int m_AmplitudeValueC;
+    int m_AmplitudeScaleC;
 };
 
 }//namespace isl

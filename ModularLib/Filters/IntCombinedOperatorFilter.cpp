@@ -2,14 +2,14 @@
 #include "IntConversions.h"
 
 CIntCombinedOperatorFilter::CIntCombinedOperatorFilter(int SamplingFrequency)
-    : m_Buffers({220.0f, 1.0f, 1.0f, 1.0f},{0.0f})
+    : m_Buffers({220.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f},{0.0f})
     , m_CombinedOperator(SamplingFrequency)
 {
 }
 
 std::vector<std::string> CIntCombinedOperatorFilter::GetInputNames() const
 {
-    return { "Freq", "DetuneA", "DetuneB", "DetuneC" };
+    return { "Freq", "DetuneA", "DetuneB", "DetuneC", "AmplA", "AmplB", "AmplC" };
 }
 
 std::vector<std::string> CIntCombinedOperatorFilter::GetOutputNames() const
@@ -37,11 +37,15 @@ int CIntCombinedOperatorFilter::OnProcess(const std::vector<void *> &SourceBuffe
     m_Buffers.Update(SourceBuffers, DestinationBuffers, NumFrames);
 
     const int FreqMultiplierScale = 10;//1024
+    const int AmplitudeScale = 8;
 
     const float* FreqBuffer = m_Buffers.GetSourceBuffer(0);
     const float* DetuneABuffer = m_Buffers.GetSourceBuffer(1);
     const float* DetuneBBuffer = m_Buffers.GetSourceBuffer(2);
     const float* DetuneCBuffer = m_Buffers.GetSourceBuffer(3);
+    const float* AmplitudeABuffer = m_Buffers.GetSourceBuffer(4);
+    const float* AmplitudeBBuffer = m_Buffers.GetSourceBuffer(5);
+    const float* AmplitudeCBuffer = m_Buffers.GetSourceBuffer(6);
     float* OutBuffer = m_Buffers.GetDestinationBuffer(0);
     const float* OutBufferEnd = OutBuffer + NumFrames;
     while(OutBuffer<OutBufferEnd)
@@ -50,6 +54,9 @@ int CIntCombinedOperatorFilter::OnProcess(const std::vector<void *> &SourceBuffe
         m_CombinedOperator.SetFrequencyMultiplierA((*DetuneABuffer)*(1<<FreqMultiplierScale), FreqMultiplierScale);
         m_CombinedOperator.SetFrequencyMultiplierB((*DetuneBBuffer)*(1<<FreqMultiplierScale), FreqMultiplierScale);
         m_CombinedOperator.SetFrequencyMultiplierC((*DetuneCBuffer)*(1<<FreqMultiplierScale), FreqMultiplierScale);
+        m_CombinedOperator.SetAmplitudeA((*AmplitudeABuffer)*(1<<AmplitudeScale), AmplitudeScale);
+        m_CombinedOperator.SetAmplitudeB((*AmplitudeBBuffer)*(1<<AmplitudeScale), AmplitudeScale);
+        m_CombinedOperator.SetAmplitudeC((*AmplitudeCBuffer)*(1<<AmplitudeScale), AmplitudeScale);
         *OutBuffer = isl::IntBipolarToFloatBipolar<int, float, Scale>(m_CombinedOperator());
         ++FreqBuffer;
         ++DetuneABuffer;

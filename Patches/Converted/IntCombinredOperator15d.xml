@@ -1,0 +1,49 @@
+<xml>
+    <Patch Version="2"/>
+    <Modules>
+        <Module Name="ControllerBank(8)0" Type="ControllerBank(8)"/>
+        <Module Name="IntCombinedOperator0" Type="IntCombinedOperator"/>
+        <Module Name="Mixer(4)0" Type="Mixer(4)"/>
+        <Module Name="StereoDelay0" Type="StereoDelay"/>
+    </Modules>
+    <Connections>
+        <Connection OutputPort="ControllerBank(8)0:Contr0" InputPort="IntCombinedOperator0:Freq"/>
+        <Connection OutputPort="ControllerBank(8)0:Contr1" InputPort="IntCombinedOperator0:DetuneA"/>
+        <Connection OutputPort="ControllerBank(8)0:Contr2" InputPort="IntCombinedOperator0:DetuneB"/>
+        <Connection OutputPort="ControllerBank(8)0:Contr3" InputPort="IntCombinedOperator0:DetuneC"/>
+        <Connection OutputPort="IntCombinedOperator0:Out" InputPort="Mixer(4)0:In0"/>
+        <Connection OutputPort="Mixer(4)0:Out" InputPort="Scope:In"/>
+        <Connection OutputPort="Mixer(4)0:Out" InputPort="StereoDelay0:InLeft"/>
+        <Connection OutputPort="Mixer(4)0:Out" InputPort="StereoDelay0:InRight"/>
+        <Connection OutputPort="StereoDelay0:OutLeft" InputPort="system:playback_1"/>
+        <Connection OutputPort="StereoDelay0:OutRight" InputPort="system:playback_2"/>
+    </Connections>
+    <Parameters>
+        <Parameter Name="ControllerBank(8)0/0/Value" Type="Float" Value="200"/>
+        <Parameter Name="ControllerBank(8)0/1/Value" Type="Float" Value="1.487"/>
+        <Parameter Name="ControllerBank(8)0/2/Value" Type="Float" Value="2.249"/>
+        <Parameter Name="ControllerBank(8)0/3/Value" Type="Float" Value="1"/>
+        <Parameter Name="ControllerBank(8)0/4/Value" Type="Float" Value="0"/>
+        <Parameter Name="ControllerBank(8)0/5/Value" Type="Float" Value="0"/>
+        <Parameter Name="ControllerBank(8)0/6/Value" Type="Float" Value="0"/>
+        <Parameter Name="ControllerBank(8)0/7/Value" Type="Float" Value="0"/>
+        <Parameter Name="IntCombinedOperator0/SelectCombinor" Type="Integer" Value="4"/>
+        <Parameter Name="IntCombinedOperator0/SelectCombinor2" Type="Integer" Value="4"/>
+        <Parameter Name="IntCombinedOperator0/SelectOperatorA" Type="Integer" Value="2"/>
+        <Parameter Name="IntCombinedOperator0/SelectOperatorB" Type="Integer" Value="1"/>
+        <Parameter Name="IntCombinedOperator0/SelectOperatorC" Type="Integer" Value="2"/>
+        <Parameter Name="Mixer(4)0/0/Volume" Type="Float" Value="0.75"/>
+        <Parameter Name="Mixer(4)0/1/Volume" Type="Float" Value="0.25"/>
+        <Parameter Name="Mixer(4)0/2/Volume" Type="Float" Value="0.25"/>
+        <Parameter Name="Mixer(4)0/3/Volume" Type="Float" Value="0.25"/>
+        <Parameter Name="Mixer(4)0/MasterVolume" Type="Float" Value="0.5"/>
+        <Parameter Name="StereoDelay0/Left/Bypass" Type="Boolean" Value="0"/>
+        <Parameter Name="StereoDelay0/Left/DelayMilliSeconds" Type="Float" Value="19"/>
+        <Parameter Name="StereoDelay0/Left/Feedback" Type="Float" Value="0.6"/>
+        <Parameter Name="StereoDelay0/Left/WetDry" Type="Float" Value="0.8"/>
+        <Parameter Name="StereoDelay0/Right/Bypass" Type="Boolean" Value="0"/>
+        <Parameter Name="StereoDelay0/Right/DelayMilliSeconds" Type="Float" Value="11"/>
+        <Parameter Name="StereoDelay0/Right/Feedback" Type="Float" Value="0.6"/>
+        <Parameter Name="StereoDelay0/Right/WetDry" Type="Float" Value="0.8"/>
+    </Parameters>
+</xml>
