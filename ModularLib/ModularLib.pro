@@ -133,8 +133,9 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Filters/IntSimpleOscillatorFilter.cpp \
     Modules/IntSimpleOscillatorModule.cpp \
     Filters/IntCombinedOperatorFilter.cpp \
-    Modules/IntCombinedOperatorModule.cpp
-
+    Modules/IntCombinedOperatorModule.cpp \
+    Filters/IntKarplusStrongFilter.cpp \
+    Modules/IntKarplusStrongModule.cpp
 
 HEADERS += Filters/ControllerBankFilter.h \
     Filters/PhasorFilter.h \
@@ -268,7 +269,9 @@ HEADERS += Filters/ControllerBankFilter.h \
     Filters/IntSimpleOscillatorFilter.h \
     Modules/IntSimpleOscillatorModule.h \
     Filters/IntCombinedOperatorFilter.h \
-    Modules/IntCombinedOperatorModule.h
+    Modules/IntCombinedOperatorModule.h \
+    Filters/IntKarplusStrongFilter.h \
+    Modules/IntKarplusStrongModule.h
 
 
 INCLUDEPATH += ./Filters
