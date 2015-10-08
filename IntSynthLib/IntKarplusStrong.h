@@ -45,9 +45,9 @@ public:
 
     T operator()()
     {
-        T Excite = m_ExciterLPF(m_ExciterNoise());
+        T Excite = m_ExciterLPF(m_ExciterLPF(m_ExciterNoise()));
 
-        T WriteValue = 0<m_Cntr ? Excite : m_DampLPF(m_DelayLine.Read(m_Period));
+        T WriteValue = 0<m_Cntr ? Excite : m_DampLPF(m_DampLPF(m_DelayLine.Read(m_Period)));
         m_DelayLine.Write(WriteValue);
         if(m_Cntr)
         {
