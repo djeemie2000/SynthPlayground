@@ -13,13 +13,13 @@ CIntKarplusStrongModule::CIntKarplusStrongModule(const std::string& Name, CComma
     // Open here?
     Open();
     // command stack stuff for filter
-    //m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/Poles").IntValue(1), [this](const SCmdStackItem& Item) { m_Filter->SetPoles(Item.IntValue()); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/Poles").IntValue(1), [this](const SCmdStackItem& Item) { m_Filter->SetPoles(Item.IntValue()); });
 }
 
 CIntKarplusStrongModule::~CIntKarplusStrongModule()
 {
     // remove from command stack
-    //m_CommandStackController.RemoveCommand(m_Name+"/Poles");
+    m_CommandStackController.RemoveCommand(m_Name+"/Poles");
     Close();
 }
 
@@ -47,7 +47,7 @@ void CIntKarplusStrongModule::Accept(IModuleParameterVisitor &ParameterVisitor) 
 {
     ParameterVisitor.Start();
     ParameterVisitor.StartLine();
-    ParameterVisitor.IntegerParameter(m_Name+"/Poles", "Poles", 1, 1, 24, 1);
+    ParameterVisitor.IntegerParameter(m_Name+"/Poles", "Poles", 12, 1, 12, 1);
     ParameterVisitor.FinishLine();
     ParameterVisitor.Finish();
 }
