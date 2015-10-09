@@ -3,6 +3,7 @@
 #include "IntNoise.h"
 #include "IntDelayLine.h"
 #include "IntOnePoleFilter.h"
+#include "IntDeltaSmooth.h"
 
 namespace isl
 {
@@ -25,6 +26,7 @@ public:
         , m_Operator()
         , m_CurrentOperator(0)
         , m_NumOperators(NumOperators)
+        , m_DCOffset(0)
     {
     }
 
@@ -60,7 +62,8 @@ public:
         {
             Out += m_Operator[idx](Excite);
         }
-        return Out/2;// Out/NumOperators;//??? what is a good normalisation???
+
+        return (Out-m_DCOffset(Out))/2;// Out/NumOperators;//??? what is a good normalisation???
     }
 
 
@@ -72,8 +75,6 @@ private:
             , m_Cntr(0)// not excited
             , m_DelayLine()
             , m_DampLPF()
-            , m_DCOffset(0)
-            , m_ExciteSum(0)
         {}
 
         void ExciteOperator(T Damp, int Period)
@@ -81,8 +82,6 @@ private:
             m_DampLPF.SetParameter(Damp);
             m_Period = Period;
             m_Cntr = m_Period;
-            m_ExciteSum = 0;
-            m_DCOffset = 0;
         }
 
         T operator()(T Excite)
@@ -91,24 +90,17 @@ private:
             m_DelayLine.Write(WriteValue);
             if(m_Cntr)
             {
-                m_ExciteSum += Excite;
                 --m_Cntr;
-                if(!m_Cntr)
-                {
-                    m_DCOffset = m_ExciteSum/m_Period;
-                    std::printf("DCOffset =%d \r\n", m_DCOffset);//
-                }
+//                    std::printf("DCOffset =%d \r\n", m_DCOffset);//
             }
 
-            return WriteValue - m_DCOffset;
+            return WriteValue;
         }
 
         int m_Period;
         int m_Cntr;
         CDelayLine<T, Capacity> m_DelayLine;//used as circular buffer
         CIntegerOnePoleLowPassFilter<T, LPFScale> m_DampLPF;
-        T m_DCOffset;
-        T m_ExciteSum;
     };
 
     //const T m_MinFrequency;
@@ -120,6 +112,8 @@ private:
     SOperator m_Operator[NumOperators];
     int m_CurrentOperator;
     int m_NumOperators;
+
+    CDeltaSmooth<T> m_DCOffset;
 };
 
 }

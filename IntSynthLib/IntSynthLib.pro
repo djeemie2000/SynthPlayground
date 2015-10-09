@@ -17,7 +17,8 @@ HEADERS += IntCombinors.h \
     IntCombinedOperator.h \
     IntCombinorFactory.h \
     IntDelayLine.h \
-    IntKarplusStrong.h
+    IntKarplusStrong.h \
+    IntDeltaSmooth.h
 
 unix {
     target.path = /usr/lib
