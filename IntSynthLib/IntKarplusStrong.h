@@ -47,15 +47,18 @@ public:
     {
         m_ExciterLPF.SetParameter(Excitation);
         //TODO ?
-
-        m_Operator[m_CurrentOperator].ExciteOperator(Damp, m_SamplingFrequencyHz*1000/FrequencyMilliHz);
-
-        m_CurrentOperator = (m_CurrentOperator+1)%m_NumOperators;
+	T Period = m_SamplingFrequencyHz*1000/FrequencyMilliHz;
+	if(Period<Capacity)	
+	{
+        	m_Operator[m_CurrentOperator].ExciteOperator(Damp, Period);
+	
+	        m_CurrentOperator = (m_CurrentOperator+1)%m_NumOperators;
+	}
     }
 
     T operator()()
     {
-        T Excite = m_ExciterLPF(m_ExciterLPF(m_ExciterNoise()));
+        T Excite = m_ExciterLPF(m_ExciterLPF(m_ExciterLPF(m_ExciterLPF(m_ExciterNoise()))));
 
         T Out = 0;
         for(int idx = 0; idx<NumOperators; ++idx)
@@ -63,7 +66,7 @@ public:
             Out += m_Operator[idx](Excite);
         }
 
-        return (Out-m_DCOffset(Out))/2;// Out/NumOperators;//??? what is a good normalisation???
+        return (Out-m_DCOffset(Out));///2;// Out/NumOperators;//??? what is a good normalisation???
     }
 
 
@@ -86,7 +89,7 @@ private:
 
         T operator()(T Excite)
         {
-            T WriteValue = 0<m_Cntr ? Excite : m_DampLPF(m_DampLPF(m_DelayLine.Read(m_Period)));
+            T WriteValue = 0<m_Cntr ? Excite : m_DampLPF(m_DampLPF(m_DampLPF(m_DampLPF(m_DelayLine.Read(m_Period)))));
             m_DelayLine.Write(WriteValue);
             if(m_Cntr)
             {
