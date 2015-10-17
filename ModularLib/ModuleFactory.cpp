@@ -63,6 +63,7 @@
 #include "IntCombinedOperatorModule.h"
 #include "IntKarplusStrongModule.h"
 #include "IntFeedbackDelayModule.h"
+#include "ChebishevModule.h"
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -337,6 +338,10 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CIntFeedbackDelayModule(Name, *m_CommandStackController));
     }
+    else if(Type == "Chebishev")
+    {
+        Module.reset(new CChebishevModule(Name));
+    }
 
     return Module;
 }
@@ -422,7 +427,8 @@ std::vector<string> CModuleFactory::GetSupportedTypes(const std::string &Categor
             "UnipolarLimiter",
             "BipolarLimiter",
             "SlewLimiter",
-            "WaveShaperA116"
+            "WaveShaperA116",
+            "Chebishev"
         };
     }
 

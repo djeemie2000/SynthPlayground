@@ -1,0 +1,82 @@
+<xml>
+    <Patch Version="2"/>
+    <Modules>
+        <Module Name="Amp0" Type="Amp"/>
+        <Module Name="Amp1" Type="Amp"/>
+        <Module Name="Chebishev0" Type="Chebishev"/>
+        <Module Name="ControllerBank(8)0" Type="ControllerBank(8)"/>
+        <Module Name="Detuner(3)0" Type="Detuner(3)"/>
+        <Module Name="LFOBank(8)0" Type="LFOBank(8)"/>
+        <Module Name="Mixer(4)0" Type="Mixer(4)"/>
+        <Module Name="SimpleOscillator0" Type="SimpleOscillator"/>
+        <Module Name="SimpleOscillator1" Type="SimpleOscillator"/>
+        <Module Name="SimpleOscillator2" Type="SimpleOscillator"/>
+    </Modules>
+    <Connections>
+        <Connection OutputPort="ControllerBank(8)0:Contr0" InputPort="Detuner(3)0:Freq"/>
+        <Connection OutputPort="ControllerBank(8)0:Contr1" InputPort="Chebishev0:Ampl1"/>
+        <Connection OutputPort="ControllerBank(8)0:Contr2" InputPort="Chebishev0:Ampl2"/>
+        <Connection OutputPort="ControllerBank(8)0:Contr3" InputPort="Chebishev0:Ampl3"/>
+        <Connection OutputPort="ControllerBank(8)0:Contr4" InputPort="Chebishev0:Ampl4"/>
+        <Connection OutputPort="ControllerBank(8)0:Contr5" InputPort="Chebishev0:Ampl5"/>
+        <Connection OutputPort="ControllerBank(8)0:Contr6" InputPort="Amp1:Ampl"/>
+        <Connection OutputPort="ControllerBank(8)0:Contr7" InputPort="Amp0:Ampl"/>
+        <Connection OutputPort="SimpleOscillator0:Out" InputPort="Mixer(4)0:In0"/>
+        <Connection OutputPort="Chebishev0:Out" InputPort="Scope:In"/>
+        <Connection OutputPort="Chebishev0:Out" InputPort="system:playback_1"/>
+        <Connection OutputPort="Chebishev0:Out" InputPort="system:playback_2"/>
+        <Connection OutputPort="LFOBank(8)0:LFO0" InputPort="Amp0:In"/>
+        <Connection OutputPort="LFOBank(8)0:LFO1" InputPort="Amp1:In"/>
+        <Connection OutputPort="Amp0:Out" InputPort="Chebishev0:Ampl6"/>
+        <Connection OutputPort="Amp0:Out" InputPort="Chebishev0:Ampl3"/>
+        <Connection OutputPort="Amp0:Out" InputPort="Chebishev0:Ampl5"/>
+        <Connection OutputPort="Detuner(3)0:Freq0" InputPort="SimpleOscillator0:Freq"/>
+        <Connection OutputPort="Detuner(3)0:Freq1" InputPort="SimpleOscillator1:Freq"/>
+        <Connection OutputPort="Detuner(3)0:Freq2" InputPort="SimpleOscillator2:Freq"/>
+        <Connection OutputPort="SimpleOscillator1:Out" InputPort="Mixer(4)0:In1"/>
+        <Connection OutputPort="SimpleOscillator2:Out" InputPort="Mixer(4)0:In2"/>
+        <Connection OutputPort="Mixer(4)0:Out" InputPort="Chebishev0:In"/>
+        <Connection OutputPort="Amp1:Out" InputPort="Chebishev0:Ampl2"/>
+        <Connection OutputPort="Amp1:Out" InputPort="Chebishev0:Ampl4"/>
+    </Connections>
+    <Parameters>
+        <Parameter Name="ControllerBank(8)0/0/Value" Type="Float" Value="80"/>
+        <Parameter Name="ControllerBank(8)0/1/Value" Type="Float" Value="0.4"/>
+        <Parameter Name="ControllerBank(8)0/2/Value" Type="Float" Value="0.2"/>
+        <Parameter Name="ControllerBank(8)0/3/Value" Type="Float" Value="0.1"/>
+        <Parameter Name="ControllerBank(8)0/4/Value" Type="Float" Value="0.1"/>
+        <Parameter Name="ControllerBank(8)0/5/Value" Type="Float" Value="-0.086"/>
+        <Parameter Name="ControllerBank(8)0/6/Value" Type="Float" Value="0.2"/>
+        <Parameter Name="ControllerBank(8)0/7/Value" Type="Float" Value="0.1"/>
+        <Parameter Name="Detuner(3)0/0/Detune" Type="Float" Value="0.003"/>
+        <Parameter Name="Detuner(3)0/0/OctaveShift" Type="Integer" Value="0"/>
+        <Parameter Name="Detuner(3)0/1/Detune" Type="Float" Value="-0.003"/>
+        <Parameter Name="Detuner(3)0/1/OctaveShift" Type="Integer" Value="1"/>
+        <Parameter Name="Detuner(3)0/2/Detune" Type="Float" Value="0.005"/>
+        <Parameter Name="Detuner(3)0/2/OctaveShift" Type="Integer" Value="-1"/>
+        <Parameter Name="LFOBank(8)0/0/Frequency" Type="Float" Value="1"/>
+        <Parameter Name="LFOBank(8)0/0/Select" Type="Integer" Value="2"/>
+        <Parameter Name="LFOBank(8)0/1/Frequency" Type="Float" Value="1.69"/>
+        <Parameter Name="LFOBank(8)0/1/Select" Type="Integer" Value="2"/>
+        <Parameter Name="LFOBank(8)0/2/Frequency" Type="Float" Value="1"/>
+        <Parameter Name="LFOBank(8)0/2/Select" Type="Integer" Value="2"/>
+        <Parameter Name="LFOBank(8)0/3/Frequency" Type="Float" Value="1"/>
+        <Parameter Name="LFOBank(8)0/3/Select" Type="Integer" Value="2"/>
+        <Parameter Name="LFOBank(8)0/4/Frequency" Type="Float" Value="1"/>
+        <Parameter Name="LFOBank(8)0/4/Select" Type="Integer" Value="2"/>
+        <Parameter Name="LFOBank(8)0/5/Frequency" Type="Float" Value="1"/>
+        <Parameter Name="LFOBank(8)0/5/Select" Type="Integer" Value="2"/>
+        <Parameter Name="LFOBank(8)0/6/Frequency" Type="Float" Value="1"/>
+        <Parameter Name="LFOBank(8)0/6/Select" Type="Integer" Value="2"/>
+        <Parameter Name="LFOBank(8)0/7/Frequency" Type="Float" Value="1"/>
+        <Parameter Name="LFOBank(8)0/7/Select" Type="Integer" Value="2"/>
+        <Parameter Name="Mixer(4)0/0/Volume" Type="Float" Value="0.33"/>
+        <Parameter Name="Mixer(4)0/1/Volume" Type="Float" Value="0.33"/>
+        <Parameter Name="Mixer(4)0/2/Volume" Type="Float" Value="0.33"/>
+        <Parameter Name="Mixer(4)0/3/Volume" Type="Float" Value="0.25"/>
+        <Parameter Name="Mixer(4)0/MasterVolume" Type="Float" Value="0.5"/>
+        <Parameter Name="SimpleOscillator0/Select" Type="Integer" Value="4"/>
+        <Parameter Name="SimpleOscillator1/Select" Type="Integer" Value="4"/>
+        <Parameter Name="SimpleOscillator2/Select" Type="Integer" Value="4"/>
+    </Parameters>
+</xml>

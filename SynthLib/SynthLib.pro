@@ -125,7 +125,8 @@ HEADERS += Notes.h \
     IntOnePoleFilter.h \
     IntPhaseGenerator.h \
     WaveShaperA116.h \
-    IntCombinors.h
+    IntCombinors.h \
+    Chebishev.h
 
 INCLUDEPATH += ./../MidiLib
 

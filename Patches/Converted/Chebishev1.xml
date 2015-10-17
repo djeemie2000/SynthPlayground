@@ -1,0 +1,32 @@
+<xml>
+    <Patch Version="2"/>
+    <Modules>
+        <Module Name="Chebishev0" Type="Chebishev"/>
+        <Module Name="ControllerBank(8)0" Type="ControllerBank(8)"/>
+        <Module Name="SimpleOscillator0" Type="SimpleOscillator"/>
+    </Modules>
+    <Connections>
+        <Connection OutputPort="ControllerBank(8)0:Contr0" InputPort="SimpleOscillator0:Freq"/>
+        <Connection OutputPort="ControllerBank(8)0:Contr1" InputPort="Chebishev0:Ampl1"/>
+        <Connection OutputPort="ControllerBank(8)0:Contr2" InputPort="Chebishev0:Ampl2"/>
+        <Connection OutputPort="ControllerBank(8)0:Contr3" InputPort="Chebishev0:Ampl3"/>
+        <Connection OutputPort="ControllerBank(8)0:Contr4" InputPort="Chebishev0:Ampl4"/>
+        <Connection OutputPort="ControllerBank(8)0:Contr5" InputPort="Chebishev0:Ampl5"/>
+        <Connection OutputPort="ControllerBank(8)0:Contr6" InputPort="Chebishev0:Ampl6"/>
+        <Connection OutputPort="SimpleOscillator0:Out" InputPort="Chebishev0:In"/>
+        <Connection OutputPort="Chebishev0:Out" InputPort="Scope:In"/>
+        <Connection OutputPort="Chebishev0:Out" InputPort="system:playback_1"/>
+        <Connection OutputPort="Chebishev0:Out" InputPort="system:playback_2"/>
+    </Connections>
+    <Parameters>
+        <Parameter Name="ControllerBank(8)0/0/Value" Type="Float" Value="110"/>
+        <Parameter Name="ControllerBank(8)0/1/Value" Type="Float" Value="0"/>
+        <Parameter Name="ControllerBank(8)0/2/Value" Type="Float" Value="0"/>
+        <Parameter Name="ControllerBank(8)0/3/Value" Type="Float" Value="0"/>
+        <Parameter Name="ControllerBank(8)0/4/Value" Type="Float" Value="0"/>
+        <Parameter Name="ControllerBank(8)0/5/Value" Type="Float" Value="0"/>
+        <Parameter Name="ControllerBank(8)0/6/Value" Type="Float" Value="0"/>
+        <Parameter Name="ControllerBank(8)0/7/Value" Type="Float" Value="0"/>
+        <Parameter Name="SimpleOscillator0/Select" Type="Integer" Value="0"/>
+    </Parameters>
+</xml>

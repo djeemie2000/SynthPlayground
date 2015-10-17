@@ -137,7 +137,9 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Filters/IntKarplusStrongFilter.cpp \
     Modules/IntKarplusStrongModule.cpp \
     Filters/IntFeedbackDelayFilter.cpp \
-    Modules/IntFeedbackDelayModule.cpp
+    Modules/IntFeedbackDelayModule.cpp \
+    Filters/ChebishevFilter.cpp \
+    Modules/ChebishevModule.cpp
 
 HEADERS += Filters/ControllerBankFilter.h \
     Filters/PhasorFilter.h \
@@ -275,7 +277,9 @@ HEADERS += Filters/ControllerBankFilter.h \
     Filters/IntKarplusStrongFilter.h \
     Modules/IntKarplusStrongModule.h \
     Filters/IntFeedbackDelayFilter.h \
-    Modules/IntFeedbackDelayModule.h
+    Modules/IntFeedbackDelayModule.h \
+    Filters/ChebishevFilter.h \
+    Modules/ChebishevModule.h
 
 INCLUDEPATH += ./Filters
 INCLUDEPATH += ./Modules
