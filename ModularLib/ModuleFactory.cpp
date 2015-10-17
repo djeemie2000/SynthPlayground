@@ -62,6 +62,7 @@
 #include "IntSimpleOscillatorModule.h"
 #include "IntCombinedOperatorModule.h"
 #include "IntKarplusStrongModule.h"
+#include "IntFeedbackDelayModule.h"
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -332,6 +333,10 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CIntKarplusStrongModule(Name, *m_CommandStackController));
     }
+    else if(Type == "IntFeedbackDelay")
+    {
+        Module.reset(new CIntFeedbackDelayModule(Name, *m_CommandStackController));
+    }
 
     return Module;
 }
@@ -447,7 +452,8 @@ std::vector<string> CModuleFactory::GetSupportedTypes(const std::string &Categor
             "Glitch",
             "EnvelopeFollower",
             "DelayLine",
-            "Granular"
+            "Granular",
+            "IntFeedbackDelay"
         };
     }
 

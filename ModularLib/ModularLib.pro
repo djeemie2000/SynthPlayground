@@ -135,7 +135,9 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Filters/IntCombinedOperatorFilter.cpp \
     Modules/IntCombinedOperatorModule.cpp \
     Filters/IntKarplusStrongFilter.cpp \
-    Modules/IntKarplusStrongModule.cpp
+    Modules/IntKarplusStrongModule.cpp \
+    Filters/IntFeedbackDelayFilter.cpp \
+    Modules/IntFeedbackDelayModule.cpp
 
 HEADERS += Filters/ControllerBankFilter.h \
     Filters/PhasorFilter.h \
@@ -271,8 +273,9 @@ HEADERS += Filters/ControllerBankFilter.h \
     Filters/IntCombinedOperatorFilter.h \
     Modules/IntCombinedOperatorModule.h \
     Filters/IntKarplusStrongFilter.h \
-    Modules/IntKarplusStrongModule.h
-
+    Modules/IntKarplusStrongModule.h \
+    Filters/IntFeedbackDelayFilter.h \
+    Modules/IntFeedbackDelayModule.h
 
 INCLUDEPATH += ./Filters
 INCLUDEPATH += ./Modules
