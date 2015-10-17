@@ -79,7 +79,7 @@ private:
     CNoise<T> m_Noise;
     CDelayLine2<T> m_DelayLine;//used as circular buffer
     CTriggerIn<T> m_Trigger;
-    CMultiStageFilter<float, COnePoleLowPassFilter<float>, 24> m_LPF;
+    CMultiStageFilter<T, COnePoleLowPassFilter<T>, 24> m_LPF;
 };
 
 #endif // KARPLUSSTRONG
