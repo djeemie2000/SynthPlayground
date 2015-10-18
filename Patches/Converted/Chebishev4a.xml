@@ -1,0 +1,69 @@
+<xml>
+    <Patch Version="2"/>
+    <Modules>
+        <Module Name="1V/Oct0" Type="1V/Oct"/>
+        <Module Name="Chebishev0" Type="Chebishev"/>
+        <Module Name="ControllerBank(8)0" Type="ControllerBank(8)"/>
+        <Module Name="ControllerBank(8)1" Type="ControllerBank(8)"/>
+        <Module Name="IntKarplusStrong0" Type="IntKarplusStrong"/>
+        <Module Name="Mixer(4)0" Type="Mixer(4)"/>
+        <Module Name="Operator0" Type="Operator"/>
+        <Module Name="Operator1" Type="Operator"/>
+        <Module Name="PeriodicTrigger0" Type="PeriodicTrigger"/>
+        <Module Name="PhaseShifter0" Type="PhaseShifter"/>
+        <Module Name="Phasor0" Type="Phasor"/>
+        <Module Name="RingSequencer0" Type="RingSequencer"/>
+    </Modules>
+    <Connections>
+        <Connection OutputPort="PeriodicTrigger0:Trigger" InputPort="RingSequencer0:Trigger"/>
+        <Connection OutputPort="ControllerBank(8)0:Contr3" InputPort="RingSequencer0:Step"/>
+        <Connection OutputPort="ControllerBank(8)0:Contr4" InputPort="1V/Oct0:CV"/>
+        <Connection OutputPort="ControllerBank(8)0:Contr5" InputPort="PhaseShifter0:Shift"/>
+        <Connection OutputPort="1V/Oct0:Freq" InputPort="Phasor0:Freq"/>
+        <Connection OutputPort="RingSequencer0:CV" InputPort="1V/Oct0:CV"/>
+        <Connection OutputPort="Chebishev0:Out" InputPort="Scope:In"/>
+        <Connection OutputPort="Chebishev0:Out" InputPort="system:playback_1"/>
+        <Connection OutputPort="Chebishev0:Out" InputPort="system:playback_2"/>
+        <Connection OutputPort="ControllerBank(8)1:Contr1" InputPort="Chebishev0:Ampl1"/>
+        <Connection OutputPort="ControllerBank(8)1:Contr2" InputPort="Chebishev0:Ampl2"/>
+        <Connection OutputPort="ControllerBank(8)1:Contr3" InputPort="Chebishev0:Ampl3"/>
+        <Connection OutputPort="ControllerBank(8)1:Contr4" InputPort="Chebishev0:Ampl4"/>
+        <Connection OutputPort="ControllerBank(8)1:Contr5" InputPort="Chebishev0:Ampl5"/>
+        <Connection OutputPort="ControllerBank(8)1:Contr6" InputPort="Chebishev0:Ampl6"/>
+        <Connection OutputPort="Phasor0:Phase" InputPort="Operator0:Phase"/>
+        <Connection OutputPort="Phasor0:Phase" InputPort="PhaseShifter0:Phase"/>
+        <Connection OutputPort="Operator0:Out" InputPort="Mixer(4)0:In0"/>
+        <Connection OutputPort="Operator1:Out" InputPort="Mixer(4)0:In1"/>
+        <Connection OutputPort="PhaseShifter0:Out" InputPort="Operator1:Phase"/>
+        <Connection OutputPort="Mixer(4)0:Out" InputPort="Chebishev0:In"/>
+    </Connections>
+    <Parameters>
+        <Parameter Name="ControllerBank(8)0/0/Value" Type="Float" Value="110"/>
+        <Parameter Name="ControllerBank(8)0/1/Value" Type="Float" Value="0.4"/>
+        <Parameter Name="ControllerBank(8)0/2/Value" Type="Float" Value="0.6"/>
+        <Parameter Name="ControllerBank(8)0/3/Value" Type="Float" Value="0.1"/>
+        <Parameter Name="ControllerBank(8)0/4/Value" Type="Float" Value="0"/>
+        <Parameter Name="ControllerBank(8)0/5/Value" Type="Float" Value="-0.09"/>
+        <Parameter Name="ControllerBank(8)0/6/Value" Type="Float" Value="0"/>
+        <Parameter Name="ControllerBank(8)0/7/Value" Type="Float" Value="0"/>
+        <Parameter Name="ControllerBank(8)1/0/Value" Type="Float" Value="0"/>
+        <Parameter Name="ControllerBank(8)1/1/Value" Type="Float" Value="0.1"/>
+        <Parameter Name="ControllerBank(8)1/2/Value" Type="Float" Value="0.2"/>
+        <Parameter Name="ControllerBank(8)1/3/Value" Type="Float" Value="-0.229"/>
+        <Parameter Name="ControllerBank(8)1/4/Value" Type="Float" Value="0.172"/>
+        <Parameter Name="ControllerBank(8)1/5/Value" Type="Float" Value="0.101"/>
+        <Parameter Name="ControllerBank(8)1/6/Value" Type="Float" Value="-0.1"/>
+        <Parameter Name="ControllerBank(8)1/7/Value" Type="Float" Value="0"/>
+        <Parameter Name="IntKarplusStrong0/Poles" Type="Integer" Value="12"/>
+        <Parameter Name="Mixer(4)0/0/Volume" Type="Float" Value="1"/>
+        <Parameter Name="Mixer(4)0/1/Volume" Type="Float" Value="1"/>
+        <Parameter Name="Mixer(4)0/2/Volume" Type="Float" Value="0.25"/>
+        <Parameter Name="Mixer(4)0/3/Volume" Type="Float" Value="0.25"/>
+        <Parameter Name="Mixer(4)0/MasterVolume" Type="Float" Value="0.35"/>
+        <Parameter Name="Operator0/Select" Type="Integer" Value="3"/>
+        <Parameter Name="Operator1/Select" Type="Integer" Value="4"/>
+        <Parameter Name="PeriodicTrigger0/BeatsPerBar" Type="Integer" Value="2"/>
+        <Parameter Name="PeriodicTrigger0/BeatsPerMinute" Type="Integer" Value="30"/>
+        <Parameter Name="PeriodicTrigger0/Duration" Type="Integer" Value="100"/>
+    </Parameters>
+</xml>
