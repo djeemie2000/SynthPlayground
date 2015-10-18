@@ -4,6 +4,7 @@
 
 CLFOBankFilter::CLFOBankFilter(int Size, int SamplingFrequency)
  : m_LFO(Size, {static_cast<float>(SamplingFrequency), CSelectableOperatorFactory::Create()})
+ , m_Amplitude(Size, 1.0f)
 {
 }
 
@@ -47,7 +48,7 @@ int CLFOBankFilter::OnProcess(const std::vector<void *> &/*SourceBuffers*/,
             const float* DstBufferEnd = DstBuffer + NumFrames;
             while(DstBuffer<DstBufferEnd)
             {
-                *DstBuffer = m_LFO[idx]();
+                *DstBuffer = m_Amplitude[idx]*m_LFO[idx]();
                 ++DstBuffer;
             }
         }
@@ -64,4 +65,9 @@ void CLFOBankFilter::SetFrequency(int Index, float Frequency)
 void CLFOBankFilter::Select(int Index, int Selection)
 {
     m_LFO[Index].SelectWaveform(Selection);
+}
+
+void CLFOBankFilter::SetAmplitude(int Index, float Amplitude)
+{
+    m_Amplitude[Index] = Amplitude;
 }
