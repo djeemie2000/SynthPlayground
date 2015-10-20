@@ -26,10 +26,12 @@ public:
     void SetFrequency(int Index, float Frequency);
     void Select(int Index, int Selection);
     void SetAmplitude(int Index, float Amplitude);
+    void SetOffset(int Index, float Offset);
 
 private:
     std::vector<CLFO<float>> m_LFO;
     std::vector<float> m_Amplitude;
+    std::vector<float> m_Offset;
 };
 
 #endif // LFOBANKFILTER_H

@@ -20,6 +20,7 @@ CLFOBankModule::CLFOBankModule(const std::string& Name, int Size, CCommandStackC
         m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/"+std::to_string(idx)+"/Select").IntValue(0), [idx,this](const SCmdStackItem& Item) { m_Filter->Select(idx, Item.s_IntValue); });
         m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/"+std::to_string(idx)+"/Frequency").FloatValue(1.0f), [idx,this](const SCmdStackItem& Item) { m_Filter->SetFrequency(idx, Item.s_FloatValue); });
         m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/"+std::to_string(idx)+"/Amplitude").FloatValue(1.0f), [idx,this](const SCmdStackItem& Item) { m_Filter->SetAmplitude(idx, Item.s_FloatValue); });
+        m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/"+std::to_string(idx)+"/Offset").FloatValue(1.0f), [idx,this](const SCmdStackItem& Item) { m_Filter->SetOffset(idx, Item.s_FloatValue); });
     }
 }
 
@@ -31,6 +32,7 @@ CLFOBankModule::~CLFOBankModule()
         m_CommandStackController.RemoveCommand(m_Name+"/"+std::to_string(idx)+"/Select");
         m_CommandStackController.RemoveCommand(m_Name+"/"+std::to_string(idx)+"/Frequency");
         m_CommandStackController.RemoveCommand(m_Name+"/"+std::to_string(idx)+"/Amplitude");
+        m_CommandStackController.RemoveCommand(m_Name+"/"+std::to_string(idx)+"/Offset");
     }
     Close();
 }
@@ -64,6 +66,7 @@ void CLFOBankModule::Accept(IModuleParameterVisitor &ParameterVisitor) const
         ParameterVisitor.FloatParameter(m_Name+"/"+std::to_string(idx)+"/Frequency", "Frequency"+std::to_string(idx), 1.0f, 0.01f, 100000.0f, 0.01f, 4);
         ParameterVisitor.SelectionParameter(m_Name+"/"+std::to_string(idx)+"/Select", "Waveform"+std::to_string(idx), 0, CSelectableOperatorFactory::SelectionList());
         ParameterVisitor.FloatParameter(m_Name+"/"+std::to_string(idx)+"/Amplitude", "Amplitude"+std::to_string(idx), 1.0f, 0.0f, 1.0f, 0.01f, 3);
+        ParameterVisitor.FloatParameter(m_Name+"/"+std::to_string(idx)+"/Offset", "Offset"+std::to_string(idx), 0.0f, -1.0f, 1.0f, 0.01f, 3);
         ParameterVisitor.FinishLine();
     }
     ParameterVisitor.Finish();
