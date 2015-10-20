@@ -64,6 +64,7 @@
 #include "IntKarplusStrongModule.h"
 #include "IntFeedbackDelayModule.h"
 #include "ChebishevModule.h"
+#include "PhaseSkewer2DModule.h"
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -342,6 +343,10 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CChebishevModule(Name));
     }
+    else if(Type == "PhaseSkewer2D")
+    {
+        Module.reset(new CPhaseSkewer2DModule(Name));
+    }
 
     return Module;
 }
@@ -415,6 +420,7 @@ std::vector<string> CModuleFactory::GetSupportedTypes(const std::string &Categor
             "LPF",
             "HPF",
             "PhaseSkewer",
+            "PhaseSkewer2D",
             "PhaseShifter",
             "Combinor",
             "WaveFolder",

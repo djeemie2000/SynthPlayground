@@ -139,7 +139,9 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Filters/IntFeedbackDelayFilter.cpp \
     Modules/IntFeedbackDelayModule.cpp \
     Filters/ChebishevFilter.cpp \
-    Modules/ChebishevModule.cpp
+    Modules/ChebishevModule.cpp \
+    Filters/SkewerFilter2D.cpp \
+    Modules/PhaseSkewer2DModule.cpp
 
 HEADERS += Filters/ControllerBankFilter.h \
     Filters/PhasorFilter.h \
@@ -279,7 +281,9 @@ HEADERS += Filters/ControllerBankFilter.h \
     Filters/IntFeedbackDelayFilter.h \
     Modules/IntFeedbackDelayModule.h \
     Filters/ChebishevFilter.h \
-    Modules/ChebishevModule.h
+    Modules/ChebishevModule.h \
+    Filters/SkewerFilter2D.h \
+    Modules/PhaseSkewer2DModule.h
 
 INCLUDEPATH += ./Filters
 INCLUDEPATH += ./Modules
