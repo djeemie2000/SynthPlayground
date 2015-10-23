@@ -65,6 +65,7 @@
 #include "IntFeedbackDelayModule.h"
 #include "ChebishevModule.h"
 #include "PhaseSkewer2DModule.h"
+#include "IntSkewer2DModule.h"
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -347,6 +348,10 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CPhaseSkewer2DModule(Name));
     }
+    else if(Type == "IntSkewer2D")
+    {
+        Module.reset(new CIntSkewer2DModule(Name));
+    }
 
     return Module;
 }
@@ -434,7 +439,8 @@ std::vector<string> CModuleFactory::GetSupportedTypes(const std::string &Categor
             "BipolarLimiter",
             "SlewLimiter",
             "WaveShaperA116",
-            "Chebishev"
+            "Chebishev",
+            "IntSkewer2D"
         };
     }
 

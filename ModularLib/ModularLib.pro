@@ -141,7 +141,9 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Filters/ChebishevFilter.cpp \
     Modules/ChebishevModule.cpp \
     Filters/SkewerFilter2D.cpp \
-    Modules/PhaseSkewer2DModule.cpp
+    Modules/PhaseSkewer2DModule.cpp \
+    Filters/IntSkewer2DFilter.cpp \
+    Modules/IntSkewer2DModule.cpp
 
 HEADERS += Filters/ControllerBankFilter.h \
     Filters/PhasorFilter.h \
@@ -283,7 +285,9 @@ HEADERS += Filters/ControllerBankFilter.h \
     Filters/ChebishevFilter.h \
     Modules/ChebishevModule.h \
     Filters/SkewerFilter2D.h \
-    Modules/PhaseSkewer2DModule.h
+    Modules/PhaseSkewer2DModule.h \
+    Filters/IntSkewer2DFilter.h \
+    Modules/IntSkewer2DModule.h
 
 INCLUDEPATH += ./Filters
 INCLUDEPATH += ./Modules
