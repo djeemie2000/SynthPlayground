@@ -20,7 +20,8 @@ HEADERS += IntCombinors.h \
     IntKarplusStrong.h \
     IntDeltaSmooth.h \
     IntFeedbackDelay.h \
-    IntSkewer2D.h
+    IntSkewer2D.h \
+    IntScaledValue.h
 
 unix {
     target.path = /usr/lib

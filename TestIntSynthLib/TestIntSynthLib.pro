@@ -11,7 +11,8 @@ SOURCES += main.cpp \
     TestIntMultiSaw.cpp \
     TestIntOperatorFactory.cpp \
     TestIntCombinedOperator.cpp \
-    TestIntSimpleOscillator.cpp
+    TestIntSimpleOscillator.cpp \
+    TestIntScaledValue.cpp
 
 unix {
     target.path = /usr/lib
