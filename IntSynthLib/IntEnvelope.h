@@ -74,4 +74,55 @@ private:
   T   m_ReleaseSlope;
 };
 
+/*
+ * attack-only envelope.
+ * when maximum is reached, holds indefinitely until next note on is triggered
+ */
+template<class T, int Scale>
+class CAEnvelope
+{
+public:
+  CAEnvelope()
+   : m_Value(MaxValue)
+   , m_AttackSlope(MaxValue)
+  {}
+
+  void SetAttack(T Attack)
+  {
+      // Attack == 0 => immediate
+      // Attack == Max => infinitely slow (i.e. zero output always)
+      m_AttackSlope = MaxValue-Attack;
+  }
+
+  void NoteOn()
+  {
+    m_Value = 0;
+  }
+
+  void NoteOff()
+  {
+    //ignored
+  }
+
+  T operator()(T In)
+  {
+    T Value = m_Value;
+    if(m_Value<MaxValue)
+    {
+        m_Value += m_AttackSlope;
+        if(MaxValue<m_Value)
+        {
+            m_Value = MaxValue;
+        }
+    }
+    return (Value*In)>>Scale;
+  }
+
+private:
+  static const int MaxValue = 1<<Scale;
+
+  T   m_Value;
+  T   m_AttackSlope;
+};
+
 }

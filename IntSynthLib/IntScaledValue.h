@@ -11,9 +11,14 @@ public:
         : m_Value(Value)
     {}
 
-    void Set(T Value)//TODO assignment operator from T
+    void SetValue(T Value)// sets (internal) value (regardless of scale)
     {
         m_Value = Value;
+    }
+
+    void ChangeValue(T Change)// changes (internal) value (regardless of scale)
+    {
+        m_Value += Change;
     }
 
     operator T() const
