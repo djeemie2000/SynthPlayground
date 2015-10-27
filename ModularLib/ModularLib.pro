@@ -143,7 +143,9 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Filters/SkewerFilter2D.cpp \
     Modules/PhaseSkewer2DModule.cpp \
     Filters/IntSkewer2DFilter.cpp \
-    Modules/IntSkewer2DModule.cpp
+    Modules/IntSkewer2DModule.cpp \
+    Filters/IntCombFilterFilter.cpp \
+    Modules/IntCombFilterModule.cpp
 
 HEADERS += Filters/ControllerBankFilter.h \
     Filters/PhasorFilter.h \
@@ -287,7 +289,9 @@ HEADERS += Filters/ControllerBankFilter.h \
     Filters/SkewerFilter2D.h \
     Modules/PhaseSkewer2DModule.h \
     Filters/IntSkewer2DFilter.h \
-    Modules/IntSkewer2DModule.h
+    Modules/IntSkewer2DModule.h \
+    Filters/IntCombFilterFilter.h \
+    Modules/IntCombFilterModule.h
 
 INCLUDEPATH += ./Filters
 INCLUDEPATH += ./Modules
