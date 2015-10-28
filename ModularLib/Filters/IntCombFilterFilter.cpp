@@ -5,13 +5,14 @@
 CIntCombFilterFilter::CIntCombFilterFilter(int SamplingFrequency)
     : m_SamplingFrequency(SamplingFrequency)
     , m_CombFilter()
-    , m_Buffers({0.0f, 0.0f, 220.0f, 0.0f}, {0.0f})
+    , m_Buffers({0.0f, 1.0f, 110.0f, 0.0f}, {0.0f})
 {
+    m_CombFilter.SetWetDry(1<<1, 1);
 }
 
 std::vector<std::string> CIntCombFilterFilter::GetInputNames() const
 {
-    return {"In", "DryWet", "Freq", "Feedback"};
+    return {"In", "Ampl", "Freq", "Feedback"};
 }
 
 std::vector<std::string> CIntCombFilterFilter::GetOutputNames() const
@@ -39,20 +40,19 @@ int CIntCombFilterFilter::OnProcess(const std::vector<void *> &SourceBuffers,
     m_Buffers.Update(SourceBuffers, DestinationBuffers, NumFrames);
 
     const float* InBuffer = m_Buffers.GetSourceBuffer(0);
-    const float* DryWetBuffer = m_Buffers.GetSourceBuffer(1);
+    const float* AmplBuffer = m_Buffers.GetSourceBuffer(1);
     const float* FreqBuffer = m_Buffers.GetSourceBuffer(2);
     const float* FeedbackBuffer = m_Buffers.GetSourceBuffer(3);
     float* OutBuffer = m_Buffers.GetDestinationBuffer(0);
     const float* OutBufferEnd = OutBuffer + NumFrames;
     while(OutBuffer<OutBufferEnd)
     {
-        m_CombFilter.SetWetDry((*DryWetBuffer)*(1<<8), 8);
         m_CombFilter.SetDelay(isl::CalcPeriodSamples<int>(m_SamplingFrequency, (*FreqBuffer)*1000));
         m_CombFilter.SetFeedback((*FeedbackBuffer)*(1<<8), 8);
-        int In = isl::FloatBipolarToIntBipolar<int, float, Scale>(*InBuffer);
+        int In = isl::FloatBipolarToIntBipolar<int, float, Scale>((*InBuffer)*(*AmplBuffer));
         *OutBuffer = isl::IntBipolarToFloatBipolar<int, float, Scale>(m_CombFilter(In));
         ++InBuffer;
-        ++DryWetBuffer;
+        ++AmplBuffer;
         ++FreqBuffer;
         ++OutBuffer;
     }
