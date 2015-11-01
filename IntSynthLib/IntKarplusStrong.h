@@ -4,6 +4,7 @@
 #include "IntDelayLine.h"
 #include "IntOnePoleFilter.h"
 #include "IntDeltaSmooth.h"
+#include "IntEnvelope.h"
 
 namespace isl
 {
@@ -17,6 +18,7 @@ class CKarplusStrong
 {
 public:
     static const int LPFScale = 12;//???
+    static const int EnvelopeScale = 16;//???
 
     CKarplusStrong()
         //: m_MinFrequency(MinFrequency)
@@ -26,7 +28,6 @@ public:
         , m_Operator()
         , m_CurrentOperator(0)
         , m_NumOperators(NumOperators)
-        , m_DCOffset(0)
     {
     }
 
@@ -43,17 +44,16 @@ public:
         }
     }
 
-    void Excite(T Excitation, T FrequencyMilliHz, T Damp)
+    void Excite(T Excitation, T FrequencyMilliHz, T Damp, T Attack)
     {
         m_ExciterLPF.SetParameter(Excitation);
-        //TODO ?
-	T Period = m_SamplingFrequencyHz*1000/FrequencyMilliHz;
-	if(Period<Capacity)	
-	{
-        	m_Operator[m_CurrentOperator].ExciteOperator(Damp, Period);
-	
-	        m_CurrentOperator = (m_CurrentOperator+1)%m_NumOperators;
-	}
+        T Period = m_SamplingFrequencyHz*1000/FrequencyMilliHz;
+        if(Period<Capacity)
+        {
+            m_Operator[m_CurrentOperator].ExciteOperator(Damp, Period, Attack);
+
+            m_CurrentOperator = (m_CurrentOperator+1)%m_NumOperators;
+        }
     }
 
     T operator()()
@@ -66,7 +66,7 @@ public:
             Out += m_Operator[idx](Excite);
         }
 
-        return (Out-m_DCOffset(Out));///2;// Out/NumOperators;//??? what is a good normalisation???
+        return Out;//(Out-m_DCOffset(Out));//what is a good normalisation?
     }
 
 
@@ -78,11 +78,16 @@ private:
             , m_Cntr(0)// not excited
             , m_DelayLine()
             , m_DampLPF()
+            , m_DCOffset(0)
+            , m_Envelope()
         {}
 
-        void ExciteOperator(T Damp, int Period)
+        void ExciteOperator(T Damp, int Period, T Attack)
         {
             m_DampLPF.SetParameter(Damp);
+            m_DCOffset.Reset(0);
+            m_Envelope.NoteOn();
+            m_Envelope.SetAttack(Attack);
             m_Period = Period;
             m_Cntr = m_Period;
         }
@@ -94,16 +99,17 @@ private:
             if(m_Cntr)
             {
                 --m_Cntr;
-//                    std::printf("DCOffset =%d \r\n", m_DCOffset);//
             }
 
-            return WriteValue;
+            return m_Envelope(WriteValue-m_DCOffset(WriteValue));//m_Envelope(WriteValue);
         }
 
         int m_Period;
         int m_Cntr;
         CDelayLine<T, Capacity> m_DelayLine;//used as circular buffer
         CIntegerOnePoleLowPassFilter<T, LPFScale> m_DampLPF;
+        CDeltaSmooth<T, 1> m_DCOffset;
+        CAEnvelope<T, EnvelopeScale> m_Envelope;
     };
 
     //const T m_MinFrequency;
@@ -114,9 +120,7 @@ private:
 
     SOperator m_Operator[NumOperators];
     int m_CurrentOperator;
-    int m_NumOperators;
-
-    CDeltaSmooth<T> m_DCOffset;
+    int m_NumOperators;    
 };
 
 }
