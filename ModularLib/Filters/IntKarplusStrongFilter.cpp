@@ -2,10 +2,11 @@
 #include "IntConversions.h"
 #include "Trigger.h"
 
-CIntKarplusStrongFilter::CIntKarplusStrongFilter(int /*SamplingFrequency*/)
+CIntKarplusStrongFilter::CIntKarplusStrongFilter(int SamplingFrequency)
  : m_KarplusStrong()
  , m_Buffers({0.0f, 110.0f, 0.9f, 0.9f, 0.0f},{0.0f})
 {
+    m_KarplusStrong.SetSamplingFrequency(SamplingFrequency);
 }
 
 std::vector<std::string> CIntKarplusStrongFilter::GetInputNames() const
@@ -39,7 +40,6 @@ int CIntKarplusStrongFilter::OnProcess(const std::vector<void *> &SourceBuffers,
 
     CTriggerIn<float> TriggerIn;
     const int LPFMultiplier = (1<<isl::CKarplusStrong<int, Scale, Capacity, NumOperators>::LPFScale);
-    const int AttackMultiplier = (1<<isl::CKarplusStrong<int, Scale, Capacity, NumOperators>::EnvelopeScale);
 
     const float* TriggerBuffer = m_Buffers.GetSourceBuffer(0);
     const float* FreqBuffer = m_Buffers.GetSourceBuffer(1);
@@ -52,10 +52,11 @@ int CIntKarplusStrongFilter::OnProcess(const std::vector<void *> &SourceBuffers,
     {
         if(TriggerIn.IsTriggerOn(*TriggerBuffer))
         {
+            int AttackMilliSeconds = (*AttackBuffer)*1000;
             m_KarplusStrong.Excite((*ExcitationBuffer)*LPFMultiplier,
                                    (*FreqBuffer)*1000,
                                    (*DampBuffer)*LPFMultiplier,
-                                   (0.99f+0.01f*(*AttackBuffer))*AttackMultiplier);
+                                   AttackMilliSeconds);
         }
         *OutBuffer = isl::IntBipolarToFloatBipolar<int, float, Scale>(m_KarplusStrong());
 

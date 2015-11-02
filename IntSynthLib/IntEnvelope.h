@@ -82,16 +82,30 @@ template<class T, int Scale>
 class CAEnvelope
 {
 public:
+
   CAEnvelope()
    : m_Value(MaxValue)
    , m_AttackSlope(MaxValue)
   {}
 
-  void SetAttack(T Attack)
+  void SetSlope( T Slope)
   {
-      // Attack == 0 => immediate
-      // Attack == Max => infinitely slow (i.e. zero output always)
-      m_AttackSlope = MaxValue-Attack;
+      if(0<Slope && Slope<MaxValue)
+      {
+          m_AttackSlope = Slope;
+      }
+  }
+
+  T CalcSlopeUpscaled(uint64_t SamplingFrequency, T AttackMilliSeconds)
+  {
+      uint64_t Mult = MaxValue;
+      uint64_t Slope = 0<AttackMilliSeconds ? 1000 * Mult / (SamplingFrequency * AttackMilliSeconds) : MaxValue;
+      return Slope;
+  }
+
+  void SetAttack(uint64_t SamplingFrequency, T AttackMilliSeconds)
+  {
+      m_AttackSlope = CalcSlopeUpscaled(SamplingFrequency, AttackMilliSeconds);
   }
 
   void NoteOn()
@@ -106,20 +120,23 @@ public:
 
   T operator()(T In)
   {
-    T Value = m_Value;
-    if(m_Value<MaxValue)
+    T Amplification = m_Value;
+    if(m_Value<MaxValue-m_AttackSlope)
     {
         m_Value += m_AttackSlope;
-        if(MaxValue<m_Value)
-        {
-            m_Value = MaxValue;
-        }
     }
-    return (Value*In)>>Scale;
+    else
+    {
+        m_Value = MaxValue;
+    }
+
+    return ((Amplification>>Rescale)*In)>>Scale;
   }
 
 private:
-  static const int MaxValue = 1<<Scale;
+  static const int MaxNumBits = sizeof(T)*8-2;//in case of signed
+  static const int Rescale = MaxNumBits - Scale;
+  static const int MaxValue = 1<<MaxNumBits;
 
   T   m_Value;
   T   m_AttackSlope;

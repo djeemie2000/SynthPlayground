@@ -10,7 +10,8 @@ TEST(ZeroAttack)
 {
     CAEnvelope<int, 10> Envelope;
 
-    Envelope.SetAttack(0);
+    const int SamplingFrequency = 10000;
+    Envelope.SetAttack(SamplingFrequency, 0);
 
     CHECK_EQUAL(256, Envelope(256));
     CHECK_EQUAL(256, Envelope(256));
@@ -31,7 +32,8 @@ TEST(SlowAttack)
 {
     CAEnvelope<int, 10> Envelope;
 
-    Envelope.SetAttack((1<<9)+(1<<8));
+    const int SamplingFrequency = 10000;
+    Envelope.SetAttack(SamplingFrequency, (1<<9)+(1<<8));
 
     CHECK_EQUAL(256, Envelope(256));
     CHECK_EQUAL(256, Envelope(256));

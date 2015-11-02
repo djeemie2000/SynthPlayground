@@ -44,13 +44,15 @@ public:
         }
     }
 
-    void Excite(T Excitation, T FrequencyMilliHz, T Damp, T Attack)
+    void Excite(T Excitation, T FrequencyMilliHz, T Damp, T AttackMilliSeconds)
     {
         m_ExciterLPF.SetParameter(Excitation);
         T Period = m_SamplingFrequencyHz*1000/FrequencyMilliHz;
         if(Period<Capacity)
         {
-            m_Operator[m_CurrentOperator].ExciteOperator(Damp, Period, Attack);
+            T AttackSlope = m_Operator[m_CurrentOperator].m_Envelope.CalcSlopeUpscaled(m_SamplingFrequencyHz, AttackMilliSeconds);
+
+            m_Operator[m_CurrentOperator].ExciteOperator(Damp, Period, AttackSlope);
 
             m_CurrentOperator = (m_CurrentOperator+1)%m_NumOperators;
         }
@@ -82,12 +84,12 @@ private:
             , m_Envelope()
         {}
 
-        void ExciteOperator(T Damp, int Period, T Attack)
+        void ExciteOperator(T Damp, int Period, T AttackSlope)
         {
             m_DampLPF.SetParameter(Damp);
             m_DCOffset.Reset(0);
             m_Envelope.NoteOn();
-            m_Envelope.SetAttack(Attack);
+            m_Envelope.SetSlope(AttackSlope);
             m_Period = Period;
             m_Cntr = m_Period;
         }
