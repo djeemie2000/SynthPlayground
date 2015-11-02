@@ -1,0 +1,78 @@
+<xml>
+    <Patch Version="2"/>
+    <Modules>
+        <Module Name="1V/Oct0" Type="1V/Oct"/>
+        <Module Name="ControllerBank(4)0" Type="ControllerBank(4)"/>
+        <Module Name="ControllerBank(8)0" Type="ControllerBank(8)"/>
+        <Module Name="Distortion10" Type="Distortion1"/>
+        <Module Name="IntCombFilter0" Type="IntCombFilter"/>
+        <Module Name="IntCombFilter1" Type="IntCombFilter"/>
+        <Module Name="IntKarplusStrong0" Type="IntKarplusStrong"/>
+        <Module Name="Mixer(4)0" Type="Mixer(4)"/>
+        <Module Name="PeriodicTrigger0" Type="PeriodicTrigger"/>
+        <Module Name="RingSequencer0" Type="RingSequencer"/>
+        <Module Name="Scaler0" Type="Scaler"/>
+        <Module Name="StereoDelay0" Type="StereoDelay"/>
+    </Modules>
+    <Connections>
+        <Connection OutputPort="1V/Oct0:Freq" InputPort="IntKarplusStrong0:Freq"/>
+        <Connection OutputPort="ControllerBank(8)0:Contr1" InputPort="IntKarplusStrong0:Damp"/>
+        <Connection OutputPort="ControllerBank(8)0:Contr2" InputPort="IntKarplusStrong0:Excitation"/>
+        <Connection OutputPort="ControllerBank(8)0:Contr3" InputPort="IntKarplusStrong0:Attack"/>
+        <Connection OutputPort="ControllerBank(8)0:Contr4" InputPort="RingSequencer0:Step"/>
+        <Connection OutputPort="ControllerBank(8)0:Contr5" InputPort="Scaler0:Offset"/>
+        <Connection OutputPort="ControllerBank(8)0:Contr6" InputPort="Scaler0:Scale"/>
+        <Connection OutputPort="Distortion10:Out" InputPort="Mixer(4)0:In1"/>
+        <Connection OutputPort="Distortion10:Out" InputPort="IntCombFilter0:In"/>
+        <Connection OutputPort="Distortion10:Out" InputPort="IntCombFilter1:In"/>
+        <Connection OutputPort="IntKarplusStrong0:Out" InputPort="Distortion10:In"/>
+        <Connection OutputPort="IntKarplusStrong0:Out" InputPort="Mixer(4)0:In0"/>
+        <Connection OutputPort="Mixer(4)0:Out" InputPort="StereoDelay0:InLeft"/>
+        <Connection OutputPort="Mixer(4)0:Out" InputPort="StereoDelay0:InRight"/>
+        <Connection OutputPort="Mixer(4)0:Out" InputPort="Scope:In"/>
+        <Connection OutputPort="PeriodicTrigger0:Trigger" InputPort="IntKarplusStrong0:Trigger"/>
+        <Connection OutputPort="PeriodicTrigger0:Trigger" InputPort="RingSequencer0:Trigger"/>
+        <Connection OutputPort="RingSequencer0:CV" InputPort="Scaler0:In"/>
+        <Connection OutputPort="Scaler0:Out" InputPort="1V/Oct0:CV"/>
+        <Connection OutputPort="StereoDelay0:OutLeft" InputPort="system:playback_1"/>
+        <Connection OutputPort="StereoDelay0:OutRight" InputPort="system:playback_2"/>
+        <Connection OutputPort="IntCombFilter0:Out" InputPort="Mixer(4)0:In2"/>
+        <Connection OutputPort="ControllerBank(4)0:Contr0" InputPort="IntCombFilter0:Feedback"/>
+        <Connection OutputPort="ControllerBank(4)0:Contr0" InputPort="IntCombFilter1:Feedback"/>
+        <Connection OutputPort="ControllerBank(4)0:Contr1" InputPort="IntCombFilter0:Freq"/>
+        <Connection OutputPort="ControllerBank(4)0:Contr2" InputPort="IntCombFilter1:Freq"/>
+        <Connection OutputPort="IntCombFilter1:Out" InputPort="Mixer(4)0:In3"/>
+    </Connections>
+    <Parameters>
+        <Parameter Name="ControllerBank(4)0/0/Value" Type="Float" Value="0.94"/>
+        <Parameter Name="ControllerBank(4)0/1/Value" Type="Float" Value="123.109"/>
+        <Parameter Name="ControllerBank(4)0/2/Value" Type="Float" Value="60.434"/>
+        <Parameter Name="ControllerBank(4)0/3/Value" Type="Float" Value="0"/>
+        <Parameter Name="ControllerBank(8)0/0/Value" Type="Float" Value="100"/>
+        <Parameter Name="ControllerBank(8)0/1/Value" Type="Float" Value="0.7"/>
+        <Parameter Name="ControllerBank(8)0/2/Value" Type="Float" Value="0.9"/>
+        <Parameter Name="ControllerBank(8)0/3/Value" Type="Float" Value="0.9973"/>
+        <Parameter Name="ControllerBank(8)0/4/Value" Type="Float" Value="0.61"/>
+        <Parameter Name="ControllerBank(8)0/5/Value" Type="Float" Value="0"/>
+        <Parameter Name="ControllerBank(8)0/6/Value" Type="Float" Value="2"/>
+        <Parameter Name="ControllerBank(8)0/7/Value" Type="Float" Value="0.931"/>
+        <Parameter Name="Distortion10/Drive" Type="Float" Value="0.5"/>
+        <Parameter Name="IntKarplusStrong0/Poles" Type="Integer" Value="4"/>
+        <Parameter Name="Mixer(4)0/0/Volume" Type="Float" Value="0.5"/>
+        <Parameter Name="Mixer(4)0/1/Volume" Type="Float" Value="0"/>
+        <Parameter Name="Mixer(4)0/2/Volume" Type="Float" Value="0.3"/>
+        <Parameter Name="Mixer(4)0/3/Volume" Type="Float" Value="0.3"/>
+        <Parameter Name="Mixer(4)0/MasterVolume" Type="Float" Value="0.5"/>
+        <Parameter Name="PeriodicTrigger0/BeatsPerBar" Type="Integer" Value="4"/>
+        <Parameter Name="PeriodicTrigger0/BeatsPerMinute" Type="Integer" Value="10"/>
+        <Parameter Name="PeriodicTrigger0/Duration" Type="Integer" Value="100"/>
+        <Parameter Name="StereoDelay0/Left/Bypass" Type="Boolean" Value="0"/>
+        <Parameter Name="StereoDelay0/Left/DelayMilliSeconds" Type="Float" Value="218"/>
+        <Parameter Name="StereoDelay0/Left/Feedback" Type="Float" Value="0.689"/>
+        <Parameter Name="StereoDelay0/Left/WetDry" Type="Float" Value="0.8"/>
+        <Parameter Name="StereoDelay0/Right/Bypass" Type="Boolean" Value="0"/>
+        <Parameter Name="StereoDelay0/Right/DelayMilliSeconds" Type="Float" Value="241"/>
+        <Parameter Name="StereoDelay0/Right/Feedback" Type="Float" Value="0.689"/>
+        <Parameter Name="StereoDelay0/Right/WetDry" Type="Float" Value="0.8"/>
+    </Parameters>
+</xml>
