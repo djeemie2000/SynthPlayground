@@ -145,7 +145,9 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Filters/IntSkewer2DFilter.cpp \
     Modules/IntSkewer2DModule.cpp \
     Filters/IntCombFilterFilter.cpp \
-    Modules/IntCombFilterModule.cpp
+    Modules/IntCombFilterModule.cpp \
+    Filters/CombFilterFilter.cpp \
+    Modules/CombFilterModule.cpp
 
 HEADERS += Filters/ControllerBankFilter.h \
     Filters/PhasorFilter.h \
@@ -291,7 +293,9 @@ HEADERS += Filters/ControllerBankFilter.h \
     Filters/IntSkewer2DFilter.h \
     Modules/IntSkewer2DModule.h \
     Filters/IntCombFilterFilter.h \
-    Modules/IntCombFilterModule.h
+    Modules/IntCombFilterModule.h \
+    Filters/CombFilterFilter.h \
+    Modules/CombFilterModule.h
 
 INCLUDEPATH += ./Filters
 INCLUDEPATH += ./Modules

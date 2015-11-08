@@ -67,6 +67,8 @@
 #include "PhaseSkewer2DModule.h"
 #include "IntSkewer2DModule.h"
 #include "IntCombFilterModule.h"
+#include "CombFilterModule.h"
+
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
  : m_CommandStackController(CommandStackController)
@@ -357,6 +359,10 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CIntCombFilterModule(Name, *m_CommandStackController));
     }
+    else if(Type == "CombFilter")
+    {
+        Module.reset(new CCombFilterModule(Name, *m_CommandStackController));
+    }
 
     return Module;
 }
@@ -446,7 +452,8 @@ std::vector<string> CModuleFactory::GetSupportedTypes(const std::string &Categor
             "WaveShaperA116",
             "Chebishev",
             "IntSkewer2D",
-            "IntCombFilter"
+            "IntCombFilter",
+            "CombFilter",
         };
     }
 
@@ -478,7 +485,8 @@ std::vector<string> CModuleFactory::GetSupportedTypes(const std::string &Categor
             "DelayLine",
             "Granular",
             "IntFeedbackDelay",
-            "IntCombFilter"
+            "IntCombFilter",
+            "CombFilter"
         };
     }
 

@@ -128,7 +128,8 @@ HEADERS += Notes.h \
     IntCombinors.h \
     Chebishev.h \
     LinearInterpolation.h \
-    PhaseSkewer2D.h
+    PhaseSkewer2D.h \
+    CombFilter.h
 
 INCLUDEPATH += ./../MidiLib
 

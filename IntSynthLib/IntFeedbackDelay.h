@@ -45,6 +45,7 @@ public:
     {
         T DelayValue = m_DelayLine.Read(m_Delay);
         T WriteValue = In + ( (DelayValue * m_FeedbackValue)>>m_FeedbackScale );
+        // not: T WriteValue =  ( In * ((1<<m_FeedbackScale)-m_FeedbackValue) + DelayValue * m_FeedbackValue )>>m_FeedbackScale;
         m_DelayLine.Write(WriteValue);
         return (m_WetValue * DelayValue + m_DryValue * In)>>m_WetDryScale;
     }

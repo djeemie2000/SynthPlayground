@@ -12,7 +12,11 @@ public:
      , m_Values(Capacity, InitialValue)
      , m_WriteIndex(0)
     {
+    }
 
+    int GetCapacity() const
+    {
+        return m_Capacity;
     }
 
     void Write(T In)
