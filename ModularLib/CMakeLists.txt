@@ -278,8 +278,28 @@ add_library(ModularLib
     Filters/CombinedOperatorFilter.h
     Modules/CombinedOperatorModule.cpp
     Modules/CombinedOperatorModule.h
-    Filters/IntSimpleOscillatorFilter.cpp
+     Filters/IntFeedbackDelayFilter.cpp
+    Modules/IntFeedbackDelayModule.cpp
+    Filters/ChebishevFilter.cpp
+    Modules/ChebishevModule.cpp
+    Filters/SkewerFilter2D.cpp
+    Modules/PhaseSkewer2DModule.cpp
+    Filters/IntSkewer2DFilter.cpp
+    Modules/IntSkewer2DModule.cpp
+    Filters/IntCombFilterFilter.cpp
+    Modules/IntCombFilterModule.cpp
+    Filters/CombFilterFilter.cpp
+    Modules/CombFilterModule.cpp
+   Filters/IntSimpleOscillatorFilter.cpp
     Filters/IntSimpleOscillatorFilter.h
     Modules/IntSimpleOscillatorModule.cpp
     Modules/IntSimpleOscillatorModule.h
+    Filters/IntKarplusStrongFilter.cpp
+    Filters/IntKarplusStrongFilter.h
+    Modules/IntKarplusStrongModule.cpp
+    Modules/IntKarplusStrongModule.h
+    Filters/IntCombinedOperatorFilter.cpp
+    Filters/IntCombinedOperatorFilter.h
+    Modules/IntCombinedOperatorModule.cpp
+    Modules/IntCombinedOperatorModule.h
 )
