@@ -63,6 +63,7 @@ int CPolyKarplusStrongFilter::OnProcess(const std::vector<void *> &SourceBuffers
         ++DampBuffer;
         ++FreqBuffer;
         ++TriggerBuffer;
+        ++AttackBuffer;
     }
 
     return 0;
