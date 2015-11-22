@@ -39,7 +39,7 @@ int CIntKarplusStrongFilter::OnProcess(const std::vector<void *> &SourceBuffers,
     m_Buffers.Update(SourceBuffers, DestinationBuffers, NumFrames);
 
     CTriggerIn<float> TriggerIn;
-    const int LPFMultiplier = (1<<isl::CKarplusStrong<int, Scale, Capacity, NumOperators>::LPFScale);
+    const int LPFMultiplier = (1<<isl::CPolyKarplusStrong<int, Scale, Capacity, NumOperators>::LPFScale);
 
     const float* TriggerBuffer = m_Buffers.GetSourceBuffer(0);
     const float* FreqBuffer = m_Buffers.GetSourceBuffer(1);

@@ -27,7 +27,7 @@ private:
     static const int Scale = 12;
     static const int Capacity = 44100/10;
     static const int NumOperators = 12;
-    isl::CKarplusStrong<int, Scale, Capacity, NumOperators> m_KarplusStrong;
+    isl::CPolyKarplusStrong<int, Scale, Capacity, NumOperators> m_KarplusStrong;
     CFilterBuffers<float> m_Buffers;
 };
 

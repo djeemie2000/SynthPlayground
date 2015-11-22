@@ -14,13 +14,13 @@ namespace isl
 // ...
 
 template<class T, int Scale, int Capacity, int NumOperators>
-class CKarplusStrong
+class CPolyKarplusStrong
 {
 public:
     static const int LPFScale = 12;//???
     static const int EnvelopeScale = 16;//???
 
-    CKarplusStrong()
+    CPolyKarplusStrong()
         //: m_MinFrequency(MinFrequency)
         : m_SamplingFrequencyHz(40000)
         , m_ExciterNoise()
