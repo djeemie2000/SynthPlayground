@@ -40,7 +40,8 @@ SOURCES += main.cpp \
     TestToggleGate.cpp \
     TestWavFileReader.cpp \
     TestReadWriteBuffer.cpp \
-    TestSimpleReadWriteBuffer.cpp
+    TestSimpleReadWriteBuffer.cpp \
+    TestPolyKarplusStrong.cpp
 
 unix {
     target.path = /usr/lib

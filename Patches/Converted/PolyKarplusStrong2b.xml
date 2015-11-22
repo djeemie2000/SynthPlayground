@@ -1,0 +1,54 @@
+<xml>
+    <Patch Version="2"/>
+    <Modules>
+        <Module Name="ControllerBank(8)0" Type="ControllerBank(8)"/>
+        <Module Name="LFOBank(4)0" Type="LFOBank(4)"/>
+        <Module Name="Modulator0" Type="Modulator"/>
+        <Module Name="PeriodicTrigger0" Type="PeriodicTrigger"/>
+        <Module Name="PolyKarplusStrong0" Type="PolyKarplusStrong"/>
+    </Modules>
+    <Connections>
+        <Connection OutputPort="ControllerBank(8)0:Contr0" InputPort="PolyKarplusStrong0:Freq"/>
+        <Connection OutputPort="ControllerBank(8)0:Contr1" InputPort="PolyKarplusStrong0:Damp"/>
+        <Connection OutputPort="ControllerBank(8)0:Contr2" InputPort="PolyKarplusStrong0:Excitation"/>
+        <Connection OutputPort="ControllerBank(8)0:Contr3" InputPort="PolyKarplusStrong0:Attack"/>
+        <Connection OutputPort="LFOBank(4)0:LFO0" InputPort="PolyKarplusStrong0:Freq"/>
+        <Connection OutputPort="PeriodicTrigger0:Trigger" InputPort="PolyKarplusStrong0:Trigger"/>
+        <Connection OutputPort="PolyKarplusStrong0:Out" InputPort="system:playback_1"/>
+        <Connection OutputPort="PolyKarplusStrong0:Out" InputPort="system:playback_2"/>
+    </Connections>
+    <Parameters>
+        <Parameter Name="ControllerBank(8)0/0/Value" Type="Float" Value="65"/>
+        <Parameter Name="ControllerBank(8)0/1/Value" Type="Float" Value="0.801"/>
+        <Parameter Name="ControllerBank(8)0/2/Value" Type="Float" Value="0.401"/>
+        <Parameter Name="ControllerBank(8)0/3/Value" Type="Float" Value="0.102"/>
+        <Parameter Name="ControllerBank(8)0/4/Value" Type="Float" Value="0.01"/>
+        <Parameter Name="ControllerBank(8)0/5/Value" Type="Float" Value="0"/>
+        <Parameter Name="ControllerBank(8)0/6/Value" Type="Float" Value="0"/>
+        <Parameter Name="ControllerBank(8)0/7/Value" Type="Float" Value="0"/>
+        <Parameter Name="LFOBank(4)0/0/Amplitude" Type="Float" Value="1"/>
+        <Parameter Name="LFOBank(4)0/0/Frequency" Type="Float" Value="3.21"/>
+        <Parameter Name="LFOBank(4)0/0/Offset" Type="Float" Value="1"/>
+        <Parameter Name="LFOBank(4)0/0/Select" Type="Integer" Value="3"/>
+        <Parameter Name="LFOBank(4)0/1/Amplitude" Type="Float" Value="1"/>
+        <Parameter Name="LFOBank(4)0/1/Frequency" Type="Float" Value="1"/>
+        <Parameter Name="LFOBank(4)0/1/Offset" Type="Float" Value="1"/>
+        <Parameter Name="LFOBank(4)0/1/Select" Type="Integer" Value="0"/>
+        <Parameter Name="LFOBank(4)0/2/Amplitude" Type="Float" Value="1"/>
+        <Parameter Name="LFOBank(4)0/2/Frequency" Type="Float" Value="1"/>
+        <Parameter Name="LFOBank(4)0/2/Offset" Type="Float" Value="1"/>
+        <Parameter Name="LFOBank(4)0/2/Select" Type="Integer" Value="0"/>
+        <Parameter Name="LFOBank(4)0/3/Amplitude" Type="Float" Value="1"/>
+        <Parameter Name="LFOBank(4)0/3/Frequency" Type="Float" Value="1"/>
+        <Parameter Name="LFOBank(4)0/3/Offset" Type="Float" Value="1"/>
+        <Parameter Name="LFOBank(4)0/3/Select" Type="Integer" Value="0"/>
+        <Parameter Name="Modulator0/0/ModAmt" Type="Float" Value="0"/>
+        <Parameter Name="Modulator0/1/ModAmt" Type="Float" Value="0"/>
+        <Parameter Name="Modulator0/LimitMode" Type="Integer" Value="0"/>
+        <Parameter Name="Modulator0/Offset" Type="Float" Value="0"/>
+        <Parameter Name="PeriodicTrigger0/BeatsPerBar" Type="Integer" Value="2"/>
+        <Parameter Name="PeriodicTrigger0/BeatsPerMinute" Type="Integer" Value="30"/>
+        <Parameter Name="PeriodicTrigger0/Duration" Type="Integer" Value="100"/>
+        <Parameter Name="PolyKarplusStrong0/Poles" Type="Integer" Value="8"/>
+    </Parameters>
+</xml>

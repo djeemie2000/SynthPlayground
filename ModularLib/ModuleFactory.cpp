@@ -68,6 +68,7 @@
 #include "IntSkewer2DModule.h"
 #include "IntCombFilterModule.h"
 #include "CombFilterModule.h"
+#include "PolyKarplusStrongModule.h"
 
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
@@ -363,6 +364,10 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CCombFilterModule(Name, *m_CommandStackController));
     }
+    else if(Type == "PolyKarplusStrong")
+    {
+        Module.reset(new CPolyKarplusStrongModule(Name, *m_CommandStackController));
+    }
 
     return Module;
 }
@@ -425,7 +430,8 @@ std::vector<string> CModuleFactory::GetSupportedTypes(const std::string &Categor
             "CombinedOperator",
             "IntSimpleOscillator",
             "IntCombinedOperator",
-            "IntKarplusStrong"
+            "IntKarplusStrong",
+            "PolyKarplusStrong"
         };
     }
 

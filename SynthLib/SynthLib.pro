@@ -129,7 +129,9 @@ HEADERS += Notes.h \
     Chebishev.h \
     LinearInterpolation.h \
     PhaseSkewer2D.h \
-    CombFilter.h
+    CombFilter.h \
+    DeltaSmooth.h \
+    PolyKarplusStrong.h
 
 INCLUDEPATH += ./../MidiLib
 
