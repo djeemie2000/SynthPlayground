@@ -1,0 +1,103 @@
+<xml>
+    <Patch Version="2"/>
+    <Modules>
+        <Module Name="1V/Oct0" Type="1V/Oct"/>
+        <Module Name="ADSREnvelopeBank(4)0" Type="ADSREnvelopeBank(4)"/>
+        <Module Name="Amp0" Type="Amp"/>
+        <Module Name="Amp1" Type="Amp"/>
+        <Module Name="BipolarLimiter0" Type="BipolarLimiter"/>
+        <Module Name="CombFilter0" Type="CombFilter"/>
+        <Module Name="CombFilter1" Type="CombFilter"/>
+        <Module Name="CombFilter2" Type="CombFilter"/>
+        <Module Name="ControllerBank(8)0" Type="ControllerBank(8)"/>
+        <Module Name="Detuner(3)0" Type="Detuner(3)"/>
+        <Module Name="Distortion10" Type="Distortion1"/>
+        <Module Name="LPF0" Type="LPF"/>
+        <Module Name="Mixer(4)0" Type="Mixer(4)"/>
+        <Module Name="Noise0" Type="Noise"/>
+        <Module Name="PeriodicTrigger1" Type="PeriodicTrigger"/>
+        <Module Name="RingSequencer0" Type="RingSequencer"/>
+        <Module Name="StereoDelay0" Type="StereoDelay"/>
+    </Modules>
+    <Connections>
+        <Connection OutputPort="1V/Oct0:Freq" InputPort="Detuner(3)0:Freq"/>
+        <Connection OutputPort="ADSREnvelopeBank(4)0:Envelope0" InputPort="CombFilter0:Ampl"/>
+        <Connection OutputPort="ADSREnvelopeBank(4)0:Envelope0" InputPort="Amp1:Ampl"/>
+        <Connection OutputPort="Amp0:Out" InputPort="Amp1:In"/>
+        <Connection OutputPort="BipolarLimiter0:Out" InputPort="StereoDelay0:InLeft"/>
+        <Connection OutputPort="BipolarLimiter0:Out" InputPort="StereoDelay0:InRight"/>
+        <Connection OutputPort="CombFilter0:Out" InputPort="Distortion10:In"/>
+        <Connection OutputPort="CombFilter1:Out" InputPort="CombFilter2:In"/>
+        <Connection OutputPort="ControllerBank(8)0:Contr0" InputPort="LPF0:CutOff"/>
+        <Connection OutputPort="ControllerBank(8)0:Contr2" InputPort="CombFilter0:Feedback"/>
+        <Connection OutputPort="ControllerBank(8)0:Contr3" InputPort="Amp0:Ampl"/>
+        <Connection OutputPort="ControllerBank(8)0:Contr4" InputPort="CombFilter1:Feedback"/>
+        <Connection OutputPort="ControllerBank(8)0:Contr5" InputPort="CombFilter2:Feedback"/>
+        <Connection OutputPort="ControllerBank(8)0:Contr6" InputPort="RingSequencer0:Step"/>
+        <Connection OutputPort="ControllerBank(8)0:Contr7" InputPort="1V/Oct0:CV"/>
+        <Connection OutputPort="Detuner(3)0:Freq0" InputPort="CombFilter1:Freq"/>
+        <Connection OutputPort="Detuner(3)0:Freq1" InputPort="CombFilter0:Freq"/>
+        <Connection OutputPort="Detuner(3)0:Freq2" InputPort="CombFilter2:Freq"/>
+        <Connection OutputPort="LPF0:Out" InputPort="CombFilter0:In"/>
+        <Connection OutputPort="Distortion10:Out" InputPort="CombFilter1:In"/>
+        <Connection OutputPort="Mixer(4)0:Out" InputPort="BipolarLimiter0:In"/>
+        <Connection OutputPort="Noise0:Out" InputPort="LPF0:In"/>
+        <Connection OutputPort="PeriodicTrigger1:Trigger" InputPort="ADSREnvelopeBank(4)0:Trigger0"/>
+        <Connection OutputPort="PeriodicTrigger1:Trigger" InputPort="RingSequencer0:Trigger"/>
+        <Connection OutputPort="RingSequencer0:CV" InputPort="1V/Oct0:CV"/>
+        <Connection OutputPort="StereoDelay0:OutLeft" InputPort="system:playback_1"/>
+        <Connection OutputPort="StereoDelay0:OutRight" InputPort="system:playback_2"/>
+        <Connection OutputPort="CombFilter2:Out" InputPort="Mixer(4)0:In2"/>
+    </Connections>
+    <Parameters>
+        <Parameter Name="ADSREnvelopeBank(4)0/0/Attack" Type="Float" Value="10"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/0/Decay" Type="Float" Value="20"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/0/Release" Type="Float" Value="2000"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/0/Sustain" Type="Float" Value="0.62"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/1/Attack" Type="Float" Value="10"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/1/Decay" Type="Float" Value="10"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/1/Release" Type="Float" Value="10"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/1/Sustain" Type="Float" Value="1"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/2/Attack" Type="Float" Value="10"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/2/Decay" Type="Float" Value="10"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/2/Release" Type="Float" Value="10"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/2/Sustain" Type="Float" Value="1"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/3/Attack" Type="Float" Value="10"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/3/Decay" Type="Float" Value="10"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/3/Release" Type="Float" Value="10"/>
+        <Parameter Name="ADSREnvelopeBank(4)0/3/Sustain" Type="Float" Value="1"/>
+        <Parameter Name="ControllerBank(8)0/0/Value" Type="Float" Value="0.899"/>
+        <Parameter Name="ControllerBank(8)0/1/Value" Type="Float" Value="0.8"/>
+        <Parameter Name="ControllerBank(8)0/2/Value" Type="Float" Value="0.986"/>
+        <Parameter Name="ControllerBank(8)0/3/Value" Type="Float" Value="0"/>
+        <Parameter Name="ControllerBank(8)0/4/Value" Type="Float" Value="0"/>
+        <Parameter Name="ControllerBank(8)0/5/Value" Type="Float" Value="0"/>
+        <Parameter Name="ControllerBank(8)0/6/Value" Type="Float" Value="0.6"/>
+        <Parameter Name="ControllerBank(8)0/7/Value" Type="Float" Value="1"/>
+        <Parameter Name="Detuner(3)0/0/Detune" Type="Float" Value="-0"/>
+        <Parameter Name="Detuner(3)0/0/OctaveShift" Type="Integer" Value="0"/>
+        <Parameter Name="Detuner(3)0/1/Detune" Type="Float" Value="0.064"/>
+        <Parameter Name="Detuner(3)0/1/OctaveShift" Type="Integer" Value="0"/>
+        <Parameter Name="Detuner(3)0/2/Detune" Type="Float" Value="-0.158"/>
+        <Parameter Name="Detuner(3)0/2/OctaveShift" Type="Integer" Value="0"/>
+        <Parameter Name="Distortion10/Drive" Type="Float" Value="0.9"/>
+        <Parameter Name="LPF0/Poles" Type="Integer" Value="8"/>
+        <Parameter Name="LPF0/Resonance" Type="Float" Value="0"/>
+        <Parameter Name="Mixer(4)0/0/Volume" Type="Float" Value="0"/>
+        <Parameter Name="Mixer(4)0/1/Volume" Type="Float" Value="0"/>
+        <Parameter Name="Mixer(4)0/2/Volume" Type="Float" Value="0.1"/>
+        <Parameter Name="Mixer(4)0/3/Volume" Type="Float" Value="0.25"/>
+        <Parameter Name="Mixer(4)0/MasterVolume" Type="Float" Value="0.99"/>
+        <Parameter Name="PeriodicTrigger1/BeatsPerBar" Type="Integer" Value="1"/>
+        <Parameter Name="PeriodicTrigger1/BeatsPerMinute" Type="Integer" Value="20"/>
+        <Parameter Name="PeriodicTrigger1/Duration" Type="Integer" Value="22"/>
+        <Parameter Name="StereoDelay0/Left/Bypass" Type="Boolean" Value="0"/>
+        <Parameter Name="StereoDelay0/Left/DelayMilliSeconds" Type="Float" Value="337"/>
+        <Parameter Name="StereoDelay0/Left/Feedback" Type="Float" Value="0.6"/>
+        <Parameter Name="StereoDelay0/Left/WetDry" Type="Float" Value="0.8"/>
+        <Parameter Name="StereoDelay0/Right/Bypass" Type="Boolean" Value="0"/>
+        <Parameter Name="StereoDelay0/Right/DelayMilliSeconds" Type="Float" Value="358"/>
+        <Parameter Name="StereoDelay0/Right/Feedback" Type="Float" Value="0.6"/>
+        <Parameter Name="StereoDelay0/Right/WetDry" Type="Float" Value="0.8"/>
+    </Parameters>
+</xml>
