@@ -13,7 +13,8 @@ SOURCES += main.cpp \
     TestIntCombinedOperator.cpp \
     TestIntSimpleOscillator.cpp \
     TestIntScaledValue.cpp \
-    TestIntEnvelope.cpp
+    TestIntEnvelope.cpp \
+    TestIntMultiStageEnvelope.cpp
 
 unix {
     target.path = /usr/lib

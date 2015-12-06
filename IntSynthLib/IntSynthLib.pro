@@ -22,7 +22,8 @@ HEADERS += IntCombinors.h \
     IntFeedbackDelay.h \
     IntSkewer2D.h \
     IntScaledValue.h \
-    IntUtilities.h
+    IntUtilities.h \
+    IntMultiStageEnvelope.h
 
 unix {
     target.path = /usr/lib
