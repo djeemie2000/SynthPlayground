@@ -45,15 +45,19 @@ public:
 
     void Excite(T Excitation, T Frequency, T Damp, T AttackMilliSeconds)
     {
+        Excite(m_CurrentOperator, Excitation, Frequency, Damp, AttackMilliSeconds);
+        m_CurrentOperator = (m_CurrentOperator+1)%m_NumOperators;
+    }
+
+    void Excite(int Operator, T Excitation, T Frequency, T Damp, T AttackMilliSeconds)
+    {
         m_ExciterLPF.SetParameter(Excitation);
         T Period = m_SamplingFrequencyHz/Frequency;
         if(Period<Capacity)
         {
             T AttackSamples = CConstNumSamplesGenerator<float>(m_SamplingFrequencyHz).SetMilliSeconds(AttackMilliSeconds);
 
-            m_Operator[m_CurrentOperator].ExciteOperator(Damp, Period, AttackSamples);
-
-            m_CurrentOperator = (m_CurrentOperator+1)%m_NumOperators;
+            m_Operator[Operator].ExciteOperator(Damp, Period, AttackSamples);
         }
     }
 
