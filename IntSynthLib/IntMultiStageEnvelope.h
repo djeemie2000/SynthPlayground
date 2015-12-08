@@ -8,11 +8,10 @@ class CMultiStageEnvelope
 {
 public:
     CMultiStageEnvelope()
-     : m_Stage(NumStages-1)
+     : m_Stage(0)
      , m_Counter(0)
-     , m_Gate(PostGate)
+     , m_State(PreGate)
      , m_Stages()
-     //, m_Hold(false)
     {}
 
     void SetTarget(int Stage, T Target)
@@ -32,13 +31,13 @@ public:
 
     void NoteOn()
     {
-        m_Gate = Gate;
+        m_State = TriggerOn;
         Reset();
     }
 
     void NoteOff()
     {
-        m_Gate = PostGate;
+        m_State = TriggerOff;
     }
 
     void Reset()
@@ -49,42 +48,45 @@ public:
 
     T operator()()
     {
-        bool Advance = (m_Gate==Gate && !m_Stages[m_Stage].s_Hold)
-                        || (m_Gate==PostGate);
-
-        if(Advance)
+        if(m_State == PreGate)
         {
-            // advance or halt
-            // last stage : halt -> keep current counter until next reset()
-            // other stage: advance to next stage (counter zero)
-            if(m_Stages[m_Stage].s_Duration<=m_Counter)
+            // stay at current (reset state)
+        }
+        else if(m_State == TriggerOn)
+        {
+            // stay at current (reset state)
+            // but make sure we start advancing the next time
+            m_State = Gate;
+        }
+        else if(m_State == Gate)
+        {
+            // advance, unless we are in a hold stage
+            if(!m_Stages[m_Stage].s_Hold)
             {
-                if(m_Stage<LastStage)
-                {
-                    ++m_Stage;
-                    m_Counter = 0;//m_Stages[m_Stage].s_Hold ? 0: 1;
-                    Advance = !m_Stages[m_Stage].s_Hold;
-                }
+                Advance();
             }
-//            else
-//            {
-//                ++m_Counter;
-//            }
+        }
+        else if(m_State == TriggerOff)
+        {
+            // if in hold state => advance trough remaining stages
+            // if no in hold state => reset
+            if(m_Stages[m_Stage].s_Hold)
+            {
+                m_State = PostGate;// needed?
+            }
+            else
+            {
+                m_State = PreGate;
+                Reset();
+            }
+        }
+        else if(m_State == PostGate)
+        {
+            // always advance??
+            Advance();
         }
 
         T Value = CalcValue();
-
-        if(Advance)
-        {
-            ++m_Counter;
-        }
-
-        // handle hold
-        //m_Hold = m_Stages[m_Stage].s_Hold && m_Gate == Gate;
-//        if(m_Hold)
-//        {
-//            m_Counter = 0;
-//        }
 
         return Value;
     }
@@ -96,7 +98,7 @@ public:
 
     bool GetHold() const
     {
-        return m_Stages[m_Stage].s_Hold && m_Gate == Gate;//m_Hold;
+        return m_Stages[m_Stage].s_Hold && m_State == Gate;
     }
 
 private:
@@ -114,12 +116,27 @@ private:
         return Value;
     }
 
+    void Advance()
+    {
+        ++m_Counter;
+        if(m_Stages[m_Stage].s_Duration<=m_Counter)
+        {
+            if(m_Stage<LastStage)
+            {
+                ++m_Stage;
+                m_Counter = 0;
+            }
+        }
+    }
+
     const int LastStage = NumStages-1;
 
     enum EGate
     {
         PreGate,
+        TriggerOn,
         Gate,
+        TriggerOff,
         PostGate
     };
 
@@ -138,9 +155,8 @@ private:
 
     int m_Stage;
     T m_Counter;
-    EGate m_Gate;
+    EGate m_State;
     SStage  m_Stages[NumStages];
-    //bool m_Hold;
 };
 
 }

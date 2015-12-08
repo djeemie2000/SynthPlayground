@@ -64,9 +64,9 @@ TEST(ADSEnvelopeNoteOn)
     Envelope.SetTarget(2, 160);
     Envelope.SetDuration(2, 1);
 
-    CHECK_EQUAL(160, Envelope());
-    CHECK_EQUAL(160, Envelope());
-    CHECK_EQUAL(160, Envelope());
+    CHECK_EQUAL(0, Envelope());
+    CHECK_EQUAL(0, Envelope());
+    CHECK_EQUAL(0, Envelope());
 
     Envelope.NoteOn();
 
@@ -100,9 +100,9 @@ TEST(ADSEnvelopeNoteOnNoteOn)
     Envelope.SetTarget(2, 160);
     Envelope.SetDuration(2, 1);
 
-    CHECK_EQUAL(160, Envelope());
-    CHECK_EQUAL(160, Envelope());
-    CHECK_EQUAL(160, Envelope());
+    CHECK_EQUAL(0, Envelope());
+    CHECK_EQUAL(0, Envelope());
+    CHECK_EQUAL(0, Envelope());
 
     Envelope.NoteOn();
 
@@ -159,7 +159,7 @@ TEST(ADSREnvelopeNoteOnNoteOff)
                                   160, 160, 160, 160, 160, 160, 160,
                                   160, 128, 96, 64, 32,
                                   0, 0, 0, 0 };
-    std::vector<int> ExpectedStage = {3, 3, 3,
+    std::vector<int> ExpectedStage = {0, 0, 0,
                                       0, 0,
                                       1, 1, 1,
                                       2, 2, 2, 2, 2, 2, 2,
@@ -275,13 +275,13 @@ TEST(SRREnvelopeNoteOnNoteOff)
                                0, 0, 0,// Release1
                                0, 0, 0, 0,//Release2
                                0, 0, 0, 0 };//halt
-    std::vector<int> Expected = { 0, 0, 0,
+    std::vector<int> Expected = { 128, 128, 128,
                                   128, 128,
                                   128, 160, 192, 224,
                                   256, 192, 128,
                                   64, 48, 32, 16,
                                   0, 0, 0, 0 };
-    std::vector<int> ExpectedStage = {3, 3, 3,
+    std::vector<int> ExpectedStage = {0, 0, 0,
                                       0, 0,
                                       0, 0, 0, 0,
                                       1, 1, 1,
