@@ -10,8 +10,9 @@ public:
     CMultiStageEnvelope()
      : m_Stage(NumStages-1)
      , m_Counter(0)
+     , m_Gate(PostGate)
      , m_Stages()
-     , m_Hold(false)
+     //, m_Hold(false)
     {}
 
     void SetTarget(int Stage, T Target)
@@ -31,13 +32,13 @@ public:
 
     void NoteOn()
     {
-        m_Gate = true;
+        m_Gate = Gate;
         Reset();
     }
 
     void NoteOff()
     {
-        m_Gate = false;
+        m_Gate = PostGate;
     }
 
     void Reset()
@@ -48,40 +49,42 @@ public:
 
     T operator()()
     {
-        T Counter = m_Counter;
+        bool Advance = (m_Gate==Gate && !m_Stages[m_Stage].s_Hold)
+                        || (m_Gate==PostGate);
 
-        if(m_Stages[m_Stage].s_Duration<=m_Counter)
+        if(Advance)
         {
             // advance or halt
             // last stage : halt -> keep current counter until next reset()
             // other stage: advance to next stage (counter zero)
-            if(m_Stage<LastStage)
+            if(m_Stages[m_Stage].s_Duration<=m_Counter)
             {
-                ++m_Stage;
-                Counter = 0;
-                m_Counter = 1;
+                if(m_Stage<LastStage)
+                {
+                    ++m_Stage;
+                    m_Counter = 0;//m_Stages[m_Stage].s_Hold ? 0: 1;
+                    Advance = !m_Stages[m_Stage].s_Hold;
+                }
             }
-            // else: last stage => keep counter
+//            else
+//            {
+//                ++m_Counter;
+//            }
         }
-        else
+
+        T Value = CalcValue();
+
+        if(Advance)
         {
             ++m_Counter;
         }
 
         // handle hold
-        m_Hold = m_Stages[m_Stage].s_Hold && m_Gate;
-        if(m_Hold)
-        {
-            m_Counter = 0;
-        }
-
-        // linear interpolation between stages
-        T Duration = m_Stages[m_Stage].s_Duration;
-        T Reference = m_Stages[m_Stage].s_Target;
-        // target: for last stage, keep target
-        T Target = m_Stage==LastStage ? Reference : m_Stages[m_Stage+1].s_Target;
-
-        T Value = Duration ? Reference + (Target-Reference)*Counter/Duration : Reference;
+        //m_Hold = m_Stages[m_Stage].s_Hold && m_Gate == Gate;
+//        if(m_Hold)
+//        {
+//            m_Counter = 0;
+//        }
 
         return Value;
     }
@@ -93,11 +96,32 @@ public:
 
     bool GetHold() const
     {
-        return m_Hold;
+        return m_Stages[m_Stage].s_Hold && m_Gate == Gate;//m_Hold;
     }
 
 private:
+    T CalcValue()
+    {
+        T Counter = m_Counter;
+        // linear interpolation between stages
+        T Duration = m_Stages[m_Stage].s_Duration;
+        T Reference = m_Stages[m_Stage].s_Target;
+        // target: for last stage, keep target
+        T Target = m_Stage==LastStage ? Reference : m_Stages[m_Stage+1].s_Target;
+
+        T Value = Duration ? Reference + (Target-Reference)*Counter/Duration : Reference;
+
+        return Value;
+    }
+
     const int LastStage = NumStages-1;
+
+    enum EGate
+    {
+        PreGate,
+        Gate,
+        PostGate
+    };
 
     struct SStage
     {
@@ -114,9 +138,9 @@ private:
 
     int m_Stage;
     T m_Counter;
-    bool m_Gate;
+    EGate m_Gate;
     SStage  m_Stages[NumStages];
-    bool m_Hold;
+    //bool m_Hold;
 };
 
 }
