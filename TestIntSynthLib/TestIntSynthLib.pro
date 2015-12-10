@@ -14,7 +14,8 @@ SOURCES += main.cpp \
     TestIntSimpleOscillator.cpp \
     TestIntScaledValue.cpp \
     TestIntEnvelope.cpp \
-    TestIntMultiStageEnvelope.cpp
+    TestIntMultiStageEnvelope.cpp \
+    TestIntMultiStageEnvelope2.cpp
 
 unix {
     target.path = /usr/lib
