@@ -23,7 +23,8 @@ HEADERS += IntCombinors.h \
     IntSkewer2D.h \
     IntScaledValue.h \
     IntUtilities.h \
-    IntMultiStageEnvelope.h
+    IntMultiStageEnvelope.h \
+    IntBinaryPattern.h
 
 unix {
     target.path = /usr/lib
