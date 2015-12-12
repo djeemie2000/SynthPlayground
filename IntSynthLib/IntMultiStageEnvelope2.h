@@ -18,7 +18,7 @@ public:
     CMultiStageEnvelope2()
      : m_Stage(0)
      , m_Counter(0)
-     , m_State(GateOff)
+     , m_Gate(false)
      , m_Stages()
     {}
 
@@ -46,13 +46,12 @@ public:
 
     void NoteOn()
     {
-        m_State = GateOn;//TriggerOn;
-        //Reset();
+        m_Gate = true;
     }
 
     void NoteOff()
     {
-        m_State = GateOff;//TriggerOff;
+        m_Gate = false;
     }
 
     void Reset()
@@ -65,29 +64,8 @@ public:
     {
         T Value = CalcValue();
 
-        bool Gate = (m_State == GateOn);
-//        if(m_State == TriggerOn)
-//        {
-//            // stay at current (reset state)
-//            // but make sure we start advancing the next time
-//            m_State = GateOn;
-//            Gate = false;
-//        }
-//        else if(m_State == GateOn)
-//        {
-//            Gate = true;
-//        }
-//        else if(m_State == TriggerOff)
-//        {
-//            m_State = GateOff;
-//            Gate = true;
-//        }
-//        else if(m_State == TriggerOff)
-//        {
-//            Gate = false;
-//        }
-
-        EAction CurrentAction = Gate ? m_Stages[m_Stage].s_GateOnAction : m_Stages[m_Stage].s_GateOffAction;
+        EAction CurrentAction = m_Gate ? m_Stages[m_Stage].s_GateOnAction
+                                       : m_Stages[m_Stage].s_GateOffAction;
 
         if(CurrentAction==AdvanceAction)
         {
@@ -103,8 +81,7 @@ public:
         }
         else if(CurrentAction==SkipAction)
         {
-            //TODO advance to next stage untill a stage is not skipped
-            // potential issue: infinitely skipping?
+            Skip();
         }
 
         return Value;
@@ -117,8 +94,8 @@ public:
 
     bool GetHold() const
     {
-        return (m_State == GateOn && m_Stages[m_Stage].s_GateOnAction == HoldAction)
-            || (m_State == GateOff && m_Stages[m_Stage].s_GateOffAction == HoldAction);
+        return m_Gate ? m_Stages[m_Stage].s_GateOnAction == HoldAction
+                      : m_Stages[m_Stage].s_GateOffAction == HoldAction;
     }
 
 private:
@@ -152,15 +129,18 @@ private:
         }
     }
 
-    const int LastStage = NumStages-1;
-
-    enum EGate
+    void Skip()
     {
-        GateOff,
-        //TriggerOn,
-        GateOn,
-        //TriggerOff
-    };
+        // advance stage
+        ++m_Stage;
+        if(NumStages<=m_Stage)
+        {
+            m_Stage = 0;
+        }
+        m_Counter = 0;
+    }
+
+    const int LastStage = NumStages-1;
 
     struct SStage
     {
@@ -179,7 +159,7 @@ private:
 
     int m_Stage;
     T m_Counter;
-    EGate m_State;
+    bool m_Gate;
     SStage  m_Stages[NumStages];
 };
 
