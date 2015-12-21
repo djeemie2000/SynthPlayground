@@ -19,10 +19,12 @@ CIntCombinedOperatorV2Module::CIntCombinedOperatorV2Module(const std::string& Na
     m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/SelectOperatorB").IntValue(0), [this](const SCmdStackItem& Item) { m_Filter->SelectOperatorB(Item.IntValue()); });
     m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/FrequencyMultiplierA").IntValue(0), [this](const SCmdStackItem& Item) { m_Filter->SetFrequencyMultiplierA(Item.IntValue()); });
     m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/FrequencyMultiplierB").IntValue(0), [this](const SCmdStackItem& Item) { m_Filter->SetFrequencyMultiplierB(Item.IntValue()); });
+    m_CommandStackController.AddCommand(SCmdStackItem(m_Name+"/OperatorACarrier").BoolValue(true), [this](const SCmdStackItem& Item) { m_Filter->SetOperatorACarrier(Item.BoolValue()); });
 }
 
 CIntCombinedOperatorV2Module::~CIntCombinedOperatorV2Module()
 {
+    m_CommandStackController.RemoveCommand(m_Name+"/OperatorACarrier");
     m_CommandStackController.RemoveCommand(m_Name+"/FrequencyMultiplierB");
     m_CommandStackController.RemoveCommand(m_Name+"/FrequencyMultiplierA");
     m_CommandStackController.RemoveCommand(m_Name+"/SelectOperatorB");
@@ -63,6 +65,7 @@ void CIntCombinedOperatorV2Module::Accept(IModuleParameterVisitor &ParameterVisi
     ParameterVisitor.StartLine();
     ParameterVisitor.IntegerParameter(m_Name+"/FrequencyMultiplierA", "DetuneA", 1024, 64, 4096, 1);
     ParameterVisitor.IntegerParameter(m_Name+"/FrequencyMultiplierB", "DetuneB", 1024, 64, 4096, 1);
+    ParameterVisitor.BooleanParameter(m_Name+"/OperatorACarrier", "OperatorACarrier", true);
     ParameterVisitor.FinishLine();
     ParameterVisitor.Finish();
 }

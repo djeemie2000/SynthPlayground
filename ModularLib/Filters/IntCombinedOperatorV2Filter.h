@@ -25,6 +25,8 @@ public:
     void SelectCombinor1(int Selected);
     void SetFrequencyMultiplierA(int Multiplier);
     void SetFrequencyMultiplierB(int Multiplier);
+    void Sync();
+    void SetOperatorACarrier(bool Carrier);
 
 private:
     static const int OperatorScale = 12;

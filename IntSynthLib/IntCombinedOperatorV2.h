@@ -28,6 +28,7 @@ public:
         , m_FrequencyMultiplierValueA(1<<FrequencyScale)
         , m_FrequencyMultiplierValueB(1<<FrequencyScale)
         , m_Combinor1Strength(0)
+        , m_OperatorACarrier(true)
     {
         UpdateFrequency();
         SelectCombinor1(0);
@@ -83,22 +84,7 @@ public:
 
     void SelectCombinor1(int Idx)
     {
-        if(Idx==0)
-        {
-            m_Combinor1 = IntModulatedAdd<int, OperatorScale, StrengthScale>;
-        }
-        else if(Idx==1)
-        {
-            m_Combinor1 = IntModulatedHardLimitAdd<int, OperatorScale, StrengthScale>;
-        }
-        else if(Idx==2)
-        {
-            m_Combinor1 = IntModulatedMult<int, OperatorScale, StrengthScale>;
-        }
-        else if(Idx==3)
-        {
-            m_Combinor1 = IntModulatedHardLimitDiff<int, OperatorScale, StrengthScale>;
-        }
+        m_Combinor1 = GetCombinor(Idx);
     }
 
     void SetCombinor1Strength(int Strength)
@@ -106,24 +92,108 @@ public:
         m_Combinor1Strength = Strength;
     }
 
+    void SetOperatorACarrier(bool Carrier)
+    {
+        m_OperatorACarrier = Carrier;
+    }
+
+    void SetOperatorBCarrier(bool Carrier)
+    {
+        m_OperatorACarrier = !Carrier;
+    }
+
     int operator()()
     {
-        int Carrier = m_OperatorA(m_PhaseGenA());
-        int Modulator = m_OperatorB(m_PhaseGenB());
+        int OpA = m_OperatorA(m_PhaseGenA());
+        int OpB = m_OperatorB(m_PhaseGenB());
+        int Carrier = m_OperatorACarrier ? OpA : OpB;
+        int Modulator = m_OperatorACarrier ? OpB : OpA;
         return m_Combinor1(Carrier, Modulator, m_Combinor1Strength);
     }
 
     static std::vector<std::string> GetOperatorNames()
     {
-        return { "Triangle", "Sin", "Sinh", "Saw+", "Saw-", "Pulse+", "Pulse-", "Quadratic" };
+        return { "Triangle", "Sin", "Sinh+", "Sinh-", "Saw+", "Saw-", "Pulse+", "Pulse-", "Quadratic" };
     }
 
     static std::vector<std::string> GetCombinorNames()
     {
-        return CCombinorFactory<OperatorScale>::AvailableOperatorNames();
+        return { "C+M", "LC+M", "C*M", "UC*UM",
+                "|C|*|M|", "C*|M|", "C*UM", "LC-M",
+                "C-|M|", "M", "M||", "m||",
+                "m", "mC|M|", "MC|M|", "C(1+M)"};
     }
 
 private:
+    static IntModulatedCombinor GetCombinor(int Idx)
+    {
+        if(Idx==0)
+        {
+            return IntModulatedAdd<int, OperatorScale, StrengthScale>;
+        }
+        else if(Idx==1)
+        {
+            return IntModulatedHardLimitAdd<int, OperatorScale, StrengthScale>;
+        }
+        else if(Idx==2)
+        {
+            return IntModulatedMult<int, OperatorScale, StrengthScale>;
+        }
+        else if(Idx==3)
+        {
+            return IntModulatedMultUnipolar<int, OperatorScale, StrengthScale>;
+        }
+        else if(Idx==4)
+        {
+            return IntModulatedMultAbs<int, OperatorScale, StrengthScale>;
+        }
+        else if(Idx==5)
+        {
+            return IntModulatedMultFirst<int, OperatorScale, StrengthScale>;
+        }
+        else if(Idx==6)
+        {
+            return IntModulatedRingModFirst<int, OperatorScale, StrengthScale>;
+        }
+        else if(Idx==7)
+        {
+            return IntModulatedHardLimitDiff<int, OperatorScale, StrengthScale>;
+        }
+        else if(Idx==8)
+        {
+            return IntModulatedDiffAbs<int, OperatorScale, StrengthScale>;
+        }
+        else if(Idx==9)
+        {
+            return IntModulatedMax<int, OperatorScale, StrengthScale>;
+        }
+        else if(Idx==10)
+        {
+            return IntModulatedMaxAbs<int, OperatorScale, StrengthScale>;
+        }
+        else if(Idx==11)
+        {
+            return IntModulatedMinAbs<int, OperatorScale, StrengthScale>;
+        }
+        else if(Idx==12)
+        {
+            return IntModulatedMin<int, OperatorScale, StrengthScale>;
+        }
+        else if(Idx==13)
+        {
+            return IntModulatedMinAbsSecond<int, OperatorScale, StrengthScale>;
+        }
+        else if(Idx==14)
+        {
+            return IntModulatedMaxAbsSecond<int, OperatorScale, StrengthScale>;
+        }
+        else if(Idx==15)
+        {
+            return IntModulatedMultMod1<int, OperatorScale, StrengthScale>;
+        }
+        return IntModulatedAdd<int, OperatorScale, StrengthScale>;//default
+    }
+
     static IntOperator GetOperator(int Idx)
     {
         if(Idx == 0)
@@ -140,21 +210,25 @@ private:
         }
         else if(Idx == 3)
         {
-            return IntSawUp<OperatorScale>;
+            return IntSemiPseudoSinNeg<OperatorScale>;
         }
         else if(Idx == 4)
         {
-            return IntSawDown<OperatorScale>;
+            return IntSawUp<OperatorScale>;
         }
         else if(Idx == 5)
         {
-            return IntPulsePos<OperatorScale>;
+            return IntSawDown<OperatorScale>;
         }
         else if(Idx == 6)
         {
-            return IntPulseNeg<OperatorScale>;
+            return IntPulsePos<OperatorScale>;
         }
         else if(Idx == 7)
+        {
+            return IntPulseNeg<OperatorScale>;
+        }
+        else if(Idx == 8)
         {
             return IntQuadratic<OperatorScale>;
         }
@@ -179,6 +253,7 @@ private:
     int m_FrequencyMultiplierValueA;
     int m_FrequencyMultiplierValueB;
     int m_Combinor1Strength;
+    bool m_OperatorACarrier;
 };
 
 }//namespace isl

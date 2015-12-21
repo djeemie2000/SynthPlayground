@@ -1,0 +1,45 @@
+<xml>
+    <Patch Version="2"/>
+    <Modules>
+        <Module Name="ControllerBank(4)0" Type="ControllerBank(4)"/>
+        <Module Name="IntCombinedOperatorV20" Type="IntCombinedOperatorV2"/>
+        <Module Name="LFOBank(4)0" Type="LFOBank(4)"/>
+        <Module Name="PeriodicSync0" Type="PeriodicSync"/>
+    </Modules>
+    <Connections>
+        <Connection OutputPort="ControllerBank(4)0:Contr0" InputPort="IntCombinedOperatorV20:Freq"/>
+        <Connection OutputPort="IntCombinedOperatorV20:Out" InputPort="Scope:In"/>
+        <Connection OutputPort="IntCombinedOperatorV20:Out" InputPort="system:playback_1"/>
+        <Connection OutputPort="IntCombinedOperatorV20:Out" InputPort="system:playback_2"/>
+        <Connection OutputPort="LFOBank(4)0:LFO0" InputPort="IntCombinedOperatorV20:Strength"/>
+        <Connection OutputPort="PeriodicSync0:Sync" InputPort="IntCombinedOperatorV20:Sync"/>
+    </Connections>
+    <Parameters>
+        <Parameter Name="ControllerBank(4)0/0/Value" Type="Float" Value="160"/>
+        <Parameter Name="ControllerBank(4)0/1/Value" Type="Float" Value="0.5"/>
+        <Parameter Name="ControllerBank(4)0/2/Value" Type="Float" Value="0"/>
+        <Parameter Name="ControllerBank(4)0/3/Value" Type="Float" Value="0"/>
+        <Parameter Name="IntCombinedOperatorV20/FrequencyMultiplierA" Type="Integer" Value="1024"/>
+        <Parameter Name="IntCombinedOperatorV20/FrequencyMultiplierB" Type="Integer" Value="3746"/>
+        <Parameter Name="IntCombinedOperatorV20/OperatorACarrier" Type="Boolean" Value="1"/>
+        <Parameter Name="IntCombinedOperatorV20/SelectCombinor" Type="Integer" Value="6"/>
+        <Parameter Name="IntCombinedOperatorV20/SelectOperatorA" Type="Integer" Value="1"/>
+        <Parameter Name="IntCombinedOperatorV20/SelectOperatorB" Type="Integer" Value="0"/>
+        <Parameter Name="LFOBank(4)0/0/Amplitude" Type="Float" Value="0.4"/>
+        <Parameter Name="LFOBank(4)0/0/Frequency" Type="Float" Value="0.19"/>
+        <Parameter Name="LFOBank(4)0/0/Offset" Type="Float" Value="0.4"/>
+        <Parameter Name="LFOBank(4)0/0/Select" Type="Integer" Value="3"/>
+        <Parameter Name="LFOBank(4)0/1/Amplitude" Type="Float" Value="1"/>
+        <Parameter Name="LFOBank(4)0/1/Frequency" Type="Float" Value="1"/>
+        <Parameter Name="LFOBank(4)0/1/Offset" Type="Float" Value="1"/>
+        <Parameter Name="LFOBank(4)0/1/Select" Type="Integer" Value="0"/>
+        <Parameter Name="LFOBank(4)0/2/Amplitude" Type="Float" Value="1"/>
+        <Parameter Name="LFOBank(4)0/2/Frequency" Type="Float" Value="1"/>
+        <Parameter Name="LFOBank(4)0/2/Offset" Type="Float" Value="1"/>
+        <Parameter Name="LFOBank(4)0/2/Select" Type="Integer" Value="0"/>
+        <Parameter Name="LFOBank(4)0/3/Amplitude" Type="Float" Value="1"/>
+        <Parameter Name="LFOBank(4)0/3/Frequency" Type="Float" Value="1"/>
+        <Parameter Name="LFOBank(4)0/3/Offset" Type="Float" Value="1"/>
+        <Parameter Name="LFOBank(4)0/3/Select" Type="Integer" Value="0"/>
+    </Parameters>
+</xml>

@@ -70,6 +70,12 @@ int IntSemiPseudoSin(int Phase)
 }
 
 template<int Scale>
+int IntSemiPseudoSinNeg(int Phase)
+{
+    return -IntSemiPseudoSin<Scale>(Phase);
+}
+
+template<int Scale>
 int IntQuadraticCalc(int Phase)
 {
     return (Phase * Phase) >> (Scale-1);
