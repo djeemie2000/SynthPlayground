@@ -15,11 +15,11 @@ TEST(Constructor)
     Operator.SetFrequencyMultiplierB(128, 8);
     Operator.SetFrequencyMultiplierC(128, 8);
     Operator.Sync();
-    CHECK_EQUAL(127, Operator());
-    CHECK_EQUAL(127, Operator());
-    CHECK_EQUAL(127, Operator());
-    CHECK_EQUAL(127, Operator());
-    CHECK_EQUAL(127, Operator());
+    CHECK_EQUAL(126, Operator());
+    CHECK_EQUAL(124, Operator());
+    CHECK_EQUAL(122, Operator());
+    CHECK_EQUAL(118, Operator());
+    CHECK_EQUAL(116, Operator());
 }
 
 

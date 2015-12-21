@@ -16,7 +16,8 @@ SOURCES += main.cpp \
     TestIntEnvelope.cpp \
     TestIntMultiStageEnvelope.cpp \
     TestIntMultiStageEnvelope2.cpp \
-    TestIntBinaryPattern.cpp
+    TestIntBinaryPattern.cpp \
+    TestIntCombinedOperatorV2.cpp
 
 unix {
     target.path = /usr/lib

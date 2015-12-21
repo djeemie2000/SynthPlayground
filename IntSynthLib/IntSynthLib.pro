@@ -24,7 +24,8 @@ HEADERS += IntCombinors.h \
     IntScaledValue.h \
     IntUtilities.h \
     IntMultiStageEnvelope.h \
-    IntBinaryPattern.h
+    IntBinaryPattern.h \
+    IntCombinedOperatorV2.h
 
 unix {
     target.path = /usr/lib

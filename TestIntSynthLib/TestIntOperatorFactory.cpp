@@ -9,7 +9,7 @@ using namespace isl;
 TEST(Names)
 {
     auto Names = COperatorFactory<8>::AvailableOperatorNames();
-    CHECK_EQUAL(8, Names.size());
+    CHECK_EQUAL(9, Names.size());
 }
 
 TEST(Operators)
