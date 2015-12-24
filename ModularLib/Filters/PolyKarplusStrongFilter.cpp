@@ -3,19 +3,19 @@
 
 CPolyKarplusStrongFilter::CPolyKarplusStrongFilter(int SamplingFrequency)
  : m_KarplusStrong()
- , m_Buffers({0.0f, 110.0f, 0.9f, 0.9f, 0.0f},{0.0f})
+ , m_Buffers({0.0f, 110.0f, 0.9f, 0.9f, 0.0f, 0.0f},{0.0f, 0.0f})
 {
     m_KarplusStrong.SetSamplingFrequency(SamplingFrequency);
 }
 
 std::vector<std::string> CPolyKarplusStrongFilter::GetInputNames() const
 {
-    return { "Trigger", "Freq", "Damp", "Excitation", "Attack" };
+    return { "Trigger", "Freq", "Damp", "Excitation", "Attack", "Pan" };
 }
 
 std::vector<std::string> CPolyKarplusStrongFilter::GetOutputNames() const
 {
-    return { "Out" };
+    return { "Out", "OutR" };
 }
 
 std::vector<std::string> CPolyKarplusStrongFilter::GetMidiInputNames() const
@@ -44,7 +44,9 @@ int CPolyKarplusStrongFilter::OnProcess(const std::vector<void *> &SourceBuffers
     const float* DampBuffer = m_Buffers.GetSourceBuffer(2);
     const float* ExcitationBuffer = m_Buffers.GetSourceBuffer(3);
     const float* AttackBuffer = m_Buffers.GetSourceBuffer(4);
+    const float* PanBuffer = m_Buffers.GetSourceBuffer(5);
     float* OutBuffer = m_Buffers.GetDestinationBuffer(0);
+    float* OutRBuffer = m_Buffers.GetDestinationBuffer(1);
     const float* OutBufferEnd = OutBuffer + NumFrames;
     while(OutBuffer<OutBufferEnd)
     {
@@ -54,16 +56,19 @@ int CPolyKarplusStrongFilter::OnProcess(const std::vector<void *> &SourceBuffers
             m_KarplusStrong.Excite(*ExcitationBuffer,
                                    *FreqBuffer,
                                    *DampBuffer,
-                                   AttackMilliSeconds);
+                                   AttackMilliSeconds,
+                                   *PanBuffer);
         }
-        *OutBuffer = m_KarplusStrong();
+        m_KarplusStrong(*OutBuffer, *OutRBuffer);
 
         ++OutBuffer;
+        ++OutRBuffer;
         ++ExcitationBuffer;
         ++DampBuffer;
         ++FreqBuffer;
         ++TriggerBuffer;
         ++AttackBuffer;
+        ++PanBuffer;
     }
 
     return 0;
