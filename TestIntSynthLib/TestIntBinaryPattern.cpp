@@ -95,5 +95,22 @@ TEST(Mirror8Bit)
     CHECK_EQUAL(0x4809, Pattern.Get());
 }
 
+TEST(FixedBitCount)
+{
+    isl::CBinaryPattern<std::uint16_t> Pattern;
+
+    Pattern.ResetFixedBitCount(0);
+    CHECK_EQUAL(0x0000, Pattern.Get());
+
+    Pattern.ResetFixedBitCount(1);
+    CHECK_EQUAL(0x0001, Pattern.Get());
+
+    Pattern.ResetFixedBitCount(7);
+    CHECK_EQUAL(0x007F, Pattern.Get());
+
+    Pattern.ResetFixedBitCount(9);
+    CHECK_EQUAL(0x01FF, Pattern.Get());
+
+}
 
 }

@@ -4,6 +4,18 @@
 namespace isl
 {
 
+template<class T>
+int CalcBitCount(T In)
+{
+    // http://graphics.stanford.edu/~seander/bithacks.html#CountBitsSetKernighan
+    int Count = 0;
+    for(; In; ++Count)
+    {
+        In &= In -1;// clear the least significant bit set
+    }
+    return Count;
+}
+
 /*!
  * T must be unsigned!
  */
@@ -13,7 +25,6 @@ class CBinaryPattern
 public:
     CBinaryPattern()
      : m_Pattern(0)
-     , m_PatternSize(PatternCapacity)
     {}
 
     void Reset(T Pattern)
@@ -43,7 +54,6 @@ public:
 
     void RotateNext()
     {
-        // TODO use size??
         m_Pattern = (m_Pattern<<1) | (m_Pattern >> (PatternCapacity-1));
     }
 
@@ -86,11 +96,39 @@ public:
         return m_Pattern & 1<<Bit;
     }
 
+    void NextFixedBitCount(int FixedBitCount)
+    {
+        // Note: this will cause infinite loop if BitCount is not in [0,sizeof(T)*8]
+        int BitCount = PatternCapacity+1;
+        while(BitCount!=FixedBitCount)
+        {
+            ++m_Pattern;
+            BitCount = CalcBitCount<T>(m_Pattern);
+        }
+    }
+
+    void PrevFixedBitCount(int FixedBitCount)
+    {
+        // Note: this will cause infinite loop if BitCount is not in [0,sizeof(T)*8]
+        int BitCount = PatternCapacity+1;
+        while(BitCount!=FixedBitCount)
+        {
+            --m_Pattern;
+            BitCount = CalcBitCount<T>(m_Pattern);
+        }
+    }
+
+    void ResetFixedBitCount(int BitCount)
+    {
+        m_Pattern = 0;
+        Invert();
+        m_Pattern = m_Pattern >> (PatternCapacity-BitCount);
+    }
+
 private:
     const int PatternCapacity = sizeof(T)*8;
 
     T m_Pattern;
-    T m_PatternSize;
 };
 
 }
