@@ -70,6 +70,7 @@
 #include "CombFilterModule.h"
 #include "PolyKarplusStrongModule.h"
 #include "IntCombinedOperatorV2Module.h"
+#include "Lpf4PoleModule.h"
 
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
@@ -373,7 +374,10 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CIntCombinedOperatorV2Module(Name, *m_CommandStackController));
     }
-
+    else if(Type == "LPF4Pole")
+    {
+        Module.reset(new CLpf4PoleModule(Name, *m_CommandStackController));
+    }
 
     return Module;
 }
@@ -467,6 +471,7 @@ std::vector<string> CModuleFactory::GetSupportedTypes(const std::string &Categor
             "IntSkewer2D",
             "IntCombFilter",
             "CombFilter",
+            "LPF4Pole"
         };
     }
 

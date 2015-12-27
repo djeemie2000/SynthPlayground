@@ -19,8 +19,9 @@ public:
         // parameter in [0,1] range
         // parameter is 1 => no filtering
         // parameter is 0 => lowest cutoff
-        m_A0 = Parameter*Parameter;
-        m_B1 = 1-m_A0;
+        T Param = Parameter*Parameter;
+        m_A0 = Param;
+        m_B1 = 1-Param;
     }
 
     T operator()(T In)
@@ -31,7 +32,8 @@ public:
 
     T operator()(T In, T Parameter)
     {
-        m_PrevOut = Parameter*Parameter*In + (1-Parameter*Parameter)*m_PrevOut;
+        T Param = Parameter*Parameter;
+        m_PrevOut = Param*In + (1-Param)*m_PrevOut;
         return m_PrevOut;
     }
 

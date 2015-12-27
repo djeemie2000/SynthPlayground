@@ -151,7 +151,10 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Filters/PolyKarplusStrongFilter.cpp \
     Modules/PolyKarplusStrongModule.cpp \
     Filters/IntCombinedOperatorV2Filter.cpp \
-    Modules/IntCombinedOperatorV2Module.cpp
+    Modules/IntCombinedOperatorV2Module.cpp \
+    Filters/Lpf4PoleFilter.cpp \
+    Modules/Lpf4PoleModule.cpp
+
 
 HEADERS += Filters/ControllerBankFilter.h \
     Filters/PhasorFilter.h \
@@ -303,7 +306,9 @@ HEADERS += Filters/ControllerBankFilter.h \
     Filters/IntKarplusStrongFilter.h \
     Modules/IntKarplusStrongModule.h \
     Filters/IntCombinedOperatorV2Filter.h \
-    Modules/IntCombinedOperatorV2Module.h
+    Modules/IntCombinedOperatorV2Module.h \
+    Filters/Lpf4PoleFilter.h \
+    Modules/Lpf4PoleModule.h
 
 INCLUDEPATH += ./Filters
 INCLUDEPATH += ./Modules
