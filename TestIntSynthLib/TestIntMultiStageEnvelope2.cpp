@@ -167,16 +167,16 @@ TEST(ADSREnvelopeNoteOnNoteOff)
                                   160, 128, 96, 64, 32,
                                   0, 0, 0, 0 };
     std::vector<int> ExpectedStage = {0, 0, 0,
-                                      0, 0,
-                                      1, 1, 1,
+                                      0, 1,
+                                      1, 1, 2,
                                       2, 2, 2, 2, 2, 2, 2,
-                                      2, 2, 2, 2, 2,
+                                      2, 2, 2, 2, 0,
                                       0, 0, 0, 0 };
     std::vector<int> ExpectedHold = { 1, 1, 1,
                                       0, 0,
-                                      0, 0, 0,
+                                      0, 0, 1,
                                       1, 1, 1, 1, 1, 1, 1,
-                                      0, 0, 0, 0, 0,
+                                      0, 0, 0, 0, 1,
                                       1, 1, 1, 1 };
 
     std::vector<int> ActualEnvelope;
@@ -246,7 +246,7 @@ TEST(ADSREnvelopeNoteOnDuringHold)
     std::vector<int> ExpectedHold =
                                 { 1, 1, 1,
                                   0, 0,
-                                  0, 0, 0,
+                                  0, 0, 1,
                                   0, 0, 0, 0, 1,
                                   1, 1, 1, 1 };
 
@@ -347,5 +347,60 @@ TEST(ADSREnvelopeNoteOnDuringHold)
 //    CHECK_ARRAY_EQUAL(ExpectedStage.data(), ActualStage.data(), Expected.size());
 //    CHECK_ARRAY_EQUAL(ExpectedHold.data(), ActualHold.data(), Expected.size());
 //}
+
+TEST(GetAction)
+{
+    const int NumStages = 3;
+    typedef CMultiStageEnvelope2<int, NumStages, 8> EnvelopeType;
+    EnvelopeType Envelope;
+
+    CHECK(EnvelopeType::AdvanceAction==Envelope.GetAction(0, true));
+    CHECK(EnvelopeType::HoldAction==Envelope.GetAction(0, false));
+    CHECK(EnvelopeType::AdvanceAction==Envelope.GetAction(1, true));
+    CHECK(EnvelopeType::HoldAction==Envelope.GetAction(1, false));
+    CHECK(EnvelopeType::AdvanceAction==Envelope.GetAction(2, true));
+    CHECK(EnvelopeType::HoldAction==Envelope.GetAction(2, false));
+}
+
+TEST(SetAction)
+{
+    const int NumStages = 3;
+    typedef CMultiStageEnvelope2<int, NumStages, 8> EnvelopeType;
+    EnvelopeType Envelope;
+
+    Envelope.SetAction(0, true, EnvelopeType::ResetAction);
+    CHECK(EnvelopeType::ResetAction==Envelope.GetAction(0, true));
+
+    Envelope.SetAction(0, false, EnvelopeType::SkipAction);
+    CHECK(EnvelopeType::SkipAction==Envelope.GetAction(0, false));
+}
+
+TEST(ToggleAction)
+{
+    const int NumStages = 4;
+    typedef CMultiStageEnvelope2<int, NumStages, 8> EnvelopeType;
+    EnvelopeType Envelope;
+
+    for(int Stage = 0; Stage<NumStages; ++Stage)
+    {
+        CHECK(EnvelopeType::AdvanceAction==Envelope.GetAction(Stage, true));
+        CHECK(EnvelopeType::HoldAction==Envelope.GetAction(Stage, false));
+
+        Envelope.ToggleAction(Stage, true);
+        Envelope.ToggleAction(Stage, false);
+        CHECK(EnvelopeType::HoldAction==Envelope.GetAction(Stage, true));
+        CHECK(EnvelopeType::ResetAction==Envelope.GetAction(Stage, false));
+
+        Envelope.ToggleAction(Stage, true);
+        Envelope.ToggleAction(Stage, false);
+        CHECK(EnvelopeType::ResetAction==Envelope.GetAction(Stage, true));
+        CHECK(EnvelopeType::SkipAction==Envelope.GetAction(Stage, false));
+
+        Envelope.ToggleAction(Stage, true);
+        Envelope.ToggleAction(Stage, false);
+        CHECK(EnvelopeType::SkipAction==Envelope.GetAction(Stage, true));
+        CHECK(EnvelopeType::AdvanceAction==Envelope.GetAction(Stage, false));
+    }
+}
 
 }

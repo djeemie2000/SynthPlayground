@@ -16,10 +16,10 @@ public:
     };
 
     CMultiStageEnvelope2()
-     : m_Stage(0)
-     , m_Counter(0)
-     , m_Gate(false)
-     , m_Stages()
+        : m_Stage(0)
+        , m_Counter(0)
+        , m_Gate(false)
+        , m_Stages()
     {}
 
     void SetTarget(int Stage, T Target)
@@ -42,6 +42,31 @@ public:
         {
             m_Stages[Stage].s_GateOffAction = Action;
         }
+    }
+
+    EAction GetAction(int Stage, bool Gate) const
+    {
+        return Gate ? m_Stages[Stage].s_GateOnAction
+                    : m_Stages[Stage].s_GateOffAction;
+    }
+
+    void ToggleAction(int Stage, bool Gate)
+    {
+        EAction CurrentAction = GetAction(Stage, Gate);
+        EAction NewAction = AdvanceAction;
+        if(CurrentAction == AdvanceAction)
+        {
+            NewAction = HoldAction;
+        }
+        else if(CurrentAction == HoldAction)
+        {
+            NewAction = ResetAction;
+        }
+        else if(CurrentAction == ResetAction)
+        {
+            NewAction = SkipAction;
+        }
+        SetAction(Stage, Gate, NewAction);
     }
 
     void NoteOn()
@@ -150,10 +175,10 @@ private:
         EAction s_GateOffAction;
 
         SStage()
-         : s_Target(0)
-         , s_Duration(0)
-         , s_GateOnAction(AdvanceAction)
-         , s_GateOffAction(HoldAction)
+            : s_Target(0)
+            , s_Duration(0)
+            , s_GateOnAction(AdvanceAction)
+            , s_GateOffAction(HoldAction)
         {}
     };
 
