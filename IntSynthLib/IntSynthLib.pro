@@ -25,7 +25,8 @@ HEADERS += IntCombinors.h \
     IntUtilities.h \
     IntMultiStageEnvelope.h \
     IntBinaryPattern.h \
-    IntCombinedOperatorV2.h
+    IntCombinedOperatorV2.h \
+    IntWaveFolder.h
 
 unix {
     target.path = /usr/lib

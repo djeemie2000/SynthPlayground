@@ -1,0 +1,22 @@
+<xml>
+    <Patch Version="2"/>
+    <Modules>
+        <Module Name="ControllerBank(4)0" Type="ControllerBank(4)"/>
+        <Module Name="IntSimpleOscillator0" Type="IntSimpleOscillator"/>
+        <Module Name="IntWaveFolder0" Type="IntWaveFolder"/>
+    </Modules>
+    <Connections>
+        <Connection OutputPort="IntSimpleOscillator0:Out" InputPort="IntWaveFolder0:In"/>
+        <Connection OutputPort="ControllerBank(4)0:Contr0" InputPort="IntSimpleOscillator0:Freq"/>
+        <Connection OutputPort="ControllerBank(4)0:Contr1" InputPort="IntWaveFolder0:Fold"/>
+        <Connection OutputPort="IntWaveFolder0:Out" InputPort="system:playback_1"/>
+        <Connection OutputPort="IntWaveFolder0:Out" InputPort="system:playback_2"/>
+    </Connections>
+    <Parameters>
+        <Parameter Name="ControllerBank(4)0/0/Value" Type="Float" Value="220"/>
+        <Parameter Name="ControllerBank(4)0/1/Value" Type="Float" Value="0"/>
+        <Parameter Name="ControllerBank(4)0/2/Value" Type="Float" Value="0"/>
+        <Parameter Name="ControllerBank(4)0/3/Value" Type="Float" Value="0"/>
+        <Parameter Name="IntSimpleOscillator0/Select" Type="Integer" Value="4"/>
+    </Parameters>
+</xml>

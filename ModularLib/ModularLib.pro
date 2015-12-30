@@ -153,7 +153,9 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Filters/IntCombinedOperatorV2Filter.cpp \
     Modules/IntCombinedOperatorV2Module.cpp \
     Filters/Lpf4PoleFilter.cpp \
-    Modules/Lpf4PoleModule.cpp
+    Modules/Lpf4PoleModule.cpp \
+    Filters/intWaveFolderFilter.cpp \
+    Modules/IntWaveFolderModule.cpp
 
 
 HEADERS += Filters/ControllerBankFilter.h \
@@ -308,7 +310,9 @@ HEADERS += Filters/ControllerBankFilter.h \
     Filters/IntCombinedOperatorV2Filter.h \
     Modules/IntCombinedOperatorV2Module.h \
     Filters/Lpf4PoleFilter.h \
-    Modules/Lpf4PoleModule.h
+    Modules/Lpf4PoleModule.h \
+    Filters/intWaveFolderFilter.h \
+    Modules/IntWaveFolderModule.h
 
 INCLUDEPATH += ./Filters
 INCLUDEPATH += ./Modules
