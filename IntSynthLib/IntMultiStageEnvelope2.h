@@ -3,7 +3,7 @@
 namespace isl
 {
 
-template<class T, int NumStages, int Scale>
+template<class T, int NumStages, int DurationScale>
 class CMultiStageEnvelope2
 {
 public:
@@ -29,7 +29,8 @@ public:
 
     void SetDuration(int Stage, T Duration)
     {
-        m_Stages[Stage].s_Duration = Duration;
+        //m_Stages[Stage].s_Duration = Duration;
+        m_Stages[Stage].s_CounterIncrease = MaxDuration/Duration;
     }
 
     void SetAction(int Stage, bool Gate, EAction Action)
@@ -117,6 +118,11 @@ public:
         return m_Stage;
     }
 
+    bool GetGate() const
+    {
+        return m_Gate;
+    }
+
     bool GetHold() const
     {
         return m_Gate ? m_Stages[m_Stage].s_GateOnAction == HoldAction
@@ -124,25 +130,27 @@ public:
     }
 
 private:
+    static const T MaxDuration = 1<<DurationScale;
+
     T CalcValue()
     {
-        T Counter = m_Counter;
         // linear interpolation between stages
-        T Duration = m_Stages[m_Stage].s_Duration;
         T Reference = m_Stages[m_Stage].s_Target;
         // target:
         int NextStage = m_Stage<LastStage ? m_Stage+1 : 0;
         T Target = m_Stages[NextStage].s_Target;
 
-        T Value = Duration ? Reference + (Target-Reference)*Counter/Duration : Reference;
+        T Value = Reference + ((Target-Reference)*m_Counter>>DurationScale);
 
         return Value;
     }
 
     void Advance()
     {
-        ++m_Counter;
-        if(m_Stages[m_Stage].s_Duration<=m_Counter)
+        m_Counter += m_Stages[m_Stage].s_CounterIncrease;
+        //++m_Counter;
+        //if(m_Stages[m_Stage].s_Duration<=m_Counter)
+        if(MaxDuration<=m_Counter)
         {
             // advance stage
             ++m_Stage;
@@ -170,13 +178,15 @@ private:
     struct SStage
     {
         T s_Target;
-        T s_Duration;
+        //T s_Duration;
+        T s_CounterIncrease;
         EAction s_GateOnAction;
         EAction s_GateOffAction;
 
         SStage()
             : s_Target(0)
-            , s_Duration(0)
+            //, s_Duration(0)
+            , s_CounterIncrease(1)
             , s_GateOnAction(AdvanceAction)
             , s_GateOffAction(HoldAction)
         {}
