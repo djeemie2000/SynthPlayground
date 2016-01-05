@@ -120,13 +120,13 @@ public:
         T Out = 0;
         for(int idx = 0; idx<NumOperators; ++idx)
         {
-            Out += m_Operator[idx](Excite);
+            Out += m_Operator[idx](Excite, 0);
         }
 
         return Out;//no normalisation
     }
 
-    void operator()(T& Left, T& Right)
+    void operator()(T ExciteLevel, T& Left, T& Right)
     {
         Left = 0;
         Right = 0;
@@ -135,7 +135,7 @@ public:
 
         for(int idx = 0; idx<NumOperators; ++idx)
         {
-            T Out = m_Operator[idx](Excite);
+            T Out = m_Operator[idx](Excite, ExciteLevel);
             Left += m_Operator[idx].m_GainLeft*Out;
             Right += m_Operator[idx].m_GainRight*Out;
         }
@@ -165,9 +165,12 @@ private:
             m_Cntr = m_Period;
         }
 
-        T operator()(T Excite)
+        T operator()(T Excite, T ExciteLevel)
         {
-            T WriteValue = 0<m_Cntr ? Excite : m_DampLPF(m_DelayLine.Read(m_Period));
+            T ExciteAmplitude = 0<m_Cntr ? 1 : ExciteLevel;
+            T FeedbackAmplitude = 0<m_Cntr ? 0 : 1;
+            //T WriteValue = 0<m_Cntr ? Excite : m_DampLPF(m_DelayLine.Read(m_Period));
+            T WriteValue = ExciteAmplitude * Excite + FeedbackAmplitude * m_DampLPF(m_DelayLine.Read(m_Period));
             m_DelayLine.Write(WriteValue);
             if(m_Cntr)
             {

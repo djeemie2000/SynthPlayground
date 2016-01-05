@@ -1,0 +1,72 @@
+<xml>
+    <Patch Version="2"/>
+    <Modules>
+        <Module Name="1V/Oct0" Type="1V/Oct"/>
+        <Module Name="ControllerBank(8)0" Type="ControllerBank(8)"/>
+        <Module Name="LFOBank(8)0" Type="LFOBank(8)"/>
+        <Module Name="PeriodicTrigger0" Type="PeriodicTrigger"/>
+        <Module Name="PolyKarplusStrong0" Type="PolyKarplusStrong"/>
+        <Module Name="RingSequencer0" Type="RingSequencer"/>
+    </Modules>
+    <Connections>
+        <Connection OutputPort="1V/Oct0:Freq" InputPort="PolyKarplusStrong0:Freq"/>
+        <Connection OutputPort="ControllerBank(8)0:Contr0" InputPort="1V/Oct0:CV"/>
+        <Connection OutputPort="ControllerBank(8)0:Contr4" InputPort="RingSequencer0:Step"/>
+        <Connection OutputPort="LFOBank(8)0:LFO0" InputPort="PolyKarplusStrong0:Pan"/>
+        <Connection OutputPort="LFOBank(8)0:LFO1" InputPort="PolyKarplusStrong0:Damp"/>
+        <Connection OutputPort="LFOBank(8)0:LFO2" InputPort="PolyKarplusStrong0:Excitation"/>
+        <Connection OutputPort="LFOBank(8)0:LFO3" InputPort="PolyKarplusStrong0:Attack"/>
+        <Connection OutputPort="LFOBank(8)0:LFO4" InputPort="PolyKarplusStrong0:Noise"/>
+        <Connection OutputPort="PeriodicTrigger0:Trigger" InputPort="RingSequencer0:Trigger"/>
+        <Connection OutputPort="PeriodicTrigger0:Trigger" InputPort="PolyKarplusStrong0:Trigger"/>
+        <Connection OutputPort="PolyKarplusStrong0:Out" InputPort="system:playback_1"/>
+        <Connection OutputPort="PolyKarplusStrong0:OutR" InputPort="system:playback_2"/>
+        <Connection OutputPort="RingSequencer0:CV" InputPort="1V/Oct0:CV"/>
+    </Connections>
+    <Parameters>
+        <Parameter Name="ControllerBank(8)0/0/Value" Type="Float" Value="1.5"/>
+        <Parameter Name="ControllerBank(8)0/1/Value" Type="Float" Value="0.8"/>
+        <Parameter Name="ControllerBank(8)0/2/Value" Type="Float" Value="0.6"/>
+        <Parameter Name="ControllerBank(8)0/3/Value" Type="Float" Value="0.2"/>
+        <Parameter Name="ControllerBank(8)0/4/Value" Type="Float" Value="0.502"/>
+        <Parameter Name="ControllerBank(8)0/5/Value" Type="Float" Value="0"/>
+        <Parameter Name="ControllerBank(8)0/6/Value" Type="Float" Value="0.058"/>
+        <Parameter Name="ControllerBank(8)0/7/Value" Type="Float" Value="0"/>
+        <Parameter Name="LFOBank(8)0/0/Amplitude" Type="Float" Value="0.99"/>
+        <Parameter Name="LFOBank(8)0/0/Frequency" Type="Float" Value="0.49"/>
+        <Parameter Name="LFOBank(8)0/0/Offset" Type="Float" Value="0"/>
+        <Parameter Name="LFOBank(8)0/0/Select" Type="Integer" Value="2"/>
+        <Parameter Name="LFOBank(8)0/1/Amplitude" Type="Float" Value="0.02"/>
+        <Parameter Name="LFOBank(8)0/1/Frequency" Type="Float" Value="0.29"/>
+        <Parameter Name="LFOBank(8)0/1/Offset" Type="Float" Value="0.96"/>
+        <Parameter Name="LFOBank(8)0/1/Select" Type="Integer" Value="3"/>
+        <Parameter Name="LFOBank(8)0/2/Amplitude" Type="Float" Value="0.1"/>
+        <Parameter Name="LFOBank(8)0/2/Frequency" Type="Float" Value="0.62"/>
+        <Parameter Name="LFOBank(8)0/2/Offset" Type="Float" Value="0.51"/>
+        <Parameter Name="LFOBank(8)0/2/Select" Type="Integer" Value="3"/>
+        <Parameter Name="LFOBank(8)0/3/Amplitude" Type="Float" Value="0.03"/>
+        <Parameter Name="LFOBank(8)0/3/Frequency" Type="Float" Value="0.18"/>
+        <Parameter Name="LFOBank(8)0/3/Offset" Type="Float" Value="0.26"/>
+        <Parameter Name="LFOBank(8)0/3/Select" Type="Integer" Value="1"/>
+        <Parameter Name="LFOBank(8)0/4/Amplitude" Type="Float" Value="0.01"/>
+        <Parameter Name="LFOBank(8)0/4/Frequency" Type="Float" Value="0.13"/>
+        <Parameter Name="LFOBank(8)0/4/Offset" Type="Float" Value="0.07"/>
+        <Parameter Name="LFOBank(8)0/4/Select" Type="Integer" Value="2"/>
+        <Parameter Name="LFOBank(8)0/5/Amplitude" Type="Float" Value="1"/>
+        <Parameter Name="LFOBank(8)0/5/Frequency" Type="Float" Value="1"/>
+        <Parameter Name="LFOBank(8)0/5/Offset" Type="Float" Value="1"/>
+        <Parameter Name="LFOBank(8)0/5/Select" Type="Integer" Value="0"/>
+        <Parameter Name="LFOBank(8)0/6/Amplitude" Type="Float" Value="1"/>
+        <Parameter Name="LFOBank(8)0/6/Frequency" Type="Float" Value="1"/>
+        <Parameter Name="LFOBank(8)0/6/Offset" Type="Float" Value="1"/>
+        <Parameter Name="LFOBank(8)0/6/Select" Type="Integer" Value="0"/>
+        <Parameter Name="LFOBank(8)0/7/Amplitude" Type="Float" Value="1"/>
+        <Parameter Name="LFOBank(8)0/7/Frequency" Type="Float" Value="1"/>
+        <Parameter Name="LFOBank(8)0/7/Offset" Type="Float" Value="1"/>
+        <Parameter Name="LFOBank(8)0/7/Select" Type="Integer" Value="0"/>
+        <Parameter Name="PeriodicTrigger0/BeatsPerBar" Type="Integer" Value="4"/>
+        <Parameter Name="PeriodicTrigger0/BeatsPerMinute" Type="Integer" Value="30"/>
+        <Parameter Name="PeriodicTrigger0/Duration" Type="Integer" Value="100"/>
+        <Parameter Name="PolyKarplusStrong0/Poles" Type="Integer" Value="8"/>
+    </Parameters>
+</xml>

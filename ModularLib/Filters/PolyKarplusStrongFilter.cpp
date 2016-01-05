@@ -3,14 +3,14 @@
 
 CPolyKarplusStrongFilter::CPolyKarplusStrongFilter(int SamplingFrequency)
  : m_KarplusStrong()
- , m_Buffers({0.0f, 110.0f, 0.9f, 0.9f, 0.0f, 0.0f},{0.0f, 0.0f})
+ , m_Buffers({0.0f, 110.0f, 0.9f, 0.9f, 0.0f, 0.0f, 0.0f},{0.0f, 0.0f})
 {
     m_KarplusStrong.SetSamplingFrequency(SamplingFrequency);
 }
 
 std::vector<std::string> CPolyKarplusStrongFilter::GetInputNames() const
 {
-    return { "Trigger", "Freq", "Damp", "Excitation", "Attack", "Pan" };
+    return { "Trigger", "Freq", "Damp", "Excitation", "Attack", "Pan", "Noise" };
 }
 
 std::vector<std::string> CPolyKarplusStrongFilter::GetOutputNames() const
@@ -45,6 +45,7 @@ int CPolyKarplusStrongFilter::OnProcess(const std::vector<void *> &SourceBuffers
     const float* ExcitationBuffer = m_Buffers.GetSourceBuffer(3);
     const float* AttackBuffer = m_Buffers.GetSourceBuffer(4);
     const float* PanBuffer = m_Buffers.GetSourceBuffer(5);
+    const float* NoiseBuffer = m_Buffers.GetSourceBuffer(6);
     float* OutBuffer = m_Buffers.GetDestinationBuffer(0);
     float* OutRBuffer = m_Buffers.GetDestinationBuffer(1);
     const float* OutBufferEnd = OutBuffer + NumFrames;
@@ -59,7 +60,7 @@ int CPolyKarplusStrongFilter::OnProcess(const std::vector<void *> &SourceBuffers
                                    AttackMilliSeconds,
                                    *PanBuffer);
         }
-        m_KarplusStrong(*OutBuffer, *OutRBuffer);
+        m_KarplusStrong(*NoiseBuffer, *OutBuffer, *OutRBuffer);
 
         ++OutBuffer;
         ++OutRBuffer;
@@ -69,6 +70,7 @@ int CPolyKarplusStrongFilter::OnProcess(const std::vector<void *> &SourceBuffers
         ++TriggerBuffer;
         ++AttackBuffer;
         ++PanBuffer;
+        ++NoiseBuffer;
     }
 
     return 0;
