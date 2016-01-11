@@ -29,7 +29,6 @@ public:
 
     void SetDuration(int Stage, T Duration)
     {
-        //m_Stages[Stage].s_Duration = Duration;
         m_Stages[Stage].s_CounterIncrease = MaxDuration/Duration;
     }
 
@@ -113,6 +112,31 @@ public:
         return Value;
     }
 
+    T operator()(EAction CurrentAction)
+    {
+        T Value = CalcValue();
+
+        if(CurrentAction==AdvanceAction)
+        {
+            Advance();
+        }
+        else if(CurrentAction==HoldAction)
+        {
+            // hold -> do nothing
+        }
+        else if(CurrentAction==ResetAction)
+        {
+            Reset();
+        }
+        else if(CurrentAction==SkipAction)
+        {
+            Skip();
+        }
+
+        return Value;
+    }
+
+
     int GetStage() const
     {
         return m_Stage;
@@ -128,6 +152,11 @@ public:
         return m_Gate ? m_Stages[m_Stage].s_GateOnAction == HoldAction
                       : m_Stages[m_Stage].s_GateOffAction == HoldAction;
     }
+
+    T GetStepped() const
+    {
+	    return m_Stages[m_Stage].s_Target;
+    }	
 
 private:
     static const T MaxDuration = 1<<DurationScale;
@@ -148,8 +177,6 @@ private:
     void Advance()
     {
         m_Counter += m_Stages[m_Stage].s_CounterIncrease;
-        //++m_Counter;
-        //if(m_Stages[m_Stage].s_Duration<=m_Counter)
         if(MaxDuration<=m_Counter)
         {
             // advance stage
@@ -173,12 +200,11 @@ private:
         m_Counter = 0;
     }
 
-    const int LastStage = NumStages-1;
+    static const int LastStage = NumStages-1;
 
     struct SStage
     {
         T s_Target;
-        //T s_Duration;
         T s_CounterIncrease;
         EAction s_GateOnAction;
         EAction s_GateOffAction;
