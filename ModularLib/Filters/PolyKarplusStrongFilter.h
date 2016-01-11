@@ -27,6 +27,7 @@ private:
     static const int Capacity = 44100/10;
     static const int NumOperators = 8;
     synthlib::CPolyKarplusStrong<float, Capacity, NumOperators> m_KarplusStrong;
+    synthlib::CPolyKarplusStrong<float, Capacity, NumOperators> m_KarplusStrongExt;
     CFilterBuffers<float> m_Buffers;
 };
 

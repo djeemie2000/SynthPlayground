@@ -3,19 +3,20 @@
 
 CPolyKarplusStrongFilter::CPolyKarplusStrongFilter(int SamplingFrequency)
  : m_KarplusStrong()
- , m_Buffers({0.0f, 110.0f, 0.9f, 0.9f, 0.0f, 0.0f, 0.0f},{0.0f, 0.0f})
+ , m_KarplusStrongExt()
+ , m_Buffers({0.0f, 110.0f, 0.9f, 0.9f, 0.0f, 0.0f, 0.0f, 0.0f},{0.0f, 0.0f, 0.0f, 0.0f})
 {
     m_KarplusStrong.SetSamplingFrequency(SamplingFrequency);
 }
 
 std::vector<std::string> CPolyKarplusStrongFilter::GetInputNames() const
 {
-    return { "Trigger", "Freq", "Damp", "Excitation", "Attack", "Pan", "Noise" };
+    return { "Trigger", "Freq", "Damp", "Excitation", "Attack", "Pan", "Noise", "In" };
 }
 
 std::vector<std::string> CPolyKarplusStrongFilter::GetOutputNames() const
 {
-    return { "Out", "OutR" };
+    return { "Out", "OutR", "OutExtL", "OutExtR" };
 }
 
 std::vector<std::string> CPolyKarplusStrongFilter::GetMidiInputNames() const
@@ -46,10 +47,14 @@ int CPolyKarplusStrongFilter::OnProcess(const std::vector<void *> &SourceBuffers
     const float* AttackBuffer = m_Buffers.GetSourceBuffer(4);
     const float* PanBuffer = m_Buffers.GetSourceBuffer(5);
     const float* NoiseBuffer = m_Buffers.GetSourceBuffer(6);
-    float* OutBuffer = m_Buffers.GetDestinationBuffer(0);
+    const float* ExtInBuffer = m_Buffers.GetSourceBuffer(7);
+    float* OutLBuffer = m_Buffers.GetDestinationBuffer(0);
     float* OutRBuffer = m_Buffers.GetDestinationBuffer(1);
-    const float* OutBufferEnd = OutBuffer + NumFrames;
-    while(OutBuffer<OutBufferEnd)
+    float* OutExtLBuffer = m_Buffers.GetDestinationBuffer(2);
+    float* OutExtRBuffer = m_Buffers.GetDestinationBuffer(3);
+
+    const float* OutLBufferEnd = OutLBuffer + NumFrames;
+    while(OutLBuffer<OutLBufferEnd)
     {
         if(TriggerIn.IsTriggerOn(*TriggerBuffer))
         {
@@ -59,11 +64,19 @@ int CPolyKarplusStrongFilter::OnProcess(const std::vector<void *> &SourceBuffers
                                    *DampBuffer,
                                    AttackMilliSeconds,
                                    *PanBuffer);
+            m_KarplusStrongExt.Excite(*ExcitationBuffer,
+                                   *FreqBuffer,
+                                   *DampBuffer,
+                                   AttackMilliSeconds,
+                                   *PanBuffer);
         }
-        m_KarplusStrong(*NoiseBuffer, *OutBuffer, *OutRBuffer);
+        m_KarplusStrong(*NoiseBuffer, *OutLBuffer, *OutRBuffer);
+        m_KarplusStrongExt.Process(*ExtInBuffer, *NoiseBuffer, *OutExtLBuffer, *OutExtRBuffer);
 
-        ++OutBuffer;
+        ++OutLBuffer;
         ++OutRBuffer;
+        ++OutExtLBuffer;
+        ++OutExtRBuffer;
         ++ExcitationBuffer;
         ++DampBuffer;
         ++FreqBuffer;
@@ -71,6 +84,7 @@ int CPolyKarplusStrongFilter::OnProcess(const std::vector<void *> &SourceBuffers
         ++AttackBuffer;
         ++PanBuffer;
         ++NoiseBuffer;
+        ++ExtInBuffer;
     }
 
     return 0;

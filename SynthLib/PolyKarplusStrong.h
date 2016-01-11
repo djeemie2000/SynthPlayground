@@ -4,7 +4,7 @@
 #include "DelayLine2.h"
 #include "FourPoleFilter.h"
 #include "DeltaSmooth.h"
-#include "AREnvelope.h"
+#include "AEnvelope.h"
 #include "ConstNumSamplesGenerator.h"
 
 namespace synthlib
@@ -118,7 +118,7 @@ public:
         T Excite = m_ExciterLPF(m_ExciterNoise());
 
         T Out = 0;
-        for(int idx = 0; idx<NumOperators; ++idx)
+        for(int idx = 0; idx<m_NumOperators; ++idx)
         {
             Out += m_Operator[idx](Excite, 0);
         }
@@ -126,16 +126,31 @@ public:
         return Out;//no normalisation
     }
 
-    void operator()(T ExciteLevel, T& Left, T& Right)
+    void operator()(T Strike, T& Left, T& Right)
     {
         Left = 0;
         Right = 0;
 
         T Excite = m_ExciterLPF(m_ExciterNoise());
 
-        for(int idx = 0; idx<NumOperators; ++idx)
+        for(int idx = 0; idx<m_NumOperators; ++idx)
         {
-            T Out = m_Operator[idx](Excite, ExciteLevel);
+            T Out = m_Operator[idx](Excite, Strike);
+            Left += m_Operator[idx].m_GainLeft*Out;
+            Right += m_Operator[idx].m_GainRight*Out;
+        }
+    }
+
+    void Process(T ExternalExcite, T Strike, T& Left, T& Right)
+    {
+        Left = 0;
+        Right = 0;
+
+        T Excite = m_ExciterLPF(ExternalExcite);
+
+        for(int idx = 0; idx<m_NumOperators; ++idx)
+        {
+            T Out = m_Operator[idx](Excite, Strike);
             Left += m_Operator[idx].m_GainLeft*Out;
             Right += m_Operator[idx].m_GainRight*Out;
         }
@@ -165,11 +180,10 @@ private:
             m_Cntr = m_Period;
         }
 
-        T operator()(T Excite, T ExciteLevel)
+        T operator()(T Excite, T Strike)
         {
-            T ExciteAmplitude = 0<m_Cntr ? 1 : ExciteLevel;
+            T ExciteAmplitude = 0<m_Cntr ? 1 : Strike;
             T FeedbackAmplitude = 0<m_Cntr ? 0 : 1;
-            //T WriteValue = 0<m_Cntr ? Excite : m_DampLPF(m_DelayLine.Read(m_Period));
             T WriteValue = ExciteAmplitude * Excite + FeedbackAmplitude * m_DampLPF(m_DelayLine.Read(m_Period));
             m_DelayLine.Write(WriteValue);
             if(m_Cntr)
@@ -185,7 +199,7 @@ private:
         CDelayLine2<T> m_DelayLine;//used as circular buffer
         CFourPoleLowPassFilter<T> m_DampLPF;
         synthlib::CDeltaSmooth<T> m_DCOffset;
-        CAREnvelope<T> m_Envelope;
+        CAEnvelope<T> m_Envelope;
         T m_GainLeft;
         T m_GainRight;
     };
