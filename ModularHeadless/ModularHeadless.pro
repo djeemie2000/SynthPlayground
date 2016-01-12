@@ -6,6 +6,7 @@ TARGET = ModularHeadless
 TEMPLATE = app
 CONFIG += console
 CONFIG   += c++11 (Qt5)
+QMAKE_CXXFLAGS += -std=c++11
 
 SOURCES += \
     main.cpp \

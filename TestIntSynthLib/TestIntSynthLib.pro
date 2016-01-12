@@ -1,6 +1,7 @@
 TARGET = TestIntSynthLib
 TEMPLATE = app
 CONFIG += c++11 (Qt5)
+QMAKE_CXXFLAGS += -std=c++11
 
 SOURCES += main.cpp \
     TestIntOnePoleFilter.cpp \

@@ -10,6 +10,7 @@ TARGET = Json11
 TEMPLATE = lib
 CONFIG += staticlib
 CONFIG   += c++11 (Qt5)
+QMAKE_CXXFLAGS += -std=c++11
 
 SOURCES += \
     json11.cpp 

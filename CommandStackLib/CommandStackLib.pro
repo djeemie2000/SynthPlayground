@@ -2,6 +2,7 @@ TARGET = CommandStackLib
 TEMPLATE = lib
 CONFIG += staticlib
 CONFIG   += c++11 (Qt5)
+QMAKE_CXXFLAGS += -std=c++11
 
 SOURCES += CommandStack.cpp \
     CommandStackController.cpp \

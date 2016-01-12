@@ -13,8 +13,8 @@ class QGraphWidget : public QWidget
 public:
     QGraphWidget(QWidget *parent = 0);
 
-    QSize minimumSizeHint() const Q_DECL_OVERRIDE;
-    QSize sizeHint() const Q_DECL_OVERRIDE;
+    QSize minimumSizeHint() const /*Q_DECL_OVERRIDE*/;
+    QSize sizeHint() const /*Q_DECL_OVERRIDE*/;
 
 public slots:
     void setPen(const QPen &Pen);
@@ -23,7 +23,7 @@ public slots:
     void setGraph(QVector<QPointF> Points);
 
 protected:
-    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
+    void paintEvent(QPaintEvent *event) /*Q_DECL_OVERRIDE*/;
 
 private:
     QPen m_Pen;

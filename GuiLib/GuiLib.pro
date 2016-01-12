@@ -7,6 +7,7 @@ TARGET = GuiLib
 TEMPLATE = lib
 CONFIG += staticlib
 CONFIG   += c++11 (Qt5)
+QMAKE_CXXFLAGS += -std=c++11
 
 SOURCES += GuiUtilities.cpp \
     QGuiCallbacks.cpp \
@@ -14,7 +15,6 @@ SOURCES += GuiUtilities.cpp \
     QCommandSender.cpp \
     QCommandStackHandler.cpp \
     GuiCommandStack.cpp \
-    QScopeWidget2.cpp \
     QStatusLedWidget.cpp \
     QGraphWidget.cpp \
     QGraphBufferHandler.cpp
@@ -25,13 +25,9 @@ HEADERS += GuiUtilities.h \
     QCommandSender.h \
     QCommandStackHandler.h \
     GuiCommandStack.h \
-    QScopeWidget2.h \
     QStatusLedWidget.h \
     QGraphWidget.h \
     QGraphBufferHandler.h
-
-FORMS += \
-    QScopeWidget2.ui
 
 INCLUDEPATH += ./../SynthLib
 INCLUDEPATH += ./../CommandStackLib
