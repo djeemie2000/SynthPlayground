@@ -72,6 +72,7 @@
 #include "IntCombinedOperatorV2Module.h"
 #include "Lpf4PoleModule.h"
 #include "IntWaveFolderModule.h"
+#include "UintOscillatorModule.h"
 
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
@@ -383,7 +384,10 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CIntWaveFolderModule(Name));
     }
-
+    else if(Type == "UintOscillator")
+    {
+        Module.reset(new CUintOscillatorModule(Name));
+    }
     return Module;
 }
 
@@ -447,7 +451,8 @@ std::vector<string> CModuleFactory::GetSupportedTypes(const std::string &Categor
             "IntCombinedOperator",
             "IntKarplusStrong",
             "PolyKarplusStrong",
-            "IntCombinedOperatorV2"
+            "IntCombinedOperatorV2",
+            "UintOscillator"
         };
     }
 

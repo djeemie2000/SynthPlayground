@@ -156,7 +156,9 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Filters/Lpf4PoleFilter.cpp \
     Modules/Lpf4PoleModule.cpp \
     Filters/intWaveFolderFilter.cpp \
-    Modules/IntWaveFolderModule.cpp
+    Modules/IntWaveFolderModule.cpp \
+    Filters/UintOscillatorFilter.cpp \
+    Modules/UintOscillatorModule.cpp
 
 
 HEADERS += Filters/ControllerBankFilter.h \
@@ -313,7 +315,9 @@ HEADERS += Filters/ControllerBankFilter.h \
     Filters/Lpf4PoleFilter.h \
     Modules/Lpf4PoleModule.h \
     Filters/intWaveFolderFilter.h \
-    Modules/IntWaveFolderModule.h
+    Modules/IntWaveFolderModule.h \
+    Filters/UintOscillatorFilter.h \
+    Modules/UintOscillatorModule.h
 
 INCLUDEPATH += ./Filters
 INCLUDEPATH += ./Modules

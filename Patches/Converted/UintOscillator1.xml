@@ -1,0 +1,22 @@
+<xml>
+    <Patch Version="2"/>
+    <Modules>
+        <Module Name="ControllerBank(8)0" Type="ControllerBank(8)"/>
+        <Module Name="UintOscillator0" Type="UintOscillator"/>
+    </Modules>
+    <Connections>
+        <Connection OutputPort="ControllerBank(8)0:Contr0" InputPort="UintOscillator0:Freq"/>
+        <Connection OutputPort="UintOscillator0:Triangle" InputPort="system:playback_1"/>
+        <Connection OutputPort="UintOscillator0:Triangle" InputPort="system:playback_2"/>
+    </Connections>
+    <Parameters>
+        <Parameter Name="ControllerBank(8)0/0/Value" Type="Float" Value="220"/>
+        <Parameter Name="ControllerBank(8)0/1/Value" Type="Float" Value="0"/>
+        <Parameter Name="ControllerBank(8)0/2/Value" Type="Float" Value="0"/>
+        <Parameter Name="ControllerBank(8)0/3/Value" Type="Float" Value="0"/>
+        <Parameter Name="ControllerBank(8)0/4/Value" Type="Float" Value="0"/>
+        <Parameter Name="ControllerBank(8)0/5/Value" Type="Float" Value="0"/>
+        <Parameter Name="ControllerBank(8)0/6/Value" Type="Float" Value="0"/>
+        <Parameter Name="ControllerBank(8)0/7/Value" Type="Float" Value="0"/>
+    </Parameters>
+</xml>
