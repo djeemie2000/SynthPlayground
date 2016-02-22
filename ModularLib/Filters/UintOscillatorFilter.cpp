@@ -51,7 +51,18 @@ int CUintOscillatorFilter::OnProcess(const std::vector<void *> &SourceBuffers,
     while(SawUpBuffer<OutBufferEnd)
     {
         uisl::uint32_t PhaseIncrease = *FreqBuffer * (1<<InternalScale) /m_SamplingFrequency;
-        m_Phasor.SetPhaseIncrease(PhaseIncrease, 512);
+
+        int Skew = (1+*SkewBuffer)*512;
+        if(Skew<1)
+        {
+            Skew = 1;
+        }
+        if(1023<Skew)
+        {
+            Skew = 1023;
+        }
+
+        m_Phasor.SetPhaseIncrease(PhaseIncrease, Skew);
 
         uisl::uint32_t Phase = m_Phasor();
 
