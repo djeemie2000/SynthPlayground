@@ -66,11 +66,11 @@ int CUintOscillatorFilter::OnProcess(const std::vector<void *> &SourceBuffers,
 
         uisl::uint32_t Phase = m_Phasor();
 
-        *SawUpBuffer = isl::IntBipolarToFloatBipolar<int, float, Scale>( isl::IntUnipolarToBipolar<Scale>( uisl::CalcSawUp<uisl::uint32_t, Scale>(Phase) ) );
-        *SawDownBuffer = isl::IntBipolarToFloatBipolar<int, float, Scale>( isl::IntUnipolarToBipolar<Scale>( uisl::CalcSawDown<uisl::uint32_t, Scale>(Phase) ) );
-        *TriangleBuffer = isl::IntBipolarToFloatBipolar<int, float, Scale>( isl::IntUnipolarToBipolar<Scale>( uisl::CalcTriangle<uisl::uint32_t, Scale>(Phase) ) );
-        *PulsePosBuffer = isl::IntBipolarToFloatBipolar<int, float, Scale>( isl::IntUnipolarToBipolar<Scale>( uisl::CalcPosPulse<uisl::uint32_t, Scale>(Phase) ) );
-        *PulseNegBuffer = isl::IntBipolarToFloatBipolar<int, float, Scale>( isl::IntUnipolarToBipolar<Scale>( uisl::CalcNegPulse<uisl::uint32_t, Scale>(Phase) ) );
+        *SawUpBuffer = isl::IntBipolarToFloatBipolar<int, float, Scale+1>( isl::IntUnipolarToBipolar<Scale+1>( uisl::CalcSawUp<uisl::uint32_t, Scale>(Phase) ) );
+        *SawDownBuffer = isl::IntBipolarToFloatBipolar<int, float, Scale+1>( isl::IntUnipolarToBipolar<Scale+1>( uisl::CalcSawDown<uisl::uint32_t, Scale>(Phase) ) );
+        *TriangleBuffer = isl::IntBipolarToFloatBipolar<int, float, Scale+1>( isl::IntUnipolarToBipolar<Scale+1>( uisl::CalcTriangle<uisl::uint32_t, Scale>(Phase) ) );
+        *PulsePosBuffer = isl::IntBipolarToFloatBipolar<int, float, Scale+1>( isl::IntUnipolarToBipolar<Scale+1>( uisl::CalcPosPulse<uisl::uint32_t, Scale>(Phase) ) );
+        *PulseNegBuffer = isl::IntBipolarToFloatBipolar<int, float, Scale+1>( isl::IntUnipolarToBipolar<Scale+1>( uisl::CalcNegPulse<uisl::uint32_t, Scale>(Phase) ) );
 
         ++FreqBuffer;
         ++SkewBuffer;

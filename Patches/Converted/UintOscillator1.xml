@@ -6,11 +6,13 @@
     </Modules>
     <Connections>
         <Connection OutputPort="ControllerBank(8)0:Contr0" InputPort="UintOscillator0:Freq"/>
+        <Connection OutputPort="ControllerBank(8)0:Contr1" InputPort="UintOscillator0:Skew"/>
+        <Connection OutputPort="UintOscillator0:Triangle" InputPort="Scope:In"/>
         <Connection OutputPort="UintOscillator0:Triangle" InputPort="system:playback_1"/>
         <Connection OutputPort="UintOscillator0:Triangle" InputPort="system:playback_2"/>
     </Connections>
     <Parameters>
-        <Parameter Name="ControllerBank(8)0/0/Value" Type="Float" Value="220"/>
+        <Parameter Name="ControllerBank(8)0/0/Value" Type="Float" Value="120"/>
         <Parameter Name="ControllerBank(8)0/1/Value" Type="Float" Value="0"/>
         <Parameter Name="ControllerBank(8)0/2/Value" Type="Float" Value="0"/>
         <Parameter Name="ControllerBank(8)0/3/Value" Type="Float" Value="0"/>
