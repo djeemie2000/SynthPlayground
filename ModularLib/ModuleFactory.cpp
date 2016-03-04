@@ -73,6 +73,7 @@
 #include "Lpf4PoleModule.h"
 #include "IntWaveFolderModule.h"
 #include "UintOscillatorModule.h"
+#include "ExtendedCombFilterModule.h"
 
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
@@ -388,6 +389,10 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CUintOscillatorModule(Name));
     }
+    else if(Type == "CombFilterExt")
+    {
+        Module.reset(new CExtendedCombFilterModule(Name));
+    }
     return Module;
 }
 
@@ -515,7 +520,8 @@ std::vector<string> CModuleFactory::GetSupportedTypes(const std::string &Categor
             "Granular",
             "IntFeedbackDelay",
             "IntCombFilter",
-            "CombFilter"
+            "CombFilter",
+            "CombFilterExt"
         };
     }
 

@@ -158,7 +158,9 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Filters/intWaveFolderFilter.cpp \
     Modules/IntWaveFolderModule.cpp \
     Filters/UintOscillatorFilter.cpp \
-    Modules/UintOscillatorModule.cpp
+    Modules/UintOscillatorModule.cpp \
+    Filters/ExtendedCombFilterFilter.cpp \
+    Modules/ExtendedCombFilterModule.cpp
 
 
 HEADERS += Filters/ControllerBankFilter.h \
@@ -317,7 +319,9 @@ HEADERS += Filters/ControllerBankFilter.h \
     Filters/intWaveFolderFilter.h \
     Modules/IntWaveFolderModule.h \
     Filters/UintOscillatorFilter.h \
-    Modules/UintOscillatorModule.h
+    Modules/UintOscillatorModule.h \
+    Filters/ExtendedCombFilterFilter.h \
+    Modules/ExtendedCombFilterModule.h
 
 INCLUDEPATH += ./Filters
 INCLUDEPATH += ./Modules
