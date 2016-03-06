@@ -29,14 +29,14 @@ public:
         }
 
         // read delayed values
-        T ReadValue = m_DelayLine.Read(Delay*2)
+        T ReadValue = m_DelayLine.Read(Delay*2)/4
                     + m_DelayLine.Read(Delay*3)
                     + m_DelayLine.Read(Delay*5)
                     + m_DelayLine.Read(Delay*7)
                     + m_DelayLine.Read(Delay*11)
-                    + m_DelayLine.Read(Delay*13)
-                    + m_DelayLine.Read(Delay*17)
-                    + m_DelayLine.Read(Delay*19);
+                    + m_DelayLine.Read(Delay*13)/2
+                    + m_DelayLine.Read(Delay*17)/2
+                    + m_DelayLine.Read(Delay*19)/2;
         ReadValue *= Normalize;
 
         T WriteValue = In + Feedback*m_DampFilter(ReadValue, Damp);

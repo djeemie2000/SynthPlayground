@@ -2,7 +2,7 @@
 
 namespace
 {
-const int MaxDelaySeconds = 4;
+const int MaxDelaySeconds = 1;
 }
 
 CDelayVerbFilter::CDelayVerbFilter(int SamplingFrequency)
