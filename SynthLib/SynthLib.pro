@@ -132,7 +132,8 @@ HEADERS += Notes.h \
     PhaseSkewer2D.h \
     CombFilter.h \
     DeltaSmooth.h \
-    PolyKarplusStrong.h
+    PolyKarplusStrong.h \
+    delayverb.h
 
 INCLUDEPATH += ./../MidiLib
 

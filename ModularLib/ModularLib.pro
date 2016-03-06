@@ -160,7 +160,9 @@ SOURCES += Filters/ControllerBankFilter.cpp \
     Filters/UintOscillatorFilter.cpp \
     Modules/UintOscillatorModule.cpp \
     Filters/ExtendedCombFilterFilter.cpp \
-    Modules/ExtendedCombFilterModule.cpp
+    Modules/ExtendedCombFilterModule.cpp \
+    Filters/DelayVerbFilter.cpp \
+    Modules/DelayVerbModule.cpp
 
 
 HEADERS += Filters/ControllerBankFilter.h \
@@ -321,7 +323,9 @@ HEADERS += Filters/ControllerBankFilter.h \
     Filters/UintOscillatorFilter.h \
     Modules/UintOscillatorModule.h \
     Filters/ExtendedCombFilterFilter.h \
-    Modules/ExtendedCombFilterModule.h
+    Modules/ExtendedCombFilterModule.h \
+    Filters/DelayVerbFilter.h \
+    Modules/DelayVerbModule.h
 
 INCLUDEPATH += ./Filters
 INCLUDEPATH += ./Modules

@@ -74,6 +74,7 @@
 #include "IntWaveFolderModule.h"
 #include "UintOscillatorModule.h"
 #include "ExtendedCombFilterModule.h"
+#include "DelayVerbModule.h"
 
 
 CModuleFactory::CModuleFactory(std::shared_ptr<CCommandStackController> CommandStackController)
@@ -393,6 +394,11 @@ std::shared_ptr<IModularModule> CModuleFactory::Create(const std::string &Type, 
     {
         Module.reset(new CExtendedCombFilterModule(Name));
     }
+    else if(Type == "DelayVerb")
+    {
+        Module.reset(new CDelayVerbModule(Name));
+    }
+
     return Module;
 }
 
@@ -521,7 +527,8 @@ std::vector<string> CModuleFactory::GetSupportedTypes(const std::string &Categor
             "IntFeedbackDelay",
             "IntCombFilter",
             "CombFilter",
-            "CombFilterExt"
+            "CombFilterExt",
+            "DelayVerb"
         };
     }
 
