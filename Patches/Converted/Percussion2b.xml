@@ -1,0 +1,45 @@
+<xml>
+    <Patch Version="2"/>
+    <Modules>
+        <Module Name="1V/Oct0" Type="1V/Oct"/>
+        <Module Name="Amp0" Type="Amp"/>
+        <Module Name="Amp1" Type="Amp"/>
+        <Module Name="BinaryOscillator0" Type="BinaryOscillator"/>
+        <Module Name="ControllerBank(8)0" Type="ControllerBank(8)"/>
+        <Module Name="DecayEnvelope0" Type="DecayEnvelope"/>
+        <Module Name="DecayEnvelope1" Type="DecayEnvelope"/>
+        <Module Name="Noise0" Type="Noise"/>
+        <Module Name="PeriodicTrigger0" Type="PeriodicTrigger"/>
+        <Module Name="Phasor0" Type="Phasor"/>
+    </Modules>
+    <Connections>
+        <Connection OutputPort="BinaryOscillator0:Out" InputPort="Amp0:In"/>
+        <Connection OutputPort="Phasor0:Phase" InputPort="BinaryOscillator0:Phase"/>
+        <Connection OutputPort="ControllerBank(8)0:Contr1" InputPort="BinaryOscillator0:Value"/>
+        <Connection OutputPort="ControllerBank(8)0:Contr2" InputPort="DecayEnvelope0:Decay"/>
+        <Connection OutputPort="ControllerBank(8)0:Contr3" InputPort="1V/Oct0:CV"/>
+        <Connection OutputPort="ControllerBank(8)0:Contr4" InputPort="DecayEnvelope1:Decay"/>
+        <Connection OutputPort="ControllerBank(8)0:Contr5" InputPort="Amp1:Ampl"/>
+        <Connection OutputPort="PeriodicTrigger0:Trigger" InputPort="DecayEnvelope0:Trigger"/>
+        <Connection OutputPort="PeriodicTrigger0:Trigger" InputPort="DecayEnvelope1:Trigger"/>
+        <Connection OutputPort="DecayEnvelope0:Out" InputPort="Amp0:Ampl"/>
+        <Connection OutputPort="Amp0:Out" InputPort="system:playback_1"/>
+        <Connection OutputPort="Amp0:Out" InputPort="system:playback_2"/>
+        <Connection OutputPort="1V/Oct0:Freq" InputPort="Phasor0:Freq"/>
+        <Connection OutputPort="DecayEnvelope1:Out" InputPort="Amp1:In"/>
+        <Connection OutputPort="Amp1:Out" InputPort="1V/Oct0:CV"/>
+    </Connections>
+    <Parameters>
+        <Parameter Name="ControllerBank(8)0/0/Value" Type="Float" Value="150"/>
+        <Parameter Name="ControllerBank(8)0/1/Value" Type="Float" Value="0.87"/>
+        <Parameter Name="ControllerBank(8)0/2/Value" Type="Float" Value="0.01"/>
+        <Parameter Name="ControllerBank(8)0/3/Value" Type="Float" Value="0"/>
+        <Parameter Name="ControllerBank(8)0/4/Value" Type="Float" Value="0.03"/>
+        <Parameter Name="ControllerBank(8)0/5/Value" Type="Float" Value="5"/>
+        <Parameter Name="ControllerBank(8)0/6/Value" Type="Float" Value="0"/>
+        <Parameter Name="ControllerBank(8)0/7/Value" Type="Float" Value="0"/>
+        <Parameter Name="PeriodicTrigger0/BeatsPerBar" Type="Integer" Value="1"/>
+        <Parameter Name="PeriodicTrigger0/BeatsPerMinute" Type="Integer" Value="120"/>
+        <Parameter Name="PeriodicTrigger0/Duration" Type="Integer" Value="97"/>
+    </Parameters>
+</xml>
