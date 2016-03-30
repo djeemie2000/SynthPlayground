@@ -15,22 +15,22 @@ void CCountModuleParameterVisitor::StartLine()
 
 }
 
-void CCountModuleParameterVisitor::FloatParameter(const std::string &ParameterName, const std::string &Name, float Default, float Min, float Max, float Step, int NumDecimals)
+void CCountModuleParameterVisitor::FloatParameter(const std::string &/*ParameterName*/, const std::string &/*Name*/, float /*Default*/, float /*Min*/, float /*Max*/, float /*Step*/, int /*NumDecimals*/)
 {
     ++m_ParameterCount;
 }
 
-void CCountModuleParameterVisitor::IntegerParameter(const std::string &ParameterName, const std::string &Name, int Default, int Min, int Max, int Step)
+void CCountModuleParameterVisitor::IntegerParameter(const std::string &/*ParameterName*/, const std::string &/*Name*/, int /*Default*/, int /*Min*/, int /*Max*/, int /*Step*/)
 {
     ++m_ParameterCount;
 }
 
-void CCountModuleParameterVisitor::SelectionParameter(const std::string &ParameterName, const std::string &Name, int Default, const std::vector<std::string> &Selections)
+void CCountModuleParameterVisitor::SelectionParameter(const std::string &/*ParameterName*/, const std::string &/*Name*/, int /*Default*/, const std::vector<std::string> &/*Selections*/)
 {
     ++m_ParameterCount;
 }
 
-void CCountModuleParameterVisitor::BooleanParameter(const std::string &ParameterName, const std::string &Name, bool Default)
+void CCountModuleParameterVisitor::BooleanParameter(const std::string &/*ParameterName*/, const std::string &/*Name*/, bool /*Default*/)
 {
     ++m_ParameterCount;
 }
@@ -40,7 +40,7 @@ void CCountModuleParameterVisitor::FilePathParameter(const std::string &/*Parame
     ++m_ParameterCount;
 }
 
-void CCountModuleParameterVisitor::BooleanStatus(const std::string &ParameterName, const std::string &Name, bool Default)
+void CCountModuleParameterVisitor::BooleanStatus(const std::string &/*ParameterName*/, const std::string &/*Name*/, bool /*Default*/)
 {
     ++m_ParameterCount;
 }
