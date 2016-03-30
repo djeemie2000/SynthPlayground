@@ -10,12 +10,13 @@ class CDelayVerb
 public:
     CDelayVerb(int Capacity)
         : m_Capacity(Capacity)
-        , m_MaxDelay(m_Capacity/19-DelayOffset)
+        , m_MaxDelay(m_Capacity/11-DelayOffset)
         , m_DelayLine(Capacity, 0)
         , m_DampFilter()
     {
     }
 
+    // Note: freeze = write without In + feedback = 1?
     T operator()(T In, T Feedback, int Delay, T Damp)
     {
         // make sure delay is within range!
@@ -29,14 +30,10 @@ public:
         }
 
         // read delayed values
-        T ReadValue = m_DelayLine.Read(DelayOffset+Delay*2)/4
-                    + m_DelayLine.Read(DelayOffset+Delay*3)
+        T ReadValue = m_DelayLine.Read(DelayOffset+Delay*3)
                     + m_DelayLine.Read(DelayOffset+Delay*5)
                     + m_DelayLine.Read(DelayOffset+Delay*7)
-                    + m_DelayLine.Read(DelayOffset+Delay*11)
-                    + m_DelayLine.Read(DelayOffset+Delay*13)/2
-                    + m_DelayLine.Read(DelayOffset+Delay*17)/2
-                    + m_DelayLine.Read(DelayOffset+Delay*19)/2;
+                    + m_DelayLine.Read(DelayOffset+Delay*11);
         ReadValue *= Normalize;
 
         T WriteValue = In + Feedback*m_DampFilter(ReadValue, Damp);
@@ -46,15 +43,13 @@ public:
     }
 
 private:
-    static constexpr int NumDelays = 8;
-//    static const int m_DelayMultiplier[NumDelays] = { 2, 3, 5, 7, 11, 13, 17, 19};
-    static constexpr T Normalize = T(1)/NumDelays;
+    static constexpr int NumDelays = 4;
+    static constexpr T Normalize = T(1)/(1+NumDelays);
     static constexpr int DelayOffset = 100;
     const int m_Capacity;
     const int m_MaxDelay;
     CDelayLine2<T> m_DelayLine;
     COnePoleLowPassFilter<T> m_DampFilter;
-    //COnePoleHighPassFilter<T> m_DampFilter;
 };
 
 #endif // DELAYVERB_H
