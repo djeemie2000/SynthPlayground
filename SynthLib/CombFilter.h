@@ -1,6 +1,7 @@
 #pragma once
 
 #include "DelayLine2.h"
+#include "OnePoleFilter.h"
 
 template<class T>
 class CCombFilter
@@ -9,15 +10,16 @@ public:
     CCombFilter(T SamplingFrequency)
      : m_SamplingFrequency(SamplingFrequency)
      , m_DelayLine(SamplingFrequency, 0)
+     , m_LPF()
     {
     }
 
-    T operator()(T In, T Feedback, T Frequency)
+    T operator()(T In, T Feedback, T Frequency, T FilterParameter)
     {
         // assumes Freq > 0
         T Delay = 0<Frequency ?  m_SamplingFrequency/Frequency : 0;
         Delay = Delay<m_DelayLine.GetCapacity() ? Delay : m_DelayLine.GetCapacity();
-        T DelayValue = m_DelayLine.Read(Delay);
+        T DelayValue = m_LPF(m_DelayLine.Read(Delay), FilterParameter);
         m_DelayLine.Write(In + Feedback * DelayValue);
         return DelayValue;
     }
@@ -25,6 +27,7 @@ public:
 private:
     const T m_SamplingFrequency;
     CDelayLine2<T> m_DelayLine;
+    COnePoleLowPassFilter<T> m_LPF;
 };
 
 template<class T>
